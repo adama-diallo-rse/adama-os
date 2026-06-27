@@ -94,12 +94,12 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 - [ ] L0-T7 Créer le service Railway vide pour `services/engine` (placeholder).
 
 **L1, Données**
-- [ ] L1-T1 Créer le projet Supabase en région UE (Frankfurt).
-- [ ] L1-T2 Définir le schéma Drizzle (les 8 tables du blueprint).
-- [ ] L1-T3 Première migration, activer pgvector.
-- [ ] L1-T4 Activer la RLS sur toutes les tables, policies de base.
-- [ ] L1-T5 Brancher l'auth Supabase (login admin pour toi).
-- [ ] L1-T6 Seed de données de démo (3 décisions, métriques actuelles).
+- [x] L1-T1 Créer le projet Supabase en région UE (réutilisation de strata-scope, eu-west-1).
+- [x] L1-T2 Définir le schéma Drizzle (les 8 tables du blueprint).
+- [x] L1-T3 Première migration, activer pgvector.
+- [x] L1-T4 Activer la RLS sur toutes les tables, policies de base.
+- [x] L1-T5 Brancher l'auth Supabase (login admin pour toi).
+- [x] L1-T6 Seed de données de démo (3 décisions, métriques actuelles).
 
 **L4, Design System**
 - [ ] L4-T1 Définir les design tokens (noir carbone, blanc, émeraude) en OKLCH dans `@theme`.

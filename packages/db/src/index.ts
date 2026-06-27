@@ -1,2 +1,5 @@
-// Couche d'accès aux données (Prisma/Drizzle à venir). Placeholder Phase 0.
+// Point d'entrée du package @adama/db.
+export * from "./schema";
+export { db, schema } from "./client";
+
 export const DB_PACKAGE = "@adama/db";
