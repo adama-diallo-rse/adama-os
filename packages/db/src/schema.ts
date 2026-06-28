@@ -64,10 +64,15 @@ export const systemMetrics = pgTable("system_metrics", {
 export const decisionsLog = pgTable("decisions_log", {
   id: uuid("id").primaryKey().defaultRandom(),
   title: text("title").notNull(),
-  date: date("date").notNull().default(sql`current_date`),
+  date: date("date")
+    .notNull()
+    .default(sql`current_date`),
   category: text("category").notNull(),
   reasoning: text("reasoning").notNull(),
-  tags: text("tags").array().notNull().default(sql`'{}'::text[]`),
+  tags: text("tags")
+    .array()
+    .notNull()
+    .default(sql`'{}'::text[]`),
   isPublished: boolean("is_published").notNull().default(false),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()

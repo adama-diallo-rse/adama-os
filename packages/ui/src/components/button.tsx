@@ -9,7 +9,8 @@ const buttonVariants: Record<ButtonVariant, string> = {
     "bg-emerald text-emerald-foreground hover:bg-emerald-bright active:bg-emerald-dim",
   outline:
     "border border-border-strong bg-transparent text-foreground hover:border-emerald hover:text-emerald-bright",
-  ghost: "bg-transparent text-muted hover:bg-surface-raised hover:text-foreground",
+  ghost:
+    "bg-transparent text-muted hover:bg-surface-raised hover:text-foreground",
   danger:
     "border border-transparent bg-[color-mix(in_oklch,var(--color-danger)_16%,transparent)] text-danger hover:bg-[color-mix(in_oklch,var(--color-danger)_26%,transparent)]",
 };

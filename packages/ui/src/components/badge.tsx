@@ -1,12 +1,7 @@
 import type { ComponentProps } from "react";
 import { cn } from "../lib/cn";
 
-type BadgeVariant =
-  | "default"
-  | "emerald"
-  | "warning"
-  | "danger"
-  | "outline";
+type BadgeVariant = "default" | "emerald" | "warning" | "danger" | "outline";
 
 const badgeVariants: Record<BadgeVariant, string> = {
   default: "border-border bg-surface-raised text-muted",

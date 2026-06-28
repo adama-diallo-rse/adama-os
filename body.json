@@ -1,1 +1,8 @@
-﻿{"messages":[{"role":"user","parts":[{"type":"text","text":"Resume la CSRD en une phrase"}]}]}
+﻿{
+  "messages": [
+    {
+      "role": "user",
+      "parts": [{ "type": "text", "text": "Resume la CSRD en une phrase" }]
+    }
+  ]
+}

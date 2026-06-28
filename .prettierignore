@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+dist
+build
+.turbo
+.vercel
+coverage
+pnpm-lock.yaml
+.next/types
+services/engine

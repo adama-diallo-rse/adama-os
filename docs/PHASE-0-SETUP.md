@@ -30,6 +30,7 @@ pnpm dlx shadcn@latest init
 ```
 
 Réponses :
+
 - Style : **new-york** (si la question apparaît)
 - Base color : **Zinc**
 - CSS variables : **Yes**
@@ -77,6 +78,7 @@ créer une branche, pousser, ouvrir une PR → Vercel poste une URL de preview.
 ## 6. Domaine + DNS (L0-T6) — plus tard (OVH)
 
 Quand le domaine est acheté sur OVH :
+
 1. Vercel → projet → Settings → Domains → ajouter le domaine.
 2. Vercel donne les enregistrements DNS (A `76.76.21.21` pour l'apex, CNAME `cname.vercel-dns.com` pour `www`).
 3. OVH → zone DNS → créer ces enregistrements.

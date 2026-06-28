@@ -9,6 +9,7 @@
     ".": "./src/index.ts"
   },
   "scripts": {
+    "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
@@ -24,6 +25,7 @@
     "@adama/config": "workspace:*",
     "dotenv": "^16.4.7",
     "drizzle-kit": "^0.28.0",
+    "eslint": "^9.18.0",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }

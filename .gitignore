@@ -17,6 +17,10 @@ build/
 # Vercel
 .vercel/
 
+# Sentry
+.sentryclirc
+.env.sentry-build-plugin
+
 # Python (services/engine)
 __pycache__/
 *.pyc

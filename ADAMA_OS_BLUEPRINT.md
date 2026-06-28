@@ -10,14 +10,14 @@
 
 Ta vision est gardée à 100%. Ce que je modifie, c'est la plomberie technique, et j'ajoute des features qui servent directement tes 3 objectifs (recrutement, SaaS, formations).
 
-| Couche | Ton texte | Ma reco v2 | Pourquoi |
-|---|---|---|---|
-| LLM ESG | DeepSeek | **Mistral (France)** | DeepSeek fait transiter les données par une infra chinoise. Injustifiable sous RGPD pour des clients CSRD. Mistral est le seul acteur frontier basé en UE. La résidence des données devient un argument commercial, pas une contrainte. |
-| Base vectorielle | Sous-entendue séparée | **pgvector dans Supabase** | Tu as déjà Postgres. Pas besoin d'une 2e base vectorielle (Pinecone, etc.). Moins de coût, moins de surface à gérer. |
-| Orchestration | n8n / Make | **Trigger.dev (code)** + n8n optionnel | Tes workflows de veille deviennent du code versionné dans le repo, cohérent avec ton ADN "build in public". Make reste utile pour le no-code ponctuel. |
-| Paiement | Non précisé | **Polar (Merchant of Record)** | 4% + 40¢, le MoR le moins cher. Il gère la TVA UE et le reverse charge B2B automatiquement. Tu ne touches pas à la compta TVA pour vendre tes formations dans toute l'UE. |
-| Contenu / veille | Tapé à la main | **Sanity (CMS) + MDX** | La veille auto écrit dans Sanity. Les formations premium en MDX versionné. SEO server-rendered parfait. |
-| Ingestion PDF ESG | Non précisée | **Mistral OCR 4** | Sorti le 23 juin 2026. Extrait texte + position + type de bloc des PDF réglementaires. Alimente directement ton RAG. |
+| Couche            | Ton texte             | Ma reco v2                             | Pourquoi                                                                                                                                                                                                                                |
+| ----------------- | --------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LLM ESG           | DeepSeek              | **Mistral (France)**                   | DeepSeek fait transiter les données par une infra chinoise. Injustifiable sous RGPD pour des clients CSRD. Mistral est le seul acteur frontier basé en UE. La résidence des données devient un argument commercial, pas une contrainte. |
+| Base vectorielle  | Sous-entendue séparée | **pgvector dans Supabase**             | Tu as déjà Postgres. Pas besoin d'une 2e base vectorielle (Pinecone, etc.). Moins de coût, moins de surface à gérer.                                                                                                                    |
+| Orchestration     | n8n / Make            | **Trigger.dev (code)** + n8n optionnel | Tes workflows de veille deviennent du code versionné dans le repo, cohérent avec ton ADN "build in public". Make reste utile pour le no-code ponctuel.                                                                                  |
+| Paiement          | Non précisé           | **Polar (Merchant of Record)**         | 4% + 40¢, le MoR le moins cher. Il gère la TVA UE et le reverse charge B2B automatiquement. Tu ne touches pas à la compta TVA pour vendre tes formations dans toute l'UE.                                                               |
+| Contenu / veille  | Tapé à la main        | **Sanity (CMS) + MDX**                 | La veille auto écrit dans Sanity. Les formations premium en MDX versionné. SEO server-rendered parfait.                                                                                                                                 |
+| Ingestion PDF ESG | Non précisée          | **Mistral OCR 4**                      | Sorti le 23 juin 2026. Extrait texte + position + type de bloc des PDF réglementaires. Alimente directement ton RAG.                                                                                                                    |
 
 Le reste de ta stack (Next.js, Tailwind, Framer Motion, Vercel, Supabase, FastAPI sur Railway) était déjà excellent. Je le précise et le durcis.
 
@@ -26,9 +26,10 @@ Le reste de ta stack (Next.js, Tailwind, Framer Motion, Vercel, Supabase, FastAP
 ## 1. La stack upgradée, couche par couche
 
 ### Frontend (sur Vercel)
+
 - **Next.js 16.2 LTS**, App Router, React Server Components, Server Actions. Turbopack par défaut (dev server très rapide, parfait sur ta machine Snapdragon X). Node 20+ requis.
 - **React 19** + **TypeScript** en mode strict.
-- **Tailwind CSS v4** (couleurs OKLCH, directive `@theme`). 
+- **Tailwind CSS v4** (couleurs OKLCH, directive `@theme`).
 - **shadcn/ui** style `new-york` pour le système de composants (basé sur Radix, accessible). `sonner` pour les toasts.
 - **Framer Motion** (Motion) pour les animations du dashboard.
 - **cmdk** pour le terminal Ctrl+K (la lib utilisée par Vercel et Linear).
@@ -37,12 +38,14 @@ Le reste de ta stack (Next.js, Tailwind, Framer Motion, Vercel, Supabase, FastAP
 - **next-intl** pour le bilingue FR/EN (recruteurs internationaux + clients UE + expansion Afrique de l'Ouest).
 
 ### Backend & données
+
 - **Supabase** comme système nerveux : Postgres + Auth + Realtime + Storage + **pgvector**.
 - **Drizzle ORM** pour un accès typé à la base depuis Next.js (léger, idéal serverless). Prisma possible si tu préfères, mais Drizzle colle mieux à Supabase.
 - **FastAPI sur Railway** pour le moteur lourd Python : calculs carbone (Scopes 1-2-3), matrices de double matérialité, taxonomie, et l'ingestion RAG. Exposé en API interne, appelé par Next.js.
 - Séparation claire : Next.js fait l'app et l'UI, FastAPI fait le calcul et la science des données.
 
 ### Intelligence (adama.ai + RAG)
+
 - **Mistral** pour la génération (résidence UE) et **Mistral Embed** (vecteurs 1024 dim) pour les embeddings.
 - **Mistral OCR 4** pour ingérer les PDF (ESRS, VSME, ton CV, tes cours) dans le pipeline.
 - **pgvector (Supabase)** comme stockage vectoriel.
@@ -50,22 +53,26 @@ Le reste de ta stack (Next.js, Tailwind, Framer Motion, Vercel, Supabase, FastAP
 - Architecture RAG (pas de fine-tuning) : zéro hallucination sur les textes de loi, coûts maîtrisés, mise à jour instantanée quand un texte réglementaire change.
 
 ### Automatisation
+
 - **Trigger.dev** : jobs durables versionnés (scraping EFRAG / GHG Protocol, ingestion RAG, synthèse LLM, publication veille). Alternative : Inngest.
 - **n8n auto-hébergé sur Railway** si tu veux du visuel pour certains flux.
 
 ### Monétisation & relation
+
 - **Polar** (Merchant of Record) pour les formations et l'accès SaaS : gère TVA UE, factures, chargebacks.
 - **Stripe** en option si tu veux un contrôle total sur l'abonnement SaaS B2B plus tard.
 - **Cal.com** embarqué pour la prise de RDV recruteur.
 - **Resend** + **React Email** pour l'email transactionnel (confirmations, livraison de formation, alertes lead).
 
 ### Observabilité, analytics, qualité
+
 - **PostHog** : analytics produit + funnels des 3 sorties de conversion (clics recruteur, vues formations, essais SaaS).
 - **Sentry** : suivi des erreurs.
 - **Better Stack (Uptime)** : vrai monitoring pour donner du sens au panneau "System Status" (statut réel, pas décoratif).
 - **Vercel Analytics** : Web Vitals.
 
 ### Repo & déploiement
+
 - **Monorepo pnpm + Turborepo**, **GitHub**, déploiement continu Vercel (web) et Railway (FastAPI). Chaque `git push` met l'OS à jour.
 
 ---
@@ -209,6 +216,7 @@ Tu as environ 18 semaines. Priorité : être présentable à un recruteur le plu
 Ces étapes demandent tes identifiants ou des décisions perso, je ne peux pas les faire à ta place. Fais-les dans cet ordre.
 
 ### A. Comptes à créer ou confirmer
+
 1. **GitHub** : crée un repo privé `adama-os`.
 2. **Vercel** : connecte le repo (tu l'as déjà).
 3. **Railway** : prépare un projet pour `services/engine` (tu l'as déjà).
@@ -223,11 +231,13 @@ Ces étapes demandent tes identifiants ou des décisions perso, je ne peux pas l
 12. **Domaine** : choisis et achète (`adama-os.dev` ou `strata-os.com`). Tu pointeras les DNS vers Vercel.
 
 ### B. Fichiers à me fournir
+
 - Ton CV : dépose `CV_AdamaDiallo_RSE.pdf` dans le dossier Adama OS pour que je l'intègre et l'ingère dans le RAG.
 - Tes logos de preuve sociale (AFEV, Ministère des Finances) si tu les as en image.
 - Les textes sources VSME / ESRS que tu veux dans le RAG dès le départ.
 
 ### C. Variables d'environnement (à remplir, je te fournirai le `.env.example`)
+
 ```
 # Supabase
 NEXT_PUBLIC_SUPABASE_URL=
@@ -250,6 +260,7 @@ GITHUB_TOKEN=
 ```
 
 ### D. Décisions que j'attends de toi
+
 1. **Nom de domaine final** : `adama-os.dev` ou `strata-os.com` (ou autre) ?
 2. **Vélocité ou cadrage** : tu veux que je scaffolde maintenant Phase 0 + Phase 1 (le vrai code Next.js dans le dossier), ou tu préfères ajuster ce blueprint d'abord ?
 3. **CMS** : tu valides Sanity pour la veille et les cours, ou tu préfères tout en MDX versionné (plus "build in public", moins d'UI d'édition) ?
@@ -284,7 +295,7 @@ pnpm create sanity@latest -- --template clean --project <id> --dataset productio
 
 ---
 
-*Prochaine étape recommandée : tu réponds aux 4 décisions de la section 10.D, et je scaffolde directement Phase 0 + Phase 1 dans le dossier, prêt à `pnpm dev`.*
+_Prochaine étape recommandée : tu réponds aux 4 décisions de la section 10.D, et je scaffolde directement Phase 0 + Phase 1 dans le dossier, prêt à `pnpm dev`._
 
 ---
 
@@ -307,24 +318,28 @@ Puisque tu vas tout construire en vibe coding pour aller vite, voici la stack ex
 
 **1. La Base de Données & L'Authentification (Supabase)**
 C'est le système nerveux central. Tu ne stockes pas que les datas de tes clients, tu stockes tes datas.
+
 - Table `system_metrics` : Stocke tes variables en temps réel (Jours restants avant la fin du M2/Stage, progression de ton lean bulk vers les 80kg, nombre de sessions de foot ou de Deep Work).
 - Table `decisions_log` : Un registre (titre, date, catégorie, raisonnement) pour publier tes choix techniques et business.
 - Table `strata_analytics` : Remonte automatiquement le nombre de PME analysées via tes outils ou le nombre de requêtes API traitées.
 
 **2. Le Backend & L'Intelligence (FastAPI sur Railway + DeepSeek)**
 L'intelligence brute de ton OS.
+
 - FastAPI : Gère la logique lourde, particulièrement l'ingestion des matrices de double matérialité et les calculs de taxonomie.
 - Pipeline RAG : Vectorisation de l'intégralité des textes ESRS, du référentiel VSME, de tes cours de master, et de ton CV `"CV_AdamaDiallo_RSE.pdf.pdf"`.
 - LLM (DeepSeek) : Branché à ta base vectorielle pour animer `adama.ai`, l'agent conversationnel intégré à ton OS.
 
 **3. Le Frontend (Next.js + Tailwind CSS + Framer Motion sur Vercel)**
 L'interface utilisateur pure, rapide et agressive.
+
 - Server-Side Rendering pour un SEO parfait (indispensable pour tes articles de veille).
 - Déploiement continu via GitHub. Chaque `git push` met l'OS à jour instantanément.
 - Domaine personnalisé routé via Namecheap ou OVH (`adama-os.dev` ou `strata-os.com`).
 
 **4. L'Orchestration (n8n / Make.com)**
 Le travail de l'ombre en mode Advanced.
+
 - Scraping automatisé des mises à jour de l'EFRAG ou du GHG Protocol.
 - Envoi des textes au LLM pour synthèse automatique.
 - Publication instantanée dans la section "Veille" d'Adama OS sans que tu n'aies à taper une seule ligne de texte.
@@ -335,6 +350,7 @@ Le design est en Dark Mode intégral (Noir carbone, typographie blanche épurée
 
 **Couche A : SYSTEM STATUS (L'Observabilité)**
 Un panneau latéral fixe (ou un bloc d'en-tête massif).
+
 - Status : `🟢 ONLINE - BUILDING MODE`
 - Current Focus : `Déploiement ESG Optimizer v2`
 - Deadline Stage : `31 Octobre 2026 - Compte à rebours [ XX Jours ]`
@@ -343,16 +359,19 @@ Un panneau latéral fixe (ou un bloc d'en-tête massif).
 
 **Couche B : DECISIONS LOG (Le Raisonnement)**
 Un flux façon "Timeline" où tu expliques tes choix de développeur et de stratège.
+
 - [24 Juin 2026] ➡️ Transition de Node.js vers FastAPI. Raison : L'écosystème Python offre une scalabilité supérieure pour les algorithmes de calcul carbone (Scopes 1-2-3).
 - [15 Juin 2026] ➡️ Architecture RAG vs Fine-Tuning. Raison : Le RAG garantit zéro hallucination sur les textes de loi CSRD et réduit les coûts d'API de 80%.
 
 **Couche C : TRAJECTORY (La Roadmap)**
 La transparence totale sur tes chantiers en cours.
+
 - Next Update : Intégration du scoring OTI sur ESG Optimizer.
 - Expansion : Lancement de l'architecture pour le marché Afrique de l'Ouest (Cible : Septembre 2026).
 - Risques identifiés : Surcharge du scope technique. Solution : Délégation stricte des flux via Make.com.
 
 **Couche D : THE SANDBOX & PROOFS (La Preuve par l'Action)**
+
 - Terminal interactif : Un raccourci clavier (`Ctrl + K`) transforme le site en ligne de commande. Un recruteur peut taper `download cv` ou `ping strata`.
 - Widgets en direct : Un mini-simulateur VSME testable directement sur la page.
 - Preuve Sociale : Logos des structures accompagnées (AFEV, Ministère des Finances) et métriques d'ESG Optimizer en production.
@@ -362,15 +381,18 @@ La transparence totale sur tes chantiers en cours.
 L'OS a trois sorties de conversion extrêmement claires pour monétiser ton trafic.
 
 **Sortie 1 : Le Recrutement Stratégique (Le Graal de Novembre 2026)**
+
 - Cible : Directeurs RSE, Cabinets de Conseil, Fonds d'investissement.
 - Mécanique : Un bouton persistant `[ Recruter l'Architecte ]` qui ouvre un modal avec ta proposition de valeur hybride, un lien vers ton fichier `"CV_AdamaDiallo_RSE.pdf.pdf"`, et un calendrier Cal.com intégré.
 
 **Sortie 2 : Le Logiciel (STRATA / ESG Optimizer)**
+
 - Cible : PME européennes sous le coup de la CSRD/VSME.
 - Mécanique : Mise en avant de tes modules de reporting et d'analyse. Redirection directe vers le SaaS avec un essai gratuit ou un "Audit Express" généré par tes pipelines.
 
 **Sortie 3 : L'Usine à Formations (Le Levier Financier)**
 Une section `/learn` structurée en 4 niveaux d'expertise :
+
 1. "CSRD / ESG Automatisé" : La vulgarisation de la réglementation, la double matérialité et la structuration d'un rapport pour les profils métiers.
 2. "Automatiser avec l'IA (Niveau Pro)" : Connecter Make/n8n aux API LLM pour détruire la saisie manuelle et les tâches répétitives (ta zone de génie certifiée).
 3. "Construire un Agent IA Métier" : Tutoriel hardcore sur la création d'un système RAG (Vector DB, Embeddings, Prompt Engineering) appliqué à un cas métier.
@@ -381,11 +403,13 @@ Une section `/learn` structurée en 4 niveaux d'expertise :
 Pour remplir ce tunnel, tu vas documenter ton exécution avec une régularité de sportif de haut niveau (comme pour tes 4 séances hebdomadaires).
 
 **La Frappe Rapide (TikTok / Shorts / Reels)**
+
 - Le style : Face caméra direct, écran partagé avec ton éditeur de code ou tes workflows Make. Pas de fioritures, pas de danse. De l'ingénierie et de la valeur.
 - Les Hooks : "Arrêtez de lire la CSRD à la main, voici le script Python que j'ai codé pour le faire en 2 minutes", ou "La routine d'un étudiant en Master qui gère un SaaS et prépare une transformation physique".
 - Le CTA : "Allez voir le code et les logs sur Adama OS."
 
 **La Masterclass (YouTube Long Format)**
+
 - Le canal : GreenDiadam.
 - Le style : Partage d'écran immersif, schémas d'architecture, deep dive réglementaire.
 - Les thèmes : "Créer une base vectorielle RSE de zéro", "VSME : Le guide complet pour les PME en 2026".

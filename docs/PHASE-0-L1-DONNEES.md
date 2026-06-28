@@ -169,4 +169,7 @@ Relis le SQL généré, puis applique-le dans le SQL Editor (ou via `db:migrate`
 - Ne commite jamais `.env` ni `.env.local`. Le `service_role` contourne la RLS, il ne doit vivre que côté serveur.
 - En production (Vercel), mets `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` et `SUPABASE_SERVICE_ROLE_KEY` dans les Environment Variables du projet.
 - Le modèle RLS : lecture publique pour le dashboard (metrics, décisions publiées, trajectory, analytics), insertion publique pour les leads et les audits, tout le reste réservé à l'admin. Le RAG (`rag_documents`, `rag_chunks`) est privé.
+
+```
+
 ```

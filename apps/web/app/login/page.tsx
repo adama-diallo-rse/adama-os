@@ -37,7 +37,11 @@ export default async function LoginPage({
           Accès réservé. Connecte-toi avec ton compte admin Supabase.
         </p>
 
-        <input type="hidden" name="redirect" value={params.redirect ?? "/admin"} />
+        <input
+          type="hidden"
+          name="redirect"
+          value={params.redirect ?? "/admin"}
+        />
 
         <input
           name="email"

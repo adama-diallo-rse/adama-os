@@ -149,7 +149,12 @@ async function seed() {
   if ((strataCount[0]?.n ?? 0) === 0) {
     await db.insert(strataAnalytics).values([
       { metric: "pme_analysees", value: 12, period: "2026-06", source: "demo" },
-      { metric: "requetes_api", value: 1287, period: "2026-06", source: "demo" },
+      {
+        metric: "requetes_api",
+        value: 1287,
+        period: "2026-06",
+        source: "demo",
+      },
       { metric: "audits_lances", value: 4, period: "2026-06", source: "demo" },
     ]);
     console.log("  ✓ strata_analytics : 3 métriques insérées");
