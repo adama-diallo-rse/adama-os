@@ -6,6 +6,10 @@ import { createClient } from "../../lib/supabase/server";
 export async function login(formData: FormData) {
   const supabase = await createClient();
 
+  if (!supabase) {
+    redirect("/login?error=Supabase%20is%20not%20configured");
+  }
+
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
   const redirectTo = String(formData.get("redirect") ?? "/admin");
@@ -21,6 +25,10 @@ export async function login(formData: FormData) {
 
 export async function logout() {
   const supabase = await createClient();
-  await supabase.auth.signOut();
+
+  if (supabase) {
+    await supabase.auth.signOut();
+  }
+
   redirect("/login");
 }

@@ -7,6 +7,24 @@ import { logout } from "../login/actions";
 export default async function AdminPage() {
   const supabase = await createClient();
 
+  if (!supabase) {
+    return (
+      <main
+        style={{
+          minHeight: "100dvh",
+          padding: "2rem",
+          background: "#0a0a0a",
+          color: "#fafafa",
+          fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+        }}
+      >
+        <p style={{ color: "#f87171" }}>
+          La configuration Supabase n’est pas disponible pour cette déploiement.
+        </p>
+      </main>
+    );
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
