@@ -4,34 +4,36 @@
 @source "../../../packages/ui/src/**/*.{ts,tsx}";
 
 /* ------------------------------------------------------------------ */
-/*  Design tokens Adama OS, palette OKLCH                              */
-/*  Noir carbone, blanc épuré, accent émeraude. Ressenti terminal.    */
+/*  Design tokens Adama OS, aligné sur la charte STRATA               */
+/*  Navy ardoise, crème, accent or + signal teal. Ressenti terminal.  */
+/*  (Les noms de tokens restent identiques : la valeur "emerald"       */
+/*   porte désormais le signal teal STRATA #2AFFD6.)                   */
 /* ------------------------------------------------------------------ */
 @theme {
-  /* Fonds, du plus profond au plus surélevé */
-  --color-background: oklch(0.165 0.006 285);
-  --color-surface: oklch(0.205 0.006 285);
-  --color-surface-raised: oklch(0.245 0.007 285);
+  /* Fonds, du plus profond au plus surélevé (navy STRATA) */
+  --color-background: #0d1b2a;
+  --color-surface: #16273b;
+  --color-surface-raised: #1a2d42;
 
   /* Bordures et séparateurs */
-  --color-border: oklch(0.295 0.008 285);
-  --color-border-strong: oklch(0.365 0.009 285);
+  --color-border: #24384f;
+  --color-border-strong: #35506b;
 
-  /* Texte */
-  --color-foreground: oklch(0.975 0.003 285);
-  --color-muted: oklch(0.715 0.012 285);
-  --color-faint: oklch(0.55 0.012 285);
+  /* Texte (crème STRATA) */
+  --color-foreground: #f2ede4;
+  --color-muted: #9db0c0;
+  --color-faint: #6b8296;
 
-  /* Accent émeraude */
-  --color-emerald: oklch(0.735 0.165 162);
-  --color-emerald-bright: oklch(0.82 0.17 162);
-  --color-emerald-dim: oklch(0.46 0.095 162);
-  --color-emerald-foreground: oklch(0.16 0.02 162);
+  /* Accent principal : signal teal STRATA (data / CTA / online) */
+  --color-emerald: #2affd6;
+  --color-emerald-bright: #6bffe4;
+  --color-emerald-dim: #1f8f7c;
+  --color-emerald-foreground: #06201a;
 
-  /* États système */
-  --color-online: oklch(0.735 0.165 162);
-  --color-warning: oklch(0.80 0.155 85);
-  --color-danger: oklch(0.645 0.19 25);
+  /* États système (or STRATA en secondaire) */
+  --color-online: #2affd6;
+  --color-warning: #c9a96e;
+  --color-danger: #e5675c;
 
   /* Polices, branchées sur les variables Geist (layout.tsx) */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,

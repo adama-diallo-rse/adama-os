@@ -4,8 +4,22 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Adama OS",
-  description: "Adama OS — tableau de bord en direct",
+  metadataBase: new URL("https://adama-os-web.vercel.app"),
+  title: "Adama OS, System Architect",
+  description:
+    "Tableau de bord en direct d'Adama Diallo, architecte de Strata. RSE, ESG, CSRD.",
+  openGraph: {
+    title: "Adama OS, System Architect",
+    description:
+      "Le dashboard système d'Adama Diallo, architecte de Strata.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Adama OS, System Architect",
+    description:
+      "Le dashboard système d'Adama Diallo, architecte de Strata.",
+  },
 };
 
 export default function RootLayout({
