@@ -1,4 +1,5 @@
 import { Dashboard } from "../components/dashboard";
+import { RecruiterView } from "../components/recruiter-view";
 import type {
   DashboardData,
   DecisionRow,
@@ -73,7 +74,17 @@ async function chargerDonnees(): Promise<DashboardData> {
   };
 }
 
-export default async function Home() {
-  const data = await chargerDonnees();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const [data, params] = await Promise.all([chargerDonnees(), searchParams]);
+
+  // L6-T4 : ?for=recruiter → layout simplifié et imprimable.
+  if (params.for === "recruiter") {
+    return <RecruiterView data={data} />;
+  }
+
   return <Dashboard data={data} />;
 }

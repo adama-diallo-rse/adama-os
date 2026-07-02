@@ -18,9 +18,10 @@ import { LayerA } from "./layer-a";
 import { LayerB } from "./layer-b";
 import { LayerC } from "./layer-c";
 import { LayerD } from "./layer-d";
+import { RecruitModal } from "./recruit-modal";
 import { ShippedFeed } from "./shipped-feed";
 import { Terminal, useThemeBoot } from "./terminal";
-import { CONTACT_EMAIL, type DashboardData, type TrajectoryRow } from "./types";
+import type { DashboardData, TrajectoryRow } from "./types";
 
 const container: Variants = {
   hidden: {},
@@ -67,6 +68,7 @@ function FocusNow({ trajectory }: { trajectory: TrajectoryRow[] }) {
 export function Dashboard({ data }: { data: DashboardData }) {
   useThemeBoot();
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [recruitOpen, setRecruitOpen] = useState(false);
 
   const byKey = new Map(data.metrics.map((m) => [m.key, m]));
   const systemStatus =
@@ -114,16 +116,14 @@ export function Dashboard({ data }: { data: DashboardData }) {
                 Ctrl K
               </kbd>
             </Button>
-            <a
-              href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-                "Recrutement, Architecte Adama OS",
-              )}`}
-              className="inline-flex"
+            <Button
+              variant="outline"
+              size="sm"
+              bracket
+              onClick={() => setRecruitOpen(true)}
             >
-              <Button variant="outline" size="sm" bracket tabIndex={-1}>
-                Recruter l&apos;Architecte
-              </Button>
-            </a>
+              Recruter l&apos;Architecte
+            </Button>
           </div>
         </motion.header>
 
@@ -165,7 +165,25 @@ export function Dashboard({ data }: { data: DashboardData }) {
         </footer>
       </div>
 
-      <Terminal open={terminalOpen} onOpenChange={setTerminalOpen} />
+      {/* L6-T1 : CTA persistant, visible en permanence pendant le scroll */}
+      <div className="fixed bottom-5 right-5 z-40">
+        <Button
+          variant="primary"
+          size="md"
+          bracket
+          onClick={() => setRecruitOpen(true)}
+          className="shadow-[0_12px_32px_-12px_rgba(0,0,0,0.9)] glow-emerald"
+        >
+          Recruter l&apos;Architecte
+        </Button>
+      </div>
+
+      <RecruitModal open={recruitOpen} onOpenChange={setRecruitOpen} />
+      <Terminal
+        open={terminalOpen}
+        onOpenChange={setTerminalOpen}
+        onRecruit={() => setRecruitOpen(true)}
+      />
     </div>
     </MotionConfig>
   );

@@ -128,3 +128,40 @@
       0 0 24px -6px color-mix(in oklch, var(--color-emerald) 50%, transparent);
   }
 }
+
+/* ------------------------------------------------------------------ */
+/*  L6-T4 — Impression (mode lecture recruteur ?for=recruiter)        */
+/*  Palette claire forcée : encre noire sur papier blanc.             */
+/* ------------------------------------------------------------------ */
+@media print {
+  :root {
+    color-scheme: light;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  body {
+    font-size: 11pt;
+  }
+
+  .recruiter-view {
+    background: #ffffff !important;
+  }
+
+  .bg-grid {
+    background-image: none !important;
+  }
+
+  .glow-emerald {
+    box-shadow: none !important;
+  }
+
+  a {
+    color: #111111;
+    text-decoration: none;
+  }
+}

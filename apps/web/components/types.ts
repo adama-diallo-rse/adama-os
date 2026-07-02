@@ -56,5 +56,10 @@ export const GITHUB_OWNER = "adama-diallo-rse";
 export const GITHUB_REPO = "adama-os";
 export const GITHUB_REPO_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}`;
 export const CV_PATH = "/adama-diallo-cv.pdf";
+// L6-T2 : nom du fichier proposé au téléchargement (le fichier physique
+// dans public/ reste adama-diallo-cv.pdf).
+export const CV_DOWNLOAD_NAME = "CV_AdamaDiallo_RSE.pdf";
+// L6-T2 : lien Cal.com (ex: "adama-diallo/15min"). Vide → repli mailto.
+export const CAL_LINK = process.env.NEXT_PUBLIC_CAL_LINK ?? "";
 export const DEFAULT_DEADLINE_ISO = "2026-10-31T00:00:00+01:00";
 export const DEFAULT_TARGET_WEIGHT = 80;

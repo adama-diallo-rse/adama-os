@@ -6,7 +6,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Command } from "cmdk";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { CONTACT_EMAIL, CV_PATH, GITHUB_REPO_URL } from "./types";
+import {
+  CONTACT_EMAIL,
+  CV_DOWNLOAD_NAME,
+  CV_PATH,
+  GITHUB_REPO_URL,
+} from "./types";
 
 const THEME_KEY = "adama-theme";
 
@@ -43,9 +48,12 @@ const NAV_TARGETS: { id: string; label: string }[] = [
 export function Terminal({
   open,
   onOpenChange,
+  onRecruit,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** L6 : ouvre le modal "Recruter l'Architecte". */
+  onRecruit?: () => void;
 }) {
   const reduceMotion = useReducedMotion();
   const [logs, setLogs] = useState<LogLine[]>([]);
@@ -99,11 +107,11 @@ export function Terminal({
   const downloadCv = useCallback(() => {
     const a = document.createElement("a");
     a.href = CV_PATH;
-    a.download = "Adama-Diallo-CV.pdf";
+    a.download = CV_DOWNLOAD_NAME;
     document.body.appendChild(a);
     a.click();
     a.remove();
-    pushLog("cv téléchargé → Adama-Diallo-CV.pdf", "ok");
+    pushLog(`cv téléchargé → ${CV_DOWNLOAD_NAME}`, "ok");
   }, [pushLog]);
 
   const pingStrata = useCallback(() => {
@@ -225,6 +233,16 @@ export function Terminal({
                     hint="bascule teal / gold"
                     onSelect={toggleTheme}
                   />
+                  {onRecruit ? (
+                    <TerminalItem
+                      value="recruit"
+                      hint="recruter l'architecte"
+                      onSelect={() => {
+                        close();
+                        onRecruit();
+                      }}
+                    />
+                  ) : null}
                 </Command.Group>
 
                 <Command.Group
