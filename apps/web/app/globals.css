@@ -46,6 +46,19 @@
 }
 
 /* ------------------------------------------------------------------ */
+/*  Thème alternatif "gold" (commande `theme` du terminal Ctrl+K)     */
+/*  Bascule l'accent signal teal vers l'or STRATA.                    */
+/* ------------------------------------------------------------------ */
+[data-theme="gold"] {
+  --color-emerald: #c9a96e;
+  --color-emerald-bright: #e3c890;
+  --color-emerald-dim: #8a6f3e;
+  --color-emerald-foreground: #201703;
+  --color-online: #c9a96e;
+  --color-warning: #2affd6;
+}
+
+/* ------------------------------------------------------------------ */
 /*  Base globale, dark mode intégral                                  */
 /* ------------------------------------------------------------------ */
 @layer base {
@@ -59,6 +72,13 @@
 
   html {
     -webkit-text-size-adjust: 100%;
+  }
+
+  /* Défilement doux pour la navigation par ancres (terminal `navigate`) */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {
