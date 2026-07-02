@@ -18,6 +18,7 @@ import { LayerA } from "./layer-a";
 import { LayerB } from "./layer-b";
 import { LayerC } from "./layer-c";
 import { LayerD } from "./layer-d";
+import { ConsentLink } from "./consent-banner";
 import { RecruitModal } from "./recruit-modal";
 import { ShippedFeed } from "./shipped-feed";
 import { Terminal, useThemeBoot } from "./terminal";
@@ -73,7 +74,11 @@ export function Dashboard({ data }: { data: DashboardData }) {
   const byKey = new Map(data.metrics.map((m) => [m.key, m]));
   const systemStatus =
     byKey.get("system_status")?.value_text ?? "ONLINE - BUILDING MODE";
-  const online = !systemStatus.toUpperCase().includes("OFFLINE");
+  // L8-T6 : le vrai statut Better Stack prime ; sinon repli sur la métrique.
+  const online =
+    data.uptime !== null
+      ? data.uptime === "up"
+      : !systemStatus.toUpperCase().includes("OFFLINE");
 
   // MotionConfig reducedMotion="user" respecte prefers-reduced-motion côté
   // client SANS changer le HTML initial : le serveur et le client rendent
@@ -159,8 +164,11 @@ export function Dashboard({ data }: { data: DashboardData }) {
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">
             Adama Diallo — System Architect · Strata
           </p>
-          <p className="font-mono text-[0.65rem] text-faint">
-            <span className="text-emerald">$</span> ctrl+k pour le terminal
+          <p className="flex items-center gap-4 font-mono text-[0.65rem] text-faint">
+            <ConsentLink />
+            <span>
+              <span className="text-emerald">$</span> ctrl+k pour le terminal
+            </span>
           </p>
         </footer>
       </div>

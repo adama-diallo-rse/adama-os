@@ -8,6 +8,7 @@ import type {
   TrajectoryRow,
 } from "../components/types";
 import { fetchShippedCommits } from "../lib/github";
+import { fetchUptimeStatus } from "../lib/uptime";
 import { createPublicClient } from "../lib/supabase/public";
 
 // Page serveur : charge les données publiques (RLS, clé anon) puis délègue
@@ -19,8 +20,10 @@ export const dynamic = "force-dynamic";
 type StrataRaw = StrataMetricRow & { created_at: string };
 
 async function chargerDonnees(): Promise<DashboardData> {
-  // L5-T1 : le feed GitHub part en parallele, il ne depend pas de Supabase.
+  // L5-T1 / L8-T6 : GitHub et Better Stack partent en parallèle,
+  // ils ne dépendent pas de Supabase.
   const commitsPromise = fetchShippedCommits();
+  const uptimePromise = fetchUptimeStatus();
 
   const supabase = createPublicClient();
   if (!supabase) {
@@ -30,10 +33,11 @@ async function chargerDonnees(): Promise<DashboardData> {
       trajectory: [],
       strata: [],
       commits: await commitsPromise,
+      uptime: await uptimePromise,
     };
   }
 
-  const [m, d, t, s, commits] = await Promise.all([
+  const [m, d, t, s, commits, uptime] = await Promise.all([
     supabase.from("system_metrics").select("key, value_num, value_text, unit"),
     supabase
       .from("decisions_log")
@@ -51,6 +55,7 @@ async function chargerDonnees(): Promise<DashboardData> {
       .order("created_at", { ascending: false })
       .limit(24),
     commitsPromise,
+    uptimePromise,
   ]);
 
   // Une seule ligne par métrique STRATA : la plus récente.
@@ -71,6 +76,7 @@ async function chargerDonnees(): Promise<DashboardData> {
     trajectory: (t.data as TrajectoryRow[]) ?? [],
     strata: Array.from(strataByMetric.values()),
     commits,
+    uptime,
   };
 }
 

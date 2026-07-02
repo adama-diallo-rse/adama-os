@@ -49,6 +49,8 @@ export type DashboardData = {
   trajectory: TrajectoryRow[];
   strata: StrataMetricRow[];
   commits: CommitRow[];
+  // L8-T6 : statut Better Stack. null → repli sur system_metrics.
+  uptime: "up" | "down" | null;
 };
 
 export const CONTACT_EMAIL = "diadamflow@gmail.com";
