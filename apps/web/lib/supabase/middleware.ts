@@ -35,8 +35,11 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Garde-fou : toute route /admin exige une session.
-  if (!user && request.nextUrl.pathname.startsWith("/admin")) {
+  // Garde-fou : les routes /admin et /checkin exigent une session.
+  const pathname = request.nextUrl.pathname;
+  const isProtected =
+    pathname.startsWith("/admin") || pathname.startsWith("/checkin");
+  if (!user && isProtected) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     url.searchParams.set("redirect", request.nextUrl.pathname);
