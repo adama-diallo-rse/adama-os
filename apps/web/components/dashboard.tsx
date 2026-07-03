@@ -22,6 +22,7 @@ import { LayerD } from "./layer-d";
 import { ConsentLink } from "./consent-banner";
 import { RecruitModal } from "./recruit-modal";
 import { ShippedFeed } from "./shipped-feed";
+import { VsmeSimulator } from "./vsme-simulator";
 import { Terminal, useThemeBoot } from "./terminal";
 import type { DashboardData, TrajectoryRow } from "./types";
 
@@ -155,6 +156,9 @@ export function Dashboard({ data }: { data: DashboardData }) {
           </motion.div>
           <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
             <LayerD strata={data.strata} />
+          </motion.div>
+          <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
+            <VsmeSimulator />
           </motion.div>
           <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
             <ShippedFeed commits={data.commits} />

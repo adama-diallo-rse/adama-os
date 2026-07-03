@@ -195,8 +195,8 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 
 **L4, Interface (widgets)**
 
-- [ ] L4-T12 Simulateur VSME interactif (saisie → score ESG instantané).
-- [ ] L4-T13 Page Open Metrics publique (depuis `strata_analytics`).
+- [x] L4-T12 Simulateur VSME interactif (saisie → score ESG instantané).
+- [x] L4-T13 Page Open Metrics publique (depuis `strata_analytics`).
 
 **L5, Contenu (veille auto)**
 

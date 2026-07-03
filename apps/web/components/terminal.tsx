@@ -42,6 +42,7 @@ const NAV_TARGETS: { id: string; label: string }[] = [
   { id: "couche-b", label: "Couche B — Decisions Log" },
   { id: "couche-c", label: "Couche C — Trajectory" },
   { id: "couche-d", label: "Couche D — Sandbox" },
+  { id: "simulateur", label: "Simulateur VSME" },
   { id: "shipped", label: "Shipped · Proof of Work" },
 ];
 

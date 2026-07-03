@@ -3,8 +3,10 @@
 // L4-T8, Couche D — Sandbox.
 // Zone preuve sociale (AG2R, Younivibe, AFEV, Ministère) et métriques STRATA.
 
+import Link from "next/link";
 import { Badge, Button, Card, CardContent, CardFooter, CardHeader, CardTitle } from "@adama/ui";
 import { AnimatedNumber } from "./animated-number";
+import { metricLabel, metricSuffix } from "../lib/metrics";
 import {
   CONTACT_EMAIL,
   CV_DOWNLOAD_NAME,
@@ -18,22 +20,6 @@ const FALLBACK_METRICS: StrataMetricRow[] = [
   { metric: "docs_rag", value: 340, period: "corpus" },
   { metric: "uptime_pct", value: 99.9, period: "30j" },
 ];
-
-const METRIC_LABELS: Record<string, string> = {
-  audits_vsme: "Audits VSME",
-  docs_rag: "Docs RAG",
-  uptime_pct: "Uptime",
-  users: "Utilisateurs",
-  reports: "Rapports",
-  leads: "Leads",
-};
-
-function metricLabel(key: string): string {
-  return (
-    METRIC_LABELS[key] ??
-    key.replaceAll("_", " ").replace(/^\w/, (c) => c.toUpperCase())
-  );
-}
 
 function ProofTile({ name, role }: { name: string; role: string }) {
   return (
@@ -85,9 +71,17 @@ export function LayerD({ strata }: { strata: StrataMetricRow[] }) {
 
         {/* Métriques STRATA */}
         <div>
-          <p className="mb-3 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-faint">
-            STRATA — Open Metrics
-          </p>
+          <div className="mb-3 flex items-baseline justify-between gap-3">
+            <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-faint">
+              STRATA — Open Metrics
+            </p>
+            <Link
+              href="/metrics"
+              className="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-emerald transition-colors hover:text-emerald-bright"
+            >
+              tout voir →
+            </Link>
+          </div>
           <div className="grid grid-cols-3 gap-2.5">
             {rows.map((row) => (
               <div
@@ -97,7 +91,7 @@ export function LayerD({ strata }: { strata: StrataMetricRow[] }) {
                 <AnimatedNumber
                   value={row.value}
                   decimals={Number.isInteger(row.value) ? 0 : 1}
-                  suffix={row.metric.endsWith("_pct") ? "%" : ""}
+                  suffix={metricSuffix(row.metric)}
                   className="font-mono text-lg font-semibold tabular-nums text-emerald-bright"
                 />
                 <p className="mt-0.5 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-faint">
