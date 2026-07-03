@@ -33,5 +33,9 @@ export async function embedQuery(text: string): Promise<number[]> {
   }
 
   const json = (await res.json()) as { data: { embedding: number[] }[] };
-  return json.data[0].embedding;
+  const embedding = json.data[0]?.embedding;
+  if (!embedding) {
+    throw new Error("Réponse embeddings vide (aucun vecteur retourné).");
+  }
+  return embedding;
 }

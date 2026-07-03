@@ -38,12 +38,13 @@ function splitMessage(message: string): { prefix: string | null; rest: string } 
   const match = /^(feat|fix|chore|docs|refactor|perf|test|style|ci|build)(\([^)]*\))?!?:/.exec(
     message,
   );
-  if (!match) {
+  const matched = match?.[0];
+  if (!matched) {
     return { prefix: null, rest: message };
   }
   return {
-    prefix: message.slice(0, match[0].length),
-    rest: message.slice(match[0].length).trim(),
+    prefix: message.slice(0, matched.length),
+    rest: message.slice(matched.length).trim(),
   };
 }
 
