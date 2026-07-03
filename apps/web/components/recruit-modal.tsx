@@ -193,7 +193,8 @@ export function RecruitModal({
                   <span className="text-foreground">
                     exécution d&apos;ingénieur
                   </span>
-                  . Alternance / stage à partir de novembre 2026.
+                  . Disponible en CDI / CDD dès début novembre 2026
+                  (Île-de-France).
                 </p>
                 <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                   {VALUE_PROPS.map((v) => (

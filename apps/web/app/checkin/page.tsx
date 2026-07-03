@@ -131,8 +131,28 @@ export default async function CheckinPage({
         })}
       </div>
 
-      {/* Progression lean bulk (numérique, 1 champ) */}
-      <h2 style={sectionTitle}>Progression lean bulk</h2>
+      {/* Poids réel (prioritaire sur le % dans la Couche A) */}
+      <h2 style={sectionTitle}>Poids actuel (kg)</h2>
+      <form action={updateMetric} style={rowForm}>
+        <input type="hidden" name="key" value="current_weight" />
+        <input
+          name="value_num"
+          type="number"
+          min="40"
+          max="150"
+          step="0.1"
+          defaultValue={current.get("current_weight")?.value_num ?? ""}
+          placeholder="kg"
+          style={inputStyle}
+        />
+        <input type="hidden" name="unit" value="kg" />
+        <button type="submit" style={btnPrimary}>
+          Enregistrer
+        </button>
+      </form>
+
+      {/* Progression lean bulk (repli si pas de poids réel) */}
+      <h2 style={sectionTitle}>Progression lean bulk (%)</h2>
       <form action={updateMetric} style={rowForm}>
         <input type="hidden" name="key" value="lean_bulk_progress" />
         <input

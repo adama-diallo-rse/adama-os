@@ -13,6 +13,7 @@
     "@adama/db": "workspace:*",
     "@adama/ui": "workspace:*",
     "@ai-sdk/openai": "^2.0.0",
+    "@ai-sdk/react": "^2.0.0",
     "@sentry/nextjs": "^10.53.1",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.10",

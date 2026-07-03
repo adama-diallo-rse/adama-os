@@ -1,11 +1,16 @@
 "use client";
 
 // L4-T8, Couche D — Sandbox.
-// Zone preuve sociale (AFEV, Ministère) et métriques STRATA (Open Metrics).
+// Zone preuve sociale (AG2R, Younivibe, AFEV, Ministère) et métriques STRATA.
 
 import { Badge, Button, Card, CardContent, CardFooter, CardHeader, CardTitle } from "@adama/ui";
 import { AnimatedNumber } from "./animated-number";
-import { CONTACT_EMAIL, CV_PATH, type StrataMetricRow } from "./types";
+import {
+  CONTACT_EMAIL,
+  CV_DOWNLOAD_NAME,
+  CV_PATH,
+  type StrataMetricRow,
+} from "./types";
 
 // Métriques affichées par défaut si la table strata_analytics est vide.
 const FALLBACK_METRICS: StrataMetricRow[] = [
@@ -61,10 +66,15 @@ export function LayerD({ strata }: { strata: StrataMetricRow[] }) {
             Ils m&apos;ont fait confiance
           </p>
           <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+            <ProofTile
+              name="AG2R LA MONDIALE"
+              role="Stage Data ESG & Solutions IA, direction RSE"
+            />
+            <ProofTile name="Younivibe" role="Coordination RSE, reporting" />
             <ProofTile name="AFEV" role="Engagement, mentorat étudiant" />
             <ProofTile
-              name="Ministère"
-              role="Éducation nationale, mission service civique"
+              name="Ministère des Finances"
+              role="Sénégal, reporting & data"
             />
           </div>
           <p className="mt-3 font-mono text-xs text-muted">
@@ -100,7 +110,7 @@ export function LayerD({ strata }: { strata: StrataMetricRow[] }) {
         </div>
       </CardContent>
       <CardFooter className="flex-wrap gap-2">
-        <a href={CV_PATH} download="Adama-Diallo-CV.pdf" className="inline-flex">
+        <a href={CV_PATH} download={CV_DOWNLOAD_NAME} className="inline-flex">
           <Button size="sm" tabIndex={-1}>
             Download CV
           </Button>

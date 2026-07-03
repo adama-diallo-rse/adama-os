@@ -35,9 +35,10 @@ async function seed() {
   // --- system_metrics : upsert par clé (toujours à jour) -------------
   const metrics: Metric[] = [
     { key: "system_status", valueText: "ONLINE - BUILDING MODE" },
-    { key: "current_focus", valueText: "Déploiement ESG Optimizer v2" },
+    { key: "current_focus", valueText: "ESG Optimizer V5 - Sustainability OS" },
     { key: "internship_deadline", valueText: "2026-10-31", unit: "date" },
-    { key: "lean_bulk_progress", valueNum: 72, unit: "%" },
+    { key: "current_weight", valueNum: 71, unit: "kg" },
+    { key: "lean_bulk_progress", valueNum: 89, unit: "%" },
     { key: "target_weight", valueNum: 80, unit: "kg" },
     { key: "energy_level", valueText: "Optimal" },
     { key: "deep_work_status", valueText: "Active" },

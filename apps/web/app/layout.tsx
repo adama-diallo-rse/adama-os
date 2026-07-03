@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "CSRD",
     "ESRS",
     "VSME",
-    "alternance RSE",
+    "chargé de mission Data ESG",
     "reporting durabilité",
     "Strata",
   ],
@@ -57,9 +57,13 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Adama Diallo",
-  jobTitle: "System Architect, RSE / ESG",
+  jobTitle: "Chargé de missions RSE - Data ESG & Solutions IA",
   description:
-    "Profil hybride RSE / ESG et ingénierie. Architecte de Strata (CSRD, ESRS, VSME).",
+    "Profil hybride RSE / ESG et ingénierie. Fondateur de Strata (CSRD, ESRS, VSME). En stage Data ESG & Solutions IA chez AG2R LA MONDIALE jusqu'au 31 octobre 2026.",
+  worksFor: [
+    { "@type": "Organization", name: "AG2R LA MONDIALE" },
+    { "@type": "Organization", name: "STRATA" },
+  ],
   url: SITE_URL,
   email: `mailto:${CONTACT_EMAIL}`,
   sameAs: [`https://github.com/${GITHUB_OWNER}`, GITHUB_REPO_URL],
@@ -76,7 +80,7 @@ const personJsonLd = {
   ],
   seeks: {
     "@type": "Demand",
-    name: "Alternance / stage RSE-ESG à partir de novembre 2026",
+    name: "CDI / CDD : Chargé de mission Data ESG, Consultant RSE ou Chef de projet Conformité / Automatisation, Île-de-France, à partir de novembre 2026",
   },
 };
 

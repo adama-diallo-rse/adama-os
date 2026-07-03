@@ -1,8 +1,8 @@
 # ROADMAP COMPLÈTE, ADAMA OS
 
 > Compagnon de `ADAMA_OS_BLUEPRINT.md`. Ici, le plan d'exécution complet, couche par couche.
-> Aujourd'hui : 24 juin 2026. Deadline stage : 31 octobre 2026. Push recrutement : novembre 2026.
-> Tu as environ 18 semaines. Cette roadmap est calibrée pour être présentable à un recruteur dès fin juillet, puis empiler le reste.
+> Rédigée le 24 juin 2026, mise à jour le 3 juillet 2026. Deadline stage AG2R LA MONDIALE (Grenoble, Chargé de missions RSE - Data ESG & Solutions IA, du 1er mai au 31 octobre 2026). Push recrutement : novembre 2026, cible CDI / CDD en Île-de-France.
+> P0 et P1 sont livrées (dashboard recrutement-ready en avance sur le jalon du 3 août). Phase courante : P2, à commencer par L0-T8.
 
 ---
 
@@ -45,7 +45,7 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 ### L3, Intelligence conversationnelle (RAG + adama.ai)
 
 **Objectif** : un agent qui répond sur les textes de loi sans halluciner.
-**Stack** : Mistral (génération + Embed), Mistral OCR 4 (ingestion PDF), pgvector, Vercel AI SDK.
+**Stack** : OpenAI (gpt-4o en génération, text-embedding-3-small 1024 dim), extraction PDF locale (unpdf), pgvector, Vercel AI SDK.
 **Contient** : pipeline ingestion (OCR, chunking, embeddings), retrieval top-k, génération citée, chat streaming.
 **État cible** : tu poses une question sur l'ESRS, l'agent répond avec sources, en français et anglais.
 
@@ -96,13 +96,13 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 
 **L0, Infra**
 
-- [ ] L0-T1 Créer le repo GitHub privé `adama-os`.
-- [ ] L0-T2 Scaffolder le monorepo Turborepo (`apps/web`, `packages/ui`, `packages/db`, `packages/config`).
-- [ ] L0-T3 Créer `apps/web` avec Next.js 16 + Tailwind v4 + TypeScript strict + Turbopack.
-- [ ] L0-T4 Initialiser shadcn/ui (style new-york, base color zinc).
-- [ ] L0-T5 Connecter le repo à Vercel, activer les preview deploys.
+- [x] L0-T1 Créer le repo GitHub privé `adama-os`.
+- [x] L0-T2 Scaffolder le monorepo Turborepo (`apps/web`, `packages/ui`, `packages/db`, `packages/config`).
+- [x] L0-T3 Créer `apps/web` avec Next.js 16 + Tailwind v4 + TypeScript strict + Turbopack.
+- [x] L0-T4 Initialiser shadcn/ui (style new-york, base color zinc).
+- [x] L0-T5 Connecter le repo à Vercel, activer les preview deploys.
 - [ ] L0-T6 Acheter le domaine, pointer les DNS vers Vercel, activer le HTTPS.
-- [ ] L0-T7 Créer le service Railway vide pour `services/engine` (placeholder).
+- [x] L0-T7 Créer le service Railway vide pour `services/engine` (placeholder prêt : main.py, railway.json, Procfile).
 
 **L1, Données**
 
@@ -115,16 +115,16 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 
 **L4, Design System**
 
-- [ ] L4-T1 Définir les design tokens (noir carbone, blanc, émeraude) en OKLCH dans `@theme`.
-- [ ] L4-T2 Police Geist Sans + Geist Mono.
-- [ ] L4-T3 Layout global dark mode, grille du dashboard.
-- [ ] L4-T4 Composants de base (Card, Badge, Button) au style terminal.
+- [x] L4-T1 Définir les design tokens (noir carbone, blanc, émeraude) en OKLCH dans `@theme`.
+- [x] L4-T2 Police Geist Sans + Geist Mono.
+- [x] L4-T3 Layout global dark mode, grille du dashboard.
+- [x] L4-T4 Composants de base (Card, Badge, Button) au style terminal.
 
 **L8, Qualité**
 
-- [ ] L8-T1 ESLint + Prettier + config TypeScript strict partagée.
-- [ ] L8-T2 `.env.example` complet, secrets dans Vercel/Railway, jamais commités.
-- [ ] L8-T3 Sentry branché sur web (erreurs dès le départ).
+- [x] L8-T1 ESLint + Prettier + config TypeScript strict partagée.
+- [x] L8-T2 `.env.example` complet, secrets dans Vercel/Railway, jamais commités.
+- [x] L8-T3 Sentry branché sur web (erreurs dès le départ).
 
 **Definition of Done P0** : le domaine affiche une page dashboard vide mais stylée, l'auth marche, la base est migrée, chaque push déploie. **Jalon : squelette en ligne le 6 juillet.**
 
@@ -136,35 +136,35 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 
 **L1, Données**
 
-- [ ] L1-T7 Endpoints de lecture pour `system_metrics`, `decisions_log`, `trajectory`.
-- [ ] L1-T8 Route privée `/checkin` pour mettre à jour tes métriques en 1 clic.
+- [x] L1-T7 Endpoints de lecture pour `system_metrics`, `decisions_log`, `trajectory`.
+- [x] L1-T8 Route privée `/checkin` pour mettre à jour tes métriques en 1 clic (poids réel inclus).
 
 **L4, Interface (les 4 couches)**
 
-- [ ] L4-T5 **Couche A, System Status** : statut, focus courant, compte à rebours live vers le 31 octobre, barre lean bulk vers 80 kg, protocole minimaliste.
-- [ ] L4-T6 **Couche B, Decisions Log** : timeline ADR, filtrable par catégorie, lisible.
-- [ ] L4-T7 **Couche C, Trajectory** : Now / Next / Later, avec risques et solutions.
-- [ ] L4-T8 **Couche D, Sandbox** : zone preuve sociale (logos AFEV, Ministère), métriques STRATA.
-- [ ] L4-T9 **Terminal Ctrl+K** (cmdk) avec commandes : `download cv`, `ping strata`, `book call`, `navigate`, `theme`.
-- [ ] L4-T10 Animations Framer Motion (entrées, compteurs, transitions de couches).
-- [ ] L4-T11 Responsive complet (desktop, tablette, mobile).
+- [x] L4-T5 **Couche A, System Status** : statut, focus courant, compte à rebours live vers le 31 octobre, barre lean bulk vers 80 kg, protocole minimaliste.
+- [x] L4-T6 **Couche B, Decisions Log** : timeline ADR, filtrable par catégorie, lisible.
+- [x] L4-T7 **Couche C, Trajectory** : Now / Next / Later, avec risques et solutions.
+- [x] L4-T8 **Couche D, Sandbox** : preuve sociale (AG2R LA MONDIALE, Younivibe, AFEV, Ministère des Finances), métriques STRATA.
+- [x] L4-T9 **Terminal Ctrl+K** (cmdk) avec commandes : `download cv`, `ping strata`, `book call`, `navigate`, `theme`.
+- [x] L4-T10 Animations Framer Motion (entrées, compteurs, transitions de couches).
+- [x] L4-T11 Responsive complet (desktop, tablette, mobile).
 
 **L5, Contenu (preuve d'exécution)**
 
-- [ ] L5-T1 Feed "Shipped" branché sur l'API GitHub (tes vrais commits en direct).
+- [x] L5-T1 Feed "Shipped" branché sur l'API GitHub (tes vrais commits en direct).
 
 **L6, Conversion (sortie 1)**
 
-- [ ] L6-T1 Bouton persistant `[ Recruter l'Architecte ]`.
-- [ ] L6-T2 Modal : proposition de valeur hybride, lien CV (`CV_AdamaDiallo_RSE.pdf`), Cal.com embarqué.
-- [ ] L6-T3 Capture du lead recruteur dans `leads`, événement PostHog `recruiter_intent`.
-- [ ] L6-T4 Mode lecture recruteur (`?for=recruiter`), layout simplifié et imprimable.
+- [x] L6-T1 Bouton persistant `[ Recruter l'Architecte ]`.
+- [x] L6-T2 Modal : proposition de valeur hybride (CDI / CDD dès novembre 2026), lien CV (`CV_AdamaDiallo_RSE.pdf`), Cal.com embarqué.
+- [x] L6-T3 Capture du lead recruteur dans `leads`, événement PostHog `recruiter_intent`.
+- [x] L6-T4 Mode lecture recruteur (`?for=recruiter`), layout simplifié et imprimable.
 
 **L8, Qualité/SEO**
 
-- [ ] L8-T4 PostHog branché (région UE) + bandeau de consentement.
-- [ ] L8-T5 Métadonnées + OG statique de la home, JSON-LD `Person`.
-- [ ] L8-T6 Better Stack (uptime) pour que le System Status reflète un vrai statut.
+- [x] L8-T4 PostHog branché (région UE) + bandeau de consentement.
+- [x] L8-T5 Métadonnées + OG statique de la home, JSON-LD `Person` (AG2R + STRATA, cible CDI/CDD).
+- [x] L8-T6 Better Stack (uptime) pour que le System Status reflète un vrai statut.
 
 **Definition of Done P1** : tu envoies le lien à un recruteur, il voit ton statut live, tes décisions, ta roadmap, tes commits réels, et il peut réserver un RDV en 2 clics. **Jalon : dashboard recrutement-ready le 3 août. Première version envoyable.**
 
@@ -176,7 +176,7 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 
 **L0, Infra**
 
-- [ ] L0-T8 Déployer réellement `services/engine` (FastAPI) sur Railway, variable d'env, healthcheck.
+- [~] L0-T8 Déployer réellement `services/engine` (FastAPI) sur Railway, variable d'env, healthcheck. (Code prêt : `main.py` + `/health`, `railway.json`, `Procfile`. Reste : créer le service Railway et déployer.)
 
 **L2, Moteur de calcul**
 
@@ -186,12 +186,12 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 
 **L3, Intelligence (RAG + adama.ai)**
 
-- [ ] L3-T1 Ingestion : Mistral OCR 4 sur tes PDF (ESRS, VSME, CV).
-- [ ] L3-T2 Chunking sémantique + embeddings Mistral (1024 dim) → `rag_chunks`.
-- [ ] L3-T3 Index pgvector (hnsw), retrieval top-k filtré par langue/source.
-- [ ] L3-T4 Génération citée (Mistral), réponses avec sources.
-- [ ] L3-T5 Route `api/chat` en streaming (Vercel AI SDK), composant `adama.ai` flottant.
-- [ ] L3-T6 Commande Ctrl+K → `ask adama`.
+- [~] L3-T1 Ingestion : extraction PDF locale (unpdf) sur tes PDF (ESRS, VSME, CV). (Script `rag:ingest` prêt ; reste à ingérer le corpus.)
+- [x] L3-T2 Chunking sémantique + embeddings OpenAI text-embedding-3-small (1024 dim) → `rag_chunks`.
+- [x] L3-T3 Index pgvector (hnsw), retrieval top-k filtré par langue/source.
+- [x] L3-T4 Génération citée (gpt-4o), réponses avec sources, refus hors contexte.
+- [x] L3-T5 Route `api/chat` en streaming (Vercel AI SDK), composant `adama.ai` flottant.
+- [x] L3-T6 Commande Ctrl+K → `ask adama`.
 
 **L4, Interface (widgets)**
 

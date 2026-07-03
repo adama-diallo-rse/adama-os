@@ -113,7 +113,7 @@ create table if not exists rag_documents (
   created_at  timestamptz not null default now()
 );
 
--- rag_chunks : chunks vectorisés (Mistral Embed = 1024 dimensions)
+-- rag_chunks : chunks vectorisés (OpenAI text-embedding-3-small, 1024 dim)
 create table if not exists rag_chunks (
   id           uuid primary key default gen_random_uuid(),
   document_id  uuid not null references rag_documents(id) on delete cascade,
@@ -149,7 +149,7 @@ create index if not exists idx_rag_chunks_document
 create index if not exists idx_audit_requests_status
   on audit_requests (status, created_at desc);
 
--- Index vectoriel HNSW, similarité cosinus (adapté à Mistral Embed).
+-- Index vectoriel HNSW, similarité cosinus (embeddings OpenAI normalisés).
 create index if not exists idx_rag_chunks_embedding
   on rag_chunks using hnsw (embedding vector_cosine_ops);
 

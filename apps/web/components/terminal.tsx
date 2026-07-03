@@ -49,11 +49,14 @@ export function Terminal({
   open,
   onOpenChange,
   onRecruit,
+  onAskAdama,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   /** L6 : ouvre le modal "Recruter l'Architecte". */
   onRecruit?: () => void;
+  /** L3-T6 : ouvre le chat adama.ai. */
+  onAskAdama?: () => void;
 }) {
   const reduceMotion = useReducedMotion();
   const [logs, setLogs] = useState<LogLine[]>([]);
@@ -213,6 +216,16 @@ export function Terminal({
                     hint="télécharge le CV en PDF"
                     onSelect={downloadCv}
                   />
+                  {onAskAdama ? (
+                    <TerminalItem
+                      value="ask adama"
+                      hint="agent ESG avec sources (RAG)"
+                      onSelect={() => {
+                        close();
+                        onAskAdama();
+                      }}
+                    />
+                  ) : null}
                   <TerminalItem
                     value="ping strata"
                     hint="vérifie le moteur STRATA"

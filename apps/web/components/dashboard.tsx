@@ -14,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@adama/ui";
+import { AdamaAi } from "./adama-ai";
 import { LayerA } from "./layer-a";
 import { LayerB } from "./layer-b";
 import { LayerC } from "./layer-c";
@@ -70,6 +71,7 @@ export function Dashboard({ data }: { data: DashboardData }) {
   useThemeBoot();
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [recruitOpen, setRecruitOpen] = useState(false);
+  const [adamaOpen, setAdamaOpen] = useState(false);
 
   const byKey = new Map(data.metrics.map((m) => [m.key, m]));
   const systemStatus =
@@ -191,7 +193,10 @@ export function Dashboard({ data }: { data: DashboardData }) {
         open={terminalOpen}
         onOpenChange={setTerminalOpen}
         onRecruit={() => setRecruitOpen(true)}
+        onAskAdama={() => setAdamaOpen(true)}
       />
+      {/* L3-T5 : agent adama.ai flottant (lanceur bas gauche) */}
+      <AdamaAi open={adamaOpen} onOpenChange={setAdamaOpen} />
     </div>
     </MotionConfig>
   );

@@ -134,7 +134,7 @@ export const ragDocuments = pgTable("rag_documents", {
 });
 
 // --- rag_chunks ------------------------------------------------------
-// Chunks vectorisés (Mistral Embed = 1024 dimensions).
+// Chunks vectorisés (OpenAI text-embedding-3-small tronqué à 1024 dim).
 export const ragChunks = pgTable("rag_chunks", {
   id: uuid("id").primaryKey().defaultRandom(),
   documentId: uuid("document_id")

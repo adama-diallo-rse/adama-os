@@ -352,9 +352,9 @@ Le design est en Dark Mode intégral (Noir carbone, typographie blanche épurée
 Un panneau latéral fixe (ou un bloc d'en-tête massif).
 
 - Status : `🟢 ONLINE - BUILDING MODE`
-- Current Focus : `Déploiement ESG Optimizer v2`
-- Deadline Stage : `31 Octobre 2026 - Compte à rebours [ XX Jours ]`
-- Physical Engine : `Lean Bulk Progress (Cible 80kg) : 72% | Energy Level : Optimal`
+- Current Focus : `ESG Optimizer V5 - Sustainability OS`
+- Deadline Stage : `31 Octobre 2026 - Compte à rebours [ XX Jours ]` (stage AG2R LA MONDIALE, Grenoble, Data ESG & Solutions IA)
+- Physical Engine : `Lean Bulk Progress (71 kg → 80 kg) | Energy Level : Optimal`
 - Minimalist Protocol : `Social Media : Locked | Deep Work : Active`
 
 **Couche B : DECISIONS LOG (Le Raisonnement)**
@@ -374,7 +374,7 @@ La transparence totale sur tes chantiers en cours.
 
 - Terminal interactif : Un raccourci clavier (`Ctrl + K`) transforme le site en ligne de commande. Un recruteur peut taper `download cv` ou `ping strata`.
 - Widgets en direct : Un mini-simulateur VSME testable directement sur la page.
-- Preuve Sociale : Logos des structures accompagnées (AFEV, Ministère des Finances) et métriques d'ESG Optimizer en production.
+- Preuve Sociale : Logos des structures accompagnées (AG2R LA MONDIALE, Younivibe, AFEV, Ministère des Finances) et métriques d'ESG Optimizer en production.
 
 ### 💰 PARTIE 3 : LA MACHINE DE CONVERSION (Le Tunnel)
 

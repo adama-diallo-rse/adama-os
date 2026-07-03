@@ -176,7 +176,7 @@ export function LayerA({ metrics }: { metrics: MetricRow[] }) {
             />
           </div>
           <p className="mt-1.5 font-mono text-[0.65rem] text-faint">
-            objectif : 80 kg
+            objectif : {targetWeight} kg
           </p>
         </div>
 
