@@ -43,6 +43,9 @@ function parseArgs(argv: string[]): CliArgs {
 
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
+    if (arg === undefined) {
+      continue;
+    }
     if (arg.startsWith("--")) {
       const value = argv[i + 1];
       if (!value || value.startsWith("--")) {
@@ -242,8 +245,9 @@ async function ingest() {
     .where(
       and(eq(ragDocuments.source, args.source), eq(ragDocuments.title, args.title)),
     );
-  if (existing.length > 0) {
-    await db.delete(ragDocuments).where(eq(ragDocuments.id, existing[0].id));
+  const previous = existing[0];
+  if (previous) {
+    await db.delete(ragDocuments).where(eq(ragDocuments.id, previous.id));
     console.log("  document existant remplacé (cascade sur les chunks)");
   }
 
@@ -251,6 +255,9 @@ async function ingest() {
     .insert(ragDocuments)
     .values({ source: args.source, title: args.title, lang: args.lang })
     .returning({ id: ragDocuments.id });
+  if (!doc) {
+    throw new Error("Insertion du document RAG échouée (aucun id retourné).");
+  }
 
   for (let i = 0; i < chunks.length; i += INSERT_BATCH_SIZE) {
     const batch = chunks.slice(i, i + INSERT_BATCH_SIZE);
