@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Badge, Card, CardContent } from "@adama/ui";
+import { NewsletterForm } from "../../components/newsletter-form";
 import { CATALOG } from "../../content/learn/catalog";
 import { getGrantedLevels } from "../../lib/learn/access";
 import { getCourseOverrides } from "../../sanity/lib/courses";
@@ -96,6 +97,14 @@ export default async function LearnPage() {
             );
           })}
         </section>
+
+        <div className="mt-10">
+          <NewsletterForm
+            context="learn"
+            title="Être prévenu des nouvelles formations"
+            subtitle="Les nouveaux niveaux et ressources, directement par email."
+          />
+        </div>
 
         <footer className="mt-10 flex flex-col items-start justify-between gap-2 border-t border-border pt-5 sm:flex-row sm:items-center">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">

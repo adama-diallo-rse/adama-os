@@ -14,8 +14,35 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-export default function AccessPage() {
+type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
+
+// Message contextuel selon le paramètre de retour de /api/checkout.
+function checkoutNotice(
+  purchased: boolean,
+  checkout: string | undefined,
+): { tone: "ok" | "warn"; text: string } | null {
+  if (purchased) {
+    return {
+      tone: "ok",
+      text: "Paiement confirmé. Saisis l'email utilisé à l'achat pour ouvrir ton accès (le webhook peut prendre quelques secondes).",
+    };
+  }
+  if (checkout === "unavailable" || checkout === "error") {
+    return {
+      tone: "warn",
+      text: "Le paiement en ligne n'est pas disponible pour le moment. Si tu as déjà acheté, débloque ton accès ci-dessous ou écris-nous.",
+    };
+  }
+  return null;
+}
+
+export default async function AccessPage({ searchParams }: Props) {
+  const params = await searchParams;
   const courses = CATALOG.map((c) => ({ level: c.level, title: c.title }));
+  const notice = checkoutNotice(
+    params.purchased === "1",
+    typeof params.checkout === "string" ? params.checkout : undefined,
+  );
 
   return (
     <div className="bg-grid min-h-dvh">
@@ -36,6 +63,20 @@ export default function AccessPage() {
             droit et on ouvre le niveau correspondant.
           </p>
         </header>
+
+        {notice ? (
+          <div
+            role="status"
+            className={
+              "mb-5 rounded-[calc(var(--radius)_-_0.25rem)] border px-4 py-3 font-mono text-xs leading-relaxed " +
+              (notice.tone === "ok"
+                ? "border-emerald/50 bg-emerald/10 text-emerald-bright"
+                : "border-border-strong bg-surface-raised text-muted")
+            }
+          >
+            {notice.text}
+          </div>
+        ) : null}
 
         <Card>
           <CardContent className="py-6">

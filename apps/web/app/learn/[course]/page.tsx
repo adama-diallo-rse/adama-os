@@ -77,7 +77,7 @@ export default async function CoursePage({ params }: Props) {
           {!unlocked && available ? (
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <Link
-                href={checkoutUrl ?? "/strata"}
+                href={checkoutUrl ?? `/api/checkout?level=${course.level}`}
                 className="inline-flex h-9 items-center justify-center rounded-[calc(var(--radius)_-_0.25rem)] bg-emerald px-4 font-mono text-sm font-medium uppercase tracking-[0.12em] text-emerald-foreground transition-colors hover:bg-emerald-bright"
               >
                 Débloquer · {priceLabel}

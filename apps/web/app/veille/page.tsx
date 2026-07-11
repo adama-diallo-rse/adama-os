@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Badge, Card, CardContent } from "@adama/ui";
+import { NewsletterForm } from "../../components/newsletter-form";
 import { getVeilleList } from "../../sanity/lib/queries";
 
 // L5-T5 — Page /veille (liste). Server component : le contenu est visible par
@@ -91,6 +92,10 @@ export default async function VeillePage() {
             ))}
           </section>
         )}
+
+        <div className="mt-10">
+          <NewsletterForm context="veille" />
+        </div>
 
         <footer className="mt-10 flex flex-col items-start justify-between gap-2 border-t border-border pt-5 sm:flex-row sm:items-center">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">
