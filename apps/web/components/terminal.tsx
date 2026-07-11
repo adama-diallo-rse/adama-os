@@ -46,6 +46,15 @@ const NAV_TARGETS: { id: string; label: string }[] = [
   { id: "shipped", label: "Shipped · Proof of Work" },
 ];
 
+// Pages du site (navigation réelle, pas un scroll).
+const PAGE_TARGETS: { url: string; label: string }[] = [
+  { url: "/strata", label: "STRATA" },
+  { url: "/audit", label: "Audit Express" },
+  { url: "/learn", label: "Formations" },
+  { url: "/veille", label: "Veille" },
+  { url: "/metrics", label: "Open Metrics" },
+];
+
 export function Terminal({
   open,
   onOpenChange,
@@ -104,6 +113,14 @@ export function Terminal({
         return;
       }
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    },
+    [close],
+  );
+
+  const goTo = useCallback(
+    (url: string) => {
+      close();
+      window.location.href = url;
     },
     [close],
   );
@@ -269,6 +286,20 @@ export function Terminal({
                       value={`navigate ${t.label}`}
                       hint="scroll"
                       onSelect={() => navigate(t.id)}
+                    />
+                  ))}
+                </Command.Group>
+
+                <Command.Group
+                  heading="Explorer"
+                  className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[0.6rem] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.18em] [&_[cmdk-group-heading]]:text-faint"
+                >
+                  {PAGE_TARGETS.map((t) => (
+                    <TerminalItem
+                      key={t.url}
+                      value={`open ${t.label}`}
+                      hint="page"
+                      onSelect={() => goTo(t.url)}
                     />
                   ))}
                 </Command.Group>

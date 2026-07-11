@@ -5,6 +5,7 @@
 // responsive desktop / tablette / mobile.
 
 import { useState } from "react";
+import Link from "next/link";
 import { MotionConfig, motion, type Variants } from "framer-motion";
 import {
   Badge,
@@ -134,6 +135,36 @@ export function Dashboard({ data }: { data: DashboardData }) {
             </Button>
           </div>
         </motion.header>
+
+        {/* Navigation : accès direct au produit et aux contenus */}
+        <motion.nav
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          aria-label="Sections du site"
+          className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-border py-3 font-mono text-xs"
+        >
+          {[
+            { href: "/strata", label: "STRATA", accent: true },
+            { href: "/audit", label: "Audit Express", accent: false },
+            { href: "/learn", label: "Formations", accent: false },
+            { href: "/veille", label: "Veille", accent: false },
+            { href: "/metrics", label: "Open Metrics", accent: false },
+          ].map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={
+                "uppercase tracking-[0.14em] transition-colors " +
+                (l.accent
+                  ? "text-emerald hover:text-emerald-bright"
+                  : "text-faint hover:text-foreground")
+              }
+            >
+              {l.label}
+            </Link>
+          ))}
+        </motion.nav>
 
         {/* Les 4 couches, entrée en cascade */}
         <motion.main

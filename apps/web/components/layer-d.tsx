@@ -7,12 +7,7 @@ import Link from "next/link";
 import { Badge, Button, Card, CardContent, CardFooter, CardHeader, CardTitle } from "@adama/ui";
 import { AnimatedNumber } from "./animated-number";
 import { metricLabel, metricSuffix } from "../lib/metrics";
-import {
-  CONTACT_EMAIL,
-  CV_DOWNLOAD_NAME,
-  CV_PATH,
-  type StrataMetricRow,
-} from "./types";
+import { CV_DOWNLOAD_NAME, CV_PATH, type StrataMetricRow } from "./types";
 
 // Métriques affichées par défaut si la table strata_analytics est vide.
 const FALLBACK_METRICS: StrataMetricRow[] = [
@@ -104,19 +99,19 @@ export function LayerD({ strata }: { strata: StrataMetricRow[] }) {
         </div>
       </CardContent>
       <CardFooter className="flex-wrap gap-2">
-        <a href={CV_PATH} download={CV_DOWNLOAD_NAME} className="inline-flex">
+        <Link href="/strata" className="inline-flex">
           <Button size="sm" tabIndex={-1}>
-            Download CV
+            Découvrir STRATA
           </Button>
-        </a>
-        <a
-          href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-            "Prise de contact, Adama OS",
-          )}`}
-          className="inline-flex"
-        >
+        </Link>
+        <Link href="/audit" className="inline-flex">
           <Button variant="outline" size="sm" tabIndex={-1}>
-            Book call
+            Audit Express gratuit
+          </Button>
+        </Link>
+        <a href={CV_PATH} download={CV_DOWNLOAD_NAME} className="inline-flex">
+          <Button variant="ghost" size="sm" tabIndex={-1}>
+            Download CV
           </Button>
         </a>
       </CardFooter>
