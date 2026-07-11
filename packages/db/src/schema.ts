@@ -46,6 +46,13 @@ export const auditStatus = pgEnum("audit_status", [
   "failed",
 ]);
 
+// Origine d'un accès formation : achat Polar, essai gratuit, octroi manuel.
+export const entitlementSource = pgEnum("entitlement_source", [
+  "polar",
+  "trial",
+  "manual",
+]);
+
 // --- system_metrics --------------------------------------------------
 // Variables temps réel (compte à rebours, lean bulk, deep work...).
 export const systemMetrics = pgTable("system_metrics", {
@@ -169,6 +176,23 @@ export const auditRequests = pgTable("audit_requests", {
     .defaultNow(),
 });
 
+// --- course_entitlements ---------------------------------------------
+// L5-T8 — Droit d'accès à une formation /learn. Une ligne = un email a débloqué
+// un niveau. Alimentée par le webhook Polar (L6-T6), l'essai gratuit (L6-T9) ou
+// un octroi manuel. La page /learn/acces vérifie l'existence d'une ligne pour
+// (email, level) et pose le cookie signé. Unicité (email, level) pour rester
+// idempotent face aux relances de webhook.
+export const courseEntitlements = pgTable("course_entitlements", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  email: text("email").notNull(),
+  level: doublePrecision("level").notNull(),
+  source: entitlementSource("source").notNull().default("polar"),
+  reference: text("reference"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
 // --- Relations -------------------------------------------------------
 export const ragDocumentsRelations = relations(ragDocuments, ({ many }) => ({
   chunks: many(ragChunks),
@@ -209,3 +233,5 @@ export type RagChunk = typeof ragChunks.$inferSelect;
 export type NewRagChunk = typeof ragChunks.$inferInsert;
 export type AuditRequest = typeof auditRequests.$inferSelect;
 export type NewAuditRequest = typeof auditRequests.$inferInsert;
+export type CourseEntitlement = typeof courseEntitlements.$inferSelect;
+export type NewCourseEntitlement = typeof courseEntitlements.$inferInsert;
