@@ -12,6 +12,7 @@ import {
   CV_PATH,
   GITHUB_REPO_URL,
 } from "./types";
+import { captureEvent } from "../lib/analytics";
 
 const THEME_KEY = "adama-theme";
 
@@ -119,6 +120,11 @@ export function Terminal({
   const goTo = useCallback(
     (url: string) => {
       close();
+      // Clic vers un produit STRATA externe : on trace la sortie (no-op sans
+      // consentement / sans cle PostHog).
+      if (/^https?:/.test(url)) {
+        captureEvent("strata_outbound", { url, source: "terminal" });
+      }
       window.location.href = url;
     },
     [close],

@@ -1,8 +1,10 @@
 # ROADMAP COMPLÈTE, ADAMA OS
 
 > Compagnon de `ADAMA_OS_BLUEPRINT.md`. Ici, le plan d'exécution complet, couche par couche.
-> Rédigée le 24 juin 2026, mise à jour le 3 juillet 2026. Deadline stage AG2R LA MONDIALE (Grenoble, Chargé de missions RSE - Data ESG & Solutions IA, du 1er mai au 31 octobre 2026). Push recrutement : novembre 2026, cible CDI / CDD en Île-de-France.
-> P0 et P1 sont livrées (dashboard recrutement-ready en avance sur le jalon du 3 août). Phase courante : P2, à commencer par L0-T8.
+> Rédigée le 24 juin 2026, mise à jour le 13 juillet 2026. Deadline stage AG2R LA MONDIALE (Grenoble, Chargé de missions RSE - Data ESG & Solutions IA, du 1er mai au 31 octobre 2026). Push recrutement : novembre 2026, cible CDI / CDD en Île-de-France.
+> P0 et P1 sont livrées (dashboard recrutement-ready en avance sur le jalon du 3 août). Phase courante : P2.
+>
+> **Recentrage du 13 juillet 2026.** Adama OS est l'ATELIER du fondateur (dashboard build-in-public), pas un hébergeur de produits. Les modules audit, veille et formations NE sont PAS développés ici : ce sont des produits STRATA, dans leurs propres repos (ESG Optimizer et STRATA Scope en ligne ; STRATA Watch, Academy, Foundation à venir). Adama OS s'y connecte par des liens tracés. Les couches L5 (contenu) et L6 (conversion) sont donc réduites à ce qui relève vraiment du dashboard : preuve d'exécution et sortie recrutement.
 
 ---
 
@@ -26,13 +28,13 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 **Objectif** : un squelette déployé en continu, chaque push en ligne en moins de 2 minutes.
 **Stack** : Monorepo pnpm + Turborepo, GitHub, Vercel (web), Railway (FastAPI), domaine + DNS.
 **Contient** : repo, CI/CD, environnements (dev/prod), secrets, domaine, branches.
-**État cible** : `git push` sur `main` déploie web + engine, preview deploys sur les PR.
+**État cible** : `git push` sur `main` déploie web (Vercel), preview deploys sur les PR. (`services/engine` retiré le 13 juillet, voir L0-T8.)
 
 ### L1, Données (le système nerveux)
 
 **Objectif** : une source de vérité unique et sécurisée.
 **Stack** : Supabase (Postgres UE + Auth + Realtime + Storage + pgvector), Drizzle ORM.
-**Contient** : `system_metrics`, `decisions_log`, `trajectory`, `strata_analytics`, `leads`, `rag_documents`, `rag_chunks`, `audit_requests`, RLS, migrations.
+**Contient** : `system_metrics`, `decisions_log`, `trajectory`, `strata_analytics`, `leads` (recruteur), `rag_documents`, `rag_chunks`, RLS, migrations. (`audit_requests` et `course_entitlements` retirés le 13 juillet : ils appartenaient aux modules audit/formations partis chez les produits STRATA.)
 **État cible** : schéma migré, RLS active, auth fonctionnelle, seed de données de démo.
 
 ### L2, Moteur de calcul (l'intelligence brute)
@@ -56,19 +58,19 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 **Contient** : design tokens, layout dashboard, couches A/B/C/D, terminal Ctrl+K, widgets, modal recruteur.
 **État cible** : dashboard complet, animé, responsive, accessible.
 
-### L5, Contenu (veille + formations)
+### L5, Contenu (preuve d'exécution)
 
-**Objectif** : du contenu qui se remplit en partie tout seul.
-**Stack** : Sanity (CMS), MDX pour les cours premium, Trigger.dev pour la veille auto.
-**Contient** : schémas Sanity (article, cours, niveau), pipeline veille (scrape, synthèse, publish), pages `/veille` et `/learn`.
-**État cible** : la veille se publie sans saisie manuelle, les 4 niveaux de formation sont structurés.
+**Objectif** : montrer la construction en public, sans dupliquer les produits STRATA.
+**Stack** : API GitHub (feed Shipped), Open Metrics (Supabase).
+**Contient** : feed "Shipped" (commits réels), page Open Metrics, hub `/strata` qui pointe vers les produits.
+**État cible** : le dashboard prouve l'exécution en direct. La veille réglementaire est le produit STRATA Watch (repo `strata-watch`), les formations sont STRATA Academy (repo `strata-academy`) : aucune des deux n'est hébergée ici.
 
-### L6, Conversion & Monétisation (le tunnel)
+### L6, Conversion (les sorties du dashboard)
 
-**Objectif** : 3 sorties actives et mesurées.
-**Stack** : Polar (Merchant of Record), Cal.com, Resend, PostHog.
-**Contient** : modal "Recruter l'Architecte", landing STRATA + Audit Express, /learn payant, newsletter, événements de funnel.
-**État cible** : un visiteur peut prendre RDV, lancer un audit, acheter une formation, et tout est tracké.
+**Objectif** : 2 sorties actives et mesurées, propres au dashboard fondateur.
+**Stack** : Cal.com, PostHog.
+**Contient** : modal "Recruter l'Architecte" (sortie recrutement), liens sortants tracés vers les produits STRATA (hub `/strata`, nav, Couche D, terminal).
+**État cible** : un recruteur réserve un RDV, un visiteur intéressé part vers ESG Optimizer / STRATA Scope, les deux sorties sont trackées. La monétisation (audit payant, achat formation, TVA UE) est gérée par les produits STRATA (Stripe sur strata-platform), pas ici.
 
 ### L7, Acquisition & Média
 
@@ -102,7 +104,7 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 - [x] L0-T4 Initialiser shadcn/ui (style new-york, base color zinc).
 - [x] L0-T5 Connecter le repo à Vercel, activer les preview deploys.
 - [ ] L0-T6 Acheter le domaine, pointer les DNS vers Vercel, activer le HTTPS.
-- [x] L0-T7 Créer le service Railway vide pour `services/engine` (placeholder prêt : main.py, railway.json, Procfile).
+- [x] ~~L0-T7 Créer le service Railway vide pour `services/engine`.~~ Annulé le 13 juillet : `services/engine` supprimé (doublon du moteur de STRATA Scope, plus appelé par le web).
 
 **L1, Données**
 
@@ -176,13 +178,11 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 
 **L0, Infra**
 
-- [~] L0-T8 Déployer réellement `services/engine` (FastAPI) sur Railway, variable d'env, healthcheck. (Code prêt : `main.py` + `/health`, `railway.json`, `Procfile`. Reste : créer le service Railway et déployer.)
+- [ ] L0-T8 `services/engine` (FastAPI) : **à réévaluer.** Depuis le retrait de l'Audit Express (13 juillet), plus aucune route web ne l'appelle (adama.ai fait son RAG directement via pgvector). Il fait probablement doublon avec le moteur carbone de STRATA Scope. Décision à prendre : le supprimer d'Adama OS ou le garder comme service partagé. Tant que non tranché, ne pas déployer.
 
-**L2, Moteur de calcul**
+**L2, Moteur de calcul — à réévaluer (voir L0-T8)**
 
-- [ ] L2-T1 Module `carbon` (Scopes 1-2-3), fonctions pures + tests.
-- [ ] L2-T2 Module `materiality` (double matérialité), structure de matrice.
-- [ ] L2-T3 Endpoint `POST /audit-express` (entrées courtes → mini-rapport).
+- Le calcul ESG lourd (carbone, matérialité, audit-express) est le cœur des produits STRATA Scope et ESG Optimizer. Le moteur `services/engine` d'Adama OS fait doublon et n'est plus appelé par le web. À supprimer ou à convertir en service partagé, pas à re-développer ici.
 
 **L3, Intelligence (RAG + adama.ai)**
 
@@ -198,14 +198,11 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 - [x] L4-T12 Simulateur VSME interactif (saisie → score ESG instantané).
 - [x] L4-T13 Page Open Metrics publique (depuis `strata_analytics`).
 
-**L5, Contenu (veille auto)**
+**L5, Contenu — DÉPLACÉ vers STRATA Watch**
 
-- [ ] L5-T2 Schémas Sanity (article de veille, source, tags).
-- [ ] L5-T3 Job Trigger.dev : scrape EFRAG / GHG Protocol, détection de nouveauté.
-- [ ] L5-T4 Synthèse Mistral → brouillon Sanity → publication (validation 1 clic).
-- [ ] L5-T5 Page `/veille` (liste + article, SSR pour le SEO).
+- La veille réglementaire (scrape EFRAG / EUR-Lex / ADEME, synthèse IA, alertes) est le produit STRATA Watch (repo `strata-watch`, backend FastAPI + pgvector déjà en cours). Elle n'est plus développée dans Adama OS. Le dashboard s'y connectera par un lien quand STRATA Watch sera en ligne (Q3 2026).
 
-**Definition of Done P2** : tu poses une question réglementaire à adama.ai et il répond avec sources, le simulateur VSME tourne, la veille publie sans saisie. **Jalon : OS vivant le 31 août.**
+**Definition of Done P2** : tu poses une question réglementaire à adama.ai et il répond avec sources, le simulateur VSME tourne. **Jalon : OS vivant le 31 août.**
 
 ---
 
@@ -213,27 +210,27 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 
 **Fenêtre** : 1 septembre → 28 septembre. **Objectif** : les 3 sorties de conversion actives. Cale avec l'expansion Afrique de l'Ouest annoncée pour septembre.
 
-**L5, Contenu (formations)**
+**Monétisation — DÉPLACÉE vers les produits STRATA**
 
-- [ ] L5-T6 Structure `/learn` en 4 niveaux (schéma Sanity cours + MDX pour le contenu premium).
-- [ ] L5-T7 Rédiger le niveau 1 (CSRD/ESG automatisé) en entier, les 3 autres en plan détaillé.
-- [ ] L5-T8 Système d'accès débloqué après achat.
+Le tunnel de vente n'appartient pas au dashboard fondateur. Il est porté par les produits, chacun dans son repo :
 
-**L6, Conversion (sorties 2 et 3)**
+- Audit CSRD payant → **ESG Optimizer** (`esg-optimizer.fr`, en ligne).
+- Bilan carbone → **STRATA Scope** (`scope.esg-optimizer.fr`, en ligne).
+- Formations → **STRATA Academy** (repo `strata-academy`, Q4 2026).
+- Paiement, checkout, TVA UE, newsletter → **strata-platform** (Stripe / Stripe Tax) et les produits concernés.
 
-- [ ] L6-T5 Compte Polar configuré, produits créés (formations).
-- [ ] L6-T6 Checkout Polar + webhooks (`api/webhooks/polar`) → débloque l'accès.
-- [ ] L6-T7 Landing `/strata` (modules de reporting, valeur, captures).
-- [ ] L6-T8 Audit Express en lead magnet (formulaire → moteur FastAPI → mini-rapport + capture lead).
-- [ ] L6-T9 Essai gratuit SaaS géré par Polar.
-- [ ] L6-T10 Newsletter (Resend Audiences) sur veille et /learn.
-- [ ] L6-T11 Emails transactionnels (React Email) : confirmation RDV, livraison formation, alerte lead.
+Chaque produit trackera son propre funnel de vente, chez lui.
+
+**L6, Conversion (ce qui reste sur Adama OS)**
+
+- [x] L6-T7 Hub `/strata` : vitrine qui liste les produits STRATA avec leur statut (live = lien, autres = à venir).
+- [x] L6-T12 Liens sortants tracés vers les produits live (event PostHog `strata_outbound` sur nav, Couche D, hub, terminal).
 
 **L8, Funnel**
 
-- [ ] L8-T7 Funnels PostHog pour les 3 sorties (vues → intention → conversion).
+- [ ] L8-T7 Funnels PostHog du dashboard : (1) recrutement `vue → recruiter_intent → RDV/CV`, (2) intérêt produit `vue → strata_outbound`. Les événements sont déjà émis ; reste à définir les 2 funnels dans l'UI PostHog (nécessite `NEXT_PUBLIC_POSTHOG_KEY`).
 
-**Definition of Done P3** : un visiteur peut prendre RDV, lancer un audit, s'abonner à la newsletter et acheter une formation, TVA UE gérée par Polar, tout tracké. **Jalon : tunnel complet le 28 septembre.**
+**Definition of Done P3 (Adama OS)** : un recruteur réserve un RDV et un visiteur intéressé part vers ESG Optimizer / STRATA Scope, les deux sorties étant trackées. La DoD de vente (audit, formation, TVA) est portée par les produits STRATA. **Jalon : sorties du dashboard tracées le 28 septembre.**
 
 ---
 
@@ -282,8 +279,8 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 | L2 Moteur       | placeholder              | -                          | carbon, materiality | audit-express    | tests, expansion |
 | L3 Intelligence | -                        | -                          | RAG + adama.ai      | -                | -                |
 | L4 Interface    | tokens, layout           | 4 couches, Ctrl+K          | VSME, Open Metrics  | -                | a11y, perf       |
-| L5 Contenu      | -                        | feed GitHub                | veille auto         | /learn 4 niveaux | OG dynamiques    |
-| L6 Conversion   | -                        | sortie 1 recruteur         | -                   | sorties 2 et 3   | UTM              |
+| L5 Contenu      | -                        | feed GitHub                | (STRATA Watch)      | (STRATA Academy) | OG dynamiques    |
+| L6 Conversion   | -                        | sortie 1 recruteur         | -                   | hub + sorties tracées | UTM         |
 | L7 Média        | -                        | -                          | -                   | -                | TikTok/YouTube   |
 | L8 Qualité      | lint, Sentry             | PostHog, SEO base          | -                   | funnels          | SEO, i18n, sécu  |
 
@@ -308,16 +305,15 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 **Dépendances** (à ne pas inverser)
 
 - L1 (données) avant L4 (interface) : les couches du dashboard lisent la base.
-- L0-T8 (engine en prod) avant L2 et L3 : le moteur et le RAG tournent sur Railway.
 - L1-T2 (schéma) avant tout le reste : c'est la fondation.
-- L6-T5 (Polar) avant L5-T8 (accès formation) : le paiement débloque l'accès.
+- (L0-T8 engine et la monétisation Polar/formations sont sortis du périmètre Adama OS : voir le recentrage du 13 juillet et les repos produits STRATA.)
 
 **Risques identifiés et parades**
 
 - **Surcharge du scope** (le risque que tu cites toi-même). Parade : finir P1 avant de toucher P2, ne jamais sauter de phase. La vitrine recrutement seule justifie déjà l'effort.
 - **Perfectionnisme sur le design.** Parade : timeboxer L4 à 1 semaine en P1, polir en P4.
 - **RAG qui hallucine.** Parade : forcer la citation des sources, refuser de répondre hors contexte.
-- **Conformité TVA.** Parade : Polar (MoR) gère, tu ne t'en occupes pas.
+- **Conformité TVA.** Gérée côté produits STRATA (Stripe Tax sur strata-platform), hors périmètre Adama OS.
 - **Temps M2 + stage.** Parade : la roadmap suppose un rythme régulier, pas des sprints héroïques. 1 couche avance à la fois.
 
 ---
@@ -334,8 +330,8 @@ Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `
 
 - Avancement : nombre de tâches `[x]` par phase.
 - Recrutement : `recruiter_intent` et RDV Cal.com (PostHog).
-- SaaS : audits lancés, essais, requêtes API (`strata_analytics`).
-- Formations : vues `/learn`, achats Polar.
+- Produit STRATA : métriques d'usage publiques (`strata_analytics`, page Open Metrics).
+- Sorties STRATA : clics `strata_outbound` par produit (PostHog).
 - Média : trafic par source UTM.
 
 ---

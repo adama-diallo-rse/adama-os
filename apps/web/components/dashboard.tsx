@@ -24,6 +24,7 @@ import { ConsentLink } from "./consent-banner";
 import { RecruitModal } from "./recruit-modal";
 import { ShippedFeed } from "./shipped-feed";
 import { VsmeSimulator } from "./vsme-simulator";
+import { OutboundLink } from "./outbound-link";
 import { Terminal, useThemeBoot } from "./terminal";
 import type { DashboardData, TrajectoryRow } from "./types";
 
@@ -145,20 +146,28 @@ export function Dashboard({ data }: { data: DashboardData }) {
           className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-border py-3 font-mono text-xs"
         >
           {[
-            { href: "/strata", label: "STRATA", accent: true, external: false },
+            { href: "/strata", label: "STRATA", accent: true, external: false, produit: "" },
             {
               href: "https://esg-optimizer.fr",
               label: "ESG Optimizer",
               accent: false,
               external: true,
+              produit: "esg-optimizer",
             },
             {
               href: "https://scope.esg-optimizer.fr",
               label: "STRATA Scope",
               accent: false,
               external: true,
+              produit: "strata-scope",
             },
-            { href: "/metrics", label: "Open Metrics", accent: false, external: false },
+            {
+              href: "/metrics",
+              label: "Open Metrics",
+              accent: false,
+              external: false,
+              produit: "",
+            },
           ].map((l) => {
             const cls =
               "uppercase tracking-[0.14em] transition-colors " +
@@ -166,15 +175,15 @@ export function Dashboard({ data }: { data: DashboardData }) {
                 ? "text-emerald hover:text-emerald-bright"
                 : "text-faint hover:text-foreground");
             return l.external ? (
-              <a
+              <OutboundLink
                 key={l.href}
                 href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                produit={l.produit}
+                source="nav"
                 className={cls}
               >
                 {l.label}
-              </a>
+              </OutboundLink>
             ) : (
               <Link key={l.href} href={l.href} className={cls}>
                 {l.label}

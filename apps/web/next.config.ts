@@ -13,6 +13,4 @@ export default withSentryConfig(nextConfig, {
   silent: !process.env.CI,
   // Meilleure resolution des stack traces cote client.
   widenClientFileUpload: true,
-  // Retire les logs Sentry du bundle client.
-  disableLogger: true,
 });

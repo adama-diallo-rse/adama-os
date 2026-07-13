@@ -6,6 +6,7 @@
 import Link from "next/link";
 import { Badge, Button, Card, CardContent, CardFooter, CardHeader, CardTitle } from "@adama/ui";
 import { AnimatedNumber } from "./animated-number";
+import { OutboundLink } from "./outbound-link";
 import { metricLabel, metricSuffix } from "../lib/metrics";
 import { CV_DOWNLOAD_NAME, CV_PATH, type StrataMetricRow } from "./types";
 
@@ -104,16 +105,16 @@ export function LayerD({ strata }: { strata: StrataMetricRow[] }) {
             Découvrir STRATA
           </Button>
         </Link>
-        <a
+        <OutboundLink
           href="https://esg-optimizer.fr"
-          target="_blank"
-          rel="noopener noreferrer"
+          produit="esg-optimizer"
+          source="layer-d"
           className="inline-flex"
         >
           <Button variant="outline" size="sm" tabIndex={-1}>
             Essayer ESG Optimizer
           </Button>
-        </a>
+        </OutboundLink>
         <a href={CV_PATH} download={CV_DOWNLOAD_NAME} className="inline-flex">
           <Button variant="ghost" size="sm" tabIndex={-1}>
             Download CV

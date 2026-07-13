@@ -1,8 +1,10 @@
 // =====================================================================
 // ADAMA OS, L1 Données, Schéma Drizzle (source de vérité typée)
-// 8 tables du blueprint (§4). Correspond 1:1 à migrations/0000_init.sql.
-// Les index (dont l'index vectoriel HNSW) sont gérés dans le SQL de
-// migration, pas ici, pour rester sûr et lisible.
+// Dashboard fondateur : metrics, decisions, trajectory, analytics STRATA,
+// capture de leads recruteur, et corpus RAG d'adama.ai. Les produits STRATA
+// (audit, formations, paiements) vivent dans leurs propres repos et ne sont
+// PAS modelises ici. Les index (dont l'index vectoriel HNSW) sont geres dans
+// le SQL de migration, pas ici, pour rester sûr et lisible.
 // =====================================================================
 
 import { sql } from "drizzle-orm";
@@ -33,25 +35,10 @@ export const trajectoryType = pgEnum("trajectory_type", [
   "risk",
 ]);
 
-export const leadSource = pgEnum("lead_source", [
-  "recruiter",
-  "audit",
-  "newsletter",
-]);
-
-export const auditStatus = pgEnum("audit_status", [
-  "pending",
-  "processing",
-  "done",
-  "failed",
-]);
-
-// Origine d'un accès formation : achat Polar, essai gratuit, octroi manuel.
-export const entitlementSource = pgEnum("entitlement_source", [
-  "polar",
-  "trial",
-  "manual",
-]);
+// Seule la capture recruteur subsiste sur Adama OS (audit/newsletter sont
+// partis chez les produits STRATA). L'enum Postgres peut garder ses anciennes
+// valeurs sans risque ; seul "recruiter" est insere.
+export const leadSource = pgEnum("lead_source", ["recruiter"]);
 
 // --- system_metrics --------------------------------------------------
 // Variables temps réel (compte à rebours, lean bulk, deep work...).
@@ -101,7 +88,7 @@ export const trajectory = pgTable("trajectory", {
 });
 
 // --- strata_analytics ------------------------------------------------
-// Métriques produit STRATA (Open Metrics), remontées par le moteur.
+// Métriques produit STRATA (Open Metrics), remontées par les produits.
 export const strataAnalytics = pgTable("strata_analytics", {
   id: uuid("id").primaryKey().defaultRandom(),
   metric: text("metric").notNull(),
@@ -114,7 +101,7 @@ export const strataAnalytics = pgTable("strata_analytics", {
 });
 
 // --- leads -----------------------------------------------------------
-// Capture de leads (recruteur / audit / newsletter).
+// Capture de leads recruteur (modal "Recruter l'Architecte").
 export const leads = pgTable("leads", {
   id: uuid("id").primaryKey().defaultRandom(),
   email: text("email").notNull(),
@@ -158,41 +145,6 @@ export const ragChunks = pgTable("rag_chunks", {
     .defaultNow(),
 });
 
-// --- audit_requests --------------------------------------------------
-// Demandes d'Audit Express (lead magnet → moteur FastAPI).
-export const auditRequests = pgTable("audit_requests", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  leadId: uuid("lead_id").references(() => leads.id, { onDelete: "set null" }),
-  company: text("company").notNull(),
-  sector: text("sector"),
-  answers: jsonb("answers")
-    .$type<Record<string, unknown>>()
-    .notNull()
-    .default(sql`'{}'::jsonb`),
-  result: jsonb("result").$type<Record<string, unknown>>(),
-  status: auditStatus("status").notNull().default("pending"),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-});
-
-// --- course_entitlements ---------------------------------------------
-// L5-T8 — Droit d'accès à une formation /learn. Une ligne = un email a débloqué
-// un niveau. Alimentée par le webhook Polar (L6-T6), l'essai gratuit (L6-T9) ou
-// un octroi manuel. La page /learn/acces vérifie l'existence d'une ligne pour
-// (email, level) et pose le cookie signé. Unicité (email, level) pour rester
-// idempotent face aux relances de webhook.
-export const courseEntitlements = pgTable("course_entitlements", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  email: text("email").notNull(),
-  level: doublePrecision("level").notNull(),
-  source: entitlementSource("source").notNull().default("polar"),
-  reference: text("reference"),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-});
-
 // --- Relations -------------------------------------------------------
 export const ragDocumentsRelations = relations(ragDocuments, ({ many }) => ({
   chunks: many(ragChunks),
@@ -202,17 +154,6 @@ export const ragChunksRelations = relations(ragChunks, ({ one }) => ({
   document: one(ragDocuments, {
     fields: [ragChunks.documentId],
     references: [ragDocuments.id],
-  }),
-}));
-
-export const leadsRelations = relations(leads, ({ many }) => ({
-  auditRequests: many(auditRequests),
-}));
-
-export const auditRequestsRelations = relations(auditRequests, ({ one }) => ({
-  lead: one(leads, {
-    fields: [auditRequests.leadId],
-    references: [leads.id],
   }),
 }));
 
@@ -231,7 +172,3 @@ export type RagDocument = typeof ragDocuments.$inferSelect;
 export type NewRagDocument = typeof ragDocuments.$inferInsert;
 export type RagChunk = typeof ragChunks.$inferSelect;
 export type NewRagChunk = typeof ragChunks.$inferInsert;
-export type AuditRequest = typeof auditRequests.$inferSelect;
-export type NewAuditRequest = typeof auditRequests.$inferInsert;
-export type CourseEntitlement = typeof courseEntitlements.$inferSelect;
-export type NewCourseEntitlement = typeof courseEntitlements.$inferInsert;

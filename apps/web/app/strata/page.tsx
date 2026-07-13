@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Badge, Card, CardContent } from "@adama/ui";
+import { OutboundLink } from "../../components/outbound-link";
 
 // Hub STRATA. Adama OS est l'atelier du fondateur : il ne re-heberge aucun
 // produit, il pointe vers les vrais. Ce qui est en ligne s'ouvre directement
@@ -122,14 +123,14 @@ function ProductTile({ p }: { p: Product }) {
 
   if (p.href) {
     return (
-      <a
+      <OutboundLink
         href={p.href}
-        target="_blank"
-        rel="noopener noreferrer"
+        produit={p.name.toLowerCase().replace(/\s+/g, "-")}
+        source="strata-hub"
         className="block h-full"
       >
         {inner}
-      </a>
+      </OutboundLink>
     );
   }
   return inner;
@@ -165,14 +166,14 @@ export default function StrataPage() {
             construction en public.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <a
+            <OutboundLink
               href="https://esg-optimizer.fr"
-              target="_blank"
-              rel="noopener noreferrer"
+              produit="esg-optimizer"
+              source="strata-hub"
               className="inline-flex h-10 items-center justify-center rounded-[calc(var(--radius)_-_0.25rem)] bg-emerald px-5 font-mono text-sm font-medium uppercase tracking-[0.12em] text-emerald-foreground transition-colors hover:bg-emerald-bright"
             >
               Essayer ESG Optimizer
-            </a>
+            </OutboundLink>
             <Link
               href="/metrics"
               className="font-mono text-xs text-faint underline-offset-4 transition-colors hover:text-emerald-bright hover:underline"
