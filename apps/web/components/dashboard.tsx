@@ -145,25 +145,42 @@ export function Dashboard({ data }: { data: DashboardData }) {
           className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-border py-3 font-mono text-xs"
         >
           {[
-            { href: "/strata", label: "STRATA", accent: true },
-            { href: "/audit", label: "Audit Express", accent: false },
-            { href: "/learn", label: "Formations", accent: false },
-            { href: "/veille", label: "Veille", accent: false },
-            { href: "/metrics", label: "Open Metrics", accent: false },
-          ].map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={
-                "uppercase tracking-[0.14em] transition-colors " +
-                (l.accent
-                  ? "text-emerald hover:text-emerald-bright"
-                  : "text-faint hover:text-foreground")
-              }
-            >
-              {l.label}
-            </Link>
-          ))}
+            { href: "/strata", label: "STRATA", accent: true, external: false },
+            {
+              href: "https://esg-optimizer.fr",
+              label: "ESG Optimizer",
+              accent: false,
+              external: true,
+            },
+            {
+              href: "https://scope.esg-optimizer.fr",
+              label: "STRATA Scope",
+              accent: false,
+              external: true,
+            },
+            { href: "/metrics", label: "Open Metrics", accent: false, external: false },
+          ].map((l) => {
+            const cls =
+              "uppercase tracking-[0.14em] transition-colors " +
+              (l.accent
+                ? "text-emerald hover:text-emerald-bright"
+                : "text-faint hover:text-foreground");
+            return l.external ? (
+              <a
+                key={l.href}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cls}
+              >
+                {l.label}
+              </a>
+            ) : (
+              <Link key={l.href} href={l.href} className={cls}>
+                {l.label}
+              </Link>
+            );
+          })}
         </motion.nav>
 
         {/* Les 4 couches, entrée en cascade */}

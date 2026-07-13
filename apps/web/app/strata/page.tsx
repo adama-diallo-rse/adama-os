@@ -1,105 +1,145 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
 import Link from "next/link";
 import { Badge, Card, CardContent } from "@adama/ui";
-import { CONTACT_EMAIL } from "../../components/types";
 
-// L6-T7 — Landing STRATA : la vitrine du produit de reporting ESG.
-// Server component (indexable, SEO). Aucune dépendance à une config externe :
-// les CTA pointent vers /api/trial (essai, L6-T9), /audit (lead magnet, L6-T8)
-// et la prise de RDV (Cal.com si configuré, sinon mailto). La page reste
-// entièrement fonctionnelle sans aucune clé.
+// Hub STRATA. Adama OS est l'atelier du fondateur : il ne re-heberge aucun
+// produit, il pointe vers les vrais. Ce qui est en ligne s'ouvre directement
+// (ESG Optimizer, STRATA Scope). Ce qui n'est pas encore lance porte son statut
+// reel. Source de verite : le site corporate STRATA (contenu produits juillet
+// 2026). Server component, indexable, sans aucune dependance externe.
 export const metadata: Metadata = {
-  title: "STRATA — Reporting de durabilité automatisé pour PME",
+  title: "STRATA — La suite ESG pour PME",
   description:
-    "STRATA transforme vos données en reporting CSRD, VSME et bilan carbone conforme. Double matérialité, Scopes 1-2-3, taxonomie UE : un pipeline automatisé, auditable, pensé pour les PME européennes.",
+    "STRATA construit le systeme d'exploitation de l'entreprise durable : audit CSRD, bilan carbone, veille reglementaire, formation. Adama OS suit la construction en public.",
   alternates: { canonical: "/strata" },
 };
 
-const CAL_LINK = process.env.NEXT_PUBLIC_CAL_LINK?.trim() ?? "";
-const RDV_HREF = CAL_LINK
-  ? `https://cal.com/${CAL_LINK}`
-  : `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Démo STRATA")}`;
+type Status = "live" | "soon" | "roadmap";
 
-type Module = { code: string; title: string; body: string };
+type Product = {
+  name: string;
+  pillar: string;
+  body: string;
+  status: Status;
+  eta: string;
+  href?: string;
+};
 
-const MODULES: Module[] = [
+const PRODUCTS: Product[] = [
   {
-    code: "CSRD / ESRS",
-    title: "Rapport de durabilité",
-    body: "Structure ESRS transverses et thématiques, points de données tracés jusqu'à la source. Prêt pour l'audit.",
+    name: "ESG Optimizer",
+    pillar: "Audit & Conformite CSRD",
+    body: "Deposez vos documents, obtenez un scoring sur les 10 standards ESRS et un rapport structure. Le produit phare, en ligne.",
+    status: "live",
+    eta: "Disponible",
+    href: "https://esg-optimizer.fr",
   },
   {
-    code: "VSME",
-    title: "Standard volontaire PME",
-    body: "Le Module de Base VSME de l'EFRAG, proportionné aux PME hors périmètre CSRD obligatoire.",
+    name: "STRATA Scope",
+    pillar: "Empreinte carbone",
+    body: "Calculateur de bilan carbone Scopes 1, 2 et 3 branche sur les facteurs officiels de la Base Empreinte ADEME. Restitution BEGES, CSRD, SBTi.",
+    status: "live",
+    eta: "Disponible",
+    href: "https://scope.esg-optimizer.fr",
   },
   {
-    code: "GHG",
-    title: "Bilan carbone Scopes 1-2-3",
-    body: "Émissions directes, énergie et chaîne de valeur selon le GHG Protocol, avec intensités par employé et par euro.",
+    name: "STRATA Foundation",
+    pillar: "Point de depart ESG",
+    body: "Un premier diagnostic de maturite durable, gratuit, pour se situer en dix minutes avant d'aller plus loin.",
+    status: "soon",
+    eta: "Q3 2026",
   },
   {
-    code: "Double matérialité",
-    title: "Matrice d'impact & financière",
-    body: "Notation des enjeux, seuil paramétrable, quadrant de double matérialité et priorisation automatique.",
+    name: "STRATA Watch",
+    pillar: "Veille reglementaire",
+    body: "Veille automatisee sur les sources officielles (EFRAG, AMF, JOUE) qui transforme le bruit reglementaire en alertes utiles.",
+    status: "soon",
+    eta: "Q3 2026",
   },
   {
-    code: "Taxonomie UE",
-    title: "Éligibilité & alignement",
-    body: "Cartographie des activités et des critères techniques, pour relier reporting et accès au financement vert.",
+    name: "STRATA Academy",
+    pillar: "Formation a la durabilite",
+    body: "Des parcours courts et concrets sur la CSRD, la VSME et le carbone, penses pour les equipes de PME, pas pour les experts.",
+    status: "soon",
+    eta: "Q4 2026",
   },
   {
-    code: "Open Metrics",
-    title: "Transparence produit",
-    body: "Les métriques d'usage de STRATA sont publiques et vérifiables, pas des promesses marketing.",
+    name: "STRATA Due",
+    pillar: "Due diligence ESG",
+    body: "Evaluez le profil de durabilite d'une cible d'acquisition avec la rigueur attendue par les investisseurs.",
+    status: "roadmap",
+    eta: "2027",
+  },
+  {
+    name: "STRATA Taxonomy",
+    pillar: "Taxonomie europeenne",
+    body: "Mesurez l'alignement de votre chiffre d'affaires et de vos investissements avec la Taxonomie europeenne.",
+    status: "roadmap",
+    eta: "2027",
+  },
+  {
+    name: "GreenHR",
+    pillar: "Pilier social",
+    body: "Le module dedie au pilier social de l'ESG : diversite, conditions de travail, formation, chaine de valeur humaine.",
+    status: "roadmap",
+    eta: "2027",
   },
 ];
 
-const STEPS: { n: string; title: string; body: string }[] = [
-  {
-    n: "01",
-    title: "Connecter les données",
-    body: "Consommations, achats, déplacements, effectifs : les points de collecte sont cartographiés une fois.",
-  },
-  {
-    n: "02",
-    title: "Calculer & positionner",
-    body: "Le moteur calcule le bilan carbone et la matrice de matérialité de façon déterministe et reproductible.",
-  },
-  {
-    n: "03",
-    title: "Produire le rapport",
-    body: "Le rapport ESRS / VSME est généré, traçable jusqu'à la donnée brute, prêt à être partagé ou audité.",
-  },
-];
+const STATUS_BADGE: Record<Status, { label: string; variant: "emerald" | "warning" | "default" }> = {
+  live: { label: "Disponible", variant: "emerald" },
+  soon: { label: "A venir", variant: "warning" },
+  roadmap: { label: "Roadmap", variant: "default" },
+};
 
-function CtaLink({
-  href,
-  children,
-  primary = false,
-}: {
-  href: string;
-  children: ReactNode;
-  primary?: boolean;
-}) {
-  const base =
-    "inline-flex h-10 items-center justify-center rounded-[calc(var(--radius)_-_0.25rem)] px-5 font-mono text-sm font-medium uppercase tracking-[0.12em] transition-colors";
-  const style = primary
-    ? "bg-emerald text-emerald-foreground hover:bg-emerald-bright"
-    : "border border-border-strong text-foreground hover:border-emerald hover:text-emerald-bright";
-  return (
-    <Link href={href} className={`${base} ${style}`}>
-      {children}
-    </Link>
+function ProductTile({ p }: { p: Product }) {
+  const badge = STATUS_BADGE[p.status];
+  const inner = (
+    <Card className={p.href ? "h-full transition-colors hover:border-emerald/60" : "h-full"}>
+      <CardContent className="flex h-full flex-col py-4">
+        <div className="mb-1.5 flex items-center justify-between gap-2">
+          <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-emerald">
+            {p.pillar}
+          </p>
+          <Badge variant={badge.variant} dot={p.status === "live"}>
+            {badge.label}
+          </Badge>
+        </div>
+        <h3 className="font-mono text-sm font-semibold text-foreground">{p.name}</h3>
+        <p className="mt-1.5 flex-1 font-mono text-xs leading-relaxed text-muted">
+          {p.body}
+        </p>
+        <p className="mt-3 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-faint">
+          {p.href ? (
+            <span className="text-emerald">ouvrir le produit →</span>
+          ) : (
+            <span>{p.eta}</span>
+          )}
+        </p>
+      </CardContent>
+    </Card>
   );
+
+  if (p.href) {
+    return (
+      <a
+        href={p.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block h-full"
+      >
+        {inner}
+      </a>
+    );
+  }
+  return inner;
 }
 
 export default function StrataPage() {
   return (
     <div className="bg-grid min-h-dvh">
       <div className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-8 sm:py-14">
-        {/* En-tête */}
+        {/* En-tete */}
         <header className="mb-10 space-y-4">
           <Link
             href="/"
@@ -112,177 +152,66 @@ export default function StrataPage() {
               STRATA
             </h1>
             <Badge variant="emerald" dot>
-              beta
+              live
             </Badge>
           </div>
           <p className="max-w-xl font-mono text-sm leading-relaxed text-muted">
-            Le reporting de durabilité, automatisé de bout en bout. De la donnée
-            brute au rapport <span className="text-foreground">CSRD</span>,{" "}
-            <span className="text-foreground">VSME</span> ou{" "}
-            <span className="text-foreground">bilan carbone</span> conforme,
-            traçable et auditable. Conçu pour les PME européennes.
+            Le systeme d&apos;exploitation de l&apos;entreprise durable. Une suite
+            d&apos;outils qui rend le reporting de durabilite accessible aux PME
+            europeennes.{" "}
+            <span className="text-foreground">ESG Optimizer</span> et{" "}
+            <span className="text-foreground">STRATA Scope</span> sont en ligne ;
+            les suivants arrivent. Adama OS est l&apos;atelier qui documente cette
+            construction en public.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <CtaLink href="/api/trial" primary>
-              Démarrer l&apos;essai gratuit
-            </CtaLink>
-            <CtaLink href="/audit">Audit Express gratuit</CtaLink>
             <a
-              href={RDV_HREF}
+              href="https://esg-optimizer.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-10 items-center justify-center rounded-[calc(var(--radius)_-_0.25rem)] bg-emerald px-5 font-mono text-sm font-medium uppercase tracking-[0.12em] text-emerald-foreground transition-colors hover:bg-emerald-bright"
+            >
+              Essayer ESG Optimizer
+            </a>
+            <Link
+              href="/metrics"
               className="font-mono text-xs text-faint underline-offset-4 transition-colors hover:text-emerald-bright hover:underline"
             >
-              ou planifier une démo →
-            </a>
+              ou voir les metriques produit →
+            </Link>
           </div>
         </header>
 
-        {/* Aperçu de rapport (capture stylisée, pas d'image externe) */}
+        {/* La suite */}
         <section className="mb-12">
-          <Card className="glow-emerald overflow-hidden">
-            <CardContent className="p-0">
-              <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
-                <span aria-hidden className="font-mono text-xs text-emerald">
-                  $
-                </span>
-                <span className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">
-                  strata report --company &quot;PME SAS&quot; --year 2026
-                </span>
-              </div>
-              <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-3">
-                {[
-                  { label: "Scope 1+2+3", value: "412 t", sub: "CO₂e / an" },
-                  { label: "Intensité", value: "9,1 t", sub: "par employé" },
-                  { label: "Enjeux matériels", value: "5", sub: "double matérialité" },
-                ].map((k) => (
-                  <div
-                    key={k.label}
-                    className="rounded-[calc(var(--radius)_-_0.25rem)] border border-border bg-surface-raised px-4 py-4"
-                  >
-                    <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-faint">
-                      {k.label}
-                    </p>
-                    <p className="mt-1.5 font-mono text-2xl font-semibold text-foreground">
-                      {k.value}
-                    </p>
-                    <p className="font-mono text-[0.65rem] text-muted">{k.sub}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="border-t border-border px-5 py-3 font-mono text-[0.65rem] text-faint">
-                Exemple illustratif. Les vraies métriques produit sont publiques
-                sur{" "}
+          <h2 className="mb-4 font-mono text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
+            La suite STRATA
+          </h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {PRODUCTS.map((p) => (
+              <ProductTile key={p.name} p={p} />
+            ))}
+          </div>
+        </section>
+
+        {/* Note transparence */}
+        <section className="mb-10">
+          <Card>
+            <CardContent className="space-y-3 py-5">
+              <p className="font-mono text-sm leading-relaxed text-muted">
+                STRATA n&apos;est pas une promesse : les produits en ligne
+                s&apos;utilisent aujourd&apos;hui, et les metriques d&apos;usage
+                sont <span className="text-foreground">publiques</span> sur{" "}
                 <Link
                   href="/metrics"
                   className="text-emerald underline decoration-dotted hover:text-emerald-bright"
                 >
                   /metrics
                 </Link>
-                .
+                . Le reste de la suite se construit produit apres produit.
               </p>
             </CardContent>
           </Card>
-        </section>
-
-        {/* Modules de reporting */}
-        <section className="mb-12">
-          <h2 className="mb-4 font-mono text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
-            Modules de reporting
-          </h2>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {MODULES.map((m) => (
-              <Card key={m.code} className="transition-colors hover:border-emerald/60">
-                <CardContent className="py-4">
-                  <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-emerald">
-                    {m.code}
-                  </p>
-                  <h3 className="mt-1 font-mono text-sm font-semibold text-foreground">
-                    {m.title}
-                  </h3>
-                  <p className="mt-1.5 font-mono text-xs leading-relaxed text-muted">
-                    {m.body}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Pipeline */}
-        <section className="mb-12">
-          <h2 className="mb-4 font-mono text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
-            Comment ça marche
-          </h2>
-          <ol className="space-y-3">
-            {STEPS.map((s) => (
-              <li key={s.n}>
-                <Card>
-                  <CardContent className="flex items-start gap-4 py-4">
-                    <span className="font-mono text-lg font-semibold text-emerald">
-                      {s.n}
-                    </span>
-                    <div>
-                      <h3 className="font-mono text-sm font-semibold text-foreground">
-                        {s.title}
-                      </h3>
-                      <p className="mt-1 font-mono text-xs leading-relaxed text-muted">
-                        {s.body}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        {/* Valeur / preuve */}
-        <section className="mb-12">
-          <Card>
-            <CardContent className="space-y-3 py-5">
-              <p className="font-mono text-sm leading-relaxed text-muted">
-                STRATA n&apos;est pas une promesse : le calcul est{" "}
-                <span className="text-foreground">déterministe</span>, les
-                données sont <span className="text-foreground">traçables</span>{" "}
-                jusqu&apos;à la source, et les métriques produit sont{" "}
-                <span className="text-foreground">publiques</span>. Le même
-                moteur alimente l&apos;
-                <Link
-                  href="/audit"
-                  className="text-emerald underline decoration-dotted hover:text-emerald-bright"
-                >
-                  Audit Express
-                </Link>{" "}
-                gratuit et les{" "}
-                <Link
-                  href="/learn"
-                  className="text-emerald underline decoration-dotted hover:text-emerald-bright"
-                >
-                  formations
-                </Link>
-                .
-              </p>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* CTA final */}
-        <section className="mb-10">
-          <div className="flex flex-col items-start gap-4 rounded-[var(--radius)] border border-border-strong bg-surface-raised px-5 py-6 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="font-mono text-sm font-semibold text-foreground">
-                Prêt à produire votre premier rapport ?
-              </p>
-              <p className="mt-1 font-mono text-xs text-muted">
-                Essai gratuit, sans engagement. Ou commencez par l&apos;audit.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <CtaLink href="/api/trial" primary>
-                Essai gratuit
-              </CtaLink>
-              <CtaLink href="/audit">Audit Express</CtaLink>
-            </div>
-          </div>
         </section>
 
         <footer className="flex flex-col items-start justify-between gap-2 border-t border-border pt-5 sm:flex-row sm:items-center">

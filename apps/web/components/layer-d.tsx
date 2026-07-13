@@ -104,11 +104,16 @@ export function LayerD({ strata }: { strata: StrataMetricRow[] }) {
             Découvrir STRATA
           </Button>
         </Link>
-        <Link href="/audit" className="inline-flex">
+        <a
+          href="https://esg-optimizer.fr"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex"
+        >
           <Button variant="outline" size="sm" tabIndex={-1}>
-            Audit Express gratuit
+            Essayer ESG Optimizer
           </Button>
-        </Link>
+        </a>
         <a href={CV_PATH} download={CV_DOWNLOAD_NAME} className="inline-flex">
           <Button variant="ghost" size="sm" tabIndex={-1}>
             Download CV

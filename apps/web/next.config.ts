@@ -3,13 +3,6 @@ import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@adama/ui", "@adama/db"],
-  // L5-T6 — Le contenu des formations est en MDX (content/learn/*.mdx), lu au
-  // runtime serveur via fs puis compilé par next-mdx-remote/rsc. Sur Vercel ces
-  // fichiers ne sont pas tracés (aucun import statique) : on force leur
-  // inclusion dans le bundle de la route leçon.
-  outputFileTracingIncludes: {
-    "/learn/[course]/[lesson]": ["./content/learn/**/*.mdx"],
-  },
 };
 
 export default withSentryConfig(nextConfig, {

@@ -49,9 +49,8 @@ const NAV_TARGETS: { id: string; label: string }[] = [
 // Pages du site (navigation réelle, pas un scroll).
 const PAGE_TARGETS: { url: string; label: string }[] = [
   { url: "/strata", label: "STRATA" },
-  { url: "/audit", label: "Audit Express" },
-  { url: "/learn", label: "Formations" },
-  { url: "/veille", label: "Veille" },
+  { url: "https://esg-optimizer.fr", label: "ESG Optimizer" },
+  { url: "https://scope.esg-optimizer.fr", label: "STRATA Scope" },
   { url: "/metrics", label: "Open Metrics" },
 ];
 
