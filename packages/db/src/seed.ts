@@ -13,6 +13,7 @@ config({ path: ".env" });
 import { sql } from "drizzle-orm";
 import {
   decisionsLog,
+  ecosystemProducts,
   strataAnalytics,
   systemMetrics,
   trajectory,
@@ -143,11 +144,22 @@ async function seed() {
     console.log("  • trajectory : déjà peuplée, ignorée");
   }
 
-  // --- strata_analytics : métriques de démo (si table vide) ----------
-  const strataCount = await db
-    .select({ n: sql<number>`count(*)::int` })
-    .from(strataAnalytics);
-  if ((strataCount[0]?.n ?? 0) === 0) {
+  // --- strata_analytics : métriques de démo -------------------------
+  // Sous drapeau explicite. Ces trois valeurs sont inventées : les insérer
+  // dans la base de production les ferait remonter sur /metrics et sur la
+  // Couche D comme si elles étaient mesurées, ce qui annulerait le geste 3
+  // de la vague 0. Règle : aucune métrique affichée sans source réelle.
+  //   pnpm --filter @adama/db db:seed -- --demo
+  const withDemoMetrics = process.argv.slice(2).includes("--demo");
+  if (!withDemoMetrics) {
+    console.log(
+      "  • strata_analytics : ignorée (métriques de démo, relancer avec --demo pour les insérer)",
+    );
+  }
+  const strataCount = withDemoMetrics
+    ? await db.select({ n: sql<number>`count(*)::int` }).from(strataAnalytics)
+    : [{ n: 1 }];
+  if (withDemoMetrics && (strataCount[0]?.n ?? 0) === 0) {
     await db.insert(strataAnalytics).values([
       { metric: "pme_analysees", value: 12, period: "2026-06", source: "demo" },
       {
@@ -159,9 +171,120 @@ async function seed() {
       { metric: "audits_lances", value: 4, period: "2026-06", source: "demo" },
     ]);
     console.log("  ✓ strata_analytics : 3 métriques insérées");
-  } else {
+  } else if (withDemoMetrics) {
     console.log("  • strata_analytics : déjà peuplée, ignorée");
   }
+
+  // --- ecosystem_products : registre reel du groupe (L1-T9) ---------
+  // Ce n'est PAS de la donnee de demo. Seuls les produits reellement
+  // ouverts portent une URL et le statut "live" ; les autres restent en
+  // construction, sans date. Reexecutable : conflit sur slug ignore.
+  const products = [
+    {
+      slug: "esg-optimizer",
+      name: "ESG Optimizer",
+      division: "STRATA",
+      pillar: "Audit et conformite CSRD",
+      description:
+        "Deposez vos documents, obtenez un scoring sur les 10 standards ESRS et un rapport structure.",
+      status: "live" as const,
+      url: "https://esg-optimizer.fr",
+      repoFullName: "iroko-software-group/esg-optimizer",
+      position: 10,
+    },
+    {
+      slug: "strata-scope",
+      name: "STRATA Scope",
+      division: "STRATA",
+      pillar: "Empreinte carbone",
+      description:
+        "Bilan carbone Scopes 1, 2 et 3 sur les facteurs officiels de la Base Empreinte ADEME. Restitution BEGES, CSRD, SBTi.",
+      status: "live" as const,
+      url: "https://scope.esg-optimizer.fr",
+      repoFullName: "adama-diallo-rse/strata-scope",
+      position: 20,
+    },
+    {
+      slug: "strata-platform",
+      name: "STRATA Platform",
+      division: "STRATA",
+      pillar: "Site corporate du groupe",
+      description:
+        "La vitrine de la suite STRATA et son socle d'authentification.",
+      status: "building" as const,
+      url: null,
+      repoFullName: "iroko-software-group/strata-platform",
+      position: 30,
+    },
+    {
+      slug: "strata-foundation",
+      name: "STRATA Foundation",
+      division: "STRATA",
+      pillar: "Point de depart ESG",
+      description:
+        "Un premier diagnostic de maturite durable, gratuit, pour se situer en dix minutes.",
+      status: "building" as const,
+      url: null,
+      repoFullName: "iroko-software-group/strata-foundation",
+      position: 40,
+    },
+    {
+      slug: "strata-watch",
+      name: "STRATA Watch",
+      division: "STRATA",
+      pillar: "Veille reglementaire",
+      description:
+        "Veille automatisee sur les sources officielles (EFRAG, AMF, JOUE), transformee en alertes utiles.",
+      status: "building" as const,
+      url: null,
+      repoFullName: "iroko-software-group/strata-watch",
+      position: 50,
+    },
+    {
+      slug: "strata-academy",
+      name: "STRATA Academy",
+      division: "STRATA",
+      pillar: "Formation a la durabilite",
+      description:
+        "Des parcours courts sur la CSRD, la VSME et le carbone, penses pour les equipes de PME.",
+      status: "building" as const,
+      url: null,
+      repoFullName: "iroko-software-group/strata-esg-academy",
+      position: 60,
+    },
+    {
+      slug: "iroko-platform",
+      name: "IROKO Platform",
+      division: "IROKO",
+      pillar: "Operating system des entreprises africaines",
+      description: "Le socle de la branche Afrique du groupe.",
+      status: "building" as const,
+      url: null,
+      repoFullName: "iroko-software-group/iroko-platform",
+      position: 70,
+    },
+    {
+      slug: "adama-os",
+      name: "Adama OS",
+      division: "Cockpit",
+      pillar: "Cockpit du fondateur",
+      description:
+        "Ce tableau de bord. Suivi pour le feed Shipped, mais ce n'est pas un produit de la grille.",
+      status: "building" as const,
+      url: null,
+      repoFullName: "adama-diallo-rse/adama-os",
+      isPublic: false,
+      position: 999,
+    },
+  ];
+  const inserted = await db
+    .insert(ecosystemProducts)
+    .values(products)
+    .onConflictDoNothing({ target: ecosystemProducts.slug })
+    .returning({ slug: ecosystemProducts.slug });
+  console.log(
+    `  ✓ ecosystem_products : ${inserted.length} produit(s) insere(s), ${products.length - inserted.length} deja present(s)`,
+  );
 
   console.log("→ Seed terminé.");
 }

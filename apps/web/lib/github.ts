@@ -98,7 +98,7 @@ async function fetchRepoCommits(
 
 /** Derniers commits, tous dépôts confondus, du plus récent au plus ancien. */
 export async function fetchShippedCommits(limit = 8): Promise<CommitRow[]> {
-  const repos = listTrackedRepos();
+  const repos = await listTrackedRepos();
   // On tire plus large que `limit` par dépôt : après filtrage du bruit, un
   // dépôt très actif doit pouvoir occuper plusieurs lignes du feed.
   const perRepo = Math.min(Math.max(limit, 15), 100);

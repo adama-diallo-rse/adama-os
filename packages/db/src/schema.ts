@@ -35,6 +35,14 @@ export const trajectoryType = pgEnum("trajectory_type", [
   "risk",
 ]);
 
+// L1-T9. Etat reel d'un produit du groupe. Volontairement sans date : une
+// date de disponibilite non engagee ailleurs n'a rien a faire en base.
+export const ecosystemStatus = pgEnum("ecosystem_status", [
+  "live",
+  "building",
+  "planned",
+]);
+
 // Seule la capture recruteur subsiste sur Adama OS (audit/newsletter sont
 // partis chez les produits STRATA). L'enum Postgres peut garder ses anciennes
 // valeurs sans risque ; seul "recruiter" est insere.
@@ -96,6 +104,40 @@ export const strataAnalytics = pgTable("strata_analytics", {
   period: text("period"),
   source: text("source"),
   createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+// --- ecosystem_products ----------------------------------------------
+// L1-T9, registre des produits du groupe. Source de verite unique du hub
+// ecosysteme (L6-T13), de la Couche D en vue groupe (L4-T14) et de la liste
+// des depots agreges par le feed Shipped (L5-T2).
+// Regle de tenue : une ligne ici decrit un produit qui existe. Pas de produit
+// d'intention, pas de date promise.
+export const ecosystemProducts = pgTable("ecosystem_products", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  slug: text("slug").notNull().unique(),
+  name: text("name").notNull(),
+  // Division du groupe : STRATA, IROKO, Cockpit.
+  division: text("division").notNull(),
+  // Positionnement lisible ("Audit et conformite CSRD").
+  pillar: text("pillar"),
+  description: text("description"),
+  status: ecosystemStatus("status").notNull().default("building"),
+  // URL publique. NULL tant que le produit n'est pas ouvert : c'est cette
+  // colonne, et elle seule, qui autorise un lien cliquable dans l'interface.
+  url: text("url"),
+  // "owner/repo" pour le feed Shipped. Non lisible par la cle anon (voir la
+  // migration 0001, revoke au niveau colonne).
+  repoFullName: text("repo_full_name"),
+  // Affichage dans le hub public. Le cockpit lui-meme est suivi pour le feed
+  // mais n'est pas un produit de la grille.
+  isPublic: boolean("is_public").notNull().default(true),
+  position: doublePrecision("position").notNull().default(100),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
 });
@@ -166,6 +208,8 @@ export type TrajectoryItem = typeof trajectory.$inferSelect;
 export type NewTrajectoryItem = typeof trajectory.$inferInsert;
 export type StrataAnalytic = typeof strataAnalytics.$inferSelect;
 export type NewStrataAnalytic = typeof strataAnalytics.$inferInsert;
+export type EcosystemProduct = typeof ecosystemProducts.$inferSelect;
+export type NewEcosystemProduct = typeof ecosystemProducts.$inferInsert;
 export type Lead = typeof leads.$inferSelect;
 export type NewLead = typeof leads.$inferInsert;
 export type RagDocument = typeof ragDocuments.$inferSelect;
