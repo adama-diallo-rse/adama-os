@@ -7,9 +7,8 @@ import {
   GITHUB_OWNER,
   GITHUB_REPO_URL,
 } from "../components/types";
+import { SITE_URL } from "../lib/site";
 import "./globals.css";
-
-const SITE_URL = "https://adama-os-web.vercel.app";
 
 // L8-T5 — Métadonnées home. L'image OG est générée au build par
 // app/opengraph-image.tsx (statique : aucune donnée dynamique).
@@ -46,8 +45,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Adama OS, System Architect",
-    description:
-      "Le dashboard système d'Adama Diallo, architecte de Strata.",
+    description: "Le dashboard système d'Adama Diallo, architecte de Strata.",
   },
 };
 

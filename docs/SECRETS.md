@@ -28,6 +28,7 @@ Puis renseigner les valeurs manquantes.
 
 | Variable                        | Expose au navigateur | Role                                          |
 | ------------------------------- | -------------------- | --------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`          | oui                  | origine canonique (metadonnees, sitemap, robots, JSON-LD) |
 | `NEXT_PUBLIC_SUPABASE_URL`      | oui                  | URL du projet Supabase (region UE)            |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | oui                  | cle publique (RLS)                            |
 | `SUPABASE_SERVICE_ROLE_KEY`     | non                  | cle serveur (contourne RLS)                   |
@@ -54,8 +55,14 @@ Ne jamais prefixer une cle secrete avec `NEXT_PUBLIC_`.
 | `DATABASE_URL` | connexion Supabase, Transaction pooler. Migrations et seed.    |
 | `OPENAI_API_KEY` | embeddings a l'ingestion du corpus RAG (`pnpm rag:ingest`)   |
 
-## A ajouter quand le domaine sera branche (L0-T6)
+## Quand le domaine sera branche (L0-T6)
 
-| Variable               | Role                                                             |
-| ---------------------- | ---------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL` | origine canonique du site, utilisee par sitemap, robots, OG, JSON-LD |
+L'origine du site est deja centralisee dans `apps/web/lib/site.ts`, qui lit
+`NEXT_PUBLIC_SITE_URL` et retombe sur le domaine Vercel si la variable est
+absente. Brancher le domaine se limite donc a deux gestes :
+
+1. poser `NEXT_PUBLIC_SITE_URL=https://mon-domaine.fr` dans Vercel (Production,
+   Preview et Development) ;
+2. redeployer, puis verifier `/robots.txt` et `/sitemap.xml`.
+
+Aucune URL n'est ecrite en dur dans le code.
