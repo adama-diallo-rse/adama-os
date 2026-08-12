@@ -1,5 +1,11 @@
 # ADAMA OS, Blueprint d'architecture v2
 
+> **Ce fichier n'est pas la source de vérité.** La roadmap vivante est la page
+> Notion « Roadmap d'implémentation, Adama OS (cockpit du fondateur) » :
+> https://app.notion.com/p/3a2455fe99dd81bebf01d1d08e2fa0b7
+> `ROADMAP.md` en est la copie générée. Le présent document est conservé comme
+> trace de la conception initiale, voir l'avertissement de validité ci-dessous.
+
 > Document de référence pour construire Adama OS. Tu pars d'un dossier vide.
 > Stack repensée pour la vélocité maximale, la conformité RGPD (argument de vente CSRD), et 3 sorties de conversion.
 > Date de rédaction : 24 juin 2026. Deadline stage : 31 octobre 2026. Push recrutement : novembre 2026.

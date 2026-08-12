@@ -1,711 +1,735 @@
-# ROADMAP COMPLÈTE, ADAMA OS
+# ROADMAP, ADAMA OS
 
-> Compagnon de `ADAMA_OS_BLUEPRINT.md`. Ici, le plan d'exécution complet, couche par couche.
-> Rédigée le 24 juin 2026. Mises à jour : 13 juillet 2026 (recentrage atelier), **19 juillet 2026 (recentrage groupe)**.
-> Deadline stage AG2R LA MONDIALE (Grenoble, Chargé de missions RSE, Data ESG & Solutions IA, du 1er mai au 31 octobre 2026). Push recrutement : novembre 2026, cible CDI / CDD en Île-de-France.
-> **État au 19 juillet : P0 et P1 livrées. P2 livrée à 85 pour cent, en avance sur sa fenêtre (4 au 31 août). Trois restes visibles : le domaine (L0-T6), l'ingestion du corpus RAG (L3-T1), les funnels PostHog (L8-T7).**
-
----
-
-## Les deux recentrages qui gouvernent ce document
-
-**Recentrage du 13 juillet 2026, Adama OS est un ATELIER, pas un hébergeur de produits.**
-Les modules audit, veille et formations ne sont pas développés ici. Ce sont des produits qui vivent dans leurs propres repos. Adama OS s'y connecte par des liens tracés. Les couches L5 (contenu) et L6 (conversion) sont réduites à ce qui relève vraiment du dashboard : preuve d'exécution et sortie recrutement.
-
-**Recentrage du 19 juillet 2026, le périmètre n'est plus STRATA mais IROKO SOFTWARE GROUP.**
-La holding s'est structurée en quatre divisions (voir `iroko-platform/docs/IROKO-ORG-MAP.md`). Adama OS n'est plus la vitrine d'une suite ESG européenne, c'est le **cockpit du fondateur d'un groupe logiciel à deux continents**. Conséquences concrètes sur cette roadmap :
-
-- le hub `/strata` devient un **hub écosystème** qui couvre les quatre divisions ;
-- la Couche D (preuve sociale) doit exposer IROKO au même titre que STRATA ;
-- `strata_analytics` devient `ecosystem_analytics`, alimentée par plusieurs produits et non plus un seul ;
-- le récit recruteur change de calibre : ce n'est plus « j'ai construit un outil ESG », c'est « je dirige la construction d'un groupe logiciel, voici le tableau de bord en direct ».
-
-C'est un changement de narration, pas un changement de stack. Aucune couche technique n'est jetée.
+> **Fichier dérivé, ne pas éditer à la main.** La source de vérité est la page
+> Notion « Roadmap d'implémentation, Adama OS (cockpit du fondateur) » :
+> https://app.notion.com/p/3a2455fe99dd81bebf01d1d08e2fa0b7
+>
+> Ce fichier en est une copie générée le 12 août 2026. Toute modification se
+> fait dans la page, puis on régénère ce fichier. Jamais l'inverse.
+> Compagnon historique : `ADAMA_OS_BLUEPRINT.md`, conservé comme trace de la
+> conception initiale et marqué comme non valide.
 
 ---
 
-## L'écosystème que ce dashboard reflète
-
-```
-IROKO SOFTWARE GROUP (holding, org GitHub iroko-software-group)
-│
-├── STRATA (Europe), Operating System de la Sustainability
-│   ├── ESG Optimizer      prod, esg-optimizer.fr, refonte Sustainability OS en cours (Couche 12 atteinte)
-│   ├── STRATA Scope       prod, paywall Stripe et API publique versionnée livrés
-│   ├── STRATA Foundation  déployé (Vercel + Railway), Vague 1 en cours
-│   ├── STRATA Watch       développement avancé (Phase 6, mode équipe)
-│   ├── STRATA Academy     architecture et syllabus posés, premier commit
-│   └── STRATA Platform    site corporate prêt, auth phase 2
-│
-├── IROKO (Afrique), Operating System des entreprises africaines
-│   └── Business OS        monorepo iroko-platform, socle en construction
-│
-├── INFRASTRUCTURE          @iroko/payments (Iroko Pay), @iroko/core, @iroko/ui
-│
-└── SERVICES                Externalisation B2B, Compliance Africa
-```
-
-**Adama OS (`adama-diallo-rse/adama-os`) reste hors organisation, sous compte personnel.** C'est voulu : c'est le cockpit du fondateur, pas un actif du groupe. Il lit les produits, il n'en héberge aucun.
-
----
-
-## Comment lire cette roadmap
-
-Deux axes se croisent.
-
-- **9 couches techniques (L0 à L8)** : les strates du système, du plus bas niveau (infra) au plus haut (média). C'est le QUOI.
-- **5 phases temporelles (P0 à P4)** : le calendrier. C'est le QUAND.
-
-Chaque phase fait avancer plusieurs couches en parallèle. La Partie 1 décrit les couches dans l'absolu. La Partie 2 découpe le travail phase par phase, avec des cases à cocher. La Partie 3 est la matrice de synthèse. La Partie 7 donne un prompt expert prêt à coller par couche.
-
-Suivre en horizontal (finir une phase) plutôt qu'en vertical (finir une couche) : ça rend l'OS utilisable plus tôt.
-
-Convention : `[ ]` à faire, `[~]` en cours, `[x]` fait. Les identifiants type `L1-T3` veulent dire couche 1, tâche 3.
-
----
-
-# PARTIE 1 : LES 9 COUCHES DU SYSTÈME (vue verticale)
-
-### L0, Infrastructure & DevOps
-
-**Objectif** : un squelette déployé en continu, chaque push en ligne en moins de 2 minutes.
-**Stack** : Monorepo pnpm + Turborepo, GitHub, Vercel (web), domaine + DNS.
-**Contient** : repo, CI/CD, environnements (dev/prod), secrets, domaine, branches.
-**État réel** : le monorepo tourne, Vercel déploie sur `main` avec preview deploys sur les PR. `services/engine` a été supprimé le 13 juillet (doublon du moteur carbone de STRATA Scope, plus appelé par le web). **Seul manque : le domaine.**
-
-### L1, Données (le système nerveux)
-
-**Objectif** : une source de vérité unique et sécurisée.
-**Stack** : Supabase (Postgres UE + Auth + Realtime + Storage + pgvector), Drizzle ORM.
-**Contient** : `system_metrics`, `decisions_log`, `trajectory`, `ecosystem_analytics` (ex `strata_analytics`), `leads` (recruteur), `rag_documents`, `rag_chunks`, RLS, migrations.
-**État réel** : schéma migré, pgvector actif, RLS active, auth Supabase branchée, seed de démo en place, endpoints de lecture et route `/checkin` livrés.
-**Reste à faire (recentrage groupe)** : élargir la table analytics pour porter plusieurs produits et deux divisions, et ajouter un registre `ecosystem_products` qui pilote le hub sans redéploiement.
-
-### L2, Moteur de calcul
-
-**Objectif** : aucun. Cette couche est volontairement vide.
-**Décision du 13 juillet, confirmée le 19** : le calcul ESG lourd est le cœur de STRATA Scope (moteur pur, facteurs ADEME Base Empreinte, 15 catégories GHG Protocol) et d'ESG Optimizer. Le dupliquer dans Adama OS était une erreur d'architecture. `services/engine` est supprimé, cette couche reste fermée. Si un jour le dashboard a besoin d'un chiffre carbone, il appelle l'API publique versionnée de STRATA Scope, il ne recalcule rien.
-
-### L3, Intelligence conversationnelle (RAG + adama.ai)
-
-**Objectif** : un agent qui répond sur les textes de loi sans halluciner.
-**Stack** : OpenAI (gpt-4o en génération, text-embedding-3-small 1024 dim), extraction PDF locale (unpdf), pgvector, Vercel AI SDK.
-**Contient** : pipeline ingestion (extraction, chunking, embeddings), retrieval top-k, génération citée, chat streaming.
-**État réel** : toute la chaîne est codée et branchée. Index hnsw en place, retrieval filtré par langue et source, génération citée avec refus hors contexte, route `api/chat` en streaming, composant `adama.ai` flottant, commande `ask adama` dans le terminal.
-**Reste à faire** : ingérer le corpus. Le script existe, la base est vide. C'est le seul geste qui sépare un agent démontrable d'un agent muet.
-
-### L4, Interface & Design System
-
-**Objectif** : le ressenti terminal de vaisseau spatial, dark mode, accents émeraude.
-**Stack** : Next.js 16, Tailwind v4, shadcn/ui (new-york), Framer Motion, Tremor, cmdk, Geist Mono.
-**Contient** : design tokens OKLCH, layout dashboard, couches A/B/C/D, terminal Ctrl+K, widgets, modal recruteur.
-**État réel** : complet. Les 4 couches, le terminal, les animations, le responsive, le simulateur VSME et la page Open Metrics sont livrés.
-**Reste à faire (recentrage groupe)** : la Couche D montre encore un écosystème STRATA. Elle doit passer à une vue groupe, quatre divisions, avec l'état réel de chaque produit.
-
-### L5, Contenu (preuve d'exécution)
-
-**Objectif** : montrer la construction en public, sans dupliquer les produits.
-**Stack** : API GitHub (feed Shipped), Open Metrics (Supabase).
-**Contient** : feed « Shipped » branché sur les vrais commits, page Open Metrics, hub écosystème.
-**État réel** : le feed Shipped tourne sur l'API GitHub, la page Open Metrics est publique.
-**Point d'attention** : le feed ne lit qu'`adama-os`. Or l'essentiel du travail se fait dans `esg-optimizer`, `strata-scope`, `strata-watch`, `iroko-platform`. Le feed sous-représente massivement l'exécution réelle. C'est le plus gros gain de crédibilité disponible à faible coût.
-
-### L6, Conversion (les sorties du dashboard)
-
-**Objectif** : 2 sorties actives et mesurées, propres au dashboard fondateur.
-**Stack** : Cal.com, PostHog.
-**Contient** : modal « Recruter l'Architecte » (sortie recrutement), liens sortants tracés vers les produits.
-**État réel** : modal, capture de lead, mode lecture recruteur, hub `/strata` et événements `strata_outbound` livrés.
-**Reste à faire** : renommer et élargir le hub au groupe, définir les funnels dans PostHog.
-La monétisation n'est pas ici. Elle est portée par les produits : Stripe sur STRATA Scope (paywall livré) et sur ESG Optimizer, Stripe Tax sur strata-platform.
-
-### L7, Acquisition & Média
-
-**Objectif** : remplir le tunnel via TikTok et YouTube (GreenDiadam).
-**Stack** : OG images dynamiques (Satori), liens UTM, scripts et hooks, calendrier de contenu.
-**Contient** : templates de partage, CTA branchés sur les sorties, cadence de publication.
-**État réel** : rien de commencé. C'est normal, c'est du P4.
-
-### L8, Qualité, Sécurité, SEO, Observabilité
-
-**Objectif** : du solide, conforme RGPD, visible sur Google et les moteurs IA.
-**Stack** : TypeScript strict, ESLint/Prettier, Sentry, Better Stack, next-sitemap, JSON-LD, next-intl.
-**État réel** : lint et TypeScript strict en place, Sentry branché, PostHog UE avec bandeau de consentement, Better Stack pour un statut système réel, métadonnées et JSON-LD `Person`, sitemap et robots.
-**Reste à faire** : funnels PostHog, bilingue, audits (a11y, perf, sécurité), SEO complet.
-
----
-
-# PARTIE 2 : LES 5 PHASES (vue horizontale, le calendrier)
-
----
-
-## PHASE 0, FONDATIONS, LIVRÉE
-
-**Fenêtre** : 24 juin au 6 juillet. **Objectif** : un squelette en ligne, prêt à recevoir des features.
-
-**L0, Infra**
-
-- [x] L0-T1 Créer le repo GitHub privé `adama-os`.
-- [x] L0-T2 Scaffolder le monorepo Turborepo (`apps/web`, `packages/ui`, `packages/db`, `packages/config`).
-- [x] L0-T3 Créer `apps/web` avec Next.js 16 + Tailwind v4 + TypeScript strict + Turbopack.
-- [x] L0-T4 Initialiser shadcn/ui (style new-york, base color zinc).
-- [x] L0-T5 Connecter le repo à Vercel, activer les preview deploys.
-- [ ] **L0-T6 Acheter le domaine, pointer les DNS vers Vercel, activer le HTTPS. SEUL RESTE DE P0, ET BLOQUANT POUR TOUT LE RESTE.**
-- [x] ~~L0-T7 Créer le service Railway pour `services/engine`.~~ Annulé le 13 juillet, service supprimé.
-
-**L1, Données**
-
-- [x] L1-T1 Créer le projet Supabase en région UE (réutilisation de strata-scope, eu-west-1).
-- [x] L1-T2 Définir le schéma Drizzle.
-- [x] L1-T3 Première migration, activer pgvector.
-- [x] L1-T4 Activer la RLS sur toutes les tables, policies de base.
-- [x] L1-T5 Brancher l'auth Supabase (login admin).
-- [x] L1-T6 Seed de données de démo.
-
-**L4, Design System**
-
-- [x] L4-T1 Design tokens (noir carbone, blanc, émeraude) en OKLCH dans `@theme`.
-- [x] L4-T2 Police Geist Sans + Geist Mono.
-- [x] L4-T3 Layout global dark mode, grille du dashboard.
-- [x] L4-T4 Composants de base (Card, Badge, Button) au style terminal.
-
-**L8, Qualité**
-
-- [x] L8-T1 ESLint + Prettier + config TypeScript strict partagée.
-- [x] L8-T2 `.env.example` complet, secrets dans Vercel, jamais commités.
-- [x] L8-T3 Sentry branché sur web.
-
-**Definition of Done P0** : le domaine affiche une page dashboard stylée, l'auth marche, la base est migrée, chaque push déploie. **Statut : 6 tâches sur 7, il manque le domaine.**
-
----
-
-## PHASE 1, VITRINE RECRUTEMENT, LIVRÉE EN AVANCE
-
-**Fenêtre** : 7 juillet au 3 août. **Objectif** : un dashboard qui impressionne un recruteur.
-
-**L1, Données**
-
-- [x] L1-T7 Endpoints de lecture pour `system_metrics`, `decisions_log`, `trajectory`.
-- [x] L1-T8 Route privée `/checkin` pour mettre à jour les métriques en 1 clic (poids réel inclus).
-
-**L4, Interface (les 4 couches)**
-
-- [x] L4-T5 **Couche A, System Status** : statut, focus courant, compte à rebours vers le 31 octobre, barre lean bulk vers 80 kg, protocole minimaliste.
-- [x] L4-T6 **Couche B, Decisions Log** : timeline ADR filtrable par catégorie.
-- [x] L4-T7 **Couche C, Trajectory** : Now / Next / Later, avec risques et parades.
-- [x] L4-T8 **Couche D, Sandbox** : preuve sociale (AG2R LA MONDIALE, Younivibe, AFEV, Ministère des Finances), métriques produit.
-- [x] L4-T9 **Terminal Ctrl+K** (cmdk) : `download cv`, `ping strata`, `book call`, `navigate`, `theme`.
-- [x] L4-T10 Animations Framer Motion.
-- [x] L4-T11 Responsive complet.
-
-**L5, Contenu**
-
-- [x] L5-T1 Feed « Shipped » branché sur l'API GitHub.
-
-**L6, Conversion (sortie 1)**
-
-- [x] L6-T1 Bouton persistant `[ Recruter l'Architecte ]`.
-- [x] L6-T2 Modal : proposition de valeur hybride (CDI / CDD dès novembre 2026), lien CV, Cal.com embarqué.
-- [x] L6-T3 Capture du lead dans `leads`, événement PostHog `recruiter_intent`.
-- [x] L6-T4 Mode lecture recruteur (`?for=recruiter`), layout simplifié et imprimable.
-
-**L8, Qualité/SEO**
-
-- [x] L8-T4 PostHog (région UE) + bandeau de consentement.
-- [x] L8-T5 Métadonnées + OG statique, JSON-LD `Person`.
-- [x] L8-T6 Better Stack (uptime) pour un System Status réel.
-
-**Definition of Done P1** : un recruteur voit le statut live, les décisions, la roadmap, les commits réels, et réserve un RDV en 2 clics. **Statut : atteinte, sous réserve du domaine.**
-
----
-
-## PHASE 2, INTELLIGENCE, EN COURS ET EN AVANCE
-
-**Fenêtre** : 4 août au 31 août. **Objectif** : l'OS devient vivant et démontre le niveau technique.
-
-**L0, Infra**
-
-- [x] L0-T8 Trancher le sort de `services/engine`. **Tranché le 13 juillet : supprimé.** Motif : doublon du moteur carbone de STRATA Scope, plus aucune route web ne l'appelait, adama.ai fait son RAG directement via pgvector.
-
-**L2, Moteur de calcul**
-
-- [x] L2-T1 à T3 **Annulées.** Couche fermée par décision d'architecture. Voir L2 en Partie 1.
-
-**L3, Intelligence (RAG + adama.ai)**
-
-- [~] **L3-T1 Ingestion du corpus (ESRS, VSME, CV, notes méthodologiques). Le script `rag:ingest` est prêt, la base est vide. PRIORITÉ ABSOLUE DE LA SEMAINE.**
-- [x] L3-T2 Chunking sémantique + embeddings text-embedding-3-small (1024 dim) vers `rag_chunks`.
-- [x] L3-T3 Index pgvector (hnsw), retrieval top-k filtré par langue et source.
-- [x] L3-T4 Génération citée (gpt-4o), réponses sourcées, refus hors contexte.
-- [x] L3-T5 Route `api/chat` en streaming (Vercel AI SDK), composant `adama.ai` flottant.
-- [x] L3-T6 Commande Ctrl+K vers `ask adama`.
-
-**L4, Interface (widgets)**
-
-- [x] L4-T12 Simulateur VSME interactif (saisie vers score ESG instantané).
-- [x] L4-T13 Page Open Metrics publique.
-
-**L5, Contenu**
-
-- Veille réglementaire : **hors périmètre**, c'est STRATA Watch (déjà en Phase 6, mode équipe, commentaires, affectation d'alertes). Le dashboard s'y connectera par lien quand Watch sera en ligne.
-
-**Nouveau, issu du recentrage du 19 juillet**
-
-- [ ] **L5-T2 Élargir le feed Shipped au multi-repo.** Agréger les commits d'`adama-os`, `esg-optimizer`, `strata-scope`, `strata-watch`, `strata-foundation`, `iroko-platform`, avec le nom du produit et sa division en badge. Sans ça, le dashboard montre une fraction infime de l'exécution réelle.
-- [ ] **L4-T14 Couche D en vue groupe.** Passer de « métriques STRATA » à une grille quatre divisions avec l'état réel par produit (prod, déployé, développement, architecture).
-
-**Definition of Done P2** : adama.ai répond avec sources sur une question réglementaire, le simulateur VSME tourne, le feed reflète l'exécution sur tous les repos. **Jalon : OS vivant le 31 août.**
-
----
-
-## PHASE 3, ÉCOSYSTÈME ET SORTIES
-
-**Fenêtre** : 1er septembre au 28 septembre. Cale avec le lancement Africa d'ESG Optimizer annoncé pour septembre.
-**Objectif, révisé** : ce n'était pas « monétisation ». Le tunnel de vente appartient aux produits, pas au cockpit. L'objectif réel de P3, c'est que le dashboard **raconte le groupe** et trace ses sorties.
-
-**Monétisation, portée par les produits**
-
-| Sortie commerciale | Produit qui la porte | État |
+> **Statut : À JOUR au 7 août 2026.** Roadmap globale du cockpit Adama OS, couche par couche, avec un prompt expert par couche prêt à coller dans Claude Code.
+> Vérifiée le 7 août 2026 par lecture directe du code de `C:\Dev\adama-os` et des onze autres dépôts de `C:\Dev`. Aucun statut de cette page n'est déduit d'une autre page.
+> Dépôt `adama-diallo-rse/adama-os`, hors organisation, volontairement. Rédigée le 24 juin 2026. Mises à jour : 13 juillet (recentrage atelier), 19 juillet (recentrage groupe), **7 août (audit code, vague 0 de dégel, ouverture des couches L9 à L12)**.
+> Règle cardinale héritée de l'espace STRATA : ne jamais déduire l'avancement d'une page, lire le code.
+## 0. Ce que l'audit du 7 août a corrigé
+Quatre constats changent la lecture de tout ce qui suit.
+**1. Le dépôt est gelé depuis le 13 juillet, pas depuis le 19.** Dernier commit `56d1f7c`, 13 juillet 2026. Les 99 fichiers en attente sont un trompe-l'oeil : `git diff --stat --ignore-cr-at-eol` ne remonte que 10 fichiers réels, tous de la documentation. Les 88 autres sont du bruit de fin de ligne, le dépôt est commité en CRLF et le working tree est passé en LF, sans `.gitattributes`. **Aucun fichier ****`.ts`**** ou ****`.tsx`**** n'a de modification de contenu depuis le 13 juillet.**
+**2. La phrase « P2 livrée à 85 pour cent, en avance sur sa fenêtre » n'est plus vraie.** La fenêtre P2 court du 4 au 31 août, nous sommes le 7, et aucune des deux tâches P2 issues du recentrage du 19 juillet (L5-T2 feed multi-repo, L4-T14 Couche D groupe) n'a une ligne de code. Le décompte réel du fichier `ROADMAP.md` est 48 cases cochées, 20 ouvertes, 1 en cours.
+**3. Le dashboard peut afficher un chiffre faux.** `apps/web/components/layer-d.tsx:14-18` définit un `FALLBACK_METRICS` qui affiche `docs_rag: 340` dès que la table `strata_analytics` est vide, alors que la base vectorielle contient zéro document. Un recruteur qui pose la question tombe sur une preuve qui n'existe pas. C'est le seul défaut de la liste qui coûte de la crédibilité au lieu de coûter du temps.
+**4. Le hub ****`/strata`**** est factuellement faux sur six lignes sur huit.** Il donne Foundation et Watch « à venir Q3 2026 » alors que leur code est livré, il invente trois produits qui n'existent nulle part sur le disque (STRATA Due, STRATA Taxonomy, GreenHR) et il ignore complètement la branche Afrique. Les produits sont un tableau en dur, `apps/web/app/strata/page.tsx:29-86`.
+À cela s'ajoute le contexte de l'espace : le décalage à trois étages posé par la Revue d'ensemble du 4 août vaut aussi ici, à ceci près que pour Adama OS l'ordre est inversé. **Notion est en avance sur le code, et le code est en avance sur ce que le dashboard montre.**
+## 1. Doctrine, ce que ce dépôt fait et ne fait pas
+Trois décisions gouvernent le périmètre et ne se rediscutent pas dans cette roadmap.
+**13 juillet 2026, Adama OS est un ATELIER.** Les modules audit, veille et formations ne sont pas développés ici. Ce sont des produits qui vivent dans leurs propres dépôts. Adama OS s'y connecte par des liens tracés et par des lectures d'API.
+**19 juillet 2026, le périmètre est le groupe, pas la suite ESG.** Adama OS est le cockpit du fondateur d'un ensemble logiciel à deux continents, pas la vitrine d'ESG Optimizer. Changement de narration, pas de stack. Aucune couche technique n'est jetée.
+**7 août 2026, le cockpit consomme, il ne recalcule pas.** Toute donnée produit affichée ici vient d'une API du produit concerné, en lecture seule. Si l'API n'existe pas, la métrique n'est pas affichée. Il n'y a pas de troisième voie.
+Corollaires, à traiter comme des interdits :
+- **Toute feature produit ajoutée ici est un signal d'alerte.** Adama OS ne développe aucun produit, il les affiche.
+- **Aucun calcul ESG dans ce dépôt.** La couche L2 est fermée, `services/engine` a été supprimé le 13 juillet pour cette raison.
+- **Aucun paiement, checkout ou tunnel de vente.** La monétisation appartient aux produits.
+- **Aucune métrique affichée sans source vérifiable.** Un repli codé en dur qui simule une donnée est un mensonge, pas une dégradation gracieuse.
+- **Le design est fait. Ne plus y toucher avant P4.**
+## 2. Périmètre et sources de vérité
+Ce document ne recopie plus l'état des produits du groupe. Le tableau qui figurait ici au 31 juillet a divergé en sept jours et faisait doublon avec trois pages. Il est remplacé par des renvois.
+| Question | Page qui fait foi |
+| --- | --- |
+| État réel d'un produit du groupe | Hub STRATA, et Roadmap suite STRATA société produits et distribution (RÉFÉRENCE VISION) |
+| Avancement du cockpit ESG Optimizer | Roadmap d'implémentation Cockpit ESG Optimizer et suite STRATA, tableau d'audit uniquement |
+| Prix, plans, entitlements | Grille tarifaire canonique ESG Optimizer (RÉFÉRENCE PRIX). Ne recopier aucun chiffre. |
+| Échéances légales, fiscales et de marque | Feuille de route administrative août à décembre 2026 |
+| Écarts entre Notion et le code | Audit croisé du 4 août 2026, dossier complet |
+| Chantiers, incidents, arbitrages en attente | Hub Chantiers techniques |
+| Branche Afrique | Roadmap Afrique écosystème STRATA, et hub Branche Afrique |
+**Règle d'arbitrage.** En cas de contradiction entre cette page et une des pages ci-dessus sur un fait produit, ce sont elles qui gagnent et cette page doit être reprise. Cette page ne fait foi que sur un seul objet : le dépôt `adama-os`.
+**Deux points de vocabulaire à tenir dans le cockpit.**
+1. **L'architecture des noms de marque n'est pas tranchée au 7 août 2026.** Elle est identifiée comme l'une des trois décisions qui bloquent plus que tout le code restant, et sa fenêtre utile se ferme le 14 août à cause de la recherche d'antériorité et du bon du fonds PME européen. Conséquence directe ici : **ne pas acheter ni configurer le domaine du cockpit sur un nom de groupe non arrêté.** Le domaine d'Adama OS est un nom personnel, il est indépendant de cet arbitrage, c'est ce qui permet de le poser tout de suite.
+2. **Le garde-fou « aucune mention d'IA côté client » est amendé depuis le 2 août 2026.** L'article 50 impose la mention du traitement automatisé. Sur `adama.ai`, la mention est obligatoire, elle n'est plus interdite. Voir couche L10.
+## 3. État réel du dépôt au 7 août 2026
+Lu dans le code, chemins exacts.
+| Objet | Ce qui est vrai |
+| --- | --- |
+| Dernier commit | `56d1f7c`, 13 juillet 2026. Branche `main`. 100 fichiers suivis. |
+| En attente | 10 diffs réels (`ROADMAP.md` +636 lignes, `ADAMA_OS_BLUEPRINT.md`, `README.md`, 4 fichiers `docs/`, `.gitignore`, `.prettierignore`, `next-env.d.ts`) plus `docs/PLAN-ACTION.md` non suivi. Le reste est du CRLF. |
+| Origine du site | `https://adama-os-web.vercel.app` en dur à trois endroits : `app/sitemap.ts:7`, `app/robots.ts:11`, `app/layout.tsx:12`. `NEXT_PUBLIC_SITE_URL` n'existe nulle part dans le code. |
+| Base de données | 7 tables Drizzle, 8 tables en SQL (`audit_requests` est orpheline, en base, absente de `schema.ts`, plus aucun code ne la touche). Migration unique `0000_init.sql`, 238 lignes, idempotente, 17 policies RLS, index HNSW cosine. |
+| Divergence de schéma | Enum `lead_source` : `('recruiter','audit','newsletter')` en SQL, `["recruiter"]` en Drizzle. |
+| Corpus RAG | Inexistant. Aucun dossier `corpus/`, aucun PDF hors le CV de téléchargement. La chaîne d'ingestion est écrite et sérieuse, elle n'a rien à manger. |
+| Stack d'interface réelle | Ni shadcn/ui, ni Tremor, ni Radix, ni lucide. `packages/ui` contient 3 composants écrits à la main sur `clsx` et `tailwind-merge`. Tokens en hexadécimal, pas en OKLCH : fond `#0d1b2a` bleu nuit, accent `#2affd6` cyan. La description « noir carbone et émeraude » du fichier `ROADMAP.md` est fausse. |
+| Feed Shipped | Un seul dépôt, `adama-diallo-rse/adama-os`, constantes dans `components/types.ts`. Affiche donc un dernier commit du 13 juillet. |
+| Événements PostHog | 7 sites d'appel. `strata_outbound` (`outbound-link.tsx:30` avec `produit` et `source`, `terminal.tsx:126`), plus 5 événements recruteur. Aucun `ecosystem_outbound`. |
+| Observabilité | Sentry sur 4 fichiers, PostHog UE avec file d'attente et consentement, Better Stack avec repli sur `system_metrics`. Solide. |
+| Tests | **Zéro.** Aucun fichier de test, aucune dépendance Vitest, Jest ou Playwright, aucune tâche `test` dans `turbo.json`. |
+| Internationalisation | `next-intl` totalement absent. `lang="fr"` figé dans `app/layout.tsx`. |
+| Configuration Vercel | Aucun `vercel.json`. Toute la configuration vit dans le tableau de bord, non versionnée. |
+### Les dépôts que le cockpit devrait montrer
+Relevé le 7 août 2026, avec la date du dernier commit. C'est la matière de la couche L5.
+| Dépôt | Compte GitHub | Dernier commit |
 | --- | --- | --- |
-| Audit CSRD payant | ESG Optimizer (`esg-optimizer.fr`) | Prod |
-| Bilan carbone certifiable | STRATA Scope (`scope.esg-optimizer.fr`) | Prod, paywall Stripe livré |
-| Formations VSME | STRATA Academy | Architecture posée |
-| Veille réglementaire | STRATA Watch | Phase 6 |
-| Facturation et encaissement Afrique | IROKO Business OS (Iroko Pay) | Socle en construction |
-| Checkout, TVA UE, newsletter | strata-platform (Stripe Tax) | Auth phase 2 |
-
-**L6, Conversion (ce qui reste sur Adama OS)**
-
-- [x] L6-T7 Hub `/strata` : vitrine des produits avec leur statut.
-- [x] L6-T12 Liens sortants tracés (event PostHog `strata_outbound` sur nav, Couche D, hub, terminal).
-- [ ] **L6-T13 Transformer `/strata` en hub écosystème `/ecosysteme`.** Quatre divisions, chaque produit avec statut, lien si live, mention « à venir » sinon. Rediriger `/strata` en 301 vers `/ecosysteme#strata` pour ne pas casser les liens déjà partagés.
-- [ ] **L6-T14 Renommer l'événement `strata_outbound` en `ecosystem_outbound`** avec les propriétés `division` et `product`. Conserver l'ancien événement 30 jours en double émission pour ne pas trouer l'historique PostHog.
-
-**L1, Données**
-
-- [ ] **L1-T9 Registre `ecosystem_products`** : slug, nom, division, statut, URL, description courte, ordre d'affichage. Le hub lit cette table. Ajouter un produit devient une ligne en base, pas un déploiement.
-- [ ] **L1-T10 Renommer `strata_analytics` en `ecosystem_analytics`**, ajouter les colonnes `division` et `product_slug`. Migration avec vue de compatibilité sur l'ancien nom.
-
-**L8, Funnel**
-
-- [ ] **L8-T7 Définir les 2 funnels PostHog** : (1) recrutement `vue vers recruiter_intent vers RDV ou CV`, (2) intérêt produit `vue vers ecosystem_outbound`. Les événements sont déjà émis, il ne manque que la configuration dans l'UI PostHog. Nécessite `NEXT_PUBLIC_POSTHOG_KEY`.
-
-**Definition of Done P3** : un recruteur réserve un RDV, un visiteur part vers un produit live, et les deux sorties sont mesurées. Le hub montre un groupe à quatre divisions, pas une suite ESG. **Jalon : 28 septembre.**
-
----
-
-## PHASE 4, DURCISSEMENT & MÉDIA
-
-**Fenêtre** : 29 septembre au 30 octobre (la deadline stage du 31 octobre tombe ici). **Objectif** : tout est solide pour le push de novembre.
-
-**L7, Acquisition & Média**
-
-- [ ] L7-T1 OG images dynamiques (Satori) par page et par produit.
-- [ ] L7-T2 Liens UTM sur tous les CTA, suivi PostHog par source.
-- [ ] L7-T3 Calendrier de contenu TikTok (hooks code et ESG) et YouTube (GreenDiadam), branché sur les sorties.
-- [ ] **L7-T4 Angle éditorial groupe.** Le récit « un ingénieur qui construit un groupe logiciel sur deux continents » est nettement plus fort que « un outil ESG ». Il faut le structurer avant de publier.
-
-**L8, Qualité/Sécurité/SEO/i18n**
-
-- [ ] L8-T8 Bilingue FR/EN (next-intl) sur tout le site public. Priorité haute : la cible recruteur inclut des groupes internationaux, et la division Afrique impose l'anglais.
-- [ ] L8-T9 SEO complet : next-sitemap, JSON-LD (`Person`, `Organization`, `SoftwareApplication`), métadonnées par page.
-- [ ] L8-T10 Audit accessibilité WCAG AA.
-- [ ] L8-T11 Audit perf (Web Vitals, images, cache components Next 16).
-- [ ] L8-T12 Audit sécurité : revue RLS, secrets, permissions, rate limiting sur les endpoints publics.
-- [ ] ~~L8-T13 Tests des fonctions de calcul carbone.~~ **Retiré.** Il n'y a plus de calcul carbone dans Adama OS. Ces tests appartiennent à STRATA Scope, où ils existent déjà.
-
-**Definition of Done P4** : site bilingue, SEO et accessibilité validés, perf au vert, sécurité auditée, contenu média prêt. **Jalon : 30 octobre.**
-
----
-
-## NOVEMBRE, LE PUSH RECRUTEMENT
-
-- [ ] Diffuser le dashboard aux cibles (Directeurs RSE, cabinets, fonds, DSI de groupes).
-- [ ] Lancer la cadence de contenu (frappe rapide TikTok, masterclass YouTube).
-- [ ] Suivre les funnels, itérer sur les messages qui convertissent.
-- [ ] Objectif : décrocher le poste d'élite, pendant que les produits du groupe continuent de tourner.
-
----
-
-# PARTIE 3 : MATRICE COUCHES × PHASES (synthèse)
-
-| Couche | P0 Fondations | P1 Vitrine | P2 Intelligence | P3 Écosystème | P4 Durcissement |
-| --- | --- | --- | --- | --- | --- |
-| L0 Infra | monorepo, CI/CD, **domaine** | preview deploys | engine supprimé | - | hardening |
-| L1 Données | schéma, RLS, auth | endpoints, checkin | rag_chunks | registre produits, analytics groupe | revue RLS |
-| L2 Moteur | - | - | **couche fermée** | - | - |
-| L3 Intelligence | - | - | RAG + adama.ai, **ingestion** | - | - |
-| L4 Interface | tokens, layout | 4 couches, Ctrl+K | VSME, Open Metrics, **Couche D groupe** | - | a11y, perf |
-| L5 Contenu | - | feed GitHub | **feed multi-repo** | - | OG dynamiques |
-| L6 Conversion | - | sortie recruteur | - | hub écosystème, sorties tracées | UTM |
-| L7 Média | - | - | - | - | TikTok, YouTube, angle groupe |
-| L8 Qualité | lint, Sentry | PostHog, SEO base | - | **funnels** | SEO, i18n, sécurité |
-
----
-
-# PARTIE 4 : JALONS CLÉS
-
-| Date | Jalon | Statut |
+| esg-optimizer | iroko-software-group | **7 août 2026**, 462 commits, branche `chantier-promesses-II` |
+| strata-scope | **adama-diallo-rse** (compte personnel) | 6 août 2026, 63 commits |
+| strata-platform | iroko-software-group | 31 juillet 2026, 24 commits |
+| strata-foundation | iroko-software-group | 29 juillet 2026, 17 commits |
+| strata-esg-academy | iroko-software-group | 29 juillet 2026, 3 commits |
+| iroko-platform | iroko-software-group | 28 juillet 2026, 26 commits |
+| strata-watch | iroko-software-group | 24 juillet 2026, 6 commits, message « Phase 8 » |
+| adama-os | **adama-diallo-rse** (compte personnel) | 13 juillet 2026 |
+**Conséquence opérationnelle.** Le jeton GitHub du feed doit couvrir **trois périmètres**, pas un : l'organisation `iroko-software-group`, le compte personnel `adama-diallo-rse`, et l'ancienne organisation `strata-esg` si le dépôt Academy qui y reste doit être lu. Un jeton fine-grained limité à l'organisation ne verra ni Scope ni le cockpit lui-même.
+## 4. Les couches, état réel
+Neuf couches historiques, quatre couches nouvelles ouvertes le 7 août. La numérotation existante n'est pas touchée, pour que les identifiants de tâches déjà écrits restent valides.
+| Couche | Rôle | État au 7 août 2026 |
 | --- | --- | --- |
-| 6 juillet | Squelette en ligne | Atteint sauf domaine |
-| 3 août | Dashboard recrutement-ready, envoyable | **Atteint en avance** |
-| 31 août | OS vivant : RAG ingéré, feed multi-repo, Couche D groupe | En cours, 85 pour cent |
-| 28 septembre | Hub écosystème et sorties tracées | À venir |
-| 30 octobre | OS durci, bilingue, prêt pour le push | À venir |
-| 31 octobre | Deadline stage AG2R | - |
-| Novembre | Push recrutement | - |
+| **L0 Infrastructure et dépôt** | Monorepo pnpm et Turborepo, Vercel, déploiement continu, domaine, hygiène du dépôt | Déploiement continu opérationnel. Manque le domaine (L0-T6), le `.gitattributes`, la centralisation de l'origine et un `vercel.json` versionné. |
+| **L1 Données** | Supabase UE, Drizzle, pgvector, RLS | Socle solide et testé en usage. Restent le registre produits (L1-T9), le renommage analytics (L1-T10) et deux dettes de schéma. |
+| **L2 Moteur** | Calcul ESG lourd | **Couche fermée. Aucun développement autorisé.** |
+| **L3 Intelligence** | RAG et [adama.ai](http://adama.ai) | Chaîne complète, propre, idempotente. Base vectorielle vide et corpus absent du disque. L'agent est fonctionnel et muet. |
+| **L4 Interface** | Next.js 16, Tailwind v4, quatre couches, Ctrl+K | Complet et abouti. Deux dettes : le repli chiffré de la Couche D, et la Couche D en vue groupe (L4-T14). |
+| **L5 Contenu et preuve** | Feed Shipped, Open Metrics | Livré mais lit un dépôt sur huit, et c'est le seul qui ne bouge plus. Plus gros écart entre l'exécution réelle et ce qui est montré. |
+| **L6 Conversion** | Sortie recrutement, sorties produits tracées | Sortie recrutement livrée et efficace. Hub produits en dur et faux sur six lignes sur huit. |
+| **L7 Acquisition et média** | OG dynamiques, UTM, calendrier éditorial | Rien de commencé. Normal, c'est du P4. |
+| **L8 Qualité et observabilité** | TS strict, Sentry, PostHog, Better Stack, SEO | Base en place et bien faite. Restent funnels, bilingue, JSON-LD organisation, audits a11y, perf et sécurité. |
+| **L9 Passerelles écosystème** (nouvelle) | Lecture seule des API des produits pour alimenter le cockpit | **Zéro.** Les API existent désormais côté produits, le cockpit ne les consomme pas. |
+| **L10 Conformité et transparence** (nouvelle) | Article 50, marquage des contenus générés, RGPD, mentions légales | Bandeau de consentement en place, tout le reste absent. Échéance dure au 2 décembre 2026. |
+| **L11 Tests et fiabilité** (nouvelle) | Filet minimal sur ce qui casse en silence | **Zéro test dans le dépôt.** Une régression sur le retrieval ou sur la RLS passerait inaperçue jusqu'à la démo. |
+| **L12 Continuité** (nouvelle) | Sauvegarde, secrets, accès de secours du périmètre adama-os | Aucune politique de sauvegarde, aucun test de restauration. Même angle mort que celui relevé le 4 août sur la base de production. |
+### Pourquoi ces quatre couches et pas d'autres
+Elles ne sont pas ajoutées pour faire nombre. Chacune ferme un écart constaté dans le code, et aucune ne duplique un chantier de l'espace STRATA.
+- **L9** existe parce que la matière est apparue de l'autre côté. STRATA Scope expose `POST /v1/ecosystem/push` et `POST /v1/ecosystem/webhook` depuis le 31 juillet, et l'ordonnanceur livré le 7 août expose l'état d'exécution des tâches. Le cockpit peut enfin afficher des chiffres produits sourcés au lieu de chiffres saisis. Sans cette couche, la doctrine du point 1.3 reste une intention.
+- **L10** existe parce que l'obligation a changé le 2 août et que l'échéance du 2 décembre est datée, opposable, et déclarée non préparée dans l'espace. Le cockpit héberge un agent conversationnel et produira des images OG générées, il est dans le périmètre.
+- **L11** existe parce que le dépôt le plus visible du parc est le seul sans aucun test, alors que les autres dépôts en comptent des milliers. C'est une asymétrie difficile à défendre devant un lecteur technique.
+- **L12** existe parce que le cockpit porte sa propre base Supabase, distincte de celle des produits, et qu'elle n'est couverte par aucune des mesures discutées ailleurs.
+## 5. Vagues et calendrier révisé
+| Vague | Fenêtre | Contenu | Statut |
+| --- | --- | --- | --- |
+| **P0 Fondations** | 24 juin au 6 juillet | Squelette en ligne | Livrée sauf L0-T6 |
+| **P1 Vitrine recrutement** | 7 juillet au 3 août | Dashboard envoyable à un recruteur | Livrée |
+| **Vague 0, dégel** | **7 au 13 août** | Rendre le dépôt commitable et le dashboard honnête | **À faire maintenant** |
+| **P2 Intelligence, solde** | 14 au 31 août | L3-T1 corpus, L5-T2 feed multi-repo, L4-T14 Couche D groupe, L8-T7 funnels | Bloquée par la vague 0 |
+| **P3 Écosystème et sorties** | 1er au 28 septembre | L1-T9, L1-T10, L6-T13, L6-T14, première passerelle L9 | À venir |
+| **P4 Durcissement et média** | 29 septembre au 30 octobre | L7 complet, L8-T8 à T12, L11 tests | À venir |
+| **P5 Conformité et continuité** | 2 au 30 novembre | L10, L12, en parallèle du push recrutement | À venir |
+| **Marquage machine** | avant le 2 décembre | Obligation datée, à cadrer en octobre au plus tard | Non commencé |
+**Pourquoi P3 ne s'appelle plus « Monétisation ».** Le tunnel de vente appartient aux produits, pas au cockpit. Cette correction date du 19 juillet et tient.
+## 6. Vague 0, dégel du dépôt
+Six gestes, dans cet ordre. Aucun ne demande de réflexion, tous débloquent le reste. C'est un travail d'une demi-journée qui conditionne tout le mois d'août.
+1. **Poser ****`.gitattributes`**** avec ****`* text=auto eol=lf`****, puis renormaliser.** Sans ce geste, tout `git add .` produit un commit de 98 fichiers illisible, et la revue de code devient impossible. La procédure exacte est déjà écrite dans `docs/PLAN-ACTION.md`, étape 6, elle n'a jamais été appliquée.
+2. **Commiter les 10 fichiers de documentation réels**, en trois commits séparés : documentation de roadmap, documentation d'infrastructure, plan d'action. Ne pas les noyer dans la renormalisation.
+3. **Retirer ****`FALLBACK_METRICS`**** de ****`layer-d.tsx`****.** Une carte vide qui dit « donnée non disponible » vaut mieux qu'un `docs_rag: 340` que rien ne justifie. C'est le seul geste de la liste qui protège la crédibilité.
+4. **Centraliser l'origine du site dans ****`NEXT_PUBLIC_SITE_URL`** et retirer les trois occurrences en dur. Prépare L0-T6 sans le bloquer.
+5. **Poser le domaine propre (L0-T6).** Nom personnel, indépendant de l'arbitrage de marque en cours. Une URL `.vercel.app` détruit une grande partie de l'effet auprès d'un recruteur.
+6. **Régénérer ****`ROADMAP.md`**** depuis cette page**, et non l'inverse. Le fichier a divergé, il décrit une stack qui n'est pas installée. Ajouter en tête de `ADAMA_OS_BLUEPRINT.md` un renvoi vers cette page, le fichier porte déjà un avertissement de non validité.
+## 7. Dépendances critiques
+- **`.gitattributes`**** avant tout commit.** Sinon le premier commit de la reprise est un mur de 98 fichiers.
+- **L0-T6 domaine avant tout partage externe.**
+- **Retrait du repli chiffré avant toute démo.** Une seule question de recruteur sur les 340 documents suffit.
+- **L1 avant L4.** Les couches d'interface lisent la base.
+- **L1-T9 registre produits avant L6-T13 hub écosystème.** Le hub lit la table, sinon on recode un tableau en dur pour la deuxième fois.
+- **L3-T1 ingestion avant toute démonstration d'**[**adama.ai**](http://adama.ai)**.**
+- **L9 passerelles avant toute nouvelle métrique produit affichée.** Sinon on ressaisit à la main ce que les produits exposent déjà.
+- **Jeton GitHub à trois périmètres avant L5-T2.** Un jeton limité à l'organisation ne verra pas `strata-scope`.
+## 8. Risques et parades
+| Risque | Parade |
+| --- | --- |
+| Le dépôt reste dormant et P2 se termine sans progression | Vague 0 en une demi-journée. Le blocage n'est pas la charge de travail, c'est l'état illisible du `git status`. |
+| Le dashboard affiche une preuve qu'il ne peut pas justifier | Retrait du repli chiffré, geste 3 de la vague 0. Puis règle permanente : aucune métrique sans source. |
+| Le dashboard sous-vend massivement l'exécution réelle | L5-T2. 462 commits sur ESG Optimizer contre 8 affichés sur un dépôt gelé, c'est l'écart le plus coûteux du dossier. |
+| Le hub produits envoie un recruteur sur une information fausse | L6-T13, alimenté par L1-T9. En attendant, retirer les trois produits qui n'existent pas. |
+| Dispersion sur huit dépôts | Adama OS ne développe aucun produit. Toute feature produit ici est un signal d'alerte. |
+| Domaine posé sur un nom de marque non arrêté | Nom personnel pour le cockpit. L'arbitrage de marque du 14 août ne le concerne pas. |
+| Régression silencieuse sur le retrieval ou la RLS | L11, filet minimal. Trois tests suffisent à couvrir ce qui casse vraiment. |
+| Perte de la base du cockpit | L12. Le cockpit a sa propre base Supabase, elle n'est couverte par aucune mesure prise ailleurs. |
+| Confusion de marque entre le cockpit, la société et les produits | Hiérarchie lisible en cinq secondes sur la page d'accueil. |
+| Perfectionnisme sur le design | Le design est fait. Ne plus y toucher avant P4. |
+## 9. Ce qui reste à la main d'Adama, hors code
+Aucun de ces points ne peut être fait par un agent. Ils sont classés par ce qu'ils débloquent.
+1. **Acheter le domaine et poser les enregistrements DNS chez le registrar**, puis l'ajouter dans le projet Vercel et choisir la redirection canonique. Débloque L0-T6, donc tout partage externe.
+2. **Créer un jeton GitHub fine-grained en lecture seule couvrant les trois périmètres** (`iroko-software-group`, `adama-diallo-rse`, et `strata-esg` si besoin), et le poser en variable Vercel. Débloque L5-T2.
+3. **Configurer les deux funnels dans l'interface PostHog.** Les événements sont déjà émis, il n'y a rien à coder. Débloque L8-T7.
+4. **Rassembler les fichiers du corpus RAG dans un dossier** avant l'ingestion : normes ESRS, standard VSME, CV, notice méthodologique. Aucun n'est aujourd'hui sur le disque du dépôt. Débloque L3-T1.
+5. **Trancher l'architecture des noms de marque avant le 14 août.** Ne bloque pas le cockpit, bloque tout le reste de l'espace.
+6. **Décider si le dépôt ****`adama-os`**** reste sur le compte personnel.** Choix défendable, mais il a une conséquence technique sur la portée du jeton GitHub, et une conséquence de lecture pour un recruteur qui regarde l'organisation.
+## 10. Prompts experts, couche par couche
+Un prompt par couche, prêt à coller dans Claude Code depuis la racine `adama-os`. Chacun est autonome : il rappelle l'état réel vérifié le 7 août, cadre le périmètre, et interdit explicitement ce qui ne doit pas être fait.
+**Règles communes à coller en tête si le contexte est perdu.** TypeScript strict. Aucun secret en dur. Aucun marqueur d'IA ni tiret long dans le code et dans les textes produits. Français par défaut. Aucune duplication de logique appartenant à un produit du groupe. Aucune métrique affichée sans source vérifiable. Ne jamais déduire l'état d'une tâche d'un fichier de documentation, lire le code.
+### Vague 0, dégel du dépôt
+```javascript
+Contexte : le dépôt adama-os est gelé depuis le commit 56d1f7c du 13 juillet 2026.
+git status affiche 99 fichiers, mais git diff --stat --ignore-cr-at-eol n'en
+remonte que 10. Les 88 autres sont du bruit de fin de ligne : le dépôt est
+commité en CRLF, le working tree est en LF, et il n'y a pas de .gitattributes.
+Aucun fichier .ts ou .tsx n'a de modification de contenu.
 
----
+Objectif : rendre le dépôt commitable et le dashboard honnête, en une session.
 
-# PARTIE 5 : DÉPENDANCES CRITIQUES & RISQUES
+1. Créer .gitattributes à la racine avec `* text=auto eol=lf` et les exclusions
+   binaires nécessaires (pdf, png, svg, ico, woff2). Donner ensuite la séquence
+   exacte de renormalisation (git add --renormalize .) et le message de commit à
+   utiliser, isolé, sans aucun autre changement dedans.
+2. Répartir les 10 diffs réels en trois commits thématiques : documentation de
+   roadmap (ROADMAP.md, ADAMA_OS_BLUEPRINT.md), documentation d'infrastructure
+   (README.md, docs/SECRETS.md, docs/PHASE-0-SETUP.md, docs/PHASE-0-L1-DONNEES.md,
+   docs/ECOSYSTEME-STRATA.md), hygiène (.gitignore, .prettierignore). Ajouter
+   docs/PLAN-ACTION.md, non suivi. Ignorer apps/web/next-env.d.ts, il est généré.
+3. Supprimer FALLBACK_METRICS dans apps/web/components/layer-d.tsx (lignes 14 à
+   18, utilisé ligne 32). Quand strata_analytics est vide, la Couche D doit
+   afficher un état "donnée non disponible" explicite, pas des chiffres inventés.
+   Le repli actuel annonce docs_rag: 340 alors que la base vectorielle est vide.
+4. Introduire NEXT_PUBLIC_SITE_URL et remplacer les trois occurrences en dur de
+   https://adama-os-web.vercel.app : app/sitemap.ts ligne 7, app/robots.ts ligne
+   11, app/layout.tsx ligne 12 (metadataBase et JSON-LD). Prévoir un repli sur
+   VERCEL_URL en preview. Ajouter la variable aux deux .env.example.
+5. Régénérer ROADMAP.md à partir de l'état réel du code, pas de l'ancien fichier.
+   Corriger en particulier la description de la stack L4 : il n'y a ni shadcn/ui,
+   ni Tremor, ni Radix, ni lucide, et les tokens sont en hexadécimal (#0d1b2a,
+   #2affd6), pas en OKLCH.
 
-**Dépendances** (à ne pas inverser)
+Interdits : ne pas faire un seul commit fourre-tout. Ne pas modifier de logique
+applicative en même temps que la renormalisation. Ne pas toucher aux composants
+autres que layer-d.tsx.
 
-- **L0-T6 (domaine) avant tout partage externe.** Un dashboard sur une URL `.vercel.app` détruit une grande partie de l'effet auprès d'un recruteur. C'est le blocage le moins cher à lever et le plus coûteux à laisser traîner.
-- L1 (données) avant L4 (interface) : les couches du dashboard lisent la base.
-- L1-T9 (registre produits) avant L6-T13 (hub écosystème) : le hub lit la table.
-- L3-T1 (ingestion) avant toute démo d'adama.ai : sans corpus, l'agent refuse de répondre, ce qui est correct mais indémontrable.
-
-**Risques identifiés et parades**
-
-- **Dispersion sur sept produits.** C'est le risque numéro un, aggravé par le passage à quatre divisions. Parade : Adama OS ne développe aucun produit, il les affiche. Toute tentation d'implémenter une feature produit ici est un signal d'alerte.
-- **Le dashboard sous-vend l'exécution réelle.** Le feed ne lit qu'un repo sur sept. Parade : L5-T2, en priorité P2.
-- **Surcharge du scope.** Parade : finir une phase avant la suivante. La vitrine recrutement seule justifie déjà l'effort.
-- **Perfectionnisme sur le design.** Parade : le design est fait, ne plus y toucher avant P4.
-- **RAG qui hallucine.** Parade déjà en place : citation obligatoire, refus hors contexte.
-- **Temps M2 plus stage plus produits.** Parade : la roadmap suppose un rythme régulier, pas des sprints héroïques. Une couche avance à la fois.
-- **Confusion de marque.** Trois noms circulent (Adama OS, STRATA, IROKO). Parade : Adama OS est le cockpit personnel, IROKO SOFTWARE GROUP est la holding, STRATA est une division. Cette hiérarchie doit être lisible en cinq secondes sur la page d'accueil.
-
----
-
-# PARTIE 6 : RITUEL D'EXÉCUTION
-
-**Cadence hebdomadaire** (cohérente avec les 4 séances de sport par semaine)
-
-- Lundi : choisir 3 à 5 tâches de la phase en cours.
-- En continu : une entrée Decisions Log par choix technique notable. Ça nourrit la Couche B et le contenu.
-- Vendredi : push, mise à jour du checkin, un contenu court documentant la semaine.
-
-**Métriques de suivi**
-
-- Avancement : nombre de tâches `[x]` par phase.
-- Recrutement : `recruiter_intent` et RDV Cal.com (PostHog).
-- Écosystème : métriques d'usage publiques (`ecosystem_analytics`, page Open Metrics).
-- Sorties : clics `ecosystem_outbound` par division et par produit.
-- Média : trafic par source UTM.
-
----
-
-# PARTIE 7 : PROMPTS EXPERTS PAR COUCHE
-
-Un prompt par couche, prêt à coller dans Claude Code depuis la racine `adama-os`. Chacun est autonome : il rappelle le contexte, cadre le périmètre et interdit explicitement ce qui ne doit pas être fait.
-
-**Règles communes à tous les prompts** : TypeScript strict, aucun secret en dur, aucun marqueur d'IA ni tiret long dans le code et les textes produits, français par défaut, et aucune duplication de logique appartenant à un produit du groupe.
-
----
-
-### Prompt L0, Infrastructure
-
+Livrable : le fichier .gitattributes, la séquence de commandes git exacte dans
+l'ordre, les diffs des points 3 et 4, et le nouveau ROADMAP.md.
 ```
-Contexte : monorepo pnpm + Turborepo `adama-os`, apps/web en Next.js 16 sur Vercel,
+### Couche L0, Infrastructure et dépôt
+```javascript
+Contexte : monorepo pnpm et Turborepo, apps/web en Next.js 16 sur Vercel,
 déploiement continu sur main avec preview deploys sur PR. services/engine a été
-supprimé le 13 juillet 2026 (doublon du moteur carbone de STRATA Scope).
+supprimé le 13 juillet 2026, la suppression est effective sur le disque.
+turbo.json déclare build, dev, lint, type-check, et aucune tâche test.
+Il n'existe aucun vercel.json : toute la configuration vit dans le tableau de
+bord et n'est pas versionnée.
 
-Tâche : finaliser L0-T6, la mise en ligne sur domaine propre.
+Tâche L0-T6, mise en ligne sur domaine propre, et durcissement de l'infra.
 
-1. Auditer `apps/web/next.config.ts`, `app/sitemap.ts`, `app/robots.ts` et toute
-   URL en dur, et centraliser l'origine du site dans une seule variable
-   d'environnement `NEXT_PUBLIC_SITE_URL`.
+1. Vérifier que NEXT_PUBLIC_SITE_URL est bien la seule source de l'origine du
+   site après la vague 0, et qu'aucune URL vercel.app ne subsiste, y compris dans
+   les métadonnées Open Graph, le JSON-LD et opengraph-image.tsx.
 2. Lister précisément les enregistrements DNS à créer chez le registrar pour
-   pointer sur Vercel (apex + www), et la redirection canonique à retenir.
-3. Vérifier que les métadonnées Open Graph, le JSON-LD et le sitemap utilisent
-   cette origine et non une URL vercel.app.
-4. Nettoyer le README : il décrit encore services/engine et Railway, qui
-   n'existent plus.
+   pointer sur Vercel (apex et www), et la redirection canonique à retenir.
+   Le domaine est un nom personnel, il ne dépend pas de l'arbitrage de marque
+   du groupe en cours : ne pas proposer de nom de société.
+3. Créer un vercel.json versionné : en-têtes de sécurité (Strict-Transport-
+   Security, X-Content-Type-Options, Referrer-Policy, Permissions-Policy),
+   région d'exécution en Europe, et redirections. Ne pas y dupliquer ce que
+   next.config.ts fait déjà.
+4. Ajouter une tâche test dans turbo.json, même sans test encore écrit, pour que
+   la couche L11 puisse s'y brancher sans retoucher le pipeline.
+5. Nettoyer le README : il a déjà été corrigé en local mais n'est pas commité,
+   vérifier qu'il ne décrit plus services/engine ni Railway.
 
-Interdits : ne pas réintroduire de service Python, ne pas ajouter de dépendance
-d'infrastructure nouvelle, ne pas toucher au pipeline Vercel existant qui
-fonctionne.
+Interdits : ne pas réintroduire de service Python. Ne pas ajouter de dépendance
+d'infrastructure nouvelle. Ne pas migrer d'hébergeur.
 
-Livrable attendu : un diff, plus la liste exacte des actions manuelles à faire
-dans le registrar et le dashboard Vercel.
+Livrable : un diff, le vercel.json, et la liste exacte des actions manuelles à
+faire dans le registrar et dans le tableau de bord Vercel, dans l'ordre.
 ```
+### Couche L1, Données
+```javascript
+Contexte vérifié le 7 août 2026 : Supabase Postgres en région UE, Drizzle dans
+packages/db, pgvector actif. packages/db/src/schema.ts déclare 7 tables
+(system_metrics, decisions_log, trajectory, strata_analytics, leads,
+rag_documents, rag_chunks). La migration unique packages/db/migrations/
+0000_init.sql en crée 8, elle est idempotente, pose 17 policies RLS et un index
+HNSW en vector_cosine_ops. Le seed packages/db/src/seed.ts est idempotent.
 
----
+Deux dettes existent et doivent être traitées dans la même passe :
+- audit_requests est créée en SQL avec ses policies, absente de schema.ts, et
+  plus aucun code applicatif ne la touche depuis le recentrage du 13 juillet.
+- L'enum lead_source vaut ('recruiter','audit','newsletter') en SQL contre
+  ["recruiter"] en Drizzle.
 
-### Prompt L1, Données
+Tâches L1-T9 et L1-T10, plus assainissement.
 
+1. Créer la table ecosystem_products : slug unique, nom, division (enum), statut
+   (enum prod | deploye | developpement | architecture), url nullable,
+   description courte, repo_full_name (pour la couche L5), ordre d'affichage,
+   timestamps. RLS : lecture publique anon, écriture réservée au service role.
+2. Renommer strata_analytics en ecosystem_analytics, ajouter division et
+   product_slug en clé étrangère vers ecosystem_products, et fournir une vue de
+   compatibilité strata_analytics en lecture pour ne rien casser pendant la
+   transition. Prévoir sa date de retrait.
+3. Trancher audit_requests : soit la modéliser dans schema.ts si elle doit
+   revivre, soit écrire une migration de suppression avec ses policies. Ne pas
+   la laisser dans cet état. Recommander une option et la justifier.
+4. Aligner l'enum lead_source entre SQL et Drizzle, dans le sens qui ne casse
+   pas les données existantes.
+5. Écrire la migration Drizzle 0001 et mettre à jour le seed. IMPORTANT : ne
+   pas inventer les statuts produits. Le seed doit lire les valeurs depuis un
+   fichier de données séparé (packages/db/src/data/ecosystem.ts) que l'humain
+   remplit, avec un commentaire renvoyant vers le hub STRATA comme source. Un
+   statut faux en base est pire qu'une table vide.
+6. Exposer un endpoint de lecture apps/web/app/api/ecosystem/route.ts sur le
+   même modèle que api/metrics.
+
+Interdits : ne pas casser les endpoints existants (system_metrics, decisions_log,
+trajectory). Ne pas désactiver la RLS. Ne pas écrire de migration destructive
+sans vue de compatibilité. Ne pas recopier de prix ni de chiffre commercial dans
+le seed.
+
+Livrable : migration SQL, schéma Drizzle, fichier de données à remplir, seed,
+endpoint, et la commande exacte pour appliquer la migration.
 ```
-Contexte : Supabase Postgres en région UE, Drizzle ORM dans packages/db,
-pgvector actif, RLS active sur toutes les tables. Schéma dans
-packages/db/src/schema.ts, migrations dans packages/db/migrations.
-
-Contexte stratégique : le périmètre du dashboard passe de la suite STRATA au
-groupe IROKO SOFTWARE GROUP, qui compte quatre divisions (STRATA Europe, IROKO
-Afrique, Infrastructure, Services).
-
-Tâches L1-T9 et L1-T10 :
-
-1. Créer la table `ecosystem_products` : slug (unique), nom, division (enum
-   strata | iroko | infrastructure | services), statut (enum prod | deployed |
-   development | architecture), url (nullable), description courte, ordre
-   d'affichage, timestamps. RLS : lecture publique, écriture réservée à l'admin.
-2. Renommer `strata_analytics` en `ecosystem_analytics` et ajouter les colonnes
-   `division` et `product_slug` (clé étrangère vers ecosystem_products).
-   Fournir une vue de compatibilité `strata_analytics` pour ne rien casser
-   pendant la transition.
-3. Écrire la migration Drizzle correspondante et mettre à jour le seed avec
-   l'état réel au 19 juillet 2026 : ESG Optimizer et STRATA Scope en prod,
-   STRATA Foundation déployé, STRATA Watch en développement, STRATA Academy et
-   STRATA Platform en architecture, IROKO Business OS en développement.
-4. Exposer un endpoint de lecture pour le hub.
-
-Interdits : ne pas casser les endpoints de lecture existants
-(system_metrics, decisions_log, trajectory), ne pas désactiver la RLS,
-ne pas écrire de migration destructive sans vue de compatibilité.
-
-Livrable : migration SQL, schéma Drizzle mis à jour, seed, endpoint, et la
-commande exacte à lancer pour appliquer la migration.
-```
-
----
-
-### Prompt L2, Moteur de calcul
-
-```
+### Couche L2, Moteur de calcul
+```javascript
 Cette couche est volontairement fermée. Aucun développement n'y est autorisé.
 
-Décision d'architecture du 13 juillet 2026, confirmée le 19 juillet : tout
-calcul ESG lourd (carbone Scopes 1-2-3, double matérialité, taxonomie) appartient
-à STRATA Scope et ESG Optimizer, qui ont leurs propres moteurs testés et leurs
-facteurs ADEME Base Empreinte. Le service `services/engine` d'Adama OS a été
-supprimé pour cette raison.
+Décision d'architecture du 13 juillet 2026, confirmée le 19 juillet et le 7 août :
+tout calcul ESG lourd (empreinte carbone Scopes 1, 2 et 3, double matérialité,
+taxonomie) appartient à STRATA Scope et à ESG Optimizer, qui ont leurs propres
+moteurs testés et leurs facteurs Base Empreinte ADEME V23.11. Le service
+services/engine d'Adama OS a été supprimé pour cette raison.
 
 Si un besoin de chiffre carbone apparaît dans le dashboard, la seule réponse
-acceptable est : appeler l'API publique versionnée de STRATA Scope en lecture,
-avec une clé cloisonnée par organisation, et afficher le résultat.
+acceptable est de passer par la couche L9 : appeler l'API publique versionnée de
+STRATA Scope en lecture, avec une clé cloisonnée, et afficher le résultat avec sa
+source et sa date.
 
-Toute demande d'implémentation de calcul dans ce repo doit être refusée et
-renvoyée vers le repo produit concerné.
+Vocabulaire imposé si un chiffre est affiché : empreinte carbone ou bilan GES en
+générique, jamais "bilan carbone" en nom commun, qui est une marque déposée.
+Facteurs : Base Empreinte ADEME V23.11, jamais "3.1".
+
+Toute demande d'implémentation de calcul dans ce dépôt doit être refusée et
+renvoyée vers le dépôt produit concerné.
 ```
+### Couche L3, Intelligence conversationnelle
+```javascript
+Contexte vérifié le 7 août 2026 : le pipeline RAG est entièrement codé, branché
+et de bonne facture. packages/db/src/ingest.ts, 289 lignes : CLI, extraction PDF
+locale via unpdf page par page, chunking par paragraphes (cible 1100 caractères,
+chevauchement 180), redécoupe par phrases des paragraphes longs, filtrage des
+chunks de moins de 80 caractères, embeddings text-embedding-3-small en 1024
+dimensions par lots de 64, insertion par lots de 100, idempotence réelle par
+couple source plus titre avec cascade. apps/web/lib/ai/retrieval.ts fait un
+cosineDistance Drizzle avec minSimilarity 0.15. apps/web/app/api/chat/route.ts
+streame via le Vercel AI SDK avec k=6 et laisse passer la génération sans
+contexte si le retrieval échoue. Composant adama-ai.tsx branché sur useChat.
 
----
+Problème unique : la base vectorielle est vide, et le corpus n'existe pas non
+plus sur le disque. Le seul PDF du dépôt est le CV de téléchargement. L'agent
+est fonctionnel et muet.
 
-### Prompt L3, Intelligence conversationnelle
+Tâche L3-T1.
 
-```
-Contexte : le pipeline RAG d'Adama OS est entièrement codé et branché.
-Extraction PDF locale via unpdf, chunking sémantique, embeddings OpenAI
-text-embedding-3-small en 1024 dimensions, stockage dans rag_chunks, index
-pgvector hnsw, retrieval top-k filtré par langue et source, génération citée
-avec gpt-4o et refus hors contexte, route api/chat en streaming via Vercel AI
-SDK, composant adama.ai flottant, commande `ask adama` dans le terminal Ctrl+K.
-Le script d'ingestion est dans packages/db/src/ingest.ts.
-
-Problème : la base vectorielle est vide. L'agent est fonctionnel mais muet.
-
-Tâche L3-T1 :
-
-1. Auditer le script d'ingestion : gestion des erreurs, idempotence (ne pas
-   dupliquer un document déjà ingéré), coût des appels d'embedding, taille et
-   chevauchement des chunks, métadonnées conservées (source, langue, page).
+1. Créer un dossier corpus/ à la racine, l'ajouter au .gitignore (les normes ne
+   se redistribuent pas), et écrire corpus/README.md qui liste précisément les
+   documents attendus, leur source de téléchargement et leur valeur d'usage.
 2. Proposer le corpus minimal viable pour une démonstration crédible en
-   entretien : normes ESRS, standard VSME, CV, notice méthodologique
-   ESG Optimizer. Estimer le nombre de chunks et le coût d'embedding.
-3. Ajouter une commande de vérification qui, après ingestion, exécute trois
-   questions types et affiche les sources retournées, pour prouver que le
-   retrieval fonctionne avant toute démo.
-4. Documenter la procédure d'ajout d'un document au corpus.
+   entretien, et estimer pour chacun le nombre de chunks et le coût
+   d'embedding, avec le total.
+3. Durcir le comportement du point faible identifié : dans api/chat, le catch
+   qui laisse passer la génération sans contexte transforme un incident de
+   retrieval en réponse non sourcée. Faire échouer proprement avec un message
+   explicite plutôt que de répondre sans source.
+4. Ajouter une commande de vérification (packages/db, script verify-rag) qui,
+   après ingestion, exécute trois questions types, affiche les sources et les
+   scores de similarité, et sort en code non nul si une seule question ne
+   ramène aucune source. C'est le garde-fou avant démonstration.
+5. Documenter la procédure d'ajout d'un document au corpus, en trois lignes.
 
-Interdits : ne pas changer le modèle d'embedding (la dimension 1024 est figée
-dans le schéma et l'index), ne pas relâcher le garde-fou de refus hors contexte,
-ne pas ingérer de document confidentiel client.
+Interdits : ne pas changer le modèle d'embedding, la dimension 1024 est figée
+dans le schéma et dans l'index HNSW. Ne pas relâcher le refus hors contexte. Ne
+pas ingérer de document client ni de document confidentiel. Ne pas committer le
+contenu du corpus.
 
-Livrable : script durci, commande de vérification, procédure documentée, et le
-coût estimé de l'ingestion.
+Livrable : dossier corpus documenté, script d'ingestion durci, commande de
+vérification, coût estimé, procédure.
 ```
+### Couche L4, Interface et design system
+```javascript
+Contexte vérifié le 7 août 2026, et il ne correspond pas à ce que la
+documentation annonçait. La stack réelle est Next.js 16, Tailwind v4, Framer
+Motion et cmdk. Il n'y a NI shadcn/ui, NI Tremor, NI Radix, NI lucide-react.
+packages/ui contient trois composants écrits à la main (badge, button, card) sur
+clsx et tailwind-merge. Les tokens de apps/web/app/globals.css sont en
+hexadécimal, pas en OKLCH : fond #0d1b2a bleu nuit, accent #2affd6 cyan
+turquoise, plus un thème alternatif doré #c9a96e. oklch n'apparaît que dans
+quatre color-mix.
 
----
+Quatre couches livrées dans apps/web/components : layer-a (System Status, 200
+lignes, compte à rebours live), layer-b (Decisions Log, 140), layer-c
+(Trajectory, 98), layer-d (Sandbox, 126), plus dashboard.tsx (264), terminal.tsx
+(359, palette Ctrl+K), vsme-simulator.tsx (376, calcul purement client),
+recruit-modal.tsx (303), recruiter-view.tsx (227).
 
-### Prompt L4, Interface & Design System
+Tâche L4-T14, refonte de la Couche D en vue groupe.
 
-```
-Contexte : dashboard Next.js 16 + Tailwind v4 + shadcn/ui new-york, tokens OKLCH
-(noir carbone, blanc, émeraude), Geist Sans et Geist Mono, Framer Motion.
-Quatre couches livrées dans apps/web/components : layer-a (System Status),
-layer-b (Decisions Log), layer-c (Trajectory), layer-d (Sandbox), plus
-terminal.tsx, vsme-simulator.tsx, recruit-modal.tsx, recruiter-view.tsx.
-
-Contexte stratégique : la Couche D affiche encore un écosystème centré STRATA.
-Le périmètre réel est le groupe IROKO SOFTWARE GROUP, quatre divisions.
-
-Tâche L4-T14, refonte de la Couche D en vue groupe :
-
-1. Lire les produits depuis la table ecosystem_products (voir prompt L1), pas
-   depuis un tableau en dur dans le composant.
-2. Grouper l'affichage par division, avec un badge de statut lisible
-   (prod, déployé, développement, architecture) et un traitement visuel distinct
-   pour les produits en ligne, qui seuls portent un lien cliquable.
+1. Lire les produits depuis ecosystem_products (voir prompt L1), pas depuis un
+   tableau en dur.
+2. Grouper par division, avec un badge de statut lisible, et un lien cliquable
+   uniquement pour les produits réellement en ligne. Pour les autres, afficher
+   l'état sans lien, sans promesse de date.
 3. Conserver la preuve sociale existante (AG2R LA MONDIALE, Younivibe, AFEV,
-   Ministère des Finances) : elle est plus forte que les métriques produit
-   auprès d'un recruteur, elle ne doit pas être noyée.
-4. Chaque lien sortant passe par le composant outbound-link.tsx existant, avec
-   les propriétés division et product.
-5. Vérifier le rendu en mode recruteur (?for=recruiter) et à l'impression.
+   Ministère des Finances), aujourd'hui en dur dans le JSX aux lignes 52 à 65.
+   Elle est plus forte auprès d'un recruteur que n'importe quelle métrique
+   produit, elle ne doit pas être noyée dans la nouvelle grille.
+4. Vérifier que FALLBACK_METRICS a bien disparu (vague 0) et que l'état vide est
+   explicite.
+5. Chaque lien sortant passe par outbound-link.tsx, avec les propriétés division
+   et product.
+6. Vérifier le rendu en mode recruteur (?for=recruiter) et à l'impression.
 
-Interdits : ne pas modifier les tokens de design, ne pas introduire de
-bibliothèque de composants supplémentaire, ne pas casser le responsive ni les
-animations existantes, ne pas allonger le temps de rendu initial de la page.
+Interdits : ne pas modifier les tokens de design. Ne pas introduire de
+bibliothèque de composants, en particulier ne pas "réparer" l'absence de
+shadcn/ui en l'installant, la base maison fonctionne et le design est figé
+jusqu'à P4. Ne pas casser le responsive ni les animations. Ne pas allonger le
+temps de rendu initial. Ne poser aucun transform, filter, perspective ni
+backdrop-filter sur un ancêtre commun, cela casserait les éléments en position
+fixed.
 
-Livrable : composant refondu, données lues en base, et la description précise du
-rendu desktop et mobile.
+Livrable : composant refondu, données lues en base, description du rendu desktop,
+mobile et impression.
 ```
+### Couche L5, Contenu et preuve d'exécution
+```javascript
+Contexte vérifié le 7 août 2026 : apps/web/lib/github.ts fait 54 lignes et
+n'interroge qu'un seul dépôt. Les constantes ne sont même pas locales, elles
+viennent de apps/web/components/types.ts : GITHUB_OWNER = "adama-diallo-rse",
+GITHUB_REPO = "adama-os". L'appel est per_page=8, cache next revalidate 300,
+GITHUB_TOKEN optionnel, retour tableau vide en silence sur erreur. Aucune
+agrégation, aucune pagination, aucun filtrage des commits de merge.
 
----
+Problème : le dépôt lu est le seul du parc qui ne bouge plus depuis le 13
+juillet. Pendant ce temps, esg-optimizer a 462 commits dont un aujourd'hui,
+strata-scope 63 dont un le 6 août, strata-platform 24, strata-foundation 17,
+iroko-platform 26, strata-watch 6, strata-esg-academy 3. Le dashboard affiche
+donc une fraction infime du travail réel, ce qui affaiblit directement
+l'argument recruteur. C'est l'écart le plus coûteux du dossier.
 
-### Prompt L5, Contenu et preuve d'exécution
+Tâche L5-T2, feed multi-repo.
 
-```
-Contexte : le feed « Shipped » (apps/web/components/shipped-feed.tsx, logique
-dans apps/web/lib/github.ts) lit l'API GitHub et affiche les commits réels.
-Il ne lit aujourd'hui que le repo adama-os.
+1. Rendre la liste des dépôts configurable, de préférence via la colonne
+   repo_full_name de ecosystem_products, avec repli sur une variable
+   d'environnement. Ne rien coder en dur, et retirer GITHUB_OWNER et
+   GITHUB_REPO de components/types.ts qui n'ont rien à y faire.
+2. ATTENTION, point critique souvent manqué : les dépôts sont répartis sur
+   TROIS périmètres GitHub, pas un. iroko-software-group (esg-optimizer,
+   strata-platform, strata-foundation, strata-watch, strata-esg-academy,
+   iroko-platform), le compte personnel adama-diallo-rse (strata-scope et
+   adama-os), et l'ancienne organisation strata-esg. Un jeton fine-grained
+   limité à l'organisation ne verra ni Scope ni le cockpit. Documenter
+   exactement les portées à cocher.
+3. Agréger, trier par date décroissante, afficher pour chaque commit le nom du
+   produit et sa division en badge.
+4. Gérer les contraintes de l'API : quota (60 requêtes par heure sans jeton,
+   5000 avec), pagination, dépôts privés, mise en cache pour ne pas rappeler
+   l'API à chaque rendu. Un appel par dépôt en parallèle avec un cache commun.
+5. Dégradation : si un dépôt est inaccessible, le feed affiche les autres au
+   lieu de retourner un tableau vide. L'erreur doit être visible en logs, pas
+   avalée comme aujourd'hui.
+6. Filtrer le bruit : exclure les commits de merge et les commits automatiques
+   de dépendances. Exclure aussi les commits de renormalisation de fins de
+   ligne, sinon la vague 0 noiera le feed.
 
-Problème : l'essentiel de l'exécution se fait ailleurs. Les repos actifs sont
-esg-optimizer, strata-scope, strata-watch, strata-foundation, strata-academy,
-strata-platform (organisation iroko-software-group) et iroko-platform. Le
-dashboard affiche donc une fraction infime du travail réel, ce qui affaiblit
-directement l'argument recruteur.
-
-Tâche L5-T2, feed multi-repo :
-
-1. Rendre la liste des repos configurable (variable d'environnement ou table
-   ecosystem_products), pas codée en dur.
-2. Agréger les commits de tous les repos, trier par date décroissante, afficher
-   pour chacun le nom du produit et sa division en badge.
-3. Gérer proprement les contraintes de l'API GitHub : quota, pagination, repos
-   privés (token à portée lecture uniquement), et mise en cache pour ne pas
-   appeler l'API à chaque rendu.
-4. Prévoir la dégradation : si un repo est inaccessible, le feed affiche les
-   autres au lieu de tomber.
-5. Filtrer le bruit : exclure les commits de merge et les commits de
-   dépendances automatiques.
-
-Interdits : ne pas exposer de token côté client, ne pas afficher le contenu des
-commits de repos privés au-delà du message et de la date, ne pas bloquer le
+Interdits : ne pas exposer de jeton côté client. Ne pas afficher le contenu des
+commits de dépôts privés au-delà du message et de la date. Ne pas bloquer le
 rendu de la page sur cet appel réseau.
 
-Livrable : feed multi-repo caché et résilient, configuration documentée, et la
-liste des variables d'environnement à ajouter dans Vercel.
+Livrable : feed multi-repo caché et résilient, configuration documentée, liste
+exacte des portées du jeton GitHub à créer, variables à poser dans Vercel.
 ```
+### Couche L6, Conversion
+```javascript
+Contexte vérifié le 7 août 2026. Deux sorties existent.
 
----
+La sortie recrutement fonctionne et n'est pas à toucher : bouton persistant,
+recruit-modal.tsx (303 lignes) avec CV et Cal.com à la demande, capture de lead,
+mode lecture recruteur imprimable. Cinq événements PostHog émis
+(recruiter_modal_opened, recruiter_cv_download, recruiter_cal_opened,
+recruiter_intent, recruiter_view_print).
 
-### Prompt L6, Conversion
+La sortie produit est défaillante. apps/web/app/strata/page.tsx (232 lignes)
+porte un tableau PRODUCTS en dur aux lignes 29 à 86, huit entrées, et il est faux
+sur six d'entre elles : Foundation et Watch sont donnés "soon Q3 2026" alors que
+leur code est livré (Watch en est à sa phase 8), Academy "soon Q4" alors qu'elle
+est en production, et trois produits listés en roadmap 2027 (STRATA Due, STRATA
+Taxonomy, GreenHR) n'existent nulle part, ni sur le disque ni dans les pages
+courantes. Aucune mention de la branche Afrique. L'événement émis est
+strata_outbound avec les propriétés produit et source (outbound-link.tsx ligne
+30, et terminal.tsx ligne 126).
 
-```
-Contexte : deux sorties existent. La sortie recrutement (bouton persistant,
-modal avec CV et Cal.com, capture de lead, événement PostHog recruiter_intent,
-mode lecture recruteur) est livrée et fonctionne. La sortie produit est le hub
-/strata (apps/web/app/strata/page.tsx) avec l'événement strata_outbound émis
-depuis la nav, la Couche D, le hub et le terminal via outbound-link.tsx.
-
-Contexte stratégique : le périmètre passe de la suite STRATA au groupe
-IROKO SOFTWARE GROUP, quatre divisions.
-
-Tâches L6-T13 et L6-T14 :
+Tâches L6-T13 et L6-T14.
 
 1. Transformer /strata en /ecosysteme : présentation par division, produits lus
-   depuis ecosystem_products, lien cliquable uniquement pour les produits en
-   ligne, mention explicite de l'état pour les autres.
-2. Mettre en place une redirection permanente 301 de /strata vers
-   /ecosysteme#strata. Des liens ont déjà été partagés, ils ne doivent pas
-   casser.
-3. Renommer l'événement strata_outbound en ecosystem_outbound, avec les
-   propriétés division et product. Émettre les deux événements en parallèle
-   pendant 30 jours pour ne pas trouer l'historique PostHog, puis retirer
-   l'ancien.
-4. Mettre à jour la commande `ping strata` du terminal en conséquence, en
-   gardant un alias sur l'ancien nom.
+   depuis ecosystem_products, lien cliquable uniquement pour ce qui est en ligne,
+   état explicite pour le reste. Aucune date de disponibilité affichée si elle
+   n'est pas engagée ailleurs.
+2. Supprimer les trois produits qui n'existent pas. Si une intention doit rester
+   visible, elle passe par une ligne "en réflexion" sans nom de produit et sans
+   date, ou par rien du tout. Une promesse non tenue sur une page publique est
+   un risque, pas un argument.
+3. Redirection permanente 301 de /strata vers /ecosysteme#strata dans
+   next.config.ts. Des liens ont déjà été partagés.
+4. Renommer strata_outbound en ecosystem_outbound, avec les propriétés division
+   et product en plus de source. Émettre les deux événements en parallèle
+   pendant 30 jours pour ne pas trouer l'historique PostHog, avec une date de
+   retrait écrite en commentaire.
+5. Mettre à jour la commande `ping strata` du terminal en gardant un alias, et
+   corriger PAGE_TARGETS (terminal.tsx lignes 51 à 55) qui porte aussi des URL
+   en dur.
 
-Interdits : ne pas toucher à la sortie recrutement, qui fonctionne et qui est la
-sortie prioritaire. Ne pas ajouter de paiement, de checkout ou de tunnel de
-vente : la monétisation appartient aux produits (Stripe sur STRATA Scope et
-ESG Optimizer, Stripe Tax sur strata-platform).
+Interdits : ne pas toucher à la sortie recrutement, qui fonctionne et qui est
+prioritaire. Ne pas ajouter de paiement, de checkout ou de tunnel de vente, la
+monétisation appartient aux produits. Ne recopier aucun prix.
 
 Livrable : page /ecosysteme, redirection, événements renommés en double
-émission, et la liste des funnels à créer côté PostHog.
+émission, et la liste des deux funnels à créer côté PostHog.
 ```
+### Couche L7, Acquisition et média
+```javascript
+Contexte : phase P4, à partir du 29 septembre 2026. Rien n'est commencé, c'est
+normal. apps/web/app/opengraph-image.tsx existe mais il est statique.
 
----
+L'angle éditorial a changé de calibre. Le récit n'est plus celui d'un consultant
+qui code un outil, c'est celui d'un ingénieur qui construit un ensemble logiciel
+sur deux continents et documente tout en public. C'est un positionnement rare et
+défendable, à condition que chaque affirmation soit vérifiable dans le dashboard.
 
-### Prompt L7, Acquisition et média
+Tâches L7-T1 à L7-T4.
 
-```
-Contexte : phase 4, à partir du 29 septembre 2026. Rien n'est commencé, c'est
-normal. Canaux visés : TikTok (format court, hooks code et ESG) et YouTube
-(chaîne GreenDiadam, format masterclass).
-
-Contexte stratégique : l'angle éditorial a changé de calibre. Le récit n'est plus
-« un consultant RSE qui code un outil ESG », c'est « un ingénieur qui construit
-un groupe logiciel sur deux continents, sept produits, et documente tout en
-public ». C'est un positionnement nettement plus rare et plus défendable.
-
-Tâches L7-T1 à L7-T4 :
-
-1. OG images dynamiques via Satori : un template par type de page (accueil,
-   écosystème, produit, Open Metrics), avec le statut réel du produit affiché.
-2. Ajouter des paramètres UTM cohérents sur tous les CTA sortants et vérifier
-   que PostHog attribue correctement la source.
-3. Structurer un calendrier éditorial sur huit semaines, chaque contenu pointant
-   vers une sortie tracée. Un contenu, une sortie, jamais deux.
-4. Formuler trois angles narratifs testables pour le récit groupe, avec pour
-   chacun le hook, la preuve visuelle disponible dans le dashboard, et la sortie
-   ciblée.
+1. Images OG dynamiques via Satori, un template par type de page (accueil,
+   écosystème, produit, Open Metrics), avec le statut réel du produit lu en base.
+   Contrainte de conformité : à partir du 2 décembre 2026, une image générée doit
+   porter un marquage lisible par machine. Prévoir le champ de métadonnée dès
+   maintenant plutôt que de refaire les templates (voir couche L10).
+2. Paramètres UTM cohérents sur tous les liens sortants, et vérification que
+   PostHog attribue correctement la source. Convention écrite une fois, appliquée
+   par outbound-link.tsx, pas recopiée dans chaque appel.
+3. Calendrier éditorial sur huit semaines. Un contenu, une sortie tracée, jamais
+   deux.
+4. Trois angles narratifs testables, avec pour chacun le hook, la preuve visuelle
+   disponible dans le dashboard, et la sortie ciblée.
 
 Interdits : aucune affirmation chiffrée qui ne soit pas vérifiable dans le
 dashboard ou dans un produit en ligne. Le dashboard sert de preuve, il ne doit
-jamais être contredit par le contenu.
+jamais être contredit par le contenu. Ne citer aucun nom de client au delà de la
+preuve sociale déjà publique.
 
-Livrable : templates OG, convention UTM documentée, calendrier éditorial, et les
-trois angles avec leur preuve associée.
+Livrable : templates OG, convention UTM documentée, calendrier éditorial, trois
+angles avec leur preuve associée.
 ```
+### Couche L8, Qualité, sécurité, SEO, observabilité
+```javascript
+Contexte vérifié le 7 août 2026, et cette base est bonne. Sentry sur quatre
+fichiers (instrumentation.ts avec onRequestError, instrumentation-client.ts,
+sentry.server.config.ts, sentry.edge.config.ts, plus withSentryConfig).
+PostHog en région UE via apps/web/lib/analytics.ts, 104 lignes, avec import
+dynamique, file d'attente de 20 événements tant que le consentement est inconnu,
+purge sur refus, et consent-banner.tsx monté dans le layout. Better Stack via
+lib/uptime.ts avec cache 60 secondes et repli sur system_metrics. sitemap.ts,
+robots.ts, JSON-LD Person complet dans layout.tsx.
 
----
+Manques constatés : next-intl totalement absent, aucun JSON-LD Organization ni
+SoftwareApplication, aucun test (voir couche L11), lang="fr" figé.
 
-### Prompt L8, Qualité, sécurité, SEO, observabilité
+Tâches restantes, par ordre de valeur.
 
-```
-Contexte déjà en place : TypeScript strict, ESLint et Prettier partagés, Sentry
-sur le web, PostHog en région UE avec bandeau de consentement, Better Stack pour
-un statut système réel, métadonnées et JSON-LD Person, sitemap et robots.
-RLS active sur toutes les tables Supabase.
-
-Tâches restantes, par ordre de valeur :
-
-1. L8-T7, funnels PostHog. Les événements sont déjà émis. Définir le funnel
-   recrutement (vue vers recruiter_intent vers RDV ou téléchargement CV) et le
-   funnel produit (vue vers ecosystem_outbound). Documenter la configuration
-   exacte à reproduire dans l'interface PostHog.
-2. L8-T8, bilingue FR/EN avec next-intl sur tout le site public. Priorité haute :
-   la cible recruteur inclut des groupes internationaux et la division Afrique
-   impose l'anglais. Extraire les chaînes, ne pas traduire à la volée.
-3. L8-T9, SEO complet : JSON-LD Person, Organization (IROKO SOFTWARE GROUP) et
-   SoftwareApplication par produit, métadonnées par page, sitemap à jour.
-4. L8-T10, audit accessibilité WCAG AA, en priorité le contraste sur fond sombre
-   et la navigation au clavier dans le terminal Ctrl+K.
+1. L8-T7, funnels PostHog. Les événements sont déjà émis, il n'y a rien à coder.
+   Définir le funnel recrutement (vue vers recruiter_modal_opened vers
+   recruiter_intent vers recruiter_cal_opened ou recruiter_cv_download) et le
+   funnel produit (vue vers ecosystem_outbound). Livrer la configuration exacte
+   à reproduire dans l'interface, écran par écran.
+2. L8-T8, bilingue français et anglais avec next-intl sur tout le site public.
+   Priorité haute : la cible recruteur inclut des groupes internationaux.
+   Extraire les chaînes, ne pas traduire à la volée. Attention, le site n'a
+   aujourd'hui aucune structure [locale], c'est une restructuration de routes,
+   pas un ajout de fichier.
+3. L8-T9, SEO complet : JSON-LD Organization et SoftwareApplication par produit
+   lus depuis ecosystem_products, métadonnées par page, sitemap alimenté par la
+   base au lieu du tableau de trois URL en dur.
+4. L8-T10, audit accessibilité WCAG AA. Priorité au contraste sur fond sombre
+   (le fond réel est #0d1b2a avec un accent #2affd6, à mesurer) et à la
+   navigation clavier dans le terminal Ctrl+K.
 5. L8-T11, audit performance : Web Vitals, images, cache components Next 16.
-6. L8-T12, audit sécurité : revue des policies RLS, rotation des secrets,
-   permissions du token GitHub, rate limiting sur les endpoints publics et sur
-   api/chat, qui appelle un modèle payant.
+6. L8-T12, audit sécurité : revue des 17 policies RLS, rotation des secrets,
+   portée du jeton GitHub, et surtout limitation de débit sur api/chat qui
+   appelle un modèle payant sans aucune protection aujourd'hui.
 
-Interdits : ne pas ajouter d'outil d'observabilité supplémentaire, la stack est
-suffisante. Ne pas traduire automatiquement le contenu, la qualité de langue
-fait partie de l'argument.
+Interdits : ne pas ajouter d'outil d'observabilité supplémentaire, la stack
+suffit. Ne pas traduire automatiquement le contenu, la qualité de langue fait
+partie de l'argument.
 
 Livrable : pour chaque point, un diff ou une procédure, plus la liste des actions
 manuelles à faire dans PostHog, Vercel et Supabase.
 ```
+### Couche L9, Passerelles écosystème (nouvelle)
+```javascript
+Contexte et raison d'être. Adama OS affiche aujourd'hui des chiffres produits
+saisis à la main dans la table strata_analytics, ou pire, repliés sur des
+constantes. Depuis fin juillet, la matière existe de l'autre côté : STRATA Scope
+expose un pont écosystème versionné, et un ordonnanceur a été livré côté
+ESG Optimizer le 7 août 2026, qui rend enfin mesurables des indicateurs
+d'exécution qui ne l'étaient pas.
 
+Principe non négociable : le cockpit CONSOMME, il ne recalcule jamais, et il
+n'écrit jamais dans un produit. Lecture seule, clé cloisonnée, résultat affiché
+avec sa source et son horodatage.
+
+Tâches L9-T1 à L9-T5.
+
+1. Écrire un client de passerelle générique dans apps/web/lib/ecosystem/ :
+   une fonction par produit, timeout court, cache Next avec revalidate explicite,
+   jamais d'appel bloquant au rendu, dégradation silencieuse vers un état
+   "source indisponible" et jamais vers une valeur inventée.
+2. Modéliser le résultat : chaque métrique importée porte obligatoirement
+   product_slug, source (nom de l'API), fetched_at, et value. Une métrique sans
+   ces quatre champs ne s'affiche pas. Stocker dans ecosystem_analytics (voir
+   couche L1), en insertion, jamais en écrasement, pour garder l'historique.
+3. Brancher la première passerelle sur l'API publique versionnée de STRATA Scope,
+   en lecture seule. AVANT d'écrire une ligne, lire la page Notion de référence
+   du chantier Scope pour relever les noms de routes et de champs exacts. Ne
+   jamais deviner un contrat d'API.
+4. Brancher la seconde passerelle sur l'état de l'ordonnanceur, pour afficher
+   dans la Couche A une preuve d'exploitation réelle : dernière exécution, santé
+   des tâches planifiées. C'est le genre de détail qui distingue un dashboard de
+   démonstration d'un dashboard d'opérateur.
+5. Prévoir un mode dégradé global : si aucune passerelle ne répond, le dashboard
+   reste entièrement fonctionnel et dit clairement que les métriques produits ne
+   sont pas jointes.
+
+Interdits : aucune écriture vers un produit, aucun webhook entrant, aucun appel
+authentifié avec une clé d'administration. Ne pas recopier de logique métier du
+produit dans le cockpit, y compris un simple calcul de pourcentage : si le
+chiffre doit être dérivé, il est dérivé côté produit. Ne jamais afficher une
+métrique dont la source n'a pas répondu.
+
+Livrable : client de passerelle, schéma de la métrique importée, deux passerelles
+branchées, comportement dégradé démontré, et la liste des variables
+d'environnement et des clés à demander côté produit.
+```
+### Couche L10, Conformité et transparence (nouvelle)
+```javascript
+Contexte et raison d'être. Deux obligations concernent directement ce dépôt, et
+une doctrine interne a changé.
+
+1. Depuis le 2 août 2026, l'article 50 impose la mention du traitement
+   automatisé. Le garde-fou historique de l'espace, "aucune mention d'IA côté
+   client", est AMENDÉ : sur un agent conversationnel comme adama.ai, la mention
+   est obligatoire. Un rédacteur qui applique l'ancienne doctrine retire une
+   mention légale.
+2. Au 2 décembre 2026, les contenus générés doivent porter un marquage lisible
+   par machine. Le cockpit est concerné par les réponses de adama.ai et par les
+   images OG générées de la couche L7. La préparation est déclarée nulle dans
+   l'espace, donc il n'y a rien à reprendre ailleurs.
+
+État actuel : consent-banner.tsx est en place et correct. Il n'y a en revanche
+aucune page de politique de confidentialité, aucune mention légale, aucune page
+de politique de cookies dans le dépôt.
+
+Tâches L10-T1 à L10-T5.
+
+1. Ajouter la mention de traitement automatisé sur le composant adama-ai.tsx, au
+   premier contact et non enfouie dans un pied de page. Formulation sobre, en
+   français et en anglais si la couche L8-T8 est faite. La verrouiller par un
+   test (voir couche L11) pour qu'un futur nettoyage de texte ne la supprime pas.
+2. Créer /mentions-legales et /confidentialite. Éditeur : personne physique,
+   régime déclaré. Sous-traitants à lister honnêtement : Vercel, Supabase région
+   UE, OpenAI, PostHog UE, Sentry, Better Stack, GitHub, Cal.com. Préciser pour
+   chacun ce qui transite. Ne pas recopier les mentions d'un produit du groupe,
+   le cockpit est un site personnel, l'éditeur et les finalités diffèrent.
+3. Préparer le marquage machine avant le 2 décembre : métadonnée dans les images
+   OG générées, et champ de provenance dans les réponses de adama.ai. Livrer une
+   note technique d'une page en octobre au plus tard, la mise en oeuvre peut
+   attendre novembre.
+4. Vérifier la cohérence entre le bandeau de consentement et la réalité : la file
+   d'attente de PostHog garde 20 événements avant consentement. S'assurer qu'ils
+   sont bien purgés en cas de refus, et le prouver.
+5. Vérifier que le CV téléchargeable et le formulaire de lead disent où vont les
+   données et combien de temps elles sont conservées.
+
+Interdits : ne pas copier les mentions légales d'ESG Optimizer ni de
+strata-platform, l'éditeur n'est pas le même. Ne pas annoncer de certification,
+de label ni de conformité que le site ne détient pas. Ne pas employer le
+vocabulaire interdit de l'espace en matière de preuve : infalsifiable,
+inaltérable, horodatage certifié, registre qualifié.
+
+Livrable : mention en place et testée, deux pages légales, note de préparation au
+marquage machine, preuve de purge du consentement.
+```
+### Couche L11, Tests et fiabilité (nouvelle)
+```javascript
+Contexte et raison d'être. Le dépôt adama-os ne contient AUCUN test : aucun
+fichier test ou spec, aucune dépendance Vitest, Jest ou Playwright, aucune tâche
+test dans turbo.json. C'est le dépôt le plus visible du parc, et c'est le seul
+dans cet état, alors que les autres en comptent des milliers. Devant un lecteur
+technique, l'asymétrie est difficile à défendre.
+
+L'objectif n'est pas la couverture, c'est un filet minimal sur ce qui casse en
+silence et se voit en démonstration.
+
+Tâches L11-T1 à L11-T5.
+
+1. Installer Vitest à la racine du monorepo, une configuration partagée dans
+   packages/config, et brancher la tâche test dans turbo.json (créée en L0).
+2. Écrire les quatre tests qui comptent, et pas davantage dans un premier temps :
+   a. Retrieval : sur un jeu de chunks connu, une requête proche ramène la bonne
+      source, une requête hors sujet ne ramène rien. C'est le test qui garantit
+      qu'une démonstration de adama.ai ne s'effondre pas.
+   b. RLS : un client anon ne peut lire ni rag_chunks ni rag_documents, et ne
+      voit dans decisions_log que les lignes publiées. À exécuter contre une base
+      de test, pas contre la production.
+   c. Absence de repli chiffré : la Couche D ne rend aucun nombre quand la source
+      est vide. Ce test verrouille le geste 3 de la vague 0.
+   d. Mention article 50 : elle est présente dans le rendu de adama-ai.
+3. Ajouter un test de contrat sur les endpoints publics (api/metrics,
+   api/decisions, api/trajectory, api/ecosystem) : forme de la réponse, et code
+   de statut en cas d'indisponibilité de la base.
+4. Brancher un workflow GitHub Actions minimal : install, lint, type-check, test,
+   sur pull request. Le déploiement reste géré par Vercel, ne pas le doubler.
+5. Documenter en trois lignes comment lancer les tests en local, avec la base de
+   test.
+
+Interdits : ne pas viser un pourcentage de couverture. Ne pas écrire de test sur
+l'animation, la mise en page ou le rendu visuel, cela casse à chaque retouche
+pour aucun gain. Ne jamais faire tourner un test contre la base de production. Ne
+pas ajouter Playwright tant que les quatre tests ci-dessus ne sont pas verts.
+
+Livrable : configuration Vitest, les tests, le workflow CI, la procédure locale.
+```
+### Couche L12, Continuité et reprise (nouvelle)
+```javascript
+Contexte et raison d'être. Le cockpit porte sa PROPRE base Supabase, distincte de
+la base de production des produits. Elle contient les décisions, la trajectoire,
+les leads recruteurs et le corpus vectoriel, dont le coût de reconstitution n'est
+pas nul (embeddings payants). Aucune politique de sauvegarde n'existe, aucun test
+de restauration n'a été fait. C'est le même angle mort que celui relevé le 4 août
+sur la base de production des produits, sur un périmètre que ce chantier là ne
+couvre pas.
+
+Ce prompt ne traite QUE le périmètre adama-os. Tout ce qui concerne la base de
+production d'ESG Optimizer relève du hub Chantiers techniques, ne pas le
+dupliquer ici.
+
+Tâches L12-T1 à L12-T5.
+
+1. Écrire, en une page, la politique de sauvegarde et de restauration de la base
+   du cockpit : ce qui est sauvegardé, à quelle fréquence, où, combien de temps,
+   et l'objectif de point de reprise accepté. Vérifier d'abord ce que le plan
+   Supabase utilisé fournit déjà, ne pas construire ce qui existe.
+2. Écrire un script d'export logique (pg_dump ciblé sur les tables du cockpit,
+   plus un export séparé des embeddings) exécutable à la main, et documenter la
+   commande de restauration. Faire un test de restauration réel et le dater dans
+   la page. Une sauvegarde non testée n'est pas une sauvegarde.
+3. Auditer les secrets du périmètre : lister toutes les variables, où elles
+   vivent (Vercel, local, documentation), et lesquelles sont exposées au
+   navigateur. Vérifier qu'aucune valeur réelle ne se trouve dans un fichier
+   .env.local d'un dossier synchronisé sur un service de stockage en ligne, y
+   compris dans l'historique de versions. Poser un calendrier de rotation.
+4. Vérifier qu'il existe un second moyen d'accès au projet Supabase et au projet
+   Vercel, et que la clé service role n'est utilisée que côté serveur.
+5. Ajouter une note de reprise : si tout est perdu sauf le dépôt, quelle est la
+   séquence exacte pour remonter le cockpit. Migration, seed, ingestion du
+   corpus, variables. C'est le document qui rend la perte survivable.
+
+Interdits : ne pas écrire de valeur de secret dans un fichier versionné ni dans
+une page Notion. Ne pas mettre en place d'outil de sauvegarde payant sans
+comparer d'abord à ce que l'hébergeur fournit. Ne pas traiter la base des
+produits dans ce chantier.
+
+Livrable : politique d'une page, script d'export, procédure de restauration
+testée et datée, inventaire des secrets, note de reprise.
+```
 ---
-
-_La priorité qui débloque tout maintenant, c'est le trio domaine (L0-T6), corpus RAG (L3-T1), feed multi-repo (L5-T2). Trois gestes, et le dashboard passe d'une belle coquille à une preuve d'exécution qu'aucun CV ne peut concurrencer._
+> **Tenue de cette page.** Elle ne fait foi que sur le dépôt `adama-os`. Sur tout fait produit, prix ou échéance, ce sont les pages de référence de la section 2 qui gagnent. Prochaine vérification à faire contre le code à la fin de la vague 0, et à chaque fin de phase. Le fichier `ROADMAP.md` du dépôt est dérivé de cette page, plus l'inverse.
