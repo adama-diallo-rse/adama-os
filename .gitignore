@@ -17,22 +17,9 @@ build/
 # Vercel
 .vercel/
 
-# Sanity (runtime local du Studio)
-.sanity/
-
-# Trigger.dev (build local)
-.trigger/
-
 # Sentry
 .sentryclirc
 .env.sentry-build-plugin
-
-# Python (services/engine)
-__pycache__/
-*.pyc
-.venv/
-venv/
-.python-version
 
 # Logs / OS
 *.log

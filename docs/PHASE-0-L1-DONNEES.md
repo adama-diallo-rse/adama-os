@@ -69,8 +69,9 @@ Colle l'URL "Transaction pooler" récupérée à l'étape 1, mot de passe inclus
 NEXT_PUBLIC_SUPABASE_URL=https://<ref>.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
 SUPABASE_SERVICE_ROLE_KEY=eyJ...
-NEXT_PUBLIC_ENGINE_URL=http://localhost:8000
 ```
+
+> La variable `NEXT_PUBLIC_ENGINE_URL` a été retirée le 13 juillet 2026 avec la suppression de `services/engine`. La liste complète et à jour des variables est dans `apps/web/.env.example` et `docs/SECRETS.md`.
 
 PowerShell pour créer les fichiers vides à éditer ensuite :
 
