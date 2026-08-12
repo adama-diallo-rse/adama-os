@@ -35,12 +35,15 @@ export type StrataMetricRow = {
   period: string | null;
 };
 
-// L5-T1 : un commit GitHub du feed "Shipped" (sha court, titre, ISO date).
+// L5-T2 : un commit GitHub du feed "Shipped" (sha court, titre, ISO date),
+// avec le produit et la division dont il provient.
 export type CommitRow = {
   sha: string;
   message: string;
   date: string;
   url: string;
+  product: string;
+  division: string;
 };
 
 export type DashboardData = {
@@ -54,9 +57,10 @@ export type DashboardData = {
 };
 
 export const CONTACT_EMAIL = "diadamflow@gmail.com";
-export const GITHUB_OWNER = "adama-diallo-rse";
-export const GITHUB_REPO = "adama-os";
-export const GITHUB_REPO_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}`;
+// Liens d'interface uniquement. La liste des depots suivis par le feed n'est
+// PAS ici, elle vit dans lib/repos.ts (L5-T2).
+export const GITHUB_PROFILE_URL = "https://github.com/adama-diallo-rse";
+export const GITHUB_REPO_URL = "https://github.com/adama-diallo-rse/adama-os";
 export const CV_PATH = "/adama-diallo-cv.pdf";
 // L6-T2 : nom du fichier proposé au téléchargement (le fichier physique
 // dans public/ reste adama-diallo-cv.pdf).

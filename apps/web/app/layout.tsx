@@ -4,7 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import { ConsentBanner } from "../components/consent-banner";
 import {
   CONTACT_EMAIL,
-  GITHUB_OWNER,
+  GITHUB_PROFILE_URL,
   GITHUB_REPO_URL,
 } from "../components/types";
 import { SITE_URL } from "../lib/site";
@@ -64,7 +64,7 @@ const personJsonLd = {
   ],
   url: SITE_URL,
   email: `mailto:${CONTACT_EMAIL}`,
-  sameAs: [`https://github.com/${GITHUB_OWNER}`, GITHUB_REPO_URL],
+  sameAs: [GITHUB_PROFILE_URL, GITHUB_REPO_URL],
   knowsAbout: [
     "RSE",
     "ESG",

@@ -35,6 +35,7 @@ Puis renseigner les valeurs manquantes.
 | `OPENAI_API_KEY`                | non                  | generation gpt-4o + embeddings de requete     |
 | `ADAMA_AI_MODEL`                | non                  | modele adama.ai, optionnel (defaut gpt-4o)    |
 | `DATABASE_URL`                  | non                  | retrieval RAG pgvector via Drizzle            |
+| `GITHUB_REPOS`                  | non                  | L5-T2, depots agreges dans le feed Shipped    |
 | `GITHUB_TOKEN`                  | non                  | feed Shipped, optionnel (60 req/h sans token) |
 | `NEXT_PUBLIC_CAL_LINK`          | oui                  | Cal.com dans le modal recruteur               |
 | `NEXT_PUBLIC_POSTHOG_KEY`       | oui                  | analytics, requis pour les funnels (L8-T7)    |
@@ -47,6 +48,23 @@ Puis renseigner les valeurs manquantes.
 
 Regle : tout ce qui est prefixe `NEXT_PUBLIC_` finit dans le bundle client.
 Ne jamais prefixer une cle secrete avec `NEXT_PUBLIC_`.
+
+## Le jeton GitHub du feed Shipped (L5-T2)
+
+Les depots du groupe sont repartis sur **trois perimetres**, pas un. Un jeton
+limite a l'organisation ne verra ni STRATA Scope ni le cockpit lui-meme.
+
+| Perimetre | Depots concernes |
+| --- | --- |
+| `iroko-software-group` | esg-optimizer, strata-platform, strata-foundation, strata-watch, strata-esg-academy, iroko-platform |
+| `adama-diallo-rse` (compte perso) | strata-scope, adama-os |
+| `strata-esg` (ancienne organisation) | historique, a verifier |
+
+Jeton **fine-grained, lecture seule**, permissions `Contents: Read-only` et
+`Metadata: Read-only`. Un jeton fine-grained ne couvre qu'un proprietaire a la
+fois : il en faut donc un par perimetre, ou un jeton classique a portee
+`repo` si l'on accepte une portee plus large. Sans jeton, seuls les depots
+publics remontent, ce qui suffit pour la vitrine.
 
 ## Cles cote base (`packages/db`)
 

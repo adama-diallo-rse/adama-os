@@ -1,8 +1,8 @@
 "use client";
 
-// L5-T1, Feed "Shipped", preuve d'execution.
-// Affiche les derniers commits GitHub du repo adama-os. Les donnees sont
-// chargees cote serveur (lib/github.ts, cache 5 min) et passees en props :
+// L5-T2, Feed "Shipped", preuve d'execution.
+// Affiche les derniers commits de TOUS les depots du groupe, agreges cote
+// serveur (lib/github.ts, un cache de 5 min par depot) et passes en props :
 // aucun appel API depuis le navigateur, aucun secret expose.
 
 import {
@@ -34,10 +34,14 @@ function formatDate(iso: string): string {
 }
 
 // Coupe un titre conventionnel "type(scope): sujet" pour colorer le type.
-function splitMessage(message: string): { prefix: string | null; rest: string } {
-  const match = /^(feat|fix|chore|docs|refactor|perf|test|style|ci|build)(\([^)]*\))?!?:/.exec(
-    message,
-  );
+function splitMessage(message: string): {
+  prefix: string | null;
+  rest: string;
+} {
+  const match =
+    /^(feat|fix|chore|docs|refactor|perf|test|style|ci|build)(\([^)]*\))?!?:/.exec(
+      message,
+    );
   const matched = match?.[0];
   if (!matched) {
     return { prefix: null, rest: message };
@@ -61,10 +65,18 @@ function CommitLine({ commit }: { commit: CommitRow }) {
         {commit.sha}
       </span>
       <span className="min-w-0 flex-1 truncate font-mono text-sm text-muted transition-colors duration-150 group-hover:text-foreground">
-        {prefix ? (
-          <span className="text-emerald-bright">{prefix} </span>
-        ) : null}
+        {prefix ? <span className="text-emerald-bright">{prefix} </span> : null}
         {rest}
+      </span>
+      <span
+        className="hidden shrink-0 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-faint md:inline"
+        title={
+          commit.division
+            ? `${commit.product} · ${commit.division}`
+            : commit.product
+        }
+      >
+        {commit.product}
       </span>
       <span className="hidden shrink-0 font-mono text-[0.6rem] tabular-nums text-faint sm:inline">
         {formatDate(commit.date)}
@@ -88,12 +100,15 @@ export function ShippedFeed({ commits }: { commits: CommitRow[] }) {
       <CardContent>
         <p className="mb-3 font-mono text-xs text-muted">
           <span className="text-emerald">$</span> git log --oneline
-          <span className="text-faint"> · derniers commits du monorepo, en direct</span>
+          <span className="text-faint">
+            {" "}
+            · tous les depots du groupe, en direct
+          </span>
         </p>
         {commits.length > 0 ? (
           <div className="space-y-2">
             {commits.map((c) => (
-              <CommitLine key={c.sha} commit={c} />
+              <CommitLine key={`${c.product}-${c.sha}`} commit={c} />
             ))}
           </div>
         ) : (
