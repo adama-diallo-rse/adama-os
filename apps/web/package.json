@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "echo \"aucun test pour l'instant (couche L11)\""
   },
   "dependencies": {
     "@adama/db": "workspace:*",
