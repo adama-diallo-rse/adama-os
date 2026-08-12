@@ -6,8 +6,10 @@ import { OutboundLink } from "../../components/outbound-link";
 // Hub STRATA. Adama OS est l'atelier du fondateur : il ne re-heberge aucun
 // produit, il pointe vers les vrais. Ce qui est en ligne s'ouvre directement
 // (ESG Optimizer, STRATA Scope). Ce qui n'est pas encore lance porte son statut
-// reel. Source de verite : le site corporate STRATA (contenu produits juillet
-// 2026). Server component, indexable, sans aucune dependance externe.
+// reel. Regle : aucun produit qui n'existe pas, aucune date de disponibilite
+// qui n'est pas engagee ailleurs. Ce tableau en dur est provisoire, il sera
+// remplace par la table ecosystem_products (L1-T9 puis L6-T13).
+// Server component, indexable, sans aucune dependance externe.
 export const metadata: Metadata = {
   title: "STRATA — La suite ESG pour PME",
   description:
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/strata" },
 };
 
-type Status = "live" | "soon" | "roadmap";
+type Status = "live" | "soon";
 
 type Product = {
   name: string;
@@ -48,55 +50,40 @@ const PRODUCTS: Product[] = [
     pillar: "Point de depart ESG",
     body: "Un premier diagnostic de maturite durable, gratuit, pour se situer en dix minutes avant d'aller plus loin.",
     status: "soon",
-    eta: "Q3 2026",
+    eta: "En construction",
   },
   {
     name: "STRATA Watch",
     pillar: "Veille reglementaire",
     body: "Veille automatisee sur les sources officielles (EFRAG, AMF, JOUE) qui transforme le bruit reglementaire en alertes utiles.",
     status: "soon",
-    eta: "Q3 2026",
+    eta: "En construction",
   },
   {
     name: "STRATA Academy",
     pillar: "Formation a la durabilite",
     body: "Des parcours courts et concrets sur la CSRD, la VSME et le carbone, penses pour les equipes de PME, pas pour les experts.",
     status: "soon",
-    eta: "Q4 2026",
-  },
-  {
-    name: "STRATA Due",
-    pillar: "Due diligence ESG",
-    body: "Evaluez le profil de durabilite d'une cible d'acquisition avec la rigueur attendue par les investisseurs.",
-    status: "roadmap",
-    eta: "2027",
-  },
-  {
-    name: "STRATA Taxonomy",
-    pillar: "Taxonomie europeenne",
-    body: "Mesurez l'alignement de votre chiffre d'affaires et de vos investissements avec la Taxonomie europeenne.",
-    status: "roadmap",
-    eta: "2027",
-  },
-  {
-    name: "GreenHR",
-    pillar: "Pilier social",
-    body: "Le module dedie au pilier social de l'ESG : diversite, conditions de travail, formation, chaine de valeur humaine.",
-    status: "roadmap",
-    eta: "2027",
+    eta: "En construction",
   },
 ];
 
-const STATUS_BADGE: Record<Status, { label: string; variant: "emerald" | "warning" | "default" }> = {
+const STATUS_BADGE: Record<
+  Status,
+  { label: string; variant: "emerald" | "warning" | "default" }
+> = {
   live: { label: "Disponible", variant: "emerald" },
   soon: { label: "A venir", variant: "warning" },
-  roadmap: { label: "Roadmap", variant: "default" },
 };
 
 function ProductTile({ p }: { p: Product }) {
   const badge = STATUS_BADGE[p.status];
   const inner = (
-    <Card className={p.href ? "h-full transition-colors hover:border-emerald/60" : "h-full"}>
+    <Card
+      className={
+        p.href ? "h-full transition-colors hover:border-emerald/60" : "h-full"
+      }
+    >
       <CardContent className="flex h-full flex-col py-4">
         <div className="mb-1.5 flex items-center justify-between gap-2">
           <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-emerald">
@@ -106,7 +93,9 @@ function ProductTile({ p }: { p: Product }) {
             {badge.label}
           </Badge>
         </div>
-        <h3 className="font-mono text-sm font-semibold text-foreground">{p.name}</h3>
+        <h3 className="font-mono text-sm font-semibold text-foreground">
+          {p.name}
+        </h3>
         <p className="mt-1.5 flex-1 font-mono text-xs leading-relaxed text-muted">
           {p.body}
         </p>
@@ -157,13 +146,13 @@ export default function StrataPage() {
             </Badge>
           </div>
           <p className="max-w-xl font-mono text-sm leading-relaxed text-muted">
-            Le systeme d&apos;exploitation de l&apos;entreprise durable. Une suite
-            d&apos;outils qui rend le reporting de durabilite accessible aux PME
-            europeennes.{" "}
+            Le systeme d&apos;exploitation de l&apos;entreprise durable. Une
+            suite d&apos;outils qui rend le reporting de durabilite accessible
+            aux PME europeennes.{" "}
             <span className="text-foreground">ESG Optimizer</span> et{" "}
-            <span className="text-foreground">STRATA Scope</span> sont en ligne ;
-            les suivants arrivent. Adama OS est l&apos;atelier qui documente cette
-            construction en public.
+            <span className="text-foreground">STRATA Scope</span> sont en ligne
+            ; les suivants arrivent. Adama OS est l&apos;atelier qui documente
+            cette construction en public.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-1">
             <OutboundLink
