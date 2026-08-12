@@ -1,0 +1,17 @@
+# Normalisation des fins de ligne. Le depot stocke en LF, le poste de travail
+# recoit du LF a la sortie, quel que soit l'OS. Sans ce fichier, chaque
+# enregistrement depuis Windows remonte le repo entier comme modifie.
+* text=auto eol=lf
+
+# Binaires : jamais convertis.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+
+# Lockfile : genere, exclu des diffs de revue.
+pnpm-lock.yaml linguist-generated=true -diff
