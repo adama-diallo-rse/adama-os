@@ -13,6 +13,32 @@
 -- =====================================================================
 
 -- ---------------------------------------------------------------------
+-- 0. Prerequis : fonction de trigger updated_at
+-- ---------------------------------------------------------------------
+-- Normalement posee par 0000_init.sql. Recreee ici si elle manque, pour que
+-- cette migration soit autonome : une base montee par "drizzle-kit push" a
+-- les tables mais aucun des objets SQL manuels de 0000 (fonction, triggers,
+-- RLS). On ne remplace jamais une fonction existante.
+do $$
+begin
+  if not exists (
+    select 1 from pg_proc p
+    join pg_namespace n on n.oid = p.pronamespace
+    where p.proname = 'adama_set_updated_at' and n.nspname = 'public'
+  ) then
+    create function adama_set_updated_at()
+    returns trigger
+    language plpgsql
+    as $fn$
+    begin
+      new.updated_at = now();
+      return new;
+    end;
+    $fn$;
+  end if;
+end $$;
+
+-- ---------------------------------------------------------------------
 -- 1. Type enumere
 -- ---------------------------------------------------------------------
 do $$ begin
@@ -53,7 +79,7 @@ create index if not exists ecosystem_products_repo_idx
   on ecosystem_products (repo_full_name)
   where repo_full_name is not null;
 
--- updated_at automatique (fonction posee par la migration 0000).
+-- updated_at automatique (fonction garantie par la section 0).
 drop trigger if exists set_updated_at on ecosystem_products;
 create trigger set_updated_at
   before update on ecosystem_products
