@@ -21,6 +21,10 @@ build/
 .sentryclirc
 .env.sentry-build-plugin
 
+# Corpus RAG (normes non redistribuables, voir corpus/README.md)
+corpus/*
+!corpus/README.md
+
 # Logs / OS
 *.log
 .DS_Store
