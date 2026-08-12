@@ -4,18 +4,19 @@
 // Zone preuve sociale (AG2R, Younivibe, AFEV, Ministère) et métriques STRATA.
 
 import Link from "next/link";
-import { Badge, Button, Card, CardContent, CardFooter, CardHeader, CardTitle } from "@adama/ui";
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@adama/ui";
 import { AnimatedNumber } from "./animated-number";
 import { OutboundLink } from "./outbound-link";
 import { metricLabel, metricSuffix } from "../lib/metrics";
 import { CV_DOWNLOAD_NAME, CV_PATH, type StrataMetricRow } from "./types";
-
-// Métriques affichées par défaut si la table strata_analytics est vide.
-const FALLBACK_METRICS: StrataMetricRow[] = [
-  { metric: "audits_vsme", value: 12, period: "beta" },
-  { metric: "docs_rag", value: 340, period: "corpus" },
-  { metric: "uptime_pct", value: 99.9, period: "30j" },
-];
 
 function ProofTile({ name, role }: { name: string; role: string }) {
   return (
@@ -29,7 +30,8 @@ function ProofTile({ name, role }: { name: string; role: string }) {
 }
 
 export function LayerD({ strata }: { strata: StrataMetricRow[] }) {
-  const rows = strata.length > 0 ? strata.slice(0, 6) : FALLBACK_METRICS;
+  // Aucun repli chiffré : une métrique affichée est une métrique relevée.
+  const rows = strata.slice(0, 6);
 
   return (
     <Card id="couche-d" className="scroll-mt-24">
@@ -61,7 +63,10 @@ export function LayerD({ strata }: { strata: StrataMetricRow[] }) {
           </div>
           <p className="mt-3 font-mono text-xs text-muted">
             <span className="text-emerald">$</span> ping strata
-            <span className="text-faint"> — moteur RSE / ESG / CSRD en beta</span>
+            <span className="text-faint">
+              {" "}
+              — moteur RSE / ESG / CSRD en beta
+            </span>
           </p>
         </div>
 
@@ -78,25 +83,37 @@ export function LayerD({ strata }: { strata: StrataMetricRow[] }) {
               tout voir →
             </Link>
           </div>
-          <div className="grid grid-cols-3 gap-2.5">
-            {rows.map((row) => (
-              <div
-                key={row.metric}
-                className="rounded-[calc(var(--radius)_-_0.125rem)] border border-border bg-surface-raised px-3 py-2.5"
-              >
-                <AnimatedNumber
-                  value={row.value}
-                  decimals={Number.isInteger(row.value) ? 0 : 1}
-                  suffix={metricSuffix(row.metric)}
-                  className="font-mono text-lg font-semibold tabular-nums text-emerald-bright"
-                />
-                <p className="mt-0.5 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-faint">
-                  {metricLabel(row.metric)}
-                  {row.period ? ` · ${row.period}` : ""}
-                </p>
-              </div>
-            ))}
-          </div>
+          {rows.length > 0 ? (
+            <div className="grid grid-cols-3 gap-2.5">
+              {rows.map((row) => (
+                <div
+                  key={row.metric}
+                  className="rounded-[calc(var(--radius)_-_0.125rem)] border border-border bg-surface-raised px-3 py-2.5"
+                >
+                  <AnimatedNumber
+                    value={row.value}
+                    decimals={Number.isInteger(row.value) ? 0 : 1}
+                    suffix={metricSuffix(row.metric)}
+                    className="font-mono text-lg font-semibold tabular-nums text-emerald-bright"
+                  />
+                  <p className="mt-0.5 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-faint">
+                    {metricLabel(row.metric)}
+                    {row.period ? ` · ${row.period}` : ""}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-[calc(var(--radius)_-_0.125rem)] border border-dashed border-border bg-surface-raised px-3 py-4">
+              <p className="font-mono text-xs text-muted">
+                Donnée non disponible
+              </p>
+              <p className="mt-1 font-mono text-[0.6rem] leading-relaxed text-faint">
+                Aucun relevé publié pour l&apos;instant. Les valeurs
+                s&apos;affichent dès la première remontée produit.
+              </p>
+            </div>
+          )}
         </div>
       </CardContent>
       <CardFooter className="flex-wrap gap-2">

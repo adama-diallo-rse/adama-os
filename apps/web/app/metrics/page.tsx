@@ -31,17 +31,11 @@ type StrataRow = {
   created_at: string;
 };
 
-// Repli affiché si la table est vide (cohérent avec la Couche D).
-const FALLBACK: StrataRow[] = [
-  { metric: "audits_vsme", value: 12, period: "beta", source: "engine", created_at: new Date().toISOString() },
-  { metric: "docs_rag", value: 340, period: "corpus", source: "ingest", created_at: new Date().toISOString() },
-  { metric: "uptime_pct", value: 99.9, period: "30j", source: "betterstack", created_at: new Date().toISOString() },
-];
-
 async function loadMetrics(): Promise<StrataRow[]> {
+  // Aucun repli chiffré : sans relevé, la page affiche son état vide.
   const supabase = createPublicClient();
   if (!supabase) {
-    return FALLBACK;
+    return [];
   }
   const { data } = await supabase
     .from("strata_analytics")
@@ -49,8 +43,7 @@ async function loadMetrics(): Promise<StrataRow[]> {
     .order("created_at", { ascending: false })
     .limit(120);
 
-  const rows = (data as StrataRow[]) ?? [];
-  return rows.length > 0 ? rows : FALLBACK;
+  return (data as StrataRow[]) ?? [];
 }
 
 // Date lisible, formatée en UTC pour éviter tout écart serveur / client.
@@ -96,14 +89,29 @@ export default async function MetricsPage() {
               Open Metrics
             </h1>
             <p className="max-w-xl font-mono text-sm text-muted">
-              Métriques produit STRATA en accès public. Transparence sur l&apos;usage
-              du moteur ESG, mises à jour en continu.
+              Métriques produit STRATA en accès public. Transparence sur
+              l&apos;usage du moteur ESG, mises à jour en continu.
             </p>
           </div>
           <Badge variant="emerald" dot>
             Public
           </Badge>
         </header>
+
+        {/* État vide : aucune valeur n'est inventée pour meubler la page. */}
+        {headline.length === 0 ? (
+          <Card>
+            <CardContent className="py-6">
+              <p className="font-mono text-sm text-muted">
+                Donnée non disponible
+              </p>
+              <p className="mt-1.5 max-w-xl font-mono text-xs leading-relaxed text-faint">
+                Aucun relevé n&apos;a encore été publié. Cette page
+                n&apos;affiche que des valeurs mesurées.
+              </p>
+            </CardContent>
+          </Card>
+        ) : null}
 
         {/* Grille des métriques (dernière valeur par métrique) */}
         <section className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
@@ -130,40 +138,42 @@ export default async function MetricsPage() {
         </section>
 
         {/* Journal des relevés récents */}
-        <section className="mt-8">
-          <Card>
-            <CardHeader>
-              <CardTitle>Relevés récents</CardTitle>
-              <Badge variant="default">{history.length} points</Badge>
-            </CardHeader>
-            <CardContent className="px-0 py-0">
-              <ul>
-                {history.map((row, i) => (
-                  <li
-                    key={`${row.metric}-${row.created_at}-${i}`}
-                    className="flex items-center justify-between gap-3 border-b border-border/60 px-4 py-2.5 last:border-b-0"
-                  >
-                    <span className="flex items-center gap-2 font-mono text-xs text-muted">
-                      <span className="text-emerald">›</span>
-                      {metricLabel(row.metric)}
-                      {row.source ? (
-                        <span className="text-faint"> · {row.source}</span>
-                      ) : null}
-                    </span>
-                    <span className="flex items-center gap-3">
-                      <span className="font-mono text-xs tabular-nums text-emerald-bright">
-                        {formatMetric(row.value, row.metric)}
+        {history.length > 0 ? (
+          <section className="mt-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Relevés récents</CardTitle>
+                <Badge variant="default">{history.length} points</Badge>
+              </CardHeader>
+              <CardContent className="px-0 py-0">
+                <ul>
+                  {history.map((row, i) => (
+                    <li
+                      key={`${row.metric}-${row.created_at}-${i}`}
+                      className="flex items-center justify-between gap-3 border-b border-border/60 px-4 py-2.5 last:border-b-0"
+                    >
+                      <span className="flex items-center gap-2 font-mono text-xs text-muted">
+                        <span className="text-emerald">›</span>
+                        {metricLabel(row.metric)}
+                        {row.source ? (
+                          <span className="text-faint"> · {row.source}</span>
+                        ) : null}
                       </span>
-                      <span className="font-mono text-[0.6rem] text-faint">
-                        {formatDate(row.created_at)}
+                      <span className="flex items-center gap-3">
+                        <span className="font-mono text-xs tabular-nums text-emerald-bright">
+                          {formatMetric(row.value, row.metric)}
+                        </span>
+                        <span className="font-mono text-[0.6rem] text-faint">
+                          {formatDate(row.created_at)}
+                        </span>
                       </span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        </section>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
+        ) : null}
 
         {/* Pied de page */}
         <footer className="mt-10 flex flex-col items-start justify-between gap-2 border-t border-border pt-5 sm:flex-row sm:items-center">
