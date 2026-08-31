@@ -29,10 +29,39 @@ export type TrajectoryRow = {
   notes: string | null;
 };
 
-export type StrataMetricRow = {
+// L1-T10 : une metrique produit du groupe (table ecosystem_analytics,
+// ex-strata_analytics). La provenance accompagne la valeur.
+export type AnalyticsRow = {
   metric: string;
   value: number;
   period: string | null;
+  division: string | null;
+  product_slug: string | null;
+};
+
+// L1-T9 : une ligne du registre produits, telle que la cle anon peut la lire
+// (repo_full_name est revoquee pour anon, elle n'apparait pas ici).
+export type EcosystemStatus = "live" | "building" | "planned";
+
+export type EcosystemProductRow = {
+  slug: string;
+  name: string;
+  division: string;
+  pillar: string | null;
+  description: string | null;
+  status: EcosystemStatus;
+  url: string | null;
+  position: number;
+};
+
+// L9 : etat d'une passerelle produit, tel qu'il traverse vers le client.
+export type GatewayStatusRow = {
+  productSlug: string;
+  productName: string;
+  division: string;
+  status: "ok" | "unavailable" | "disabled";
+  latencyMs: number | null;
+  fetchedAt: string;
 };
 
 // L5-T2 : un commit GitHub du feed "Shipped" (sha court, titre, ISO date),
@@ -50,10 +79,15 @@ export type DashboardData = {
   metrics: MetricRow[];
   decisions: DecisionRow[];
   trajectory: TrajectoryRow[];
-  strata: StrataMetricRow[];
+  /** Métriques produit du groupe (ecosystem_analytics). */
+  analytics: AnalyticsRow[];
+  /** Registre produits public (ecosystem_products), trié par position. */
+  products: EcosystemProductRow[];
   commits: CommitRow[];
   // L8-T6 : statut Better Stack. null → repli sur system_metrics.
   uptime: "up" | "down" | null;
+  /** L9 : état des passerelles produit. Liste vide = aucune configurée. */
+  gateways: GatewayStatusRow[];
 };
 
 export const CONTACT_EMAIL = "diadamflow@gmail.com";

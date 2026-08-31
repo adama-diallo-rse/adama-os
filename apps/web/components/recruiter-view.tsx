@@ -13,7 +13,15 @@ import {
   CV_PATH,
   GITHUB_REPO_URL,
   type DashboardData,
+  type EcosystemStatus,
 } from "./types";
+
+// Etats produit, en clair pour un lecteur qui n'a pas le vocabulaire interne.
+const STATUT_LISIBLE: Record<EcosystemStatus, string> = {
+  live: "en ligne",
+  building: "en construction",
+  planned: "en réflexion",
+};
 
 function formatDate(iso: string) {
   const d = new Date(iso);
@@ -25,13 +33,7 @@ function formatDate(iso: string) {
   ).padStart(2, "0")}/${d.getUTCFullYear()}`;
 }
 
-function Section({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) {
+function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="break-inside-avoid border-t border-border pt-4 print:border-neutral-300">
       <h2 className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-emerald print:text-neutral-600">
@@ -65,13 +67,17 @@ export function RecruiterView({ data }: { data: DashboardData }) {
               Adama Diallo — System Architect
             </h1>
             <p className="text-sm leading-relaxed text-muted print:text-neutral-700">
-              Profil hybride RSE / ESG × ingénierie. Architecte de Strata
-              (CSRD, ESRS, VSME). Ce document est généré depuis mon dashboard
-              système public.
+              Profil hybride RSE / ESG × ingénierie. Architecte de Strata (CSRD,
+              ESRS, VSME). Ce document est généré depuis mon dashboard système
+              public.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2 print:hidden">
-            <a href={CV_PATH} download={CV_DOWNLOAD_NAME} className="inline-flex">
+            <a
+              href={CV_PATH}
+              download={CV_DOWNLOAD_NAME}
+              className="inline-flex"
+            >
               <Button variant="primary" size="sm" bracket tabIndex={-1}>
                 CV PDF
               </Button>
@@ -167,19 +173,43 @@ export function RecruiterView({ data }: { data: DashboardData }) {
             </ul>
           </Section>
 
-          {data.strata.length > 0 ? (
-            <Section title="Strata — métriques produit">
-              <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                {data.strata.map((s) => (
+          {data.products.length > 0 ? (
+            <Section title="Écosystème — produits du groupe">
+              <ul className="space-y-1.5">
+                {data.products.map((p) => (
                   <li
-                    key={s.metric}
+                    key={p.slug}
+                    className="flex flex-wrap items-baseline gap-x-2 font-mono text-xs text-muted print:text-neutral-700"
+                  >
+                    <span className="text-foreground print:text-black">
+                      {p.name}
+                    </span>
+                    <span className="text-faint print:text-neutral-500">
+                      {p.division}
+                      {p.pillar ? ` · ${p.pillar}` : ""}
+                    </span>
+                    <span className="text-emerald print:text-neutral-600">
+                      {STATUT_LISIBLE[p.status] ?? p.status}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          ) : null}
+
+          {data.analytics.length > 0 ? (
+            <Section title="Métriques produit relevées">
+              <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {data.analytics.map((a) => (
+                  <li
+                    key={a.metric}
                     className="font-mono text-xs text-muted print:text-neutral-700"
                   >
                     <span className="text-foreground print:text-black">
-                      {s.value}
+                      {a.value}
                     </span>{" "}
-                    {s.metric}
-                    {s.period ? ` (${s.period})` : ""}
+                    {a.metric}
+                    {a.period ? ` (${a.period})` : ""}
                   </li>
                 ))}
               </ul>
@@ -204,8 +234,8 @@ export function RecruiterView({ data }: { data: DashboardData }) {
 
           <Section title="Contact">
             <p className="font-mono text-sm text-foreground print:text-black">
-              {CONTACT_EMAIL} — réponse sous 24 h. CV joint :{" "}
-              {CV_DOWNLOAD_NAME}.
+              {CONTACT_EMAIL} — réponse sous 24 h. CV joint : {CV_DOWNLOAD_NAME}
+              .
             </p>
           </Section>
         </main>

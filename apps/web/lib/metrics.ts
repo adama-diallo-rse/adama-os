@@ -1,5 +1,6 @@
-// Libellés et formatage des métriques STRATA (strata_analytics).
-// Partagé par la Couche D (aperçu) et la page publique /metrics (L4-T13).
+// Libellés et formatage des métriques produit du groupe (ecosystem_analytics,
+// ex-strata_analytics). Partagé par la Couche D (aperçu) et la page publique
+// /metrics (L4-T13).
 
 const METRIC_LABELS: Record<string, string> = {
   audits_vsme: "Audits VSME",
@@ -10,6 +11,11 @@ const METRIC_LABELS: Record<string, string> = {
   leads: "Leads",
   api_requests: "Requêtes API",
   simulations: "Simulations",
+  // L9 : relevé de disponibilité produit, issu de la sonde GET /health.
+  disponibilite_pct: "Disponibilité",
+  pme_analysees: "PME analysées",
+  requetes_api: "Requêtes API",
+  audits_lances: "Audits lancés",
 };
 
 /** Libellé lisible d'une clé de métrique (repli : clé humanisée). */

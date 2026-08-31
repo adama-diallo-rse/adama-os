@@ -21,6 +21,7 @@ import { LayerB } from "./layer-b";
 import { LayerC } from "./layer-c";
 import { LayerD } from "./layer-d";
 import { ConsentLink } from "./consent-banner";
+import { LegalFooterLinks } from "./legal-links";
 import { RecruitModal } from "./recruit-modal";
 import { ShippedFeed } from "./shipped-feed";
 import { VsmeSimulator } from "./vsme-simulator";
@@ -76,6 +77,45 @@ export function Dashboard({ data }: { data: DashboardData }) {
   const [recruitOpen, setRecruitOpen] = useState(false);
   const [adamaOpen, setAdamaOpen] = useState(false);
 
+  // L6-T13 : la navigation ne connait aucune URL de produit en dur. Elle lit
+  // le registre et n'expose que ce qui est reellement ouvert.
+  const produitsEnLigne = data.products
+    .filter((p) => p.status === "live" && p.url)
+    .slice(0, 2);
+  const liens: {
+    href: string;
+    label: string;
+    accent: boolean;
+    external: boolean;
+    product: string;
+    division: string;
+  }[] = [
+    {
+      href: "/ecosysteme",
+      label: "Écosystème",
+      accent: true,
+      external: false,
+      product: "",
+      division: "",
+    },
+    ...produitsEnLigne.map((p) => ({
+      href: p.url ?? "",
+      label: p.name,
+      accent: false,
+      external: true,
+      product: p.slug,
+      division: p.division,
+    })),
+    {
+      href: "/metrics",
+      label: "Open Metrics",
+      accent: false,
+      external: false,
+      product: "",
+      division: "",
+    },
+  ];
+
   const byKey = new Map(data.metrics.map((m) => [m.key, m]));
   const systemStatus =
     byKey.get("system_status")?.value_text ?? "ONLINE - BUILDING MODE";
@@ -91,174 +131,158 @@ export function Dashboard({ data }: { data: DashboardData }) {
   // animations de transform sont neutralisées si l'utilisateur le demande.
   return (
     <MotionConfig reducedMotion="user">
-    <div id="top" className="bg-grid min-h-dvh">
-      <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-8 sm:py-14">
-        {/* En-tête */}
-        <motion.header
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between"
-        >
-          <div className="space-y-2">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-faint">
-              Adama OS
-            </p>
-            <h1 className="font-mono text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-              System Dashboard
-            </h1>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <Badge variant={online ? "emerald" : "default"} dot>
-              {online ? "Online" : "Offline"}
-            </Badge>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setTerminalOpen(true)}
-              aria-label="Ouvrir le terminal de commandes"
-            >
-              <span aria-hidden className="text-emerald">
-                $
-              </span>
-              <span className="hidden sm:inline">Terminal</span>
-              <kbd className="rounded border border-border px-1.5 py-0.5 font-mono text-[0.6rem] text-faint">
-                Ctrl K
-              </kbd>
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              bracket
-              onClick={() => setRecruitOpen(true)}
-            >
-              Recruter l&apos;Architecte
-            </Button>
-          </div>
-        </motion.header>
-
-        {/* Navigation : accès direct au produit et aux contenus */}
-        <motion.nav
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          aria-label="Sections du site"
-          className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-border py-3 font-mono text-xs"
-        >
-          {[
-            { href: "/strata", label: "STRATA", accent: true, external: false, produit: "" },
-            {
-              href: "https://esg-optimizer.fr",
-              label: "ESG Optimizer",
-              accent: false,
-              external: true,
-              produit: "esg-optimizer",
-            },
-            {
-              href: "https://scope.esg-optimizer.fr",
-              label: "STRATA Scope",
-              accent: false,
-              external: true,
-              produit: "strata-scope",
-            },
-            {
-              href: "/metrics",
-              label: "Open Metrics",
-              accent: false,
-              external: false,
-              produit: "",
-            },
-          ].map((l) => {
-            const cls =
-              "uppercase tracking-[0.14em] transition-colors " +
-              (l.accent
-                ? "text-emerald hover:text-emerald-bright"
-                : "text-faint hover:text-foreground");
-            return l.external ? (
-              <OutboundLink
-                key={l.href}
-                href={l.href}
-                produit={l.produit}
-                source="nav"
-                className={cls}
+      <div id="top" className="bg-grid min-h-dvh">
+        <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-8 sm:py-14">
+          {/* En-tête */}
+          <motion.header
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between"
+          >
+            <div className="space-y-2">
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-faint">
+                Adama OS
+              </p>
+              <h1 className="font-mono text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+                System Dashboard
+              </h1>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge variant={online ? "emerald" : "default"} dot>
+                {online ? "Online" : "Offline"}
+              </Badge>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setTerminalOpen(true)}
+                aria-label="Ouvrir le terminal de commandes"
               >
-                {l.label}
-              </OutboundLink>
-            ) : (
-              <Link key={l.href} href={l.href} className={cls}>
-                {l.label}
-              </Link>
-            );
-          })}
-        </motion.nav>
+                <span aria-hidden className="text-emerald">
+                  $
+                </span>
+                <span className="hidden sm:inline">Terminal</span>
+                <kbd className="rounded border border-border px-1.5 py-0.5 font-mono text-[0.6rem] text-faint">
+                  Ctrl K
+                </kbd>
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                bracket
+                onClick={() => setRecruitOpen(true)}
+              >
+                Recruter l&apos;Architecte
+              </Button>
+            </div>
+          </motion.header>
 
-        {/* Les 4 couches, entrée en cascade */}
-        <motion.main
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3"
-        >
-          <motion.div variants={item} className="md:col-span-2 xl:col-span-2">
-            <LayerA metrics={data.metrics} />
-          </motion.div>
-          <motion.div variants={item} className="md:col-span-2 xl:col-span-1">
-            <FocusNow trajectory={data.trajectory} />
-          </motion.div>
-          <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
-            <LayerB decisions={data.decisions} />
-          </motion.div>
-          <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
-            <LayerC trajectory={data.trajectory} />
-          </motion.div>
-          <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
-            <LayerD strata={data.strata} />
-          </motion.div>
-          <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
-            <VsmeSimulator />
-          </motion.div>
-          <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
-            <ShippedFeed commits={data.commits} />
-          </motion.div>
-        </motion.main>
+          {/* Navigation : accès direct au produit et aux contenus */}
+          <motion.nav
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            aria-label="Sections du site"
+            className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-border py-3 font-mono text-xs"
+          >
+            {liens.map((l) => {
+              const cls =
+                "uppercase tracking-[0.14em] transition-colors " +
+                (l.accent
+                  ? "text-emerald hover:text-emerald-bright"
+                  : "text-faint hover:text-foreground");
+              return l.external && l.href ? (
+                <OutboundLink
+                  key={l.href}
+                  href={l.href}
+                  product={l.product}
+                  division={l.division}
+                  source="nav"
+                  className={cls}
+                >
+                  {l.label}
+                </OutboundLink>
+              ) : (
+                <Link key={l.href} href={l.href} className={cls}>
+                  {l.label}
+                </Link>
+              );
+            })}
+          </motion.nav>
 
-        {/* Pied de page */}
-        <footer className="mt-10 flex flex-col items-start justify-between gap-2 border-t border-border pt-5 sm:flex-row sm:items-center">
-          <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">
-            Adama Diallo — System Architect · Strata
-          </p>
-          <p className="flex items-center gap-4 font-mono text-[0.65rem] text-faint">
-            <ConsentLink />
-            <span>
-              <span className="text-emerald">$</span> ctrl+k pour le terminal
-            </span>
-          </p>
-        </footer>
+          {/* Les 4 couches, entrée en cascade */}
+          <motion.main
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3"
+          >
+            <motion.div variants={item} className="md:col-span-2 xl:col-span-2">
+              <LayerA metrics={data.metrics} />
+            </motion.div>
+            <motion.div variants={item} className="md:col-span-2 xl:col-span-1">
+              <FocusNow trajectory={data.trajectory} />
+            </motion.div>
+            <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
+              <LayerB decisions={data.decisions} />
+            </motion.div>
+            <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
+              <LayerC trajectory={data.trajectory} />
+            </motion.div>
+            <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
+              <LayerD
+                analytics={data.analytics}
+                products={data.products}
+                gateways={data.gateways}
+              />
+            </motion.div>
+            <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
+              <VsmeSimulator />
+            </motion.div>
+            <motion.div variants={item} className="md:col-span-2 xl:col-span-3">
+              <ShippedFeed commits={data.commits} />
+            </motion.div>
+          </motion.main>
+
+          {/* Pied de page */}
+          <footer className="mt-10 flex flex-col items-start justify-between gap-2 border-t border-border pt-5 sm:flex-row sm:items-center">
+            <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">
+              Adama Diallo — System Architect · Strata
+            </p>
+            <p className="flex flex-wrap items-center gap-4 font-mono text-[0.65rem] text-faint">
+              <LegalFooterLinks />
+              <ConsentLink />
+              <span>
+                <span className="text-emerald">$</span> ctrl+k pour le terminal
+              </span>
+            </p>
+          </footer>
+        </div>
+
+        {/* L6-T1 : CTA persistant, visible en permanence pendant le scroll */}
+        <div className="fixed bottom-5 right-5 z-40">
+          <Button
+            variant="primary"
+            size="md"
+            bracket
+            onClick={() => setRecruitOpen(true)}
+            className="shadow-[0_12px_32px_-12px_rgba(0,0,0,0.9)] glow-emerald"
+          >
+            Recruter l&apos;Architecte
+          </Button>
+        </div>
+
+        <RecruitModal open={recruitOpen} onOpenChange={setRecruitOpen} />
+        <Terminal
+          open={terminalOpen}
+          onOpenChange={setTerminalOpen}
+          products={data.products}
+          onRecruit={() => setRecruitOpen(true)}
+          onAskAdama={() => setAdamaOpen(true)}
+        />
+        {/* L3-T5 : agent adama.ai flottant (lanceur bas gauche) */}
+        <AdamaAi open={adamaOpen} onOpenChange={setAdamaOpen} />
       </div>
-
-      {/* L6-T1 : CTA persistant, visible en permanence pendant le scroll */}
-      <div className="fixed bottom-5 right-5 z-40">
-        <Button
-          variant="primary"
-          size="md"
-          bracket
-          onClick={() => setRecruitOpen(true)}
-          className="shadow-[0_12px_32px_-12px_rgba(0,0,0,0.9)] glow-emerald"
-        >
-          Recruter l&apos;Architecte
-        </Button>
-      </div>
-
-      <RecruitModal open={recruitOpen} onOpenChange={setRecruitOpen} />
-      <Terminal
-        open={terminalOpen}
-        onOpenChange={setTerminalOpen}
-        onRecruit={() => setRecruitOpen(true)}
-        onAskAdama={() => setAdamaOpen(true)}
-      />
-      {/* L3-T5 : agent adama.ai flottant (lanceur bas gauche) */}
-      <AdamaAi open={adamaOpen} onOpenChange={setAdamaOpen} />
-    </div>
     </MotionConfig>
   );
 }

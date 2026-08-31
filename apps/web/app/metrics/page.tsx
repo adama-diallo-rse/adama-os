@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Badge, Card, CardContent, CardHeader, CardTitle } from "@adama/ui";
 import { AnimatedNumber } from "../../components/animated-number";
+import { LegalFooterLinks } from "../../components/legal-links";
 import { createPublicClient } from "../../lib/supabase/public";
 import {
   formatMetric,
@@ -11,39 +12,42 @@ import {
 } from "../../lib/metrics";
 
 // L4-T13, Page Open Metrics publique.
-// Lecture des métriques produit STRATA (strata_analytics) via la clé anon,
-// filtrée par la RLS (policy strata_public_read). Server component : le SEO
-// voit le contenu, et si Supabase est indisponible la page ne casse jamais.
+// Lecture des métriques produit du groupe (ecosystem_analytics) via la clé
+// anon, filtrée par la RLS (policy ecosystem_analytics_public_read). Server
+// component : le SEO voit le contenu, et si Supabase est indisponible la page
+// ne casse jamais. Aucun repli chiffré, ici comme ailleurs.
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Open Metrics — STRATA",
+  title: "Open Metrics — écosystème",
   description:
-    "Métriques produit STRATA en accès public : audits VSME, corpus RAG, uptime et usage du moteur ESG.",
+    "Métriques produit du groupe en accès public : relevés d'usage et de disponibilité, avec leur source et leur date.",
   alternates: { canonical: "/metrics" },
 };
 
-type StrataRow = {
+type AnalyticRow = {
   metric: string;
   value: number;
   period: string | null;
   source: string | null;
+  division: string | null;
+  product_slug: string | null;
   created_at: string;
 };
 
-async function loadMetrics(): Promise<StrataRow[]> {
+async function loadMetrics(): Promise<AnalyticRow[]> {
   // Aucun repli chiffré : sans relevé, la page affiche son état vide.
   const supabase = createPublicClient();
   if (!supabase) {
     return [];
   }
   const { data } = await supabase
-    .from("strata_analytics")
-    .select("metric, value, period, source, created_at")
+    .from("ecosystem_analytics")
+    .select("metric, value, period, source, division, product_slug, created_at")
     .order("created_at", { ascending: false })
     .limit(120);
 
-  return (data as StrataRow[]) ?? [];
+  return (data as AnalyticRow[]) ?? [];
 }
 
 // Date lisible, formatée en UTC pour éviter tout écart serveur / client.
@@ -64,7 +68,7 @@ export default async function MetricsPage() {
   const rows = await loadMetrics();
 
   // Une carte par métrique : la valeur la plus récente (rows déjà triées desc).
-  const latest = new Map<string, StrataRow>();
+  const latest = new Map<string, AnalyticRow>();
   for (const row of rows) {
     if (!latest.has(row.metric)) {
       latest.set(row.metric, row);
@@ -89,8 +93,9 @@ export default async function MetricsPage() {
               Open Metrics
             </h1>
             <p className="max-w-xl font-mono text-sm text-muted">
-              Métriques produit STRATA en accès public. Transparence sur
-              l&apos;usage du moteur ESG, mises à jour en continu.
+              Métriques produit du groupe en accès public. Chaque valeur porte
+              sa source et sa date : rien n&apos;est estimé, rien n&apos;est
+              arrondi pour faire joli.
             </p>
           </div>
           <Badge variant="emerald" dot>
@@ -152,9 +157,15 @@ export default async function MetricsPage() {
                       key={`${row.metric}-${row.created_at}-${i}`}
                       className="flex items-center justify-between gap-3 border-b border-border/60 px-4 py-2.5 last:border-b-0"
                     >
-                      <span className="flex items-center gap-2 font-mono text-xs text-muted">
+                      <span className="flex flex-wrap items-center gap-2 font-mono text-xs text-muted">
                         <span className="text-emerald">›</span>
                         {metricLabel(row.metric)}
+                        {row.product_slug ? (
+                          <span className="text-faint">
+                            {" "}
+                            · {row.product_slug}
+                          </span>
+                        ) : null}
                         {row.source ? (
                           <span className="text-faint"> · {row.source}</span>
                         ) : null}
@@ -176,16 +187,19 @@ export default async function MetricsPage() {
         ) : null}
 
         {/* Pied de page */}
-        <footer className="mt-10 flex flex-col items-start justify-between gap-2 border-t border-border pt-5 sm:flex-row sm:items-center">
+        <footer className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-border pt-5 sm:flex-row sm:items-center">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">
-            Adama Diallo — System Architect · Strata
+            Adama Diallo — System Architect
           </p>
-          <Link
-            href="/"
-            className="font-mono text-[0.65rem] text-emerald transition-colors hover:text-emerald-bright"
-          >
-            ← retour au dashboard
-          </Link>
+          <div className="flex flex-wrap items-center gap-4">
+            <LegalFooterLinks />
+            <Link
+              href="/"
+              className="font-mono text-[0.65rem] text-emerald transition-colors hover:text-emerald-bright"
+            >
+              ← retour au dashboard
+            </Link>
+          </div>
         </footer>
       </div>
     </div>
