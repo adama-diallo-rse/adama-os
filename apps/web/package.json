@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
-    "test": "echo \"aucun test pour l'instant (couche L11)\""
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@adama/db": "workspace:*",
@@ -32,13 +33,17 @@
     "@adama/config": "workspace:*",
     "@eslint/eslintrc": "^3.2.0",
     "@tailwindcss/postcss": "^4.0.0",
+    "@testing-library/react": "^16.1.0",
     "@types/node": "^22.10.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.18.0",
     "eslint-config-next": "^16.0.0",
     "eslint-config-prettier": "^9.1.0",
+    "jsdom": "^25.0.1",
     "tailwindcss": "^4.0.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
   }
 }
