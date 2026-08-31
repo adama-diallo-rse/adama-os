@@ -8,6 +8,7 @@ out/
 dist/
 build/
 .turbo/
+*.tsbuildinfo
 
 # Env
 .env
@@ -20,6 +21,9 @@ build/
 # Sentry
 .sentryclirc
 .env.sentry-build-plugin
+
+# Sauvegardes logiques (L12), jamais versionnees
+backups/
 
 # Corpus RAG (normes non redistribuables, voir corpus/README.md)
 corpus/*
