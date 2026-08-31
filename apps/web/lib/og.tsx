@@ -19,7 +19,7 @@ export function OgTemplate({
         width: "100%",
         height: "100%",
         display: "flex",
-        background: "#f4efe6",
+        background: "#f2ede4",
         color: "#0d1b2a",
         padding: "60px 70px",
         fontFamily: "sans-serif",

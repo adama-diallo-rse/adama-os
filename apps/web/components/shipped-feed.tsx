@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@adama/ui";
 import { GITHUB_REPO_URL, type CommitRow } from "./types";
+import { divisionName } from "./brand-signature";
 
 // Format manuel deterministe (UTC) : le serveur et le client produisent
 // exactement la meme chaine, donc zero risque d'erreur d'hydratation
@@ -71,7 +72,7 @@ function CommitLine({ commit }: { commit: CommitRow }) {
         className="hidden shrink-0 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-faint md:inline"
         title={
           commit.division
-            ? `${commit.product} · ${commit.division}`
+            ? `${commit.product} · ${divisionName(commit.division)}`
             : commit.product
         }
       >

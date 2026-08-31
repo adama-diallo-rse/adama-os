@@ -11,7 +11,7 @@ export default function OpengraphImage() {
     <OgTemplate
       title="Adama Diallo"
       subtitle="RSE, data et développement."
-      tagline="STRATA · IROKO · ADAMA OS"
+      tagline="STRATA ESG · IROKO · ADAMA OS"
     />,
     { ...size },
   );

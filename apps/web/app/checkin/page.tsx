@@ -1,4 +1,6 @@
 import type { CSSProperties } from "react";
+import { PageShell } from "../../components/page-shell";
+import Link from "next/link";
 import { createClient } from "../../lib/supabase/server";
 import { logout } from "../login/actions";
 import { updateMetric } from "./actions";
@@ -45,11 +47,14 @@ export default async function CheckinPage({
 
   if (!supabase) {
     return (
-      <main style={pageStyle}>
-        <p style={{ color: "#f87171" }}>
-          Configuration Supabase indisponible (clés manquantes dans .env.local).
-        </p>
-      </main>
+      <PageShell tools={false}>
+        <div className="private-content" style={pageStyle}>
+          <p style={{ color: "#a53e36" }}>
+            Configuration Supabase indisponible (clés manquantes dans
+            .env.local).
+          </p>
+        </div>
+      </PageShell>
     );
   }
 
@@ -66,216 +71,245 @@ export default async function CheckinPage({
   const current = new Map(metrics.map((m) => [m.key, m]));
 
   return (
-    <main style={pageStyle}>
-      <div style={headerStyle}>
-        <div>
-          <h1 style={{ margin: 0, fontSize: "1.2rem" }}>Adama OS, Check-in</h1>
-          <p style={{ margin: 0, color: "#a1a1aa", fontSize: "0.8rem" }}>
-            Connecté : {user?.email}
-          </p>
+    <PageShell tools={false}>
+      <div className="private-content" style={pageStyle}>
+        <Link href="/admin" className="portfolio-text-link">
+          ← Administration
+        </Link>
+        <div style={headerStyle}>
+          <div>
+            <h1 style={{ margin: 0, fontSize: "2rem" }}>
+              Mise à jour des relevés
+            </h1>
+            <p
+              style={{
+                margin: 0,
+                color: "var(--secondary)",
+                fontSize: "0.8rem",
+              }}
+            >
+              Connecté : {user?.email}
+            </p>
+          </div>
+          <form action={logout}>
+            <button type="submit" style={btnGhost}>
+              Déconnexion
+            </button>
+          </form>
         </div>
-        <form action={logout}>
-          <button type="submit" style={btnGhost}>
-            Déconnexion
-          </button>
-        </form>
-      </div>
 
-      {params.ok ? (
-        <p style={{ color: "#10b981", fontSize: "0.85rem" }}>
-          Métrique mise à jour.
-        </p>
-      ) : null}
-      {params.error ? (
-        <p style={{ color: "#f87171", fontSize: "0.85rem" }}>{params.error}</p>
-      ) : null}
-      {error ? (
-        <p style={{ color: "#f87171", fontSize: "0.85rem" }}>
-          Lecture impossible : {error.message}
-        </p>
-      ) : null}
+        {params.ok ? (
+          <p style={{ color: "var(--accent-text)", fontSize: "0.85rem" }}>
+            Métrique mise à jour.
+          </p>
+        ) : null}
+        {params.error ? (
+          <p style={{ color: "#a53e36", fontSize: "0.85rem" }}>
+            {params.error}
+          </p>
+        ) : null}
+        {error ? (
+          <p style={{ color: "#a53e36", fontSize: "0.85rem" }}>
+            Lecture impossible : {error.message}
+          </p>
+        ) : null}
 
-      {/* Boutons rapides, 1 clic */}
-      <h2 style={sectionTitle}>Mise à jour rapide</h2>
-      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        {QUICK.map((group) => {
-          const active = current.get(group.key)?.value_text ?? null;
-          return (
-            <div key={group.key}>
-              <p style={labelStyle}>
-                {group.label}{" "}
-                <span style={{ color: "#52525b" }}>
-                  ({active ?? "non défini"})
-                </span>
-              </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-                {group.values.map((v) => {
-                  const isActive = active === v;
-                  return (
-                    <form key={v} action={updateMetric}>
-                      <input type="hidden" name="key" value={group.key} />
-                      <input type="hidden" name="value_text" value={v} />
-                      <button
-                        type="submit"
-                        style={isActive ? chipActive : chip}
-                      >
-                        {v}
-                      </button>
-                    </form>
-                  );
-                })}
+        {/* Boutons rapides, 1 clic */}
+        <h2 style={sectionTitle}>Mise à jour rapide</h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          {QUICK.map((group) => {
+            const active = current.get(group.key)?.value_text ?? null;
+            return (
+              <div key={group.key}>
+                <p style={labelStyle}>
+                  {group.label}{" "}
+                  <span style={{ color: "var(--secondary)" }}>
+                    ({active ?? "non défini"})
+                  </span>
+                </p>
+                <div
+                  style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}
+                >
+                  {group.values.map((v) => {
+                    const isActive = active === v;
+                    return (
+                      <form key={v} action={updateMetric}>
+                        <input type="hidden" name="key" value={group.key} />
+                        <input type="hidden" name="value_text" value={v} />
+                        <button
+                          type="submit"
+                          style={isActive ? chipActive : chip}
+                        >
+                          {v}
+                        </button>
+                      </form>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
 
-      {/* Poids réel (prioritaire sur le % dans la Couche A) */}
-      <h2 style={sectionTitle}>Poids actuel (kg)</h2>
-      <form action={updateMetric} style={rowForm}>
-        <input type="hidden" name="key" value="current_weight" />
-        <input
-          name="value_num"
-          type="number"
-          min="40"
-          max="150"
-          step="0.1"
-          defaultValue={current.get("current_weight")?.value_num ?? ""}
-          placeholder="kg"
-          style={inputStyle}
-        />
-        <input type="hidden" name="unit" value="kg" />
-        <button type="submit" style={btnPrimary}>
-          Enregistrer
-        </button>
-      </form>
-
-      {/* Progression lean bulk (repli si pas de poids réel) */}
-      <h2 style={sectionTitle}>Progression lean bulk (%)</h2>
-      <form action={updateMetric} style={rowForm}>
-        <input type="hidden" name="key" value="lean_bulk_progress" />
-        <input
-          name="value_num"
-          type="number"
-          min="0"
-          max="100"
-          step="1"
-          defaultValue={current.get("lean_bulk_progress")?.value_num ?? ""}
-          placeholder="%"
-          style={inputStyle}
-        />
-        <input type="hidden" name="unit" value="%" />
-        <button type="submit" style={btnPrimary}>
-          Enregistrer
-        </button>
-      </form>
-
-      {/* Édition libre de n'importe quelle clé */}
-      <h2 style={sectionTitle}>Édition libre</h2>
-      <form action={updateMetric} style={{ display: "grid", gap: "0.5rem" }}>
-        <input
-          name="key"
-          placeholder="clé (ex: current_focus)"
-          required
-          style={inputStyle}
-        />
-        <input
-          name="value_text"
-          placeholder="valeur texte"
-          style={inputStyle}
-        />
-        <div style={{ display: "flex", gap: "0.5rem" }}>
+        {/* Poids réel (prioritaire sur le % dans la Couche A) */}
+        <h2 style={sectionTitle}>Poids actuel (kg)</h2>
+        <form action={updateMetric} style={rowForm}>
+          <input type="hidden" name="key" value="current_weight" />
           <input
             name="value_num"
             type="number"
-            step="any"
-            placeholder="valeur num (optionnel)"
-            style={{ ...inputStyle, flex: 1 }}
+            min="40"
+            max="150"
+            step="0.1"
+            defaultValue={current.get("current_weight")?.value_num ?? ""}
+            placeholder="kg"
+            aria-label="Poids actuel en kilogrammes"
+            style={inputStyle}
+          />
+          <input type="hidden" name="unit" value="kg" />
+          <button type="submit" style={btnPrimary}>
+            Enregistrer
+          </button>
+        </form>
+
+        {/* Progression lean bulk (repli si pas de poids réel) */}
+        <h2 style={sectionTitle}>Progression lean bulk (%)</h2>
+        <form action={updateMetric} style={rowForm}>
+          <input type="hidden" name="key" value="lean_bulk_progress" />
+          <input
+            name="value_num"
+            type="number"
+            min="0"
+            max="100"
+            step="1"
+            defaultValue={current.get("lean_bulk_progress")?.value_num ?? ""}
+            placeholder="%"
+            aria-label="Progression en pourcentage"
+            style={inputStyle}
+          />
+          <input type="hidden" name="unit" value="%" />
+          <button type="submit" style={btnPrimary}>
+            Enregistrer
+          </button>
+        </form>
+
+        {/* Édition libre de n'importe quelle clé */}
+        <h2 style={sectionTitle}>Édition libre</h2>
+        <form action={updateMetric} style={{ display: "grid", gap: "0.5rem" }}>
+          <input
+            name="key"
+            placeholder="clé (ex: current_focus)"
+            aria-label="Clé du relevé"
+            required
+            style={inputStyle}
           />
           <input
-            name="unit"
-            placeholder="unité"
-            style={{ ...inputStyle, width: "90px" }}
+            name="value_text"
+            placeholder="valeur texte"
+            aria-label="Valeur textuelle"
+            style={inputStyle}
           />
-        </div>
-        <button type="submit" style={btnPrimary}>
-          Mettre à jour
-        </button>
-      </form>
+          <div style={{ display: "flex", gap: "0.5rem" }}>
+            <input
+              name="value_num"
+              type="number"
+              step="any"
+              placeholder="valeur num (optionnel)"
+              aria-label="Valeur numérique optionnelle"
+              style={{ ...inputStyle, flex: 1 }}
+            />
+            <input
+              name="unit"
+              placeholder="unité"
+              aria-label="Unité"
+              style={{ ...inputStyle, width: "90px" }}
+            />
+          </div>
+          <button type="submit" style={btnPrimary}>
+            Mettre à jour
+          </button>
+        </form>
 
-      {/* État courant */}
-      <h2 style={sectionTitle}>État courant</h2>
-      <ul style={{ lineHeight: 1.8, fontSize: "0.85rem" }}>
-        {metrics.map((m) => (
-          <li key={m.key}>
-            <span style={{ color: "#a1a1aa" }}>{m.key}</span> ={" "}
-            {m.value_text ?? m.value_num}
-            {m.unit ? ` ${m.unit}` : ""}
-          </li>
-        ))}
-      </ul>
-    </main>
+        {/* État courant */}
+        <h2 style={sectionTitle}>État courant</h2>
+        <ul style={{ lineHeight: 1.8, fontSize: "0.85rem" }}>
+          {metrics.map((m) => (
+            <li key={m.key}>
+              <span style={{ color: "var(--secondary)" }}>{m.key}</span> ={" "}
+              {m.value_text ?? m.value_num}
+              {m.unit ? ` ${m.unit}` : ""}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </PageShell>
   );
 }
 
 // --- Styles (cohérents avec /admin et /login) ------------------------
 const pageStyle: CSSProperties = {
-  minHeight: "100dvh",
-  padding: "2rem",
-  maxWidth: "720px",
-  margin: "0 auto",
-  background: "#0a0a0a",
-  color: "#fafafa",
-  fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+  padding: "40px 0",
+  maxWidth: "860px",
+  margin: "0",
+  background: "var(--paper)",
+  color: "var(--ink)",
+  fontFamily: "var(--font-sans)",
 };
 const headerStyle: CSSProperties = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
   marginBottom: "1rem",
+  marginTop: "2rem",
+  flexWrap: "wrap",
+  gap: "1rem",
 };
 const sectionTitle: CSSProperties = {
   fontSize: "0.9rem",
-  color: "#10b981",
+  color: "var(--accent-text)",
   marginTop: "1.75rem",
   marginBottom: "0.6rem",
 };
 const labelStyle: CSSProperties = {
   fontSize: "0.75rem",
-  color: "#a1a1aa",
+  color: "var(--secondary)",
   margin: "0 0 0.35rem",
 };
 const inputStyle: CSSProperties = {
   padding: "0.55rem",
   borderRadius: "8px",
-  border: "1px solid #27272a",
-  background: "#0a0a0a",
-  color: "#fafafa",
+  border: "1px solid var(--line)",
+  background: "var(--paper)",
+  color: "var(--ink)",
   fontFamily: "inherit",
 };
-const rowForm: CSSProperties = { display: "flex", gap: "0.5rem" };
+const rowForm: CSSProperties = {
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "0.5rem",
+};
 const chip: CSSProperties = {
   padding: "0.4rem 0.7rem",
   borderRadius: "999px",
-  border: "1px solid #27272a",
-  background: "#111111",
-  color: "#e4e4e7",
+  border: "1px solid var(--line)",
+  background: "#faf7f1",
+  color: "var(--ink)",
   cursor: "pointer",
   fontFamily: "inherit",
   fontSize: "0.8rem",
 };
 const chipActive: CSSProperties = {
   ...chip,
-  border: "1px solid #10b981",
-  background: "#0c2a1e",
-  color: "#6ee7b7",
+  border: "1px solid var(--accent-text)",
+  background: "#e5d7bd",
+  color: "var(--ink)",
 };
 const btnPrimary: CSSProperties = {
   padding: "0.55rem 0.9rem",
   borderRadius: "8px",
-  border: "1px solid #10b981",
-  background: "#10b981",
-  color: "#04110b",
+  border: "1px solid var(--accent-text)",
+  background: "var(--accent-text)",
+  color: "#ffffff",
   fontWeight: 600,
   cursor: "pointer",
   fontFamily: "inherit",
@@ -283,9 +317,9 @@ const btnPrimary: CSSProperties = {
 const btnGhost: CSSProperties = {
   padding: "0.5rem 0.9rem",
   borderRadius: "8px",
-  border: "1px solid #27272a",
-  background: "#111111",
-  color: "#fafafa",
+  border: "1px solid var(--line)",
+  background: "#faf7f1",
+  color: "var(--ink)",
   cursor: "pointer",
   fontFamily: "inherit",
 };

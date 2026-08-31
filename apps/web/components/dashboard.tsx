@@ -15,6 +15,8 @@ import { ShippedFeed } from "./shipped-feed";
 import { VsmeSimulator } from "./vsme-simulator";
 import { Terminal, useThemeBoot } from "./terminal";
 import { ArchitectureArt, ProjectArt } from "./portfolio-art";
+import { SiteHeader } from "./site-header";
+import { BrandSignature } from "./brand-signature";
 import {
   CONTACT_EMAIL,
   CV_DOWNLOAD_NAME,
@@ -29,19 +31,19 @@ const projects = [
     id: "strata",
     category: "Durabilité",
     number: "01",
-    name: "STRATA",
+    name: "STRATA ESG",
     subtitle: "Des outils pour le reporting ESG.",
     description:
       "Je développe notamment STRATA Scope, pour le calcul carbone, et STRATA Watch, pour suivre les publications réglementaires ESG.",
     tags: ["RSE & ESG", "Architecture produit", "Europe"],
     href: "/ecosysteme#strata",
-    link: "Voir les projets STRATA",
+    link: "Voir les projets STRATA ESG",
   },
   {
     id: "iroko",
     category: "Afrique",
     number: "02",
-    name: "IROKO",
+    name: "IROKO Software Group",
     subtitle: "La gestion d’entreprise en Afrique.",
     description:
       "Avec IROKO Business OS, je travaille sur la facturation et les encaissements, avec des intégrations Wave et Orange Money.",
@@ -102,7 +104,6 @@ export function Dashboard({ data }: { data: DashboardData }) {
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [recruitOpen, setRecruitOpen] = useState(false);
   const [adamaOpen, setAdamaOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [filter, setFilter] = useState<(typeof filters)[number]>("Tout");
   const visibleProjects = projects.filter(
     (p) => filter === "Tout" || p.category === filter,
@@ -129,78 +130,7 @@ export function Dashboard({ data }: { data: DashboardData }) {
   return (
     <MotionConfig reducedMotion="user">
       <div id="top" className="portfolio">
-        <a href="#contenu" className="portfolio-skip">
-          Aller au contenu
-        </a>
-        <header className="portfolio-header">
-          <a
-            className="portfolio-brand"
-            href="#top"
-            aria-label="Adama Diallo, accueil"
-          >
-            <span className="brand-symbol" aria-hidden="true">
-              a<span>.</span>
-            </span>
-            <span>
-              Adama Diallo
-              <span className="brand-caption">RSE · DATA · SYSTÈMES</span>
-            </span>
-          </a>
-          <nav className="desktop-nav" aria-label="Navigation principale">
-            <a href="#projets">Projets</a>
-            <a href="#approche">Approche</a>
-            <a href="#parcours">Parcours</a>
-            <a href="#atelier">
-              L’atelier <span className="nav-dot" />
-            </a>
-          </nav>
-          <div className="header-actions">
-            <button
-              type="button"
-              className="header-contact"
-              onClick={() => setRecruitOpen(true)}
-            >
-              Échangeons <Arrow diagonal />
-            </button>
-            <button
-              type="button"
-              className="menu-toggle"
-              aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-navigation"
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
-              <span aria-hidden="true">{menuOpen ? "−" : "+"}</span>
-            </button>
-          </div>
-          {menuOpen && (
-            <nav
-              id="mobile-navigation"
-              className="mobile-nav"
-              aria-label="Navigation mobile"
-              onKeyDown={(e) => {
-                if (e.key === "Escape") {
-                  setMenuOpen(false);
-                  document
-                    .querySelector<HTMLButtonElement>(".menu-toggle")
-                    ?.focus();
-                }
-              }}
-            >
-              {[
-                ["#projets", "Projets"],
-                ["#approche", "Approche"],
-                ["#parcours", "Parcours"],
-                ["#atelier", "L’atelier"],
-              ].map(([href, label]) => (
-                <a key={href} href={href} onClick={() => setMenuOpen(false)}>
-                  {label}
-                  <Arrow diagonal />
-                </a>
-              ))}
-            </nav>
-          )}
-        </header>
+        <SiteHeader home onContact={() => setRecruitOpen(true)} />
         <main id="contenu">
           <section
             className="portfolio-hero portfolio-wrap"
@@ -218,8 +148,8 @@ export function Dashboard({ data }: { data: DashboardData }) {
               <p className="hero-description">
                 Je suis en stage Data ESG chez <strong>AG2R LA MONDIALE</strong>
                 . En parallèle, je développe mes propres outils :{" "}
-                <strong>STRATA</strong> pour la RSE, <strong>IROKO</strong> pour
-                la gestion d’entreprise.
+                <strong>STRATA ESG</strong> pour la RSE, <strong>IROKO</strong>{" "}
+                pour la gestion d’entreprise.
               </p>
               <div className="hero-actions">
                 <a href="#projets" className="portfolio-button primary">
@@ -307,8 +237,8 @@ export function Dashboard({ data }: { data: DashboardData }) {
                 <span className="serif">développe.</span>
               </h2>
               <p>
-                STRATA, IROKO et ce portfolio. Chaque projet a son propre dépôt
-                et avance à son rythme.
+                STRATA ESG, IROKO et ce portfolio. Chaque projet a son propre
+                dépôt et avance à son rythme.
               </p>
             </div>
             <div
@@ -347,10 +277,26 @@ export function Dashboard({ data }: { data: DashboardData }) {
                       <span className="project-art-label">
                         {project.category} / {project.number}
                       </span>
-                      <ProjectArt kind={project.id} />
+                      {project.id === "adama" ? (
+                        <ProjectArt kind={project.id} />
+                      ) : (
+                        <div
+                          className={
+                            "project-brand-art brand-art-" + project.id
+                          }
+                        >
+                          <BrandSignature brand={project.id} />
+                        </div>
+                      )}
                       <span className="project-art-name">
-                        {project.name}
-                        <span>PROJET PERSONNEL</span>
+                        {project.id === "adama" ? project.name : null}
+                        <span>
+                          {project.id === "strata"
+                            ? "REPORTING DE DURABILITÉ"
+                            : project.id === "iroko"
+                              ? "LOGICIELS DE GESTION"
+                              : "PROJET PERSONNEL"}
+                        </span>
                       </span>
                       <span className="project-arrow">
                         <Arrow diagonal />
@@ -594,7 +540,7 @@ export function Dashboard({ data }: { data: DashboardData }) {
                   Consulter les métriques publiées <Arrow diagonal />
                 </Link>
                 <button type="button" onClick={() => setAdamaOpen(true)}>
-                  Une question sur mon travail ? adama.ai <Arrow diagonal />
+                  Une question sur mon travail ? Adama AI <Arrow diagonal />
                 </button>
               </div>
             </div>

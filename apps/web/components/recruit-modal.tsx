@@ -32,7 +32,7 @@ const VALUE_PROPS: { title: string; body: string }[] = [
   },
   {
     title: "Développement",
-    body: "Next.js, Python, FastAPI et Supabase, utilisés dans mes projets STRATA, IROKO et Adama OS.",
+    body: "Next.js, Python, FastAPI et Supabase, utilisés dans mes projets STRATA ESG, IROKO et Adama OS.",
   },
   {
     title: "Projets",

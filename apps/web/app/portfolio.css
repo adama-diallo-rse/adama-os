@@ -1,12 +1,12 @@
 /* STRATA ESG palette. Source: STRATA/brand/strata-tokens.css.
    The cream composition stays personal; gold and slate tie it to STRATA.
    Darker gold is reserved for readable text and controls on cream. */
-body:has(.portfolio) {
+:root {
   --strata-slate: #0d1b2a;
   --strata-slate-mid: #14263a;
   --strata-gold: #c9a96e;
   --strata-signal: #2affd6;
-  --paper: #f4efe6;
+  --paper: #f2ede4;
   --ink: var(--strata-slate);
   --secondary: #536878;
   --line: #d4d6d5;
@@ -74,7 +74,7 @@ body:has(.portfolio) {
   align-items: center;
   gap: 24px;
   border-bottom: 1px solid var(--line);
-  background: rgb(244 239 230 / 94%);
+  background: rgb(242 237 228 / 94%);
   backdrop-filter: blur(16px);
 }
 .portfolio-brand {

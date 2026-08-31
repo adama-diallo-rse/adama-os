@@ -10,6 +10,15 @@ import {
 import { SITE_URL } from "../lib/site";
 import "./globals.css";
 import "./portfolio.css";
+import "./subpages.css";
+import localFont from "next/font/local";
+
+const syne = localFont({
+  src: "../public/fonts/syne-variable.ttf",
+  variable: "--font-syne",
+  display: "swap",
+  weight: "400 800",
+});
 
 // L8-T5, Métadonnées home. L'image OG est générée au build par
 // app/opengraph-image.tsx (statique : aucune donnée dynamique).
@@ -20,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s · Adama OS",
   },
   description:
-    "Adama Diallo, en stage Data ESG chez AG2R LA MONDIALE. Mes projets STRATA et IROKO, mon parcours en RSE et mon journal de développement.",
+    "Adama Diallo, en stage Data ESG chez AG2R LA MONDIALE. Mes projets STRATA ESG et IROKO, mon parcours en RSE et mon journal de développement.",
   keywords: [
     "Adama Diallo",
     "RSE",
@@ -30,14 +39,14 @@ export const metadata: Metadata = {
     "VSME",
     "chargé de mission Data ESG",
     "reporting durabilité",
-    "Strata",
+    "STRATA ESG",
   ],
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
   openGraph: {
     title: "Adama Diallo | RSE, data et développement",
     description:
-      "Mon parcours en RSE et mes projets logiciels : STRATA, IROKO et Adama OS.",
+      "Mon parcours en RSE et mes projets logiciels : STRATA ESG, IROKO et Adama OS.",
     url: "/",
     siteName: "Adama OS",
     locale: "fr_FR",
@@ -61,10 +70,10 @@ const personJsonLd = {
   name: "Adama Diallo",
   jobTitle: "Chargé de missions RSE - Data ESG & Solutions IA",
   description:
-    "Fondateur de Strata (CSRD, ESRS, VSME). En stage Data ESG & Solutions IA chez AG2R LA MONDIALE jusqu'au 31 octobre 2026. Développe les projets STRATA, IROKO et Adama OS.",
+    "Fondateur de STRATA ESG (CSRD, ESRS, VSME). En stage Data ESG & Solutions IA chez AG2R LA MONDIALE jusqu'au 31 octobre 2026. Développe les projets STRATA ESG, IROKO et Adama OS.",
   worksFor: [
     { "@type": "Organization", name: "AG2R LA MONDIALE" },
-    { "@type": "Organization", name: "STRATA" },
+    { "@type": "Organization", name: "STRATA ESG" },
   ],
   url: SITE_URL,
   email: `mailto:${CONTACT_EMAIL}`,
@@ -108,7 +117,7 @@ export default function RootLayout({
     <html
       lang="fr"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${syne.variable}`}
     >
       <body className="antialiased">
         <script

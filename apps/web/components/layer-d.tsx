@@ -28,6 +28,7 @@ import {
 } from "@adama/ui";
 import { AnimatedNumber } from "./animated-number";
 import { OutboundLink } from "./outbound-link";
+import { divisionName } from "./brand-signature";
 import { metricLabel, metricSuffix } from "../lib/metrics";
 import {
   CV_DOWNLOAD_NAME,
@@ -277,7 +278,7 @@ export function LayerD({
         {groupes.length > 0 ? (
           <div className="space-y-4">
             {groupes.map((groupe) => (
-              <div key={groupe.division}>
+              <div key={divisionName(groupe.division)}>
                 <div className="mb-2 flex items-center gap-2">
                   <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">
                     {groupe.division}

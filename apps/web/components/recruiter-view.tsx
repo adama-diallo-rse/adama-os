@@ -5,7 +5,10 @@
 // vite et imprimé proprement (@media print dans globals.css).
 
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { Badge, Button } from "@adama/ui";
+import { PageShell } from "./page-shell";
+import { BrandSignature, divisionName } from "./brand-signature";
 import { captureEvent } from "../lib/analytics";
 import {
   CONTACT_EMAIL,
@@ -55,7 +58,7 @@ export function RecruiterView({ data }: { data: DashboardData }) {
   const commits = data.commits.slice(0, 5);
 
   return (
-    <div className="recruiter-view min-h-dvh bg-background print:bg-white">
+    <PageShell tools={false} className="recruiter-view">
       <div className="mx-auto w-full max-w-3xl px-5 py-10 print:max-w-none print:px-0 print:py-0">
         {/* En-tête */}
         <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -68,7 +71,7 @@ export function RecruiterView({ data }: { data: DashboardData }) {
             </h1>
             <p className="text-sm leading-relaxed text-muted print:text-neutral-700">
               En stage Data ESG & Solutions IA chez AG2R LA MONDIALE. Je
-              développe aussi STRATA, IROKO et ce portfolio.
+              développe aussi STRATA ESG, IROKO et ce portfolio.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2 print:hidden">
@@ -77,14 +80,13 @@ export function RecruiterView({ data }: { data: DashboardData }) {
               download={CV_DOWNLOAD_NAME}
               className="inline-flex"
             >
-              <Button variant="primary" size="sm" bracket tabIndex={-1}>
+              <Button variant="primary" size="sm" tabIndex={-1}>
                 CV PDF
               </Button>
             </a>
             <Button
               variant="outline"
               size="sm"
-              bracket
               onClick={() => {
                 captureEvent("recruiter_view_print");
                 window.print();
@@ -95,11 +97,15 @@ export function RecruiterView({ data }: { data: DashboardData }) {
           </div>
         </header>
 
+        <div className="recruiter-brand-row">
+          <BrandSignature brand="strata" />
+          <BrandSignature brand="iroko" />
+        </div>
         {/* Coordonnées + statut */}
         <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-muted print:text-neutral-700">
           <span className="print:hidden">
             <Badge variant="emerald" dot>
-              open to work
+              À l’écoute d’opportunités
             </Badge>
           </span>
           <span>{CONTACT_EMAIL}</span>
@@ -114,7 +120,7 @@ export function RecruiterView({ data }: { data: DashboardData }) {
           {deadline ? <span>disponible : {deadline}</span> : null}
         </div>
 
-        <main className="mt-8 space-y-6">
+        <div className="mt-8 space-y-6">
           {focus ? (
             <Section title="Focus actuel">
               <p className="font-mono text-sm text-foreground print:text-black">
@@ -188,7 +194,7 @@ export function RecruiterView({ data }: { data: DashboardData }) {
                       {p.name}
                     </span>
                     <span className="text-faint print:text-neutral-500">
-                      {p.division}
+                      {divisionName(p.division)}
                       {p.pillar ? ` · ${p.pillar}` : ""}
                     </span>
                     <span className="text-emerald print:text-neutral-600">
@@ -240,20 +246,20 @@ export function RecruiterView({ data }: { data: DashboardData }) {
               {CONTACT_EMAIL}, réponse sous 24 h. CV joint : {CV_DOWNLOAD_NAME}.
             </p>
           </Section>
-        </main>
+        </div>
 
         <footer className="mt-10 border-t border-border pt-4 print:border-neutral-300">
           <p className="flex flex-wrap items-center justify-between gap-2 font-mono text-[0.65rem] text-faint print:text-neutral-500">
             <span>Adama Diallo, RSE · Data · Développement</span>
-            <a
+            <Link
               href="/"
               className="underline-offset-4 hover:underline print:hidden"
             >
-              ← version dashboard complète
-            </a>
+              ← retour au portfolio
+            </Link>
           </p>
         </footer>
       </div>
-    </div>
+    </PageShell>
   );
 }

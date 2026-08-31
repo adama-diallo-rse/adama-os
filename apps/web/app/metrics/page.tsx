@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Badge, Card, CardContent, CardHeader, CardTitle } from "@adama/ui";
+import { PageIntro, PageShell } from "../../components/page-shell";
 import { AnimatedNumber } from "../../components/animated-number";
-import { LegalFooterLinks } from "../../components/legal-links";
 import { createPublicClient } from "../../lib/supabase/public";
 import {
   formatMetric,
@@ -19,7 +18,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Open Metrics, écosystème",
+  title: "Métriques publiques, écosystème",
   description:
     "Métriques produit du groupe en accès public : relevés d'usage et de disponibilité, avec leur source et leur date.",
   alternates: { canonical: "/metrics" },
@@ -78,130 +77,161 @@ export default async function MetricsPage() {
   const history = rows.slice(0, 24);
 
   return (
-    <div className="bg-grid min-h-dvh">
-      <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-8 sm:py-14">
-        {/* En-tête */}
-        <header className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
-          <div className="space-y-2">
-            <Link
-              href="/"
-              className="font-mono text-xs uppercase tracking-[0.16em] text-emerald transition-colors hover:text-emerald-bright"
-            >
-              ← Adama OS
-            </Link>
-            <h1 className="font-mono text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-              Open Metrics
-            </h1>
-            <p className="max-w-xl font-mono text-sm text-muted">
-              Métriques produit du groupe en accès public. Chaque valeur porte
-              sa source et sa date : rien n&apos;est estimé, rien n&apos;est
-              arrondi pour faire joli.
+    <PageShell>
+      <PageIntro
+        eyebrow="SUIVI / MÉTRIQUES PUBLIQUES"
+        title={
+          <>
+            Les projets,
+            <br />
+            <span className="serif">en chiffres.</span>
+          </>
+        }
+        description="Les relevés d’usage et de disponibilité publiés pour STRATA ESG et IROKO Software Group. Chaque valeur est accompagnée de sa source et de sa date."
+        aside={
+          <div className="intro-note">
+            <span className="intro-note-label">ACCÈS PUBLIC</span>
+            <p>
+              Consultez les chiffres, puis retrouvez les produits auxquels ils
+              se rapportent.
             </p>
+            <Link href="/ecosysteme">Explorer l’écosystème ↗</Link>
           </div>
-          <Badge variant="emerald" dot>
-            Public
-          </Badge>
-        </header>
-
-        {/* État vide : aucune valeur n'est inventée pour meubler la page. */}
-        {headline.length === 0 ? (
-          <Card>
-            <CardContent className="py-6">
-              <p className="font-mono text-sm text-muted">
-                Donnée non disponible
-              </p>
-              <p className="mt-1.5 max-w-xl font-mono text-xs leading-relaxed text-faint">
-                Aucun relevé n&apos;a encore été publié. Cette page
-                n&apos;affiche que des valeurs mesurées.
-              </p>
-            </CardContent>
-          </Card>
-        ) : null}
-
-        {/* Grille des métriques (dernière valeur par métrique) */}
-        <section className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        }
+      />
+      {headline.length === 0 ? (
+        <section className="metrics-empty">
+          <p className="portfolio-label">LES RELEVÉS</p>
+          <h2>
+            Pas encore de <span className="serif">données publiées.</span>
+          </h2>
+          <p>
+            Les relevés ne sont pas disponibles pour le moment. Vous pourrez
+            retrouver ici les valeurs mesurées et leur historique lorsqu’ils
+            seront accessibles.
+          </p>
+          <Link className="portfolio-text-link" href="/ecosysteme">
+            Consulter les projets <span aria-hidden="true">→</span>
+          </Link>
+        </section>
+      ) : (
+        <section
+          className="metric-grid"
+          aria-label="Dernières valeurs publiées"
+        >
           {headline.map((row) => (
-            <Card key={row.metric} className="scroll-mt-24">
-              <CardContent className="py-4">
-                <AnimatedNumber
-                  value={row.value}
-                  decimals={metricDecimals(row.value)}
-                  suffix={metricSuffix(row.metric)}
-                  className="font-mono text-2xl font-semibold tabular-nums text-emerald-bright"
-                />
-                <p className="mt-1 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-faint">
-                  {metricLabel(row.metric)}
-                </p>
-                {row.period ? (
-                  <p className="mt-0.5 font-mono text-[0.6rem] text-muted">
-                    {row.period}
-                  </p>
-                ) : null}
-              </CardContent>
-            </Card>
+            <article className="metric-tile" key={row.metric}>
+              <p className="portfolio-label">{metricLabel(row.metric)}</p>
+              <AnimatedNumber
+                value={row.value}
+                decimals={metricDecimals(row.value)}
+                suffix={metricSuffix(row.metric)}
+                className="metric-value"
+              />
+              {row.period && <p className="metric-period">{row.period}</p>}
+              <div className="metric-provenance">
+                <p>{row.product_slug ?? "Écosystème"}</p>
+                <p>Source : {row.source ?? "Non renseignée"}</p>
+                <time dateTime={row.created_at}>
+                  {formatDate(row.created_at)}
+                </time>
+              </div>
+            </article>
           ))}
         </section>
-
-        {/* Journal des relevés récents */}
-        {history.length > 0 ? (
-          <section className="mt-8">
-            <Card>
-              <CardHeader>
-                <CardTitle>Relevés récents</CardTitle>
-                <Badge variant="default">{history.length} points</Badge>
-              </CardHeader>
-              <CardContent className="px-0 py-0">
-                <ul>
-                  {history.map((row, i) => (
-                    <li
-                      key={`${row.metric}-${row.created_at}-${i}`}
-                      className="flex items-center justify-between gap-3 border-b border-border/60 px-4 py-2.5 last:border-b-0"
-                    >
-                      <span className="flex flex-wrap items-center gap-2 font-mono text-xs text-muted">
-                        <span className="text-emerald">›</span>
-                        {metricLabel(row.metric)}
-                        {row.product_slug ? (
-                          <span className="text-faint">
-                            {" "}
-                            · {row.product_slug}
-                          </span>
-                        ) : null}
-                        {row.source ? (
-                          <span className="text-faint"> · {row.source}</span>
-                        ) : null}
-                      </span>
-                      <span className="flex items-center gap-3">
-                        <span className="font-mono text-xs tabular-nums text-emerald-bright">
-                          {formatMetric(row.value, row.metric)}
-                        </span>
-                        <span className="font-mono text-[0.6rem] text-faint">
-                          {formatDate(row.created_at)}
-                        </span>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </section>
-        ) : null}
-
-        {/* Pied de page */}
-        <footer className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-border pt-5 sm:flex-row sm:items-center">
-          <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">
-            Adama Diallo, RSE · Data · Développement
-          </p>
-          <div className="flex flex-wrap items-center gap-4">
-            <LegalFooterLinks />
-            <Link
-              href="/"
-              className="font-mono text-[0.65rem] text-emerald transition-colors hover:text-emerald-bright"
-            >
-              ← retour au dashboard
-            </Link>
+      )}
+      {history.length > 0 && (
+        <section className="metrics-history">
+          <div className="section-heading">
+            <h2>
+              Derniers <span className="serif">relevés.</span>
+            </h2>
+            <span>{history.length} relevés</span>
           </div>
-        </footer>
-      </div>
-    </div>
+          <div
+            className="data-table-scroll"
+            role="region"
+            aria-label="Historique des relevés"
+            tabIndex={0}
+          >
+            <table className="data-table">
+              <caption className="sr-only">
+                Valeurs publiées avec leur produit, source et date
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Indicateur</th>
+                  <th scope="col">Produit</th>
+                  <th scope="col">Valeur</th>
+                  <th scope="col">Source</th>
+                  <th scope="col">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {history.map((row, i) => (
+                  <tr key={row.metric + row.created_at + i}>
+                    <th scope="row">{metricLabel(row.metric)}</th>
+                    <td>{row.product_slug ?? "Écosystème"}</td>
+                    <td className="table-value">
+                      {formatMetric(row.value, row.metric)}
+                    </td>
+                    <td>{row.source ?? "Non renseignée"}</td>
+                    <td>
+                      <time dateTime={row.created_at}>
+                        {formatDate(row.created_at)}
+                      </time>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+      <section className="metrics-reading">
+        <p className="portfolio-label">COMMENT LIRE CES CHIFFRES</p>
+        <div>
+          <article>
+            <span>01</span>
+            <h2>La valeur</h2>
+            <p>
+              La dernière mesure publiée pour chaque indicateur. La période est
+              précisée lorsqu’elle est renseignée.
+            </p>
+          </article>
+          <article>
+            <span>02</span>
+            <h2>La source</h2>
+            <p>
+              L’origine du relevé figure sous la valeur et dans l’historique,
+              quand elle a été fournie.
+            </p>
+          </article>
+          <article>
+            <span>03</span>
+            <h2>La date</h2>
+            <p>
+              La date indique quand le relevé a été enregistré. Elle ne
+              correspond pas à une mesure en temps réel.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section className="page-next">
+        <div>
+          <p className="portfolio-label">CÔTÉ DÉVELOPPEMENT</p>
+          <h2>
+            Le journal de <span className="serif">l’atelier.</span>
+          </h2>
+          <p>
+            Retrouvez les dernières contributions et les décisions de
+            développement.
+          </p>
+        </div>
+        <Link href="/#atelier" className="portfolio-button primary">
+          Ouvrir l’atelier <span aria-hidden="true">↗</span>
+        </Link>
+      </section>
+    </PageShell>
   );
 }
