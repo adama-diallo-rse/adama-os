@@ -49,11 +49,13 @@ export const metadata: Metadata = {
   },
 };
 
-// L8-T5 — JSON-LD Person : identité machine-lisible pour Google et
-// les moteurs IA. Données 100% statiques, injectées côté serveur.
+// L8-T5 puis L8-T9 — JSON-LD : identité machine-lisible pour Google et les
+// moteurs IA. Deux nœuds ici, statiques et injectés côté serveur : la personne
+// et le site. L'organisation et les logiciels sont déclarés sur /ecosysteme,
+// où ils sont lus depuis le registre produits plutôt que recopiés.
 const personJsonLd = {
-  "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${SITE_URL}#adama-diallo`,
   name: "Adama Diallo",
   jobTitle: "Chargé de missions RSE - Data ESG & Solutions IA",
   description:
@@ -82,6 +84,21 @@ const personJsonLd = {
   },
 };
 
+const siteJsonLd = {
+  "@type": "WebSite",
+  "@id": `${SITE_URL}#site`,
+  name: "Adama OS",
+  alternateName: "Adama OS, System Dashboard",
+  url: SITE_URL,
+  inLanguage: "fr-FR",
+  author: { "@id": `${SITE_URL}#adama-diallo` },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [personJsonLd, siteJsonLd],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -94,7 +111,7 @@ export default function RootLayout({
       <body className="antialiased">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
         <ConsentBanner />

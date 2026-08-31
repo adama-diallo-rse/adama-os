@@ -22,11 +22,18 @@
   /* Texte (crème STRATA) */
   --color-foreground: #f2ede4;
   --color-muted: #9db0c0;
-  --color-faint: #6b8296;
+  /* L8-T10, audit de contraste du 31 aout 2026. L'ancienne valeur #6b8296
+     donnait 3.51:1 sur --color-surface-raised, sous le seuil WCAG AA de
+     4.5:1 exige pour du texte normal, et ce token porte surtout du petit
+     texte. Meme teinte (208 deg) et meme saturation, simplement eclaircie :
+     4.53:1 sur surface-raised, 4.89:1 sur surface, 5.62:1 sur le fond. */
+  --color-faint: #8195a6;
 
   /* Accent principal : signal teal STRATA (data / CTA / online) */
   --color-emerald: #2affd6;
   --color-emerald-bright: #6bffe4;
+  /* Fond et etat actif uniquement : 3.52:1 sur surface-raised, insuffisant
+     pour du texte. Ne pas utiliser en couleur de texte. */
   --color-emerald-dim: #1f8f7c;
   --color-emerald-foreground: #06201a;
 
@@ -36,10 +43,12 @@
   --color-danger: #e5675c;
 
   /* Polices, branchées sur les variables Geist (layout.tsx) */
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", "Menlo",
-    "Consolas", monospace;
+  --font-sans:
+    var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --font-mono:
+    var(--font-geist-mono), ui-monospace, "SFMono-Regular", "Menlo", "Consolas",
+    monospace;
 
   /* Rayon de base */
   --radius: 0.5rem;
@@ -85,7 +94,9 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
     min-height: 100dvh;
   }
 
@@ -124,7 +135,8 @@
 
   /* Halo émeraude pour les éléments actifs */
   .glow-emerald {
-    box-shadow: 0 0 0 1px color-mix(in oklch, var(--color-emerald) 35%, transparent),
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--color-emerald) 35%, transparent),
       0 0 24px -6px color-mix(in oklch, var(--color-emerald) 50%, transparent);
   }
 }

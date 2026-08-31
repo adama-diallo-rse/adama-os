@@ -1,6 +1,6 @@
 # Secrets et variables d'environnement
 
-> Mis a jour le 19 juillet 2026. `services/engine` a ete supprime le 13 juillet, la section Railway a ete retiree.
+> Mis a jour le 31 aout 2026. Ajout des variables des passerelles ecosysteme (L9), du garde-fou de debit d'adama.ai (L8-T12) et du secret de cron. Domaine propre : adamesg-os.fr.
 
 Regle unique : aucun secret dans git. Les `.env.example` documentent les cles
 attendues (valeurs vides ou factices) ; les vraies valeurs vivent en local dans
@@ -26,25 +26,30 @@ Puis renseigner les valeurs manquantes.
 
 ## Cles cote web (Vercel)
 
-| Variable                        | Expose au navigateur | Role                                          |
-| ------------------------------- | -------------------- | --------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`          | oui                  | origine canonique (metadonnees, sitemap, robots, JSON-LD) |
-| `NEXT_PUBLIC_SUPABASE_URL`      | oui                  | URL du projet Supabase (region UE)            |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | oui                  | cle publique (RLS)                            |
-| `SUPABASE_SERVICE_ROLE_KEY`     | non                  | cle serveur (contourne RLS)                   |
-| `OPENAI_API_KEY`                | non                  | generation gpt-4o + embeddings de requete     |
-| `ADAMA_AI_MODEL`                | non                  | modele adama.ai, optionnel (defaut gpt-4o)    |
-| `DATABASE_URL`                  | non                  | retrieval RAG pgvector via Drizzle            |
-| `GITHUB_REPOS`                  | non                  | L5-T2, depots agreges dans le feed Shipped    |
-| `GITHUB_TOKEN`                  | non                  | feed Shipped, optionnel (60 req/h sans token) |
-| `NEXT_PUBLIC_CAL_LINK`          | oui                  | Cal.com dans le modal recruteur               |
-| `NEXT_PUBLIC_POSTHOG_KEY`       | oui                  | analytics, requis pour les funnels (L8-T7)    |
-| `NEXT_PUBLIC_POSTHOG_HOST`      | oui                  | defaut `https://eu.i.posthog.com`             |
-| `BETTERSTACK_API_TOKEN`         | non                  | statut systeme reel                           |
-| `BETTERSTACK_MONITOR_ID`        | non                  | identifiant du monitor uptime                 |
-| `NEXT_PUBLIC_SENTRY_DSN`        | oui                  | DSN Sentry (client + serveur)                 |
-| `SENTRY_ORG` / `SENTRY_PROJECT` | non                  | upload source maps                            |
-| `SENTRY_AUTH_TOKEN`             | non                  | upload source maps (build/CI uniquement)      |
+| Variable                          | Expose au navigateur | Role                                                                                 |
+| --------------------------------- | -------------------- | ------------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_SITE_URL`            | oui                  | origine canonique (metadonnees, sitemap, robots, JSON-LD)                            |
+| `NEXT_PUBLIC_SUPABASE_URL`        | oui                  | URL du projet Supabase (region UE)                                                   |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY`   | oui                  | cle publique (RLS)                                                                   |
+| `SUPABASE_SERVICE_ROLE_KEY`       | non                  | cle serveur (contourne RLS)                                                          |
+| `OPENAI_API_KEY`                  | non                  | generation gpt-4o + embeddings de requete                                            |
+| `ADAMA_AI_MODEL`                  | non                  | modele adama.ai, optionnel (defaut gpt-4o)                                           |
+| `ADAMA_AI_RATE_LIMIT`             | non                  | L8-T12, requetes /api/chat par fenetre (defaut 12)                                   |
+| `ADAMA_AI_RATE_WINDOW_S`          | non                  | L8-T12, duree de la fenetre en secondes (defaut 300)                                 |
+| `DATABASE_URL`                    | non                  | retrieval RAG pgvector via Drizzle                                                   |
+| `GITHUB_REPOS`                    | non                  | L5-T2, depots agreges dans le feed Shipped                                           |
+| `GITHUB_TOKEN`                    | non                  | feed Shipped, optionnel (60 req/h sans token)                                        |
+| `ECOSYSTEM_SCOPE_API_URL`         | non                  | L9, origine de l'API STRATA Scope, lecture seule                                     |
+| `ECOSYSTEM_ESG_OPTIMIZER_API_URL` | non                  | L9, origine de l'API ESG Optimizer, lecture seule                                    |
+| `CRON_SECRET`                     | non                  | L9, protege `/api/ecosystem/sync`. Pose par Vercel Cron dans l'en-tete Authorization |
+| `NEXT_PUBLIC_CAL_LINK`            | oui                  | Cal.com dans le modal recruteur                                                      |
+| `NEXT_PUBLIC_POSTHOG_KEY`         | oui                  | analytics, requis pour les funnels (L8-T7)                                           |
+| `NEXT_PUBLIC_POSTHOG_HOST`        | oui                  | defaut `https://eu.i.posthog.com`                                                    |
+| `BETTERSTACK_API_TOKEN`           | non                  | statut systeme reel                                                                  |
+| `BETTERSTACK_MONITOR_ID`          | non                  | identifiant du monitor uptime                                                        |
+| `NEXT_PUBLIC_SENTRY_DSN`          | oui                  | DSN Sentry (client + serveur)                                                        |
+| `SENTRY_ORG` / `SENTRY_PROJECT`   | non                  | upload source maps                                                                   |
+| `SENTRY_AUTH_TOKEN`               | non                  | upload source maps (build/CI uniquement)                                             |
 
 Regle : tout ce qui est prefixe `NEXT_PUBLIC_` finit dans le bundle client.
 Ne jamais prefixer une cle secrete avec `NEXT_PUBLIC_`.
@@ -54,11 +59,11 @@ Ne jamais prefixer une cle secrete avec `NEXT_PUBLIC_`.
 Les depots du groupe sont repartis sur **trois perimetres**, pas un. Un jeton
 limite a l'organisation ne verra ni STRATA Scope ni le cockpit lui-meme.
 
-| Perimetre | Depots concernes |
-| --- | --- |
-| `iroko-software-group` | esg-optimizer, strata-platform, strata-foundation, strata-watch, strata-esg-academy, iroko-platform |
-| `adama-diallo-rse` (compte perso) | strata-scope, adama-os |
-| `strata-esg` (ancienne organisation) | historique, a verifier |
+| Perimetre                            | Depots concernes                                                                                    |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| `iroko-software-group`               | esg-optimizer, strata-platform, strata-foundation, strata-watch, strata-esg-academy, iroko-platform |
+| `adama-diallo-rse` (compte perso)    | strata-scope, adama-os                                                                              |
+| `strata-esg` (ancienne organisation) | historique, a verifier                                                                              |
 
 Jeton **fine-grained, lecture seule**, permissions `Contents: Read-only` et
 `Metadata: Read-only`. Un jeton fine-grained ne couvre qu'un proprietaire a la
@@ -68,19 +73,38 @@ publics remontent, ce qui suffit pour la vitrine.
 
 ## Cles cote base (`packages/db`)
 
-| Variable       | Role                                                          |
-| -------------- | ------------------------------------------------------------- |
-| `DATABASE_URL` | connexion Supabase, Transaction pooler. Migrations et seed.    |
-| `OPENAI_API_KEY` | embeddings a l'ingestion du corpus RAG (`pnpm rag:ingest`)   |
+| Variable         | Role                                                        |
+| ---------------- | ----------------------------------------------------------- |
+| `DATABASE_URL`   | connexion Supabase, Transaction pooler. Migrations et seed. |
+| `OPENAI_API_KEY` | embeddings a l'ingestion du corpus RAG (`pnpm rag:ingest`)  |
 
-## Quand le domaine sera branche (L0-T6)
+## Domaine propre (L0-T6)
 
-L'origine du site est deja centralisee dans `apps/web/lib/site.ts`, qui lit
-`NEXT_PUBLIC_SITE_URL` et retombe sur le domaine Vercel si la variable est
-absente. Brancher le domaine se limite donc a deux gestes :
+Le domaine est **adamesg-os.fr**, achete le 31 aout 2026. C'est un nom
+personnel : il ne depend pas de l'arbitrage d'architecture de marque du groupe.
 
-1. poser `NEXT_PUBLIC_SITE_URL=https://mon-domaine.fr` dans Vercel (Production,
-   Preview et Development) ;
-2. redeployer, puis verifier `/robots.txt` et `/sitemap.xml`.
+L'origine du site est centralisee dans `apps/web/lib/site.ts`, qui lit
+`NEXT_PUBLIC_SITE_URL`, retombe sur `VERCEL_URL` en preview, puis sur le
+domaine propre. Aucune URL n'est ecrite en dur ailleurs.
 
-Aucune URL n'est ecrite en dur dans le code.
+`NEXT_PUBLIC_SITE_URL` se pose sur le **seul environnement Production**. La
+variable est inlinee au build : posee aussi en Preview, chaque preview deploy
+annoncerait l'origine de production dans ses metadonnees, son sitemap et son
+JSON-LD. Preview et Development restent vides, le repli `VERCEL_URL` s'en
+charge. Changer la variable exige un redeploiement, un simple enregistrement
+ne suffit pas.
+
+## Rotation et acces de secours (L12)
+
+| Secret                      | Ou il vit                             | Rotation                                           |
+| --------------------------- | ------------------------------------- | -------------------------------------------------- |
+| `SUPABASE_SERVICE_ROLE_KEY` | Vercel Production, `packages/db/.env` | a la demande, immediatement si un `.env` a circule |
+| `OPENAI_API_KEY`            | Vercel, `packages/db/.env`            | tous les 6 mois, ou apres tout partage d'ecran     |
+| `GITHUB_TOKEN`              | Vercel                                | expiration 90 jours, a recreer a echeance          |
+| `CRON_SECRET`               | Vercel                                | tous les 12 mois                                   |
+| `SENTRY_AUTH_TOKEN`         | Vercel (build)                        | tous les 12 mois                                   |
+| `BETTERSTACK_API_TOKEN`     | Vercel                                | tous les 12 mois                                   |
+
+Verification a faire une fois : qu'aucun `.env.local` reel ne se trouve dans un
+dossier synchronise sur un service de stockage en ligne, historique de versions
+compris. Procedure complete et note de reprise : `docs/CONTINUITE.md`.
