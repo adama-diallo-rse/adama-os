@@ -3,7 +3,7 @@
 > **Ce fichier n'est pas la source de vérité.** La roadmap vivante est la page
 > Notion « Roadmap d'implémentation, Adama OS (cockpit du fondateur) » :
 > https://app.notion.com/p/3a2455fe99dd81bebf01d1d08e2fa0b7
-> `ROADMAP.md` en est la copie générée. Le présent document est conservé comme
+> `ROADMAP.md` décrit l'état réel du dépôt, dérivé du code et non d'une page. Le présent document est conservé comme
 > trace de la conception initiale, voir l'avertissement de validité ci-dessous.
 
 > Document de référence pour construire Adama OS. Tu pars d'un dossier vide.
@@ -18,19 +18,19 @@
 
 Plusieurs choix décrits ci-dessous ont été révisés à l'usage. Le tableau suivant liste ce qui est périmé, pour que la lecture du document ne conduise pas à des décisions fausses. Le reste (couches d'interface, philosophie du dashboard, tunnel de conversion, exigences RGPD) reste valide.
 
-| Choix du blueprint | Réalité au 19 juillet 2026 | Motif de la révision |
-| --- | --- | --- |
-| Mistral (LLM et embeddings) | **OpenAI gpt-4o** en génération, **text-embedding-3-small** en 1024 dim | Qualité de génération citée et écosystème Vercel AI SDK. La dimension 1024 est figée dans le schéma et l'index pgvector. |
-| Mistral OCR 4 pour l'ingestion PDF | **unpdf**, extraction locale | Suffisant pour le corpus visé (ESRS, VSME, CV), sans appel réseau ni coût par page. |
-| `services/engine` (FastAPI sur Railway) | **Supprimé le 13 juillet 2026** | Doublon du moteur carbone de STRATA Scope, plus aucune route web ne l'appelait. La couche L2 d'Adama OS est fermée. |
-| Sanity (CMS) pour la veille et les cours | **Retiré** | La veille est le produit STRATA Watch, les formations sont STRATA Academy. Adama OS n'héberge ni l'une ni les autres. |
-| Trigger.dev (jobs de veille) | **Retiré** | Même motif : le scraping réglementaire appartient à STRATA Watch. |
-| Polar (Merchant of Record) | **Retiré** | La monétisation appartient aux produits. Stripe sur STRATA Scope et ESG Optimizer, Stripe Tax sur strata-platform. |
-| Sortie 3, `/learn` (4 niveaux) | **Retirée** | Devenue STRATA Academy, repo dédié. |
-| Sortie 2, `/strata` + Audit Express | **Réduite à un hub de liens tracés**, devient `/ecosysteme` | Adama OS ne fait pas d'audit. Il pointe vers ESG Optimizer. |
-| Table `strata_analytics` | Devient **`ecosystem_analytics`** (colonnes `division`, `product_slug`) | Le périmètre passe de la suite STRATA au groupe IROKO SOFTWARE GROUP, quatre divisions. |
-| Tables `audit_requests`, `course_entitlements` | **Retirées du schéma** | Appartenaient aux modules audit et formations, partis chez les produits. |
-| DeepSeek (annexe A, manifeste original) | Jamais retenu | Transit des données par une infra hors UE, injustifiable sous RGPD. |
+| Choix du blueprint                             | Réalité au 19 juillet 2026                                              | Motif de la révision                                                                                                     |
+| ---------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Mistral (LLM et embeddings)                    | **OpenAI gpt-4o** en génération, **text-embedding-3-small** en 1024 dim | Qualité de génération citée et écosystème Vercel AI SDK. La dimension 1024 est figée dans le schéma et l'index pgvector. |
+| Mistral OCR 4 pour l'ingestion PDF             | **unpdf**, extraction locale                                            | Suffisant pour le corpus visé (ESRS, VSME, CV), sans appel réseau ni coût par page.                                      |
+| `services/engine` (FastAPI sur Railway)        | **Supprimé le 13 juillet 2026**                                         | Doublon du moteur carbone de STRATA Scope, plus aucune route web ne l'appelait. La couche L2 d'Adama OS est fermée.      |
+| Sanity (CMS) pour la veille et les cours       | **Retiré**                                                              | La veille est le produit STRATA Watch, les formations sont STRATA Academy. Adama OS n'héberge ni l'une ni les autres.    |
+| Trigger.dev (jobs de veille)                   | **Retiré**                                                              | Même motif : le scraping réglementaire appartient à STRATA Watch.                                                        |
+| Polar (Merchant of Record)                     | **Retiré**                                                              | La monétisation appartient aux produits. Stripe sur STRATA Scope et ESG Optimizer, Stripe Tax sur strata-platform.       |
+| Sortie 3, `/learn` (4 niveaux)                 | **Retirée**                                                             | Devenue STRATA Academy, repo dédié.                                                                                      |
+| Sortie 2, `/strata` + Audit Express            | **Réduite à un hub de liens tracés**, devient `/ecosysteme`             | Adama OS ne fait pas d'audit. Il pointe vers ESG Optimizer.                                                              |
+| Table `strata_analytics`                       | Devient **`ecosystem_analytics`** (colonnes `division`, `product_slug`) | Le périmètre passe de la suite STRATA au groupe IROKO SOFTWARE GROUP, quatre divisions.                                  |
+| Tables `audit_requests`, `course_entitlements` | **Retirées du schéma**                                                  | Appartenaient aux modules audit et formations, partis chez les produits.                                                 |
+| DeepSeek (annexe A, manifeste original)        | Jamais retenu                                                           | Transit des données par une infra hors UE, injustifiable sous RGPD.                                                      |
 
 **Ce qui reste pleinement valide** : le monorepo pnpm + Turborepo, Next.js sur Vercel, Supabase en région UE avec RLS et pgvector, Drizzle, les 4 couches d'interface (System Status, Decisions Log, Trajectory, Sandbox), le terminal Ctrl+K, la sortie recrutement, Sentry, PostHog UE avec consentement, et l'exigence de citation des sources dans le RAG.
 

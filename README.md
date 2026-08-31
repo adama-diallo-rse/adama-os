@@ -24,14 +24,15 @@ adama-os/
 
 ## Stack
 
-| Domaine | Choix |
-| --- | --- |
-| Framework | Next.js 16 (App Router, Turbopack), React 19 |
-| Style | Tailwind v4, tokens OKLCH, shadcn/ui (new-york), Framer Motion |
-| Données | Supabase (Postgres UE, Auth, Storage, pgvector), Drizzle ORM |
-| Intelligence | OpenAI gpt-4o, text-embedding-3-small (1024 dim), Vercel AI SDK, unpdf |
-| Observabilité | Sentry, PostHog (région UE), Better Stack |
-| Déploiement | Vercel |
+| Domaine       | Choix                                                                                                                                                                                                                       |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework     | Next.js 16 (App Router, Turbopack), React 19                                                                                                                                                                                |
+| Style         | Tailwind v4, tokens hexadécimaux maison (navy `#0d1b2a`, signal teal `#2affd6`, or `#c9a96e`), composants maison `@adama/ui` sur clsx et tailwind-merge, Framer Motion, cmdk. Ni shadcn/ui, ni Radix, ni Tremor, ni lucide. |
+| Données       | Supabase (Postgres UE, Auth, Storage, pgvector), Drizzle ORM                                                                                                                                                                |
+| Intelligence  | OpenAI gpt-4o, text-embedding-3-small (1024 dim), Vercel AI SDK, unpdf                                                                                                                                                      |
+| Observabilité | Sentry, PostHog (région UE), Better Stack                                                                                                                                                                                   |
+| Tests         | Vitest, jsdom, Testing Library. Pas de CI : les tests se lancent en local.                                                                                                                                                  |
+| Déploiement   | Vercel, région d'exécution cdg1 (Paris)                                                                                                                                                                                     |
 
 ## Prérequis
 
@@ -47,6 +48,7 @@ pnpm dev            # lance apps/web en dev (http://localhost:3000)
 pnpm build          # build de prod
 pnpm lint           # lint
 pnpm type-check     # vérification TypeScript
+pnpm test           # suite Vitest
 pnpm format         # formatage Prettier
 ```
 
@@ -57,18 +59,34 @@ pnpm db:generate    # génère la migration Drizzle
 pnpm db:migrate     # applique les migrations
 pnpm db:seed        # seed de démo
 pnpm rag:ingest     # ingestion du corpus RAG (ESRS, VSME, CV)
+pnpm rag:verify     # garde-fou avant démonstration : 3 questions, sortie en erreur si une seule reste sans source
 ```
+
+Les migrations SQL se passent dans l'éditeur SQL de Supabase, dans l'ordre :
+`0000_init.sql`, `0001_ecosystem_products.sql`, `0002_ecosystem_analytics.sql`,
+puis `seed_ecosystem_products.sql`.
 
 ## Déploiement
 
 Vercel, Root Directory = `apps/web`. Chaque PR génère un preview deploy, `main` déploie en production.
 
-Domaine : à brancher (tâche L0-T6 de la roadmap). Tant que ce n'est pas fait, le dashboard tourne sur une URL `vercel.app`, ce qui n'est pas partageable à un recruteur.
+Domaine : **adamesg-os.fr**. L'origine du site a une source unique,
+`apps/web/lib/site.ts`, qui lit `NEXT_PUBLIC_SITE_URL`. Cette variable se pose
+sur le seul environnement Production : inlinée au build, elle ferait sinon
+annoncer l'origine de production par chaque preview deploy. Détail dans
+`docs/SECRETS.md`.
+
+Une tâche cron Vercel appelle `/api/ecosystem/sync` chaque jour à 06:00 UTC
+pour relever la disponibilité des produits (couche L9). Elle est protégée par
+`CRON_SECRET`.
 
 ## Documentation
 
-- `ROADMAP.md` : plan d'exécution complet, 9 couches, 5 phases, un prompt expert par couche.
+- `ROADMAP.md` : état réel du dépôt, couche par couche, dérivé du code. La roadmap stratégique et les prompts par couche vivent dans Notion.
 - `ADAMA_OS_BLUEPRINT.md` : blueprint d'origine du 24 juin 2026, conservé comme trace. Plusieurs choix de stack y sont périmés, un tableau en tête de fichier indique lesquels.
 - `docs/ECOSYSTEME-STRATA.md` : cartographie des produits du groupe et de leurs liens avec ce dashboard.
 - `docs/PHASE-0-SETUP.md` et `docs/PHASE-0-L1-DONNEES.md` : mise en place pas à pas.
-- `docs/SECRETS.md` : gestion des variables d'environnement.
+- `docs/SECRETS.md` : inventaire des variables d'environnement, portées du jeton GitHub, calendrier de rotation.
+- `docs/CONTINUITE.md` : sauvegarde, restauration, accès de secours, note de reprise (couche L12).
+- `docs/MARQUAGE-MACHINE.md` : préparation à l'échéance du 2 décembre 2026 (couche L10).
+- `corpus/README.md` : ce qu'il faut déposer pour alimenter adama.ai, et ce que coûte l'ingestion.
