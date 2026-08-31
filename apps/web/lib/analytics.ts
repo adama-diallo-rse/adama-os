@@ -84,6 +84,13 @@ export function setConsent(value: ConsentValue) {
   }
 }
 
+/** Nombre d'événements encore en file, en attente d'un choix de consentement.
+ *  Diagnostic : sert à prouver que le refus vide bien la file (L10-T4), et se
+ *  lit en console pendant un débogage. */
+export function pendingEventsCount(): number {
+  return queue.length;
+}
+
 /** Capture un événement, en tâche de fond, sans jamais lever d'erreur. */
 export function captureEvent(
   event: string,

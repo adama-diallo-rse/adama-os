@@ -7,6 +7,8 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useChat } from "@ai-sdk/react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AutomationNotice } from "./automation-notice";
+import { AUTOMATED_PROCESSING_SHORT } from "../lib/legal";
 
 const SUGGESTIONS = [
   "Qu'est-ce que la double matérialité selon l'ESRS ?",
@@ -111,7 +113,7 @@ export function AdamaAi({
               <p className="font-mono text-sm text-foreground">
                 <span className="text-emerald">$</span> adama.ai
                 <span className="ml-2 text-[0.65rem] uppercase tracking-[0.18em] text-faint">
-                  RAG · ESRS / VSME
+                  RAG · ESRS / VSME · {AUTOMATED_PROCESSING_SHORT}
                 </span>
               </p>
               <button
@@ -132,6 +134,9 @@ export function AdamaAi({
             >
               {messages.length === 0 ? (
                 <div className="space-y-2">
+                  {/* L10-T1, article 50 : mention au premier contact, pas
+                      enfouie dans un pied de page. Verrouillee par un test. */}
+                  <AutomationNotice />
                   <p className="font-mono text-xs text-muted">
                     Pose une question sur la CSRD, les ESRS, le VSME ou le
                     profil d&apos;Adama. Les réponses citent leurs sources.
@@ -152,7 +157,9 @@ export function AdamaAi({
                   <div
                     key={message.id}
                     className={`font-mono text-sm ${
-                      message.role === "user" ? "text-emerald-bright" : "text-muted"
+                      message.role === "user"
+                        ? "text-emerald-bright"
+                        : "text-muted"
                     }`}
                   >
                     <span aria-hidden className="mr-1.5 select-none text-faint">
@@ -168,7 +175,7 @@ export function AdamaAi({
                 </p>
               ) : null}
               {error ? (
-                <p className="font-mono text-xs text-red-400">
+                <p className="font-mono text-xs text-danger">
                   ✗ erreur : {error.message}
                 </p>
               ) : null}
