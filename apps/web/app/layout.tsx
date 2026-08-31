@@ -9,17 +9,18 @@ import {
 } from "../components/types";
 import { SITE_URL } from "../lib/site";
 import "./globals.css";
+import "./portfolio.css";
 
-// L8-T5 — Métadonnées home. L'image OG est générée au build par
+// L8-T5, Métadonnées home. L'image OG est générée au build par
 // app/opengraph-image.tsx (statique : aucune donnée dynamique).
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Adama OS, System Architect",
+    default: "Adama Diallo | RSE, data et développement",
     template: "%s · Adama OS",
   },
   description:
-    "Tableau de bord en direct d'Adama Diallo, architecte de Strata. RSE, ESG, CSRD, ESRS, VSME.",
+    "Adama Diallo, en stage Data ESG chez AG2R LA MONDIALE. Mes projets STRATA et IROKO, mon parcours en RSE et mon journal de développement.",
   keywords: [
     "Adama Diallo",
     "RSE",
@@ -34,9 +35,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Adama OS, System Architect",
+    title: "Adama Diallo | RSE, data et développement",
     description:
-      "Le dashboard système d'Adama Diallo, architecte de Strata. RSE / ESG × ingénierie.",
+      "Mon parcours en RSE et mes projets logiciels : STRATA, IROKO et Adama OS.",
     url: "/",
     siteName: "Adama OS",
     locale: "fr_FR",
@@ -44,12 +45,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Adama OS, System Architect",
-    description: "Le dashboard système d'Adama Diallo, architecte de Strata.",
+    title: "Adama Diallo | RSE, data et développement",
+    description:
+      "RSE, data et développement. Projets, parcours et atelier ouvert.",
   },
 };
 
-// L8-T5 puis L8-T9 — JSON-LD : identité machine-lisible pour Google et les
+// L8-T5 puis L8-T9, JSON-LD : identité machine-lisible pour Google et les
 // moteurs IA. Deux nœuds ici, statiques et injectés côté serveur : la personne
 // et le site. L'organisation et les logiciels sont déclarés sur /ecosysteme,
 // où ils sont lus depuis le registre produits plutôt que recopiés.
@@ -59,7 +61,7 @@ const personJsonLd = {
   name: "Adama Diallo",
   jobTitle: "Chargé de missions RSE - Data ESG & Solutions IA",
   description:
-    "Profil hybride RSE / ESG et ingénierie. Fondateur de Strata (CSRD, ESRS, VSME). En stage Data ESG & Solutions IA chez AG2R LA MONDIALE jusqu'au 31 octobre 2026.",
+    "Fondateur de Strata (CSRD, ESRS, VSME). En stage Data ESG & Solutions IA chez AG2R LA MONDIALE jusqu'au 31 octobre 2026. Développe les projets STRATA, IROKO et Adama OS.",
   worksFor: [
     { "@type": "Organization", name: "AG2R LA MONDIALE" },
     { "@type": "Organization", name: "STRATA" },

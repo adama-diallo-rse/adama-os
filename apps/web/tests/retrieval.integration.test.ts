@@ -54,8 +54,8 @@ describe("formatage du contexte", () => {
 
   it("numérote les références et porte la source", () => {
     const texte = formatContext([chunk, { ...chunk, page: null }]);
-    expect(texte).toContain("[1] (VSME — Standard VSME, p. 12, fr)");
-    expect(texte).toContain("[2] (VSME — Standard VSME, fr)");
+    expect(texte).toContain("[1] (VSME, Standard VSME, p. 12, fr)");
+    expect(texte).toContain("[2] (VSME, Standard VSME, fr)");
     expect(texte).toContain("Le seuil est fixe a 250 salaries.");
   });
 

@@ -1,6 +1,6 @@
 "use client";
 
-// L4-T5, Couche A — System Status.
+// L4-T5, Couche A, System Status.
 // Statut, focus courant, compte à rebours live vers le 31 octobre,
 // barre lean bulk vers 80 kg, protocole minimaliste.
 
@@ -110,7 +110,7 @@ export function LayerA({ metrics }: { metrics: MetricRow[] }) {
   return (
     <Card id="couche-a" className="h-full scroll-mt-24">
       <CardHeader>
-        <CardTitle>Couche A — System Status</CardTitle>
+        <CardTitle>Couche A, System Status</CardTitle>
         <Badge variant={online ? "emerald" : "default"} dot>
           {buildLabel}
         </Badge>
@@ -132,7 +132,7 @@ export function LayerA({ metrics }: { metrics: MetricRow[] }) {
         {/* Compte à rebours live vers le 31 octobre */}
         <div>
           <p className="mb-2 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-faint">
-            Deadline Stage — 31 octobre
+            Deadline Stage, 31 octobre
           </p>
           <div className="grid grid-cols-4 gap-2">
             <CountdownCell

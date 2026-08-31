@@ -54,10 +54,15 @@ export function useThemeBoot() {
 
 const NAV_TARGETS: { id: string; label: string }[] = [
   { id: "top", label: "Haut de page" },
-  { id: "couche-a", label: "Couche A — System Status" },
-  { id: "couche-b", label: "Couche B — Decisions Log" },
-  { id: "couche-c", label: "Couche C — Trajectory" },
-  { id: "couche-d", label: "Couche D — Écosystème" },
+  { id: "projets", label: "Projets" },
+  { id: "approche", label: "Approche" },
+  { id: "parcours", label: "Parcours" },
+  { id: "atelier", label: "Atelier" },
+  { id: "contact", label: "Contact" },
+  { id: "couche-a", label: "Couche A, System Status" },
+  { id: "couche-b", label: "Couche B, Decisions Log" },
+  { id: "couche-c", label: "Couche C, Trajectory" },
+  { id: "couche-d", label: "Couche D, Écosystème" },
   { id: "simulateur", label: "Simulateur VSME" },
   { id: "shipped", label: "Shipped · Proof of Work" },
 ];
@@ -102,7 +107,7 @@ export function Terminal({
   products?: EcosystemProductRow[];
   /** L9 : état des passerelles, restitué par la commande ping. */
   gateways?: GatewayStatusRow[];
-  /** L6 : ouvre le modal "Recruter l'Architecte". */
+  /** L6 : ouvre le modal "Contacter Adama". */
   onRecruit?: () => void;
   /** L3-T6 : ouvre le chat adama.ai. */
   onAskAdama?: () => void;
@@ -165,10 +170,23 @@ export function Terminal({
     (id: string) => {
       close();
       if (id === "top") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({
+          top: 0,
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+            .matches
+            ? "instant"
+            : "smooth",
+        });
         return;
       }
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      const target = document.getElementById(id);
+      const disclosure = target?.closest("details");
+      if (disclosure) disclosure.open = true;
+      const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
+        .matches
+        ? "instant"
+        : "smooth";
+      target?.scrollIntoView({ behavior });
     },
     [close],
   );

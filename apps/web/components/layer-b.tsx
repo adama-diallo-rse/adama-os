@@ -1,6 +1,6 @@
 "use client";
 
-// L4-T6, Couche B — Decisions Log.
+// L4-T6, Couche B, Decisions Log.
 // Timeline ADR, filtrable par catégorie, lisible.
 
 import { useMemo, useState } from "react";
@@ -69,7 +69,7 @@ export function LayerB({ decisions }: { decisions: DecisionRow[] }) {
   return (
     <Card id="couche-b" className="scroll-mt-24">
       <CardHeader className="flex-wrap">
-        <CardTitle>Couche B — Decisions Log</CardTitle>
+        <CardTitle>Couche B, Decisions Log</CardTitle>
         <Badge variant="outline">ADR</Badge>
       </CardHeader>
       <CardContent className="space-y-5">

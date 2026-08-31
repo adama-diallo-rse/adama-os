@@ -87,7 +87,7 @@ export function formatContext(chunks: RetrievedChunk[]): string {
   return chunks
     .map((chunk, i) => {
       const page = chunk.page !== null ? `, p. ${chunk.page}` : "";
-      return `[${i + 1}] (${chunk.docSource} — ${chunk.docTitle}${page}, ${chunk.docLang})\n${chunk.content}`;
+      return `[${i + 1}] (${chunk.docSource}, ${chunk.docTitle}${page}, ${chunk.docLang})\n${chunk.content}`;
     })
     .join("\n\n---\n\n");
 }

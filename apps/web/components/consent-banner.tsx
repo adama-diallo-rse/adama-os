@@ -1,6 +1,6 @@
 "use client";
 
-// L8-T4 — Bandeau de consentement analytics (RGPD).
+// L8-T4, Bandeau de consentement analytics (RGPD).
 // Monté dans le layout : s'affiche tant qu'aucun choix n'est stocké.
 // Rouvrable via l'événement fenêtre CONSENT_OPEN_EVENT (lien "cookies").
 // Rendu null au premier rendu (serveur ET client) → zéro risque d'hydratation,
@@ -42,7 +42,7 @@ export function ConsentBanner() {
     <div
       role="region"
       aria-label="Consentement analytics"
-      className="fixed inset-x-0 bottom-0 z-[60] border-t border-border-strong bg-surface/95 px-4 py-3 backdrop-blur-sm print:hidden"
+      className="consent-notice fixed inset-x-0 bottom-0 z-[60] border-t border-border-strong bg-surface/95 px-4 py-3 backdrop-blur-sm print:hidden"
     >
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="font-mono text-xs leading-relaxed text-muted">

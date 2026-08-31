@@ -1,4 +1,4 @@
-// L6-T3 / L8-T4 — Analytics PostHog (région UE), gaté par le consentement.
+// L6-T3 / L8-T4, Analytics PostHog (région UE), gaté par le consentement.
 // Sans NEXT_PUBLIC_POSTHOG_KEY ou sans consentement, tout est no-op :
 // la vitrine ne dépend jamais de l'analytics pour fonctionner.
 //

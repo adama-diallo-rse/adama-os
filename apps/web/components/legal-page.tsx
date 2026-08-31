@@ -78,7 +78,7 @@ export function LegalPage({
 
         <footer className="mt-10 flex flex-col items-start justify-between gap-2 border-t border-border pt-5 sm:flex-row sm:items-center">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">
-            Adama Diallo · System Architect
+            Adama Diallo · RSE · Data · Développement
           </p>
           <div className="flex items-center gap-4">
             <Link

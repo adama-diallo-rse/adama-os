@@ -19,7 +19,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Open Metrics — écosystème",
+  title: "Open Metrics, écosystème",
   description:
     "Métriques produit du groupe en accès public : relevés d'usage et de disponibilité, avec leur source et leur date.",
   alternates: { canonical: "/metrics" },
@@ -54,7 +54,7 @@ async function loadMetrics(): Promise<AnalyticRow[]> {
 function formatDate(iso: string): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) {
-    return "—";
+    return "Non disponible";
   }
   return new Intl.DateTimeFormat("fr-FR", {
     day: "2-digit",
@@ -189,7 +189,7 @@ export default async function MetricsPage() {
         {/* Pied de page */}
         <footer className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-border pt-5 sm:flex-row sm:items-center">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">
-            Adama Diallo — System Architect
+            Adama Diallo, RSE · Data · Développement
           </p>
           <div className="flex flex-wrap items-center gap-4">
             <LegalFooterLinks />

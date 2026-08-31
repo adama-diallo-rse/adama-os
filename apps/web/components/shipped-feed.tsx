@@ -7,7 +7,6 @@
 
 import {
   Badge,
-  Button,
   Card,
   CardContent,
   CardFooter,
@@ -89,10 +88,13 @@ export function ShippedFeed({ commits }: { commits: CommitRow[] }) {
   return (
     <Card id="shipped" className="scroll-mt-24">
       <CardHeader>
-        <CardTitle>Shipped · Proof of Work</CardTitle>
+        <CardTitle>Contributions</CardTitle>
         <div className="flex items-center gap-2">
-          <Badge variant="emerald" dot>
-            live
+          <Badge
+            variant={commits.length > 0 ? "emerald" : "default"}
+            dot={commits.length > 0}
+          >
+            {commits.length > 0 ? "Synchronisé" : "En attente"}
           </Badge>
           <Badge variant="default">GitHub</Badge>
         </div>
@@ -102,7 +104,7 @@ export function ShippedFeed({ commits }: { commits: CommitRow[] }) {
           <span className="text-emerald">$</span> git log --oneline
           <span className="text-faint">
             {" "}
-            · tous les depots du groupe, en direct
+            · les dernières contributions du groupe
           </span>
         </p>
         {commits.length > 0 ? (
@@ -113,7 +115,8 @@ export function ShippedFeed({ commits }: { commits: CommitRow[] }) {
           </div>
         ) : (
           <p className="rounded-[calc(var(--radius)_-_0.125rem)] border border-border bg-surface-raised px-3 py-4 font-mono text-sm text-faint">
-            feed hors ligne : GitHub injoignable, retente dans quelques minutes
+            Les contributions ne sont pas disponibles pour le moment. Le code
+            reste consultable sur GitHub.
           </p>
         )}
       </CardContent>
@@ -122,11 +125,9 @@ export function ShippedFeed({ commits }: { commits: CommitRow[] }) {
           href={GITHUB_REPO_URL}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex"
+          className="inline-flex min-h-11 items-center rounded border border-border-strong px-3 py-2 font-mono text-xs text-foreground transition-colors hover:bg-surface-raised"
         >
-          <Button variant="outline" size="sm" tabIndex={-1}>
-            Voir le repo
-          </Button>
+          Voir le dépôt GitHub ↗
         </a>
       </CardFooter>
     </Card>

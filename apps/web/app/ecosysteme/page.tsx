@@ -313,7 +313,7 @@ export default async function EcosystemePage() {
 
         <footer className="flex flex-col items-start justify-between gap-3 border-t border-border pt-5 sm:flex-row sm:items-center">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">
-            Adama Diallo · System Architect
+            Adama Diallo · RSE · Data · Développement
           </p>
           <div className="flex flex-wrap items-center gap-4">
             <LegalFooterLinks />

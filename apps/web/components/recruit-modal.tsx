@@ -1,6 +1,6 @@
 "use client";
 
-// L6-T2/T3 — Modal "Recruter l'Architecte".
+// L6-T2/T3, Modal "Contacter Adama".
 // Proposition de valeur hybride, CV téléchargeable, Cal.com embarqué
 // (chargé à la demande), capture du lead recruteur dans `leads`
 // + événement PostHog `recruiter_intent`.
@@ -9,8 +9,15 @@
 // composants montés côté client après interaction (c'est le cas ici,
 // le modal n'est rendu que quand open === true).
 
-import { useCallback, useEffect, useState, type FormEvent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
 import { Badge, Button } from "@adama/ui";
 import { captureEvent } from "../lib/analytics";
 import { createClient } from "../lib/supabase/client";
@@ -21,15 +28,15 @@ type SubmitState = "idle" | "sending" | "done" | "error";
 const VALUE_PROPS: { title: string; body: string }[] = [
   {
     title: "RSE / ESG",
-    body: "CSRD, ESRS, VSME : le cadre réglementaire maîtrisé côté métier, pas seulement côté texte.",
+    body: "Reporting de durabilité, données ESG et travail sur les référentiels CSRD, ESRS et VSME.",
   },
   {
-    title: "Ingénierie",
-    body: "Ce dashboard est la preuve : Next.js, Supabase, FastAPI, RAG. Conçu, codé et livré en solo.",
+    title: "Développement",
+    body: "Next.js, Python, FastAPI et Supabase, utilisés dans mes projets STRATA, IROKO et Adama OS.",
   },
   {
-    title: "Systèmes",
-    body: "Une approche d'architecte : décisions documentées, métriques publiques, exécution mesurable.",
+    title: "Projets",
+    body: "Calcul carbone, veille réglementaire et logiciels de gestion. Les dépôts et le suivi des projets sont accessibles depuis ce site.",
   },
 ];
 
@@ -45,6 +52,7 @@ export function RecruitModal({
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [state, setState] = useState<SubmitState>("idle");
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   const close = useCallback(() => onOpenChange(false), [onOpenChange]);
 
@@ -55,13 +63,49 @@ export function RecruitModal({
       return;
     }
     captureEvent("recruiter_modal_opened");
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const frame = requestAnimationFrame(() => {
+      dialogRef.current?.querySelector<HTMLElement>("button")?.focus();
+    });
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         close();
       }
+      if (e.key === "Tab") {
+        const targets = Array.from(
+          dialogRef.current?.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), a[href], input:not([disabled]), iframe, [tabindex="0"]',
+          ) ?? [],
+        ).filter((element) => element.getClientRects().length > 0);
+        const first = targets[0];
+        const last = targets[targets.length - 1];
+        if (!first || !last) return;
+        if (
+          e.shiftKey &&
+          (document.activeElement === first ||
+            !dialogRef.current?.contains(document.activeElement))
+        ) {
+          e.preventDefault();
+          last.focus();
+        } else if (
+          !e.shiftKey &&
+          (document.activeElement === last ||
+            !dialogRef.current?.contains(document.activeElement))
+        ) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      cancelAnimationFrame(frame);
+      document.body.style.overflow = previousOverflow;
+      previousFocus?.focus();
+    };
   }, [open, close]);
 
   const downloadCv = useCallback(() => {
@@ -107,21 +151,24 @@ export function RecruitModal({
 
       const supabase = createClient();
       if (!supabase) {
-        // Pas de config Supabase (dev local) : on considère l'intention captée.
-        setState("done");
+        // Without storage, never claim a contact request was delivered.
+        setState("error");
         return;
       }
 
-      const { error } = await supabase.from("leads").insert({
-        email: cleanEmail,
-        source: "recruiter",
-        context: {
-          company: company.trim() || null,
-          path: window.location.pathname + window.location.search,
-        },
-      });
-
-      setState(error ? "error" : "done");
+      try {
+        const { error } = await supabase.from("leads").insert({
+          email: cleanEmail,
+          source: "recruiter",
+          context: {
+            company: company.trim() || null,
+            path: window.location.pathname + window.location.search,
+          },
+        });
+        setState(error ? "error" : "done");
+      } catch {
+        setState("error");
+      }
     },
     [email, company, state],
   );
@@ -142,8 +189,9 @@ export function RecruitModal({
             }
           }}
           role="dialog"
+          ref={dialogRef}
           aria-modal="true"
-          aria-label="Recruter l'Architecte"
+          aria-label="Contacter Adama"
         >
           <motion.div
             key="recruit-panel"
@@ -151,16 +199,13 @@ export function RecruitModal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? undefined : { opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="w-full max-w-2xl overflow-hidden rounded-[var(--radius)] border border-border-strong bg-surface shadow-[0_24px_64px_-24px_rgba(0,0,0,0.9)] glow-emerald"
+            className="recruit-panel w-full max-w-2xl overflow-hidden rounded-[var(--radius)] border border-border-strong bg-surface shadow-[0_24px_64px_-24px_rgba(0,0,0,0.9)]"
           >
             {/* En-tête */}
             <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-4">
-              <div className="flex items-center gap-3">
-                <span aria-hidden className="font-mono text-sm text-emerald">
-                  $
-                </span>
-                <h2 className="font-mono text-sm font-medium uppercase tracking-[0.18em] text-foreground">
-                  Recruter l&apos;Architecte
+              <div className="flex min-w-0 flex-wrap items-center gap-3">
+                <h2 className="font-sans text-2xl font-medium tracking-tight text-foreground">
+                  Faisons connaissance.
                 </h2>
                 <Badge variant="emerald" dot>
                   open to work
@@ -170,23 +215,19 @@ export function RecruitModal({
                 type="button"
                 onClick={close}
                 aria-label="Fermer"
-                className="rounded border border-border px-1.5 py-0.5 font-mono text-[0.6rem] uppercase text-faint transition-colors hover:text-foreground"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded border border-border font-mono text-lg text-muted transition-colors hover:text-foreground"
               >
-                esc
+                ×
               </button>
             </div>
 
             <div className="space-y-5 px-5 py-5">
               {/* Proposition de valeur hybride */}
               <div>
-                <p className="font-mono text-sm leading-relaxed text-muted">
-                  Un profil hybride :{" "}
-                  <span className="text-foreground">expertise RSE / ESG</span> ×{" "}
-                  <span className="text-foreground">
-                    exécution d&apos;ingénieur
-                  </span>
-                  . Disponible en CDI / CDD dès début novembre 2026
-                  (Île-de-France).
+                <p className="font-sans text-sm leading-relaxed text-muted">
+                  Je recherche un poste en{" "}
+                  <span className="text-foreground">RSE ou data ESG</span>, en
+                  CDI / CDD dès début novembre 2026 (Île-de-France).
                 </p>
                 <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                   {VALUE_PROPS.map((v) => (
@@ -218,12 +259,12 @@ export function RecruitModal({
                 <Button variant="outline" size="sm" bracket onClick={openCal}>
                   Planifier un appel
                 </Button>
-                <a
+                <Link
                   href="/?for=recruiter"
                   className="font-mono text-xs text-faint underline-offset-4 transition-colors hover:text-emerald-bright hover:underline"
                 >
                   version lecture / imprimable →
-                </a>
+                </Link>
               </div>
 
               {/* Cal.com embarqué, chargé à la demande */}
@@ -248,12 +289,12 @@ export function RecruitModal({
                     role="status"
                     className="font-mono text-sm text-emerald-bright"
                   >
-                    ✓ Bien reçu. Réponse sous 24 h, CV et références inclus.
+                    ✓ Bien reçu. Je vous répondrai par email.
                   </p>
                 ) : (
                   <>
                     <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-faint">
-                      Ou laissez un contact, réponse sous 24 h
+                      Ou laissez-moi vos coordonnées
                     </p>
                     <div className="mt-3 flex flex-col gap-2.5 sm:flex-row">
                       <input
@@ -263,7 +304,7 @@ export function RecruitModal({
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="email pro"
                         aria-label="Email professionnel"
-                        className="h-9 flex-1 rounded-[calc(var(--radius)_-_0.25rem)] border border-border bg-surface px-3 font-mono text-sm text-foreground outline-none placeholder:text-faint focus:border-emerald"
+                        className="h-11 min-w-0 flex-1 rounded-[calc(var(--radius)_-_0.25rem)] border border-border bg-surface px-3 font-sans text-base text-foreground outline-none placeholder:text-faint focus:border-emerald"
                       />
                       <input
                         type="text"
@@ -271,7 +312,7 @@ export function RecruitModal({
                         onChange={(e) => setCompany(e.target.value)}
                         placeholder="entreprise (optionnel)"
                         aria-label="Entreprise"
-                        className="h-9 flex-1 rounded-[calc(var(--radius)_-_0.25rem)] border border-border bg-surface px-3 font-mono text-sm text-foreground outline-none placeholder:text-faint focus:border-emerald"
+                        className="h-11 min-w-0 flex-1 rounded-[calc(var(--radius)_-_0.25rem)] border border-border bg-surface px-3 font-sans text-base text-foreground outline-none placeholder:text-faint focus:border-emerald"
                       />
                       <Button
                         type="submit"
@@ -287,7 +328,7 @@ export function RecruitModal({
                         role="alert"
                         className="mt-2 font-mono text-xs text-danger"
                       >
-                        échec de l&apos;envoi — réessayez ou écrivez à{" "}
+                        échec de l&apos;envoi, réessayez ou écrivez à{" "}
                         {CONTACT_EMAIL}
                       </p>
                     ) : null}

@@ -1,6 +1,6 @@
 "use client";
 
-// L3-T5 — Composant adama.ai flottant.
+// L3-T5, Composant adama.ai flottant.
 // Chat streaming branché sur /api/chat (useChat, AI SDK v5).
 // Style terminal cohérent avec le reste de l'OS : mono, bordures, émeraude.
 
@@ -105,7 +105,7 @@ export function AdamaAi({
             exit={reduceMotion ? undefined : { opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
             role="dialog"
-            aria-label="adama.ai — agent ESG"
+            aria-label="adama.ai, agent ESG"
             className="fixed bottom-20 left-5 z-40 flex max-h-[70vh] w-[min(26rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-[var(--radius)] border border-border-strong bg-surface shadow-[0_24px_64px_-24px_rgba(0,0,0,0.9)] glow-emerald"
           >
             {/* En-tête */}

@@ -383,7 +383,7 @@ export function VsmeSimulator() {
   return (
     <Card id="simulateur" className="scroll-mt-24">
       <CardHeader>
-        <CardTitle>Simulateur VSME — Score ESG</CardTitle>
+        <CardTitle>Simulateur VSME, Score ESG</CardTitle>
         <div className="flex items-center gap-2">
           <Badge variant="emerald">Interactif</Badge>
           <Badge variant="default">Module de Base</Badge>

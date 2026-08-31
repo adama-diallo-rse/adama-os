@@ -1,6 +1,6 @@
 "use client";
 
-// L4-T7, Couche C — Trajectory.
+// L4-T7, Couche C, Trajectory.
 // Now / Next / Later, avec risques et solutions (notes de mitigation).
 
 import { motion } from "framer-motion";
@@ -64,7 +64,7 @@ export function LayerC({ trajectory }: { trajectory: TrajectoryRow[] }) {
   return (
     <Card id="couche-c" className="scroll-mt-24">
       <CardHeader>
-        <CardTitle>Couche C — Trajectory</CardTitle>
+        <CardTitle>Couche C, Trajectory</CardTitle>
         <Badge variant="outline">Roadmap</Badge>
       </CardHeader>
       <CardContent>
@@ -88,7 +88,9 @@ export function LayerC({ trajectory }: { trajectory: TrajectoryRow[] }) {
                     ))}
                   </ul>
                 ) : (
-                  <p className="font-mono text-xs text-faint">— vide —</p>
+                  <p className="font-mono text-xs text-faint">
+                    Aucun élément publié.
+                  </p>
                 )}
               </div>
             );

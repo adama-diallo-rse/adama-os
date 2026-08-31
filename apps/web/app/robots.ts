@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "../lib/site";
 
-// L8-T5 — Indexation : la vitrine oui, les pages privées non.
+// L8-T5, Indexation : la vitrine oui, les pages privées non.
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {

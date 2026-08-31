@@ -1,6 +1,6 @@
 "use client";
 
-// L4-T8 puis L4-T14, Couche D — Écosystème et Sandbox.
+// L4-T8 puis L4-T14, Couche D, Écosystème et Sandbox.
 //
 // Trois blocs, dans cet ordre d'importance pour un lecteur recruteur :
 //   1. la preuve sociale (AG2R, Younivibe, AFEV, Ministère), qui reste la
@@ -179,7 +179,7 @@ export function LayerD({
   return (
     <Card id="couche-d" className="scroll-mt-24">
       <CardHeader>
-        <CardTitle>Couche D — Écosystème</CardTitle>
+        <CardTitle>Couche D, Écosystème</CardTitle>
         <div className="flex flex-wrap items-center gap-2">
           {groupes.length > 0 ? (
             groupes.map((g) => (

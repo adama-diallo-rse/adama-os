@@ -1,6 +1,6 @@
 "use client";
 
-// L6-T4 — Mode lecture recruteur (?for=recruiter).
+// L6-T4, Mode lecture recruteur (?for=recruiter).
 // Layout simplifié, sans animation ni terminal, pensé pour être lu
 // vite et imprimé proprement (@media print dans globals.css).
 
@@ -64,12 +64,11 @@ export function RecruiterView({ data }: { data: DashboardData }) {
               Adama OS · mode lecture recruteur
             </p>
             <h1 className="font-mono text-2xl font-semibold tracking-tight text-foreground print:text-black">
-              Adama Diallo — System Architect
+              Adama Diallo
             </h1>
             <p className="text-sm leading-relaxed text-muted print:text-neutral-700">
-              Profil hybride RSE / ESG × ingénierie. Architecte de Strata (CSRD,
-              ESRS, VSME). Ce document est généré depuis mon dashboard système
-              public.
+              En stage Data ESG & Solutions IA chez AG2R LA MONDIALE. Je
+              développe aussi STRATA, IROKO et ce portfolio.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2 print:hidden">
@@ -146,11 +145,13 @@ export function RecruiterView({ data }: { data: DashboardData }) {
                     [next]
                   </span>{" "}
                   {t.title}
-                  {t.eta ? ` — ${t.eta}` : ""}
+                  {t.eta ? `, ${t.eta}` : ""}
                 </li>
               ))}
               {nowItems.length + nextItems.length === 0 ? (
-                <li className="font-mono text-sm text-faint">—</li>
+                <li className="font-mono text-sm text-faint">
+                  Aucune publication.
+                </li>
               ) : null}
             </ul>
           </Section>
@@ -168,13 +169,15 @@ export function RecruiterView({ data }: { data: DashboardData }) {
                 </li>
               ))}
               {decisions.length === 0 ? (
-                <li className="font-mono text-sm text-faint">—</li>
+                <li className="font-mono text-sm text-faint">
+                  Aucune publication.
+                </li>
               ) : null}
             </ul>
           </Section>
 
           {data.products.length > 0 ? (
-            <Section title="Écosystème — produits du groupe">
+            <Section title="Écosystème, produits du groupe">
               <ul className="space-y-1.5">
                 {data.products.map((p) => (
                   <li
@@ -234,15 +237,14 @@ export function RecruiterView({ data }: { data: DashboardData }) {
 
           <Section title="Contact">
             <p className="font-mono text-sm text-foreground print:text-black">
-              {CONTACT_EMAIL} — réponse sous 24 h. CV joint : {CV_DOWNLOAD_NAME}
-              .
+              {CONTACT_EMAIL}, réponse sous 24 h. CV joint : {CV_DOWNLOAD_NAME}.
             </p>
           </Section>
         </main>
 
         <footer className="mt-10 border-t border-border pt-4 print:border-neutral-300">
           <p className="flex flex-wrap items-center justify-between gap-2 font-mono text-[0.65rem] text-faint print:text-neutral-500">
-            <span>Adama Diallo — System Architect · Strata</span>
+            <span>Adama Diallo, RSE · Data · Développement</span>
             <a
               href="/"
               className="underline-offset-4 hover:underline print:hidden"

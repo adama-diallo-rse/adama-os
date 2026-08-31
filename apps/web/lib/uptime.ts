@@ -1,4 +1,4 @@
-// L8-T6 — Better Stack Uptime : le badge "Online" reflète un vrai statut.
+// L8-T6, Better Stack Uptime : le badge "Online" reflète un vrai statut.
 // Fetch serveur, cache 60 s, jamais bloquant : sans token / monitor ou en
 // cas d'erreur on renvoie null et le dashboard retombe sur system_metrics.
 
