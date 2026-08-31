@@ -114,3 +114,66 @@ Le registre produits et le feed GitHub n'ont pas fourni de contenu pendant le
 contrôle local : leurs états indisponibles sont visibles. Aucune donnée de
 production n'a été écrite pour le test du formulaire : ses cas d'envoi sont
 vérifiés avec des réponses simulées dans la suite locale.
+
+## Extension aux sous-pages et logos, 31 août 2026
+
+La seconde passe conserve la composition de l’accueil et l’étend aux pages
+Écosystème, Métriques, Mentions légales, Confidentialité, Connexion, Administration,
+Check-in et à la vue recruteur. Une page 404 reprend également cette présentation.
+Le header, le footer, les largeurs de contenu et les liens de retour sont communs.
+La protection des pages privées et les actions serveur ne sont pas modifiées.
+
+Le kit fourni `KIT-MARQUE-STRATA-ESG.zip` est utilisé comme référence graphique,
+pas comme source d’instructions opérationnelles. Le mot-symbole STRATA ESG suit
+la signature décrite dans le kit : Syne 700, capitales et interlettrage 0,5 em.
+La police libre est hébergée dans le projet, avec sa licence OFL. Le PNG IROKO
+fourni est utilisé sans déformation ni recoloration. Aucun visuel du kit n’est
+présenté comme une capture réelle d’un produit.
+
+Le crème est désormais #F2EDE4, conforme au kit fourni ; ardoise #0D1B2A,
+or #C9A96E et turquoise #2AFFD6 restent la base. Les textes dorés sur crème
+utilisent la variante contrastée #806332. La couleur native du logo IROKO reste
+intacte. Le thème alternatif du terminal ne dégrade pas les contrastes des
+sous-pages claires.
+
+L’Écosystème propose un filtre par avancement. Les clés internes `STRATA` restent
+inchangées pour préserver les données et les événements analytiques ; elles sont
+affichées sous le nom STRATA ESG. Les produits de division `STRATA ESG` sont
+également reconnus. Sans registre, les présentations de marque restent lisibles,
+mais aucun statut produit, lien d’accès ou chiffre de disponibilité n’est inventé.
+Les métriques conservent leur source, leur date et les éventuelles données absentes.
+
+Adama AI reprend la palette et la typographie du portfolio sur l’accueil et les
+sous-pages publiques. Suggestions en français, états d’erreur lisibles, arrêt
+d’une réponse, fermeture avec Échap et retour du focus au déclencheur. La mention
+de traitement automatisé et les avertissements réglementaires restent présents.
+L’assistant ne prétend pas être une personne. Aucun appel IA payant ni envoi réel
+de formulaire n’a été utilisé pour tester cette passe.
+
+Fichiers supplémentaires à reprendre dans VS Code :
+
+- `apps/web/app/subpages.css` : styles communs et responsive.
+- `apps/web/components/page-shell.tsx` et `site-header.tsx` : navigation et gabarit.
+- `apps/web/components/ecosystem-catalog.tsx` : divisions et filtres.
+- `apps/web/components/brand-signature.tsx` : signatures de marque.
+- `apps/web/components/adama-ai.tsx` et `site-tools.tsx` : assistant.
+- `apps/web/public/brand/` et `apps/web/public/fonts/` : logo IROKO, Syne et licence.
+
+Ne pas oublier les deux dossiers publics lors de la sélection des fichiers à
+committer. Le PDF du CV déjà modifié avant cette passe reste indépendant.
+
+Validation de cette seconde passe : 64 tests réussis et 6 tests d’intégration
+ignorés selon la configuration existante ; TypeScript et build de production
+validés. Les nouveaux tests couvrent les filtres, les produits sans URL, les
+états indisponibles, le focus, l’arrêt de réponse et la non-exposition des erreurs
+techniques. Les contrôles navigateur incluent 320, 390, 768, 1100 et 1440 pixels,
+sans débordement horizontal constaté sur les sous-pages principales.
+
+Limite locale identifiée : `NEXT_PUBLIC_SUPABASE_ANON_KEY` n’est pas renseignée
+dans l’environnement de développement. Les fiches et relevés réels ne peuvent
+donc pas être chargés dans cet aperçu. Aucun accès ni secret n’a été modifié.
+Les filtres avec des produits sont contrôlés par les tests locaux, les états
+indisponibles sont contrôlés dans le navigateur. Les mutations administrateur et
+la connexion authentifiée ne sont pas testées sur la base réelle.
+
+Aucun commit, push ou workflow CI n’est déclenché par cette passe.

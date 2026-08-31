@@ -147,10 +147,13 @@ Range-les dans un dossier de travail, par exemple `C:\Dev\adama-os\corpus\` (dé
 ```powershell
 cd C:\Dev\adama-os
 
-pnpm --filter @adama/db rag:ingest -- "corpus\ESRS-Set1.pdf" --source ESRS --lang fr --title "ESRS Set 1"
-pnpm --filter @adama/db rag:ingest -- "corpus\VSME-Standard.pdf" --source VSME --lang fr --title "Standard VSME"
-pnpm --filter @adama/db rag:ingest -- "apps\web\public\adama-diallo-cv.pdf" --source CV --lang fr --title "CV Adama Diallo"
+pnpm --filter @adama/db rag:ingest -- "..\..\corpus\ESRS-Set1.pdf" --source ESRS --lang fr --title "ESRS Set 1"
+pnpm --filter @adama/db rag:ingest -- "..\..\corpus\vsme-standard.pdf" --source VSME --lang fr --title "Standard VSME"
+pnpm --filter @adama/db rag:ingest -- "..\..\apps\web\public\adama-diallo-cv.pdf" --source CV --lang fr --title "CV Adama Diallo"
 ```
+
+Le chemin part de `packages\db` et non de la racine : `pnpm --filter` execute le
+script avec ce dossier comme repertoire courant. Un chemin absolu marche aussi.
 
 L'ingestion est idempotente : ré-ingérer un document avec la même source et le même titre remplace l'ancien et supprime ses chunks. Tu peux relancer sans crainte de doublon.
 

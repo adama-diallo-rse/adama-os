@@ -7,12 +7,19 @@ fichier est suivi par git.
 
 ## Ce qu'il faut deposer ici
 
-| Fichier attendu                 | Source                                    | Pourquoi il est dans le corpus                                                                                                               |
-| ------------------------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Standard VSME                   | EFRAG, standard volontaire PME            | C'est la norme que le simulateur de la Couche D met en oeuvre. Sans elle, l'agent ne peut pas justifier un seul de ses resultats.            |
-| ESRS, jeu complet des standards | EFRAG, et acte delegue publie sur EUR-Lex | Socle reglementaire de tout le discours CSRD du dashboard.                                                                                   |
-| CV a jour                       | Local                                     | L'agent doit repondre sur le parcours sans inventer. C'est la moitie des questions d'un recruteur.                                           |
-| Notice methodologique           | Local, a ecrire                           | Explique comment les scores sont calcules et d'ou viennent les facteurs d'emission. C'est ce qui separe une demonstration d'une affirmation. |
+| Fichier                 | Source                                        | Etat au 31 aout 2026        | Pourquoi il est dans le corpus                                                                                                               |
+| ----------------------- | --------------------------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `vsme-standard.pdf`     | EFRAG, standard volontaire PME                | ingere, 66 p., 168 chunks   | C'est la norme que le simulateur de la Couche D met en oeuvre. Sans elle, l'agent ne peut pas justifier un seul de ses resultats.            |
+| `cv-adama-diallo.pdf`   | Local, version Conseil 2 pages                | ingere, 2 p., 5 chunks      | L'agent doit repondre sur le parcours sans inventer. C'est la moitie des questions d'un recruteur.                                           |
+| `esrs-set1.pdf`         | EUR-Lex, reglement delegue (UE) 2023/2772     | depose, **pas encore ingere** | Socle reglementaire de tout le discours CSRD du dashboard. Version FR officielle au Journal officiel, 284 pages.                             |
+| Notice methodologique   | Local, a ecrire                               | absente                     | Explique comment les scores sont calcules et d'ou viennent les facteurs d'emission. C'est ce qui separe une demonstration d'une affirmation. |
+
+**Terminologie a connaitre.** Le texte francais officiel des ESRS ne dit jamais
+« double materialite » : il dit **« double importance »**, et la section 3 d'ESRS 1
+s'intitule « La double importance, fondement de la publication d'informations en
+matiere de durabilite ». Une question posee avec le mot « materialite » ne matche
+donc aucun terme du corpus et ne tient que sur la proximite semantique des
+embeddings. C'est le cas de la deuxieme question de `rag:verify`.
 
 Formats acceptes : PDF et texte. L'extraction passe par `unpdf`, en local, sans
 appel reseau ni cout par page.
@@ -23,9 +30,14 @@ Trois lignes, depuis la racine du depot :
 
 ```powershell
 # 1. Deposer le fichier dans corpus/
-# 2. Verifier que packages\db\.env contient DATABASE_URL et OPENAI_API_KEY
-pnpm --filter @adama/db rag:ingest -- corpus\vsme.pdf --source VSME --lang fr --title "Standard VSME"
+# 2. Verifier que packages\db\.env contient DATABASE_URL et OPENAI_API_KEY reels
+pnpm --filter @adama/db rag:ingest -- ..\..\corpus\vsme.pdf --source VSME --lang fr --title "Standard VSME"
 ```
+
+**Le chemin du fichier part de `packages\db`, pas de la racine.** `pnpm --filter`
+execute le script avec ce dossier comme repertoire courant, d'ou le `..\..\`.
+Un chemin absolu marche aussi. Sans cela : `ENOENT: no such file or directory,
+open 'C:\Dev\adama-os\packages\db\corpus\...'`.
 
 `--source` est obligatoire (`ESRS`, `VSME`, `CV`, `METHODO`). `--lang` vaut `fr`
 par defaut, `--title` reprend le nom du fichier si on ne le donne pas.
@@ -77,7 +89,7 @@ pnpm --filter @adama/db rag:verify -- "Qu'est-ce que la double materialite ?"
 ## Ajouter un document, en trois lignes
 
 1. deposer le fichier dans `corpus/` ;
-2. `pnpm --filter @adama/db rag:ingest -- corpus\<fichier> --source <SOURCE> --lang fr --title "<Titre>"` ;
+2. `pnpm --filter @adama/db rag:ingest -- ..\..\corpus\<fichier> --source <SOURCE> --lang fr --title "<Titre>"` ;
 3. `pnpm --filter @adama/db rag:verify`, puis ajouter la ligne au tableau du haut.
 
 ## Regle de tenue

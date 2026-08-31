@@ -83,12 +83,18 @@ export directement en production sans avoir lu son en-tête.**
 
 ### Test de restauration
 
-| Date          | Opérateur | Résultat                                          |
-| ------------- | --------- | ------------------------------------------------- |
-| _à compléter_ | Adama     | _premier test à faire avant le 30 septembre 2026_ |
+| Date       | Opérateur | Portée                                                | Résultat                                                                                                                                                                                                              |
+| ---------- | --------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-08-31 | Adama     | Répétition en schéma isolé, sans `pg_dump` ni `psql`  | Réussi. `decisions_log` capturée, cible de structure identique vidée puis rejouée : 3 lignes de part et d'autre, empreinte md5 identique `733d5e487e24e60e1bc6bc9b8c154a63`. Schéma `restore_rehearsal` supprimé après contrôle. La production n'a pas été touchée. |
+| _à faire_  | Adama     | Chaîne complète `backup-cockpit.ps1` puis `psql`      | _avant le 30 septembre 2026, connexion directe port 5432_                                                                                                                                                              |
 
-Une sauvegarde non testée n'est pas une sauvegarde. Tant que cette ligne est
-vide, ce document décrit une intention, pas une garantie.
+La première ligne établit que la sémantique de restauration tient sur ce projet :
+vider une cible puis rejouer un export rend exactement le contenu d'origine, au
+bit près. Elle n'établit pas que `pg_dump` et `psql` tournent sur le poste, ni
+que le fichier produit par `scripts/backup-cockpit.ps1` se rejoue tel quel.
+C'est l'objet de la seconde ligne, et elle seule ferme le sujet.
+
+Une sauvegarde non testée n'est pas une sauvegarde.
 
 ## 6. Accès de secours
 
