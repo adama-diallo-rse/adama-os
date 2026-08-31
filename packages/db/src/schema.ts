@@ -1,6 +1,6 @@
 // =====================================================================
 // ADAMA OS, L1 Données, Schéma Drizzle (source de vérité typée)
-// Dashboard fondateur : metrics, decisions, trajectory, analytics STRATA,
+// Dashboard fondateur : metrics, decisions, trajectory, analytics du groupe,
 // capture de leads recruteur, et corpus RAG d'adama.ai. Les produits STRATA
 // (audit, formations, paiements) vivent dans leurs propres repos et ne sont
 // PAS modelises ici. Les index (dont l'index vectoriel HNSW) sont geres dans
@@ -43,10 +43,19 @@ export const ecosystemStatus = pgEnum("ecosystem_status", [
   "planned",
 ]);
 
-// Seule la capture recruteur subsiste sur Adama OS (audit/newsletter sont
-// partis chez les produits STRATA). L'enum Postgres peut garder ses anciennes
-// valeurs sans risque ; seul "recruiter" est insere.
-export const leadSource = pgEnum("lead_source", ["recruiter"]);
+// L1, dette de schema resorbee le 31 aout 2026. Le type Postgres cree par
+// 0000_init.sql vaut ('recruiter', 'audit', 'newsletter') : Drizzle n'en
+// declarait qu'une valeur, donc `drizzle-kit generate` proposait de recreer
+// le type a chaque passage. On aligne dans le sens non destructif, Drizzle
+// sur SQL : Postgres ne sait pas retirer une etiquette d'un enum sans
+// recreer le type et reecrire la colonne.
+// Regle applicative : seul "recruiter" est insere par le cockpit. Les deux
+// autres etiquettes sont un heritage, elles ne doivent plus etre utilisees.
+export const leadSource = pgEnum("lead_source", [
+  "recruiter",
+  "audit",
+  "newsletter",
+]);
 
 // --- system_metrics --------------------------------------------------
 // Variables temps réel (compte à rebours, lean bulk, deep work...).
@@ -95,14 +104,31 @@ export const trajectory = pgTable("trajectory", {
     .defaultNow(),
 });
 
-// --- strata_analytics ------------------------------------------------
-// Métriques produit STRATA (Open Metrics), remontées par les produits.
-export const strataAnalytics = pgTable("strata_analytics", {
+// --- ecosystem_analytics ---------------------------------------------
+// L1-T10. Métriques produit du groupe (Open Metrics), remontées par les
+// produits eux-mêmes ou importées par les passerelles de la couche L9.
+// Ancien nom : strata_analytics. Une vue de compatibilité porte encore ce nom
+// en lecture jusqu'au 30 novembre 2026 (migration 0002).
+//
+// Provenance obligatoire : une métrique importée porte son produit
+// (productSlug), la source qui l'a servie (source) et l'instant du relevé
+// (fetchedAt). Sans ces champs, l'interface ne l'affiche pas. Insertion
+// uniquement, jamais d'écrasement : l'historique est la matière de la courbe.
+export const ecosystemAnalytics = pgTable("ecosystem_analytics", {
   id: uuid("id").primaryKey().defaultRandom(),
   metric: text("metric").notNull(),
   value: doublePrecision("value").notNull(),
   period: text("period"),
+  /** Nom de l'API ou du relevé qui a produit la valeur. */
   source: text("source"),
+  /** Division du groupe (STRATA, IROKO, Cockpit). */
+  division: text("division"),
+  /** Produit d'origine, clé étrangère vers ecosystem_products.slug. */
+  productSlug: text("product_slug"),
+  /** Instant du relevé côté produit, distinct de la date d'insertion. */
+  fetchedAt: timestamp("fetched_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
@@ -206,8 +232,8 @@ export type Decision = typeof decisionsLog.$inferSelect;
 export type NewDecision = typeof decisionsLog.$inferInsert;
 export type TrajectoryItem = typeof trajectory.$inferSelect;
 export type NewTrajectoryItem = typeof trajectory.$inferInsert;
-export type StrataAnalytic = typeof strataAnalytics.$inferSelect;
-export type NewStrataAnalytic = typeof strataAnalytics.$inferInsert;
+export type EcosystemAnalytic = typeof ecosystemAnalytics.$inferSelect;
+export type NewEcosystemAnalytic = typeof ecosystemAnalytics.$inferInsert;
 export type EcosystemProduct = typeof ecosystemProducts.$inferSelect;
 export type NewEcosystemProduct = typeof ecosystemProducts.$inferInsert;
 export type Lead = typeof leads.$inferSelect;

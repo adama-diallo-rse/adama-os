@@ -13,8 +13,8 @@ config({ path: ".env" });
 import { sql } from "drizzle-orm";
 import {
   decisionsLog,
+  ecosystemAnalytics,
   ecosystemProducts,
-  strataAnalytics,
   systemMetrics,
   trajectory,
 } from "./schema";
@@ -144,7 +144,7 @@ async function seed() {
     console.log("  • trajectory : déjà peuplée, ignorée");
   }
 
-  // --- strata_analytics : métriques de démo -------------------------
+  // --- ecosystem_analytics : métriques de démo ----------------------
   // Sous drapeau explicite. Ces trois valeurs sont inventées : les insérer
   // dans la base de production les ferait remonter sur /metrics et sur la
   // Couche D comme si elles étaient mesurées, ce qui annulerait le geste 3
@@ -153,26 +153,44 @@ async function seed() {
   const withDemoMetrics = process.argv.slice(2).includes("--demo");
   if (!withDemoMetrics) {
     console.log(
-      "  • strata_analytics : ignorée (métriques de démo, relancer avec --demo pour les insérer)",
+      "  • ecosystem_analytics : ignorée (métriques de démo, relancer avec --demo pour les insérer)",
     );
   }
-  const strataCount = withDemoMetrics
-    ? await db.select({ n: sql<number>`count(*)::int` }).from(strataAnalytics)
+  const analyticsCount = withDemoMetrics
+    ? await db
+        .select({ n: sql<number>`count(*)::int` })
+        .from(ecosystemAnalytics)
     : [{ n: 1 }];
-  if (withDemoMetrics && (strataCount[0]?.n ?? 0) === 0) {
-    await db.insert(strataAnalytics).values([
-      { metric: "pme_analysees", value: 12, period: "2026-06", source: "demo" },
+  if (withDemoMetrics && (analyticsCount[0]?.n ?? 0) === 0) {
+    await db.insert(ecosystemAnalytics).values([
+      {
+        metric: "pme_analysees",
+        value: 12,
+        period: "2026-06",
+        source: "demo",
+        division: "STRATA",
+        productSlug: "esg-optimizer",
+      },
       {
         metric: "requetes_api",
         value: 1287,
         period: "2026-06",
         source: "demo",
+        division: "STRATA",
+        productSlug: "esg-optimizer",
       },
-      { metric: "audits_lances", value: 4, period: "2026-06", source: "demo" },
+      {
+        metric: "audits_lances",
+        value: 4,
+        period: "2026-06",
+        source: "demo",
+        division: "STRATA",
+        productSlug: "esg-optimizer",
+      },
     ]);
-    console.log("  ✓ strata_analytics : 3 métriques insérées");
+    console.log("  ✓ ecosystem_analytics : 3 métriques insérées");
   } else if (withDemoMetrics) {
-    console.log("  • strata_analytics : déjà peuplée, ignorée");
+    console.log("  • ecosystem_analytics : déjà peuplée, ignorée");
   }
 
   // --- ecosystem_products : registre reel du groupe (L1-T9) ---------
