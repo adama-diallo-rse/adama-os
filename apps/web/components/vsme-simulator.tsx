@@ -12,7 +12,14 @@
 // useReducedMotion au rendu (règle du projet).
 
 import { useMemo, useState } from "react";
-import { Badge, Card, CardContent, CardFooter, CardHeader, CardTitle } from "@adama/ui";
+import {
+  Badge,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@adama/ui";
 
 type Pillar = "E" | "S" | "G";
 
@@ -46,11 +53,38 @@ const MODEL: PillarSpec[] = [
     label: "Environnement",
     weight: 0.4,
     fields: [
-      { id: "energie_renouvelable", label: "Part d'énergie renouvelable", kind: "slider", weight: 30, suffix: "%" },
-      { id: "ges_mesures", label: "Émissions GES mesurées (Scopes 1-2)", kind: "toggle", weight: 25 },
-      { id: "plan_reduction", label: "Plan de réduction carbone", kind: "toggle", weight: 20 },
-      { id: "dechets_valorises", label: "Déchets triés et valorisés", kind: "slider", weight: 15, suffix: "%" },
-      { id: "suivi_eau", label: "Suivi de la consommation d'eau", kind: "toggle", weight: 10 },
+      {
+        id: "energie_renouvelable",
+        label: "Part d'énergie renouvelable",
+        kind: "slider",
+        weight: 30,
+        suffix: "%",
+      },
+      {
+        id: "ges_mesures",
+        label: "Émissions GES mesurées (Scopes 1-2)",
+        kind: "toggle",
+        weight: 25,
+      },
+      {
+        id: "plan_reduction",
+        label: "Plan de réduction carbone",
+        kind: "toggle",
+        weight: 20,
+      },
+      {
+        id: "dechets_valorises",
+        label: "Déchets triés et valorisés",
+        kind: "slider",
+        weight: 15,
+        suffix: "%",
+      },
+      {
+        id: "suivi_eau",
+        label: "Suivi de la consommation d'eau",
+        kind: "toggle",
+        weight: 10,
+      },
     ],
   },
   {
@@ -58,11 +92,39 @@ const MODEL: PillarSpec[] = [
     label: "Social",
     weight: 0.35,
     fields: [
-      { id: "part_cdi", label: "Part de contrats stables (CDI)", kind: "slider", weight: 20, suffix: "%" },
-      { id: "egalite_hf", label: "Indice d'égalité salariale H/F", kind: "slider", weight: 20, suffix: "/100" },
-      { id: "formation", label: "Effort de formation des salariés", kind: "slider", weight: 20, suffix: "%" },
-      { id: "sante_securite", label: "Politique santé-sécurité formalisée", kind: "toggle", weight: 20 },
-      { id: "accidents_faibles", label: "Taux d'accidents faible ou nul", kind: "toggle", weight: 20 },
+      {
+        id: "part_cdi",
+        label: "Part de contrats stables (CDI)",
+        kind: "slider",
+        weight: 20,
+        suffix: "%",
+      },
+      {
+        id: "egalite_hf",
+        label: "Indice d'égalité salariale H/F",
+        kind: "slider",
+        weight: 20,
+        suffix: "/100",
+      },
+      {
+        id: "formation",
+        label: "Effort de formation des salariés",
+        kind: "slider",
+        weight: 20,
+        suffix: "%",
+      },
+      {
+        id: "sante_securite",
+        label: "Politique santé-sécurité formalisée",
+        kind: "toggle",
+        weight: 20,
+      },
+      {
+        id: "accidents_faibles",
+        label: "Taux d'accidents faible ou nul",
+        kind: "toggle",
+        weight: 20,
+      },
     ],
   },
   {
@@ -70,11 +132,37 @@ const MODEL: PillarSpec[] = [
     label: "Gouvernance",
     weight: 0.25,
     fields: [
-      { id: "code_ethique", label: "Code d'éthique et anticorruption", kind: "toggle", weight: 30 },
-      { id: "rgpd", label: "Conformité RGPD / protection des données", kind: "toggle", weight: 25 },
-      { id: "achats_responsables", label: "Part d'achats responsables", kind: "slider", weight: 20, suffix: "%" },
-      { id: "instance_esg", label: "Instance de pilotage ESG", kind: "toggle", weight: 15 },
-      { id: "reporting_public", label: "Reporting extra-financier public", kind: "toggle", weight: 10 },
+      {
+        id: "code_ethique",
+        label: "Code d'éthique et anticorruption",
+        kind: "toggle",
+        weight: 30,
+      },
+      {
+        id: "rgpd",
+        label: "Conformité RGPD / protection des données",
+        kind: "toggle",
+        weight: 25,
+      },
+      {
+        id: "achats_responsables",
+        label: "Part d'achats responsables",
+        kind: "slider",
+        weight: 20,
+        suffix: "%",
+      },
+      {
+        id: "instance_esg",
+        label: "Instance de pilotage ESG",
+        kind: "toggle",
+        weight: 15,
+      },
+      {
+        id: "reporting_public",
+        label: "Reporting extra-financier public",
+        kind: "toggle",
+        weight: 10,
+      },
     ],
   },
 ];
@@ -160,7 +248,10 @@ function Gauge({ score }: { score: number }) {
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           className="transition-[stroke-dashoffset] duration-500 ease-out"
-          style={{ filter: "drop-shadow(0 0 6px color-mix(in oklch, var(--color-emerald) 55%, transparent))" }}
+          style={{
+            filter:
+              "drop-shadow(0 0 6px color-mix(in oklch, var(--color-emerald) 55%, transparent))",
+          }}
         />
       </svg>
       <div className="absolute flex flex-col items-center">

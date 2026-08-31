@@ -13,7 +13,12 @@ import {
   type MetricRow,
 } from "./types";
 
-type Countdown = { days: number; hours: number; minutes: number; seconds: number };
+type Countdown = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+};
 
 function computeCountdown(targetMs: number): Countdown {
   const diff = Math.max(0, targetMs - Date.now());
@@ -65,7 +70,9 @@ function ProtocolRow({ label, value }: { label: string; value: string }) {
       <span className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">
         {label}
       </span>
-      <span className="text-right font-mono text-sm text-foreground">{value}</span>
+      <span className="text-right font-mono text-sm text-foreground">
+        {value}
+      </span>
     </li>
   );
 }
@@ -153,7 +160,9 @@ export function LayerA({ metrics }: { metrics: MetricRow[] }) {
             <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-faint">
               Lean Bulk
             </p>
-            <p className="font-mono text-xs text-emerald-bright">{weightLabel}</p>
+            <p className="font-mono text-xs text-emerald-bright">
+              {weightLabel}
+            </p>
           </div>
           <div
             role="progressbar"
@@ -186,7 +195,10 @@ export function LayerA({ metrics }: { metrics: MetricRow[] }) {
             Protocole Minimaliste
           </p>
           <ul className="space-y-1.5">
-            <ProtocolRow label="Deep Work" value={txt("deep_work_status", "n/a")} />
+            <ProtocolRow
+              label="Deep Work"
+              value={txt("deep_work_status", "n/a")}
+            />
             <ProtocolRow label="Energy" value={txt("energy_level", "n/a")} />
             <ProtocolRow
               label="Social Media"

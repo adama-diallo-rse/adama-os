@@ -116,7 +116,9 @@ export function LayerB({ decisions }: { decisions: DecisionRow[] }) {
                     </p>
                     <Badge variant="default">{dec.category}</Badge>
                   </div>
-                  <p className="mt-1 font-medium text-foreground">{dec.title}</p>
+                  <p className="mt-1 font-medium text-foreground">
+                    {dec.title}
+                  </p>
                   <p className="mt-1 max-w-prose text-sm leading-relaxed text-muted">
                     {dec.reasoning}
                   </p>

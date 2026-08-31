@@ -47,8 +47,7 @@ export default async function CheckinPage({
     return (
       <main style={pageStyle}>
         <p style={{ color: "#f87171" }}>
-          Configuration Supabase indisponible (clés manquantes dans
-          .env.local).
+          Configuration Supabase indisponible (clés manquantes dans .env.local).
         </p>
       </main>
     );
@@ -180,7 +179,11 @@ export default async function CheckinPage({
           required
           style={inputStyle}
         />
-        <input name="value_text" placeholder="valeur texte" style={inputStyle} />
+        <input
+          name="value_text"
+          placeholder="valeur texte"
+          style={inputStyle}
+        />
         <div style={{ display: "flex", gap: "0.5rem" }}>
           <input
             name="value_num"

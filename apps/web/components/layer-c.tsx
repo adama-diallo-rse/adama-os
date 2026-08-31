@@ -13,12 +13,14 @@ const COLUMNS: { status: TrajectoryStatus; label: string }[] = [
   { status: "later", label: "Later" },
 ];
 
-const STATUS_BADGE: Record<TrajectoryStatus, "emerald" | "warning" | "default"> =
-  {
-    now: "emerald",
-    next: "warning",
-    later: "default",
-  };
+const STATUS_BADGE: Record<
+  TrajectoryStatus,
+  "emerald" | "warning" | "default"
+> = {
+  now: "emerald",
+  next: "warning",
+  later: "default",
+};
 
 function TrajectoryItem({ item }: { item: TrajectoryRow }) {
   const isRisk = item.type === "risk";

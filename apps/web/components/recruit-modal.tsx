@@ -14,12 +14,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Badge, Button } from "@adama/ui";
 import { captureEvent } from "../lib/analytics";
 import { createClient } from "../lib/supabase/client";
-import {
-  CAL_LINK,
-  CONTACT_EMAIL,
-  CV_DOWNLOAD_NAME,
-  CV_PATH,
-} from "./types";
+import { CAL_LINK, CONTACT_EMAIL, CV_DOWNLOAD_NAME, CV_PATH } from "./types";
 
 type SubmitState = "idle" | "sending" | "done" | "error";
 
@@ -186,10 +181,7 @@ export function RecruitModal({
               <div>
                 <p className="font-mono text-sm leading-relaxed text-muted">
                   Un profil hybride :{" "}
-                  <span className="text-foreground">
-                    expertise RSE / ESG
-                  </span>{" "}
-                  ×{" "}
+                  <span className="text-foreground">expertise RSE / ESG</span> ×{" "}
                   <span className="text-foreground">
                     exécution d&apos;ingénieur
                   </span>
@@ -215,7 +207,12 @@ export function RecruitModal({
 
               {/* Actions : CV + call */}
               <div className="flex flex-wrap items-center gap-3">
-                <Button variant="primary" size="sm" bracket onClick={downloadCv}>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  bracket
+                  onClick={downloadCv}
+                >
                   Télécharger le CV
                 </Button>
                 <Button variant="outline" size="sm" bracket onClick={openCal}>
@@ -286,7 +283,10 @@ export function RecruitModal({
                       </Button>
                     </div>
                     {state === "error" ? (
-                      <p role="alert" className="mt-2 font-mono text-xs text-danger">
+                      <p
+                        role="alert"
+                        className="mt-2 font-mono text-xs text-danger"
+                      >
                         échec de l&apos;envoi — réessayez ou écrivez à{" "}
                         {CONTACT_EMAIL}
                       </p>

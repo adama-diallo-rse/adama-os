@@ -19,19 +19,19 @@ Règle d'organisation : STRATA et IROKO ne fusionnent pas au niveau du code. Ils
 
 ## Division STRATA (Europe)
 
-| Repo | Produit | Rôle | Stack | État au 19 juillet |
-| --- | --- | --- | --- | --- |
-| `esg-optimizer` | ESG Optimizer (flagship) | Cockpit unifié du pilotage ESG. Refonte « Sustainability OS » en cours : 8 couches, coffre de preuves immuable, knowledge graph, workflow engine, control tower. Lancement Africa prévu septembre 2026. | Python FastAPI + Next.js, Stripe, Resend, RAG EFRAG | Prod (`esg-optimizer.fr`), refonte en cours, Couche 12 atteinte |
-| `strata-scope` | STRATA Scope | Calculateur bilan carbone certifiable PME, Scopes 1-2-3 (15 catégories GHG Protocol), facteurs ADEME Base Empreinte. Moteur de calcul pur, testable, auditable. | FastAPI (moteur pur + tests), Supabase, front Next.js | Prod, paywall Stripe et API publique versionnée livrés, clés cloisonnées par organisation |
-| `strata-foundation` | STRATA Foundation | Suite entièrement gratuite, porte d'entrée de l'écosystème : Navigator, Benchmark, Materiality Lite, VSME Builder, Resource Center, ESG Observatory. | Next.js 14 + FastAPI + SQLAlchemy async, Postgres pgvector, Redis, Clerk partagé | Déployé (Vercel + Railway), Vague 1 en cours |
-| `strata-watch` | STRATA Watch | Veille réglementaire ESG : agrège EFRAG, EUR-Lex/JOUE, ADEME, AMF, BOFiP. Alertes, résumés IA, calendrier de conformité. | Next.js 14 + FastAPI + Celery/Redis, pgvector, Clerk partagé | Développement avancé, Phase 6 (mode équipe, commentaires, affectation d'alertes) |
-| `strata-academy` | STRATA Academy | Couche éducation, acquisition et autorité : formation VSME opérationnelle pour PME francophones, financement OPCO. Cible `academy.strata-esg.fr`. Wedge consacré par Omnibus I. | Extension de l'écosystème STRATA, Stripe | Architecture, schéma SQL et syllabus 6 parcours posés, premier commit |
-| `strata-platform` | STRATA (maison-mère) | Site corporate + squelette de la plateforme authentifiée qui chapeaute les produits. Bilingue FR/EN. | Next.js 14, Tailwind (tokens slate/gold/signal), Clerk prévu, Vercel | Site vitrine prêt, auth phase 2 |
+| Repo                | Produit                  | Rôle                                                                                                                                                                                                    | Stack                                                                            | État au 19 juillet                                                                        |
+| ------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `esg-optimizer`     | ESG Optimizer (flagship) | Cockpit unifié du pilotage ESG. Refonte « Sustainability OS » en cours : 8 couches, coffre de preuves immuable, knowledge graph, workflow engine, control tower. Lancement Africa prévu septembre 2026. | Python FastAPI + Next.js, Stripe, Resend, RAG EFRAG                              | Prod (`esg-optimizer.fr`), refonte en cours, Couche 12 atteinte                           |
+| `strata-scope`      | STRATA Scope             | Calculateur bilan carbone certifiable PME, Scopes 1-2-3 (15 catégories GHG Protocol), facteurs ADEME Base Empreinte. Moteur de calcul pur, testable, auditable.                                         | FastAPI (moteur pur + tests), Supabase, front Next.js                            | Prod, paywall Stripe et API publique versionnée livrés, clés cloisonnées par organisation |
+| `strata-foundation` | STRATA Foundation        | Suite entièrement gratuite, porte d'entrée de l'écosystème : Navigator, Benchmark, Materiality Lite, VSME Builder, Resource Center, ESG Observatory.                                                    | Next.js 14 + FastAPI + SQLAlchemy async, Postgres pgvector, Redis, Clerk partagé | Déployé (Vercel + Railway), Vague 1 en cours                                              |
+| `strata-watch`      | STRATA Watch             | Veille réglementaire ESG : agrège EFRAG, EUR-Lex/JOUE, ADEME, AMF, BOFiP. Alertes, résumés IA, calendrier de conformité.                                                                                | Next.js 14 + FastAPI + Celery/Redis, pgvector, Clerk partagé                     | Développement avancé, Phase 6 (mode équipe, commentaires, affectation d'alertes)          |
+| `strata-academy`    | STRATA Academy           | Couche éducation, acquisition et autorité : formation VSME opérationnelle pour PME francophones, financement OPCO. Cible `academy.strata-esg.fr`. Wedge consacré par Omnibus I.                         | Extension de l'écosystème STRATA, Stripe                                         | Architecture, schéma SQL et syllabus 6 parcours posés, premier commit                     |
+| `strata-platform`   | STRATA (maison-mère)     | Site corporate + squelette de la plateforme authentifiée qui chapeaute les produits. Bilingue FR/EN.                                                                                                    | Next.js 14, Tailwind (tokens slate/gold/signal), Clerk prévu, Vercel             | Site vitrine prêt, auth phase 2                                                           |
 
 ## Division IROKO (Afrique)
 
-| Repo | Produit | Rôle | Stack | État |
-| --- | --- | --- | --- | --- |
+| Repo             | Produit     | Rôle                                                                                                                            | Stack                                                                              | État                                |
+| ---------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------- |
 | `iroko-platform` | Business OS | Facturation et encaissement en un clic via Wave et Orange Money, multi-tenant par entreprise. Premier produit du socle Afrique. | Monorepo pnpm + Turborepo, Next.js App Router, Prisma, Supabase, TypeScript strict | Socle en construction, MVP en cours |
 
 À venir dans le même monorepo : RH & Paie, ERP Immobilier, Supply Chain, GovTech, Agritech, Énergie & Eau, Marketplace B2B.
@@ -40,12 +40,12 @@ Règle d'organisation : STRATA et IROKO ne fusionnent pas au niveau du code. Ils
 
 Packages partagés du socle, consommés par les deux divisions produit.
 
-| Package | Rôle |
-| --- | --- |
-| `@iroko/payments` | Iroko Pay : Wave, Orange Money, Stripe Europe |
-| `@iroko/core` | Schéma Prisma multi-tenant + client |
-| `@iroko/ui` | Design system (tokens Brand Board + shadcn) |
-| `@iroko/auth` | Identité de groupe et contexte de tenant |
+| Package                                        | Rôle                                              |
+| ---------------------------------------------- | ------------------------------------------------- |
+| `@iroko/payments`                              | Iroko Pay : Wave, Orange Money, Stripe Europe     |
+| `@iroko/core`                                  | Schéma Prisma multi-tenant + client               |
+| `@iroko/ui`                                    | Design system (tokens Brand Board + shadcn)       |
+| `@iroko/auth`                                  | Identité de groupe et contexte de tenant          |
 | `@iroko/emails`, `@iroko/pdf`, `@iroko/config` | Transactionnel, documents, configuration partagée |
 
 ## Division SERVICES

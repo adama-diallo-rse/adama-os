@@ -29,10 +29,10 @@ Puis ouvre les deux fichiers et renseigne les valeurs. La liste complète des cl
 
 Minimum vital pour que le dashboard tourne en local :
 
-| Fichier | Clés à renseigner |
-| --- | --- |
+| Fichier               | Clés à renseigner                                                                              |
+| --------------------- | ---------------------------------------------------------------------------------------------- |
 | `apps\web\.env.local` | `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `OPENAI_API_KEY`, `DATABASE_URL` |
-| `packages\db\.env` | `DATABASE_URL`, `OPENAI_API_KEY` |
+| `packages\db\.env`    | `DATABASE_URL`, `OPENAI_API_KEY`                                                               |
 
 `DATABASE_URL` : Supabase → ton projet → Project Settings → Database → Connection string → **Transaction pooler**. Mot de passe inclus dans l'URL.
 
@@ -131,12 +131,12 @@ Toute la chaîne RAG est codée et branchée. La base vectorielle est vide. C'es
 
 **3.1. Récupérer les documents.** Tu n'as aujourd'hui que ton CV en PDF dans le repo. Il te faut au minimum :
 
-| Document | Où le trouver |
-| --- | --- |
-| Normes ESRS (Set 1) | efrag.org, section Sustainability Reporting, téléchargement des ESRS |
-| Standard VSME | efrag.org, VSME Standard |
-| Ton CV | déjà présent : `apps\web\public\adama-diallo-cv.pdf` |
-| Notice méthodologique ESG Optimizer | `C:\Dev\ESG-Optimizer\Notice_methodologique_ESG_Optimizer.pdf` |
+| Document                            | Où le trouver                                                        |
+| ----------------------------------- | -------------------------------------------------------------------- |
+| Normes ESRS (Set 1)                 | efrag.org, section Sustainability Reporting, téléchargement des ESRS |
+| Standard VSME                       | efrag.org, VSME Standard                                             |
+| Ton CV                              | déjà présent : `apps\web\public\adama-diallo-cv.pdf`                 |
+| Notice méthodologique ESG Optimizer | `C:\Dev\ESG-Optimizer\Notice_methodologique_ESG_Optimizer.pdf`       |
 
 Range-les dans un dossier de travail, par exemple `C:\Dev\adama-os\corpus\` (déjà ignoré par git si tu ajoutes `corpus/` au `.gitignore`, ce que je te conseille pour ne pas versionner des PDF lourds).
 
@@ -176,20 +176,20 @@ PostHog → Project Settings → Project API Key. Colle-la dans Vercel → Setti
 
 **4.3. Créer le funnel recrutement.** PostHog → Product Analytics → New insight → Funnel.
 
-| Étape | Événement |
-| --- | --- |
-| 1 | `$pageview` |
-| 2 | `recruiter_intent` |
-| 3 | `cv_download` ou réservation Cal.com |
+| Étape | Événement                            |
+| ----- | ------------------------------------ |
+| 1     | `$pageview`                          |
+| 2     | `recruiter_intent`                   |
+| 3     | `cv_download` ou réservation Cal.com |
 
 Fenêtre de conversion : 1 jour. Enregistre sous « Funnel recrutement ».
 
 **4.4. Créer le funnel produit.**
 
-| Étape | Événement |
-| --- | --- |
-| 1 | `$pageview` |
-| 2 | `strata_outbound` (deviendra `ecosystem_outbound` après L6-T14) |
+| Étape | Événement                                                       |
+| ----- | --------------------------------------------------------------- |
+| 1     | `$pageview`                                                     |
+| 2     | `strata_outbound` (deviendra `ecosystem_outbound` après L6-T14) |
 
 Ajoute une décomposition (breakdown) par `product` pour voir quel produit attire le plus. Enregistre sous « Funnel produit ».
 
@@ -199,14 +199,14 @@ Ajoute une décomposition (breakdown) par `product` pour voir quel produit attir
 
 Chacun a un prompt expert prêt à coller dans Claude Code, dans la **Partie 7 de `ROADMAP.md`**. Tu ouvres Claude Code à la racine `C:\Dev\adama-os`, tu colles le prompt, tu relis le diff.
 
-| Ordre | Chantier | Prompt | Pourquoi maintenant |
-| --- | --- | --- | --- |
-| 1 | **L5-T2, feed Shipped multi-repo** | Prompt L5 | Ton feed ne lit qu'`adama-os`. L'essentiel de ton travail est dans `esg-optimizer`, `strata-scope`, `strata-watch`, `iroko-platform`. Tu affiches une fraction infime de ton exécution devant un recruteur. Meilleur rapport gain sur effort du repo. |
-| 2 | **L1-T9 et L1-T10, registre produits et analytics groupe** | Prompt L1 | Prérequis technique des deux chantiers suivants. |
-| 3 | **L4-T14, Couche D en vue groupe** | Prompt L4 | La Couche D montre encore une suite ESG, pas un groupe à quatre divisions. |
-| 4 | **L6-T13 et L6-T14, hub écosystème** | Prompt L6 | `/strata` devient `/ecosysteme`, avec redirection 301 pour ne pas casser les liens déjà partagés. |
-| 5 | **L8, durcissement** | Prompt L8 | Bilingue, SEO, accessibilité, perf, sécurité. C'est du P4, pas avant fin septembre. |
-| 6 | **L7, média** | Prompt L7 | P4 également. Rien avant que les chantiers 1 à 4 soient faits. |
+| Ordre | Chantier                                                   | Prompt    | Pourquoi maintenant                                                                                                                                                                                                                                   |
+| ----- | ---------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1     | **L5-T2, feed Shipped multi-repo**                         | Prompt L5 | Ton feed ne lit qu'`adama-os`. L'essentiel de ton travail est dans `esg-optimizer`, `strata-scope`, `strata-watch`, `iroko-platform`. Tu affiches une fraction infime de ton exécution devant un recruteur. Meilleur rapport gain sur effort du repo. |
+| 2     | **L1-T9 et L1-T10, registre produits et analytics groupe** | Prompt L1 | Prérequis technique des deux chantiers suivants.                                                                                                                                                                                                      |
+| 3     | **L4-T14, Couche D en vue groupe**                         | Prompt L4 | La Couche D montre encore une suite ESG, pas un groupe à quatre divisions.                                                                                                                                                                            |
+| 4     | **L6-T13 et L6-T14, hub écosystème**                       | Prompt L6 | `/strata` devient `/ecosysteme`, avec redirection 301 pour ne pas casser les liens déjà partagés.                                                                                                                                                     |
+| 5     | **L8, durcissement**                                       | Prompt L8 | Bilingue, SEO, accessibilité, perf, sécurité. C'est du P4, pas avant fin septembre.                                                                                                                                                                   |
+| 6     | **L7, média**                                              | Prompt L7 | P4 également. Rien avant que les chantiers 1 à 4 soient faits.                                                                                                                                                                                        |
 
 Pour le feed multi-repo (chantier 1), tu auras besoin d'un token GitHub :
 
@@ -251,15 +251,15 @@ Après ça, `git status` sera propre et ne remontera que tes vraies modification
 
 ## Récapitulatif, ce qui te reste vraiment
 
-| Action | Durée estimée | Impact |
-| --- | --- | --- |
-| Créer les `.env` locaux | 15 min | Bloquant pour tout le reste |
-| Commiter la doc | 5 min | Trace de la décision |
-| Acheter et brancher le domaine | 1 h, plus la propagation DNS | **Bloquant pour tout partage externe** |
-| Ingérer le corpus RAG | 2 h, dont le téléchargement des normes | Rend adama.ai démontrable |
-| Configurer les funnels PostHog | 30 min | Mesure tes deux sorties |
-| Feed multi-repo (prompt L5) | 1 séance | **Plus gros gain de crédibilité** |
-| Registre produits, Couche D, hub (prompts L1, L4, L6) | 2 à 3 séances | Le dashboard raconte enfin le groupe |
-| Normalisation des fins de ligne | 10 min | Confort quotidien |
+| Action                                                | Durée estimée                          | Impact                                 |
+| ----------------------------------------------------- | -------------------------------------- | -------------------------------------- |
+| Créer les `.env` locaux                               | 15 min                                 | Bloquant pour tout le reste            |
+| Commiter la doc                                       | 5 min                                  | Trace de la décision                   |
+| Acheter et brancher le domaine                        | 1 h, plus la propagation DNS           | **Bloquant pour tout partage externe** |
+| Ingérer le corpus RAG                                 | 2 h, dont le téléchargement des normes | Rend adama.ai démontrable              |
+| Configurer les funnels PostHog                        | 30 min                                 | Mesure tes deux sorties                |
+| Feed multi-repo (prompt L5)                           | 1 séance                               | **Plus gros gain de crédibilité**      |
+| Registre produits, Couche D, hub (prompts L1, L4, L6) | 2 à 3 séances                          | Le dashboard raconte enfin le groupe   |
+| Normalisation des fins de ligne                       | 10 min                                 | Confort quotidien                      |
 
 Le trio qui débloque tout : **domaine, corpus RAG, feed multi-repo**. Le reste peut suivre son calendrier de phase.

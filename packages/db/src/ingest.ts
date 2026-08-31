@@ -204,20 +204,22 @@ async function embedBatch(texts: string[]): Promise<number[][]> {
     data: { index: number; embedding: number[] }[];
   };
   // L'API préserve l'ordre, on trie par sécurité.
-  return json.data
-    .sort((a, b) => a.index - b.index)
-    .map((d) => d.embedding);
+  return json.data.sort((a, b) => a.index - b.index).map((d) => d.embedding);
 }
 
 // --- Main ----------------------------------------------------------------
 async function ingest() {
   const args = parseArgs(process.argv.slice(2));
   console.log(`→ Ingestion RAG : ${args.filePath}`);
-  console.log(`  source=${args.source} lang=${args.lang} titre="${args.title}"`);
+  console.log(
+    `  source=${args.source} lang=${args.lang} titre="${args.title}"`,
+  );
 
   const pages = await extractPages(args.filePath);
   const totalChars = pages.reduce((n, p) => n + p.text.length, 0);
-  console.log(`  extraction : ${pages.length} page(s), ${totalChars} caractères`);
+  console.log(
+    `  extraction : ${pages.length} page(s), ${totalChars} caractères`,
+  );
 
   const chunks = chunkPages(pages);
   if (chunks.length === 0) {
@@ -243,7 +245,10 @@ async function ingest() {
     .select({ id: ragDocuments.id })
     .from(ragDocuments)
     .where(
-      and(eq(ragDocuments.source, args.source), eq(ragDocuments.title, args.title)),
+      and(
+        eq(ragDocuments.source, args.source),
+        eq(ragDocuments.title, args.title),
+      ),
     );
   const previous = existing[0];
   if (previous) {
@@ -271,11 +276,16 @@ async function ingest() {
     );
   }
 
-  console.log(`✓ Ingestion terminée : ${chunks.length} chunks → document ${doc.id}`);
+  console.log(
+    `✓ Ingestion terminée : ${chunks.length} chunks → document ${doc.id}`,
+  );
   process.exit(0);
 }
 
 ingest().catch((error) => {
-  console.error("✗ Ingestion échouée :", error instanceof Error ? error.message : error);
+  console.error(
+    "✗ Ingestion échouée :",
+    error instanceof Error ? error.message : error,
+  );
   process.exit(1);
 });
