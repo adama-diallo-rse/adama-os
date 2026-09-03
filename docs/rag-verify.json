@@ -1,0 +1,18 @@
+{
+  "$comment": [
+    "C3-T3, resultat de la derniere verification de pertinence documentaire.",
+    "Ecrit par `pnpm --filter @adama/db rag:verify`, jamais a la main.",
+    "executed_at a null signifie que la verification n'a jamais tourne : la",
+    "matrice de sante affiche alors NON MESURE, et surtout pas un vert."
+  ],
+  "schema_version": 1,
+  "model": "text-embedding-3-small",
+  "dimensions": 1024,
+  "seuil_ok": 0.5,
+  "seuil_echec": 0.45,
+  "executed_at": null,
+  "verdict": null,
+  "documents": null,
+  "chunks": null,
+  "questions": []
+}

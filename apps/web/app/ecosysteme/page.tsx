@@ -2,9 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro, PageShell } from "../../components/page-shell";
 import { EcosystemCatalog } from "../../components/ecosystem-catalog";
+import { EcosystemMapView } from "../../components/ecosystem-map";
 import type { EcosystemProductRow } from "../../components/types";
 import { createPublicClient } from "../../lib/supabase/public";
 import { SITE_URL, absoluteUrl } from "../../lib/site";
+import { buildEcosystemMap } from "../../lib/ecosystem/map";
+import { fetchShippedFeed } from "../../lib/github";
+import { listClaims } from "../../lib/proof/claims";
+import { ROLES_DIVISION } from "../../content/divisions";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -36,8 +41,47 @@ async function chargerProduits(): Promise<EcosystemProductRow[]> {
   return (data as EcosystemProductRow[]) ?? [];
 }
 
+/**
+ * C4-T7. Une affirmation par produit, quand le registre de preuve en sert
+ * une. Un produit sans affirmation n'obtient pas de lien de verification :
+ * proposer un lien mort couterait plus cher que ne rien proposer.
+ */
+async function chargerPreuvesProduit(): Promise<Record<string, string>> {
+  const claims = await listClaims().catch(() => []);
+  const par: Record<string, string> = {};
+  for (const c of claims) {
+    if (c.row.subject_type === "produit" && c.row.subject_ref) {
+      par[c.row.subject_ref] = c.row.id;
+    }
+  }
+  return par;
+}
+
 export default async function EcosystemePage() {
-  const produits = await chargerProduits();
+  // C4-T5 : si le registre ne repond pas, la carte ne se rend pas. Les trois
+  // lectures partent en parallele, aucune ne bloque les autres.
+  const [produits, feed, preuves] = await Promise.all([
+    chargerProduits(),
+    fetchShippedFeed(60).catch(() => null),
+    chargerPreuvesProduit(),
+  ]);
+
+  const activite: Record<string, string> = {};
+  for (const commit of feed?.commits ?? []) {
+    const connu = activite[commit.repo];
+    if (!connu || commit.date > connu) {
+      activite[commit.repo] = commit.date;
+    }
+  }
+
+  const carte = buildEcosystemMap({
+    products: produits,
+    repos: feed?.repos ?? [],
+    activity: activite,
+    proofs: preuves,
+    observedAt: new Date().toISOString(),
+  });
+
   const enLigne = produits.filter((p) => p.status === "live" && p.url);
   const jsonLd = {
     "@context": "https://schema.org",
@@ -107,19 +151,25 @@ export default async function EcosystemePage() {
           </div>
         }
       />
+      <EcosystemMapView
+        map={carte}
+        repos={feed?.repos ?? []}
+        roles={ROLES_DIVISION}
+      />
       <EcosystemCatalog products={produits} />
       <section className="page-next">
         <div>
           <p className="portfolio-label">POUR ALLER PLUS LOIN</p>
           <h2>
-            Suivre les <span className="serif">projets.</span>
+            Suivre la <span className="serif">construction.</span>
           </h2>
           <p>
-            Les relevés publiés sont consultables avec leur date et leur source.
+            Le journal rassemble les contributions réelles de ces dépôts,
+            regroupées par chantier, et nomme ceux qu’il ne peut pas lire.
           </p>
         </div>
-        <Link href="/metrics" className="portfolio-button primary">
-          Voir les métriques <span aria-hidden="true">↗</span>
+        <Link href="/journal" className="portfolio-button primary">
+          Ouvrir le journal de construction <span aria-hidden="true">→</span>
         </Link>
       </section>
     </PageShell>

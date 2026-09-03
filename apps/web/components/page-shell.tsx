@@ -46,6 +46,7 @@ export function PageShell({
           <div>
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/confidentialite">Confidentialité</Link>
+            <Link href="/confiance">Frontières de données</Link>
             <ConsentLink className="portfolio-cookie-link" />
           </div>
           <span>FR / ÎLE-DE-FRANCE</span>
@@ -62,7 +63,7 @@ export function PageIntro({
   description,
   aside,
 }: {
-  eyebrow: string;
+  eyebrow: ReactNode;
   title: ReactNode;
   description: string;
   aside?: ReactNode;

@@ -5,8 +5,16 @@
 // barre lean bulk vers 80 kg, protocole minimaliste.
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Badge, Card, CardContent, CardHeader, CardTitle } from "@adama/ui";
+import {
+  Badge,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@adama/ui";
 import {
   DEFAULT_DEADLINE_ISO,
   DEFAULT_TARGET_WEIGHT,
@@ -207,6 +215,17 @@ export function LayerA({ metrics }: { metrics: MetricRow[] }) {
           </ul>
         </div>
       </CardContent>
+      {/* C3-T1. Cette carte affiche un STATUT, pas une sante. Un service qui
+          repond avec un corpus vide y apparaitrait disponible. La matrice par
+          capacite dit l'autre chose, et le lien va la chercher. */}
+      <CardFooter>
+        <Link
+          href="/systeme/pannes"
+          className="inline-flex min-h-11 items-center rounded border border-border-strong px-3 py-2 font-mono text-xs text-foreground transition-colors hover:bg-surface-raised"
+        >
+          Santé par capacité, sept lignes ↗
+        </Link>
+      </CardFooter>
     </Card>
   );
 }

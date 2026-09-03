@@ -54,6 +54,12 @@ async function seed() {
         valueNum: m.valueNum ?? null,
         valueText: m.valueText ?? null,
         unit: m.unit ?? null,
+        // C1-T1 : classer est une decision, pas un remplissage. Ces valeurs
+        // sont saisies a la main depuis /checkin, la provenance est donc
+        // l'auteur lui-meme, et elle s'ecrit.
+        dataClass: "real",
+        source: "Relevé saisi par Adama",
+        method: "Saisie manuelle depuis la page de check-in du cockpit.",
       })
       .onConflictDoUpdate({
         target: systemMetrics.key,
@@ -168,6 +174,8 @@ async function seed() {
         value: 12,
         period: "2026-06",
         source: "demo",
+        dataClass: "demo",
+        method: "Jeu d’illustration. Ne décrit rien de réel.",
         division: "STRATA",
         productSlug: "esg-optimizer",
       },
@@ -176,6 +184,8 @@ async function seed() {
         value: 1287,
         period: "2026-06",
         source: "demo",
+        dataClass: "demo",
+        method: "Jeu d’illustration. Ne décrit rien de réel.",
         division: "STRATA",
         productSlug: "esg-optimizer",
       },
@@ -184,6 +194,8 @@ async function seed() {
         value: 4,
         period: "2026-06",
         source: "demo",
+        dataClass: "demo",
+        method: "Jeu d’illustration. Ne décrit rien de réel.",
         division: "STRATA",
         productSlug: "esg-optimizer",
       },
@@ -216,7 +228,7 @@ async function seed() {
       division: "STRATA",
       pillar: "Empreinte carbone",
       description:
-        "Bilan carbone Scopes 1, 2 et 3 sur les facteurs officiels de la Base Empreinte ADEME. Restitution BEGES, CSRD, SBTi.",
+        "Empreinte carbone, scopes 1, 2 et 3 sur les facteurs officiels de la Base Empreinte ADEME. Restitution BEGES, CSRD, SBTi.",
       status: "live" as const,
       url: "https://scope.esg-optimizer.fr",
       repoFullName: "adama-diallo-rse/strata-scope",

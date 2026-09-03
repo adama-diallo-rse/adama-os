@@ -279,13 +279,33 @@ async function ingest() {
   console.log(
     `✓ Ingestion terminée : ${chunks.length} chunks → document ${doc.id}`,
   );
-  process.exit(0);
 }
 
-ingest().catch((error) => {
-  console.error(
-    "✗ Ingestion échouée :",
-    error instanceof Error ? error.message : error,
-  );
-  process.exit(1);
-});
+// C3-T3. La connexion se ferme AVANT la sortie, sur le chemin normal comme
+// sur le chemin d'erreur. Jusqu'au 2 septembre 2026, un echec sortait par
+// process.exit(1) en laissant une poignee libuv ouverte : sous Windows cela
+// produisait une assertion et un code de sortie 3221226505, donc un script
+// inutilisable dans un enchainement et un `pnpm integrity` incapable de
+// distinguer un echec d'ingestion d'un plantage de l'interprete.
+async function fermer(): Promise<void> {
+  try {
+    const { closeDb } = await import("./client");
+    await closeDb();
+  } catch {
+    // Le client n'a jamais ete ouvert : rien a fermer.
+  }
+}
+
+ingest()
+  .then(() => 0)
+  .catch((error) => {
+    console.error(
+      "✗ Ingestion échouée :",
+      error instanceof Error ? error.message : error,
+    );
+    return 1;
+  })
+  .then(async (code) => {
+    await fermer();
+    process.exit(code);
+  });

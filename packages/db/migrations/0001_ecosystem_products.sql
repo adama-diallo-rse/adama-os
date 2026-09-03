@@ -101,9 +101,24 @@ create policy "ecosystem_admin_write" on ecosystem_products
   for all to authenticated using (true) with check (true);
 
 -- La RLS filtre des lignes, pas des colonnes. Le nom d'un depot prive n'a
--- rien a faire dans le bundle client : on le retire explicitement de la cle
--- anon. Le feed Shipped lit cette colonne cote serveur, avec le service_role.
-revoke select (repo_full_name) on ecosystem_products from anon;
+-- rien a faire dans le bundle client : on le retire de la cle anon. Le feed
+-- Shipped lit cette colonne cote serveur, avec le service_role.
+--
+-- Corrige le 1er septembre 2026. Ce fichier portait :
+--   revoke select (repo_full_name) on ecosystem_products from anon;
+-- qui ne retire RIEN : PostgreSQL ne laisse pas un retrait de colonne annuler
+-- un privilege de table, et Supabase accorde un select de table a anon. La
+-- colonne etait donc lisible depuis le 12 aout 2026. Le seul motif qui
+-- fonctionne est celui-ci : retirer le select de table, puis accorder les
+-- colonnes lisibles une par une.
+--
+-- Les bases deja migrees ne rejouent pas ce fichier : la meme correction est
+-- appliquee par 0003_data_class.sql, section 7.
+revoke select on ecosystem_products from anon;
+grant select (
+  id, slug, name, division, pillar, description, status, url,
+  is_public, position, created_at, updated_at
+) on ecosystem_products to anon;
 
 -- =====================================================================
 -- Fin de la migration 0001.

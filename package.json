@@ -12,6 +12,12 @@
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "test": "turbo run test",
+    "inventory": "node scripts/inventory.mjs",
+    "integrity": "node scripts/integrity.mjs",
+    "freeze": "node scripts/freeze.mjs",
+    "drill": "node scripts/failure-drill.mjs",
+    "audit:render": "node scripts/audit-render.mjs",
+    "audit:secrets": "node scripts/scan-secrets.mjs",
     "format": "prettier --write \"**/*.{ts,tsx,mjs,md,json}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,mjs,md,json}\""
   },

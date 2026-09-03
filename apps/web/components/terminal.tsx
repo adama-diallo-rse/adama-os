@@ -1,13 +1,24 @@
 "use client";
 
-// L4-T9, Terminal Ctrl+K (cmdk).
-// Commandes : download cv, ping ecosysteme, book call, navigate, theme.
+// L4-T9, Terminal Ctrl+K (cmdk), etendu par C10-T11.
 //
-// Deux règles tenues ici depuis le 31 août 2026 :
+// Ce que le terminal EST devenu : le raccourci d'exploration du lecteur
+// technique. Ce qu'il n'est pas devenu, et ne deviendra pas : l'interface
+// principale du site. Un portfolio dont l'accueil serait un terminal
+// exclurait la moitie de ses lecteurs, et le premier public de ce site est
+// un recruteur.
+//
+// Trois règles tenues ici :
 //   - aucune URL de produit en dur. La liste "Explorer" est construite à
 //     partir du registre produits reçu en props (L6-T13) ;
 //   - "ping" n'invente plus de latence. Il restitue l'état réel des
-//     passerelles L9, ou dit qu'aucune sonde n'est configurée.
+//     passerelles L9, ou dit qu'aucune sonde n'est configurée ;
+//   - C10-T11, chaque commande d'inspection est branchée sur une source
+//     réelle. Aucune ne rend un texte écrit d'avance : `whoami` lit la source
+//     unique de profil, `projects` les fiches versionnées, `ecosystem` le
+//     registre, `proof` l'index de preuve, `status` les sondes, `integrity`
+//     l'artefact produit par la commande d'intégrité. Une commande qui
+//     n'aurait pas de source réelle n'existerait pas.
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Command } from "cmdk";
@@ -19,7 +30,14 @@ import {
   GITHUB_REPO_URL,
   type EcosystemProductRow,
   type GatewayStatusRow,
+  type TerminalIntegrity,
+  type TerminalProof,
 } from "./types";
+import type { CarteProjet } from "../content/projets";
+import {
+  commandesInspection,
+  type CommandeInspection,
+} from "../lib/terminal/inspect";
 import { captureEvent } from "../lib/analytics";
 import {
   LEGACY_OUTBOUND_EVENT,
@@ -79,6 +97,16 @@ type PageTarget = {
 const PAGES_INTERNES: PageTarget[] = [
   { url: "/ecosysteme", label: "Écosystème", product: "", division: "" },
   { url: "/metrics", label: "Open Metrics", product: "", division: "" },
+  { url: "/preuves", label: "Preuves", product: "", division: "" },
+  { url: "/technique", label: "Vue technique", product: "", division: "" },
+  { url: "/journal", label: "Journal", product: "", division: "" },
+  { url: "/confiance", label: "Frontières", product: "", division: "" },
+  {
+    url: "/systeme/pannes",
+    label: "Santé et pannes",
+    product: "",
+    division: "",
+  },
   {
     url: "/mentions-legales",
     label: "Mentions légales",
@@ -98,6 +126,9 @@ export function Terminal({
   onOpenChange,
   products = [],
   gateways = [],
+  cartes = [],
+  proofs = [],
+  integrity = null,
   onRecruit,
   onAskAdama,
 }: {
@@ -107,6 +138,12 @@ export function Terminal({
   products?: EcosystemProductRow[];
   /** L9 : état des passerelles, restitué par la commande ping. */
   gateways?: GatewayStatusRow[];
+  /** C5 : fiches projet versionnées, restituées par la commande projects. */
+  cartes?: CarteProjet[];
+  /** C2 : index de preuve, restitué par la commande proof. */
+  proofs?: TerminalProof[];
+  /** C12 : dernier calcul d'intégrité, restitué par la commande integrity. */
+  integrity?: TerminalIntegrity | null;
   /** L6 : ouvre le modal "Contacter Adama". */
   onRecruit?: () => void;
   /** L3-T6 : ouvre le chat adama.ai. */
@@ -121,7 +158,10 @@ export function Terminal({
   const pushLog = useCallback(
     (text: string, tone: LogLine["tone"] = "info") => {
       logId.current += 1;
-      setLogs((prev) => [...prev.slice(-5), { id: logId.current, text, tone }]);
+      setLogs((prev) => [
+        ...prev.slice(-11),
+        { id: logId.current, text, tone },
+      ]);
     },
     [],
   );
@@ -152,19 +192,27 @@ export function Terminal({
 
   const close = useCallback(() => onOpenChange(false), [onOpenChange]);
 
-  // Cibles "open ..." : les pages du site, puis les produits réellement
-  // ouverts (une URL en base est la seule autorisation de lien).
-  const cibles: PageTarget[] = [
-    ...PAGES_INTERNES,
-    ...products
-      .filter((p) => p.status === "live" && p.url)
-      .map((p) => ({
-        url: p.url as string,
-        label: p.name,
-        product: p.slug,
-        division: p.division,
-      })),
-  ];
+  const goTo = useCallback(
+    (cible: PageTarget) => {
+      close();
+      // Sortie vers un produit du groupe : on trace et on pose les UTM, avec
+      // la même convention que OutboundLink (no-op sans consentement ou sans
+      // clé PostHog).
+      if (/^https?:/.test(cible.url)) {
+        const ctx = {
+          product: cible.product,
+          division: cible.division,
+          source: "terminal",
+        };
+        captureEvent(OUTBOUND_EVENT, outboundProperties(ctx));
+        captureEvent(LEGACY_OUTBOUND_EVENT, legacyOutboundProperties(ctx));
+        window.location.href = withUtm(cible.url, "terminal");
+        return;
+      }
+      window.location.href = cible.url;
+    },
+    [close],
+  );
 
   const navigate = useCallback(
     (id: string) => {
@@ -191,27 +239,47 @@ export function Terminal({
     [close],
   );
 
-  const goTo = useCallback(
-    (cible: PageTarget) => {
-      close();
-      // Sortie vers un produit du groupe : on trace et on pose les UTM, avec
-      // la même convention que OutboundLink (no-op sans consentement ou sans
-      // clé PostHog).
-      if (/^https?:/.test(cible.url)) {
-        const ctx = {
-          product: cible.product,
-          division: cible.division,
-          source: "terminal",
-        };
-        captureEvent(OUTBOUND_EVENT, outboundProperties(ctx));
-        captureEvent(LEGACY_OUTBOUND_EVENT, legacyOutboundProperties(ctx));
-        window.location.href = withUtm(cible.url, "terminal");
+  // C10-T11. Les commandes d'inspection sont construites par un module pur,
+  // depuis les donnees recues. Le composant ne fait qu'executer et afficher.
+  const inspection = commandesInspection({
+    cartes,
+    products,
+    gateways,
+    proofs,
+    integrity,
+  });
+
+  const executer = useCallback(
+    (commande: CommandeInspection) => {
+      const { lignes, ouvrir, ancre } = commande.run();
+      for (const ligne of lignes) {
+        pushLog(ligne.text, ligne.tone);
+      }
+      if (ancre) {
+        navigate(ancre);
         return;
       }
-      window.location.href = cible.url;
+      if (ouvrir) {
+        close();
+        window.location.href = ouvrir;
+      }
     },
-    [close],
+    [pushLog, navigate, close],
   );
+
+  // Cibles "open ..." : les pages du site, puis les produits réellement
+  // ouverts (une URL en base est la seule autorisation de lien).
+  const cibles: PageTarget[] = [
+    ...PAGES_INTERNES,
+    ...products
+      .filter((p) => p.status === "live" && p.url)
+      .map((p) => ({
+        url: p.url as string,
+        label: p.name,
+        product: p.slug,
+        division: p.division,
+      })),
+  ];
 
   const downloadCv = useCallback(() => {
     const a = document.createElement("a");
@@ -381,6 +449,32 @@ export function Terminal({
                       }}
                     />
                   ) : null}
+                </Command.Group>
+
+                {/* C10-T11, l'inspection. Chaque entree lit une source
+                    reelle : profil versionne, fiches relues, registre
+                    produits, index de preuve, sondes, artefact d'integrite.
+                    La liste vient d'un module pur, elle n'est pas ecrite
+                    ici : un test verifie qu'aucune commande n'est orpheline
+                    de source. */}
+                <Command.Group
+                  heading="Inspecter"
+                  className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[0.6rem] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.18em] [&_[cmdk-group-heading]]:text-faint"
+                >
+                  {inspection.map((commande) => (
+                    <TerminalItem
+                      key={commande.value}
+                      value={commande.value}
+                      hint={commande.hint}
+                      keywords={commande.keywords}
+                      onSelect={() => executer(commande)}
+                    />
+                  ))}
+                  <TerminalItem
+                    value="contact"
+                    hint="CV et prise de rendez-vous"
+                    onSelect={bookCall}
+                  />
                 </Command.Group>
 
                 <Command.Group

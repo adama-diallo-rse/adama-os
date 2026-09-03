@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { cleanup, render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { LayerD, grouperParDivision } from "../components/layer-d";
 import type {
   AnalyticsRow,
@@ -12,6 +12,25 @@ import type {
 // AUCUNE valeur chiffrée quand la source est vide. Un repli codé en dur, même
 // bien intentionné, fait échouer ce test.
 afterEach(cleanup);
+
+// C1 puis C3. Ce fichier verifie qu'une metrique RELEVEE se rend avec l'etat
+// « source », et cet etat depend de la fraicheur : la ligne d'essai est datee
+// du 31 aout 2026 et sa duree de validite est de deux jours. Sans horloge
+// figee, le test passait le 1er septembre et echouait le 3, c'est a dire
+// qu'il devenait rouge sans qu'une seule ligne de code ait bouge.
+//
+// Un test qui depend de l'heure finit desactive, et c'est le pire des trois
+// etats possibles : on croit couvrir un comportement qui ne l'est plus.
+const MAINTENANT = new Date("2026-08-31T12:00:00.000Z");
+
+beforeEach(() => {
+  vi.useFakeTimers();
+  vi.setSystemTime(MAINTENANT);
+});
+
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 const PRODUITS: EcosystemProductRow[] = [
   {
@@ -54,6 +73,7 @@ const SONDES: GatewayStatusRow[] = [
     status: "ok",
     latencyMs: 118,
     fetchedAt: "2026-08-31T06:00:00.000Z",
+    failureKind: null,
   },
 ];
 
@@ -72,8 +92,15 @@ describe("Couche D, source présente", () => {
       metric: "disponibilite_pct",
       value: 100,
       period: "2026-08-31",
+      source: "GET /health",
       division: "STRATA",
       product_slug: "esg-optimizer",
+      created_at: "2026-08-31T06:00:00.000Z",
+      fetched_at: "2026-08-31T06:00:00.000Z",
+      data_class: "real",
+      method: "Sonde de disponibilité, appelée par le cron quotidien.",
+      max_age_seconds: null,
+      published_at: null,
     },
   ];
 
@@ -107,6 +134,39 @@ describe("Couche D, source présente", () => {
       <LayerD analytics={analytics} products={PRODUITS} gateways={SONDES} />,
     );
     expect(screen.getByText(/sonde ok · 118 ms/i)).toBeTruthy();
+  });
+
+  // C1 : la classe accompagne la valeur, partout, y compris dans le cockpit.
+  it("rend le marqueur de classe avec la valeur", () => {
+    const { container } = render(
+      <LayerD analytics={analytics} products={PRODUITS} gateways={SONDES} />,
+    );
+    expect(
+      container.querySelector(
+        "[data-testid='metric-tile'][data-proof-state='real']",
+      ),
+    ).toBeTruthy();
+    expect(container.querySelector(".proof-mark")).toBeTruthy();
+  });
+
+  // C1-T7 : « source indisponible » disait au lecteur que le produit était en
+  // panne, alors que la moitié des cas décrivent une panne du cockpit.
+  it("nomme la cause quand la sonde a échoué", () => {
+    render(
+      <LayerD
+        analytics={[]}
+        products={PRODUITS}
+        gateways={[
+          {
+            ...SONDES[0]!,
+            status: "unavailable",
+            latencyMs: null,
+            failureKind: "erreur_reseau",
+          },
+        ]}
+      />,
+    );
+    expect(screen.getByText(/sortie réseau du cockpit/i)).toBeTruthy();
   });
 });
 

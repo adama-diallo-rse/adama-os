@@ -1,0 +1,170 @@
+{
+  "$comment": [
+    "C3-T5, resultat de la derniere simulation des modes de panne.",
+    "Ecrit par `node scripts/failure-drill.mjs`, jamais a la main."
+  ],
+  "schema_version": 1,
+  "executed_at": "2026-09-02T21:37:14.042Z",
+  "reference_time": "2026-09-02T12:00:00.000Z",
+  "scenarios": [
+    {
+      "id": "nominal",
+      "titre": "Tout repond",
+      "ok": true,
+      "etats": {
+        "base": "operationnel",
+        "github": "operationnel",
+        "rag": "operationnel",
+        "passerelles": "operationnel",
+        "analytique": "operationnel",
+        "assistant": "operationnel",
+        "sauvegarde": "operationnel"
+      },
+      "ecarts": [],
+      "raisons": {}
+    },
+    {
+      "id": "github-indisponible",
+      "titre": "L'hebergeur des depots ne repond pas",
+      "ok": true,
+      "etats": {
+        "base": "operationnel",
+        "github": "degrade",
+        "rag": "operationnel",
+        "passerelles": "operationnel",
+        "analytique": "operationnel",
+        "assistant": "operationnel",
+        "sauvegarde": "operationnel"
+      },
+      "ecarts": [],
+      "raisons": {
+        "github": "6 dépôts sur 8 lus, 2 manquants et nommés plus bas."
+      }
+    },
+    {
+      "id": "jeton-github",
+      "titre": "Jeton expire ou de portee insuffisante",
+      "ok": true,
+      "etats": {
+        "base": "operationnel",
+        "github": "degrade",
+        "rag": "operationnel",
+        "passerelles": "operationnel",
+        "analytique": "operationnel",
+        "assistant": "operationnel",
+        "sauvegarde": "operationnel"
+      },
+      "ecarts": [],
+      "raisons": {
+        "github": "7 dépôts sur 8 lus, 1 manquant et nommé plus bas."
+      }
+    },
+    {
+      "id": "base-indisponible",
+      "titre": "La base de donnees ne repond pas",
+      "ok": true,
+      "etats": {
+        "base": "degrade",
+        "github": "operationnel",
+        "rag": "operationnel",
+        "passerelles": "operationnel",
+        "analytique": "operationnel",
+        "assistant": "operationnel",
+        "sauvegarde": "operationnel"
+      },
+      "ecarts": [],
+      "raisons": {
+        "base": "La base n’a pas répondu à la lecture de contrôle."
+      }
+    },
+    {
+      "id": "corpus-vide",
+      "titre": "Corpus documentaire vide ou hors sujet",
+      "ok": true,
+      "etats": {
+        "base": "operationnel",
+        "github": "operationnel",
+        "rag": "degrade",
+        "passerelles": "operationnel",
+        "analytique": "operationnel",
+        "assistant": "degrade",
+        "sauvegarde": "operationnel"
+      },
+      "ecarts": [],
+      "raisons": {
+        "rag": "Le corpus est vide : l’assistant ne peut répondre sur rien.",
+        "assistant": "Le corpus documentaire est vide ou inexploitable : l’assistant refusera de répondre."
+      }
+    },
+    {
+      "id": "api-produit",
+      "titre": "Un produit repond un etat non sain",
+      "ok": true,
+      "etats": {
+        "base": "operationnel",
+        "github": "operationnel",
+        "rag": "operationnel",
+        "passerelles": "degrade",
+        "analytique": "operationnel",
+        "assistant": "operationnel",
+        "sauvegarde": "operationnel"
+      },
+      "ecarts": [],
+      "raisons": {
+        "passerelles": "ESG Optimizer s’est déclaré en panne."
+      }
+    },
+    {
+      "id": "sortie-reseau",
+      "titre": "La sortie reseau de ce site est coupee",
+      "ok": true,
+      "etats": {
+        "base": "operationnel",
+        "github": "operationnel",
+        "rag": "operationnel",
+        "passerelles": "indetermine",
+        "analytique": "operationnel",
+        "assistant": "operationnel",
+        "sauvegarde": "operationnel"
+      },
+      "ecarts": [],
+      "raisons": {
+        "passerelles": "STRATA Scope, ESG Optimizer n’ont pas pu être joints depuis ce site. L’état du produit lui-même reste inconnu."
+      }
+    },
+    {
+      "id": "produit-retire",
+      "titre": "Un produit est retire du registre",
+      "ok": true,
+      "etats": {
+        "base": "operationnel",
+        "github": "operationnel",
+        "rag": "operationnel",
+        "passerelles": "operationnel",
+        "analytique": "operationnel",
+        "assistant": "operationnel",
+        "sauvegarde": "operationnel"
+      },
+      "ecarts": [],
+      "raisons": {}
+    },
+    {
+      "id": "cle-modele",
+      "titre": "Acces au fournisseur de modele absent",
+      "ok": true,
+      "etats": {
+        "base": "operationnel",
+        "github": "operationnel",
+        "rag": "operationnel",
+        "passerelles": "operationnel",
+        "analytique": "operationnel",
+        "assistant": "degrade",
+        "sauvegarde": "operationnel"
+      },
+      "ecarts": [],
+      "raisons": {
+        "assistant": "L’accès au fournisseur de modèle n’est pas configuré : l’assistant se déclare hors service au lieu de répondre de mémoire."
+      }
+    }
+  ]
+}

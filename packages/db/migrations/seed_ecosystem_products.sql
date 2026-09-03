@@ -18,7 +18,7 @@ values
    'live', 'https://esg-optimizer.fr', 'iroko-software-group/esg-optimizer', true, 10),
 
   ('strata-scope', 'STRATA Scope', 'STRATA', 'Empreinte carbone',
-   'Bilan carbone Scopes 1, 2 et 3 sur les facteurs officiels de la Base Empreinte ADEME. Restitution BEGES, CSRD, SBTi.',
+   'Empreinte carbone, scopes 1, 2 et 3 sur les facteurs officiels de la Base Empreinte ADEME. Restitution BEGES, CSRD, SBTi.',
    'live', 'https://scope.esg-optimizer.fr', 'adama-diallo-rse/strata-scope', true, 20),
 
   ('strata-platform', 'STRATA Platform', 'STRATA', 'Site corporate du groupe',

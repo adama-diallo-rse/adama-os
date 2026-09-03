@@ -7,12 +7,12 @@ fichier est suivi par git.
 
 ## Ce qu'il faut deposer ici
 
-| Fichier                 | Source                                        | Etat au 31 aout 2026        | Pourquoi il est dans le corpus                                                                                                               |
-| ----------------------- | --------------------------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `vsme-standard.pdf`     | EFRAG, standard volontaire PME                | ingere, 66 p., 168 chunks   | C'est la norme que le simulateur de la Couche D met en oeuvre. Sans elle, l'agent ne peut pas justifier un seul de ses resultats.            |
-| `cv-adama-diallo.pdf`   | Local, version Conseil 2 pages                | ingere, 2 p., 5 chunks      | L'agent doit repondre sur le parcours sans inventer. C'est la moitie des questions d'un recruteur.                                           |
-| `esrs-set1.pdf`         | EUR-Lex, reglement delegue (UE) 2023/2772     | depose, **pas encore ingere** | Socle reglementaire de tout le discours CSRD du dashboard. Version FR officielle au Journal officiel, 284 pages.                             |
-| Notice methodologique   | Local, a ecrire                               | absente                     | Explique comment les scores sont calcules et d'ou viennent les facteurs d'emission. C'est ce qui separe une demonstration d'une affirmation. |
+| Fichier               | Source                                    | Etat au 31 aout 2026          | Pourquoi il est dans le corpus                                                                                                               |
+| --------------------- | ----------------------------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `vsme-standard.pdf`   | EFRAG, standard volontaire PME            | ingere, 66 p., 168 chunks     | C'est la norme que le simulateur de la Couche D met en oeuvre. Sans elle, l'agent ne peut pas justifier un seul de ses resultats.            |
+| `cv-adama-diallo.pdf` | Local, version Conseil 2 pages            | ingere, 2 p., 5 chunks        | L'agent doit repondre sur le parcours sans inventer. C'est la moitie des questions d'un recruteur.                                           |
+| `esrs-set1.pdf`       | EUR-Lex, reglement delegue (UE) 2023/2772 | depose, **pas encore ingere** | Socle reglementaire de tout le discours CSRD du dashboard. Version FR officielle au Journal officiel, 284 pages.                             |
+| Notice methodologique | Local, a ecrire                           | absente                       | Explique comment les scores sont calcules et d'ou viennent les facteurs d'emission. C'est ce qui separe une demonstration d'une affirmation. |
 
 **Terminologie a connaitre.** Le texte francais officiel des ESRS ne dit jamais
 « double materialite » : il dit **« double importance »**, et la section 3 d'ESRS 1

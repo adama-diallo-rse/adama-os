@@ -3,6 +3,11 @@
 // GET /api/ecosystem/sync
 //   - exécute les passerelles déclarées (lecture seule) ;
 //   - historise dans ecosystem_analytics les métriques marquées persistables ;
+//   - trace chaque tentative de sonde et sa nature d'échec dans
+//     ecosystem_probes (C1-T7) ;
+//   - réévalue les preuves automatisables et met à jour leur observation
+//     (C2-T6). Une preuve non réévaluable garde sa date d'origine et bascule
+//     en périmée à l'échéance : rien n'est jamais inventé ;
 //   - répond par un compte rendu, sans jamais lever.
 //
 // Appelé par Vercel Cron (apps/web/vercel.json, 06:00 UTC), qui envoie
@@ -14,8 +19,10 @@
 import { NextResponse } from "next/server";
 import {
   persistImportedMetrics,
+  persistProbes,
   runAllGateways,
 } from "../../../../lib/ecosystem";
+import { refreshEvidence } from "../../../../lib/proof/refresh";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -36,7 +43,11 @@ export async function GET(req: Request) {
 
   const results = await runAllGateways();
   const metrics = results.flatMap((r) => r.metrics);
-  const outcome = await persistImportedMetrics(metrics);
+  const [outcome, probes, evidence] = await Promise.all([
+    persistImportedMetrics(metrics),
+    persistProbes(results),
+    refreshEvidence(),
+  ]);
 
   return NextResponse.json(
     {
@@ -44,10 +55,14 @@ export async function GET(req: Request) {
       gateways: results.map((r) => ({
         product: r.productSlug,
         status: r.status,
+        failureKind: r.failureKind,
+        httpStatus: r.httpStatus,
         latencyMs: r.latencyMs,
         metrics: r.metrics.length,
       })),
       persisted: outcome,
+      probes,
+      evidence,
     },
     { headers: { "Cache-Control": "no-store" } },
   );

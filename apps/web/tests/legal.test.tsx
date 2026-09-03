@@ -8,6 +8,7 @@ import {
   AUTOMATED_PROCESSING_NOTICE,
   AUTOMATED_PROCESSING_SHORT,
   MACHINE_MARKING_DEADLINE,
+  SOUS_TRAITANTS,
 } from "../lib/legal";
 
 // L10-T1, article 50 : la mention de traitement automatisé doit survivre à un
@@ -45,19 +46,47 @@ describe("mention de traitement automatisé", () => {
 });
 
 describe("pages légales", () => {
-  it("existent et citent l'éditeur et les sous-traitants réels", () => {
-    const mentions = lire("../app/mentions-legales/page.tsx");
-    const confidentialite = lire("../app/confidentialite/page.tsx");
-    expect(mentions).toContain("Vercel");
-    expect(mentions).toContain("Supabase");
+  // C11-T1. La liste des sous-traitants vivait dans /confidentialite. La page
+  // /confiance en a besoin aussi, et une seconde liste aurait diverge : c'est
+  // le meme defaut que les quatre intitules de poste de septembre 2026. Elle
+  // vit desormais dans lib/legal.ts, et les deux pages la lisent.
+  it("citent les sous-traitants réels depuis une source unique", () => {
+    const noms = SOUS_TRAITANTS.map((t) => t.nom);
     for (const soustraitant of [
       "Vercel",
       "Supabase",
       "OpenAI",
       "PostHog",
       "Sentry",
+      "Better Stack",
+      "GitHub",
     ]) {
-      expect(confidentialite).toContain(soustraitant);
+      expect(noms).toContain(soustraitant);
     }
+    for (const t of SOUS_TRAITANTS) {
+      expect(t.donnees.trim().length).toBeGreaterThan(10);
+      expect(t.region.trim().length).toBeGreaterThan(3);
+    }
+  });
+
+  it("ne recopient aucun sous-traitant en clair dans les pages", () => {
+    const confidentialite = lire("../app/confidentialite/page.tsx");
+    const confiance = lire("../app/confiance/page.tsx");
+    for (const t of SOUS_TRAITANTS) {
+      expect(
+        confidentialite,
+        `${t.nom} doit venir de la source unique`,
+      ).not.toContain(`"${t.nom}"`);
+      expect(
+        confiance,
+        `${t.nom} doit venir de la source unique`,
+      ).not.toContain(`"${t.nom}"`);
+    }
+  });
+
+  it("mentionnent l'éditeur et l'hébergeur dans les mentions légales", () => {
+    const mentions = lire("../app/mentions-legales/page.tsx");
+    expect(mentions).toContain("Vercel");
+    expect(mentions).toContain("Supabase");
   });
 });

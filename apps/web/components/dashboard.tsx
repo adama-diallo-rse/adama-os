@@ -14,9 +14,11 @@ import { RecruitModal } from "./recruit-modal";
 import { ShippedFeed } from "./shipped-feed";
 import { VsmeSimulator } from "./vsme-simulator";
 import { Terminal, useThemeBoot } from "./terminal";
-import { ArchitectureArt, ProjectArt } from "./portfolio-art";
+import { ArchitectureArt } from "./portfolio-art";
 import { SiteHeader } from "./site-header";
-import { BrandSignature } from "./brand-signature";
+import { ProjectGrid } from "./project-grid";
+import { SkillCards } from "./skill-cards";
+import { OrgLogo, marqueDe } from "./org-logo";
 import {
   CONTACT_EMAIL,
   CV_DOWNLOAD_NAME,
@@ -25,48 +27,16 @@ import {
   type DashboardData,
 } from "./types";
 import { captureEvent as capture } from "../lib/analytics";
+import { EVENT_RECRUITER_CV } from "../lib/analytics-events";
+import {
+  DISPONIBILITE,
+  EXPERIENCES,
+  FORMATION,
+  IDENTITE,
+} from "../content/profil";
+import type { CarteProjet } from "../content/projets";
 
-const projects = [
-  {
-    id: "strata",
-    category: "Durabilité",
-    number: "01",
-    name: "STRATA ESG",
-    subtitle: "Des outils pour le reporting ESG.",
-    description:
-      "Je développe notamment STRATA Scope, pour le calcul carbone, et STRATA Watch, pour suivre les publications réglementaires ESG.",
-    tags: ["RSE & ESG", "Architecture produit", "Europe"],
-    href: "/ecosysteme#strata",
-    link: "Voir les projets STRATA ESG",
-  },
-  {
-    id: "iroko",
-    category: "Afrique",
-    number: "02",
-    name: "IROKO Software Group",
-    subtitle: "La gestion d’entreprise en Afrique.",
-    description:
-      "Avec IROKO Business OS, je travaille sur la facturation et les encaissements, avec des intégrations Wave et Orange Money.",
-    tags: ["Business OS", "Systèmes de gestion", "Afrique"],
-    href: "/ecosysteme#iroko",
-    link: "Voir les projets IROKO",
-  },
-  {
-    id: "adama",
-    category: "Exploration",
-    number: "03",
-    name: "Adama OS",
-    subtitle: "Le site que vous avez sous les yeux.",
-    description:
-      "J’y rassemble mon parcours, mes projets et un journal de développement. Le code est disponible sur GitHub.",
-    tags: ["Next.js", "Open source", "Build in public"],
-    href: "#atelier",
-    link: "Entrer dans l’atelier",
-  },
-] as const;
-const filters = ["Tout", "Durabilité", "Afrique", "Exploration"] as const;
-
-export function Arrow({ diagonal = false }: { diagonal?: boolean }) {
+function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return (
     <svg
       width="20"
@@ -99,15 +69,19 @@ function SectionLabel({
   );
 }
 
-export function Dashboard({ data }: { data: DashboardData }) {
+export function Dashboard({
+  data,
+  cartes,
+  categories,
+}: {
+  data: DashboardData;
+  cartes: CarteProjet[];
+  categories: string[];
+}) {
   useThemeBoot();
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [recruitOpen, setRecruitOpen] = useState(false);
   const [adamaOpen, setAdamaOpen] = useState(false);
-  const [filter, setFilter] = useState<(typeof filters)[number]>("Tout");
-  const visibleProjects = projects.filter(
-    (p) => filter === "Tout" || p.category === filter,
-  );
   const currentFocus = data.metrics.find(
     (m) => m.key === "current_focus",
   )?.value_text;
@@ -136,45 +110,55 @@ export function Dashboard({ data }: { data: DashboardData }) {
             className="portfolio-hero portfolio-wrap"
             aria-labelledby="hero-title"
           >
+            {/* C9-T1. L'ordre de ce bloc est la couche entiere : nom,
+                trois domaines, une phrase qui vend la CAPACITE, une phrase
+                qui donne la situation, une ligne de disponibilite autonome,
+                puis trois actions et pas quatre.
+                Le budget de docs/budget.json mesure ce bloc a l'aide des
+                ancres hero-copy, hero-copy-lines, hero-actions et hero-art :
+                les renommer sans mettre le budget a jour casse la mesure, et
+                une mesure cassee compte comme un depassement. */}
             <div className="hero-copy">
               <p className="hero-eyebrow">
-                <span className="status-dot" /> RSE, DATA & DÉVELOPPEMENT
+                <span className="status-dot" />{" "}
+                {IDENTITE.domaines.join(" · ").toUpperCase()}
               </p>
               <h1 id="hero-title">
-                Adama
+                {IDENTITE.prenom}
                 <br />
-                <span className="hero-serif">Diallo.</span>
+                <span className="hero-serif">{IDENTITE.patronyme}.</span>
               </h1>
-              <p className="hero-description">
-                Je suis en stage Data ESG chez <strong>AG2R LA MONDIALE</strong>
-                . En parallèle, je développe mes propres outils :{" "}
-                <strong>STRATA ESG</strong> pour la RSE, <strong>IROKO</strong>{" "}
-                pour la gestion d’entreprise.
-              </p>
+              <div className="hero-copy-lines">
+                <p className="hero-description">{IDENTITE.capacite}</p>
+                <p className="hero-situation">{IDENTITE.situation}</p>
+                <p className="hero-availability">
+                  <span className="note-line" aria-hidden="true" />
+                  <strong>{DISPONIBILITE}</strong>
+                </p>
+              </div>
               <div className="hero-actions">
-                <a href="#projets" className="portfolio-button primary">
-                  Découvrir mes projets <Arrow diagonal />
-                </a>
                 <a
                   href={CV_PATH}
                   download={CV_DOWNLOAD_NAME}
-                  className="portfolio-text-link"
+                  className="portfolio-button primary"
                   onClick={() =>
-                    capture("recruiter_cv_download", {
+                    capture(EVENT_RECRUITER_CV, {
                       source: "portfolio-hero",
                     })
                   }
                 >
-                  Mon CV <span aria-hidden="true">↓</span>
+                  Mon CV <Arrow diagonal />
                 </a>
-              </div>
-              <div className="hero-note">
-                <span className="note-line" />
-                <span>
-                  Basé en Île-de-France.
-                  <br />
-                  <strong>Recherche CDI / CDD dès novembre 2026.</strong>
-                </span>
+                <button
+                  type="button"
+                  className="portfolio-button ghost"
+                  onClick={() => setRecruitOpen(true)}
+                >
+                  Prendre rendez-vous <Arrow diagonal />
+                </button>
+                <a href="#projets" className="portfolio-text-link">
+                  Voir ce que je construis <Arrow />
+                </a>
               </div>
             </div>
             <div className="hero-art">
@@ -194,34 +178,64 @@ export function Dashboard({ data }: { data: DashboardData }) {
               </span>
             </div>
             <div className="hero-bottom">
-              <span>PROJETS PERSONNELS ET PARCOURS PROFESSIONNEL</span>
+              <span>TROIS DOMAINES, TROIS PREUVES</span>
               <a href="#projets">
                 Explorer la suite <span aria-hidden="true">↓</span>
               </a>
             </div>
           </section>
+          {/* C9-T2. Visible sans defilement sur un ecran de bureau : c'est
+              la reponse a « que sait faire cette personne », posee avant
+              tout le reste. */}
+          <div className="portfolio-wrap">
+            <SkillCards proofStates={data.proofStates} />
+          </div>
+          {/* La bande de preuve sociale. Elle ne recopie plus les quatre noms :
+              elle lit content/profil.ts, comme le hero et le JSON-LD. Une
+              experience retiree de la source disparait d'ici sans que
+              personne ait a y penser, et le budget compte desormais la
+              source plutot que le balisage.
+
+              Une organisation dont la marque est connue s'affiche par sa
+              marque, les autres par leur nom compose. Le Ministere des
+              Finances du Senegal reste en typographie : personne ne m'a
+              fourni son logo, et fabriquer une marque officielle serait
+              exactement le genre d'invention que ce site refuse. */}
           <section
             className="experience-strip"
-            aria-label="Expériences professionnelles et engagement"
+            aria-label="Expériences, engagement associatif et formation"
           >
             <div className="portfolio-wrap experience-inner">
               <p>
-                Expériences
+                Expériences et engagement
                 <br />
-                <span>et engagement associatif</span>
+                <span>associatif, formation</span>
               </p>
-              <span className="experience-name ag2r">
-                AG2R <small>LA MONDIALE</small>
-              </span>
-              <span className="experience-name younivibe">
-                Younivibe<span aria-hidden="true">✳</span>
-              </span>
-              <span className="experience-name afev">
-                afev<span aria-hidden="true">.</span>
-              </span>
-              <span className="experience-name ministry">
-                Ministère des Finances<small>SÉNÉGAL</small>
-              </span>
+              <ul className="experience-marks">
+                {EXPERIENCES.map((exp) => (
+                  <li key={exp.id}>
+                    {marqueDe(exp.id) ? (
+                      <OrgLogo id={exp.id} nom={exp.organisation} />
+                    ) : (
+                      <span className={`experience-name ${exp.id}`}>
+                        {exp.organisation}
+                        {exp.precision && <small>{exp.precision}</small>}
+                      </span>
+                    )}
+                  </li>
+                ))}
+                {FORMATION.map((f) => (
+                  <li className="experience-formation" key={f.id}>
+                    {marqueDe(f.id) ? (
+                      <OrgLogo id={f.id} nom={f.precision} />
+                    ) : (
+                      <span className={`experience-name ${f.id}`}>
+                        {f.organisation}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
           <section
@@ -229,98 +243,33 @@ export function Dashboard({ data }: { data: DashboardData }) {
             className="portfolio-wrap portfolio-section"
             aria-labelledby="projects-title"
           >
-            <SectionLabel number="01">PROJETS PERSONNELS</SectionLabel>
+            <SectionLabel number="01">FICHES PROJET</SectionLabel>
             <div className="section-heading">
               <h2 id="projects-title">
-                Ce que je
+                Ce que j’ai
                 <br />
-                <span className="serif">développe.</span>
+                <span className="serif">construit.</span>
               </h2>
               <p>
-                STRATA ESG, IROKO et ce portfolio. Chaque projet a son propre
-                dépôt et avance à son rythme.
+                Trois fiches, le même gabarit, huit blocs chacune. Un bloc
+                entier y est consacré à ce que j’ai personnellement conçu,
+                arbitré et livré.
               </p>
             </div>
-            <div
-              className="project-filter"
-              role="group"
-              aria-label="Filtrer les projets"
-            >
-              {filters.map((value) => (
-                <button
-                  type="button"
-                  key={value}
-                  aria-pressed={filter === value}
-                  onClick={() => setFilter(value)}
-                >
-                  {value}
-                  {value === "Tout" && <span>03</span>}
-                </button>
-              ))}
-              <span className="filter-caption" aria-live="polite">
-                {visibleProjects.length} projet
-                {visibleProjects.length > 1 ? "s" : ""}
-              </span>
-            </div>
-            <div className="projects-grid">
-              {visibleProjects.map((project) => (
-                <article
-                  className={`project-card project-${project.id}`}
-                  key={project.id}
-                >
-                  <Link
-                    href={project.href}
-                    className="project-image-link"
-                    aria-label={project.link}
-                  >
-                    <div className="project-art">
-                      <span className="project-art-label">
-                        {project.category} / {project.number}
-                      </span>
-                      {project.id === "adama" ? (
-                        <ProjectArt kind={project.id} />
-                      ) : (
-                        <div
-                          className={
-                            "project-brand-art brand-art-" + project.id
-                          }
-                        >
-                          <BrandSignature brand={project.id} />
-                        </div>
-                      )}
-                      <span className="project-art-name">
-                        {project.id === "adama" ? project.name : null}
-                        <span>
-                          {project.id === "strata"
-                            ? "REPORTING DE DURABILITÉ"
-                            : project.id === "iroko"
-                              ? "LOGICIELS DE GESTION"
-                              : "PROJET PERSONNEL"}
-                        </span>
-                      </span>
-                      <span className="project-arrow">
-                        <Arrow diagonal />
-                      </span>
-                    </div>
-                  </Link>
-                  <div className="project-tags">
-                    {project.tags.map((tag) => (
-                      <span key={tag}>{tag}</span>
-                    ))}
-                  </div>
-                  <h3>{project.subtitle}</h3>
-                  <p>{project.description}</p>
-                  <Link href={project.href} className="project-link">
-                    {project.link}
-                    <Arrow />
-                  </Link>
-                </article>
-              ))}
-            </div>
+            <ProjectGrid
+              cartes={cartes}
+              categories={categories}
+              proofStates={data.proofStates}
+            />
             <p className="projects-note">
-              Les liens et l’avancement de chaque produit sont indiqués dans le{" "}
+              IROKO Software Group et les autres produits du groupe, leurs liens
+              et leur avancement, sont dans le{" "}
               <Link href="/ecosysteme">
                 registre de l’écosystème <span aria-hidden="true">↗</span>
+              </Link>
+              . Les arbitrages qui ont produit ces projets sont dans le{" "}
+              <Link href="/decisions">
+                journal des décisions <span aria-hidden="true">↗</span>
               </Link>
               .
             </p>
@@ -393,13 +342,54 @@ export function Dashboard({ data }: { data: DashboardData }) {
               </div>
             </div>
           </section>
+          {/* C6, C7 et C14. Le raisonnement est le differenciateur le plus
+              rare pour un profil junior : il a besoin d'une entree visible,
+              pas d'un lien enfoui en pied de page. */}
+          <section
+            id="pensee"
+            className="portfolio-wrap thinking-band"
+            aria-labelledby="thinking-title"
+          >
+            <div className="thinking-intro">
+              <SectionLabel number="03">COMMENT JE DÉCIDE</SectionLabel>
+              <h2 id="thinking-title">
+                Les arbitrages, <span className="serif">et leur coût.</span>
+              </h2>
+            </div>
+            <nav className="thinking-nav" aria-label="Le raisonnement">
+              <Link href="/decisions">
+                <span>Journal des décisions</span>
+                <span>
+                  Chaque décision structurante, avec les options écartées et ce
+                  qu’elle coûte.
+                </span>
+                <Arrow diagonal />
+              </Link>
+              <Link href="/revirements">
+                <span>Ce sur quoi je suis revenu</span>
+                <span>
+                  Les corrections, leur trace dans le code, et ce qu’elles ont
+                  coûté.
+                </span>
+                <Arrow diagonal />
+              </Link>
+              <Link href="/principes">
+                <span>Les principes</span>
+                <span>
+                  Cinq règles, dérivées d’erreurs réelles, chacune avec son
+                  prix.
+                </span>
+                <Arrow diagonal />
+              </Link>
+            </nav>
+          </section>
           <section
             id="parcours"
             className="portfolio-wrap portfolio-section about-section"
             aria-labelledby="about-title"
           >
             <div className="about-copy">
-              <SectionLabel number="03">EXPÉRIENCES</SectionLabel>
+              <SectionLabel number="04">EXPÉRIENCES</SectionLabel>
               <h2 id="about-title">
                 Mon <span className="serif">parcours.</span>
               </h2>
@@ -412,65 +402,52 @@ export function Dashboard({ data }: { data: DashboardData }) {
                 sur le reporting au ministère des Finances au Sénégal. À l’AFEV,
                 je me suis engagé dans le mentorat étudiant.
               </p>
-              <Link href="/?for=recruiter" className="portfolio-text-link">
+              <Link href="/recruteur" className="portfolio-text-link">
                 Voir mon profil professionnel <Arrow diagonal />
               </Link>
             </div>
+            {/* C9-T8 tenu jusqu'au bout. Cette liste recopiait les quatre
+                organisations, leurs roles et leurs categories en clair, et
+                elle avait deja diverge de la source : « Stage Data ESG &
+                Solutions IA » ici, « Data ESG et solutions IA, direction
+                RSE » dans content/profil.ts. Deux parcours pour une seule
+                personne, sur la meme page. Elle lit desormais la source. */}
             <div className="journey-list">
-              <article>
-                <span className="journey-mark" aria-hidden="true">
-                  A.
-                </span>
-                <div>
-                  <span className="journey-category">RSE × DATA</span>
-                  <h3>AG2R LA MONDIALE</h3>
-                  <p>
-                    Stage Data ESG & Solutions IA
-                    <br />
-                    Direction RSE
-                  </p>
-                </div>
-                <span className="journey-index">01</span>
-              </article>
-              <article>
-                <span className="journey-mark" aria-hidden="true">
-                  Y.
-                </span>
-                <div>
-                  <span className="journey-category">
-                    COORDINATION × IMPACT
+              {EXPERIENCES.map((exp, rang) => (
+                <article key={exp.id}>
+                  <span className="journey-mark" aria-hidden="true">
+                    {marqueDe(exp.id) ? (
+                      <OrgLogo
+                        id={exp.id}
+                        nom={exp.organisation}
+                        decoratif
+                        couleurAuSurvol={false}
+                        hauteur={30}
+                      />
+                    ) : (
+                      <span className="journey-initiale">
+                        {exp.organisation.charAt(0)}.
+                      </span>
+                    )}
                   </span>
-                  <h3>Younivibe</h3>
-                  <p>Coordination RSE & reporting</p>
-                </div>
-                <span className="journey-index">02</span>
-              </article>
-              <article>
-                <span className="journey-mark" aria-hidden="true">
-                  a.
-                </span>
-                <div>
-                  <span className="journey-category">
-                    ENGAGEMENT × TRANSMISSION
+                  <div>
+                    <span className="journey-category">{exp.categorie}</span>
+                    <h3>{exp.organisation}</h3>
+                    <p>
+                      {exp.role}
+                      {exp.precision ? (
+                        <>
+                          <br />
+                          {exp.precision}
+                        </>
+                      ) : null}
+                    </p>
+                  </div>
+                  <span className="journey-index">
+                    {String(rang + 1).padStart(2, "0")}
                   </span>
-                  <h3>AFEV</h3>
-                  <p>Engagement & mentorat étudiant</p>
-                </div>
-                <span className="journey-index">03</span>
-              </article>
-              <article>
-                <span className="journey-mark" aria-hidden="true">
-                  M.
-                </span>
-                <div>
-                  <span className="journey-category">
-                    SECTEUR PUBLIC × DONNÉES
-                  </span>
-                  <h3>Ministère des Finances</h3>
-                  <p>Sénégal · Reporting & data</p>
-                </div>
-                <span className="journey-index">04</span>
-              </article>
+                </article>
+              ))}
             </div>
           </section>
           <section
@@ -479,7 +456,7 @@ export function Dashboard({ data }: { data: DashboardData }) {
             aria-labelledby="atelier-title"
           >
             <div className="portfolio-wrap portfolio-section">
-              <SectionLabel number="04">JOURNAL DE DÉVELOPPEMENT</SectionLabel>
+              <SectionLabel number="05">JOURNAL DE DÉVELOPPEMENT</SectionLabel>
               <div className="section-heading">
                 <h2 id="atelier-title">
                   Dans <span className="serif">l’atelier.</span>
@@ -524,6 +501,12 @@ export function Dashboard({ data }: { data: DashboardData }) {
                   </span>
                 </summary>
                 <div className="cockpit-content">
+                  {/* C9-T5. Les releves personnels, poids, energie et
+                      reseaux sociaux verrouilles, vivent dans la Couche A,
+                      quatrieme bloc de ce depliant. Ils ne sont pas
+                      supprimes : ils font partie de l'esthetique du cockpit.
+                      Ils n'ont simplement rien a faire avant que le profil
+                      soit compris. */}
                   <LayerB decisions={data.decisions} />
                   <LayerC trajectory={data.trajectory} />
                   <LayerD
@@ -538,6 +521,9 @@ export function Dashboard({ data }: { data: DashboardData }) {
               <div className="atelier-bottom">
                 <Link href="/metrics">
                   Consulter les métriques publiées <Arrow diagonal />
+                </Link>
+                <Link href="/systeme">
+                  Comment ce site fonctionne <Arrow diagonal />
                 </Link>
                 <button type="button" onClick={() => setAdamaOpen(true)}>
                   Une question sur mon travail ? Adama AI <Arrow diagonal />
@@ -596,7 +582,7 @@ export function Dashboard({ data }: { data: DashboardData }) {
                 href={CV_PATH}
                 download={CV_DOWNLOAD_NAME}
                 onClick={() =>
-                  capture("recruiter_cv_download", {
+                  capture(EVENT_RECRUITER_CV, {
                     source: "portfolio-footer",
                   })
                 }
@@ -612,6 +598,7 @@ export function Dashboard({ data }: { data: DashboardData }) {
             <span>ADAMA DIALLO · PORTFOLIO</span>
             <div>
               <LegalFooterLinks />
+              <Link href="/confiance">Frontières de données</Link>
               <ConsentLink className="portfolio-cookie-link" />
             </div>
             <span>FR / ÎLE-DE-FRANCE</span>
@@ -623,6 +610,9 @@ export function Dashboard({ data }: { data: DashboardData }) {
           onOpenChange={setTerminalOpen}
           products={data.products}
           gateways={data.gateways}
+          cartes={cartes}
+          proofs={data.proofs}
+          integrity={data.integrity}
           onRecruit={() => setRecruitOpen(true)}
           onAskAdama={() => setAdamaOpen(true)}
         />

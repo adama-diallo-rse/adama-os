@@ -1,3 +1,11 @@
+import "server-only";
+
+// C11-T3. La garantie « ce module ne descend jamais dans le navigateur »
+// etait tenue par convention et par le fait qu'aucun composant client ne
+// l'importait. Elle est desormais STRUCTURELLE : `server-only` leve a
+// l'import depuis un composant client, donc une importation fautive casse la
+// construction au lieu de fuiter une cle en production.
+
 // Client Supabase serveur, clé service_role. Contourne la RLS, donc il ne
 // doit JAMAIS être importé depuis un composant client. Utilisé uniquement là
 // où la clé anon est volontairement insuffisante, par exemple la colonne

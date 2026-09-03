@@ -5,8 +5,7 @@ import "server-only";
 // text-embedding-3-small tronqué à 1024 dim, aligné sur vector(1024) en base.
 // Appel REST direct : pas de dépendance supplémentaire, clé jamais côté client.
 
-const EMBEDDING_MODEL = "text-embedding-3-small";
-const EMBEDDING_DIMENSIONS = 1024;
+import { EMBEDDING_DIMENSIONS, EMBEDDING_MODEL } from "./config";
 
 export async function embedQuery(text: string): Promise<number[]> {
   const apiKey = process.env.OPENAI_API_KEY;

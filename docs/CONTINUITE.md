@@ -83,18 +83,34 @@ export directement en production sans avoir lu son en-tête.**
 
 ### Test de restauration
 
-| Date       | Opérateur | Portée                                                | Résultat                                                                                                                                                                                                              |
-| ---------- | --------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-08-31 | Adama     | Répétition en schéma isolé, sans `pg_dump` ni `psql`  | Réussi. `decisions_log` capturée, cible de structure identique vidée puis rejouée : 3 lignes de part et d'autre, empreinte md5 identique `733d5e487e24e60e1bc6bc9b8c154a63`. Schéma `restore_rehearsal` supprimé après contrôle. La production n'a pas été touchée. |
-| _à faire_  | Adama     | Chaîne complète `backup-cockpit.ps1` puis `psql`      | _avant le 30 septembre 2026, connexion directe port 5432_                                                                                                                                                              |
+| Date       | Opérateur | Portée                                                  | Résultat                                                                                                                                                                                                                                                                                                                  |
+| ---------- | --------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-08-31 | Adama     | Répétition en schéma isolé, sans `pg_dump` ni `psql`    | Réussi. `decisions_log` capturée, cible de structure identique vidée puis rejouée : 3 lignes de part et d'autre, empreinte md5 identique `733d5e487e24e60e1bc6bc9b8c154a63`. Schéma `restore_rehearsal` supprimé après contrôle. La production n'a pas été touchée.                                                       |
+| 2026-09-02 | Adama     | Chaîne complète, 9 tables du cockpit, base de recette   | Réussi. `node scripts/restore-drill.mjs` : export `pg_dump --data-only` table par table, rejeu dans un schéma isolé de structure identique, puis comparaison du nombre de lignes ET d'une empreinte du contenu insensible à l'ordre. 9 tables sur 9 restaurées à l'identique. Rapport machine : `docs/restauration.json`. |
+| _à faire_  | Adama     | Chaîne complète sur le poste, avec `backup-cockpit.ps1` | _avant le 30 septembre 2026, connexion directe port 5432. La ligne ci-dessus établit la sémantique de restauration et l'outillage ; celle-ci établira que le fichier produit par le script PowerShell se rejoue tel quel sur le poste d'Adama._                                                                           |
 
-La première ligne établit que la sémantique de restauration tient sur ce projet :
-vider une cible puis rejouer un export rend exactement le contenu d'origine, au
-bit près. Elle n'établit pas que `pg_dump` et `psql` tournent sur le poste, ni
-que le fichier produit par `scripts/backup-cockpit.ps1` se rejoue tel quel.
-C'est l'objet de la seconde ligne, et elle seule ferme le sujet.
+La première ligne établissait la sémantique de restauration sans outillage
+réel. La deuxième, du 2 septembre 2026, l'établit **avec** `pg_dump` et
+`psql`, sur les neuf tables du cockpit, et elle est rejouable par une
+commande. La troisième reste à faire : elle seule prouvera que le fichier
+produit par `scripts/backup-cockpit.ps1` se rejoue tel quel sur le poste
+d'Adama, sous Windows.
 
 Une sauvegarde non testée n'est pas une sauvegarde.
+
+### Rejouer le test
+
+```powershell
+# Contre une base de RECETTE, jamais la production. Le script refuse une URL
+# qui ressemble a un hote de production, et il ne lit jamais DATABASE_URL.
+$env:DATABASE_URL_TEST = "postgresql://postgres@localhost:5433/postgres"
+node scripts/restore-drill.mjs --operateur "Adama"
+```
+
+Trois garde-fous, dans cet ordre : refus d'une URL de production, restauration
+**sélective** limitée aux neuf tables du cockpit, et écriture du résultat dans
+`docs/restauration.json`, que la matrice de santé et `pnpm integrity` lisent.
+Un test réussi mais non enregistré ne prouve rien à un lecteur.
 
 ## 6. Accès de secours
 
@@ -105,9 +121,13 @@ Une sauvegarde non testée n'est pas une sauvegarde.
 - projet Vercel : idem ;
 - registrar du domaine adamesg-os.fr : double authentification active et
   adresse de récupération à jour ;
-- la clé `service_role` n'est utilisée que côté serveur. Vérification :
-  `apps/web/lib/supabase/service.ts` n'est importé que par `lib/repos.ts` et
-  `lib/ecosystem/index.ts`, deux modules serveur.
+- la clé `service_role` n'est utilisée que côté serveur. Cette garantie ne
+  repose plus sur une liste d'importateurs relue à la main : depuis le
+  2 septembre 2026, `lib/supabase/service.ts`, `lib/github.ts` et
+  `lib/uptime.ts` déclarent `server-only`, qui **lève à l'import** depuis un
+  composant client. Une importation fautive casse la construction au lieu de
+  faire fuiter une clé en production, et `apps/web/tests/frontieres.test.ts`
+  vérifie que tout module lisant un secret porte cette déclaration.
 
 ## 7. Note de reprise, tout est perdu sauf le dépôt
 
@@ -115,8 +135,13 @@ Séquence exacte, une heure environ :
 
 1. créer un projet Supabase en région UE, récupérer l'URL et les clés ;
 2. exécuter dans l'éditeur SQL, dans cet ordre :
-   `0000_init.sql`, `0001_ecosystem_products.sql`, `0002_ecosystem_analytics.sql`,
-   puis `seed_ecosystem_products.sql` ;
+   `0000_init.sql`, `0001_ecosystem_products.sql`,
+   `0002_ecosystem_analytics.sql`, `0003_data_class.sql`, `0004_proof.sql`,
+   `0005_adr.sql`, `0006_revirements.sql`, puis `seed_ecosystem_products.sql`.
+   La sequence complete compte huit fichiers : s'arreter a `0002` reconstruirait
+   une base sans les classes de donnee, sans le registre de preuve, sans les
+   decisions, et surtout sans le correctif de privilege de `0003` qui a laisse
+   le nom des depots prives lisible pendant vingt jours (voir `docs/RLS.md`) ;
 3. renseigner `packages/db/.env`, puis `pnpm --filter @adama/db db:seed` ;
 4. réingérer le corpus depuis `corpus/`, document par document
    (`pnpm --filter @adama/db rag:ingest -- ...`), puis vérifier avec

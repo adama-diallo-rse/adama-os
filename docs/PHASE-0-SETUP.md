@@ -22,24 +22,18 @@ pnpm dev
 Ouvrir http://localhost:3000 → la page "Adama OS" doit s'afficher.
 Arrêter avec Ctrl+C.
 
-## 2. shadcn/ui (L0-T4), style new-york, base color zinc
+## 2. ~~shadcn/ui (L0-T4)~~ Étape annulée
 
-```powershell
-cd "C:\DEV\Adama OS\apps\web"
-pnpm dlx shadcn@latest init
-```
+**Annulée. Cette étape n'a jamais été exécutée et ne doit pas l'être.**
 
-Réponses :
+Le dépôt porte des composants maison dans `@adama/ui`. Ni shadcn/ui, ni Radix,
+ni Tremor, ni lucide ne sont installés, et `README.md` l'affirme explicitement.
+Laisser ici les commandes d'installation aurait reproduit exactement le
+précédent que `docs/COHERENCE.md` cite comme défaut à ne pas répéter : la
+documentation du dépôt a déjà annoncé quatre bibliothèques d'interface qui
+n'ont jamais été installées.
 
-- Style : **new-york** (si la question apparaît)
-- Base color : **Zinc**
-- CSS variables : **Yes**
-
-Tester un composant :
-
-```powershell
-pnpm dlx shadcn@latest add button
-```
+Constaté et corrigé le 2 septembre 2026.
 
 ## 3. Git + repo GitHub privé (L0-T1)
 

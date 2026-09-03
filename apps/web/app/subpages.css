@@ -248,6 +248,21 @@
   font-size: 22px;
   color: var(--secondary);
 }
+/* La marque du produit ouvre la tuile, l'etat la suit, la fleche ferme a
+   droite. Sans cette poussee, la repartition automatique centrerait l'etat
+   et la tuile perdrait sa lecture de gauche a droite. */
+.product-tile-top > .product-status {
+  margin-right: auto;
+}
+.product-tile .product-mark {
+  color: var(--accent-text);
+}
+.product-tile:hover .product-mark {
+  color: var(--ink);
+}
+.portfolio-label .product-mark {
+  color: var(--accent-text);
+}
 .product-status {
   display: inline-flex;
   align-items: center;
@@ -629,34 +644,18 @@
 .private-content button {
   min-height: 44px;
 }
-.recruiter-view .font-mono {
-  font-family: var(--font-sans);
-}
-.recruiter-view h1 {
-  font-size: 48px;
-  font-weight: 450;
-  letter-spacing: -0.04em;
-}
-.recruiter-view h2 {
-  font-size: 17px;
-  letter-spacing: 0;
-  text-transform: none;
-}
-.recruiter-brand-row {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-block: 24px;
-}
-.recruiter-brand-row .brand-strata {
-  font-size: 13px;
-}
-.recruiter-brand-row .brand-iroko {
-  width: 110px;
-  height: 82px;
-  border-radius: 4px;
-}
-/* Assistant keeps its own tokens so it also works inside the dark workshop. */
+/* Les regles de .recruiter-view ont ete retirees le 2 septembre 2026 avec le
+   composant du meme nom : ?for=recruiter redirige desormais vers /recruteur,
+   qui a ses propres regles dans narrative.css. Du CSS qui ne s'applique plus
+   a rien est du code mort comme un autre. */
+/* Le panneau d'Adama AI est une surface claire posee sur des pages qui ne le
+   sont pas toutes. Il ne se contente donc pas d'heriter : il declare sa
+   couleur d'encre et son schema, sur le panneau lui-meme et pas seulement
+   sur son conteneur. La nuance a coute un defaut, le 2 septembre 2026 : sur
+   la home, .portfolio [role="dialog"] visait le panneau directement et
+   gagnait contre la couleur heritee de .adama-assistant, ce qui donnait de
+   la creme sur de la creme. Une couleur posee sur un conteneur ne protege
+   pas ses descendants ; une couleur posee sur l'element, si. */
 .adama-assistant {
   color: var(--ink);
   font-family: var(--font-sans);
@@ -698,6 +697,8 @@
   left: 20px;
   bottom: 88px;
   z-index: 50;
+  color: var(--ink);
+  color-scheme: light;
   display: flex;
   flex-direction: column;
   width: min(420px, calc(100vw - 40px));
@@ -811,8 +812,43 @@
 .message-author {
   font-size: 10px;
   font-weight: 500;
-  color: var(--secondary);
+  /* Mesure du 2 septembre 2026 : var(--secondary) donnait 4.37:1 sur la
+     bulle utilisateur #e5dfd3, sous le seuil AA. Meme teinte, assombrie
+     jusqu'a 5.43:1 sur la bulle et 6.18:1 sur le fond du panneau. */
+  color: #48596a;
   margin-bottom: 5px;
+}
+/* Les documents consultes, sous la reponse. Volontairement discrets : ils
+   servent a verifier, pas a impressionner. Le numero reprend le renvoi que le
+   modele a pose dans son texte. */
+.assistant-sources {
+  margin-top: 14px;
+  padding-top: 11px;
+  border-top: 1px solid #d4d1c9;
+}
+.assistant-sources > p {
+  font: 9px var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #48596a;
+}
+.assistant-sources ol {
+  margin-top: 8px;
+  display: grid;
+  gap: 6px;
+  list-style: none;
+}
+.assistant-sources li {
+  display: flex;
+  gap: 9px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #48596a;
+}
+.assistant-sources li > span:first-child {
+  font-family: var(--font-mono);
+  color: var(--accent-text);
+  flex-shrink: 0;
 }
 .assistant-progress,
 .assistant-error {
@@ -1063,9 +1099,6 @@
   }
   .auth-form {
     padding: 24px;
-  }
-  .recruiter-brand-row {
-    flex-wrap: wrap;
   }
 }
 @media print {

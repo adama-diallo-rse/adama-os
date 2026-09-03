@@ -1,3 +1,11 @@
+import "server-only";
+
+// C11-T3. La garantie « ce module ne descend jamais dans le navigateur »
+// etait tenue par convention et par le fait qu'aucun composant client ne
+// l'importait. Elle est desormais STRUCTURELLE : `server-only` leve a
+// l'import depuis un composant client, donc une importation fautive casse la
+// construction au lieu de fuiter une cle en production.
+
 // L8-T6, Better Stack Uptime : le badge "Online" reflète un vrai statut.
 // Fetch serveur, cache 60 s, jamais bloquant : sans token / monitor ou en
 // cas d'erreur on renvoie null et le dashboard retombe sur system_metrics.

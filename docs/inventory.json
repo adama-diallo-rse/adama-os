@@ -1,0 +1,1731 @@
+{
+  "schema_version": 1,
+  "surface": {
+    "pages": 22,
+    "api_routes": 8,
+    "components": 47,
+    "lib_modules": 44,
+    "tables": 11,
+    "enums": 14,
+    "migrations": 8,
+    "policies": 21,
+    "test_files": 35,
+    "test_cases": 353,
+    "dependencies": 52
+  },
+  "pages": [
+    {
+      "file": "apps/web/app/admin/page.tsx",
+      "route": "/admin",
+      "lines": 86
+    },
+    {
+      "file": "apps/web/app/admin/relecture/page.tsx",
+      "route": "/admin/relecture",
+      "lines": 227
+    },
+    {
+      "file": "apps/web/app/checkin/page.tsx",
+      "route": "/checkin",
+      "lines": 326
+    },
+    {
+      "file": "apps/web/app/confiance/page.tsx",
+      "route": "/confiance",
+      "lines": 300
+    },
+    {
+      "file": "apps/web/app/confidentialite/page.tsx",
+      "route": "/confidentialite",
+      "lines": 182
+    },
+    {
+      "file": "apps/web/app/decisions/[adr]/page.tsx",
+      "route": "/decisions/[adr]",
+      "lines": 305
+    },
+    {
+      "file": "apps/web/app/decisions/page.tsx",
+      "route": "/decisions",
+      "lines": 148
+    },
+    {
+      "file": "apps/web/app/ecosysteme/page.tsx",
+      "route": "/ecosysteme",
+      "lines": 178
+    },
+    {
+      "file": "apps/web/app/journal/page.tsx",
+      "route": "/journal",
+      "lines": 123
+    },
+    {
+      "file": "apps/web/app/login/page.tsx",
+      "route": "/login",
+      "lines": 64
+    },
+    {
+      "file": "apps/web/app/mentions-legales/page.tsx",
+      "route": "/mentions-legales",
+      "lines": 114
+    },
+    {
+      "file": "apps/web/app/metrics/page.tsx",
+      "route": "/metrics",
+      "lines": 253
+    },
+    {
+      "file": "apps/web/app/page.tsx",
+      "route": "/",
+      "lines": 225
+    },
+    {
+      "file": "apps/web/app/preuves/page.tsx",
+      "route": "/preuves",
+      "lines": 142
+    },
+    {
+      "file": "apps/web/app/principes/page.tsx",
+      "route": "/principes",
+      "lines": 146
+    },
+    {
+      "file": "apps/web/app/projets/[slug]/page.tsx",
+      "route": "/projets/[slug]",
+      "lines": 162
+    },
+    {
+      "file": "apps/web/app/recruteur/page.tsx",
+      "route": "/recruteur",
+      "lines": 324
+    },
+    {
+      "file": "apps/web/app/revirements/page.tsx",
+      "route": "/revirements",
+      "lines": 178
+    },
+    {
+      "file": "apps/web/app/systeme/page.tsx",
+      "route": "/systeme",
+      "lines": 148
+    },
+    {
+      "file": "apps/web/app/systeme/pannes/page.tsx",
+      "route": "/systeme/pannes",
+      "lines": 148
+    },
+    {
+      "file": "apps/web/app/technique/page.tsx",
+      "route": "/technique",
+      "lines": 518
+    },
+    {
+      "file": "apps/web/app/verifier/[id]/page.tsx",
+      "route": "/verifier/[id]",
+      "lines": 297
+    }
+  ],
+  "api_routes": [
+    {
+      "file": "apps/web/app/.well-known/adama-os.json/route.ts",
+      "route": "/.well-known/adama-os.json",
+      "lines": 58
+    },
+    {
+      "file": "apps/web/app/api/chat/route.ts",
+      "route": "/api/chat",
+      "lines": 199
+    },
+    {
+      "file": "apps/web/app/api/decisions/route.ts",
+      "route": "/api/decisions",
+      "lines": 35
+    },
+    {
+      "file": "apps/web/app/api/ecosystem/route.ts",
+      "route": "/api/ecosystem",
+      "lines": 36
+    },
+    {
+      "file": "apps/web/app/api/ecosystem/sync/route.ts",
+      "route": "/api/ecosystem/sync",
+      "lines": 70
+    },
+    {
+      "file": "apps/web/app/api/metrics/route.ts",
+      "route": "/api/metrics",
+      "lines": 34
+    },
+    {
+      "file": "apps/web/app/api/trajectory/route.ts",
+      "route": "/api/trajectory",
+      "lines": 62
+    },
+    {
+      "file": "apps/web/app/llms.txt/route.ts",
+      "route": "/llms.txt",
+      "lines": 101
+    }
+  ],
+  "components": [
+    {
+      "file": "apps/web/components/adama-ai.tsx",
+      "lines": 325
+    },
+    {
+      "file": "apps/web/components/adr-chain.tsx",
+      "lines": 145
+    },
+    {
+      "file": "apps/web/components/adr-list.tsx",
+      "lines": 210
+    },
+    {
+      "file": "apps/web/components/analytics-tracker.tsx",
+      "lines": 69
+    },
+    {
+      "file": "apps/web/components/animated-number.tsx",
+      "lines": 62
+    },
+    {
+      "file": "apps/web/components/architecture-diagram.tsx",
+      "lines": 142
+    },
+    {
+      "file": "apps/web/components/automation-notice.tsx",
+      "lines": 19
+    },
+    {
+      "file": "apps/web/components/brand-signature.tsx",
+      "lines": 38
+    },
+    {
+      "file": "apps/web/components/build-log.tsx",
+      "lines": 362
+    },
+    {
+      "file": "apps/web/components/consent-banner.tsx",
+      "lines": 87
+    },
+    {
+      "file": "apps/web/components/dashboard.tsx",
+      "lines": 624
+    },
+    {
+      "file": "apps/web/components/ecosystem-catalog.tsx",
+      "lines": 186
+    },
+    {
+      "file": "apps/web/components/ecosystem-map.tsx",
+      "lines": 443
+    },
+    {
+      "file": "apps/web/components/engineering-timeline.tsx",
+      "lines": 83
+    },
+    {
+      "file": "apps/web/components/flow-diagram.tsx",
+      "lines": 220
+    },
+    {
+      "file": "apps/web/components/health-matrix.tsx",
+      "lines": 183
+    },
+    {
+      "file": "apps/web/components/hire-actions.tsx",
+      "lines": 56
+    },
+    {
+      "file": "apps/web/components/integrity-panel.tsx",
+      "lines": 184
+    },
+    {
+      "file": "apps/web/components/known-limits.tsx",
+      "lines": 77
+    },
+    {
+      "file": "apps/web/components/layer-a.tsx",
+      "lines": 232
+    },
+    {
+      "file": "apps/web/components/layer-b.tsx",
+      "lines": 143
+    },
+    {
+      "file": "apps/web/components/layer-c.tsx",
+      "lines": 189
+    },
+    {
+      "file": "apps/web/components/layer-d.tsx",
+      "lines": 395
+    },
+    {
+      "file": "apps/web/components/legal-links.tsx",
+      "lines": 20
+    },
+    {
+      "file": "apps/web/components/legal-page.tsx",
+      "lines": 87
+    },
+    {
+      "file": "apps/web/components/org-logo.tsx",
+      "lines": 115
+    },
+    {
+      "file": "apps/web/components/outbound-link.tsx",
+      "lines": 52
+    },
+    {
+      "file": "apps/web/components/page-shell.tsx",
+      "lines": 82
+    },
+    {
+      "file": "apps/web/components/portfolio-art.tsx",
+      "lines": 168
+    },
+    {
+      "file": "apps/web/components/product-mark.tsx",
+      "lines": 134
+    },
+    {
+      "file": "apps/web/components/project-grid.tsx",
+      "lines": 177
+    },
+    {
+      "file": "apps/web/components/project-sheet.tsx",
+      "lines": 270
+    },
+    {
+      "file": "apps/web/components/proof/claim-value.tsx",
+      "lines": 128
+    },
+    {
+      "file": "apps/web/components/proof/data-class.tsx",
+      "lines": 250
+    },
+    {
+      "file": "apps/web/components/proof/lineage.tsx",
+      "lines": 293
+    },
+    {
+      "file": "apps/web/components/proof/proof-index.tsx",
+      "lines": 152
+    },
+    {
+      "file": "apps/web/components/proof/proof.tsx",
+      "lines": 57
+    },
+    {
+      "file": "apps/web/components/recruit-modal.tsx",
+      "lines": 354
+    },
+    {
+      "file": "apps/web/components/recruiter-entry.tsx",
+      "lines": 41
+    },
+    {
+      "file": "apps/web/components/shipped-feed.tsx",
+      "lines": 137
+    },
+    {
+      "file": "apps/web/components/site-header.tsx",
+      "lines": 122
+    },
+    {
+      "file": "apps/web/components/site-tools.tsx",
+      "lines": 9
+    },
+    {
+      "file": "apps/web/components/skill-cards.tsx",
+      "lines": 77
+    },
+    {
+      "file": "apps/web/components/systeme-chain.tsx",
+      "lines": 97
+    },
+    {
+      "file": "apps/web/components/tech-inventory.tsx",
+      "lines": 97
+    },
+    {
+      "file": "apps/web/components/terminal.tsx",
+      "lines": 562
+    },
+    {
+      "file": "apps/web/components/vsme-simulator.tsx",
+      "lines": 550
+    }
+  ],
+  "lib_modules": [
+    {
+      "file": "apps/web/lib/adr.ts",
+      "lines": 224
+    },
+    {
+      "file": "apps/web/lib/ai/config.ts",
+      "lines": 38
+    },
+    {
+      "file": "apps/web/lib/ai/embeddings.ts",
+      "lines": 41
+    },
+    {
+      "file": "apps/web/lib/ai/prompt.ts",
+      "lines": 49
+    },
+    {
+      "file": "apps/web/lib/ai/provider.ts",
+      "lines": 18
+    },
+    {
+      "file": "apps/web/lib/ai/retrieval.ts",
+      "lines": 256
+    },
+    {
+      "file": "apps/web/lib/ai/sources.ts",
+      "lines": 51
+    },
+    {
+      "file": "apps/web/lib/analytics-events.ts",
+      "lines": 64
+    },
+    {
+      "file": "apps/web/lib/analytics.ts",
+      "lines": 112
+    },
+    {
+      "file": "apps/web/lib/chantiers.ts",
+      "lines": 247
+    },
+    {
+      "file": "apps/web/lib/ecosystem/client.ts",
+      "lines": 143
+    },
+    {
+      "file": "apps/web/lib/ecosystem/gateways.ts",
+      "lines": 168
+    },
+    {
+      "file": "apps/web/lib/ecosystem/index.ts",
+      "lines": 197
+    },
+    {
+      "file": "apps/web/lib/ecosystem/map.ts",
+      "lines": 199
+    },
+    {
+      "file": "apps/web/lib/ecosystem/types.ts",
+      "lines": 66
+    },
+    {
+      "file": "apps/web/lib/github.ts",
+      "lines": 245
+    },
+    {
+      "file": "apps/web/lib/health/collect.ts",
+      "lines": 240
+    },
+    {
+      "file": "apps/web/lib/health/criteria.ts",
+      "lines": 459
+    },
+    {
+      "file": "apps/web/lib/health/observations.ts",
+      "lines": 110
+    },
+    {
+      "file": "apps/web/lib/health/types.ts",
+      "lines": 167
+    },
+    {
+      "file": "apps/web/lib/integrity.ts",
+      "lines": 99
+    },
+    {
+      "file": "apps/web/lib/inventory.ts",
+      "lines": 155
+    },
+    {
+      "file": "apps/web/lib/legal.ts",
+      "lines": 116
+    },
+    {
+      "file": "apps/web/lib/metrics.ts",
+      "lines": 35
+    },
+    {
+      "file": "apps/web/lib/og.tsx",
+      "lines": 152
+    },
+    {
+      "file": "apps/web/lib/outbound.ts",
+      "lines": 73
+    },
+    {
+      "file": "apps/web/lib/proof/claims.ts",
+      "lines": 256
+    },
+    {
+      "file": "apps/web/lib/proof/demo.ts",
+      "lines": 27
+    },
+    {
+      "file": "apps/web/lib/proof/metrics.ts",
+      "lines": 83
+    },
+    {
+      "file": "apps/web/lib/proof/refresh.ts",
+      "lines": 250
+    },
+    {
+      "file": "apps/web/lib/proof/types.ts",
+      "lines": 169
+    },
+    {
+      "file": "apps/web/lib/proof/well-known.ts",
+      "lines": 210
+    },
+    {
+      "file": "apps/web/lib/rate-limit.ts",
+      "lines": 98
+    },
+    {
+      "file": "apps/web/lib/repos.ts",
+      "lines": 164
+    },
+    {
+      "file": "apps/web/lib/site.ts",
+      "lines": 41
+    },
+    {
+      "file": "apps/web/lib/supabase/client.ts",
+      "lines": 14
+    },
+    {
+      "file": "apps/web/lib/supabase/config.ts",
+      "lines": 10
+    },
+    {
+      "file": "apps/web/lib/supabase/middleware.ts",
+      "lines": 51
+    },
+    {
+      "file": "apps/web/lib/supabase/public.ts",
+      "lines": 27
+    },
+    {
+      "file": "apps/web/lib/supabase/server.ts",
+      "lines": 35
+    },
+    {
+      "file": "apps/web/lib/supabase/service.ts",
+      "lines": 36
+    },
+    {
+      "file": "apps/web/lib/terminal/inspect.ts",
+      "lines": 297
+    },
+    {
+      "file": "apps/web/lib/trajectory.ts",
+      "lines": 130
+    },
+    {
+      "file": "apps/web/lib/uptime.ts",
+      "lines": 59
+    }
+  ],
+  "database": {
+    "tables": [
+      "decisions_log",
+      "ecosystem_analytics",
+      "ecosystem_probes",
+      "ecosystem_products",
+      "leads",
+      "proof_claims",
+      "proof_evidence",
+      "rag_chunks",
+      "rag_documents",
+      "system_metrics",
+      "trajectory"
+    ],
+    "enums": [
+      "adr_impact",
+      "adr_reversibility",
+      "adr_scope",
+      "adr_status",
+      "data_class",
+      "ecosystem_status",
+      "lead_source",
+      "probe_failure_kind",
+      "proof_evidence_kind",
+      "proof_subject_type",
+      "proof_verifiable_by",
+      "proof_visibility",
+      "trajectory_status",
+      "trajectory_type"
+    ],
+    "migrations": [
+      "packages/db/migrations/0000_init.sql",
+      "packages/db/migrations/0001_ecosystem_products.sql",
+      "packages/db/migrations/0002_ecosystem_analytics.sql",
+      "packages/db/migrations/0003_data_class.sql",
+      "packages/db/migrations/0004_proof.sql",
+      "packages/db/migrations/0005_adr.sql",
+      "packages/db/migrations/0006_revirements.sql",
+      "packages/db/migrations/seed_ecosystem_products.sql"
+    ],
+    "policies": [
+      "decisions_log.decisions_admin_write",
+      "decisions_log.decisions_auth_read_all",
+      "decisions_log.decisions_public_read_published",
+      "ecosystem_analytics.ecosystem_analytics_admin_write",
+      "ecosystem_analytics.ecosystem_analytics_public_read",
+      "ecosystem_probes.ecosystem_probes_public_read",
+      "ecosystem_probes.ecosystem_probes_service_write",
+      "ecosystem_products.ecosystem_admin_write",
+      "ecosystem_products.ecosystem_public_read",
+      "leads.leads_admin_read",
+      "leads.leads_public_insert",
+      "proof_claims.proof_claims_public_read",
+      "proof_claims.proof_claims_service_write",
+      "proof_evidence.proof_evidence_public_read",
+      "proof_evidence.proof_evidence_service_write",
+      "rag_chunks.rag_chunks_admin_all",
+      "rag_documents.rag_documents_admin_all",
+      "system_metrics.system_metrics_admin_write",
+      "system_metrics.system_metrics_public_read",
+      "trajectory.trajectory_admin_write",
+      "trajectory.trajectory_public_read"
+    ],
+    "policies_declared": [
+      "audit_requests.audit_admin_read",
+      "audit_requests.audit_admin_update",
+      "audit_requests.audit_public_insert",
+      "decisions_log.decisions_admin_write",
+      "decisions_log.decisions_auth_read_all",
+      "decisions_log.decisions_public_read_published",
+      "ecosystem_analytics.ecosystem_analytics_admin_write",
+      "ecosystem_analytics.ecosystem_analytics_public_read",
+      "ecosystem_probes.ecosystem_probes_public_read",
+      "ecosystem_probes.ecosystem_probes_service_write",
+      "ecosystem_products.ecosystem_admin_write",
+      "ecosystem_products.ecosystem_public_read",
+      "leads.leads_admin_read",
+      "leads.leads_public_insert",
+      "proof_claims.proof_claims_public_read",
+      "proof_claims.proof_claims_service_write",
+      "proof_evidence.proof_evidence_public_read",
+      "proof_evidence.proof_evidence_service_write",
+      "rag_chunks.rag_chunks_admin_all",
+      "rag_documents.rag_documents_admin_all",
+      "strata_analytics.strata_admin_write",
+      "strata_analytics.strata_public_read",
+      "system_metrics.system_metrics_admin_write",
+      "system_metrics.system_metrics_public_read",
+      "trajectory.trajectory_admin_write",
+      "trajectory.trajectory_public_read"
+    ],
+    "rls_tables": [
+      "audit_requests",
+      "decisions_log",
+      "ecosystem_analytics",
+      "ecosystem_probes",
+      "ecosystem_products",
+      "leads",
+      "proof_claims",
+      "proof_evidence",
+      "rag_chunks",
+      "rag_documents",
+      "strata_analytics",
+      "system_metrics",
+      "trajectory"
+    ]
+  },
+  "tests": {
+    "files": [
+      "apps/web/tests/adama-ai.test.tsx",
+      "apps/web/tests/adama-moteur.test.ts",
+      "apps/web/tests/analytics-consent.test.ts",
+      "apps/web/tests/analytics-events.test.ts",
+      "apps/web/tests/api-contract.test.ts",
+      "apps/web/tests/budget.test.ts",
+      "apps/web/tests/config-redirects.test.ts",
+      "apps/web/tests/cv.test.ts",
+      "apps/web/tests/decisions.test.ts",
+      "apps/web/tests/ecosystem-catalog.test.tsx",
+      "apps/web/tests/ecosystem-gateway.test.ts",
+      "apps/web/tests/ecosystem-map.test.tsx",
+      "apps/web/tests/frontieres.test.ts",
+      "apps/web/tests/health.test.tsx",
+      "apps/web/tests/integrite.test.tsx",
+      "apps/web/tests/journal.test.ts",
+      "apps/web/tests/layer-d.test.tsx",
+      "apps/web/tests/legal.test.tsx",
+      "apps/web/tests/narrative.test.tsx",
+      "apps/web/tests/no-fabrication.test.ts",
+      "apps/web/tests/outbound.test.ts",
+      "apps/web/tests/principes.test.ts",
+      "apps/web/tests/profil.test.ts",
+      "apps/web/tests/projets.test.ts",
+      "apps/web/tests/proof-claim.test.ts",
+      "apps/web/tests/proof-refresh.test.ts",
+      "apps/web/tests/proof-render.test.tsx",
+      "apps/web/tests/proof-well-known.test.ts",
+      "apps/web/tests/rate-limit.test.ts",
+      "apps/web/tests/recruit-modal.test.tsx",
+      "apps/web/tests/retrieval.integration.test.ts",
+      "apps/web/tests/rls.integration.test.ts",
+      "apps/web/tests/site.test.ts",
+      "apps/web/tests/technique.test.tsx",
+      "apps/web/tests/trajectory.test.ts"
+    ],
+    "cases": 353
+  },
+  "rendu": {
+    "pages": 13,
+    "pages_mesurees": 13,
+    "anomalies": 0,
+    "non_mesurees": 0,
+    "poids_max_ko": 925,
+    "noeuds_max": 786
+  },
+  "dependencies": [
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@adama/config",
+      "range": "workspace:*",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@adama/db",
+      "range": "workspace:*",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@adama/ui",
+      "range": "workspace:*",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@ai-sdk/openai",
+      "range": "^2.0.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@ai-sdk/react",
+      "range": "^2.0.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@sentry/nextjs",
+      "range": "^10.53.1",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@supabase/ssr",
+      "range": "^0.5.2",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@supabase/supabase-js",
+      "range": "^2.47.10",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@tailwindcss/postcss",
+      "range": "^4.0.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@testing-library/react",
+      "range": "^16.1.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@types/node",
+      "range": "^22.10.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@types/react",
+      "range": "^19.0.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@types/react-dom",
+      "range": "^19.0.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@vitejs/plugin-react",
+      "range": "^4.3.4",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "ai",
+      "range": "^5.0.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "cmdk",
+      "range": "^1.1.1",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "drizzle-orm",
+      "range": "^0.36.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "eslint",
+      "range": "^9.18.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "eslint-config-next",
+      "range": "^16.0.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "eslint-config-prettier",
+      "range": "^9.1.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "framer-motion",
+      "range": "^12.0.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "geist",
+      "range": "^1.3.1",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "jsdom",
+      "range": "^25.0.1",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "next",
+      "range": "^16.0.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "posthog-js",
+      "range": "^1.200.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "react",
+      "range": "^19.0.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "react-dom",
+      "range": "^19.0.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "tailwindcss",
+      "range": "^4.0.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "typescript",
+      "range": "^5.7.3",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "vitest",
+      "range": "^3.0.5",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "package.json",
+      "name": "prettier",
+      "range": "^3.4.2",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "package.json",
+      "name": "turbo",
+      "range": "^2.10.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "package.json",
+      "name": "typescript",
+      "range": "^5.7.3",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "packages/config/package.json",
+      "name": "@eslint/js",
+      "range": "^9.18.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "packages/config/package.json",
+      "name": "eslint-config-prettier",
+      "range": "^9.1.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "packages/config/package.json",
+      "name": "globals",
+      "range": "^15.14.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "packages/config/package.json",
+      "name": "typescript-eslint",
+      "range": "^8.20.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "packages/db/package.json",
+      "name": "@adama/config",
+      "range": "workspace:*",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "packages/db/package.json",
+      "name": "dotenv",
+      "range": "^16.4.7",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "packages/db/package.json",
+      "name": "drizzle-kit",
+      "range": "^0.28.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "packages/db/package.json",
+      "name": "drizzle-orm",
+      "range": "^0.36.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "packages/db/package.json",
+      "name": "eslint",
+      "range": "^9.18.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "packages/db/package.json",
+      "name": "postgres",
+      "range": "^3.4.5",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "packages/db/package.json",
+      "name": "tsx",
+      "range": "^4.19.2",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "packages/db/package.json",
+      "name": "typescript",
+      "range": "^5.7.3",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "packages/db/package.json",
+      "name": "unpdf",
+      "range": "^0.12.1",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "packages/ui/package.json",
+      "name": "@adama/config",
+      "range": "workspace:*",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "packages/ui/package.json",
+      "name": "@types/react",
+      "range": "^19.0.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "packages/ui/package.json",
+      "name": "clsx",
+      "range": "^2.1.1",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "packages/ui/package.json",
+      "name": "eslint",
+      "range": "^9.18.0",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "packages/ui/package.json",
+      "name": "tailwind-merge",
+      "range": "^3.0.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "packages/ui/package.json",
+      "name": "typescript",
+      "range": "^5.7.3",
+      "kind": "devDependencies"
+    }
+  ],
+  "env_vars": [
+    "ADAMA_AI_MODEL",
+    "ADAMA_AI_RATE_LIMIT",
+    "ADAMA_AI_RATE_WINDOW_S",
+    "ADAMA_HIDE_DEMO",
+    "BETTERSTACK_API_TOKEN",
+    "BETTERSTACK_MONITOR_ID",
+    "CI",
+    "CRON_SECRET",
+    "DATABASE_URL",
+    "ECOSYSTEM_ESG_OPTIMIZER_API_URL",
+    "ECOSYSTEM_SCOPE_API_URL",
+    "GITHUB_REPOS",
+    "GITHUB_TOKEN",
+    "NEXT_PUBLIC_CAL_LINK",
+    "NEXT_PUBLIC_POSTHOG_HOST",
+    "NEXT_PUBLIC_POSTHOG_KEY",
+    "NEXT_PUBLIC_SENTRY_DSN",
+    "NEXT_PUBLIC_SITE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_VERCEL_URL",
+    "NEXT_RUNTIME",
+    "NODE_ENV",
+    "OPENAI_API_KEY",
+    "SENTRY_AUTH_TOKEN",
+    "SENTRY_ORG",
+    "SENTRY_PROJECT",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "VERCEL_URL"
+  ],
+  "analytics_events": [
+    "adr_opened",
+    "build_log_raw",
+    "ecosystem_outbound",
+    "proof_pack_download",
+    "proof_verify_opened",
+    "recruiter_cal_opened",
+    "recruiter_cv_download",
+    "recruiter_intent",
+    "recruiter_modal_opened",
+    "recruiter_view_print",
+    "strata_outbound",
+    "technique_opened"
+  ],
+  "outbound_hosts": [
+    "${vercel_host}",
+    "adamesg-os.fr",
+    "api.github.com",
+    "api.openai.com",
+    "cal.com",
+    "esg-optimizer.fr",
+    "eu.i.posthog.com",
+    "github.com",
+    "schema.org",
+    "scope.esg-optimizer.fr",
+    "uptime.betterstack.com"
+  ],
+  "hardcoded_self_urls": [],
+  "markers": [],
+  "long_dashes": [],
+  "legacy_names": [
+    {
+      "name": "strata_analytics",
+      "hits": []
+    },
+    {
+      "name": "services/engine",
+      "hits": [
+        "packages/db/src/adr-catalogue.ts"
+      ]
+    },
+    {
+      "name": "adama-os-web.vercel.app",
+      "hits": []
+    },
+    {
+      "name": "FALLBACK",
+      "hits": [
+        "apps/web/lib/repos.ts",
+        "apps/web/lib/site.ts"
+      ]
+    }
+  ],
+  "dead": [
+    {
+      "id": "apps/web/app/api/chat/route.ts#questionDeRecherche",
+      "kind": "export",
+      "declared_intentional": "Regle de construction de la question envoyee a la recherche documentaire, dans la route qui l'emploie. Exportee pour etre verifiee directement : c'est une regle de comportement, pas un detail d'implementation, et la tester a travers une requete HTTP complete demanderait une base et une cle d'API. Voir tests/adama-moteur.test.ts."
+    },
+    {
+      "id": "apps/web/components/build-log.tsx#JournalFiltres",
+      "kind": "export",
+      "declared_intentional": "Forme des filtres du journal, produite par lireFiltres et consommee par BuildLog dans le meme fichier. Exportee parce que la page /journal la transporte entre les deux : c'est le contrat de l'etat porte par l'URL."
+    },
+    {
+      "id": "apps/web/components/health-matrix.tsx#HealthMark",
+      "kind": "export",
+      "declared_intentional": "Le marqueur d'etat de sante, seul endroit qui decide de son rendu. Exporte au meme titre que DataClassMark pour C1 : le jour ou un etat de sante s'affiche ailleurs, il doit venir d'ici et non d'une seconde composition."
+    },
+    {
+      "id": "apps/web/components/types.ts#TrajectoryType",
+      "kind": "export",
+      "declared_intentional": "Type du champ `type` de la table trajectory. Utilise dans ce meme fichier par TrajectoryRow, exporte pour rester citable par un composant a venir. Le retirer forcerait a reecrire l'union en clair a chaque usage."
+    },
+    {
+      "id": "apps/web/content/cv.ts#AffirmationCv",
+      "kind": "export",
+      "declared_intentional": "Forme d'une affirmation verifiable du CV. Contrat du contenu editorial, utilise par AFFIRMATIONS_CV dans ce meme fichier et par tests/cv.test.ts."
+    },
+    {
+      "id": "apps/web/content/divisions.ts#LIBELLE_DIVISION",
+      "kind": "export",
+      "declared_intentional": "Table des libelles editoriaux de division, lue par libelleDivision dans ce meme fichier. Exportee parce que c'est le contenu relu : une division renommee se corrige ici, et un test ou une page qui voudrait verifier la table doit pouvoir la citer sans passer par la fonction."
+    },
+    {
+      "id": "apps/web/content/frontieres.ts#Flux",
+      "kind": "export",
+      "declared_intentional": "Forme d'un flux de donnees entrant, sortant ou interdit. Contrat du contenu de la page /confiance."
+    },
+    {
+      "id": "apps/web/content/frontieres.ts#Interdit",
+      "kind": "export",
+      "declared_intentional": "Forme d'une regle de la liste « ce qui n'entre jamais », avec le test qui la verrouille ou son absence declaree. Contrat du contenu."
+    },
+    {
+      "id": "apps/web/content/frontieres.ts#SensFlux",
+      "kind": "export",
+      "declared_intentional": "Union des trois sens d'un flux. Utilisee par Flux dans ce meme fichier et par la mise en page du tableau."
+    },
+    {
+      "id": "apps/web/content/pannes.ts#ModePanne",
+      "kind": "export",
+      "declared_intentional": "Forme d'un mode de panne. Contrat du contenu de /systeme/pannes, relu par scripts/failure-drill.mjs qui refuse de tourner si un identifiant de simulation n'a pas de scenario."
+    },
+    {
+      "id": "apps/web/content/projets/gabarit.ts#BlocRole",
+      "kind": "export",
+      "declared_intentional": "Forme du bloc 02 d'une fiche projet, le plus important du gabarit. Utilise par FicheProjet dans ce meme fichier, exporte pour qu'un composant ou un test puisse typer ce bloc sans reecrire sa forme. Contrat public du gabarit."
+    },
+    {
+      "id": "apps/web/lib/adr.ts#AdrPreuveKind",
+      "kind": "export",
+      "declared_intentional": "Union des natures de trace d'une decision. Utilisee par AdrPreuve et par la table PREUVE_KIND_LABEL du meme fichier. Contrat public du module, au meme titre que EvidenceKind pour lib/proof/claims.ts."
+    },
+    {
+      "id": "apps/web/lib/adr.ts#AdrReversibilite",
+      "kind": "export",
+      "declared_intentional": "Union des trois niveaux de reversibilite. Miroir du type Postgres adr_reversibility, utilisee par AdrRow et par les deux tables de libelles du meme fichier. Contrat public du module."
+    },
+    {
+      "id": "apps/web/lib/adr.ts#AdrRow",
+      "kind": "export",
+      "declared_intentional": "Forme brute d'une ligne du journal d'architecture, telle que la cle anonyme la lit. Le type Adr, servi aux pages, l'etend. Exporte comme contrat de lecture : un appelant qui interrogerait decisions_log autrement doit pouvoir typer sa reponse de la meme facon."
+    },
+    {
+      "id": "apps/web/lib/ai/retrieval.ts#RetrievalOptions",
+      "kind": "export",
+      "declared_intentional": "Type des options publiques de la recherche vectorielle. Documente la signature au point d'appel, meme quand les appelants se contentent des valeurs par defaut."
+    },
+    {
+      "id": "apps/web/lib/analytics-events.ts#EvenementConnu",
+      "kind": "export",
+      "declared_intentional": "Union des noms d'evenements reellement emis. Contrat public du module, derive de EVENEMENTS."
+    },
+    {
+      "id": "apps/web/lib/analytics.ts#CONSENT_KEY",
+      "kind": "export",
+      "declared_intentional": "Nom de la cle de stockage du consentement. Exporte pour qu'un test ou un futur outil de purge n'ait jamais a la recopier en clair."
+    },
+    {
+      "id": "apps/web/lib/analytics.ts#ConsentValue",
+      "kind": "export",
+      "declared_intentional": "Union des deux valeurs de consentement. Contrat public du module, utilise dans ses propres signatures."
+    },
+    {
+      "id": "apps/web/lib/chantiers.ts#MetriquesJournal",
+      "kind": "export",
+      "declared_intentional": "Forme des trois mesures d'execution honnetes. Le test verifie la liste EXACTE de ses cles : l'ajout d'un indicateur de livraison non mesure fait echouer la suite, ce qui est exactement le garde-fou voulu."
+    },
+    {
+      "id": "apps/web/lib/ecosystem/client.ts#GetJsonOptions",
+      "kind": "export",
+      "declared_intentional": "Type des options du client des passerelles L9. Contrat public du module."
+    },
+    {
+      "id": "apps/web/lib/ecosystem/client.ts#GetJsonResult",
+      "kind": "export",
+      "declared_intentional": "Type de retour du client des passerelles L9. Contrat public du module."
+    },
+    {
+      "id": "apps/web/lib/ecosystem/index.ts#PersistOutcome",
+      "kind": "export",
+      "declared_intentional": "Compte rendu d'historisation renvoye par persistImportedMetrics, serialise tel quel par /api/ecosystem/sync. Contrat de la reponse."
+    },
+    {
+      "id": "apps/web/lib/ecosystem/map.ts#MapEdge",
+      "kind": "export",
+      "declared_intentional": "Forme d'une arete du graphe. Contrat du modele de carte, verifie par tests/ecosystem-map.test.tsx qui s'assure qu'aucune arete ne part du cockpit."
+    },
+    {
+      "id": "apps/web/lib/ecosystem/map.ts#MapInput",
+      "kind": "export",
+      "declared_intentional": "Forme des entrees du constructeur de carte. Contrat public du module, ecrit pour que la page nomme ce qu'elle fournit."
+    },
+    {
+      "id": "apps/web/lib/ecosystem/map.ts#NodeKind",
+      "kind": "export",
+      "declared_intentional": "Union des trois types de noeud. Utilisee par MapNode dans ce meme fichier, contrat du modele."
+    },
+    {
+      "id": "apps/web/lib/github.ts#RepoFeedStatus",
+      "kind": "export",
+      "declared_intentional": "Etat de lecture d'un depot, avec sa raison en francais courant. Contrat du journal et de la matrice de sante : c'est ce type qui rend impossible l'omission silencieuse d'un depot."
+    },
+    {
+      "id": "apps/web/lib/health/collect.ts#FRAICHEUR_RESTAURATION_JOURS",
+      "kind": "export",
+      "declared_intentional": "Age au dela duquel un test de restauration ne dit plus rien du present. Exporte pour etre cite dans un test plutot que recopie, comme la fraicheur d'integrite."
+    },
+    {
+      "id": "apps/web/lib/health/collect.ts#observer",
+      "kind": "export",
+      "declared_intentional": "La collecte seule, sans la deduction d'etat. Exportee comme couture : fetchHealthMatrix l'enchaine avec les regles, et un appelant qui voudrait observer sans conclure passe par la."
+    },
+    {
+      "id": "apps/web/lib/health/criteria.ts#ageEnJours",
+      "kind": "export",
+      "declared_intentional": "Calcul d'age en jours, employe par deux capacites de ce fichier. Exporte comme contrat : la fraicheur du corpus et celle de la restauration doivent se calculer de la meme facon."
+    },
+    {
+      "id": "apps/web/lib/integrity.ts#IntegrityControl",
+      "kind": "export",
+      "declared_intentional": "Forme d'un controle d'integrite tel que le rapport le porte. Contrat de lecture de docs/integrity.json."
+    },
+    {
+      "id": "apps/web/lib/legal.ts#SousTraitant",
+      "kind": "export",
+      "declared_intentional": "Forme d'un sous-traitant. Contrat de la source unique lue par /confidentialite et par /confiance : une seconde liste aurait diverge."
+    },
+    {
+      "id": "apps/web/lib/og.tsx#tronquer",
+      "kind": "export",
+      "declared_intentional": "Regle de debordement des images de partage, appliquee aux trois zones du gabarit dans ce meme fichier. Exportee comme contrat : c'est un ARBITRAGE, troncature au mot plutot que reduction de corps, et il doit rester citable et testable sans monter une image entiere."
+    },
+    {
+      "id": "apps/web/lib/outbound.ts#OutboundContext",
+      "kind": "export",
+      "declared_intentional": "Contexte d'un lien sortant, contrat du module de tracage."
+    },
+    {
+      "id": "apps/web/lib/proof/claims.ts#EvidenceKind",
+      "kind": "export",
+      "declared_intentional": "Union des natures de preuve. Miroir du type Postgres proof_evidence_kind, utilisee dans EvidenceRow et dans EVIDENCE_KIND_LABEL. Contrat public du module."
+    },
+    {
+      "id": "apps/web/lib/proof/claims.ts#ProofSubjectType",
+      "kind": "export",
+      "declared_intentional": "Union des natures de sujet d'une affirmation. Miroir du type Postgres proof_subject_type, utilisee dans ClaimRow et dans la table SUBJECT_LABEL du meme fichier. Contrat public du module."
+    },
+    {
+      "id": "apps/web/lib/proof/claims.ts#ProofVisibility",
+      "kind": "export",
+      "declared_intentional": "Union des visibilites d'une affirmation. Passee en option a listClaims par les appelants, sous forme litterale. Contrat public du module."
+    },
+    {
+      "id": "apps/web/lib/proof/claims.ts#VerifiableBy",
+      "kind": "export",
+      "declared_intentional": "Union des personnes pouvant refaire une verification. Miroir du type Postgres, utilisee dans EvidenceRow et dans VERIFIABLE_LABEL. Contrat public du module."
+    },
+    {
+      "id": "apps/web/lib/proof/metrics.ts#DEFAULT_MAX_AGE_SECONDS",
+      "kind": "export",
+      "declared_intentional": "Duree de validite par defaut d'un releve de passerelle, deux jours. Exportee pour etre citable par un test ou une migration a venir plutot que recopiee en clair : c'est une regle du projet, pas un detail d'implementation."
+    },
+    {
+      "id": "apps/web/lib/proof/refresh.ts#RefreshOutcome",
+      "kind": "export",
+      "declared_intentional": "Compte rendu de reevaluation renvoye par refreshEvidence, serialise tel quel dans la reponse de /api/ecosystem/sync. Contrat de la reponse, au meme titre que PersistOutcome."
+    },
+    {
+      "id": "apps/web/lib/proof/types.ts#ProbeFailureKind",
+      "kind": "export",
+      "declared_intentional": "Union des natures d'echec de sonde. Miroir du type Postgres probe_failure_kind, utilisee par Claim et par la table FAILURE_LABEL du meme fichier. Contrat public du module."
+    },
+    {
+      "id": "apps/web/lib/proof/well-known.ts#WellKnownClaim",
+      "kind": "export",
+      "declared_intentional": "Forme d'une affirmation dans le document machine. Partie du meme contrat que WellKnownDocument."
+    },
+    {
+      "id": "apps/web/lib/proof/well-known.ts#WellKnownDocument",
+      "kind": "export",
+      "declared_intentional": "Forme du document machine servi a /.well-known/adama-os.json. Type de retour de buildWellKnown, et contrat propose a un tiers qui consommerait le document."
+    },
+    {
+      "id": "apps/web/lib/proof/well-known.ts#WellKnownEvidence",
+      "kind": "export",
+      "declared_intentional": "Forme d'une preuve dans le document machine. Partie du meme contrat que WellKnownDocument."
+    },
+    {
+      "id": "apps/web/lib/rate-limit.ts#RateLimiter",
+      "kind": "export",
+      "declared_intentional": "Contrat du garde-fou de debit de /api/chat."
+    },
+    {
+      "id": "apps/web/lib/rate-limit.ts#RateLimitVerdict",
+      "kind": "export",
+      "declared_intentional": "Verdict rendu par le garde-fou de debit, contrat du module."
+    },
+    {
+      "id": "apps/web/lib/repos.ts#TrackedRepos",
+      "kind": "export",
+      "declared_intentional": "Liste des depots suivis AVEC la source qui l'a fournie. Contrat du resolveur : c'est ce champ qui a ferme le mode degrade muet du journal."
+    },
+    {
+      "id": "apps/web/lib/terminal/inspect.ts#ContexteInspection",
+      "kind": "export",
+      "declared_intentional": "Forme des donnees dont les commandes d'inspection ont besoin. Contrat du module pur, ecrit pour que le composant nomme ce qu'il fournit."
+    },
+    {
+      "id": "apps/web/lib/terminal/inspect.ts#LigneTerminal",
+      "kind": "export",
+      "declared_intentional": "Forme d'une ligne de sortie du terminal. Contrat du module pur."
+    },
+    {
+      "id": "apps/web/lib/terminal/inspect.ts#SortieCommande",
+      "kind": "export",
+      "declared_intentional": "Ce qu'une commande produit : des lignes, une destination, ou les deux. Contrat du module pur, et c'est lui qui garantit qu'une commande ne touche ni au DOM ni au routeur."
+    },
+    {
+      "id": "apps/web/lib/terminal/inspect.ts#sujetsPreuve",
+      "kind": "export",
+      "declared_intentional": "Sujets proposes a la commande proof, derives du registre. Exportee pour etre verifiable sans monter le terminal entier."
+    },
+    {
+      "id": "apps/web/lib/uptime.ts#UptimeStatus",
+      "kind": "export",
+      "declared_intentional": "Union des etats Better Stack, contrat du module."
+    },
+    {
+      "id": "apps/web/package.json#@types/node",
+      "kind": "dependency",
+      "declared_intentional": "Types Node consommes implicitement par TypeScript via `types` du tsconfig. Jamais importes par un fichier source, indispensables au typecheck."
+    },
+    {
+      "id": "apps/web/package.json#@types/react",
+      "kind": "dependency",
+      "declared_intentional": "Types React resolus implicitement par TypeScript. Meme raison."
+    },
+    {
+      "id": "apps/web/package.json#@types/react-dom",
+      "kind": "dependency",
+      "declared_intentional": "Types React DOM resolus implicitement par TypeScript. Meme raison."
+    },
+    {
+      "id": "apps/web/package.json#react-dom",
+      "kind": "dependency",
+      "declared_intentional": "Rendu DOM de React, charge par Next.js lui-meme. Aucun fichier de l'application ne l'importe directement, l'application ne demarre pas sans lui."
+    },
+    {
+      "id": "packages/db/src/adr-catalogue.ts#AdrPreuveKind",
+      "kind": "export",
+      "declared_intentional": "Meme union que celle de apps/web/lib/adr.ts, cote catalogue. Le catalogue est la source de verite du contenu ADR : ses types forment son contrat, ils ne sont pas du code appele."
+    },
+    {
+      "id": "packages/db/src/adr-catalogue.ts#AdrReversibilite",
+      "kind": "export",
+      "declared_intentional": "Voir AdrPreuveKind du meme fichier."
+    },
+    {
+      "id": "packages/db/src/client.ts#closeDb",
+      "kind": "export",
+      "declared_intentional": "Fermeture explicite de la connexion, appelee par ingest.ts et verify-rag.ts a travers un import dynamique que la detection ne suit pas. Sans elle, process.exit laisse une poignee ouverte et le code de sortie ment sous Windows."
+    },
+    {
+      "id": "packages/db/src/index.ts#DB_PACKAGE",
+      "kind": "export",
+      "declared_intentional": "Marqueur d'identite du paquet, lu a l'oeil dans un journal ou une session Node pour verifier quel paquet est charge."
+    },
+    {
+      "id": "packages/db/src/schema.ts#adrImpact",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#adrReversibility",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#adrScope",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#adrStatus",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#dataClass",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#Decision",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#EcosystemAnalytic",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#EcosystemProbe",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#ecosystemProbes",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#EcosystemProduct",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#ecosystemStatus",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#Lead",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#leads",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#leadSource",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#NewDecision",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#NewEcosystemAnalytic",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#NewEcosystemProbe",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#NewEcosystemProduct",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#NewLead",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#NewProofClaim",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#NewProofEvidence",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#NewRagChunk",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#NewRagDocument",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#NewSystemMetric",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#NewTrajectoryItem",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#probeFailureKind",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#proofClaimsRelations",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#ProofEvidence",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#proofEvidenceKind",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#proofEvidenceRelations",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#proofSubjectType",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#proofVerifiableBy",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#proofVisibility",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#RagChunk",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#ragChunksRelations",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#RagDocument",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#ragDocumentsRelations",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#SystemMetric",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#TrajectoryItem",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#trajectoryStatus",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/db/src/schema.ts#trajectoryType",
+      "kind": "export",
+      "declared_intentional": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit."
+    },
+    {
+      "id": "packages/ui/package.json#@types/react",
+      "kind": "dependency",
+      "declared_intentional": "Types React du paquet de composants, resolus implicitement par TypeScript."
+    },
+    {
+      "id": "packages/ui/src/index.ts#UI_PACKAGE",
+      "kind": "export",
+      "declared_intentional": "Meme role que DB_PACKAGE pour @adama/ui."
+    }
+  ],
+  "budgets": [
+    {
+      "id": "n1_titre_home",
+      "level": "N1",
+      "label": "Titres dans l'accroche de la home",
+      "max": 1,
+      "value": 1,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "n1_lignes_home",
+      "level": "N1",
+      "label": "Lignes de texte dans l'accroche de la home",
+      "max": 3,
+      "value": 3,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "n1_actions_home",
+      "level": "N1",
+      "label": "Actions proposees dans l'accroche de la home",
+      "max": 3,
+      "value": 3,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "n1_cartes_competence",
+      "level": "N1",
+      "label": "Cartes de competence sous l'accroche",
+      "max": 3,
+      "value": 3,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "n2_projets_home",
+      "level": "N2",
+      "label": "Fiches projet mises en avant sur la home",
+      "max": 3,
+      "value": 3,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "n2_preuves_cockpit",
+      "level": "N2",
+      "label": "Preuves sociales affichees d'un bloc dans la Couche D",
+      "max": 4,
+      "value": 1,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "n2_experiences_home",
+      "level": "N2",
+      "label": "Experiences citees dans le bandeau de la home",
+      "max": 4,
+      "value": 4,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "n2_marques_home",
+      "level": "N2",
+      "label": "Marques d'organisation affichees sur le site",
+      "max": 5,
+      "value": 4,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "surface_pages",
+      "level": "surface",
+      "label": "Routes de page",
+      "max": 24,
+      "value": 22,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "surface_api",
+      "level": "surface",
+      "label": "Routes d'API",
+      "max": 10,
+      "value": 8,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "surface_composants",
+      "level": "surface",
+      "label": "Composants",
+      "max": 50,
+      "value": 47,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "surface_lib",
+      "level": "surface",
+      "label": "Modules lib",
+      "max": 46,
+      "value": 44,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "taille_composant",
+      "level": "surface",
+      "label": "Lignes du plus gros composant",
+      "max": 700,
+      "value": 624,
+      "broken": false,
+      "over": false
+    },
+    {
+      "id": "taille_lib",
+      "level": "surface",
+      "label": "Lignes du plus gros module lib",
+      "max": 460,
+      "value": 459,
+      "broken": false,
+      "over": false
+    }
+  ]
+}

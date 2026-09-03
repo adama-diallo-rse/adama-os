@@ -5,6 +5,8 @@ import { useChat } from "@ai-sdk/react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { AutomationNotice } from "./automation-notice";
 import { AUTOMATED_PROCESSING_SHORT } from "../lib/legal";
+import { libelleSource } from "../lib/ai/sources";
+import type { AdamaUIMessage, SourceConsultee } from "../lib/ai/sources";
 
 const SUGGESTIONS = [
   {
@@ -21,7 +23,7 @@ const SUGGESTIONS = [
   },
 ];
 
-function MessageText({ parts }: { parts: { type: string; text?: string }[] }) {
+function MessageText({ parts }: { parts: AdamaUIMessage["parts"] }) {
   return (
     <>
       {parts.map((part, i) =>
@@ -33,6 +35,71 @@ function MessageText({ parts }: { parts: { type: string; text?: string }[] }) {
       )}
     </>
   );
+}
+
+/**
+ * Les documents reellement consultes pour construire la reponse.
+ *
+ * Ce bloc n'est pas redige par le modele. Il est emis par la route a partir
+ * de ce que la recherche a rapporte, avant meme le premier mot de la
+ * reponse. Les numeros sont ceux que le modele emploie entre crochets dans
+ * son texte : [2] renvoie ici a la source 2, et c'est verifie par
+ * tests/retrieval.integration.test.ts.
+ */
+function Sources({ sources }: { sources: SourceConsultee[] }) {
+  if (sources.length === 0) return null;
+  return (
+    <div className="assistant-sources">
+      <p>
+        {sources.length === 1
+          ? "Document consulté"
+          : `${sources.length} documents consultés`}
+      </p>
+      <ol>
+        {sources.map((source) => (
+          <li key={source.rang}>
+            <span aria-hidden="true">[{source.rang}]</span>
+            <span>
+              <span className="sr-only">Source {source.rang} : </span>
+              {libelleSource(source)}
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+/**
+ * Le message d'erreur a montrer.
+ *
+ * La route repond deja en clair : « Trop de questions d'affilee », « Base
+ * documentaire injoignable ». Ces phrases n'arrivaient jamais jusqu'a
+ * l'ecran, remplacees par un message unique, et une personne limitee en debit
+ * lisait donc la meme chose qu'une personne devant une base en panne. Le
+ * corps de la reponse est du JSON produit par ce site : s'il porte un champ
+ * `error` en chaine, il est affichable tel quel. Tout le reste, y compris une
+ * trace technique, reste derriere la phrase generique.
+ */
+export function messageDErreur(error: Error | undefined): string | null {
+  if (!error) return null;
+  const generique =
+    "La réponse n’a pas pu être chargée. Réessayez dans un instant.";
+  try {
+    const corps: unknown = JSON.parse(error.message);
+    if (
+      corps !== null &&
+      typeof corps === "object" &&
+      "error" in corps &&
+      typeof (corps as { error: unknown }).error === "string"
+    ) {
+      const texte = (corps as { error: string }).error.trim();
+      return texte.length > 0 && texte.length <= 200 ? texte : generique;
+    }
+  } catch {
+    // Pas du JSON : rien a en tirer, on ne montre pas la chaine brute.
+  }
+  return generique;
 }
 
 export function AdamaAi({
@@ -47,7 +114,8 @@ export function AdamaAi({
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const stickToBottom = useRef(true);
-  const { messages, sendMessage, status, error, stop } = useChat();
+  const { messages, sendMessage, status, error, stop } =
+    useChat<AdamaUIMessage>();
   const busy = status === "submitted" || status === "streaming";
 
   useEffect(() => {
@@ -194,6 +262,11 @@ export function AdamaAi({
                         {message.role === "user" ? "Vous" : "Adama AI"}
                       </p>
                       <MessageText parts={message.parts} />
+                      <Sources
+                        sources={message.parts.flatMap((part) =>
+                          part.type === "data-sources" ? part.data : [],
+                        )}
+                      />
                     </div>
                   ))}
                 </div>
@@ -205,7 +278,7 @@ export function AdamaAi({
               )}
               {error && (
                 <p className="assistant-error" role="alert">
-                  La réponse n’a pas pu être chargée. Réessayez dans un instant.
+                  {messageDErreur(error)}
                 </p>
               )}
             </div>

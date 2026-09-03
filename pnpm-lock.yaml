@@ -72,9 +72,6 @@ importers:
       '@adama/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@eslint/eslintrc':
-        specifier: ^3.2.0
-        version: 3.3.5
       '@tailwindcss/postcss':
         specifier: ^4.0.0
         version: 4.3.1

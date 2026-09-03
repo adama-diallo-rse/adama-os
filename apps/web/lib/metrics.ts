@@ -26,21 +26,9 @@ export function metricLabel(key: string): string {
   );
 }
 
-/** Suffixe d'unité déduit de la clé (pour l'instant : pourcentages). */
-export function metricSuffix(key: string): string {
-  return key.endsWith("_pct") ? "%" : "";
-}
-
-/** Décimales : 1 pour les valeurs non entières (pourcentages fins), 0 sinon. */
-export function metricDecimals(value: number): number {
-  return Number.isInteger(value) ? 0 : 1;
-}
-
-/** Formatage FR d'une valeur de métrique, avec suffixe optionnel. */
-export function formatMetric(value: number, key: string): string {
-  const formatted = new Intl.NumberFormat("fr-FR", {
-    minimumFractionDigits: metricDecimals(value),
-    maximumFractionDigits: metricDecimals(value),
-  }).format(value);
-  return `${formatted}${metricSuffix(key)}`;
-}
+// C1. Les trois fonctions de formatage qui vivaient ici, metricSuffix,
+// metricDecimals et formatMetric, ont ete retirees : le formatage d'une
+// valeur appartient desormais au composant qui rend un Claim, et le suffixe
+// d'unite est derive dans lib/proof/metrics.ts, au meme endroit que le reste
+// de la conversion d'une ligne de base. Les garder en double aurait laisse
+// deux verites sur la facon d'ecrire un nombre.

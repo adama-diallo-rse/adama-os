@@ -44,6 +44,11 @@ export default async function AdminPage() {
         <Link href="/checkin" className="portfolio-button primary">
           Mettre à jour les relevés →
         </Link>
+        {/* C6-T8 : un ADR non relu n'est servi nulle part. C'est ici, et
+            seulement ici, qu'il se lit avant publication. */}
+        <Link href="/admin/relecture" className="portfolio-button ghost">
+          Relire les décisions à publier →
+        </Link>
         <section className="metrics-history">
           <h2>Relevés actuels</h2>
           {error ? (

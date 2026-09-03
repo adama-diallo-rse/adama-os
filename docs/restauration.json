@@ -1,0 +1,92 @@
+{
+  "$comment": [
+    "C12-T4, dernier test de restauration reellement execute.",
+    "Ecrit par `node scripts/restore-drill.mjs`, jamais a la main.",
+    "executed_at a null signifie qu'aucun test n'a jamais eu lieu : la",
+    "politique de sauvegarde est alors une intention, et le site le dit.",
+    "result vaut partiel quand aucune table ne portait de ligne : le chemin a",
+    "ete parcouru, mais rien n'a ete restaure, donc rien n'est prouve."
+  ],
+  "schema_version": 2,
+  "executed_at": "2026-09-02T21:33:22.398Z",
+  "result": "reussi",
+  "operator": "banc de recette local",
+  "scope": "tables du cockpit uniquement, restauration sélective, jamais la base entière",
+  "target": "base de recette locale, schéma isolé",
+  "tables": [
+    {
+      "name": "system_metrics",
+      "rows_before": 9,
+      "rows_after": 9,
+      "md5": "21f34458563c78ae8766786b4e421d2c",
+      "state": "reussi",
+      "ok": true
+    },
+    {
+      "name": "decisions_log",
+      "rows_before": 15,
+      "rows_after": 15,
+      "md5": "a2308e7188ba21be3b2f50753b8d3982",
+      "state": "reussi",
+      "ok": true
+    },
+    {
+      "name": "trajectory",
+      "rows_before": 4,
+      "rows_after": 4,
+      "md5": "717db21ada8aac2898e3467d72eb047c",
+      "state": "reussi",
+      "ok": true
+    },
+    {
+      "name": "ecosystem_products",
+      "rows_before": 8,
+      "rows_after": 8,
+      "md5": "e10b047bf6d2dab0f906df3969e23419",
+      "state": "reussi",
+      "ok": true
+    },
+    {
+      "name": "ecosystem_analytics",
+      "rows_before": 0,
+      "rows_after": 0,
+      "md5": "vide",
+      "state": "non_exerce",
+      "ok": false
+    },
+    {
+      "name": "ecosystem_probes",
+      "rows_before": 0,
+      "rows_after": 0,
+      "md5": "vide",
+      "state": "non_exerce",
+      "ok": false
+    },
+    {
+      "name": "proof_claims",
+      "rows_before": 13,
+      "rows_after": 13,
+      "md5": "5d735e771e51f17529df9885294a2fff",
+      "state": "reussi",
+      "ok": true
+    },
+    {
+      "name": "proof_evidence",
+      "rows_before": 19,
+      "rows_after": 19,
+      "md5": "78c69dc76ecd63be2a12d42eb1b36132",
+      "state": "reussi",
+      "ok": true
+    },
+    {
+      "name": "leads",
+      "rows_before": 0,
+      "rows_after": 0,
+      "md5": "vide",
+      "state": "non_exerce",
+      "ok": false
+    }
+  ],
+  "tables_exercees": 6,
+  "notes": "Pour chaque table : export des données seules, rejeu dans un schéma isolé de structure identique, puis comparaison du nombre de lignes et d'une empreinte du contenu insensible à l'ordre."
+}

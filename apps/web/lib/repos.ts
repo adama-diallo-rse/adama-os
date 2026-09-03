@@ -24,6 +24,24 @@ export type TrackedRepo = {
   division: string;
 };
 
+/**
+ * C8 et C3, la source qui a effectivement repondu.
+ *
+ * Le mode degrade de ce resolveur etait MUET jusqu'ici : quand la migration
+ * 0001 n'etait pas passee ou que la base ne repondait pas, le feed se
+ * reduisait a un seul depot sans que rien ne le dise a l'ecran. Un journal
+ * qui montre un dixieme de l'activite en ayant l'air complet ment par
+ * omission. La source est donc remontee avec la liste, et l'ecran la nomme.
+ */
+export type RepoSource = "registre" | "environnement" | "repli";
+
+export type TrackedRepos = {
+  repos: TrackedRepo[];
+  source: RepoSource;
+  /** Raison du repli, en francais courant. Null quand la source est le registre. */
+  reason: string | null;
+};
+
 /** Dépôt du cockpit lui-même. Repli quand rien n'est configuré, pour que le
  *  feed reste vivant en local sans variable d'environnement. */
 const FALLBACK_REPO: TrackedRepo = {
@@ -31,6 +49,9 @@ const FALLBACK_REPO: TrackedRepo = {
   product: "Adama OS",
   division: "Cockpit",
 };
+
+/** Instance unique du repli, pour que l'appelant puisse la reconnaitre. */
+const FALLBACK_LIST: TrackedRepo[] = [FALLBACK_REPO];
 
 const FULL_NAME_RE = /^[\w.-]+\/[\w.-]+$/;
 
@@ -95,7 +116,7 @@ async function fromEcosystemProducts(): Promise<TrackedRepo[]> {
 function fromEnv(): TrackedRepo[] {
   const raw = process.env.GITHUB_REPOS?.trim();
   if (!raw) {
-    return [FALLBACK_REPO];
+    return FALLBACK_LIST;
   }
   const parsed = raw
     .split(",")
@@ -106,13 +127,37 @@ function fromEnv(): TrackedRepo[] {
     console.error(
       "[shipped] GITHUB_REPOS est défini mais aucune entrée n'est valide, repli sur le dépôt du cockpit.",
     );
-    return [FALLBACK_REPO];
+    return FALLBACK_LIST;
   }
   return parsed;
 }
 
-/** Liste des dépôts à agréger dans le feed. Jamais vide. */
-export async function listTrackedRepos(): Promise<TrackedRepo[]> {
+/**
+ * Liste des dépôts à agréger, AVEC la source qui l'a fournie.
+ *
+ * C'est cette fonction que le journal et la matrice de santé appellent :
+ * elles ont besoin de savoir si elles regardent la liste complète du groupe
+ * ou un repli, parce que les deux ne racontent pas la même chose.
+ */
+export async function resolveTrackedRepos(): Promise<TrackedRepos> {
   const fromDb = await fromEcosystemProducts();
-  return fromDb.length > 0 ? fromDb : fromEnv();
+  if (fromDb.length > 0) {
+    return { repos: fromDb, source: "registre", reason: null };
+  }
+  const raw = process.env.GITHUB_REPOS?.trim();
+  const repos = fromEnv();
+  if (raw && repos !== FALLBACK_LIST) {
+    return {
+      repos,
+      source: "environnement",
+      reason:
+        "Le registre produits n’a pas répondu : la liste des dépôts vient de la configuration, elle peut être incomplète.",
+    };
+  }
+  return {
+    repos,
+    source: "repli",
+    reason:
+      "Ni le registre produits ni la configuration n’ont fourni de liste : seul le dépôt de ce site est lu.",
+  };
 }

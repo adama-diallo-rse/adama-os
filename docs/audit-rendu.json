@@ -1,0 +1,328 @@
+{
+  "base": "http://localhost:3112",
+  "pages": [
+    {
+      "page": "/",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 28,
+        "longueur": 4487,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 640,
+        "document_pret_ms": 223,
+        "poids_ko": 925,
+        "noeuds": 786
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/recruteur",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 10,
+        "longueur": 3163,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 340,
+        "document_pret_ms": 126,
+        "poids_ko": 714,
+        "noeuds": 293
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/technique",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 14,
+        "longueur": 13222,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 312,
+        "document_pret_ms": 111,
+        "poids_ko": 644,
+        "noeuds": 588
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/confiance",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 18,
+        "longueur": 9530,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 300,
+        "document_pret_ms": 101,
+        "poids_ko": 652,
+        "noeuds": 377
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/journal",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 17,
+        "longueur": 5914,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 336,
+        "document_pret_ms": 211,
+        "poids_ko": 658,
+        "noeuds": 321
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/systeme",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 12,
+        "longueur": 4354,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 268,
+        "document_pret_ms": 90,
+        "poids_ko": 644,
+        "noeuds": 292
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/systeme/pannes",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 26,
+        "longueur": 11782,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 448,
+        "document_pret_ms": 301,
+        "poids_ko": 646,
+        "noeuds": 629
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/ecosysteme",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 6,
+        "longueur": 1781,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 288,
+        "document_pret_ms": 124,
+        "poids_ko": 661,
+        "noeuds": 167
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/preuves",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 3,
+        "longueur": 1323,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 260,
+        "document_pret_ms": 119,
+        "poids_ko": 646,
+        "noeuds": 158
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/decisions",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 3,
+        "longueur": 1582,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 272,
+        "document_pret_ms": 100,
+        "poids_ko": 650,
+        "noeuds": 141
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/principes",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 7,
+        "longueur": 4529,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 320,
+        "document_pret_ms": 116,
+        "poids_ko": 646,
+        "noeuds": 240
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/revirements",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 3,
+        "longueur": 992,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 264,
+        "document_pret_ms": 104,
+        "poids_ko": 646,
+        "noeuds": 123
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/metrics",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 6,
+        "longueur": 1433,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 272,
+        "document_pret_ms": 108,
+        "poids_ko": 647,
+        "noeuds": 151
+      },
+      "statut": 200,
+      "mesuree": true
+    }
+  ],
+  "executed_at": "2026-09-02T21:32:23.200Z",
+  "anomalies": 0,
+  "non_mesurees": 0,
+  "resume": {
+    "pages": 13,
+    "pages_mesurees": 13,
+    "anomalies": 0,
+    "non_mesurees": 0,
+    "premier_rendu_max_ms": 640,
+    "poids_max_ko": 925,
+    "noeuds_max": 786
+  }
+}

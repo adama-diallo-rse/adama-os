@@ -5,7 +5,11 @@ import {
   LegalPage,
   LegalSection,
 } from "../../components/legal-page";
-import { AUTOMATED_PROCESSING_NOTICE, EDITEUR } from "../../lib/legal";
+import {
+  AUTOMATED_PROCESSING_NOTICE,
+  EDITEUR,
+  SOUS_TRAITANTS,
+} from "../../lib/legal";
 
 // L10-T2, politique de confidentialité et de cookies du cockpit.
 // Écrite à partir de ce que le code fait réellement, pas d'un modèle : chaque
@@ -52,27 +56,6 @@ const TRAITEMENTS: Traitement[] = [
     duree:
       "aucune conservation par le cockpit, ni compte ni historique côté site",
   },
-];
-
-const SOUS_TRAITANTS: { label: string; value: string }[] = [
-  { label: "Vercel", value: "hébergement du site, exécution en région Paris" },
-  {
-    label: "Supabase",
-    value: "base de données, région Union européenne (Irlande)",
-  },
-  {
-    label: "OpenAI",
-    value:
-      "génération des réponses et vectorisation des questions d'adama.ai, États-Unis",
-  },
-  { label: "PostHog", value: "mesure d'audience, région Union européenne" },
-  { label: "Sentry", value: "journalisation des erreurs applicatives" },
-  { label: "Better Stack", value: "supervision de disponibilité" },
-  {
-    label: "GitHub",
-    value: "lecture publique des commits affichés dans le feed",
-  },
-  { label: "Cal.com", value: "prise de rendez-vous, ouverte à la demande" },
 ];
 
 export default function ConfidentialitePage() {
@@ -135,7 +118,12 @@ export default function ConfidentialitePage() {
           Chaque service listé ci-dessous intervient sur une partie précise du
           site. Aucun autre service tiers n&apos;est chargé par les pages.
         </p>
-        <LegalDefinitionList items={SOUS_TRAITANTS} />
+        <LegalDefinitionList
+          items={SOUS_TRAITANTS.map((t) => ({
+            label: t.nom,
+            value: `${t.donnees}, ${t.region}`,
+          }))}
+        />
         <p>
           Deux d&apos;entre eux sont établis hors Union européenne : Vercel et
           OpenAI. Les transferts correspondants reposent sur les clauses

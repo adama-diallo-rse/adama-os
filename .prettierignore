@@ -8,3 +8,9 @@ build
 coverage
 pnpm-lock.yaml
 .next/types
+
+# C0-T5 : artefacts produits par scripts/inventory.mjs. Les reformater ferait
+# echouer `pnpm inventory --check`, qui les regenere et compare octet pour
+# octet. Un fichier genere ne se met pas en forme a la main.
+docs/inventory.json
+docs/INVENTORY.md

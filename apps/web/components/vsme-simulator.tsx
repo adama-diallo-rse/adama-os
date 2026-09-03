@@ -1,10 +1,22 @@
 "use client";
 
-// L4-T12, Simulateur VSME interactif.
+// L4-T12, prototype VSME interactif. Recadré par la couche C1-T6.
+//
+// Ce qui a changé, et pourquoi. Le composant affichait « Score ESG, 74 / 100 »
+// avec une mention « Exemplaire », c'est à dire exactement la forme d'un
+// résultat d'évaluation. Il n'en est pas un : c'est une fonction de calcul
+// écrite ici, sur des données saisies par le visiteur, sans référentiel opposé
+// et sans audit. Un lecteur pressé n'avait aucun moyen de le savoir.
+//
+// Il est donc présenté pour ce qu'il est : un prototype de traitement. Entrée,
+// transformation, sortie, avec les règles appliquées visibles à l'écran. La
+// logique de calcul n'a pas bougé d'une ligne, seuls le cadrage et la
+// restitution ont changé.
+//
 // Saisie de quelques indicateurs du Module de Base VSME (norme volontaire
-// EFRAG pour PME) réparties en trois piliers E / S / G, et score ESG calculé
-// instantanément côté client. Aucun appel réseau : le calcul est une fonction
-// pure, ce qui rend le widget robuste et immédiat.
+// EFRAG pour PME) répartis en trois piliers E / S / G. Aucun appel réseau :
+// le calcul est une fonction pure, ce qui rend le prototype robuste et
+// immédiat.
 //
 // Note hydratation : composant entièrement contrôlé avec un état initial fixe.
 // Le serveur et le client rendent le même markup au premier rendu. Les seules
@@ -215,12 +227,39 @@ function pillarScore(spec: PillarSpec, values: Record<string, number>): number {
 
 type Rating = { label: string; variant: "default" | "emerald" | "warning" };
 
+// C1-T6, restitution. Les seuils n'ont pas bougé, les libellés si. « Exemplaire »
+// est un jugement de valeur, et ce prototype n'est pas en position d'en porter
+// un : il décrit la complétude de ce que le visiteur vient de déclarer, rien
+// d'autre.
 function rating(score: number): Rating {
-  if (score >= 80) return { label: "Exemplaire", variant: "emerald" };
-  if (score >= 60) return { label: "Avancé", variant: "emerald" };
-  if (score >= 40) return { label: "Structuré", variant: "warning" };
-  return { label: "Amorçage", variant: "default" };
+  if (score >= 80)
+    return { label: "Déclaration très complète", variant: "emerald" };
+  if (score >= 60) return { label: "Déclaration avancée", variant: "emerald" };
+  if (score >= 40)
+    return { label: "Déclaration partielle", variant: "warning" };
+  return { label: "Déclaration au démarrage", variant: "default" };
 }
+
+// Les règles réellement appliquées par le code ci-dessus, écrites en clair.
+// Elles sont affichées à l'écran : un traitement dont on ne peut pas lire les
+// règles n'est pas vérifiable, il est seulement joli.
+const REGLES = [
+  {
+    etape: "Entrée",
+    texte:
+      "15 déclarations saisies par vous, 8 curseurs de 0 à 100 et 7 réponses oui ou non. Rien n’est envoyé, rien n’est enregistré.",
+  },
+  {
+    etape: "Transformation",
+    texte:
+      "Chaque déclaration est ramenée entre 0 et 1, un oui vaut 1 et un non vaut 0. Chaque pilier fait la moyenne pondérée de ses déclarations.",
+  },
+  {
+    etape: "Sortie",
+    texte:
+      "Les trois piliers sont combinés avec les poids E 40, S 35 et G 25. Le résultat est un indice de complétude de la déclaration, pas une note de performance.",
+  },
+];
 
 function Gauge({ score }: { score: number }) {
   const r = 52;
@@ -259,7 +298,7 @@ function Gauge({ score }: { score: number }) {
           {Math.round(score)}
         </span>
         <span className="font-mono text-[0.55rem] uppercase tracking-[0.2em] text-faint">
-          / 100
+          indice / 100
         </span>
       </div>
     </div>
@@ -383,12 +422,30 @@ export function VsmeSimulator() {
   return (
     <Card id="simulateur" className="scroll-mt-24">
       <CardHeader>
-        <CardTitle>Simulateur VSME, Score ESG</CardTitle>
-        <div className="flex items-center gap-2">
-          <Badge variant="emerald">Interactif</Badge>
+        <CardTitle>
+          Prototype VSME, traitement d&apos;un questionnaire
+        </CardTitle>
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge variant="emerald">Prototype interactif</Badge>
           <Badge variant="default">Module de Base</Badge>
+          <Badge variant="warning">Ni évaluation, ni certification</Badge>
         </div>
       </CardHeader>
+
+      <CardContent className="border-b border-border pb-4 pt-0">
+        <p className="max-w-3xl text-sm leading-relaxed text-muted">
+          Exemple de traitement d&apos;un questionnaire selon une logique
+          inspirée du Module de Base VSME. Vous saisissez des déclarations, le
+          prototype leur applique des règles écrites ci-dessous et restitue une
+          sortie.{" "}
+          <strong className="text-foreground">
+            Ce n&apos;est ni une évaluation, ni une certification, ni un avis
+            sur la conformité
+          </strong>{" "}
+          d&apos;une organisation : aucune pièce n&apos;est demandée, aucune
+          déclaration n&apos;est vérifiée, aucun référentiel n&apos;est opposé.
+        </p>
+      </CardContent>
 
       <CardContent className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_18rem]">
         {/* Saisie, 3 piliers */}
@@ -431,12 +488,14 @@ export function VsmeSimulator() {
               <Gauge score={overall} />
               <div className="min-w-0 space-y-1.5">
                 <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-faint">
-                  Score ESG global
+                  Sortie du traitement
                 </p>
                 <Badge variant={badge.variant} dot>
                   {badge.label}
                 </Badge>
                 <p className="font-mono text-[0.65rem] leading-relaxed text-muted">
+                  Indice de complétude déclarative
+                  <br />
                   Pondération E 40 · S 35 · G 25
                 </p>
               </div>
@@ -456,10 +515,33 @@ export function VsmeSimulator() {
         </div>
       </CardContent>
 
+      <CardContent className="border-t border-border pt-4">
+        <p className="mb-3 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-faint">
+          Les règles appliquées
+        </p>
+        <ol className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          {REGLES.map((regle, i) => (
+            <li
+              key={regle.etape}
+              className="rounded-[calc(var(--radius)_-_0.125rem)] border border-border bg-surface-raised px-3 py-3"
+            >
+              <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-emerald">
+                {`0${i + 1}`} · {regle.etape}
+              </p>
+              <p className="mt-1.5 text-xs leading-relaxed text-muted">
+                {regle.texte}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </CardContent>
+
       <CardFooter>
-        <p className="font-mono text-[0.65rem] text-faint">
-          <span className="text-emerald">$</span> estimation indicative alignée
-          sur le Module de Base VSME, hors valeur d&apos;audit.
+        <p className="font-mono text-[0.65rem] leading-relaxed text-faint">
+          <span className="text-emerald">$</span> sortie d&apos;un prototype de
+          traitement, calculée dans votre navigateur à partir de vos seules
+          déclarations. Sans valeur d&apos;évaluation, de notation ni
+          d&apos;audit.
         </p>
       </CardFooter>
     </Card>

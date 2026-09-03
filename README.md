@@ -59,12 +59,13 @@ pnpm db:generate    # génère la migration Drizzle
 pnpm db:migrate     # applique les migrations
 pnpm db:seed        # seed de démo
 pnpm rag:ingest     # ingestion du corpus RAG (ESRS, VSME, CV)
-pnpm rag:verify     # garde-fou avant démonstration : 3 questions, sortie en erreur si une seule reste sans source
+pnpm rag:verify     # garde-fou avant démonstration : 3 questions, seuil de PERTINENCE mesuré, pas une simple présence de source
 ```
 
 Les migrations SQL se passent dans l'éditeur SQL de Supabase, dans l'ordre :
-`0000_init.sql`, `0001_ecosystem_products.sql`, `0002_ecosystem_analytics.sql`,
-puis `seed_ecosystem_products.sql`.
+`0000_init.sql`, `0001_ecosystem_products.sql`,
+`0002_ecosystem_analytics.sql`, `0003_data_class.sql`, `0004_proof.sql`,
+`0005_adr.sql`, `0006_revirements.sql`, puis `seed_ecosystem_products.sql`.
 
 ## Déploiement
 

@@ -1,0 +1,175 @@
+{
+  "$comment": [
+    "C0-T6, budget de complexite d'Adama OS.",
+    "Ce fichier declare les plafonds. docs/BUDGET.md explique pourquoi chacun",
+    "existe. scripts/inventory.mjs les mesure et emet une ERREUR en cas de",
+    "depassement depuis la vague V2 (C9-T7).",
+    "Un plafond se releve par ecrit, jamais en silence : toute modification de",
+    "ce fichier doit s'accompagner d'une ligne de justification dans BUDGET.md."
+  ],
+  "severity": "error",
+  "budgets": [
+    {
+      "id": "n1_titre_home",
+      "level": "N1",
+      "label": "Titres dans l'accroche de la home",
+      "max": 1,
+      "measure": {
+        "kind": "count_in_region",
+        "file": "apps/web/components/dashboard.tsx",
+        "from": "className=\"hero-copy\"",
+        "to": "className=\"hero-copy-lines\"",
+        "pattern": "<h1"
+      }
+    },
+    {
+      "id": "n1_lignes_home",
+      "level": "N1",
+      "label": "Lignes de texte dans l'accroche de la home",
+      "max": 3,
+      "measure": {
+        "kind": "count_in_region",
+        "file": "apps/web/components/dashboard.tsx",
+        "from": "className=\"hero-copy-lines\"",
+        "to": "className=\"hero-actions\"",
+        "pattern": "<p"
+      }
+    },
+    {
+      "id": "n1_actions_home",
+      "level": "N1",
+      "label": "Actions proposees dans l'accroche de la home",
+      "max": 3,
+      "measure": {
+        "kind": "count_in_region",
+        "file": "apps/web/components/dashboard.tsx",
+        "from": "className=\"hero-actions\"",
+        "to": "className=\"hero-art\"",
+        "pattern": "portfolio-button|portfolio-text-link"
+      }
+    },
+    {
+      "id": "n1_cartes_competence",
+      "level": "N1",
+      "label": "Cartes de competence sous l'accroche",
+      "max": 3,
+      "measure": {
+        "kind": "count_in_region",
+        "file": "apps/web/content/profil.ts",
+        "from": "export const COMPETENCES",
+        "to": "export type Experience",
+        "pattern": "^    id: "
+      }
+    },
+    {
+      "id": "n2_projets_home",
+      "level": "N2",
+      "label": "Fiches projet mises en avant sur la home",
+      "max": 3,
+      "measure": {
+        "kind": "count_in_region",
+        "file": "apps/web/content/projets/index.ts",
+        "from": "export const FICHES",
+        "to": "export function ficheParSlug",
+        "pattern": "^  [A-Z][A-Z_]+,$"
+      }
+    },
+    {
+      "id": "n2_preuves_cockpit",
+      "level": "N2",
+      "label": "Preuves sociales affichees d'un bloc dans la Couche D",
+      "max": 4,
+      "measure": {
+        "kind": "count_in_file",
+        "file": "apps/web/components/layer-d.tsx",
+        "pattern": "<ProofTile"
+      }
+    },
+    {
+      "id": "n2_experiences_home",
+      "level": "N2",
+      "label": "Experiences citees dans le bandeau de la home",
+      "max": 4,
+      "measure": {
+        "kind": "count_in_region",
+        "file": "apps/web/content/profil.ts",
+        "from": "export const EXPERIENCES",
+        "to": "export type Formation",
+        "pattern": "^    id: "
+      }
+    },
+    {
+      "id": "n2_marques_home",
+      "level": "N2",
+      "label": "Marques d'organisation affichees sur le site",
+      "max": 5,
+      "measure": {
+        "kind": "count_in_region",
+        "file": "apps/web/components/org-logo.tsx",
+        "from": "const MARQUES",
+        "to": "export function marqueDe",
+        "pattern": "^  [a-z0-9-]+: \\{"
+      }
+    },
+    {
+      "id": "surface_pages",
+      "level": "surface",
+      "label": "Routes de page",
+      "max": 24,
+      "measure": {
+        "kind": "count",
+        "of": "pages"
+      }
+    },
+    {
+      "id": "surface_api",
+      "level": "surface",
+      "label": "Routes d'API",
+      "max": 10,
+      "measure": {
+        "kind": "count",
+        "of": "api_routes"
+      }
+    },
+    {
+      "id": "surface_composants",
+      "level": "surface",
+      "label": "Composants",
+      "max": 50,
+      "measure": {
+        "kind": "count",
+        "of": "components"
+      }
+    },
+    {
+      "id": "surface_lib",
+      "level": "surface",
+      "label": "Modules lib",
+      "max": 46,
+      "measure": {
+        "kind": "count",
+        "of": "lib_modules"
+      }
+    },
+    {
+      "id": "taille_composant",
+      "level": "surface",
+      "label": "Lignes du plus gros composant",
+      "max": 700,
+      "measure": {
+        "kind": "max_lines",
+        "of": "components"
+      }
+    },
+    {
+      "id": "taille_lib",
+      "level": "surface",
+      "label": "Lignes du plus gros module lib",
+      "max": 460,
+      "measure": {
+        "kind": "max_lines",
+        "of": "lib_modules"
+      }
+    }
+  ]
+}

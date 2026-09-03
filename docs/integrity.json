@@ -1,0 +1,97 @@
+{
+  "$comment": [
+    "C12-T1, resultat des dix controles d'integrite.",
+    "Ecrit par `pnpm integrity`, JAMAIS a la main. Un score saisi serait",
+    "exactement le probleme que ce fichier existe pour empecher."
+  ],
+  "schema_version": 1,
+  "executed_at": "2026-09-02T21:37:14.052Z",
+  "verdict": "partiel",
+  "reussis": 8,
+  "echoues": 0,
+  "non_executes": 2,
+  "build_inclus": true,
+  "modes_de_panne_conformes": true,
+  "controls": [
+    {
+      "id": "classe-portee",
+      "label": "Toute donnée affichée porte sa classe",
+      "detail": "Aucune valeur ne se rend sans son marqueur de provenance, nulle part.",
+      "status": "reussi",
+      "message": "38 cas vérifiés",
+      "duree_secondes": 11.3
+    },
+    {
+      "id": "aucune-metrique-fabriquee",
+      "label": "Aucune métrique fabriquée",
+      "detail": "Un repli chiffré, même bien intentionné, fait échouer ce contrôle.",
+      "status": "reussi",
+      "message": "9 cas vérifiés",
+      "duree_secondes": 2.1
+    },
+    {
+      "id": "passerelles-lecture-seule",
+      "label": "Les passerelles produit sont en lecture seule",
+      "detail": "Aucune méthode d’écriture n’est appelée vers un produit du groupe.",
+      "status": "reussi",
+      "message": "23 cas vérifiés",
+      "duree_secondes": 1.2
+    },
+    {
+      "id": "rls",
+      "label": "Les règles de sécurité au niveau des lignes tiennent",
+      "detail": "Sur base de TEST uniquement. Jamais contre la base de production.",
+      "status": "non_execute",
+      "message": "base de test absente : monter le banc décrit dans docs/RLS.md, puis poser ADAMA_TEST_DB=1, ADAMA_TEST_SUPABASE_URL et ADAMA_TEST_SUPABASE_ANON_KEY",
+      "duree_secondes": 0
+    },
+    {
+      "id": "chaine-locale",
+      "label": "Typage, analyse statique, tests et construction passent",
+      "detail": "La séquence complète de vérification locale, celle qui remplace l’intégration continue absente.",
+      "status": "reussi",
+      "message": "typage, tests, analyse statique et construction passent, 513 cas vérifiés",
+      "duree_secondes": 92.9
+    },
+    {
+      "id": "inventaire",
+      "label": "L’inventaire du dépôt est à jour",
+      "detail": "Un dépôt dont l’inventaire ment n’a pas besoin d’être construit.",
+      "status": "reussi",
+      "message": "Inventaire a jour.",
+      "duree_secondes": 0.4
+    },
+    {
+      "id": "pertinence-documentaire",
+      "label": "La récupération documentaire dépasse son seuil",
+      "detail": "Ramener une source ne suffit pas : elle doit être pertinente. Le seuil est mesuré, pas supposé.",
+      "status": "non_execute",
+      "message": "aucune vérification enregistrée : lancer pnpm --filter @adama/db rag:verify",
+      "duree_secondes": 0
+    },
+    {
+      "id": "restauration",
+      "label": "La sauvegarde a été restaurée et datée",
+      "detail": "Une sauvegarde non testée n’est pas une sauvegarde. La restauration est sélective, jamais globale.",
+      "status": "reussi",
+      "message": "restauration sélective réussie il y a 0 jour(s), sur 6 table(s) portant des lignes, 9 candidate(s)",
+      "duree_secondes": 0
+    },
+    {
+      "id": "mention-automatisee",
+      "label": "La mention de traitement automatisé est présente",
+      "detail": "Au premier contact et en permanence dans l’en-tête de l’assistant.",
+      "status": "reussi",
+      "message": "7 cas vérifiés",
+      "duree_secondes": 1.4
+    },
+    {
+      "id": "preuves-fraiches",
+      "label": "La règle de péremption des preuves est exercée",
+      "detail": "Une affirmation dont la preuve a dépassé sa durée de validité se rend périmée, jamais fraîche. La règle est exercée sur des observations simulées, y compris les réponses qui ne confirment rien. Ce contrôle n’interroge pas le registre publié : l’état réel des preuves en ligne se lit sur la page des preuves, pas ici.",
+      "status": "reussi",
+      "message": "20 cas vérifiés",
+      "duree_secondes": 1.3
+    }
+  ]
+}

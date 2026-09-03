@@ -3,15 +3,19 @@ import "server-only";
 // L9, point d'entrée unique des passerelles écosystème.
 //   - fetchEcosystemHealth() : état des produits pour l'affichage ;
 //   - persistImportedMetrics() : historisation dans ecosystem_analytics,
-//     en insertion seule, appelée par /api/ecosystem/sync.
+//     en insertion seule, appelée par /api/ecosystem/sync ;
+//   - persistProbes() : trace de chaque tentative de sonde et de sa nature
+//     d'échec dans ecosystem_probes (C1-T7).
 
 import { createServiceClient } from "../supabase/service";
 import { runAllGateways } from "./gateways";
 import type { EcosystemHealth, GatewayResult, ImportedMetric } from "./types";
 
 export { GATEWAYS, runAllGateways, runGateway } from "./gateways";
+export { GatewayError } from "./client";
 export type {
   EcosystemHealth,
+  GatewayFailure,
   GatewayResult,
   GatewayStatus,
   ImportedMetric,
@@ -43,6 +47,56 @@ export async function fetchEcosystemHealth(): Promise<EcosystemHealth> {
     console.error("[ecosysteme] passerelles indisponibles :", error);
     return { results: [], allDown: true, noneConfigured: false };
   }
+}
+
+/**
+ * Trace de chaque tentative de sonde (C1-T7).
+ *
+ * Insertion seule, une ligne par tentative, y compris quand tout va bien :
+ * un journal qui ne garde que les échecs ne permet pas de dire depuis quand
+ * une source ne répond plus, ni si elle a jamais répondu.
+ *
+ * L'extrait d'erreur est tronqué court et volontairement : une sonde ne doit
+ * pas devenir un journal de fuite. La colonne est par ailleurs révoquée pour
+ * la clé anonyme dans la migration 0003.
+ */
+export async function persistProbes(
+  results: GatewayResult[],
+): Promise<PersistOutcome> {
+  if (results.length === 0) {
+    return { inserted: 0, skipped: 0, reason: "aucune sonde à tracer" };
+  }
+
+  const supabase = createServiceClient();
+  if (!supabase) {
+    return {
+      inserted: 0,
+      skipped: results.length,
+      reason: "SUPABASE_SERVICE_ROLE_KEY absente",
+    };
+  }
+
+  const rows = results.map((r) => ({
+    product_slug: r.productSlug,
+    division: r.division,
+    source: "GET /health",
+    status: r.status,
+    failure_kind: r.failureKind,
+    http_status: r.httpStatus,
+    latency_ms: r.latencyMs,
+    error_excerpt: r.error ? r.error.slice(0, 180) : null,
+    observed_at: r.fetchedAt,
+  }));
+
+  const { error } = await supabase.from("ecosystem_probes").insert(rows);
+  if (error) {
+    return {
+      inserted: 0,
+      skipped: rows.length,
+      reason: `insertion refusée : ${error.message}`,
+    };
+  }
+  return { inserted: rows.length, skipped: 0, reason: null };
 }
 
 export type PersistOutcome = {

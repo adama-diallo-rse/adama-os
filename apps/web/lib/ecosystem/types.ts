@@ -4,6 +4,10 @@
 // jamais et il n'écrit jamais dans un produit. Toute valeur affichée ici vient
 // d'une API produit, en lecture seule, et porte sa provenance.
 
+import type { GatewayFailure } from "./client";
+
+export type { GatewayFailure };
+
 /** Métrique importée d'un produit. Les quatre champs de provenance sont
  *  obligatoires : sans eux, l'interface n'affiche pas la valeur. */
 export type ImportedMetric = {
@@ -38,6 +42,16 @@ export type GatewayResult = {
   fetchedAt: string;
   /** Message technique, journalisé, jamais affiché tel quel à un visiteur. */
   error: string | null;
+  /**
+   * C1-T7, nature de l'échec. Null quand la sonde a réussi ou n'était pas
+   * configurée. C'est ce champ qui sépare enfin « le produit est tombé » de
+   * « je n'ai pas pu joindre le produit » : jusqu'ici les deux se lisaient
+   * comme la même absence, et le cockpit prêtait au produit des incidents
+   * qu'il n'avait pas eus.
+   */
+  failureKind: GatewayFailure | null;
+  /** Code HTTP de la réponse, quand il y a eu une réponse. */
+  httpStatus: number | null;
   metrics: ImportedMetric[];
 };
 

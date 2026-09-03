@@ -3,12 +3,14 @@
 // Une seule convention, appliquée à un seul endroit (components/outbound-link)
 // et testée. Rien n'est recopié dans les composants appelants.
 //
+import { EVENT_OUTBOUND, EVENT_OUTBOUND_LEGACY } from "./analytics-events";
+
 // Nom d'événement : le périmètre est le groupe depuis le 19 juillet 2026,
 // l'événement s'appelle donc "ecosystem_outbound". L'ancien nom
 // "strata_outbound" continue d'être émis en parallèle pour ne pas trouer
 // l'historique PostHog des tableaux déjà construits.
-export const OUTBOUND_EVENT = "ecosystem_outbound";
-export const LEGACY_OUTBOUND_EVENT = "strata_outbound";
+export const OUTBOUND_EVENT = EVENT_OUTBOUND;
+export const LEGACY_OUTBOUND_EVENT = EVENT_OUTBOUND_LEGACY;
 
 /**
  * Date de retrait de la double émission.

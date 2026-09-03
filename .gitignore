@@ -25,6 +25,10 @@ build/
 # Sauvegardes logiques (L12), jamais versionnees
 backups/
 
+# C2-T7, packs de preuve dates. Produits a la demande, joints a une
+# candidature, jamais versionnes : ils figent un etat, ils ne le decrivent pas.
+snapshots/
+
 # Corpus RAG (normes non redistribuables, voir corpus/README.md)
 corpus/*
 !corpus/README.md

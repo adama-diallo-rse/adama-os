@@ -1,0 +1,14 @@
+{
+  "$comment": [
+    "C12-T9, gel editorial. Ecrit par `pnpm freeze`, jamais a la main.",
+    "actif a false signifie qu'aucun gel n'est en cours : le contenu peut",
+    "changer librement, et la verification locale ne dit rien."
+  ],
+  "schema_version": 1,
+  "actif": false,
+  "libelle": null,
+  "ouvert_le": null,
+  "perimetre": ["apps/web/content"],
+  "empreinte": null,
+  "fichiers": {}
+}

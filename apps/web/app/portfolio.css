@@ -334,47 +334,79 @@
 .experience-inner > p > span {
   color: var(--secondary);
 }
+.experience-marks {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 22px 56px;
+}
+.experience-marks > li {
+  display: flex;
+  align-items: center;
+}
+/* La formation n'est pas une experience. Un filet la separe des quatre
+   organisations qui precedent, sans lui donner un bloc a elle : elle tient
+   sur la meme ligne parce qu'elle a le meme poids de lecture. */
+.experience-formation {
+  position: relative;
+  padding-left: 46px;
+}
+.experience-formation::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 36px;
+  transform: translateY(-50%);
+  background: var(--line);
+}
+/* Les organisations sans marque fournie restent en typographie. */
 .experience-name {
   color: var(--secondary);
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.7px;
-}
-.experience-name small {
-  display: block;
-  font-size: 9px;
-  letter-spacing: 2px;
-}
-.ag2r {
-  font-size: 28px;
-  line-height: 1;
-}
-.ag2r small {
-  margin-top: 4px;
-  letter-spacing: 0.7px;
-}
-.younivibe {
-  letter-spacing: -1.2px;
-}
-.younivibe > span {
-  font-size: 28px;
-  padding-left: 5px;
-}
-.afev {
-  font-size: 37px;
-  letter-spacing: -2px;
-}
-.afev > span {
-  color: var(--accent-text);
-}
-.ministry {
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.2px;
 }
-.ministry small {
+.experience-name small {
+  display: block;
   margin-top: 7px;
   font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+/* Deux images superposees, jamais deux boites : le survol ne doit rien
+   deplacer. La taille est posee en ligne par le composant, a partir des
+   dimensions reelles du fichier, pour qu'aucune image n'arrive apres coup
+   dans une place qui n'etait pas reservee. */
+.org-logo {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+}
+.org-logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+.org-logo-encre {
+  opacity: 0.82;
+  transition: opacity 0.35s ease;
+}
+.org-logo-couleur {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.experience-marks > li:hover .org-logo-encre {
+  opacity: 0;
+}
+.experience-marks > li:hover .org-logo-couleur {
+  opacity: 1;
 }
 .portfolio-section {
   padding-block: 104px;
@@ -799,10 +831,21 @@
 .journey-list article:first-child {
   border-top: 1px solid var(--line);
 }
+/* Colonne de gauche du parcours. Largeur fixe pour toutes les rangees, quelle
+   que soit la largeur de la marque qu'elle contient : sinon le titre de
+   chaque organisation demarre a un endroit different et la liste se met a
+   onduler. La pastille ronde ne survit que pour les organisations dont
+   aucune marque n'a ete fournie. */
 .journey-mark {
-  width: 46px;
+  width: 92px;
   height: 46px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.journey-initiale {
+  width: 46px;
+  height: 46px;
   display: grid;
   place-items: center;
   background: #e1e5e8;
@@ -1083,7 +1126,14 @@
   color: var(--secondary);
   font: inherit;
 }
-.portfolio [role="dialog"] {
+/* Defaut trouve le 2 septembre 2026, signale a l'oeil puis confirme a la
+   mesure : sur la home, --color-foreground vaut la creme, parce que la
+   couche .portfolio porte le jeu de tokens des sections sombres imbriquees
+   (l'atelier, le terminal, la modale). Le panneau d'Adama AI, lui, est une
+   surface creme. La regle lui donnait donc du texte creme sur fond creme,
+   rapport de contraste 1:1, texte invisible. Un dialogue clair est exclu ici
+   et declare ses propres couleurs dans subpages.css. */
+.portfolio [role="dialog"]:not(.assistant-panel) {
   color: var(--color-foreground);
   color-scheme: dark;
 }
@@ -1319,13 +1369,13 @@ body:has(.portfolio) .consent-notice button {
   .experience-inner > p span {
     margin-left: 5px;
   }
+  .experience-marks {
+    gap: 18px 30px;
+  }
+  .experience-formation {
+    padding-left: 30px;
+  }
   .experience-name {
-    font-size: 21px;
-  }
-  .afev {
-    font-size: 32px;
-  }
-  .ministry {
     font-size: 12px;
   }
   .section-heading p {
@@ -1404,6 +1454,10 @@ body:has(.portfolio) .consent-notice button {
     gap: 12px;
   }
   .journey-mark {
+    width: 74px;
+    height: 36px;
+  }
+  .journey-initiale {
     width: 36px;
     height: 36px;
     font-size: 19px;
@@ -1534,28 +1588,27 @@ body:has(.portfolio) .consent-notice button {
     white-space: nowrap;
   }
   .experience-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: block;
     padding-block: 27px;
-    gap: 26px;
   }
   .experience-inner > p {
-    grid-column: 1 / -1;
-    margin-bottom: 2px;
+    margin-bottom: 22px;
+  }
+  /* Sur telephone la bande passe en grille de deux : cinq marques alignees
+     sur une seule ligne obligeraient a les reduire jusqu'a l'illisible. */
+  .experience-marks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 26px 20px;
+  }
+  .experience-formation {
+    padding-left: 0;
+  }
+  .experience-formation::before {
+    display: none;
   }
   .experience-name {
-    justify-self: start;
-  }
-  .experience-name.ag2r {
-    font-size: 28px;
-  }
-  .experience-name.younivibe {
-    font-size: 25px;
-  }
-  .afev {
-    font-size: 36px;
-  }
-  .ministry {
     font-size: 13px;
   }
   .portfolio-section {
@@ -1716,6 +1769,10 @@ body:has(.portfolio) .consent-notice button {
     font-size: 16px;
   }
   .journey-mark {
+    width: 84px;
+    height: 44px;
+  }
+  .journey-initiale {
     width: 44px;
     height: 44px;
     font-size: 22px;
@@ -1823,6 +1880,12 @@ body:has(.portfolio) .consent-notice button {
   }
 }
 @media print {
+  .org-logo-encre {
+    opacity: 1;
+  }
+  .org-logo-couleur {
+    display: none;
+  }
   .portfolio-header,
   .hero-art,
   .project-filter,

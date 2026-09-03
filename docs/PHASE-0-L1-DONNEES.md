@@ -9,13 +9,13 @@ packages/db/
   drizzle.config.ts            config Drizzle Kit
   .env.example                 modèle de connection string
   migrations/0000_init.sql     schéma + pgvector + RLS + policies (L1-T3, L1-T4)
-  src/schema.ts                8 tables typées (L1-T2)
+  src/schema.ts                11 tables typées (L1-T2)
   src/client.ts                client Drizzle (postgres-js)
   src/seed.ts                  seed de démo (L1-T6)
   src/index.ts                 exports du package
 
 apps/web/
-  middleware.ts                rafraîchit la session, protège /admin
+  proxy.ts                     rafraîchit la session, protège /admin
   lib/supabase/client.ts       client navigateur
   lib/supabase/server.ts       client serveur
   lib/supabase/middleware.ts   logique de session
@@ -29,14 +29,14 @@ apps/web/
 
 ## Étape 1, L1-T1 : projet Supabase (réutilisation de strata-scope)
 
-On ne crée pas de nouveau projet (plan gratuit limité à 2). On réutilise **strata-scope** (`yccnnlasjcjuukithguk`), déjà en région **eu-west-1 (UE)**. Les 8 tables d'Adama OS cohabitent dans le schéma `public` sans collision avec les tables ESG existantes (`emission_factor`, `live_emission_value`, etc.).
+On ne crée pas de nouveau projet (plan gratuit limité à 2). On réutilise **strata-scope** (`yccnnlasjcjuukithguk`), déjà en région **eu-west-1 (UE)**. Les 11 tables d'Adama OS cohabitent dans le schéma `public` sans collision avec les tables ESG existantes (`emission_factor`, `live_emission_value`, etc.).
 
 Récupère 3 secrets dans le dashboard du projet strata-scope :
 
 - **Project Settings, API Keys** : `anon public key` et `service_role key`.
 - **Mot de passe DB** : si tu ne l'as plus, Project Settings, Database, Reset database password. Il sert à la connection string déjà pré-remplie dans `packages/db/.env.example`.
 
-> Attention, ne touche pas aux tables ESG existantes. L'Advisor signale 14 issues (RLS désactivée sur les tables `emission_*`), c'est le périmètre ESG Optimizer, pas le tien. Ma migration n'active la RLS que sur mes 8 tables. Si tu veux, je t'aide à corriger la RLS de STRATA dans un second temps, séparément.
+> Attention, ne touche pas aux tables ESG existantes. L'Advisor signale 14 issues (RLS désactivée sur les tables `emission_*`), c'est le périmètre ESG Optimizer, pas le tien. Mes migrations n'activent la RLS que sur mes 11 tables. Si tu veux, je t'aide à corriger la RLS de STRATA dans un second temps, séparément.
 
 ---
 
@@ -58,7 +58,7 @@ Deux fichiers à créer (jamais commités, déjà couverts par `.gitignore`).
 **a) `packages/db/.env`** (sert au seed et à Drizzle Kit) :
 
 ```
-DATABASE_URL=postgresql://postgres.<ref>:TON_MOT_DE_PASSE@aws-0-eu-central-1.pooler.supabase.com:6543/postgres
+DATABASE_URL=postgresql://postgres.<ref>:TON_MOT_DE_PASSE@aws-0-eu-west-1.pooler.supabase.com:6543/postgres
 ```
 
 Colle l'URL "Transaction pooler" récupérée à l'étape 1, mot de passe inclus.
@@ -84,13 +84,13 @@ ni "C:\DEV\Adama OS\apps\web\.env.local" -ItemType File -Force
 
 ## Étape 4, L1-T3 et L1-T4 : appliquer le schéma + la RLS
 
-C'est l'étape qui crée pgvector, les 8 tables et toutes les policies. La méthode la plus fiable et la plus visible :
+C'est l'étape qui crée pgvector, les 11 tables et toutes les policies. La méthode la plus fiable et la plus visible :
 
 1. Ouvre `packages/db/migrations/0000_init.sql` dans ton éditeur, sélectionne tout, copie.
 2. Dans Supabase, va dans **SQL Editor**, colle, clique **Run**.
 3. Le script est idempotent : tu peux le relancer sans risque.
 
-Vérifie dans **Table Editor** que les 8 tables existent, et dans **Database, Extensions** que `vector` est bien activée.
+Vérifie dans **Table Editor** que les 11 tables existent, et dans **Database, Extensions** que `vector` est bien activée.
 
 > Alternative en ligne de commande, si tu préfères : `pnpm --filter @adama/db exec drizzle-kit push`. Attention, cette commande crée les tables mais pas l'extension `vector` ni la RLS, qui sont propres au SQL. Le SQL Editor reste la voie recommandée pour cette première migration.
 
@@ -102,7 +102,7 @@ Vérifie dans **Table Editor** que les 8 tables existent, et dans **Database, Ex
 pnpm --filter @adama/db db:seed
 ```
 
-Sortie attendue : `system_metrics : 8 clés à jour`, `decisions_log : 3 décisions insérées`, `trajectory : 4 entrées`, `strata_analytics : 3 métriques`. Le seed est rejouable (les métriques sont mises à jour, le reste n'est inséré que si la table est vide).
+Sortie attendue : `system_metrics : 9 clés à jour`, `decisions_log : 3 décisions insérées`, `trajectory : 4 entrées`, `strata_analytics : 3 métriques`. Le seed est rejouable (les métriques sont mises à jour, le reste n'est inséré que si la table est vide).
 
 ---
 

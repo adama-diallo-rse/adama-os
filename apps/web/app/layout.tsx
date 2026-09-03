@@ -7,10 +7,30 @@ import {
   GITHUB_PROFILE_URL,
   GITHUB_REPO_URL,
 } from "../components/types";
-import { SITE_URL } from "../lib/site";
+import { SITE_URL, absoluteUrl } from "../lib/site";
+import {
+  DEMANDE,
+  EXPERIENCE_ACTUELLE,
+  IDENTITE,
+  POSTE_ACTUEL,
+  RECHERCHE,
+} from "../content/profil";
 import "./globals.css";
 import "./portfolio.css";
 import "./subpages.css";
+// C1-T4 et C2 : marqueurs de provenance, page de verification, index des
+// preuves. Un seul fichier, charge partout, parce que les marqueurs vivent
+// aussi bien sur la home que dans le cockpit.
+import "./proof.css";
+// C5, C6, C7, C9 et C14 : narration, fiches projet, journal d'architecture,
+// revirements et principes. Une feuille par famille de couches, comme
+// proof.css : un seul fichier de mille lignes de plus dans subpages.css
+// aurait cesse d'etre relisible.
+import "./narrative.css";
+// systeme.css : les vagues V4 a V8 (sante, carte, journal, technique,
+// confiance, integrite). Meme raison que proof.css et narrative.css, un
+// fichier de plus dans subpages.css le rendrait illisible.
+import "./systeme.css";
 import localFont from "next/font/local";
 
 const syne = localFont({
@@ -28,16 +48,17 @@ export const metadata: Metadata = {
     default: "Adama Diallo | RSE, data et développement",
     template: "%s · Adama OS",
   },
-  description:
-    "Adama Diallo, en stage Data ESG chez AG2R LA MONDIALE. Mes projets STRATA ESG et IROKO, mon parcours en RSE et mon journal de développement.",
+  description: `${IDENTITE.capacite} ${IDENTITE.situation} ${DEMANDE}`,
+  // Les intitulés recherchés viennent de la source unique de profil : un
+  // mot-clé qui ne figure pas sur la page est un mot-clé qui ment.
   keywords: [
-    "Adama Diallo",
+    IDENTITE.nom,
     "RSE",
     "ESG",
     "CSRD",
     "ESRS",
     "VSME",
-    "chargé de mission Data ESG",
+    ...RECHERCHE.postes,
     "reporting durabilité",
     "STRATA ESG",
   ],
@@ -67,12 +88,19 @@ export const metadata: Metadata = {
 const personJsonLd = {
   "@type": "Person",
   "@id": `${SITE_URL}#adama-diallo`,
-  name: "Adama Diallo",
-  jobTitle: "Chargé de missions RSE - Data ESG & Solutions IA",
-  description:
-    "Fondateur de STRATA ESG (CSRD, ESRS, VSME). En stage Data ESG & Solutions IA chez AG2R LA MONDIALE jusqu'au 31 octobre 2026. Développe les projets STRATA ESG, IROKO et Adama OS.",
+  name: IDENTITE.nom,
+  // C9-T8 : ces valeurs ne s'ecrivent plus ici. Le hero, le JSON-LD, le mode
+  // recruteur et la modale lisent tous content/profil.ts, et
+  // tests/profil.test.ts verifie qu'aucun intitule de poste ne reapparait en
+  // dur ailleurs. Un profil qui se contredit entre la page et le resultat de
+  // recherche montre deux personnes differentes.
+  jobTitle: POSTE_ACTUEL,
+  description: `${IDENTITE.capacite} ${IDENTITE.situation}`,
+  // L'employeur actuel se lit dans la source du profil. Recopie ici, il
+  // divergerait le jour ou la source change, et le resultat de recherche
+  // montrerait une personne que la page ne decrit pas.
   worksFor: [
-    { "@type": "Organization", name: "AG2R LA MONDIALE" },
+    { "@type": "Organization", name: EXPERIENCE_ACTUELLE.organisation },
     { "@type": "Organization", name: "STRATA ESG" },
   ],
   url: SITE_URL,
@@ -91,7 +119,9 @@ const personJsonLd = {
   ],
   seeks: {
     "@type": "Demand",
-    name: "CDI / CDD : Chargé de mission Data ESG, Consultant RSE ou Chef de projet Conformité / Automatisation, Île-de-France, à partir de novembre 2026",
+    name: DEMANDE,
+    availabilityStarts: RECHERCHE.disponibleLe,
+    areaServed: RECHERCHE.zone,
   },
 };
 
@@ -105,9 +135,34 @@ const siteJsonLd = {
   author: { "@id": `${SITE_URL}#adama-diallo` },
 };
 
+// C13-T5, la recherche d'emploi, lisible par une machine.
+//
+// L'objectif n'est PAS le trafic : c'est qu'une recherche sur le nom d'Adama
+// trouve un ensemble coherent. Un agent qui prefiltre une candidature lit ce
+// noeud, la page d'accueil, /llms.txt et le document machine : les quatre
+// disent la meme chose parce qu'ils lisent la meme source.
+//
+// Le type retenu est JobSeeker et non JobPosting : Adama cherche un poste, il
+// n'en publie pas un. Annoncer une offre d'emploi serait faux, et un agent
+// qui indexerait ce site comme un employeur produirait exactement la
+// confusion que cette couche existe pour eviter.
+const rechercheJsonLd = {
+  "@type": "Person",
+  "@id": `${SITE_URL}#recherche`,
+  name: IDENTITE.nom,
+  mainEntityOfPage: absoluteUrl("/recruteur"),
+  seeks: RECHERCHE.postes.map((poste) => ({
+    "@type": "Demand",
+    name: poste,
+    availabilityStarts: RECHERCHE.disponibleLe,
+    areaServed: { "@type": "AdministrativeArea", name: RECHERCHE.zone },
+    eligibleCustomerType: RECHERCHE.contrats.join(" / "),
+  })),
+};
+
 const jsonLd = {
   "@context": "https://schema.org",
-  "@graph": [personJsonLd, siteJsonLd],
+  "@graph": [personJsonLd, siteJsonLd, rechercheJsonLd],
 };
 
 export default function RootLayout({

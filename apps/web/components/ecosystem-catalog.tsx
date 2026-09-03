@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { BrandSignature, divisionName } from "./brand-signature";
+import { ProductMark } from "./product-mark";
 import { OutboundLink } from "./outbound-link";
 import type { EcosystemProductRow, EcosystemStatus } from "./types";
 
@@ -152,6 +153,7 @@ function ProductTile({ product: p }: { product: EcosystemProductRow }) {
   const content = (
     <>
       <div className="product-tile-top">
+        <ProductMark slug={p.slug} taille={26} />
         <span className={"product-status status-" + p.status}>
           <i aria-hidden="true" />
           {labels[p.status] ?? "En développement"}

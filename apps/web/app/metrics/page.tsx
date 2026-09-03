@@ -1,37 +1,35 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro, PageShell } from "../../components/page-shell";
-import { AnimatedNumber } from "../../components/animated-number";
+import { ClaimNumber, ClaimTile } from "../../components/proof/claim-value";
+import { DataClassMark, formatDate } from "../../components/proof/data-class";
 import { createPublicClient } from "../../lib/supabase/public";
+import { metricLabel } from "../../lib/metrics";
 import {
-  formatMetric,
-  metricDecimals,
-  metricLabel,
-  metricSuffix,
-} from "../../lib/metrics";
+  ANALYTIC_COLUMNS,
+  claimFromAnalytic,
+  type AnalyticRow,
+} from "../../lib/proof/metrics";
+import { filtrerDemo, hideDemo } from "../../lib/proof/demo";
+import { resolveClaimState } from "../../lib/proof/types";
 
-// L4-T13, Page Open Metrics publique.
-// Lecture des métriques produit du groupe (ecosystem_analytics) via la clé
-// anon, filtrée par la RLS (policy ecosystem_analytics_public_read). Server
-// component : le SEO voit le contenu, et si Supabase est indisponible la page
-// ne casse jamais. Aucun repli chiffré, ici comme ailleurs.
+// L4-T13, Page Open Metrics publique, reprise par la couche C1.
+//
+// La page promettait source et date pour chaque valeur, et affichait trois
+// chiffres de démonstration sans les distinguer d'un relevé réel. Depuis C1,
+// la classe de la donnée est inséparable de la donnée : aucune valeur ne
+// s'affiche sans son marqueur, et une valeur de démonstration porte un
+// cartouche plus visible qu'elle-même.
+//
+// Server component : le SEO voit le contenu, et si Supabase est indisponible
+// la page ne casse jamais. Aucun repli chiffré, ici comme ailleurs.
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Métriques publiques, écosystème",
   description:
-    "Métriques produit du groupe en accès public : relevés d'usage et de disponibilité, avec leur source et leur date.",
+    "Métriques produit du groupe en accès public : relevés d'usage et de disponibilité, avec leur classe de donnée, leur source et leur date.",
   alternates: { canonical: "/metrics" },
-};
-
-type AnalyticRow = {
-  metric: string;
-  value: number;
-  period: string | null;
-  source: string | null;
-  division: string | null;
-  product_slug: string | null;
-  created_at: string;
 };
 
 async function loadMetrics(): Promise<AnalyticRow[]> {
@@ -40,33 +38,29 @@ async function loadMetrics(): Promise<AnalyticRow[]> {
   if (!supabase) {
     return [];
   }
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("ecosystem_analytics")
-    .select("metric, value, period, source, division, product_slug, created_at")
+    .select(ANALYTIC_COLUMNS)
     .order("created_at", { ascending: false })
     .limit(120);
 
-  return (data as AnalyticRow[]) ?? [];
-}
-
-// Date lisible, formatée en UTC pour éviter tout écart serveur / client.
-function formatDate(iso: string): string {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) {
-    return "Non disponible";
+  // Une lecture qui echoue et une base vide donnent le meme ecran. Ce ne sont
+  // pas la meme chose : la premiere est une panne, la seconde un etat. Le
+  // journal serveur les distingue, meme quand la page ne le peut pas.
+  // Cas le plus probable : le code est deploye avant que la migration 0003
+  // ne soit passee, et les colonnes de classe n'existent pas encore.
+  if (error) {
+    console.error("[metriques] lecture impossible :", error.message);
   }
-  return new Intl.DateTimeFormat("fr-FR", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(d);
+
+  return filtrerDemo((data as AnalyticRow[]) ?? []);
 }
 
 export default async function MetricsPage() {
   const rows = await loadMetrics();
+  const maintenant = new Date();
 
-  // Une carte par métrique : la valeur la plus récente (rows déjà triées desc).
+  // Une carte par métrique : la valeur la plus récente (rows déjà triées).
   const latest = new Map<string, AnalyticRow>();
   for (const row of rows) {
     if (!latest.has(row.metric)) {
@@ -75,6 +69,7 @@ export default async function MetricsPage() {
   }
   const headline = Array.from(latest.values());
   const history = rows.slice(0, 24);
+  const demoMasquee = hideDemo();
 
   return (
     <PageShell>
@@ -87,7 +82,7 @@ export default async function MetricsPage() {
             <span className="serif">en chiffres.</span>
           </>
         }
-        description="Les relevés d’usage et de disponibilité publiés pour STRATA ESG et IROKO Software Group. Chaque valeur est accompagnée de sa source et de sa date."
+        description="Les relevés d’usage et de disponibilité publiés pour STRATA ESG et IROKO Software Group. Chaque valeur porte sa classe, sa source et sa date. Une valeur de démonstration le dit avant de se laisser lire."
         aside={
           <div className="intro-note">
             <span className="intro-note-label">ACCÈS PUBLIC</span>
@@ -95,7 +90,7 @@ export default async function MetricsPage() {
               Consultez les chiffres, puis retrouvez les produits auxquels ils
               se rapportent.
             </p>
-            <Link href="/ecosysteme">Explorer l’écosystème ↗</Link>
+            <Link href="/preuves">Voir toutes les preuves ↗</Link>
           </div>
         }
       />
@@ -106,9 +101,9 @@ export default async function MetricsPage() {
             Pas encore de <span className="serif">données publiées.</span>
           </h2>
           <p>
-            Les relevés ne sont pas disponibles pour le moment. Vous pourrez
-            retrouver ici les valeurs mesurées et leur historique lorsqu’ils
-            seront accessibles.
+            {demoMasquee
+              ? "Les valeurs de démonstration sont masquées sur cette version du site, et aucun relevé réel n’est disponible pour le moment."
+              : "Les relevés ne sont pas disponibles pour le moment. Vous pourrez retrouver ici les valeurs mesurées et leur historique lorsqu’ils seront accessibles."}
           </p>
           <Link className="portfolio-text-link" href="/ecosysteme">
             Consulter les projets <span aria-hidden="true">→</span>
@@ -121,21 +116,19 @@ export default async function MetricsPage() {
         >
           {headline.map((row) => (
             <article className="metric-tile" key={row.metric}>
-              <p className="portfolio-label">{metricLabel(row.metric)}</p>
-              <AnimatedNumber
-                value={row.value}
-                decimals={metricDecimals(row.value)}
-                suffix={metricSuffix(row.metric)}
-                className="metric-value"
+              <ClaimTile
+                label={metricLabel(row.metric)}
+                claim={claimFromAnalytic(row)}
+                valueClassName="metric-value"
+                provenanceClassName="metric-provenance"
+                now={maintenant}
+                extra={
+                  <div>
+                    <dt>Produit</dt>
+                    <dd>{row.product_slug ?? "Écosystème"}</dd>
+                  </div>
+                }
               />
-              {row.period && <p className="metric-period">{row.period}</p>}
-              <div className="metric-provenance">
-                <p>{row.product_slug ?? "Écosystème"}</p>
-                <p>Source : {row.source ?? "Non renseignée"}</p>
-                <time dateTime={row.created_at}>
-                  {formatDate(row.created_at)}
-                </time>
-              </div>
             </article>
           ))}
         </section>
@@ -156,11 +149,13 @@ export default async function MetricsPage() {
           >
             <table className="data-table">
               <caption className="sr-only">
-                Valeurs publiées avec leur produit, source et date
+                Valeurs publiées avec leur classe de donnée, leur produit, leur
+                source et leur date
               </caption>
               <thead>
                 <tr>
                   <th scope="col">Indicateur</th>
+                  <th scope="col">Classe</th>
                   <th scope="col">Produit</th>
                   <th scope="col">Valeur</th>
                   <th scope="col">Source</th>
@@ -168,21 +163,36 @@ export default async function MetricsPage() {
                 </tr>
               </thead>
               <tbody>
-                {history.map((row, i) => (
-                  <tr key={row.metric + row.created_at + i}>
-                    <th scope="row">{metricLabel(row.metric)}</th>
-                    <td>{row.product_slug ?? "Écosystème"}</td>
-                    <td className="table-value">
-                      {formatMetric(row.value, row.metric)}
-                    </td>
-                    <td>{row.source ?? "Non renseignée"}</td>
-                    <td>
-                      <time dateTime={row.created_at}>
-                        {formatDate(row.created_at)}
-                      </time>
-                    </td>
-                  </tr>
-                ))}
+                {history.map((row, i) => {
+                  const claim = claimFromAnalytic(row);
+                  const state = resolveClaimState(claim, maintenant);
+                  return (
+                    <tr key={row.metric + row.created_at + i}>
+                      <th scope="row">{metricLabel(row.metric)}</th>
+                      <td>
+                        <DataClassMark
+                          claim={claim}
+                          state={state}
+                          detail={false}
+                        />
+                      </td>
+                      <td>{row.product_slug ?? "Écosystème"}</td>
+                      <td className="table-value">
+                        <ClaimNumber
+                          claim={claim}
+                          animate={false}
+                          now={maintenant}
+                        />
+                      </td>
+                      <td>{claim.source}</td>
+                      <td>
+                        <time dateTime={row.created_at}>
+                          {formatDate(row.created_at)}
+                        </time>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -193,43 +203,48 @@ export default async function MetricsPage() {
         <div>
           <article>
             <span>01</span>
-            <h2>La valeur</h2>
+            <h2>La classe</h2>
             <p>
-              La dernière mesure publiée pour chaque indicateur. La période est
-              précisée lorsqu’elle est renseignée.
+              Chaque valeur dit d’abord ce qu’elle est. <strong>Source</strong>{" "}
+              pour un relevé réel, <strong>Valeur au</strong> pour un chiffre
+              publié à une date passée, <strong>Démonstration</strong> pour un
+              jeu d’illustration qui ne décrit rien de réel.
             </p>
           </article>
           <article>
             <span>02</span>
-            <h2>La source</h2>
+            <h2>La provenance</h2>
             <p>
-              L’origine du relevé figure sous la valeur et dans l’historique,
-              quand elle a été fournie.
+              Sous la valeur figurent la source qui l’a servie et la méthode
+              d’obtention, en une phrase. Une valeur de démonstration n’entre
+              dans aucun total.
             </p>
           </article>
           <article>
             <span>03</span>
-            <h2>La date</h2>
+            <h2>La fraîcheur</h2>
             <p>
-              La date indique quand le relevé a été enregistré. Elle ne
-              correspond pas à une mesure en temps réel.
+              La date indique quand le relevé a été enregistré. Passé sa durée
+              de validité, une valeur reste lisible mais porte la mention{" "}
+              <strong>Périmée</strong>. Sans relevé, rien ne s’affiche : jamais
+              un zéro de remplacement.
             </p>
           </article>
         </div>
       </section>
       <section className="page-next">
         <div>
-          <p className="portfolio-label">CÔTÉ DÉVELOPPEMENT</p>
+          <p className="portfolio-label">ALLER PLUS LOIN</p>
           <h2>
-            Le journal de <span className="serif">l’atelier.</span>
+            Chaque affirmation, <span className="serif">vérifiable.</span>
           </h2>
           <p>
-            Retrouvez les dernières contributions et les décisions de
-            développement.
+            Les chiffres ne sont qu’une partie. Les affirmations du site portent
+            elles aussi leur provenance, et chacune a sa page de vérification.
           </p>
         </div>
-        <Link href="/#atelier" className="portfolio-button primary">
-          Ouvrir l’atelier <span aria-hidden="true">↗</span>
+        <Link href="/preuves" className="portfolio-button primary">
+          Ouvrir l’index des preuves <span aria-hidden="true">↗</span>
         </Link>
       </section>
     </PageShell>

@@ -163,7 +163,20 @@ create index if not exists idx_rag_chunks_embedding
 alter table system_metrics   enable row level security;
 alter table decisions_log    enable row level security;
 alter table trajectory       enable row level security;
-alter table strata_analytics enable row level security;
+-- strata_analytics n'est plus une table apres 0002 : elle y devient une vue de
+-- compatibilite sur ecosystem_analytics. Rejouer 0000 sur une base deja migree
+-- echouait ici, une vue ne portant ni RLS ni policy. Le garde-fou teste la
+-- nature de la relation au lieu de son nom.
+do $$
+begin
+  if exists (
+    select 1 from pg_class c
+    join pg_namespace n on n.oid = c.relnamespace
+    where n.nspname = 'public' and c.relname = 'strata_analytics' and c.relkind = 'r'
+  ) then
+    execute 'alter table strata_analytics enable row level security';
+  end if;
+end $$;
 alter table leads            enable row level security;
 alter table rag_documents    enable row level security;
 alter table rag_chunks       enable row level security;
@@ -197,12 +210,21 @@ create policy "trajectory_admin_write" on trajectory
   for all to authenticated using (true) with check (true);
 
 -- strata_analytics : lecture publique (Open Metrics), écriture admin
-drop policy if exists "strata_public_read" on strata_analytics;
-create policy "strata_public_read" on strata_analytics
-  for select to anon, authenticated using (true);
-drop policy if exists "strata_admin_write" on strata_analytics;
-create policy "strata_admin_write" on strata_analytics
-  for all to authenticated using (true) with check (true);
+do $$
+begin
+  if exists (
+    select 1 from pg_class c
+    join pg_namespace n on n.oid = c.relnamespace
+    where n.nspname = 'public' and c.relname = 'strata_analytics' and c.relkind = 'r'
+  ) then
+    execute 'drop policy if exists "strata_public_read" on strata_analytics';
+    execute 'create policy "strata_public_read" on strata_analytics
+      for select to anon, authenticated using (true)';
+    execute 'drop policy if exists "strata_admin_write" on strata_analytics';
+    execute 'create policy "strata_admin_write" on strata_analytics
+      for all to authenticated using (true) with check (true)';
+  end if;
+end $$;
 
 -- leads : insertion publique (formulaires), lecture admin uniquement
 drop policy if exists "leads_public_insert" on leads;

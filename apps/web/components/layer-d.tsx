@@ -11,6 +11,9 @@
 // Règles tenues ici :
 //   - aucun repli chiffré. Une métrique affichée est une métrique relevée,
 //     sinon la carte affiche son état vide en toutes lettres ;
+//   - depuis la couche C1, aucune valeur ne se rend sans son marqueur de
+//     classe. La Couche D ne reçoit plus des nombres, elle reçoit des Claim,
+//     et le marqueur est rendu par le composant unique de C1-T4 ;
 //   - un lien cliquable seulement pour un produit réellement ouvert, c'est
 //     à dire portant une URL en base (contrainte SQL ecosystem_products) ;
 //   - aucune date de disponibilité affichée.
@@ -26,10 +29,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@adama/ui";
-import { AnimatedNumber } from "./animated-number";
 import { OutboundLink } from "./outbound-link";
 import { divisionName } from "./brand-signature";
-import { metricLabel, metricSuffix } from "../lib/metrics";
+import { ClaimNumber } from "./proof/claim-value";
+import { DataClassMark } from "./proof/data-class";
+import { metricLabel } from "../lib/metrics";
+import { claimFromAnalytic } from "../lib/proof/metrics";
+import { resolveClaimState } from "../lib/proof/types";
 import {
   CV_DOWNLOAD_NAME,
   CV_PATH,
@@ -38,6 +44,7 @@ import {
   type EcosystemStatus,
   type GatewayStatusRow,
 } from "./types";
+import { EXPERIENCES } from "../content/profil";
 
 const STATUT: Record<
   EcosystemStatus,
@@ -88,6 +95,46 @@ function ProofTile({ name, role }: { name: string; role: string }) {
   );
 }
 
+/** Une métrique produit relevée, avec sa classe. Le marqueur de classe est
+ *  toujours rendu : une tuile sans marqueur n'existe plus dans ce fichier. */
+function MetricTile({ row }: { row: AnalyticsRow }) {
+  const claim = claimFromAnalytic(row);
+  const state = resolveClaimState(claim);
+  return (
+    <div
+      data-testid="metric-tile"
+      data-proof-state={state}
+      className="rounded-[calc(var(--radius)_-_0.125rem)] border border-border bg-surface-raised px-3 py-2.5"
+    >
+      <ClaimNumber
+        claim={claim}
+        tone="dark"
+        className="font-mono text-lg font-semibold tabular-nums text-emerald-bright"
+      />
+      <p className="mt-0.5 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-faint">
+        {metricLabel(row.metric)}
+        {row.period ? ` · ${row.period}` : ""}
+      </p>
+      <div className="mt-2">
+        <DataClassMark claim={claim} state={state} tone="dark" detail={false} />
+      </div>
+    </div>
+  );
+}
+
+// C1-T7. Quatre causes distinctes, quatre libellés distincts. « Source
+// indisponible » tout court disait au lecteur que le produit était en panne,
+// alors que la moitié des cas décrivent une panne du cockpit lui-même.
+const CAUSE_SONDE: Record<
+  NonNullable<GatewayStatusRow["failureKind"]>,
+  string
+> = {
+  produit_non_sain: "produit non sain",
+  delai_depasse: "délai dépassé",
+  erreur_reseau: "sortie réseau du cockpit",
+  reponse_illisible: "réponse illisible",
+};
+
 /** État de la passerelle L9 d'un produit, quand elle est configurée. */
 function SondeChip({ gateway }: { gateway: GatewayStatusRow | undefined }) {
   if (!gateway || gateway.status === "disabled") {
@@ -100,9 +147,10 @@ function SondeChip({ gateway }: { gateway: GatewayStatusRow | undefined }) {
       </span>
     );
   }
+  const cause = gateway.failureKind ? CAUSE_SONDE[gateway.failureKind] : null;
   return (
     <span className="font-mono text-[0.6rem] tracking-[0.12em] text-faint">
-      source indisponible
+      {cause ? `sonde : ${cause}` : "source indisponible"}
     </span>
   );
 }
@@ -173,7 +221,10 @@ export function LayerD({
   gateways: GatewayStatusRow[];
 }) {
   // Aucun repli chiffré : une métrique affichée est une métrique relevée.
-  const rows = analytics.slice(0, 6);
+  // Quatre au lieu de six depuis C1 : chaque tuile porte maintenant son
+  // marqueur de classe, elle occupe donc plus de hauteur, et le budget de
+  // lecture de la Couche D n'a pas change.
+  const rows = analytics.slice(0, 4);
   const groupes = grouperParDivision(products);
   const parProduit = new Map(gateways.map((g) => [g.productSlug, g]));
 
@@ -200,17 +251,22 @@ export function LayerD({
           <p className="mb-3 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-faint">
             Ils m&apos;ont fait confiance
           </p>
+          {/* C9-T8 : les quatre organisations et leurs rôles sont PROJETÉS
+              depuis content/profil.ts, jamais recopiés. Le 2 septembre 2026
+              ce bloc portait encore quatre rôles reformulés, dont « Stage
+              Data ESG & Solutions IA » là où la source dit « Data ESG et
+              solutions IA, direction RSE ». Deux parcours pour une seule
+              personne, sur la même page d'accueil que la source. */}
           <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-            <ProofTile
-              name="AG2R LA MONDIALE"
-              role="Stage Data ESG & Solutions IA, direction RSE"
-            />
-            <ProofTile name="Younivibe" role="Coordination RSE, reporting" />
-            <ProofTile name="AFEV" role="Engagement, mentorat étudiant" />
-            <ProofTile
-              name="Ministère des Finances"
-              role="Sénégal, reporting & data"
-            />
+            {EXPERIENCES.map((exp) => (
+              <ProofTile
+                key={exp.id}
+                name={exp.organisation}
+                role={
+                  exp.precision ? `${exp.precision}, ${exp.role}` : exp.role
+                }
+              />
+            ))}
           </div>
           <p className="mt-3 font-mono text-xs text-muted">
             <span className="text-emerald">$</span> status --ecosysteme
@@ -236,24 +292,9 @@ export function LayerD({
             </Link>
           </div>
           {rows.length > 0 ? (
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
               {rows.map((row) => (
-                <div
-                  key={row.metric}
-                  data-testid="metric-tile"
-                  className="rounded-[calc(var(--radius)_-_0.125rem)] border border-border bg-surface-raised px-3 py-2.5"
-                >
-                  <AnimatedNumber
-                    value={row.value}
-                    decimals={Number.isInteger(row.value) ? 0 : 1}
-                    suffix={metricSuffix(row.metric)}
-                    className="font-mono text-lg font-semibold tabular-nums text-emerald-bright"
-                  />
-                  <p className="mt-0.5 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-faint">
-                    {metricLabel(row.metric)}
-                    {row.period ? ` · ${row.period}` : ""}
-                  </p>
-                </div>
+                <MetricTile key={row.metric} row={row} />
               ))}
             </div>
           ) : (

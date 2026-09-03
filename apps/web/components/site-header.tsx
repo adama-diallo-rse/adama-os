@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
+import { RecruiterEntry } from "./recruiter-entry";
 
 export function SiteHeader({
   home = false,
@@ -14,18 +15,27 @@ export function SiteHeader({
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
+  // C2 : /preuves figure dans les deux barres. Une page qui dit « ne me
+  // croyez pas, verifiez » et qu'on ne peut atteindre qu'en la connaissant
+  // deja ne sert a personne.
+  // Cinq entrees au maximum, et c'est une contrainte de place mesuree : au
+  // dela, la barre deborde a 1100 pixels, ou l'acces recruteur se fait
+  // ecraser. Les pages qui n'y figurent pas sont atteintes par les enchainements
+  // de fin de page, qui sont concus pour cela.
   const links: [string, string][] = home
     ? [
         ["#projets", "Projets"],
-        ["#approche", "Approche"],
+        ["/decisions", "Décisions"],
         ["#parcours", "Parcours"],
         ["#atelier", "L’atelier"],
+        ["/preuves", "Preuves"],
       ]
     : [
         ["/", "Portfolio"],
         ["/ecosysteme", "Écosystème"],
+        ["/decisions", "Décisions"],
+        ["/preuves", "Preuves"],
         ["/metrics", "Métriques"],
-        ["/#parcours", "Parcours"],
       ];
   return (
     <>
@@ -58,6 +68,8 @@ export function SiteHeader({
           ))}
         </nav>
         <div className="header-actions">
+          {/* C9-T4 : presente sur chaque page, jamais enfouie dans un menu. */}
+          <RecruiterEntry />
           {onContact ? (
             <button className="header-contact" onClick={onContact}>
               Échangeons <span aria-hidden="true">↗</span>
@@ -91,6 +103,10 @@ export function SiteHeader({
               }
             }}
           >
+            <RecruiterEntry
+              variant="mobile"
+              onNavigate={() => setMenuOpen(false)}
+            />
             {links.map(([href, label]) => (
               <Link key={href} href={href} onClick={() => setMenuOpen(false)}>
                 {label}

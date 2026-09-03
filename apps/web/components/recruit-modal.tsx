@@ -20,8 +20,15 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { Badge, Button } from "@adama/ui";
 import { captureEvent } from "../lib/analytics";
+import {
+  EVENT_RECRUITER_CAL,
+  EVENT_RECRUITER_CV,
+  EVENT_RECRUITER_INTENT,
+  EVENT_RECRUITER_MODAL,
+} from "../lib/analytics-events";
 import { createClient } from "../lib/supabase/client";
 import { CAL_LINK, CONTACT_EMAIL, CV_DOWNLOAD_NAME, CV_PATH } from "./types";
+import { DISPONIBILITE, RECHERCHE } from "../content/profil";
 
 type SubmitState = "idle" | "sending" | "done" | "error";
 
@@ -62,7 +69,7 @@ export function RecruitModal({
       setShowCal(false);
       return;
     }
-    captureEvent("recruiter_modal_opened");
+    captureEvent(EVENT_RECRUITER_MODAL);
     const previousFocus = document.activeElement as HTMLElement | null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -115,11 +122,11 @@ export function RecruitModal({
     document.body.appendChild(a);
     a.click();
     a.remove();
-    captureEvent("recruiter_cv_download");
+    captureEvent(EVENT_RECRUITER_CV);
   }, []);
 
   const openCal = useCallback(() => {
-    captureEvent("recruiter_cal_opened");
+    captureEvent(EVENT_RECRUITER_CAL);
     if (CAL_LINK) {
       setShowCal(true);
       return;
@@ -144,7 +151,7 @@ export function RecruitModal({
       setState("sending");
 
       // L6-T3 : événement d'intention, envoyé même si Supabase échoue.
-      captureEvent("recruiter_intent", {
+      captureEvent(EVENT_RECRUITER_INTENT, {
         company: company.trim() || null,
         has_cal_link: Boolean(CAL_LINK),
       });
@@ -225,9 +232,11 @@ export function RecruitModal({
               {/* Proposition de valeur hybride */}
               <div>
                 <p className="font-sans text-sm leading-relaxed text-muted">
-                  Je recherche un poste en{" "}
-                  <span className="text-foreground">RSE ou data ESG</span>, en
-                  CDI / CDD dès début novembre 2026 (Île-de-France).
+                  Je recherche un poste de{" "}
+                  <span className="text-foreground">
+                    {RECHERCHE.postes.join(", ")}
+                  </span>
+                  . {DISPONIBILITE}
                 </p>
                 <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                   {VALUE_PROPS.map((v) => (
