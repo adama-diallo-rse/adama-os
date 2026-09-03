@@ -5,11 +5,11 @@
     "exactement le probleme que ce fichier existe pour empecher."
   ],
   "schema_version": 1,
-  "executed_at": "2026-09-02T21:37:14.052Z",
-  "verdict": "partiel",
+  "executed_at": "2026-09-03T11:22:42.960Z",
+  "verdict": "echec",
   "reussis": 8,
-  "echoues": 0,
-  "non_executes": 2,
+  "echoues": 1,
+  "non_executes": 1,
   "build_inclus": true,
   "modes_de_panne_conformes": true,
   "controls": [
@@ -18,8 +18,8 @@
       "label": "Toute donnée affichée porte sa classe",
       "detail": "Aucune valeur ne se rend sans son marqueur de provenance, nulle part.",
       "status": "reussi",
-      "message": "38 cas vérifiés",
-      "duree_secondes": 11.3
+      "message": "39 cas vérifiés",
+      "duree_secondes": 1.8
     },
     {
       "id": "aucune-metrique-fabriquee",
@@ -27,7 +27,7 @@
       "detail": "Un repli chiffré, même bien intentionné, fait échouer ce contrôle.",
       "status": "reussi",
       "message": "9 cas vérifiés",
-      "duree_secondes": 2.1
+      "duree_secondes": 1.6
     },
     {
       "id": "passerelles-lecture-seule",
@@ -35,7 +35,7 @@
       "detail": "Aucune méthode d’écriture n’est appelée vers un produit du groupe.",
       "status": "reussi",
       "message": "23 cas vérifiés",
-      "duree_secondes": 1.2
+      "duree_secondes": 1.1
     },
     {
       "id": "rls",
@@ -50,8 +50,8 @@
       "label": "Typage, analyse statique, tests et construction passent",
       "detail": "La séquence complète de vérification locale, celle qui remplace l’intégration continue absente.",
       "status": "reussi",
-      "message": "typage, tests, analyse statique et construction passent, 513 cas vérifiés",
-      "duree_secondes": 92.9
+      "message": "typage, tests, analyse statique et construction passent, 514 cas vérifiés",
+      "duree_secondes": 62.6
     },
     {
       "id": "inventaire",
@@ -59,14 +59,14 @@
       "detail": "Un dépôt dont l’inventaire ment n’a pas besoin d’être construit.",
       "status": "reussi",
       "message": "Inventaire a jour.",
-      "duree_secondes": 0.4
+      "duree_secondes": 0.2
     },
     {
       "id": "pertinence-documentaire",
       "label": "La récupération documentaire dépasse son seuil",
       "detail": "Ramener une source ne suffit pas : elle doit être pertinente. Le seuil est mesuré, pas supposé.",
-      "status": "non_execute",
-      "message": "aucune vérification enregistrée : lancer pnpm --filter @adama/db rag:verify",
+      "status": "echoue",
+      "message": "au moins une question de contrôle est sous le seuil, vérification du jour 2026-09-03",
       "duree_secondes": 0
     },
     {
@@ -83,7 +83,7 @@
       "detail": "Au premier contact et en permanence dans l’en-tête de l’assistant.",
       "status": "reussi",
       "message": "7 cas vérifiés",
-      "duree_secondes": 1.4
+      "duree_secondes": 1.2
     },
     {
       "id": "preuves-fraiches",
@@ -91,7 +91,7 @@
       "detail": "Une affirmation dont la preuve a dépassé sa durée de validité se rend périmée, jamais fraîche. La règle est exercée sur des observations simulées, y compris les réponses qui ne confirment rien. Ce contrôle n’interroge pas le registre publié : l’état réel des preuves en ligne se lit sur la page des preuves, pas ici.",
       "status": "reussi",
       "message": "20 cas vérifiés",
-      "duree_secondes": 1.3
+      "duree_secondes": 1.1
     }
   ]
 }
