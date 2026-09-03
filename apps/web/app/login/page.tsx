@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageShell } from "../../components/page-shell";
-import { login } from "./actions";
+import { demanderReinitialisation, login } from "./actions";
 export const metadata: Metadata = {
   title: "Connexion",
   robots: { index: false, follow: false },
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; redirect?: string }>;
+  searchParams: Promise<{ error?: string; redirect?: string; envoye?: string }>;
 }) {
   const params = await searchParams;
   return (
@@ -55,6 +55,26 @@ export default async function LoginPage({
           )}
           <button type="submit" className="portfolio-button primary">
             Se connecter <span aria-hidden="true">→</span>
+          </button>
+        </form>
+        <form action={demanderReinitialisation} className="auth-form">
+          <p className="portfolio-label">MOT DE PASSE OUBLIÉ</p>
+          <label htmlFor="reset-email">Adresse e-mail</label>
+          <input
+            id="reset-email"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+          />
+          {params.envoye && (
+            <p className="auth-note" role="status">
+              Si un compte existe pour cette adresse, un lien vient d’être
+              envoyé. Il ne sert qu’une fois, ouvrez-le directement.
+            </p>
+          )}
+          <button type="submit" className="portfolio-button">
+            Recevoir un lien <span aria-hidden="true">→</span>
           </button>
         </form>
       </div>

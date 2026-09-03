@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
   "surface": {
-    "pages": 22,
-    "api_routes": 8,
+    "pages": 23,
+    "api_routes": 9,
     "components": 47,
     "lib_modules": 44,
     "tables": 11,
     "enums": 14,
     "migrations": 8,
     "policies": 21,
-    "test_files": 35,
-    "test_cases": 354,
+    "test_files": 36,
+    "test_cases": 359,
     "dependencies": 52
   },
   "pages": [
@@ -62,7 +62,7 @@
     {
       "file": "apps/web/app/login/page.tsx",
       "route": "/login",
-      "lines": 64
+      "lines": 84
     },
     {
       "file": "apps/web/app/mentions-legales/page.tsx",
@@ -73,6 +73,11 @@
       "file": "apps/web/app/metrics/page.tsx",
       "route": "/metrics",
       "lines": 253
+    },
+    {
+      "file": "apps/web/app/mot-de-passe/page.tsx",
+      "route": "/mot-de-passe",
+      "lines": 38
     },
     {
       "file": "apps/web/app/page.tsx",
@@ -160,6 +165,11 @@
       "file": "apps/web/app/api/trajectory/route.ts",
       "route": "/api/trajectory",
       "lines": 62
+    },
+    {
+      "file": "apps/web/app/auth/callback/route.ts",
+      "route": "/auth/callback",
+      "lines": 76
     },
     {
       "file": "apps/web/app/llms.txt/route.ts",
@@ -649,6 +659,7 @@
       "apps/web/tests/analytics-consent.test.ts",
       "apps/web/tests/analytics-events.test.ts",
       "apps/web/tests/api-contract.test.ts",
+      "apps/web/tests/auth-recuperation.test.ts",
       "apps/web/tests/budget.test.ts",
       "apps/web/tests/config-redirects.test.ts",
       "apps/web/tests/cv.test.ts",
@@ -680,7 +691,7 @@
       "apps/web/tests/technique.test.tsx",
       "apps/web/tests/trajectory.test.ts"
     ],
-    "cases": 354
+    "cases": 359
   },
   "rendu": {
     "pages": 13,
@@ -1678,7 +1689,7 @@
       "level": "surface",
       "label": "Routes de page",
       "max": 24,
-      "value": 22,
+      "value": 23,
       "broken": false,
       "over": false
     },
@@ -1687,7 +1698,7 @@
       "level": "surface",
       "label": "Routes d'API",
       "max": 10,
-      "value": 8,
+      "value": 9,
       "broken": false,
       "over": false
     },

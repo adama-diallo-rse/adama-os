@@ -13,15 +13,15 @@ echouer `--check` a chaque seconde.
 
 | Mesure | Valeur |
 | --- | --- |
-| Routes de page | 22 |
-| Routes d'API | 8 |
+| Routes de page | 23 |
+| Routes d'API | 9 |
 | Composants | 47 |
 | Modules `lib` | 44 |
 | Tables Drizzle | 11 |
 | Types enumeres | 14 |
 | Migrations SQL | 8 |
-| Fichiers de test | 35 |
-| Cas de test | 354 |
+| Fichiers de test | 36 |
+| Cas de test | 359 |
 | Dependances directes declarees | 52 |
 
 ## Routes
@@ -37,9 +37,10 @@ echouer `--check` a chaque seconde.
 | `/decisions` | `apps/web/app/decisions/page.tsx` | 148 |
 | `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 178 |
 | `/journal` | `apps/web/app/journal/page.tsx` | 123 |
-| `/login` | `apps/web/app/login/page.tsx` | 64 |
+| `/login` | `apps/web/app/login/page.tsx` | 84 |
 | `/mentions-legales` | `apps/web/app/mentions-legales/page.tsx` | 114 |
 | `/metrics` | `apps/web/app/metrics/page.tsx` | 253 |
+| `/mot-de-passe` | `apps/web/app/mot-de-passe/page.tsx` | 38 |
 | `/` | `apps/web/app/page.tsx` | 225 |
 | `/preuves` | `apps/web/app/preuves/page.tsx` | 142 |
 | `/principes` | `apps/web/app/principes/page.tsx` | 146 |
@@ -60,6 +61,7 @@ echouer `--check` a chaque seconde.
 | `/api/ecosystem/sync` | `apps/web/app/api/ecosystem/sync/route.ts` | 70 |
 | `/api/metrics` | `apps/web/app/api/metrics/route.ts` | 34 |
 | `/api/trajectory` | `apps/web/app/api/trajectory/route.ts` | 62 |
+| `/auth/callback` | `apps/web/app/auth/callback/route.ts` | 76 |
 | `/llms.txt` | `apps/web/app/llms.txt/route.ts` | 101 |
 
 ## Base de donnees
@@ -282,8 +284,8 @@ Severite actuelle : `error` (avertissement en vague V0, erreur a partir de V2).
 | N2 | Preuves sociales affichees d'un bloc dans la Couche D | 1 | 4 | tenu |
 | N2 | Experiences citees dans le bandeau de la home | 4 | 4 | tenu |
 | N2 | Marques d'organisation affichees sur le site | 4 | 5 | tenu |
-| surface | Routes de page | 22 | 24 | tenu |
-| surface | Routes d'API | 8 | 10 | tenu |
+| surface | Routes de page | 23 | 24 | tenu |
+| surface | Routes d'API | 9 | 10 | tenu |
 | surface | Composants | 47 | 50 | tenu |
 | surface | Modules lib | 44 | 46 | tenu |
 | surface | Lignes du plus gros composant | 624 | 700 | tenu |

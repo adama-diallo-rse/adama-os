@@ -633,6 +633,19 @@
   font-size: 13px;
   line-height: 1.7;
 }
+/* Note d'accompagnement des formulaires d'authentification. Le secondaire
+   #536878 sur le fond #faf7f1 des cartes mesure au-dessus du seuil AA, la
+   même valeur que celle employée partout ailleurs sur crème. */
+.auth-note {
+  color: var(--secondary);
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0;
+}
+.auth-form .auth-note + a,
+.auth-form > a {
+  margin-top: 4px;
+}
 .private-content {
   max-width: 860px;
   padding-block: 30px;
