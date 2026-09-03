@@ -8,6 +8,13 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "../../lib/supabase/server";
 
+/**
+ * Duree de validite d'une valeur declaree a la main, en secondes. Sept jours,
+ * la meme valeur que celle posee par la migration 0003 sur les lignes
+ * anterieures. Au dela, la valeur reste lisible mais porte la mention PERIMEE.
+ */
+const FRAICHEUR_DECLARATION_S = 604800;
+
 export async function updateMetric(formData: FormData) {
   const supabase = await createClient();
 
@@ -60,6 +67,22 @@ export async function updateMetric(formData: FormData) {
       value_num: valueNum,
       unit,
       updated_at: new Date().toISOString(),
+      // C1. `data_class` est NOT NULL depuis la migration 0003, sans valeur
+      // par defaut. Sur une cle deja presente l'upsert fait une mise a jour et
+      // passait donc ; sur une cle NOUVELLE il fait une insertion, et celle-ci
+      // aurait ete refusee. Le defaut ne se serait vu qu'au premier indicateur
+      // ajoute, c'est a dire au pire moment.
+      //
+      // La provenance de ces valeurs est la saisie a la main : c'est une
+      // provenance comme une autre, et elle merite d'etre ecrite. Les trois
+      // champs reprennent mot pour mot ce que 0003 a pose sur les lignes deja
+      // en base, sinon deux ecritures donneraient deux phrases differentes
+      // pour la meme mesure sur la meme page.
+      data_class: "real" as const,
+      source: "Déclaration d'Adama",
+      method:
+        "Saisi à la main depuis /checkin, puis relu à chaque mise à jour.",
+      max_age_seconds: FRAICHEUR_DECLARATION_S,
     },
     { onConflict: "key" },
   );

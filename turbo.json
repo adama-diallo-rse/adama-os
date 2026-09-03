@@ -4,7 +4,35 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "env": [
+        "NEXT_PUBLIC_SITE_URL",
+        "NEXT_PUBLIC_SUPABASE_URL",
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+        "NEXT_PUBLIC_POSTHOG_KEY",
+        "NEXT_PUBLIC_POSTHOG_HOST",
+        "NEXT_PUBLIC_CAL_LINK",
+        "NEXT_PUBLIC_SENTRY_DSN",
+        "ADAMA_HIDE_DEMO"
+      ],
+      "passThroughEnv": [
+        "SUPABASE_SERVICE_ROLE_KEY",
+        "DATABASE_URL",
+        "OPENAI_API_KEY",
+        "GITHUB_TOKEN",
+        "GITHUB_REPOS",
+        "CRON_SECRET",
+        "ECOSYSTEM_ESG_OPTIMIZER_API_URL",
+        "ECOSYSTEM_SCOPE_API_URL",
+        "BETTERSTACK_API_TOKEN",
+        "BETTERSTACK_MONITOR_ID",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "SENTRY_AUTH_TOKEN",
+        "ADAMA_AI_MODEL",
+        "ADAMA_AI_RATE_LIMIT",
+        "ADAMA_AI_RATE_WINDOW_S"
+      ]
     },
     "dev": {
       "cache": false,

@@ -21,7 +21,7 @@ echouer `--check` a chaque seconde.
 | Types enumeres | 14 |
 | Migrations SQL | 8 |
 | Fichiers de test | 35 |
-| Cas de test | 353 |
+| Cas de test | 354 |
 | Dependances directes declarees | 52 |
 
 ## Routes

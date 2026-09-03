@@ -40,6 +40,13 @@ export function summarize(results: GatewayResult[]): EcosystemHealth {
  * bloque jamais plus longtemps que le délai du client (2,5 s par passerelle,
  * en parallèle), avec un cache Next de 5 minutes côté fetch.
  */
+/**
+ * Duree de validite d'un releve de passerelle, en secondes. Deux jours, la
+ * meme valeur que celle posee par la migration 0003 sur les lignes anterieures.
+ * Au dela, la valeur reste lisible mais porte la mention PERIMEE.
+ */
+const FRAICHEUR_PASSERELLE_S = 172800;
+
 export async function fetchEcosystemHealth(): Promise<EcosystemHealth> {
   try {
     return summarize(await runAllGateways());
@@ -169,6 +176,18 @@ export async function persistImportedMetrics(
       division: m.division,
       product_slug: m.productSlug,
       fetched_at: m.fetchedAt,
+      // C1. La classe est obligatoire en base depuis la migration 0003, sans
+      // valeur par defaut : classer est une decision, pas un remplissage. Une
+      // valeur relevee par une passerelle sur la route de sante d'un produit
+      // est reelle, elle nomme sa source et sa methode. Sans ces trois champs
+      // l'insertion etait refusee en silence, et la synchronisation rendait
+      // « 0 insere » avec la contrainte en clair dans son motif.
+      // La formulation de method est celle que 0003 a posee sur les lignes
+      // deja presentes : deux ecritures differentes pour la meme mesure
+      // donneraient deux phrases differentes sur la meme page.
+      data_class: "real" as const,
+      method: `Relevé importé par la passerelle L9 : ${m.source}`,
+      max_age_seconds: FRAICHEUR_PASSERELLE_S,
     }));
 
   if (rows.length === 0) {

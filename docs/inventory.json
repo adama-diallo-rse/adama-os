@@ -10,7 +10,7 @@
     "migrations": 8,
     "policies": 21,
     "test_files": 35,
-    "test_cases": 353,
+    "test_cases": 354,
     "dependencies": 52
   },
   "pages": [
@@ -408,7 +408,7 @@
     },
     {
       "file": "apps/web/lib/ecosystem/index.ts",
-      "lines": 197
+      "lines": 216
     },
     {
       "file": "apps/web/lib/ecosystem/map.ts",
@@ -680,7 +680,7 @@
       "apps/web/tests/technique.test.tsx",
       "apps/web/tests/trajectory.test.ts"
     ],
-    "cases": 353
+    "cases": 354
   },
   "rendu": {
     "pages": 13,
