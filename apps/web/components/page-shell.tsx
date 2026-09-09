@@ -23,7 +23,7 @@ export function PageShell({
       <footer className="portfolio-footer portfolio-wrap">
         <div className="footer-top">
           <Link href="/" className="footer-signature">
-            Adama Diallo<span>.</span>
+            ADAMA OS<span>.</span>
           </Link>
           <div>
             <a
@@ -42,7 +42,7 @@ export function PageShell({
           </div>
         </div>
         <div className="footer-bottom">
-          <span>ADAMA DIALLO · PORTFOLIO</span>
+          <span>ADAMA OS · LABORATOIRE PUBLIC</span>
           <div>
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/confidentialite">Confidentialité</Link>

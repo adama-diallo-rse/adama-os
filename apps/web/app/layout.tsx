@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Cormorant_Garamond, Courier_Prime, DM_Sans } from "next/font/google";
 import { ConsentBanner } from "../components/consent-banner";
 import {
   CONTACT_EMAIL,
@@ -16,6 +17,7 @@ import {
   POSTE_ACTUEL,
   RECHERCHE,
 } from "../content/profil";
+import { ADAMA_OS } from "../content/adama-os";
 import "./globals.css";
 import "./portfolio.css";
 import "./subpages.css";
@@ -41,12 +43,34 @@ const syne = localFont({
   weight: "400 800",
 });
 
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+  display: "swap",
+  weight: ["300", "400"],
+  style: ["normal", "italic"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  display: "swap",
+  weight: ["300", "400", "500"],
+});
+
+const courierPrime = Courier_Prime({
+  subsets: ["latin"],
+  variable: "--font-courier-prime",
+  display: "swap",
+  weight: ["400", "700"],
+});
+
 // L8-T5, Métadonnées home. L'image OG est générée au build par
 // app/opengraph-image.tsx (statique : aucune donnée dynamique).
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Adama Diallo | RSE, data et développement",
+    default: "ADAMA OS | Construire l’ESG numérique",
     template: "%s · Adama OS",
   },
   // La description est ce qu'un moteur affiche sous le titre : au-dela
@@ -54,7 +78,7 @@ export const metadata: Metadata = {
   // porte donc la capacite et la disponibilite, les deux seules choses
   // qu'un lecteur de resultat de recherche a besoin de savoir. La demande
   // complete reste dans le JSON-LD et sur /recruteur, ou elle a la place.
-  description: `${IDENTITE.capacite} ${DISPONIBILITE}`,
+  description: `${ADAMA_OS.proposition} ${ADAMA_OS.sousTitre}`,
   // Les intitulés recherchés viennent de la source unique de profil : un
   // mot-clé qui ne figure pas sur la page est un mot-clé qui ment.
   keywords: [
@@ -79,9 +103,8 @@ export const metadata: Metadata = {
     google: "9MNunaSiGbPwx8_DDYpwGqI7gAocN2nHoB57B7UQF8w",
   },
   openGraph: {
-    title: "Adama Diallo | RSE, data et développement",
-    description:
-      "Mon parcours en RSE et mes projets logiciels : STRATA ESG, IROKO et Adama OS.",
+    title: "ADAMA OS | Construire l’ESG numérique",
+    description: ADAMA_OS.sousTitre,
     url: "/",
     siteName: "Adama OS",
     locale: "fr_FR",
@@ -89,9 +112,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Adama Diallo | RSE, data et développement",
-    description:
-      "RSE, data et développement. Projets, parcours et atelier ouvert.",
+    title: "ADAMA OS | Construire l’ESG numérique",
+    description: ADAMA_OS.sousTitre,
   },
 };
 
@@ -143,7 +165,8 @@ const siteJsonLd = {
   "@type": "WebSite",
   "@id": `${SITE_URL}#site`,
   name: "Adama OS",
-  alternateName: "Adama OS, System Dashboard",
+  alternateName: "ADAMA OS, ESG Data Systems",
+  description: ADAMA_OS.sousTitre,
   url: SITE_URL,
   inLanguage: "fr-FR",
   author: { "@id": `${SITE_URL}#adama-diallo` },
@@ -186,7 +209,7 @@ export default function RootLayout({
     <html
       lang="fr"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable} ${syne.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${syne.variable} ${cormorant.variable} ${dmSans.variable} ${courierPrime.variable}`}
     >
       <body className="antialiased">
         <script

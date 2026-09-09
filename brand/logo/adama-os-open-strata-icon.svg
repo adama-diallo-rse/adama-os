@@ -1,0 +1,12 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Symbole ADAMA OS</title>
+  <desc id="desc">Deux strates ouvertes et un point de provenance</desc>
+  <rect width="128" height="128" rx="24" fill="#F2EDE4"/>
+  <g transform="translate(24 24)" fill="none" stroke="#0D1B2A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 0 72 32"/>
+    <path d="M80 40 40 80 0 40 40 0"/>
+    <path d="M40 18 60 38"/>
+    <path d="M63 44 40 67 13 40 40 13"/>
+  </g>
+  <circle cx="100" cy="61" r="6" fill="#C9A96E"/>
+</svg>

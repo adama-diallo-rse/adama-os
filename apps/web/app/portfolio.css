@@ -3,7 +3,7 @@
    Darker gold is reserved for readable text and controls on cream. */
 :root {
   --strata-slate: #0d1b2a;
-  --strata-slate-mid: #14263a;
+  --strata-slate-mid: #1a2d42;
   --strata-gold: #c9a96e;
   --strata-signal: #2affd6;
   --paper: #f2ede4;
@@ -14,6 +14,10 @@
   --art-paper: #e2e6e9;
 }
 .portfolio {
+  --font-display: var(--font-cormorant), "Times New Roman", serif;
+  --font-ui: var(--font-syne), sans-serif;
+  --font-sans: var(--font-dm-sans), sans-serif;
+  --font-mono: var(--font-courier-prime), monospace;
   --color-background: var(--strata-slate);
   --color-surface: var(--strata-slate-mid);
   --color-surface-raised: #1a2d42;
@@ -29,6 +33,7 @@
   color: var(--ink);
   color-scheme: light;
   overflow-x: clip;
+  font-family: var(--font-sans);
 }
 .portfolio-wrap {
   width: min(1280px, calc(100% - 112px));
@@ -81,19 +86,32 @@
   display: flex;
   gap: 15px;
   align-items: center;
+  font-family: var(--font-ui);
   font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.3px;
 }
 .brand-symbol {
-  font-size: 48px;
-  letter-spacing: -6px;
-  line-height: 0.9;
-  font-weight: 650;
-  padding-right: 5px;
+  display: inline-grid;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 2rem;
+  place-items: center;
 }
-.brand-symbol > span {
-  color: var(--accent-text);
+.brand-symbol svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.brand-symbol path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.5;
+}
+.brand-symbol circle {
+  fill: var(--accent-text);
 }
 .brand-caption {
   display: block;
@@ -107,6 +125,8 @@
   align-items: center;
   gap: 32px;
   font-size: 13px;
+  font-family: var(--font-ui);
+  font-weight: 600;
 }
 .desktop-nav a {
   display: flex;
@@ -134,6 +154,8 @@
   display: flex;
   gap: 24px;
   align-items: center;
+  font-family: var(--font-ui);
+  font-weight: 600;
   border: 1px solid #a8b0b6;
   border-radius: 4px;
   padding: 11px 16px;
@@ -164,8 +186,9 @@
   align-items: center;
   gap: 9px;
   color: var(--secondary);
-  font: 10px var(--font-mono);
-  letter-spacing: 1.05px;
+  font: 600 10px var(--font-ui);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 .status-dot {
   width: 7px;
@@ -177,22 +200,22 @@
   box-shadow: 0 0 0 4px rgb(201 169 110 / 14%);
 }
 .hero-copy h1 {
+  font-family: var(--font-display);
   font-size: clamp(64px, 6.8vw, 102px);
-  line-height: 1.04;
-  letter-spacing: -6px;
-  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  font-weight: 300;
   margin: 35px 0 27px;
 }
 .hero-serif,
 .serif {
-  font-family:
-    "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-weight: 300;
   font-style: italic;
 }
 .hero-serif {
   color: var(--accent-text);
-  letter-spacing: -5px;
+  letter-spacing: -0.025em;
 }
 .hero-description {
   max-width: 425px;
@@ -217,8 +240,11 @@
   gap: 28px;
   min-height: 52px;
   padding: 15px 21px;
-  font-size: 13px;
-  font-weight: 500;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   border-radius: 4px;
   transition:
     background 0.2s,
@@ -416,8 +442,9 @@
   align-items: center;
   gap: 12px;
   color: var(--secondary);
-  font: 10px var(--font-mono);
-  letter-spacing: 1.3px;
+  font: 600 10px var(--font-ui);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 .portfolio-label > span:first-child:not(.status-dot) {
   color: var(--accent-text);
@@ -431,10 +458,11 @@
 }
 .section-heading h2,
 .about-copy h2 {
+  font-family: var(--font-display);
   font-size: clamp(38px, 4vw, 58px);
   line-height: 1.12;
   letter-spacing: -2.4px;
-  font-weight: 450;
+  font-weight: 300;
 }
 .section-heading p {
   color: var(--secondary);
@@ -1924,4 +1952,208 @@ body:has(.portfolio) .consent-notice button {
 }
 [data-theme="gold"] .portfolio .atelier-section .serif {
   color: var(--strata-gold);
+}
+
+/* Parcours public ADAMA OS. Les codes restent des repères, jamais des menus. */
+.journey-gateway {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.55fr);
+  gap: 64px;
+  padding-block: 92px 104px;
+  border-bottom: 1px solid var(--line);
+}
+.journey-intro h2 {
+  font-family: var(--font-display);
+  margin: 22px 0 24px;
+  font-size: clamp(46px, 5vw, 72px);
+  font-weight: 300;
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+}
+.journey-intro .serif {
+  color: var(--accent-text);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+}
+.journey-intro > p:last-child {
+  max-width: 460px;
+  color: var(--secondary);
+  font-size: 15px;
+  line-height: 1.75;
+}
+.journey-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--line);
+}
+.journey-grid > a {
+  position: relative;
+  min-height: 360px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition:
+    background 160ms ease,
+    color 160ms ease;
+}
+.journey-grid > a + a {
+  border-left: 1px solid var(--line);
+}
+.journey-grid > a:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.journey-index,
+.journey-code {
+  font: 10px var(--font-mono);
+  letter-spacing: 0.15em;
+}
+.journey-index {
+  color: var(--secondary);
+}
+.journey-code {
+  margin-top: 62px;
+  color: var(--accent-text);
+}
+.journey-grid strong {
+  font-family: var(--font-display);
+  margin-top: 12px;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+.journey-description {
+  margin-top: 16px;
+  color: var(--secondary);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.journey-grid > a:hover .journey-description,
+.journey-grid > a:hover .journey-index {
+  color: #b5c1cb;
+}
+.journey-action {
+  margin-top: auto;
+  padding-top: 28px;
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.signal-signup {
+  margin-block: 100px;
+  padding: 56px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.8fr);
+  gap: 72px;
+  align-items: end;
+  background: var(--ink);
+  color: var(--paper);
+}
+.signal-signup h2 {
+  font-family: var(--font-display);
+  margin: 18px 0;
+  font-size: clamp(38px, 4.2vw, 62px);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  font-weight: 300;
+}
+.signal-signup > div > p:last-child {
+  max-width: 590px;
+  color: #b5c1cb;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.signal-signup form label {
+  display: block;
+  margin-bottom: 10px;
+  font: 600 10px var(--font-ui);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #b5c1cb;
+}
+.signal-signup form > div {
+  display: flex;
+}
+.signal-signup input {
+  min-width: 0;
+  flex: 1;
+  height: 50px;
+  padding-inline: 16px;
+  border: 1px solid #536878;
+  background: transparent;
+  color: var(--paper);
+  font-size: 16px;
+}
+.signal-signup button {
+  min-height: 50px;
+  padding-inline: 18px;
+  background: var(--strata-gold);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.signal-signup button:disabled {
+  opacity: 0.65;
+}
+.signal-help,
+.signal-error,
+.signal-status {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.signal-help {
+  color: #9db0c0;
+}
+.signal-error {
+  color: #ff9d94;
+}
+.signal-status {
+  padding: 22px;
+  border: 1px solid var(--strata-gold);
+  color: var(--paper);
+}
+
+@media (max-width: 1080px) {
+  .journey-gateway,
+  .signal-signup {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .journey-grid > a {
+    min-height: 330px;
+  }
+}
+
+@media (max-width: 720px) {
+  .journey-gateway {
+    gap: 42px;
+    padding-block: 68px 76px;
+  }
+  .journey-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .journey-grid > a {
+    min-height: 240px;
+    padding: 24px;
+  }
+  .journey-grid > a + a {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .journey-code {
+    margin-top: 28px;
+  }
+  .signal-signup {
+    margin-block: 70px;
+    padding: 30px 24px;
+    gap: 42px;
+  }
+  .signal-signup form > div {
+    flex-direction: column;
+    gap: 10px;
+  }
 }

@@ -24,11 +24,11 @@ export function SiteHeader({
   // de fin de page, qui sont concus pour cela.
   const links: [string, string][] = home
     ? [
-        ["#projets", "Projets"],
-        ["/decisions", "Décisions"],
-        ["#parcours", "Parcours"],
-        ["#atelier", "L’atelier"],
+        ["#explorer", "Commencer"],
+        ["/methode", "Méthode"],
+        ["/decisions", "Travaux"],
         ["/preuves", "Preuves"],
+        ["#parcours", "Adama"],
       ]
     : [
         ["/", "Portfolio"],
@@ -46,14 +46,20 @@ export function SiteHeader({
         <Link
           className="portfolio-brand"
           href={home ? "#top" : "/"}
-          aria-label="Adama Diallo, accueil"
+          aria-label="ADAMA OS, accueil"
         >
           <span className="brand-symbol" aria-hidden="true">
-            a<span>.</span>
+            <svg viewBox="0 0 64 64" focusable="false">
+              <path d="M32 8 51 27" />
+              <path d="M56 32 32 56 8 32 32 8" />
+              <path d="M32 19 44 31" />
+              <path d="M45 35 32 48 16 32 32 16" />
+              <circle cx="53" cy="29" r="3.5" />
+            </svg>
           </span>
           <span>
-            Adama Diallo
-            <span className="brand-caption">RSE · DATA · SYSTÈMES</span>
+            ADAMA OS
+            <span className="brand-caption">ESG · DATA · SYSTEMS</span>
           </span>
         </Link>
         <nav className="desktop-nav" aria-label="Navigation principale">

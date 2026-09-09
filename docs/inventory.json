@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "surface": {
-    "pages": 23,
+    "pages": 25,
     "api_routes": 9,
-    "components": 47,
+    "components": 49,
     "lib_modules": 44,
     "tables": 11,
     "enums": 14,
@@ -37,7 +37,7 @@
     {
       "file": "apps/web/app/confidentialite/page.tsx",
       "route": "/confidentialite",
-      "lines": 182
+      "lines": 192
     },
     {
       "file": "apps/web/app/decisions/[adr]/page.tsx",
@@ -68,6 +68,11 @@
       "file": "apps/web/app/mentions-legales/page.tsx",
       "route": "/mentions-legales",
       "lines": 114
+    },
+    {
+      "file": "apps/web/app/methode/page.tsx",
+      "route": "/methode",
+      "lines": 94
     },
     {
       "file": "apps/web/app/metrics/page.tsx",
@@ -110,6 +115,11 @@
       "lines": 178
     },
     {
+      "file": "apps/web/app/revue-architecture/page.tsx",
+      "route": "/revue-architecture",
+      "lines": 111
+    },
+    {
       "file": "apps/web/app/systeme/page.tsx",
       "route": "/systeme",
       "lines": 148
@@ -122,12 +132,12 @@
     {
       "file": "apps/web/app/technique/page.tsx",
       "route": "/technique",
-      "lines": 518
+      "lines": 525
     },
     {
       "file": "apps/web/app/verifier/[id]/page.tsx",
       "route": "/verifier/[id]",
-      "lines": 297
+      "lines": 316
     }
   ],
   "api_routes": [
@@ -220,7 +230,7 @@
     },
     {
       "file": "apps/web/components/dashboard.tsx",
-      "lines": 624
+      "lines": 620
     },
     {
       "file": "apps/web/components/ecosystem-catalog.tsx",
@@ -249,6 +259,10 @@
     {
       "file": "apps/web/components/integrity-panel.tsx",
       "lines": 184
+    },
+    {
+      "file": "apps/web/components/journey-gateway.tsx",
+      "lines": 41
     },
     {
       "file": "apps/web/components/known-limits.tsx",
@@ -339,8 +353,12 @@
       "lines": 137
     },
     {
+      "file": "apps/web/components/signal-signup.tsx",
+      "lines": 90
+    },
+    {
       "file": "apps/web/components/site-header.tsx",
-      "lines": 122
+      "lines": 128
     },
     {
       "file": "apps/web/components/site-tools.tsx",
@@ -1688,8 +1706,8 @@
       "id": "surface_pages",
       "level": "surface",
       "label": "Routes de page",
-      "max": 24,
-      "value": 23,
+      "max": 26,
+      "value": 25,
       "broken": false,
       "over": false
     },
@@ -1707,7 +1725,7 @@
       "level": "surface",
       "label": "Composants",
       "max": 50,
-      "value": 47,
+      "value": 49,
       "broken": false,
       "over": false
     },
@@ -1725,7 +1743,7 @@
       "level": "surface",
       "label": "Lignes du plus gros composant",
       "max": 700,
-      "value": 624,
+      "value": 620,
       "broken": false,
       "over": false
     },

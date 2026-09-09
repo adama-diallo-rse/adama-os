@@ -25,7 +25,7 @@ export const IDENTITE = {
   domaines: ["RSE", "Data", "Systèmes"] as const,
   /** Ce que je sais faire. Vend une capacite, pas une situation. */
   capacite:
-    "Je conçois et je construis des systèmes logiciels à l’intersection de la RSE, de la donnée et du logiciel.",
+    "Je conçois des systèmes numériques qui rendent la donnée de durabilité exploitable, vérifiable et opposable.",
   /** Ou j'en suis. Vient apres la capacite, jamais avant. */
   situation:
     "Aujourd’hui data ESG et solutions IA chez AG2R LA MONDIALE, et en parallèle mon propre écosystème logiciel.",

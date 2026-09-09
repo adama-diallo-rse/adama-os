@@ -4,12 +4,8 @@ import { join } from "node:path";
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { SkillCards } from "../components/skill-cards";
-import {
-  COMPETENCES,
-  DISPONIBILITE,
-  IDENTITE,
-  RECHERCHE,
-} from "../content/profil";
+import { COMPETENCES, DISPONIBILITE, RECHERCHE } from "../content/profil";
+import { ADAMA_OS } from "../content/adama-os";
 
 // =====================================================================
 // C9-T6, test anti regression narrative.
@@ -52,15 +48,15 @@ function premierEcran(): string {
 describe("C9-T6, le premier ecran dit ce qu'on lui demande", () => {
   const ecran = premierEcran();
 
-  it("porte la proposition de valeur, et elle vend une capacite", () => {
-    expect(ecran).toContain("IDENTITE.capacite");
-    expect(IDENTITE.capacite.length).toBeGreaterThan(60);
+  it("porte la proposition de valeur ADAMA OS", () => {
+    expect(ecran).toContain("ADAMA_OS.proposition");
+    expect(ADAMA_OS.proposition.length).toBeGreaterThan(60);
     // Une capacite se dit a la premiere personne et avec des verbes d'action.
-    expect(IDENTITE.capacite).toMatch(/^Je /);
+    expect(ADAMA_OS.proposition).toMatch(/^Je /);
   });
 
-  it("porte la ligne de disponibilite comme une affirmation autonome", () => {
-    expect(ecran).toContain("DISPONIBILITE");
+  it("porte la signature de preuve comme une affirmation autonome", () => {
+    expect(ecran).toContain("ADAMA_OS.signature");
     expect(ecran).toContain('className="hero-availability"');
   });
 
@@ -74,15 +70,15 @@ describe("C9-T6, le premier ecran dit ce qu'on lui demande", () => {
     expect(DISPONIBILITE).toContain("Île-de-France");
   });
 
-  it("range la capacite avant la situation, et la situation avant la disponibilite", () => {
-    const capacite = ecran.indexOf("IDENTITE.capacite");
-    const situation = ecran.indexOf("IDENTITE.situation");
-    const dispo = ecran.indexOf("DISPONIBILITE");
+  it("range la proposition avant le sous-titre, puis la signature avant les actions", () => {
+    const capacite = ecran.indexOf("ADAMA_OS.proposition");
+    const situation = ecran.indexOf("ADAMA_OS.sousTitre");
+    const signature = ecran.indexOf("ADAMA_OS.signature");
     const actions = ecran.indexOf('className="hero-actions"');
     expect(capacite).toBeGreaterThan(-1);
     expect(situation).toBeGreaterThan(capacite);
-    expect(dispo).toBeGreaterThan(situation);
-    expect(actions).toBeGreaterThan(dispo);
+    expect(signature).toBeGreaterThan(situation);
+    expect(actions).toBeGreaterThan(signature);
   });
 
   it("ne propose que trois actions, jamais quatre", () => {

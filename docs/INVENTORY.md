@@ -13,9 +13,9 @@ echouer `--check` a chaque seconde.
 
 | Mesure | Valeur |
 | --- | --- |
-| Routes de page | 23 |
+| Routes de page | 25 |
 | Routes d'API | 9 |
-| Composants | 47 |
+| Composants | 49 |
 | Modules `lib` | 44 |
 | Tables Drizzle | 11 |
 | Types enumeres | 14 |
@@ -32,13 +32,14 @@ echouer `--check` a chaque seconde.
 | `/admin/relecture` | `apps/web/app/admin/relecture/page.tsx` | 227 |
 | `/checkin` | `apps/web/app/checkin/page.tsx` | 326 |
 | `/confiance` | `apps/web/app/confiance/page.tsx` | 300 |
-| `/confidentialite` | `apps/web/app/confidentialite/page.tsx` | 182 |
+| `/confidentialite` | `apps/web/app/confidentialite/page.tsx` | 192 |
 | `/decisions/[adr]` | `apps/web/app/decisions/[adr]/page.tsx` | 305 |
 | `/decisions` | `apps/web/app/decisions/page.tsx` | 148 |
 | `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 178 |
 | `/journal` | `apps/web/app/journal/page.tsx` | 123 |
 | `/login` | `apps/web/app/login/page.tsx` | 84 |
 | `/mentions-legales` | `apps/web/app/mentions-legales/page.tsx` | 114 |
+| `/methode` | `apps/web/app/methode/page.tsx` | 94 |
 | `/metrics` | `apps/web/app/metrics/page.tsx` | 253 |
 | `/mot-de-passe` | `apps/web/app/mot-de-passe/page.tsx` | 38 |
 | `/` | `apps/web/app/page.tsx` | 225 |
@@ -47,10 +48,11 @@ echouer `--check` a chaque seconde.
 | `/projets/[slug]` | `apps/web/app/projets/[slug]/page.tsx` | 162 |
 | `/recruteur` | `apps/web/app/recruteur/page.tsx` | 324 |
 | `/revirements` | `apps/web/app/revirements/page.tsx` | 178 |
+| `/revue-architecture` | `apps/web/app/revue-architecture/page.tsx` | 111 |
 | `/systeme` | `apps/web/app/systeme/page.tsx` | 148 |
 | `/systeme/pannes` | `apps/web/app/systeme/pannes/page.tsx` | 148 |
-| `/technique` | `apps/web/app/technique/page.tsx` | 518 |
-| `/verifier/[id]` | `apps/web/app/verifier/[id]/page.tsx` | 297 |
+| `/technique` | `apps/web/app/technique/page.tsx` | 525 |
+| `/verifier/[id]` | `apps/web/app/verifier/[id]/page.tsx` | 316 |
 
 | API | Fichier | Lignes |
 | --- | --- | --- |
@@ -87,7 +89,7 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 | Fichier | Lignes |
 | --- | --- |
-| `apps/web/components/dashboard.tsx` | 624 |
+| `apps/web/components/dashboard.tsx` | 620 |
 | `apps/web/components/terminal.tsx` | 562 |
 | `apps/web/components/vsme-simulator.tsx` | 550 |
 | `apps/web/lib/health/criteria.ts` | 459 |
@@ -284,11 +286,11 @@ Severite actuelle : `error` (avertissement en vague V0, erreur a partir de V2).
 | N2 | Preuves sociales affichees d'un bloc dans la Couche D | 1 | 4 | tenu |
 | N2 | Experiences citees dans le bandeau de la home | 4 | 4 | tenu |
 | N2 | Marques d'organisation affichees sur le site | 4 | 5 | tenu |
-| surface | Routes de page | 23 | 24 | tenu |
+| surface | Routes de page | 25 | 26 | tenu |
 | surface | Routes d'API | 9 | 10 | tenu |
-| surface | Composants | 47 | 50 | tenu |
+| surface | Composants | 49 | 50 | tenu |
 | surface | Modules lib | 44 | 46 | tenu |
-| surface | Lignes du plus gros composant | 624 | 700 | tenu |
+| surface | Lignes du plus gros composant | 620 | 700 | tenu |
 | surface | Lignes du plus gros module lib | 459 | 460 | tenu |
 
 Aucun depassement.

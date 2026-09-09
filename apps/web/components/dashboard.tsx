@@ -18,6 +18,8 @@ import { ArchitectureArt } from "./portfolio-art";
 import { SiteHeader } from "./site-header";
 import { ProjectGrid } from "./project-grid";
 import { SkillCards } from "./skill-cards";
+import { JourneyGateway } from "./journey-gateway";
+import { SignalSignup } from "./signal-signup";
 import { OrgLogo, marqueDe } from "./org-logo";
 import {
   CONTACT_EMAIL,
@@ -35,6 +37,7 @@ import {
   IDENTITE,
 } from "../content/profil";
 import type { CarteProjet } from "../content/projets";
+import { ADAMA_OS } from "../content/adama-os";
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return (
@@ -120,70 +123,60 @@ export function Dashboard({
                 une mesure cassee compte comme un depassement. */}
             <div className="hero-copy">
               <p className="hero-eyebrow">
-                <span className="status-dot" />{" "}
-                {IDENTITE.domaines.join(" · ").toUpperCase()}
+                <span className="status-dot" /> {ADAMA_OS.territoire}
               </p>
               <h1 id="hero-title">
-                {IDENTITE.prenom}
+                L’ESG numérique,
                 <br />
-                <span className="hero-serif">{IDENTITE.patronyme}.</span>
+                <span className="hero-serif">construit en public.</span>
               </h1>
               <div className="hero-copy-lines">
-                <p className="hero-description">{IDENTITE.capacite}</p>
-                <p className="hero-situation">{IDENTITE.situation}</p>
+                <p className="hero-description">{ADAMA_OS.proposition}</p>
+                <p className="hero-situation">{ADAMA_OS.sousTitre}</p>
                 <p className="hero-availability">
                   <span className="note-line" aria-hidden="true" />
-                  <strong>{DISPONIBILITE}</strong>
+                  <strong>{ADAMA_OS.signature}</strong>
                 </p>
               </div>
               <div className="hero-actions">
-                <a
-                  href={CV_PATH}
-                  download={CV_DOWNLOAD_NAME}
-                  className="portfolio-button primary"
-                  onClick={() =>
-                    capture(EVENT_RECRUITER_CV, {
-                      source: "portfolio-hero",
-                    })
-                  }
-                >
-                  Mon CV <Arrow diagonal />
+                <a href="#explorer" className="portfolio-button primary">
+                  Choisir un parcours <Arrow />
                 </a>
-                <button
-                  type="button"
-                  className="portfolio-button ghost"
-                  onClick={() => setRecruitOpen(true)}
+                <Link href="/methode" className="portfolio-button ghost">
+                  Utiliser la méthode <Arrow diagonal />
+                </Link>
+                <Link
+                  href="/revue-architecture"
+                  className="portfolio-text-link"
                 >
-                  Prendre rendez-vous <Arrow diagonal />
-                </button>
-                <a href="#projets" className="portfolio-text-link">
-                  Voir ce que je construis <Arrow />
-                </a>
+                  Soumettre un problème <Arrow />
+                </Link>
               </div>
             </div>
             <div className="hero-art">
               <div className="art-topline">
-                <span>ADAMA OS / PORTFOLIO</span>
-                <span>FIG. 001</span>
+                <span>ADAMA OS / SYSTÈME INTELLECTUEL</span>
+                <span>AXP.001</span>
               </div>
               <ArchitectureArt />
               <div className="art-bottomline">
-                <span>ÉTUDE DE STRATES</span>
+                <span>IDÉE · EXPÉRIENCE · DÉCISION · MÉTHODE</span>
                 <span className="art-cross" aria-hidden="true">
                   +
                 </span>
               </div>
               <span className="art-side-label" aria-hidden="true">
-                ASSEMBLAGE / 001
+                PROVENANCE / 001
               </span>
             </div>
             <div className="hero-bottom">
-              <span>TROIS DOMAINES, TROIS PREUVES</span>
-              <a href="#projets">
-                Explorer la suite <span aria-hidden="true">↓</span>
+              <span>ADAMA DIALLO / LABORATOIRE PUBLIC</span>
+              <a href="#explorer">
+                Commencer ici <span aria-hidden="true">↓</span>
               </a>
             </div>
           </section>
+          <JourneyGateway />
           {/* C9-T2. Visible sans defilement sur un ecran de bureau : c'est
               la reponse a « que sait faire cette personne », posee avant
               tout le reste. */}
@@ -564,11 +557,14 @@ export function Dashboard({
               </a>
             </div>
           </section>
+          <div className="portfolio-wrap">
+            <SignalSignup />
+          </div>
         </main>
         <footer className="portfolio-footer portfolio-wrap">
           <div className="footer-top">
             <a href="#top" className="footer-signature">
-              Adama Diallo<span>.</span>
+              ADAMA OS<span>.</span>
             </a>
             <div>
               <a
@@ -595,7 +591,7 @@ export function Dashboard({
             </div>
           </div>
           <div className="footer-bottom">
-            <span>ADAMA DIALLO · PORTFOLIO</span>
+            <span>ADAMA OS · LABORATOIRE PUBLIC</span>
             <div>
               <LegalFooterLinks />
               <Link href="/confiance">Frontières de données</Link>

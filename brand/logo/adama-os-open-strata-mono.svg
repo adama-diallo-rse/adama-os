@@ -1,0 +1,13 @@
+<svg width="720" height="180" viewBox="0 0 720 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">ADAMA OS</title>
+  <desc id="desc">Version monochrome du symbole Open Strata</desc>
+  <g transform="translate(38 30)" fill="none" stroke="#0D1B2A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M60 0 108 48"/>
+    <path d="M120 60 60 120 0 60 60 0"/>
+    <path d="M60 27 90 57"/>
+    <path d="M94 66 60 100 20 60 60 20"/>
+  </g>
+  <circle cx="151" cy="83" r="8" fill="#0D1B2A"/>
+  <text x="205" y="91" font-family="Syne, Arial, sans-serif" font-size="58" font-weight="700" letter-spacing="-2" fill="#0D1B2A">ADAMA OS</text>
+  <text x="209" y="126" font-family="Syne, Arial, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#0D1B2A">ESG · DATA · SYSTEMS</text>
+</svg>

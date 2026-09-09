@@ -31,6 +31,12 @@ type Traitement = {
 
 const TRAITEMENTS: Traitement[] = [
   {
+    finalite: "Inscription à SIGNAL",
+    donnees: "adresse e-mail",
+    base: "consentement, inscription volontaire",
+    duree: "jusqu'au retrait du consentement ou après 24 mois sans interaction",
+  },
+  {
     finalite: "Prise de contact recruteur",
     donnees: "adresse e-mail, contexte du clic (page, intention déclarée)",
     base: "consentement, formulaire volontaire",
@@ -164,6 +170,10 @@ export default function ConfidentialitePage() {
           portabilité s&apos;exercent par un simple message à {EDITEUR.contact}.
           Réponse sous quinze jours. En cas de désaccord persistant, un recours
           est ouvert auprès de la CNIL.
+        </p>
+        <p>
+          Chaque message SIGNAL contiendra un moyen simple de se désinscrire.
+          Une demande envoyée à {EDITEUR.contact} produit le même effet.
         </p>
         <p>
           Voir aussi les{" "}

@@ -244,6 +244,8 @@
    C9-T4, l'acces permanent au parcours recruteur
    ------------------------------------------------------------------ */
 .recruiter-entry {
+  font-family: var(--font-ui);
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 10px;

@@ -1,0 +1,29 @@
+:root {
+  --adama-slate: #0d1b2a;
+  --adama-slate-mid: #1a2d42;
+  --adama-stone: #536878;
+  --adama-cream: #f2ede4;
+  --adama-gold: #c9a96e;
+  --adama-gold-text: #806332;
+  --adama-signal: #2affd6;
+  --adama-white: #ffffff;
+
+  --adama-font-display: "Cormorant Garamond", serif;
+  --adama-font-ui: "Syne", sans-serif;
+  --adama-font-body: "DM Sans", sans-serif;
+  --adama-font-data: "Courier Prime", monospace;
+
+  --adama-radius-card: 14px;
+  --adama-radius-frame: 28px;
+  --adama-radius-pill: 9999px;
+
+  --adama-space-1: 4px;
+  --adama-space-2: 8px;
+  --adama-space-3: 12px;
+  --adama-space-4: 16px;
+  --adama-space-6: 24px;
+  --adama-space-8: 32px;
+  --adama-space-12: 48px;
+  --adama-space-16: 64px;
+  --adama-space-24: 96px;
+}
