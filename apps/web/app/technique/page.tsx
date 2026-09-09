@@ -502,6 +502,8 @@ function descriptionRoute(route: string): string {
     "/.well-known/adama-os.json":
       "Le registre des affirmations et de leurs preuves.",
     "/llms.txt": "Le site décrit en texte simple, pour un agent.",
+    "/auth/callback":
+      "La reprise d’un lien de connexion. Elle ne publie aucune donnée.",
   };
   return table[route] ?? "Route non documentée sur cette page.";
 }
@@ -512,6 +514,11 @@ function comportementRoute(route: string): string {
   }
   if (route.startsWith("/api/")) {
     return "503, avec la raison en clair.";
+  }
+  // Cette route ne sert pas de document : elle redirige. Lui appliquer la
+  // phrase des documents servis annoncerait un comportement qu'elle n'a pas.
+  if (route === "/auth/callback") {
+    return "Redirection interne, avec la raison en clair si le lien échoue.";
   }
   return "Document servi, champs vides plutôt qu’inventés.";
 }
