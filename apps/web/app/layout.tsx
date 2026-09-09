@@ -10,6 +10,7 @@ import {
 import { SITE_URL, absoluteUrl } from "../lib/site";
 import {
   DEMANDE,
+  DISPONIBILITE,
   EXPERIENCE_ACTUELLE,
   IDENTITE,
   POSTE_ACTUEL,
@@ -48,7 +49,12 @@ export const metadata: Metadata = {
     default: "Adama Diallo | RSE, data et développement",
     template: "%s · Adama OS",
   },
-  description: `${IDENTITE.capacite} ${IDENTITE.situation} ${DEMANDE}`,
+  // La description est ce qu'un moteur affiche sous le titre : au-dela
+  // d'environ 160 caracteres, il coupe et choisit lui-meme la suite. Elle
+  // porte donc la capacite et la disponibilite, les deux seules choses
+  // qu'un lecteur de resultat de recherche a besoin de savoir. La demande
+  // complete reste dans le JSON-LD et sur /recruteur, ou elle a la place.
+  description: `${IDENTITE.capacite} ${DISPONIBILITE}`,
   // Les intitulés recherchés viennent de la source unique de profil : un
   // mot-clé qui ne figure pas sur la page est un mot-clé qui ment.
   keywords: [
@@ -64,6 +70,14 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
+  // Propriete Search Console https://adamesg-os.fr/, ouverte le 9 septembre
+  // 2026. Le jeton est public par construction : il est servi dans le HTML
+  // de chaque page. Il ne donne aucun droit, il prouve seulement que le
+  // proprietaire du compte controle ce domaine. Ne pas le retirer : Google
+  // revoque la propriete des qu'il ne le trouve plus.
+  verification: {
+    google: "9MNunaSiGbPwx8_DDYpwGqI7gAocN2nHoB57B7UQF8w",
+  },
   openGraph: {
     title: "Adama Diallo | RSE, data et développement",
     description:

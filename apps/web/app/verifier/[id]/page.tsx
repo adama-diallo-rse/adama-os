@@ -45,14 +45,33 @@ export const dynamic = "force-dynamic";
 
 type Params = { params: Promise<{ id: string }> };
 
+/** Coupe un enonce sur un mot, sans jamais rallonger le texte d'origine. */
+function resumerEnonce(statement: string, limite = 52): string {
+  const propre = statement.trim();
+  if (propre.length <= limite) {
+    return propre;
+  }
+  const coupe = propre.slice(0, limite);
+  const espace = coupe.lastIndexOf(" ");
+  const garde = espace > limite * 0.6 ? coupe.slice(0, espace) : coupe;
+  return `${garde.replace(/[\s.,;:]+$/, "")}…`;
+}
+
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { id } = await params;
   const proof = await getClaim(id);
   if (!proof) {
     return { title: "Affirmation inconnue", robots: { index: false } };
   }
+  // Le titre d'un onglet et d'un resultat de recherche est coupe autour de
+  // soixante caracteres. Une affirmation entiere y rentre rarement : elle
+  // sortait tronquee au milieu d'un mot, par le moteur, sans marque de
+  // coupe. Elle est donc coupee ici, sur un mot, avec des points de
+  // suspension qui disent que la phrase continue. Le texte entier reste sur
+  // la page, dans la description et dans le titre visible.
+  const enonce = resumerEnonce(proof.row.statement);
   return {
-    title: `Vérifier : ${proof.row.statement}`,
+    title: `Vérifier : ${enonce}`,
     description: `Provenance, preuves, méthode et date d’observation de l’affirmation « ${proof.row.statement} ».`,
     alternates: { canonical: `/verifier/${proof.row.id}` },
     robots: { index: proof.row.visibility === "public", follow: true },
