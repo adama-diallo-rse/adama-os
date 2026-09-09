@@ -77,7 +77,7 @@ budget y porte sur la surface de code, ci-dessous.
 
 | Plafond                          | Max |
 | -------------------------------- | --- |
-| Routes de page                   | 24  |
+| Routes de page                   | 26  |
 | Routes d'API                     | 10  |
 | Composants                       | 50  |
 | Modules `lib`                    | 46  |
@@ -181,6 +181,13 @@ que ce que la vague a reellement consomme.
   precisement PARCE QUE le budget interdit de grossir : le journal a ete
   ecrit a part plutot que d'etre glisse dans `dashboard.tsx`, et la matrice a
   part plutot que dans la Couche A.
+
+## Deux routes pour l’expansion du 9 septembre 2026
+
+- **`surface_pages`, de 24 à 26.** `/methode` rend la chaîne de provenance
+  utilisable sans connaître le cockpit. `/revue-architecture` isole l’entrée
+  conseil du parcours recruteur. Ces deux pages répondent à deux tâches
+  distinctes et gardent une page de marge.
 - **`surface_lib`, de 40 a 46.** Onze modules, tous purs sauf un :
   `health/types`, `health/observations`, `health/criteria`, `health/collect`,
   `ecosystem/map`, `chantiers`, `inventory`, `integrity`, `analytics-events`,
