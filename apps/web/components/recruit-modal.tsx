@@ -66,8 +66,8 @@ export function RecruitModal({
   // Échap pour fermer + événement d'ouverture.
   useEffect(() => {
     if (!open) {
-      setShowCal(false);
-      return;
+      const frame = requestAnimationFrame(() => setShowCal(false));
+      return () => cancelAnimationFrame(frame);
     }
     captureEvent(EVENT_RECRUITER_MODAL);
     const previousFocus = document.activeElement as HTMLElement | null;

@@ -201,7 +201,7 @@
 }
 .hero-copy h1 {
   font-family: var(--font-display);
-  font-size: clamp(64px, 6.8vw, 102px);
+  font-size: clamp(60px, 5.6vw, 84px);
   line-height: 0.98;
   letter-spacing: -0.025em;
   font-weight: 300;
@@ -222,6 +222,28 @@
   font-size: 16px;
   line-height: 1.85;
   color: var(--secondary);
+}
+.hero-copy-lines {
+  display: grid;
+  gap: 11px;
+}
+.hero-situation {
+  max-width: 480px;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.hero-availability {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-top: 5px;
+  color: var(--secondary);
+  font-size: 11px;
+  line-height: 1.55;
+}
+.hero-availability strong {
+  font-weight: 400;
 }
 .hero-description strong {
   font-weight: 500;
@@ -258,6 +280,16 @@
   background: var(--accent-text);
   transform: translateY(-2px);
 }
+.portfolio-button.ghost {
+  border: 1px solid #9ba5ad;
+  color: var(--ink);
+  background: rgb(255 255 255 / 45%);
+}
+.portfolio-button.ghost:hover {
+  border-color: var(--ink);
+  background: #fffdf8;
+  transform: translateY(-2px);
+}
 .portfolio-text-link {
   display: inline-flex;
   align-items: center;
@@ -288,7 +320,8 @@
   min-width: 0;
   background: var(--art-paper);
   border: 1px solid #d2d9df;
-  border-radius: 3px;
+  border-radius: 18px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -790,9 +823,7 @@
 .approach-icon {
   display: block;
   color: var(--accent-text);
-  font:
-    48px Georgia,
-    serif;
+  font: 48px var(--font-display);
   line-height: 1;
   margin-bottom: 34px;
   height: 46px;
@@ -878,9 +909,7 @@
   place-items: center;
   background: #e1e5e8;
   border-radius: 50%;
-  font:
-    italic 23px Georgia,
-    serif;
+  font: italic 23px var(--font-display);
 }
 .journey-category {
   font: 8px var(--font-mono);

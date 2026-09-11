@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
 import { Cormorant_Garamond, Courier_Prime, DM_Sans } from "next/font/google";
 import { ConsentBanner } from "../components/consent-banner";
 import {
@@ -34,6 +32,7 @@ import "./narrative.css";
 // confiance, integrite). Meme raison que proof.css et narrative.css, un
 // fichier de plus dans subpages.css le rendrait illisible.
 import "./systeme.css";
+import "./expansion.css";
 import localFont from "next/font/local";
 
 const syne = localFont({
@@ -209,7 +208,7 @@ export default function RootLayout({
     <html
       lang="fr"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable} ${syne.variable} ${cormorant.variable} ${dmSans.variable} ${courierPrime.variable}`}
+      className={`${syne.variable} ${cormorant.variable} ${dmSans.variable} ${courierPrime.variable}`}
     >
       <body className="antialiased">
         <script

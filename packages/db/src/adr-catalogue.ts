@@ -776,6 +776,61 @@ const DEC_010: Adr = {
   revirement: null,
 };
 
+const DEC_011: Adr = {
+  adrId: "DEC-011",
+  titre: "Une couche commerciale isolée plutôt qu’une interdiction de dépôt",
+  statut: "accepte",
+  date: "2026-09-07",
+  portee: "adama-os",
+  impact: "architecture",
+  reversibilite: "forte",
+  remplace: "DEC-106",
+  contexte: [
+    "ADAMA OS EXPANSION vend des méthodes, des gabarits, des parcours et des avis qui ne sont pas des logiciels.",
+    "La preuve publique et l’offre commerciale doivent partager leur réputation sans partager leurs dépendances.",
+    "Le stock public au 7 septembre 2026 doit rester public et vérifiable sans compte ni paiement.",
+  ],
+  options: [
+    {
+      option: "Créer un autre dépôt et un autre domaine pour tout le commerce",
+      verdict: "ecartee",
+      motif:
+        "Cette séparation imposerait de reconstruire une audience et une réputation sans mieux protéger la preuve.",
+    },
+    {
+      option: "Créer une couche L13 isolée dans le dépôt existant",
+      verdict: "retenue",
+      motif:
+        "La frontière est testable, conserve une seule réputation et interdit tout couplage depuis la preuve.",
+    },
+  ],
+  decision:
+    "Le commerce vit dans une couche L13 isolée. Aucune page de preuve ne l’importe et aucune clé de paiement n’est lue ailleurs.",
+  raisonnement: {
+    technique:
+      "Un module isolé, un inventaire de secrets et un test de non-importation rendent la frontière vérifiable.",
+    reglementaire:
+      "Les conditions de vente et le traitement du paiement restent cantonnés à la surface qui en répond.",
+    economique:
+      "La preuve et l’offre partagent le même domaine, donc la même réputation, sans dupliquer l’acquisition.",
+  },
+  compromis:
+    "La frontière doit être maintenue par des contrôles permanents, alors qu’une interdiction absolue ne demandait aucun test.",
+  consequence:
+    "ROADMAP.md autorise désormais le catalogue, le panier, l’abonnement et la facture uniquement dans L13. Aucun code commercial n’est encore livré par cette décision documentaire.",
+  preuves: [
+    {
+      kind: "fichier",
+      libelle: "Doctrine du dépôt révisée",
+      locator: "ROADMAP.md",
+    },
+  ],
+  tags: ["architecture", "commerce", "preuve"],
+  reconstruit: false,
+  questions: [],
+  revirement: null,
+};
+
 // ---------------------------------------------------------------------
 // Les decisions remplacees, qui portent les revirements (C7)
 //
@@ -1133,6 +1188,75 @@ const DEC_105: Adr = {
   },
 };
 
+const DEC_106: Adr = {
+  adrId: "DEC-106",
+  titre: "Un cockpit sans commerce plutôt qu’une preuve et une offre séparées",
+  statut: "remplace",
+  date: "2026-07-19",
+  portee: "adama-os",
+  impact: "architecture",
+  reversibilite: "forte",
+  remplace: null,
+  contexte: [
+    "Le recentrage du 19 juillet 2026 retirait du cockpit les pages de vente qui dupliquaient un produit existant.",
+    "Pour empêcher le doublon de revenir, la doctrine avait interdit tout paiement, tout passage en caisse et tout tunnel de vente dans le dépôt.",
+    "Cette interdiction protégeait la preuve, mais elle confondait la vente d’un logiciel tiers avec la vente d’un actif de connaissance propre au cockpit.",
+  ],
+  options: [
+    {
+      option: "Maintenir une interdiction totale du commerce dans le dépôt",
+      verdict: "retenue",
+      motif:
+        "La séparation par dépôt rendait le périmètre immédiatement lisible et empêchait le retour des pages produit dupliquées.",
+    },
+    {
+      option: "Isoler le commerce dans une couche sans dépendance depuis la preuve",
+      verdict: "ecartee",
+      motif:
+        "La branche de connaissance n’existait pas encore et aucun objet propre au cockpit ne justifiait cette complexité.",
+    },
+  ],
+  decision:
+    "Le dépôt ne contient aucun paiement, aucun passage en caisse et aucun tunnel de vente.",
+  raisonnement: {
+    technique:
+      "Une interdiction de dépôt est plus simple à contrôler qu’une frontière entre modules.",
+    reglementaire:
+      "Sans commerce, le cockpit ne porte ni conditions de vente, ni facture, ni traitement de paiement.",
+    economique:
+      "Le cockpit reste une vitrine de preuve et renvoie toute conversion aux produits responsables.",
+  },
+  compromis:
+    "Aucun actif intellectuel propre au cockpit ne peut être vendu là où sa preuve et son audience vivent.",
+  consequence:
+    "La doctrine est restée cohérente jusqu’à l’ouverture, le 7 septembre 2026, d’une branche de connaissance qui vend des méthodes, des gabarits, des parcours et des avis sans livrer de logiciel.",
+  preuves: [
+    {
+      kind: "fichier",
+      libelle: "Doctrine révisée et datée",
+      locator: "ROADMAP.md",
+    },
+    {
+      kind: "route",
+      libelle: "Registre public du revirement",
+      locator: "/revirements",
+    },
+  ],
+  tags: ["revirement", "commerce", "preuve", "architecture"],
+  reconstruit: false,
+  questions: [],
+  revirement: {
+    croyais:
+      "Je pensais qu’interdire tout commerce dans le cockpit était la seule manière durable d’empêcher le retour d’une vitrine produit dupliquée.",
+    invalide:
+      "Le 7 septembre 2026, la branche de connaissance a été arrêtée avec des objets propres, vendables sans logiciel, qui doivent vivre au même endroit que leur preuve et leur audience.",
+    fait: "J’ai rouvert la monétisation du domaine et réécrit la doctrine du dépôt. Le commerce est cantonné à une couche L13 isolée, sans dépendance depuis les pages de preuve.",
+    cout: "Le dépôt perd la simplicité d’une interdiction absolue. Il faut maintenant tenir une frontière testable, inventorier les secrets de paiement et maintenir public tout contenu qui l’était au 7 septembre 2026.",
+    coutEstime: true,
+    regle: "Le commerce ne gouverne jamais la preuve.",
+  },
+};
+
 // ---------------------------------------------------------------------
 // Le catalogue
 // ---------------------------------------------------------------------
@@ -1148,11 +1272,13 @@ export const ADR_CATALOGUE: readonly Adr[] = [
   DEC_008,
   DEC_009,
   DEC_010,
+  DEC_011,
   DEC_101,
   DEC_102,
   DEC_103,
   DEC_104,
   DEC_105,
+  DEC_106,
 ];
 
 /** Recherche par identifiant. Null si l'ADR n'existe pas dans le catalogue.

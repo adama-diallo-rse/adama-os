@@ -47,9 +47,13 @@ function useCountdown(targetIso: string): Countdown | null {
     if (Number.isNaN(targetMs)) {
       return;
     }
-    setValue(computeCountdown(targetMs));
-    const id = setInterval(() => setValue(computeCountdown(targetMs)), 1000);
-    return () => clearInterval(id);
+    const update = () => setValue(computeCountdown(targetMs));
+    const frame = requestAnimationFrame(update);
+    const id = setInterval(update, 1000);
+    return () => {
+      cancelAnimationFrame(frame);
+      clearInterval(id);
+    };
   }, [targetIso]);
 
   return value;

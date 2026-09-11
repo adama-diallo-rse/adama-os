@@ -1,6 +1,6 @@
 # Adama OS, état du dépôt
 
-> **À jour au 31 août 2026**, vérifié par lecture du code, typecheck, suite de
+> **À jour au 7 septembre 2026**, vérifié par lecture du code, typecheck, suite de
 > tests et build de production, pas par relecture d'une page.
 >
 > Ce fichier ne décrit QUE le dépôt `adama-os`. La stratégie, les arbitrages de
@@ -11,7 +11,7 @@
 
 ## Doctrine, ce que ce dépôt fait et ne fait pas
 
-Trois décisions gouvernent le périmètre et ne se rediscutent pas ici.
+Quatre décisions gouvernent le périmètre et ne se rediscutent pas ici.
 
 - **13 juillet 2026, Adama OS est un ATELIER.** Audit, veille et formations ne
   sont pas développés ici. Ils vivent dans leurs propres dépôts. Le cockpit s'y
@@ -21,13 +21,17 @@ Trois décisions gouvernent le périmètre et ne se rediscutent pas ici.
 - **7 août 2026, le cockpit consomme, il ne recalcule pas.** Toute donnée
   produit affichée vient d'une API du produit, en lecture seule. Si l'API
   n'existe pas, la métrique n'est pas affichée. Il n'y a pas de troisième voie.
+- **7 septembre 2026, la monétisation est ouverte dans une couche L13 isolée.**
+  Le catalogue, le panier, l'abonnement et la facture peuvent vivre dans ce
+  dépôt. Aucune page de preuve ne dépend du commerce, aucune clé de paiement
+  n'est lue hors de L13 et tout contenu public au 7 septembre reste public.
 
 Corollaires, à traiter comme des interdits :
 
 - toute feature produit ajoutée ici est un signal d'alerte ;
 - aucun calcul ESG dans ce dépôt (couche L2 fermée, `services/engine` supprimé
   le 13 juillet 2026) ;
-- aucun paiement, checkout ou tunnel de vente ;
+- aucun paiement, checkout ou tunnel de vente hors de la couche L13 isolée ;
 - **aucune métrique affichée sans source vérifiable.** Un repli codé en dur qui
   simule une donnée est un mensonge, pas une dégradation gracieuse ;
 - le design est fait, ne plus y toucher avant P4. Les corrections de contraste

@@ -6,14 +6,14 @@
 // revirement dont il vient. Un principe adosse a une erreur reelle a une
 // valeur qu'un manifeste n'aura jamais.
 //
-// Cinq, pas six. Six diluent, dix annulent.
+// Six principes, chacun derive d'un fait date et d'un cout explicite.
 //
 // Deux champs sont obligatoires et le type les rend inevitables : `produit`,
 // ce qui a fait naitre le principe, et `cout`, ce qu'il coute. Un principe
 // sans cout est un slogan.
 //
 // tests/principes.test.ts verifie qu'aucun principe ne renvoie vers une
-// decision inexistante, et que les cinq regles issues des revirements
+// decision inexistante, et que les six regles issues des revirements
 // figurent bien ici. Un principe orphelin fait echouer la construction.
 // =====================================================================
 
@@ -90,6 +90,17 @@ export const PRINCIPES: readonly Principe[] = [
       { adrId: "DEC-006", role: "decision" },
       { adrId: "DEC-105", role: "revirement" },
       { adrId: "DEC-103", role: "revirement" },
+    ],
+  },
+  {
+    numero: "06",
+    phrase: "Le commerce ne gouverne jamais la preuve.",
+    produit:
+      "Le 7 septembre 2026, l’ouverture de la branche de connaissance a invalidé l’interdiction totale du commerce posée le 19 juillet. La doctrine autorise désormais une couche L13 isolée, sans dépendance depuis les pages de preuve.",
+    cout: "L’interdiction absolue était simple. La nouvelle frontière exige un test de non-importation, un inventaire des secrets de paiement et le maintien public permanent de tout contenu qui était public au 7 septembre 2026.",
+    origines: [
+      { adrId: "DEC-011", role: "decision" },
+      { adrId: "DEC-106", role: "revirement" },
     ],
   },
 ] as const;

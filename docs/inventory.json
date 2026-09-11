@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
   "surface": {
-    "pages": 25,
+    "pages": 26,
     "api_routes": 9,
-    "components": 49,
+    "components": 50,
     "lib_modules": 45,
     "tables": 11,
     "enums": 14,
     "migrations": 8,
     "policies": 21,
-    "test_files": 37,
-    "test_cases": 362,
-    "dependencies": 52
+    "test_files": 38,
+    "test_cases": 367,
+    "dependencies": 51
   },
   "pages": [
     {
@@ -52,6 +52,11 @@
     {
       "file": "apps/web/app/ecosysteme/page.tsx",
       "route": "/ecosysteme",
+      "lines": 178
+    },
+    {
+      "file": "apps/web/app/expansion/page.tsx",
+      "route": "/expansion",
       "lines": 178
     },
     {
@@ -226,11 +231,11 @@
     },
     {
       "file": "apps/web/components/consent-banner.tsx",
-      "lines": 87
+      "lines": 92
     },
     {
       "file": "apps/web/components/dashboard.tsx",
-      "lines": 620
+      "lines": 608
     },
     {
       "file": "apps/web/components/ecosystem-catalog.tsx",
@@ -243,6 +248,10 @@
     {
       "file": "apps/web/components/engineering-timeline.tsx",
       "lines": 83
+    },
+    {
+      "file": "apps/web/components/expansion-dashboard.tsx",
+      "lines": 236
     },
     {
       "file": "apps/web/components/flow-diagram.tsx",
@@ -270,7 +279,7 @@
     },
     {
       "file": "apps/web/components/layer-a.tsx",
-      "lines": 232
+      "lines": 236
     },
     {
       "file": "apps/web/components/layer-b.tsx",
@@ -378,7 +387,7 @@
     },
     {
       "file": "apps/web/components/terminal.tsx",
-      "lines": 562
+      "lines": 563
     },
     {
       "file": "apps/web/components/vsme-simulator.tsx",
@@ -682,6 +691,7 @@
       "apps/web/tests/analytics-events.test.ts",
       "apps/web/tests/api-contract.test.ts",
       "apps/web/tests/auth-recuperation.test.ts",
+      "apps/web/tests/brand-expansion.test.ts",
       "apps/web/tests/budget.test.ts",
       "apps/web/tests/config-redirects.test.ts",
       "apps/web/tests/cv.test.ts",
@@ -714,7 +724,7 @@
       "apps/web/tests/technique.test.tsx",
       "apps/web/tests/trajectory.test.ts"
     ],
-    "cases": 362
+    "cases": 367
   },
   "rendu": {
     "pages": 13,
@@ -849,12 +859,6 @@
       "workspace": "apps/web/package.json",
       "name": "framer-motion",
       "range": "^12.0.0",
-      "kind": "dependencies"
-    },
-    {
-      "workspace": "apps/web/package.json",
-      "name": "geist",
-      "range": "^1.3.1",
       "kind": "dependencies"
     },
     {
@@ -1715,7 +1719,7 @@
       "level": "surface",
       "label": "Routes de page",
       "max": 26,
-      "value": 25,
+      "value": 26,
       "broken": false,
       "over": false
     },
@@ -1733,7 +1737,7 @@
       "level": "surface",
       "label": "Composants",
       "max": 50,
-      "value": 49,
+      "value": 50,
       "broken": false,
       "over": false
     },
@@ -1751,7 +1755,7 @@
       "level": "surface",
       "label": "Lignes du plus gros composant",
       "max": 700,
-      "value": 620,
+      "value": 608,
       "broken": false,
       "over": false
     },

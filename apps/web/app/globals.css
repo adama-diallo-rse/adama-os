@@ -42,13 +42,15 @@
   --color-warning: #c9a96e;
   --color-danger: #e5675c;
 
-  /* Polices, branchées sur les variables Geist (layout.tsx) */
+  /* Système typographique STRATA ESG, chargé dans layout.tsx. */
+  --font-display: var(--font-cormorant), "Times New Roman", serif;
+  --font-ui: var(--font-syne), ui-sans-serif, sans-serif;
   --font-sans:
-    var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    var(--font-dm-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     sans-serif;
   --font-mono:
-    var(--font-geist-mono), ui-monospace, "SFMono-Regular", "Menlo", "Consolas",
-    monospace;
+    var(--font-courier-prime), ui-monospace, "SFMono-Regular", "Menlo",
+    "Consolas", monospace;
 
   /* Rayon de base */
   --radius: 0.5rem;

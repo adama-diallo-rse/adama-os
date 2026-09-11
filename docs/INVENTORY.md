@@ -13,16 +13,16 @@ echouer `--check` a chaque seconde.
 
 | Mesure | Valeur |
 | --- | --- |
-| Routes de page | 25 |
+| Routes de page | 26 |
 | Routes d'API | 9 |
-| Composants | 49 |
+| Composants | 50 |
 | Modules `lib` | 45 |
 | Tables Drizzle | 11 |
 | Types enumeres | 14 |
 | Migrations SQL | 8 |
-| Fichiers de test | 37 |
-| Cas de test | 362 |
-| Dependances directes declarees | 52 |
+| Fichiers de test | 38 |
+| Cas de test | 367 |
+| Dependances directes declarees | 51 |
 
 ## Routes
 
@@ -36,6 +36,7 @@ echouer `--check` a chaque seconde.
 | `/decisions/[adr]` | `apps/web/app/decisions/[adr]/page.tsx` | 305 |
 | `/decisions` | `apps/web/app/decisions/page.tsx` | 148 |
 | `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 178 |
+| `/expansion` | `apps/web/app/expansion/page.tsx` | 178 |
 | `/journal` | `apps/web/app/journal/page.tsx` | 123 |
 | `/login` | `apps/web/app/login/page.tsx` | 84 |
 | `/mentions-legales` | `apps/web/app/mentions-legales/page.tsx` | 114 |
@@ -89,8 +90,8 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 | Fichier | Lignes |
 | --- | --- |
-| `apps/web/components/dashboard.tsx` | 620 |
-| `apps/web/components/terminal.tsx` | 562 |
+| `apps/web/components/dashboard.tsx` | 608 |
+| `apps/web/components/terminal.tsx` | 563 |
 | `apps/web/components/vsme-simulator.tsx` | 550 |
 | `apps/web/lib/health/criteria.ts` | 459 |
 | `apps/web/components/ecosystem-map.tsx` | 443 |
@@ -286,11 +287,11 @@ Severite actuelle : `error` (avertissement en vague V0, erreur a partir de V2).
 | N2 | Preuves sociales affichees d'un bloc dans la Couche D | 1 | 4 | tenu |
 | N2 | Experiences citees dans le bandeau de la home | 4 | 4 | tenu |
 | N2 | Marques d'organisation affichees sur le site | 4 | 5 | tenu |
-| surface | Routes de page | 25 | 26 | tenu |
+| surface | Routes de page | 26 | 26 | tenu |
 | surface | Routes d'API | 9 | 10 | tenu |
-| surface | Composants | 49 | 50 | tenu |
+| surface | Composants | 50 | 50 | tenu |
 | surface | Modules lib | 45 | 46 | tenu |
-| surface | Lignes du plus gros composant | 620 | 700 | tenu |
+| surface | Lignes du plus gros composant | 608 | 700 | tenu |
 | surface | Lignes du plus gros module lib | 459 | 460 | tenu |
 
 Aucun depassement.

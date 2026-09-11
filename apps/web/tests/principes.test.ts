@@ -37,19 +37,20 @@ const PAGE = readFileSync(
   "utf8",
 );
 
-describe("C14-T1, les cinq principes", () => {
-  it("en publie cinq, pas six", () => {
+describe("C14-T1, les six principes", () => {
+  it("en publie six", () => {
     const principes: readonly Principe[] = PRINCIPES;
-    expect(principes).toHaveLength(5);
+    expect(principes).toHaveLength(6);
   });
 
-  it("numerote de 01 a 05, sans trou ni doublon", () => {
+  it("numerote de 01 a 06, sans trou ni doublon", () => {
     expect(PRINCIPES.map((p) => p.numero)).toEqual([
       "01",
       "02",
       "03",
       "04",
       "05",
+      "06",
     ]);
   });
 
@@ -112,7 +113,7 @@ describe("C14-T1, les cinq principes", () => {
 });
 
 describe("C7-T3, les regles des revirements remontent toutes ici", () => {
-  it("ne perd aucune des cinq regles", () => {
+  it("ne perd aucune des six regles", () => {
     const cites = new Set(adrCitesParLesPrincipes());
     for (const revirement of REVIREMENTS_REGISTRE) {
       expect(

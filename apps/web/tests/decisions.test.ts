@@ -197,7 +197,7 @@ describe("C7, les revirements", () => {
   const revirements = ADR_CATALOGUE.filter((a) => a.revirement !== null);
 
   it("en publie cinq, chacune tracee", () => {
-    expect(revirements).toHaveLength(5);
+    expect(revirements).toHaveLength(6);
   });
 
   it("ne porte un revirement que sur une decision remplacee", () => {
@@ -253,7 +253,7 @@ describe("C6, le registre et le catalogue ne divergent pas", () => {
     for (const adr of ADR_CATALOGUE.filter((a) => a.revirement)) {
       expect(entreeRegistre(adr.adrId)?.regle).toBe(adr.revirement?.regle);
     }
-    expect(REVIREMENTS_REGISTRE).toHaveLength(5);
+    expect(REVIREMENTS_REGISTRE).toHaveLength(6);
   });
 
   it("ne declare une regle que sur un revirement", () => {

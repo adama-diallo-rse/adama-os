@@ -15,7 +15,7 @@ import { titresAdr } from "../../lib/adr";
 // a rate. Si elle se lit comme les notes d'un ingenieur qui a paye pour
 // apprendre quelque chose, elle a reussi.
 //
-// Cinq, pas six.
+// Six principes, chacun issu d'un fait date et d'un cout explicite.
 //
 // Le titre de chaque decision citee est lu dans le journal quand il est
 // servi. Quand il ne l'est pas, le titre du registre versionne prend le

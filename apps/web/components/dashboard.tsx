@@ -14,12 +14,12 @@ import { RecruitModal } from "./recruit-modal";
 import { ShippedFeed } from "./shipped-feed";
 import { VsmeSimulator } from "./vsme-simulator";
 import { Terminal, useThemeBoot } from "./terminal";
-import { ArchitectureArt } from "./portfolio-art";
 import { SiteHeader } from "./site-header";
 import { ProjectGrid } from "./project-grid";
 import { SkillCards } from "./skill-cards";
 import { JourneyGateway } from "./journey-gateway";
 import { SignalSignup } from "./signal-signup";
+import { ExpansionDashboard, ExpansionPreview } from "./expansion-dashboard";
 import { OrgLogo, marqueDe } from "./org-logo";
 import {
   CONTACT_EMAIL,
@@ -139,11 +139,11 @@ export function Dashboard({
                 </p>
               </div>
               <div className="hero-actions">
-                <a href="#explorer" className="portfolio-button primary">
-                  Choisir un parcours <Arrow />
-                </a>
-                <Link href="/methode" className="portfolio-button ghost">
-                  Utiliser la méthode <Arrow diagonal />
+                <Link href="/decisions" className="portfolio-button primary">
+                  Explorer les travaux <Arrow />
+                </Link>
+                <Link href="/expansion" className="portfolio-button ghost">
+                  Voir l’expansion <Arrow diagonal />
                 </Link>
                 <Link
                   href="/revue-architecture"
@@ -154,29 +154,17 @@ export function Dashboard({
               </div>
             </div>
             <div className="hero-art">
-              <div className="art-topline">
-                <span>ADAMA OS / SYSTÈME INTELLECTUEL</span>
-                <span>AXP.001</span>
-              </div>
-              <ArchitectureArt />
-              <div className="art-bottomline">
-                <span>IDÉE · EXPÉRIENCE · DÉCISION · MÉTHODE</span>
-                <span className="art-cross" aria-hidden="true">
-                  +
-                </span>
-              </div>
-              <span className="art-side-label" aria-hidden="true">
-                PROVENANCE / 001
-              </span>
+              <ExpansionDashboard compact />
             </div>
             <div className="hero-bottom">
-              <span>ADAMA DIALLO / LABORATOIRE PUBLIC</span>
-              <a href="#explorer">
-                Commencer ici <span aria-hidden="true">↓</span>
-              </a>
+              <span>PLAN D’EXPANSION / ÉTAT PUBLIC</span>
+              <Link href="/expansion">
+                Lire le système <span aria-hidden="true">→</span>
+              </Link>
             </div>
           </section>
           <JourneyGateway />
+          <ExpansionPreview />
           {/* C9-T2. Visible sans defilement sur un ecran de bureau : c'est
               la reponse a « que sait faire cette personne », posee avant
               tout le reste. */}
@@ -236,7 +224,7 @@ export function Dashboard({
             className="portfolio-wrap portfolio-section"
             aria-labelledby="projects-title"
           >
-            <SectionLabel number="01">FICHES PROJET</SectionLabel>
+            <SectionLabel number="02">FICHES PROJET</SectionLabel>
             <div className="section-heading">
               <h2 id="projects-title">
                 Ce que j’ai
@@ -273,7 +261,7 @@ export function Dashboard({
             aria-labelledby="approach-title"
           >
             <div className="portfolio-wrap portfolio-section">
-              <SectionLabel number="02">MA FAÇON DE FAIRE</SectionLabel>
+              <SectionLabel number="03">MA FAÇON DE FAIRE</SectionLabel>
               <div className="section-heading">
                 <h2 id="approach-title">
                   Du reporting
@@ -344,7 +332,7 @@ export function Dashboard({
             aria-labelledby="thinking-title"
           >
             <div className="thinking-intro">
-              <SectionLabel number="03">COMMENT JE DÉCIDE</SectionLabel>
+              <SectionLabel number="04">COMMENT JE DÉCIDE</SectionLabel>
               <h2 id="thinking-title">
                 Les arbitrages, <span className="serif">et leur coût.</span>
               </h2>
@@ -382,7 +370,7 @@ export function Dashboard({
             aria-labelledby="about-title"
           >
             <div className="about-copy">
-              <SectionLabel number="04">EXPÉRIENCES</SectionLabel>
+              <SectionLabel number="05">EXPÉRIENCES</SectionLabel>
               <h2 id="about-title">
                 Mon <span className="serif">parcours.</span>
               </h2>
@@ -449,7 +437,7 @@ export function Dashboard({
             aria-labelledby="atelier-title"
           >
             <div className="portfolio-wrap portfolio-section">
-              <SectionLabel number="05">JOURNAL DE DÉVELOPPEMENT</SectionLabel>
+              <SectionLabel number="06">JOURNAL DE DÉVELOPPEMENT</SectionLabel>
               <div className="section-heading">
                 <h2 id="atelier-title">
                   Dans <span className="serif">l’atelier.</span>

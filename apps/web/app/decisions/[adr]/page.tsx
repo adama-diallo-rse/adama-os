@@ -262,7 +262,7 @@ export default async function DecisionPage({
             <h2>Le principe que cette décision gouverne</h2>
             <p className="turn-regle">{principe.phrase}</p>
             <Link className="portfolio-text-link" href="/principes">
-              Voir d’où viennent les cinq principes{" "}
+              Voir d’où viennent les six principes{" "}
               <span aria-hidden="true">→</span>
             </Link>
           </section>

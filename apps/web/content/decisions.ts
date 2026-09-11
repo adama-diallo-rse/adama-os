@@ -82,6 +82,11 @@ export const REGISTRE_ADR: readonly EntreeRegistre[] = [
     statut: "accepte",
   },
   {
+    adrId: "DEC-011",
+    titre: "Une couche commerciale isolée plutôt qu’une interdiction de dépôt",
+    statut: "accepte",
+  },
+  {
     adrId: "DEC-101",
     titre: "Un moteur de calcul dans le cockpit plutôt que dans le produit",
     statut: "remplace",
@@ -111,6 +116,12 @@ export const REGISTRE_ADR: readonly EntreeRegistre[] = [
     titre: "La vitrine d’un produit plutôt que le cockpit d’un ensemble",
     statut: "remplace",
     regle: "L’architecture suit la responsabilité.",
+  },
+  {
+    adrId: "DEC-106",
+    titre: "Un cockpit sans commerce plutôt qu’une preuve et une offre séparées",
+    statut: "remplace",
+    regle: "Le commerce ne gouverne jamais la preuve.",
   },
 ] as const;
 

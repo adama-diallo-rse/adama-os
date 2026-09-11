@@ -21,12 +21,17 @@ export function ConsentBanner() {
   useEffect(() => {
     // Consentement déjà donné lors d'une visite précédente → boot direct.
     bootAnalytics();
-    if (getStoredConsent() === null) {
-      setVisible(true);
-    }
+    const frame = requestAnimationFrame(() => {
+      if (getStoredConsent() === null) {
+        setVisible(true);
+      }
+    });
     const onOpen = () => setVisible(true);
     window.addEventListener(CONSENT_OPEN_EVENT, onOpen);
-    return () => window.removeEventListener(CONSENT_OPEN_EVENT, onOpen);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener(CONSENT_OPEN_EVENT, onOpen);
+    };
   }, []);
 
   if (!visible) {

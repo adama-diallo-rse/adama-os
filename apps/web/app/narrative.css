@@ -1440,8 +1440,7 @@
   margin-top: 30px;
   padding-left: 24px;
   border-left: 2px solid var(--ink);
-  font-family:
-    "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-family: var(--font-display);
   font-style: italic;
   font-size: clamp(21px, 2.4vw, 29px);
   line-height: 1.45;
@@ -1691,8 +1690,7 @@
   text-align: center;
 }
 .dna-signature p {
-  font-family:
-    "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-family: var(--font-display);
   font-style: italic;
   font-size: clamp(28px, 4.4vw, 58px);
   line-height: 1.28;

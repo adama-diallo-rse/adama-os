@@ -25,17 +25,17 @@ export function SiteHeader({
   const links: [string, string][] = home
     ? [
         ["#explorer", "Commencer"],
-        ["/methode", "Méthode"],
+        ["/expansion", "Expansion"],
         ["/decisions", "Travaux"],
         ["/preuves", "Preuves"],
         ["#parcours", "Adama"],
       ]
     : [
-        ["/", "Portfolio"],
-        ["/ecosysteme", "Écosystème"],
-        ["/decisions", "Décisions"],
+        ["/", "Accueil"],
+        ["/expansion", "Expansion"],
+        ["/methode", "Méthode"],
+        ["/decisions", "Travaux"],
         ["/preuves", "Preuves"],
-        ["/metrics", "Métriques"],
       ];
   return (
     <>

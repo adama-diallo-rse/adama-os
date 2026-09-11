@@ -187,7 +187,8 @@ export function Terminal({
       const t = setTimeout(() => inputRef.current?.focus(), 30);
       return () => clearTimeout(t);
     }
-    setLogs([]);
+    const frame = requestAnimationFrame(() => setLogs([]));
+    return () => cancelAnimationFrame(frame);
   }, [open]);
 
   const close = useCallback(() => onOpenChange(false), [onOpenChange]);

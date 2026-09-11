@@ -311,7 +311,7 @@ export default async function RecruteurPage() {
           </h2>
           <p>
             Le journal des décisions d’architecture, ce sur quoi je suis revenu,
-            et les cinq principes qui en sont dérivés.
+            et les six principes qui en sont dérivés.
           </p>
         </div>
         <Link href="/decisions" className="portfolio-button primary">
