@@ -150,6 +150,9 @@ describe("C11, aucun secret ne descend dans le navigateur", () => {
     // cette declaration n'est pas decorative, elle casse la construction.
     const SECRETS = [
       "GITHUB_TOKEN",
+      "GITHUB_TOKEN_IROKO_SOFTWARE_GROUP",
+      "GITHUB_TOKEN_ADAMA_DIALLO_RSE",
+      "GITHUB_TOKEN_STRATA_ESG",
       "SUPABASE_SERVICE_ROLE_KEY",
       "OPENAI_API_KEY",
       "CRON_SECRET",

@@ -23,11 +23,9 @@ import "server-only";
 // l'air complet ment par omission. Chaque dépôt non lu est désormais NOMMÉ,
 // avec sa raison en français courant.
 //
-// Contrainte structurante à ne pas perdre de vue : les huit dépôts vivent sur
-// deux propriétaires, adama-diallo-rse et iroko-software-group. Un jeton
-// fine-grained n'a qu'un seul propriétaire, donc sept entrées sur huit au
-// mieux. Le seul jeton couvrant les huit serait un jeton classique de portée
-// repo, qui donne l'écriture : contraire à docs/SECRETS.md.
+// Contrainte structurante à ne pas perdre de vue : les dépôts vivent sur trois
+// propriétaires. Un jeton finement configuré n'en couvre qu'un. Le module
+// choisit donc le jeton de lecture selon le propriétaire du dépôt.
 //
 // Le jeton n'est jamais exposé au navigateur, ce module est serveur uniquement.
 
@@ -36,6 +34,7 @@ import {
   type RepoSource,
   type TrackedRepo,
 } from "./repos";
+import { githubTokenForRepo } from "./github-auth";
 import type { CommitRow } from "../components/types";
 
 type GitHubCommit = {
@@ -142,9 +141,10 @@ async function fetchRepoCommits(
   };
   // Jeton optionnel pour un dépôt public, obligatoire pour un dépôt privé.
   // Il fait aussi passer le quota de 60 à 5000 requêtes par heure.
-  const jeton = Boolean(process.env.GITHUB_TOKEN);
-  if (jeton) {
-    headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  const token = githubTokenForRepo(repo.fullName);
+  const jeton = Boolean(token);
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
   }
 
   let res: Response;

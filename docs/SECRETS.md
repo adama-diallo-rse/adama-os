@@ -1,6 +1,6 @@
 # Secrets et variables d'environnement
 
-> Mis a jour le 31 aout 2026. Ajout des variables des passerelles ecosysteme (L9), du garde-fou de debit d'adama.ai (L8-T12) et du secret de cron. Domaine propre : adamesg-os.fr.
+> Mis à jour le 11 septembre 2026. Ajout des jetons GitHub par propriétaire, des variables des passerelles écosystème (L9), du garde-fou de débit d'adama.ai (L8-T12) et du secret de cron. Domaine propre : adamesg-os.fr.
 
 Regle unique : aucun secret dans git. Les `.env.example` documentent les cles
 attendues (valeurs vides ou factices) ; les vraies valeurs vivent en local dans
@@ -38,7 +38,8 @@ Puis renseigner les valeurs manquantes.
 | `ADAMA_AI_RATE_WINDOW_S`          | non                  | L8-T12, duree de la fenetre en secondes (defaut 300)                                  |
 | `DATABASE_URL`                    | non                  | retrieval RAG pgvector via Drizzle                                                    |
 | `GITHUB_REPOS`                    | non                  | L5-T2, depots agreges dans le feed Shipped                                            |
-| `GITHUB_TOKEN`                    | non                  | feed Shipped, optionnel (60 req/h sans token)                                         |
+| `GITHUB_TOKEN_*`                  | non                  | feed Shipped, un jeton de lecture par propriétaire GitHub                             |
+| `GITHUB_TOKEN`                    | non                  | repli temporaire de l'ancien jeton unique                                             |
 | `ECOSYSTEM_SCOPE_API_URL`         | non                  | L9, origine de l'API STRATA Scope, lecture seule                                      |
 | `ECOSYSTEM_ESG_OPTIMIZER_API_URL` | non                  | L9, origine de l'API ESG Optimizer, lecture seule                                     |
 | `CRON_SECRET`                     | non                  | L9, protege `/api/ecosystem/sync`. Pose par Vercel Cron dans l'en-tete Authorization  |
@@ -66,11 +67,11 @@ limite a l'organisation ne verra ni STRATA Scope ni le cockpit lui-meme.
 | `adama-diallo-rse` (compte perso)    | strata-scope, adama-os                                                                              |
 | `strata-esg` (ancienne organisation) | historique, a verifier                                                                              |
 
-Jeton **fine-grained, lecture seule**, permissions `Contents: Read-only` et
-`Metadata: Read-only`. Un jeton fine-grained ne couvre qu'un proprietaire a la
-fois : il en faut donc un par perimetre, ou un jeton classique a portee
-`repo` si l'on accepte une portee plus large. Sans jeton, seuls les depots
-publics remontent, ce qui suffit pour la vitrine.
+Créer un jeton **fine-grained, lecture seule** par propriétaire, avec les
+permissions `Contents: Read-only` et `Metadata: Read-only`. Les poser dans
+`GITHUB_TOKEN_IROKO_SOFTWARE_GROUP`, `GITHUB_TOKEN_ADAMA_DIALLO_RSE` et
+`GITHUB_TOKEN_STRATA_ESG`. `GITHUB_TOKEN` reste un repli temporaire pendant la
+migration. Sans jeton, seuls les dépôts publics remontent.
 
 ## Cles cote base (`packages/db`)
 
@@ -101,7 +102,7 @@ ne suffit pas.
 | --------------------------- | ------------------------------------- | -------------------------------------------------- |
 | `SUPABASE_SERVICE_ROLE_KEY` | Vercel Production, `packages/db/.env` | a la demande, immediatement si un `.env` a circule |
 | `OPENAI_API_KEY`            | Vercel, `packages/db/.env`            | tous les 6 mois, ou apres tout partage d'ecran     |
-| `GITHUB_TOKEN`              | Vercel                                | expiration 90 jours, a recreer a echeance          |
+| `GITHUB_TOKEN_*`            | Vercel                                | expiration 90 jours, à recréer à échéance          |
 | `CRON_SECRET`               | Vercel                                | tous les 12 mois                                   |
 | `SENTRY_AUTH_TOKEN`         | Vercel (build)                        | tous les 12 mois                                   |
 | `BETTERSTACK_API_TOKEN`     | Vercel                                | tous les 12 mois                                   |
@@ -203,7 +204,8 @@ verifie que **tout** module lisant un secret le declare. `server-only` leve a
 l'import depuis un composant client : une importation fautive casse la
 construction, au lieu de faire fuiter une cle en production.
 
-Cinq noms sont surveilles par ce test : `GITHUB_TOKEN`,
+Huit noms sont surveillés par ce test : `GITHUB_TOKEN`, les trois variables
+`GITHUB_TOKEN_*`,
 `SUPABASE_SERVICE_ROLE_KEY`, `OPENAI_API_KEY`, `CRON_SECRET`,
 `BETTERSTACK_API_TOKEN`. Ajouter un secret sans l'ajouter a cette liste est
 possible ; c'est pourquoi la liste vit dans le test, ou elle se relit, et non

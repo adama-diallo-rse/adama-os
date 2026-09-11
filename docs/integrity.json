@@ -5,10 +5,10 @@
     "exactement le probleme que ce fichier existe pour empecher."
   ],
   "schema_version": 1,
-  "executed_at": "2026-09-03T11:22:42.960Z",
-  "verdict": "echec",
-  "reussis": 8,
-  "echoues": 1,
+  "executed_at": "2026-09-10T23:44:40.336Z",
+  "verdict": "partiel",
+  "reussis": 9,
+  "echoues": 0,
   "non_executes": 1,
   "build_inclus": true,
   "modes_de_panne_conformes": true,
@@ -19,7 +19,7 @@
       "detail": "Aucune valeur ne se rend sans son marqueur de provenance, nulle part.",
       "status": "reussi",
       "message": "39 cas vérifiés",
-      "duree_secondes": 1.8
+      "duree_secondes": 2.3
     },
     {
       "id": "aucune-metrique-fabriquee",
@@ -27,7 +27,7 @@
       "detail": "Un repli chiffré, même bien intentionné, fait échouer ce contrôle.",
       "status": "reussi",
       "message": "9 cas vérifiés",
-      "duree_secondes": 1.6
+      "duree_secondes": 2.4
     },
     {
       "id": "passerelles-lecture-seule",
@@ -50,8 +50,8 @@
       "label": "Typage, analyse statique, tests et construction passent",
       "detail": "La séquence complète de vérification locale, celle qui remplace l’intégration continue absente.",
       "status": "reussi",
-      "message": "typage, tests, analyse statique et construction passent, 514 cas vérifiés",
-      "duree_secondes": 62.6
+      "message": "typage, tests, analyse statique et construction passent, 540 cas vérifiés",
+      "duree_secondes": 30.1
     },
     {
       "id": "inventaire",
@@ -65,8 +65,8 @@
       "id": "pertinence-documentaire",
       "label": "La récupération documentaire dépasse son seuil",
       "detail": "Ramener une source ne suffit pas : elle doit être pertinente. Le seuil est mesuré, pas supposé.",
-      "status": "echoue",
-      "message": "au moins une question de contrôle est sous le seuil, vérification du jour 2026-09-03",
+      "status": "reussi",
+      "message": "passée, il y a 0 jour(s)",
       "duree_secondes": 0
     },
     {
@@ -74,7 +74,7 @@
       "label": "La sauvegarde a été restaurée et datée",
       "detail": "Une sauvegarde non testée n’est pas une sauvegarde. La restauration est sélective, jamais globale.",
       "status": "reussi",
-      "message": "restauration sélective réussie il y a 0 jour(s), sur 6 table(s) portant des lignes, 9 candidate(s)",
+      "message": "restauration sélective réussie il y a 8 jour(s), sur 6 table(s) portant des lignes, 9 candidate(s)",
       "duree_secondes": 0
     },
     {
@@ -83,7 +83,7 @@
       "detail": "Au premier contact et en permanence dans l’en-tête de l’assistant.",
       "status": "reussi",
       "message": "7 cas vérifiés",
-      "duree_secondes": 1.2
+      "duree_secondes": 1.8
     },
     {
       "id": "preuves-fraiches",

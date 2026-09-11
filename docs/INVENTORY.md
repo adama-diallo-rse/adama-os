@@ -16,12 +16,12 @@ echouer `--check` a chaque seconde.
 | Routes de page | 25 |
 | Routes d'API | 9 |
 | Composants | 49 |
-| Modules `lib` | 44 |
+| Modules `lib` | 45 |
 | Tables Drizzle | 11 |
 | Types enumeres | 14 |
 | Migrations SQL | 8 |
-| Fichiers de test | 36 |
-| Cas de test | 359 |
+| Fichiers de test | 37 |
+| Cas de test | 362 |
 | Dependances directes declarees | 52 |
 
 ## Routes
@@ -102,7 +102,7 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 ## Variables d'environnement lues dans le code
 
-`ADAMA_AI_MODEL`, `ADAMA_AI_RATE_LIMIT`, `ADAMA_AI_RATE_WINDOW_S`, `ADAMA_HIDE_DEMO`, `BETTERSTACK_API_TOKEN`, `BETTERSTACK_MONITOR_ID`, `CI`, `CRON_SECRET`, `DATABASE_URL`, `ECOSYSTEM_ESG_OPTIMIZER_API_URL`, `ECOSYSTEM_SCOPE_API_URL`, `GITHUB_REPOS`, `GITHUB_TOKEN`, `NEXT_PUBLIC_CAL_LINK`, `NEXT_PUBLIC_POSTHOG_HOST`, `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_VERCEL_URL`, `NEXT_RUNTIME`, `NODE_ENV`, `OPENAI_API_KEY`, `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`, `SUPABASE_SERVICE_ROLE_KEY`, `VERCEL_URL`
+`ADAMA_AI_MODEL`, `ADAMA_AI_RATE_LIMIT`, `ADAMA_AI_RATE_WINDOW_S`, `ADAMA_HIDE_DEMO`, `BETTERSTACK_API_TOKEN`, `BETTERSTACK_MONITOR_ID`, `CI`, `CRON_SECRET`, `DATABASE_URL`, `ECOSYSTEM_ESG_OPTIMIZER_API_URL`, `ECOSYSTEM_SCOPE_API_URL`, `GITHUB_REPOS`, `GITHUB_TOKEN`, `GITHUB_TOKEN_ADAMA_DIALLO_RSE`, `GITHUB_TOKEN_IROKO_SOFTWARE_GROUP`, `GITHUB_TOKEN_STRATA_ESG`, `NEXT_PUBLIC_CAL_LINK`, `NEXT_PUBLIC_POSTHOG_HOST`, `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_VERCEL_URL`, `NEXT_RUNTIME`, `NODE_ENV`, `OPENAI_API_KEY`, `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`, `SUPABASE_SERVICE_ROLE_KEY`, `VERCEL_URL`
 
 ## Evenements analytiques emis
 
@@ -289,7 +289,7 @@ Severite actuelle : `error` (avertissement en vague V0, erreur a partir de V2).
 | surface | Routes de page | 25 | 26 | tenu |
 | surface | Routes d'API | 9 | 10 | tenu |
 | surface | Composants | 49 | 50 | tenu |
-| surface | Modules lib | 44 | 46 | tenu |
+| surface | Modules lib | 45 | 46 | tenu |
 | surface | Lignes du plus gros composant | 620 | 700 | tenu |
 | surface | Lignes du plus gros module lib | 459 | 460 | tenu |
 

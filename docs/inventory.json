@@ -4,13 +4,13 @@
     "pages": 25,
     "api_routes": 9,
     "components": 49,
-    "lib_modules": 44,
+    "lib_modules": 45,
     "tables": 11,
     "enums": 14,
     "migrations": 8,
     "policies": 21,
-    "test_files": 36,
-    "test_cases": 359,
+    "test_files": 37,
+    "test_cases": 362,
     "dependencies": 52
   },
   "pages": [
@@ -447,6 +447,10 @@
       "lines": 66
     },
     {
+      "file": "apps/web/lib/github-auth.ts",
+      "lines": 24
+    },
+    {
       "file": "apps/web/lib/github.ts",
       "lines": 245
     },
@@ -504,7 +508,7 @@
     },
     {
       "file": "apps/web/lib/proof/refresh.ts",
-      "lines": 250
+      "lines": 252
     },
     {
       "file": "apps/web/lib/proof/types.ts",
@@ -686,6 +690,7 @@
       "apps/web/tests/ecosystem-gateway.test.ts",
       "apps/web/tests/ecosystem-map.test.tsx",
       "apps/web/tests/frontieres.test.ts",
+      "apps/web/tests/github-auth.test.ts",
       "apps/web/tests/health.test.tsx",
       "apps/web/tests/integrite.test.tsx",
       "apps/web/tests/journal.test.ts",
@@ -709,7 +714,7 @@
       "apps/web/tests/technique.test.tsx",
       "apps/web/tests/trajectory.test.ts"
     ],
-    "cases": 359
+    "cases": 362
   },
   "rendu": {
     "pages": 13,
@@ -1047,6 +1052,9 @@
     "ECOSYSTEM_SCOPE_API_URL",
     "GITHUB_REPOS",
     "GITHUB_TOKEN",
+    "GITHUB_TOKEN_ADAMA_DIALLO_RSE",
+    "GITHUB_TOKEN_IROKO_SOFTWARE_GROUP",
+    "GITHUB_TOKEN_STRATA_ESG",
     "NEXT_PUBLIC_CAL_LINK",
     "NEXT_PUBLIC_POSTHOG_HOST",
     "NEXT_PUBLIC_POSTHOG_KEY",
@@ -1734,7 +1742,7 @@
       "level": "surface",
       "label": "Modules lib",
       "max": 46,
-      "value": 44,
+      "value": 45,
       "broken": false,
       "over": false
     },

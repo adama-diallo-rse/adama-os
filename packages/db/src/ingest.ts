@@ -231,7 +231,19 @@ async function ingest() {
   const embeddings: number[][] = [];
   for (let i = 0; i < chunks.length; i += EMBEDDING_BATCH_SIZE) {
     const batch = chunks.slice(i, i + EMBEDDING_BATCH_SIZE);
-    embeddings.push(...(await embedBatch(batch.map((c) => c.content))));
+    // Chaque fragment porte son origine dans le vecteur, même si le découpage
+    // a séparé l'en-tête du document de son contenu. Sans cet ancrage, une
+    // question sur « Adama Diallo » peut classer devant le CV un fragment ESRS
+    // qui ne parle pas de la personne, simplement parce que le fragment du CV
+    // consacré aux expériences ne répète pas le nom.
+    embeddings.push(
+      ...(await embedBatch(
+        batch.map(
+          (c) =>
+            `Source : ${args.source}\nTitre : ${args.title}\n\n${c.content}`,
+        ),
+      )),
+    );
     console.log(
       `  embeddings : ${Math.min(i + EMBEDDING_BATCH_SIZE, chunks.length)}/${chunks.length}`,
     );

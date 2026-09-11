@@ -10,31 +10,31 @@
   "dimensions": 1024,
   "seuil_ok": 0.5,
   "seuil_echec": 0.45,
-  "executed_at": "2026-09-03T10:02:18.215Z",
-  "verdict": "echec",
+  "executed_at": "2026-09-11T13:30:16.578Z",
+  "verdict": "ok",
   "documents": 3,
   "chunks": 1291,
   "questions": [
     {
       "question": "Quelles entreprises sont concernees par le standard VSME ?",
-      "best": 0.608181682539568,
+      "best": 0.705539583973431,
       "verdict": "ok",
       "source": "VSME",
       "title": "Standard VSME"
     },
     {
       "question": "Qu'est-ce que la double importance selon les ESRS ?",
-      "best": 0.671759774945128,
+      "best": 0.677147519200988,
       "verdict": "ok",
       "source": "ESRS",
       "title": "ESRS Set 1, reglement delegue (UE) 2023-2772"
     },
     {
       "question": "Quel est le parcours professionnel d'Adama Diallo ?",
-      "best": 0.277218668560339,
-      "verdict": "echec",
-      "source": "ESRS",
-      "title": "ESRS Set 1, reglement delegue (UE) 2023-2772"
+      "best": 0.580460446834326,
+      "verdict": "ok",
+      "source": "CV",
+      "title": "CV Adama Diallo"
     }
   ]
 }

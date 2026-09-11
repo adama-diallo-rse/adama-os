@@ -22,6 +22,7 @@ import "server-only";
 
 import { createPublicClient } from "../supabase/public";
 import { createServiceClient } from "../supabase/service";
+import { githubTokenForRepo } from "../github-auth";
 
 /** Tables dénombrables. Liste blanche fermée : le localisateur d'une preuve
  *  vient de la base, il ne choisit pas la table qu'il interroge. */
@@ -100,8 +101,9 @@ async function observerCommit(fullName: string): Promise<string | null> {
     Accept: "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28",
   };
-  if (process.env.GITHUB_TOKEN) {
-    headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  const token = githubTokenForRepo(fullName);
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
   }
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), DELAI_MS);
