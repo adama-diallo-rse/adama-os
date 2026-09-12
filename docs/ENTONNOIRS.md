@@ -4,18 +4,14 @@
 > l'interface de l'outil de mesure. Ce document existe pour que ce geste ne
 > se fasse pas de mémoire.
 
-## Blocage préalable, à lever avant toute configuration
+## Blocage préalable, levé le 12 septembre 2026
 
-Le compte de mesure d'audience actuellement disponible est hébergé **hors de
-l'Union européenne**, alors que le code et la page de confidentialité
-annoncent tous deux l'Union européenne. **Ne rien configurer dans ce compte
-tant que la contradiction n'est pas tranchée.**
-
-Les deux correctifs possibles sont préparés dans `docs/POSTHOG-REGION.md`, et
-la contradiction est affichée publiquement au registre des limites connues
-tant qu'elle dure. Configurer les entonnoirs avant de trancher reviendrait à
-collecter au mépris de ce que la page promet, ce qui est un problème d'un
-autre ordre que celui d'un tableau de bord vide.
+Le compte de mesure d'audience était hébergé hors de l'Union européenne. La
+contradiction est tranchée par l'option A de `docs/POSTHOG-REGION.md` : la clé
+de production est acceptée par `eu.i.posthog.com` et refusée par l'hôte
+américain. L'entrée `region-analytique` est retirée du registre des limites
+connues (décision XDEC-36). Les entonnoirs se configurent dans le projet UE,
+et dans aucun autre.
 
 ## Les noms d'événements, source unique
 

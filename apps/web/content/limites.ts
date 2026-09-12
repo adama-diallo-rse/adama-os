@@ -49,17 +49,6 @@ export const LIMITES: readonly Limite[] = [
     constateLe: "2026-08-31",
   },
   {
-    id: "region-analytique",
-    titre: "La mesure d’audience est traitée hors de l’Union européenne",
-    constat:
-      "Le code et la page de confidentialité annoncent tous deux un traitement en Union européenne. Le compte réellement utilisé est hébergé aux États-Unis.",
-    consequence:
-      "Une contradiction entre ce que le site promet et ce qu’il fait. Tant qu’elle dure, aucune mesure n’est configurée et la contradiction est affichée ici.",
-    fermeture:
-      "Deux issues, et une seule sera prise : basculer le compte en région européenne, ou corriger la page pour dire la région réelle. Les deux correctifs sont préparés dans le dépôt.",
-    constateLe: "2026-08-31",
-  },
-  {
     id: "absence-ci",
     titre: "Il n’y a pas d’intégration continue",
     constat:

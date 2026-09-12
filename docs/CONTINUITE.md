@@ -53,13 +53,19 @@ cockpit sans toucher à Scope.
 ## 4. Sauvegarder
 
 ```powershell
-# Depuis la racine du dépôt, avec les outils client PostgreSQL installés.
-# Connexion DIRECTE (port 5432), pas le pooler.
-$env:DATABASE_URL = "postgresql://postgres.<ref>:<mdp>@aws-0-eu-west-1.compute.amazonaws.com:5432/postgres"
-pwsh -File scripts/backup-cockpit.ps1
+# Depuis la racine du dépôt, avec les outils client PostgreSQL 17 (le serveur
+# est en 17, un pg_dump plus ancien refuse de s'y connecter).
+# Pooler en mode SESSION, port 5432. Le port 6543 de packages/db/.env est le
+# mode transaction, que pg_dump ne supporte pas.
+$env:DATABASE_URL = "postgresql://postgres.<ref>:<mdp>@aws-0-eu-west-1.pooler.supabase.com:5432/postgres"
+powershell -ExecutionPolicy Bypass -File scripts/backup-cockpit.ps1
+Remove-Item Env:DATABASE_URL
 ```
 
-Deux fichiers atterrissent dans `backups/`, ignoré par git. Cadence retenue :
+Deux fichiers atterrissent dans `backups/`, ignoré par git. Ils ne contiennent
+que des **données** : la structure vit dans `packages/db/migrations`. Un export
+par table n'emporte pas les types enum et ne se rejouerait pas sur une base
+vide (constaté le 12 septembre 2026). Cadence retenue :
 **hebdomadaire**, le vendredi, plus une exécution avant toute migration.
 
 Conservation : quatre exports glissants, plus un export mensuel gardé un an.
@@ -69,32 +75,38 @@ e-mail de leads.
 ## 5. Restaurer
 
 ```powershell
-# 1. Vérifier ce que contient l'export avant de le rejouer.
-Select-String -Path backups\adama-os_<horodatage>.sql -Pattern "^COPY public\." | Select-Object -First 20
+# 1. Vérifier ce que contient l'export : neuf lignes COPY attendues.
+Select-String -Path backups\adama-os_<horodatage>.sql -Pattern "^COPY public\." | Select-Object Line
 
-# 2. Restaurer une table précise, après l'avoir vidée.
-psql $env:DATABASE_URL -c "truncate table public.decisions_log;"
-psql $env:DATABASE_URL -f backups\adama-os_<horodatage>.sql
+# 2. Vérifier la cible AVANT toute écriture. Toujours une variable dédiée,
+#    jamais DATABASE_URL, qui pointe la base partagée avec deux produits.
+psql $env:DATABASE_URL_CIBLE -tAc "select inet_server_addr(), current_database()"
+
+# 3. Sur une base dont les migrations 0000 à 0006 sont jouées, vider les
+#    tables du cockpit, puis rejouer les données.
+psql $env:DATABASE_URL_CIBLE -c "truncate table system_metrics, decisions_log, trajectory, ecosystem_products, ecosystem_analytics, ecosystem_probes, proof_claims, proof_evidence, leads cascade;"
+psql $env:DATABASE_URL_CIBLE -v ON_ERROR_STOP=1 -f backups\adama-os_<horodatage>.sql
 ```
 
-`pg_dump` sans `--data-only` recrée la table : si elle existe déjà, purger la
-table cible d'abord, ou passer par une base de recette. **Ne jamais rejouer un
-export directement en production sans avoir lu son en-tête.**
+**Ne jamais rejouer un export directement en production sans avoir lu son
+en-tête et vérifié la cible à l'étape 2.** Un `truncate` lancé sur la mauvaise
+variable efface des données écrites à la main.
 
 ### Test de restauration
 
-| Date       | Opérateur | Portée                                                  | Résultat                                                                                                                                                                                                                                                                                                                  |
-| ---------- | --------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-08-31 | Adama     | Répétition en schéma isolé, sans `pg_dump` ni `psql`    | Réussi. `decisions_log` capturée, cible de structure identique vidée puis rejouée : 3 lignes de part et d'autre, empreinte md5 identique `733d5e487e24e60e1bc6bc9b8c154a63`. Schéma `restore_rehearsal` supprimé après contrôle. La production n'a pas été touchée.                                                       |
-| 2026-09-02 | Adama     | Chaîne complète, 9 tables du cockpit, base de recette   | Réussi. `node scripts/restore-drill.mjs` : export `pg_dump --data-only` table par table, rejeu dans un schéma isolé de structure identique, puis comparaison du nombre de lignes ET d'une empreinte du contenu insensible à l'ordre. 9 tables sur 9 restaurées à l'identique. Rapport machine : `docs/restauration.json`. |
-| _à faire_  | Adama     | Chaîne complète sur le poste, avec `backup-cockpit.ps1` | _avant le 30 septembre 2026, connexion directe port 5432. La ligne ci-dessus établit la sémantique de restauration et l'outillage ; celle-ci établira que le fichier produit par le script PowerShell se rejoue tel quel sur le poste d'Adama._                                                                           |
+| Date       | Opérateur               | Portée                                                                                     | Résultat                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------- | ----------------------- | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-08-31 | Adama                   | Répétition en schéma isolé, sans `pg_dump` ni `psql`                                       | Réussi. `decisions_log` capturée, cible de structure identique vidée puis rejouée : 3 lignes de part et d'autre, empreinte md5 identique `733d5e487e24e60e1bc6bc9b8c154a63`. Schéma `restore_rehearsal` supprimé après contrôle. La production n'a pas été touchée.                                                                                                                                                                                                                                                                                                                                                                                                   |
+| 2026-09-02 | Adama                   | Chaîne complète, 9 tables du cockpit, base de recette                                      | Réussi. `node scripts/restore-drill.mjs` : export `pg_dump --data-only` table par table, rejeu dans un schéma isolé de structure identique, puis comparaison du nombre de lignes ET d'une empreinte du contenu insensible à l'ordre. 9 tables sur 9 restaurées à l'identique. Rapport machine : `docs/restauration.json`.                                                                                                                                                                                                                                                                                                                                             |
+| 2026-09-12 | Claude Code, pour Adama | Chaîne complète sur le poste, avec `backup-cockpit.ps1`, contre une copie de la production | Réussi (EC5). Export de production par `backup-cockpit.ps1` sous Windows PowerShell 5.1, `pg_dump` 17.6, pooler en mode session : 9 tables du cockpit. Base de recette Docker `pgvector/pgvector:pg17` isolée, migrations 0000 à 0006 jouées, puis données rejouées : 11 tables sur 11 aux mêmes comptes que la production, corpus compris (3 documents, 1 291 fragments). Puis `node scripts/restore-drill.mjs` : 8 tables sur 9 restaurées à empreinte identique, `leads` non exercée faute de ligne. Trois défauts corrigés pendant le test : trois tables absentes du script, `$PSScriptRoot` vide sous PowerShell 5.1, export non rejouable faute de types enum. |
 
 La première ligne établissait la sémantique de restauration sans outillage
 réel. La deuxième, du 2 septembre 2026, l'établit **avec** `pg_dump` et
 `psql`, sur les neuf tables du cockpit, et elle est rejouable par une
-commande. La troisième reste à faire : elle seule prouvera que le fichier
-produit par `scripts/backup-cockpit.ps1` se rejoue tel quel sur le poste
-d'Adama, sous Windows.
+commande. La troisième, du 12 septembre 2026, prouve que le fichier produit
+par `scripts/backup-cockpit.ps1` sur le poste d'Adama, sous Windows, se rejoue
+sur une base reconstruite par les migrations, avec les mêmes comptes que la
+production.
 
 Une sauvegarde non testée n'est pas une sauvegarde.
 

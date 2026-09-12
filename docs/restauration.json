@@ -8,9 +8,9 @@
     "ete parcouru, mais rien n'a ete restaure, donc rien n'est prouve."
   ],
   "schema_version": 2,
-  "executed_at": "2026-09-02T21:33:22.398Z",
+  "executed_at": "2026-09-12T19:32:25.365Z",
   "result": "reussi",
-  "operator": "banc de recette local",
+  "operator": "Claude Code pour Adama, copie de production du 12 septembre 2026",
   "scope": "tables du cockpit uniquement, restauration sélective, jamais la base entière",
   "target": "base de recette locale, schéma isolé",
   "tables": [
@@ -18,15 +18,15 @@
       "name": "system_metrics",
       "rows_before": 9,
       "rows_after": 9,
-      "md5": "21f34458563c78ae8766786b4e421d2c",
+      "md5": "4e8816a9e7fd1635ed8bc39e0f8efd30",
       "state": "reussi",
       "ok": true
     },
     {
       "name": "decisions_log",
-      "rows_before": 15,
-      "rows_after": 15,
-      "md5": "a2308e7188ba21be3b2f50753b8d3982",
+      "rows_before": 17,
+      "rows_after": 17,
+      "md5": "cd0b93a8df58eba4d3c5d905186904a1",
       "state": "reussi",
       "ok": true
     },
@@ -34,7 +34,7 @@
       "name": "trajectory",
       "rows_before": 4,
       "rows_after": 4,
-      "md5": "717db21ada8aac2898e3467d72eb047c",
+      "md5": "d1d1ca8debbcc8cd5a9efff954c6e532",
       "state": "reussi",
       "ok": true
     },
@@ -42,31 +42,31 @@
       "name": "ecosystem_products",
       "rows_before": 8,
       "rows_after": 8,
-      "md5": "e10b047bf6d2dab0f906df3969e23419",
+      "md5": "7988b043abb9c0e2810060baa5f1d227",
       "state": "reussi",
       "ok": true
     },
     {
       "name": "ecosystem_analytics",
-      "rows_before": 0,
-      "rows_after": 0,
-      "md5": "vide",
-      "state": "non_exerce",
-      "ok": false
+      "rows_before": 24,
+      "rows_after": 24,
+      "md5": "ebdc32f17ee3d36d08ce96886ae4b0d8",
+      "state": "reussi",
+      "ok": true
     },
     {
       "name": "ecosystem_probes",
-      "rows_before": 0,
-      "rows_after": 0,
-      "md5": "vide",
-      "state": "non_exerce",
-      "ok": false
+      "rows_before": 20,
+      "rows_after": 20,
+      "md5": "cfa01fce23a0d04042ea97cbbc524739",
+      "state": "reussi",
+      "ok": true
     },
     {
       "name": "proof_claims",
       "rows_before": 13,
       "rows_after": 13,
-      "md5": "5d735e771e51f17529df9885294a2fff",
+      "md5": "6132d86e6cdddff909801062dcfd2adb",
       "state": "reussi",
       "ok": true
     },
@@ -74,7 +74,7 @@
       "name": "proof_evidence",
       "rows_before": 19,
       "rows_after": 19,
-      "md5": "78c69dc76ecd63be2a12d42eb1b36132",
+      "md5": "0d6da75cb6b383afb37b6e74cb764427",
       "state": "reussi",
       "ok": true
     },
@@ -87,6 +87,6 @@
       "ok": false
     }
   ],
-  "tables_exercees": 6,
+  "tables_exercees": 8,
   "notes": "Pour chaque table : export des données seules, rejeu dans un schéma isolé de structure identique, puis comparaison du nombre de lignes et d'une empreinte du contenu insensible à l'ordre."
 }
