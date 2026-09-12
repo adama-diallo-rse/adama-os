@@ -239,8 +239,7 @@ async function seed() {
       name: "STRATA Platform",
       division: "STRATA",
       pillar: "Site corporate du groupe",
-      description:
-        "La vitrine de la suite STRATA et son socle d'authentification.",
+      description: "La vitrine de STRATA ESG et son socle d'authentification.",
       status: "building" as const,
       url: null,
       repoFullName: "iroko-software-group/strata-platform",

@@ -22,7 +22,7 @@ values
    'live', 'https://scope.esg-optimizer.fr', 'adama-diallo-rse/strata-scope', true, 20),
 
   ('strata-platform', 'STRATA Platform', 'STRATA', 'Site corporate du groupe',
-   'La vitrine de la suite STRATA et son socle d''authentification.',
+   'La vitrine de STRATA ESG et son socle d''authentification.',
    'building', null, 'iroko-software-group/strata-platform', true, 30),
 
   ('strata-foundation', 'STRATA Foundation', 'STRATA', 'Point de depart ESG',

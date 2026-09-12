@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
 
   // L6-T13 : le hub produits s'appelle /ecosysteme depuis le 31 août 2026.
   // /strata a été partagé à l'extérieur, la redirection est permanente et le
-  // fragment amène directement sur la division STRATA de la nouvelle page.
+  // fragment amène directement sur la division STRATA ESG de la nouvelle page.
   async redirects() {
     return [
       {

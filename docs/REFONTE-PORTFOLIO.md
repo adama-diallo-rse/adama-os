@@ -36,7 +36,7 @@ La consigne de rédaction est également transmise à l’assistant du site.
 
 1. Présentation personnelle, projets et CV dès le premier écran.
 2. Expériences : AG2R LA MONDIALE, Younivibe, AFEV et Ministère des Finances.
-3. Univers STRATA, IROKO et Adama OS, filtrables par thème.
+3. Univers STRATA ESG, IROKO et Adama OS, filtrables par thème.
 4. Approche : demande métier, données et développement.
 5. Parcours et accès à la version recruteur imprimable.
 6. Atelier : contributions GitHub, terminal, puis cockpit dépliable.

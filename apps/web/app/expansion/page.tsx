@@ -153,7 +153,8 @@ export default function ExpansionPage() {
         </blockquote>
         <p>
           Un sujet peut se croiser. La forme, le public et le nom restent
-          distincts. Tout actif qui touche un produit STRATA renvoie vers lui.
+          distincts. Tout actif qui touche un produit STRATA ESG renvoie vers
+          lui.
         </p>
       </section>
 

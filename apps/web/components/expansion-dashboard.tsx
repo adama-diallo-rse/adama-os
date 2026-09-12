@@ -209,7 +209,7 @@ export function ExpansionPreview() {
               <span
                 key={branch.name}
                 className={
-                  index === 0 || branch.name === "STRATA" ? "is-live" : ""
+                  index === 0 || branch.name === "STRATA ESG" ? "is-live" : ""
                 }
               >
                 <i>{String(index + 1).padStart(2, "0")}</i>

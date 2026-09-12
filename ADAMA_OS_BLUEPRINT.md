@@ -28,7 +28,7 @@ Plusieurs choix décrits ci-dessous ont été révisés à l'usage. Le tableau s
 | Polar (Merchant of Record)                     | **Retiré**                                                              | La monétisation appartient aux produits. Stripe sur STRATA Scope et ESG Optimizer, Stripe Tax sur strata-platform.       |
 | Sortie 3, `/learn` (4 niveaux)                 | **Retirée**                                                             | Devenue STRATA Academy, repo dédié.                                                                                      |
 | Sortie 2, `/strata` + Audit Express            | **Réduite à un hub de liens tracés**, devient `/ecosysteme`             | Adama OS ne fait pas d'audit. Il pointe vers ESG Optimizer.                                                              |
-| Table `strata_analytics`                       | Devient **`ecosystem_analytics`** (colonnes `division`, `product_slug`) | Le périmètre passe de la suite STRATA au groupe IROKO SOFTWARE GROUP, quatre divisions.                                  |
+| Table `strata_analytics`                       | Devient **`ecosystem_analytics`** (colonnes `division`, `product_slug`) | Le périmètre passe de la suite STRATA ESG au groupe IROKO SOFTWARE GROUP, quatre divisions.                              |
 | Tables `audit_requests`, `course_entitlements` | **Retirées du schéma**                                                  | Appartenaient aux modules audit et formations, partis chez les produits.                                                 |
 | DeepSeek (annexe A, manifeste original)        | Jamais retenu                                                           | Transit des données par une infra hors UE, injustifiable sous RGPD.                                                      |
 
@@ -112,7 +112,7 @@ Le reste de ta stack (Next.js, Tailwind, Framer Motion, Vercel, Supabase, FastAP
 Au-delà des 4 couches de ton manifeste, voici ce qui renforce tes objectifs.
 
 1. **Feed "Shipped" branché sur l'API GitHub.** Tes vrais commits affichés en direct sur le dashboard. Preuve d'exécution irréfutable pour un recruteur, et carburant build in public. Couplé à ton Decisions Log.
-2. **Open Metrics (transparence radicale).** Une page publique avec tes métriques SaaS (utilisateurs, requêtes API traitées, PME analysées) tirées de `strata_analytics`. Crédibilise STRATA et nourrit le contenu.
+2. **Open Metrics (transparence radicale).** Une page publique avec tes métriques SaaS (utilisateurs, requêtes API traitées, PME analysées) tirées de `strata_analytics`. Crédibilise STRATA ESG et nourrit le contenu.
 3. **Daily check-in (1 clic).** Une mini-route privée où tu mets à jour poids, sessions, deep work. Alimente le System Status en temps réel sans triche.
 4. **OG images dynamiques (Satori / Vercel OG).** Chaque article de veille et chaque formation génère sa propre image de partage. Crucial pour le partage LinkedIn / TikTok.
 5. **Bilingue FR/EN dès l'architecture.** Pas un ajout après coup. Recruteurs internationaux et clients UE.
@@ -214,7 +214,7 @@ Résultat : la section Veille se remplit sans que tu tapes une ligne, et chaque 
 ## 7. Les 3 sorties de conversion (le tunnel)
 
 - **Sortie 1, Recrutement.** Bouton persistant `[ Recruter l'Architecte ]` → modal avec proposition de valeur hybride, lien CV (`CV_AdamaDiallo_RSE.pdf`), Cal.com embarqué. Événement PostHog `recruiter_intent`. Accessible aussi via Ctrl+K → `book call` et `download cv`.
-- **Sortie 2, SaaS STRATA / ESG Optimizer.** Landing `/strata` + **Audit Express** (lead magnet qui lance le pipeline). Essai gratuit géré par Polar. Métriques en prod affichées via Open Metrics.
+- **Sortie 2, SaaS STRATA ESG / ESG Optimizer.** Landing `/strata` + **Audit Express** (lead magnet qui lance le pipeline). Essai gratuit géré par Polar. Métriques en prod affichées via Open Metrics.
 - **Sortie 3, /learn (4 niveaux).** CSRD/ESG automatisé → Automatiser avec l'IA → Construire un agent IA métier → Build in Public SaaS. Paiement Polar (MoR, TVA UE gérée). Contenu en MDX + accès débloqué après achat.
 
 ---
@@ -226,7 +226,7 @@ Tu as environ 18 semaines. Priorité : être présentable à un recruteur le plu
 - **Phase 0, Fondations (S1-S2, fin juin / début juillet).** Monorepo, design system dark mode + accents émeraude, auth Supabase, déploiement Vercel + Railway à vide, CI/CD. Objectif : un squelette en ligne sur ton domaine.
 - **Phase 1, Vitrine recrutement (juillet).** Couches A (System Status), B (Decisions Log), C (Trajectory), terminal Ctrl+K, feed Shipped GitHub, CV, modal recruteur + Cal.com, preuve sociale. Objectif : dashboard qui impressionne, prêt à envoyer.
 - **Phase 2, Intelligence (août).** Pipeline RAG + adama.ai, simulateur VSME, pipeline veille auto, Open Metrics. Objectif : l'OS devient vivant et démontre ton génie technique.
-- **Phase 3, Monétisation (septembre).** /learn (4 niveaux), Polar, Audit Express, landing STRATA + essai. Objectif : les 3 sorties de conversion actives. Cale avec l'expansion Afrique de l'Ouest annoncée pour septembre.
+- **Phase 3, Monétisation (septembre).** /learn (4 niveaux), Polar, Audit Express, landing STRATA ESG + essai. Objectif : les 3 sorties de conversion actives. Cale avec l'expansion Afrique de l'Ouest annoncée pour septembre.
 - **Phase 4, Durcissement & média (octobre).** SEO complet, bilingue EN, OG dynamiques, newsletter, perf, accessibilité, contenu TikTok/YouTube branché sur les CTA. Objectif : tout est prêt pour le push recrutement de novembre, après la deadline stage du 31 octobre.
 
 ---
@@ -415,7 +415,7 @@ L'OS a trois sorties de conversion extrêmement claires pour monétiser ton traf
 - Cible : Directeurs RSE, Cabinets de Conseil, Fonds d'investissement.
 - Mécanique : Un bouton persistant `[ Recruter l'Architecte ]` qui ouvre un modal avec ta proposition de valeur hybride, un lien vers ton fichier `"CV_AdamaDiallo_RSE.pdf.pdf"`, et un calendrier Cal.com intégré.
 
-**Sortie 2 : Le Logiciel (STRATA / ESG Optimizer)**
+**Sortie 2 : Le Logiciel (STRATA ESG / ESG Optimizer)**
 
 - Cible : PME européennes sous le coup de la CSRD/VSME.
 - Mécanique : Mise en avant de tes modules de reporting et d'analyse. Redirection directe vers le SaaS avec un essai gratuit ou un "Audit Express" généré par tes pipelines.

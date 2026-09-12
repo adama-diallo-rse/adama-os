@@ -236,7 +236,7 @@ export function LayerD({
           {groupes.length > 0 ? (
             groupes.map((g) => (
               <Badge key={g.division} variant="default">
-                {g.division}
+                {divisionName(g.division)}
               </Badge>
             ))
           ) : (
@@ -322,7 +322,7 @@ export function LayerD({
               <div key={divisionName(groupe.division)}>
                 <div className="mb-2 flex items-center gap-2">
                   <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">
-                    {groupe.division}
+                    {divisionName(groupe.division)}
                   </span>
                   <span className="h-px flex-1 bg-border" aria-hidden />
                   <span className="font-mono text-[0.6rem] text-faint">

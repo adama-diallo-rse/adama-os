@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "Cinq principes, dérivés d’erreurs réelles",
     description: "Chacun avec son origine tracée et ce qu’il coûte.",
     url: "/principes",
-    siteName: "Adama OS",
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "website",
   },

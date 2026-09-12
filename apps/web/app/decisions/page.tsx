@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     description:
       "Chaque décision structurante, avec ses options écartées et son coût.",
     url: "/decisions",
-    siteName: "Adama OS",
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "website",
   },

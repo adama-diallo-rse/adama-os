@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { OpenStrataSymbol } from "./open-strata-symbol";
 
 export function divisionName(division: string) {
   if (division === "STRATA" || division === "STRATA ESG") return "STRATA ESG";
@@ -30,8 +31,13 @@ export function BrandSignature({
     return <span className={`brand-strata ${className}`}>STRATA ESG</span>;
   }
   return (
-    <span className={`brand-adama ${className}`} aria-label="Adama OS">
-      a<span>.</span>
+    <span
+      className={`brand-adama ${className}`}
+      role="img"
+      aria-label="ADAMA OS"
+    >
+      <OpenStrataSymbol />
+      <span aria-hidden="true">ADAMA OS</span>
     </span>
   );
 }

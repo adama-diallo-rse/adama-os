@@ -50,7 +50,7 @@ export async function generateMetadata({
       title: `${decision.adr_id} · ${decision.title}`,
       description: decision.decision ?? decision.title,
       url: `/decisions/${decision.adr_id}`,
-      siteName: "Adama OS",
+      siteName: "ADAMA OS",
       locale: "fr_FR",
       type: "article",
     },

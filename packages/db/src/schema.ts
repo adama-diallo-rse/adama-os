@@ -1,7 +1,7 @@
 // =====================================================================
 // ADAMA OS, L1 Données, Schéma Drizzle (source de vérité typée)
 // Dashboard fondateur : metrics, decisions, trajectory, analytics du groupe,
-// capture de leads recruteur, et corpus RAG d'adama.ai. Les produits STRATA
+// capture de leads recruteur, et corpus RAG d'adama.ai. Les produits STRATA ESG
 // (audit, formations, paiements) vivent dans leurs propres repos et ne sont
 // PAS modelises ici. Les index (dont l'index vectoriel HNSW) sont geres dans
 // le SQL de migration, pas ici, pour rester sûr et lisible.
@@ -338,7 +338,7 @@ export const leads = pgTable("leads", {
 });
 
 // --- proof_claims / proof_evidence -----------------------------------
-// C2. La discipline de preuve de STRATA appliquee au portfolio lui-meme.
+// C2. La discipline de preuve de STRATA ESG appliquee au portfolio lui-meme.
 // Une affirmation publiee est un enregistrement, pas une phrase dans du JSX.
 // Regle dure : une affirmation sans preuve NE SE REND PAS. Pas de version
 // grisee, pas de degradation : elle est absente de la page.

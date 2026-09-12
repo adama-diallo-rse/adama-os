@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description:
       "Ce que j’ai livré, la matière brute derrière, et les décisions qui expliquent la forme du système.",
     url: "/journal",
-    siteName: "Adama OS",
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "website",
   },

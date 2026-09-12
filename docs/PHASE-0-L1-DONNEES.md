@@ -36,7 +36,7 @@ Récupère 3 secrets dans le dashboard du projet strata-scope :
 - **Project Settings, API Keys** : `anon public key` et `service_role key`.
 - **Mot de passe DB** : si tu ne l'as plus, Project Settings, Database, Reset database password. Il sert à la connection string déjà pré-remplie dans `packages/db/.env.example`.
 
-> Attention, ne touche pas aux tables ESG existantes. L'Advisor signale 14 issues (RLS désactivée sur les tables `emission_*`), c'est le périmètre ESG Optimizer, pas le tien. Mes migrations n'activent la RLS que sur mes 11 tables. Si tu veux, je t'aide à corriger la RLS de STRATA dans un second temps, séparément.
+> Attention, ne touche pas aux tables ESG existantes. L'Advisor signale 14 issues (RLS désactivée sur les tables `emission_*`), c'est le périmètre ESG Optimizer, pas le tien. Mes migrations n'activent la RLS que sur mes 11 tables. Si tu veux, je t'aide à corriger la RLS de STRATA ESG dans un second temps, séparément.
 
 ---
 

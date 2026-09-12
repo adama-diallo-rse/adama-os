@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     description:
       "Inventaire généré, contrats d’interface, sécurité, recherche documentaire, tests. Rien n’est saisi à la main.",
     url: "/technique",
-    siteName: "Adama OS",
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "website",
   },

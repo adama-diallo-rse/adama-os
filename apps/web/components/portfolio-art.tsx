@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { OpenStrataSymbol } from "./open-strata-symbol";
 
 /** Original illustrations, not product screenshots or measurements. */
 export function ArchitectureArt() {
@@ -158,7 +159,7 @@ export function ProjectArt({ kind }: { kind: "strata" | "iroko" | "adama" }) {
       <span className="os-orbit" />
       <span className="os-orbit orbit-two" />
       <span className="os-core">
-        a<span>.</span>
+        <OpenStrataSymbol />
       </span>
       <i />
       <span className="os-coordinate">PERSONAL OPERATING SYSTEM</span>

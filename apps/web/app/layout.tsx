@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Courier_Prime, DM_Sans } from "next/font/google";
 import { ConsentBanner } from "../components/consent-banner";
 import {
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: "ADAMA OS | Construire l’ESG numérique",
-    template: "%s · Adama OS",
+    template: "%s · ADAMA OS",
   },
   // La description est ce qu'un moteur affiche sous le titre : au-dela
   // d'environ 160 caracteres, il coupe et choisit lui-meme la suite. Elle
@@ -92,6 +92,10 @@ export const metadata: Metadata = {
     "STRATA ESG",
   ],
   alternates: { canonical: "/" },
+  // Favicon, apple-icon et manifeste sont servis par les conventions de
+  // fichiers (app/icon.svg, app/favicon.ico, app/apple-icon.png,
+  // app/manifest.ts). Seul le libelle d'ecran d'accueil iOS se declare ici.
+  appleWebApp: { title: "ADAMA OS" },
   robots: { index: true, follow: true },
   // Propriete Search Console https://adamesg-os.fr/, ouverte le 9 septembre
   // 2026. Le jeton est public par construction : il est servi dans le HTML
@@ -105,7 +109,7 @@ export const metadata: Metadata = {
     title: "ADAMA OS | Construire l’ESG numérique",
     description: ADAMA_OS.sousTitre,
     url: "/",
-    siteName: "Adama OS",
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "website",
   },
@@ -114,6 +118,11 @@ export const metadata: Metadata = {
     title: "ADAMA OS | Construire l’ESG numérique",
     description: ADAMA_OS.sousTitre,
   },
+};
+
+// Barre du navigateur mobile : la creme du fond, comme le symbole.
+export const viewport: Viewport = {
+  themeColor: "#F2EDE4",
 };
 
 // L8-T5 puis L8-T9, JSON-LD : identité machine-lisible pour Google et les
@@ -163,7 +172,7 @@ const personJsonLd = {
 const siteJsonLd = {
   "@type": "WebSite",
   "@id": `${SITE_URL}#site`,
-  name: "Adama OS",
+  name: "ADAMA OS",
   alternateName: "ADAMA OS, ESG Data Systems",
   description: ADAMA_OS.sousTitre,
   url: SITE_URL,

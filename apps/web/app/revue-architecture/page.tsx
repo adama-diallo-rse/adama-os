@@ -76,14 +76,16 @@ export default function RevueArchitecturePage() {
       <section className="review-boundary">
         <div>
           <p className="portfolio-label">FRONTIÈRE</p>
-          <h2>ADAMA explique la construction. STRATA livre le logiciel.</h2>
+          <h2>
+            ADAMA OS explique la construction. STRATA ESG livre le logiciel.
+          </h2>
         </div>
         <p>
-          La revue ne vend pas un produit STRATA déguisé. Si votre besoin est
-          déjà couvert par un logiciel existant, la conclusion peut être de ne
-          rien construire ici.
+          La revue ne vend pas un produit STRATA ESG déguisé. Si votre besoin
+          est déjà couvert par un logiciel existant, la conclusion peut être de
+          ne rien construire ici.
         </p>
-        <Link href="/ecosysteme#strata">Voir les logiciels STRATA ↗</Link>
+        <Link href="/ecosysteme#strata">Voir les logiciels STRATA ESG ↗</Link>
       </section>
 
       <section className="page-next">

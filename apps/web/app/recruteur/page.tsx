@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     title: "Adama Diallo, profil professionnel",
     description: DISPONIBILITE,
     url: "/recruteur",
-    siteName: "Adama OS",
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "profile",
   },

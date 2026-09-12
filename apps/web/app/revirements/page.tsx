@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description:
       "Des décisions corrigées, tracées dans le dépôt, avec leur coût et la règle qui en est sortie.",
     url: "/revirements",
-    siteName: "Adama OS",
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "website",
   },

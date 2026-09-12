@@ -15,6 +15,7 @@
 // site qui refuse les valeurs sans provenance.
 // =====================================================================
 
+import { divisionName } from "../../components/brand-signature";
 import type { CarteProjet } from "../../content/projets";
 import { DISPONIBILITE, IDENTITE, RECHERCHE } from "../../content/profil";
 import type {
@@ -178,7 +179,7 @@ export function commandesInspection(
                 tone: "ok",
               },
               ...ctx.products.map((p) => ({
-                text: `${p.name} · ${p.division} · ${
+                text: `${p.name} · ${divisionName(p.division)} · ${
                   p.url ? "en ligne" : "sans lien public"
                 }`,
                 tone: "info" as const,

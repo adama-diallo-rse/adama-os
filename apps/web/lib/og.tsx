@@ -11,6 +11,10 @@
 // qu'une reduction de corps indefinie : un texte reduit a 30 pixels dans une
 // image affichee au tiers de sa taille ne se lit pas, il fait du gris.
 import type { ReactElement } from "react";
+import {
+  OPEN_STRATA_PATHS,
+  OPEN_STRATA_SOURCE,
+} from "../components/open-strata-symbol";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
@@ -68,9 +72,21 @@ export function OgTemplate({
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          <span style={{ fontSize: 70, fontWeight: 700, letterSpacing: -7 }}>
-            a.
-          </span>
+          {/* Symbole Open Strata, memes coordonnees que app/icon.svg. */}
+          <svg width="72" height="72" viewBox="0 0 64 64">
+            {OPEN_STRATA_PATHS.map((d) => (
+              <path
+                key={d}
+                d={d}
+                fill="none"
+                stroke="#0d1b2a"
+                strokeWidth={3}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            ))}
+            <circle {...OPEN_STRATA_SOURCE} fill="#c9a96e" />
+          </svg>
           <span style={{ fontSize: 15, letterSpacing: 4, color: "#536878" }}>
             {tronquer(eyebrow, 44)}
           </span>
@@ -122,30 +138,26 @@ export function OgTemplate({
           transform: "rotate(20deg)",
         }}
       />
-      <div
-        style={{
-          position: "absolute",
-          display: "flex",
-          right: 65,
-          top: 145,
-          width: 190,
-          height: 330,
-          border: "44px solid #14263a",
-          borderRadius: 130,
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          display: "flex",
-          right: 26,
-          bottom: 96,
-          width: 87,
-          height: 87,
-          borderRadius: 50,
-          background: "#c9a96e",
-        }}
-      />
+      {/* Le symbole en grand, a la place de l'ancien monogramme. */}
+      <svg
+        width="380"
+        height="380"
+        viewBox="0 0 64 64"
+        style={{ position: "absolute", right: -10, top: 125 }}
+      >
+        {OPEN_STRATA_PATHS.map((d) => (
+          <path
+            key={d}
+            d={d}
+            fill="none"
+            stroke="#14263a"
+            strokeWidth={2.6}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ))}
+        <circle {...OPEN_STRATA_SOURCE} fill="#c9a96e" />
+      </svg>
     </div>
   );
 }

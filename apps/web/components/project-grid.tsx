@@ -16,7 +16,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { BrandSignature } from "./brand-signature";
+import { BrandSignature, divisionName } from "./brand-signature";
 import { ProjectArt } from "./portfolio-art";
 import type { CarteProjet } from "../content/projets";
 import type { ClaimState } from "../lib/proof/types";
@@ -114,7 +114,7 @@ export function ProjectGrid({
               >
                 <div className="project-art">
                   <span className="project-art-label">
-                    {projet.categorie} / {projet.division}
+                    {projet.categorie} / {divisionName(projet.division)}
                   </span>
                   {art?.brand ? (
                     <div className={"project-brand-art brand-art-" + art.brand}>
@@ -125,7 +125,7 @@ export function ProjectGrid({
                   )}
                   {/* Le nom du produit figure dans l'illustration de toutes
                       les cartes, et pas seulement de celle du cockpit : sans
-                      lui, les deux fiches STRATA sont deux cartes jumelles
+                      lui, les deux fiches STRATA ESG sont deux cartes jumelles
                       que seul un libelle de six pixels distingue. La charte
                       le prevoyait deja, la regle
                       .project-strata .project-art-name existe depuis la

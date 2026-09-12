@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description:
       "La chaîne de preuve du site, étape par étape, avec son implémentation réelle.",
     url: "/systeme",
-    siteName: "Adama OS",
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "website",
   },

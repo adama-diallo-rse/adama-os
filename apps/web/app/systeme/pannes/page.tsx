@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description:
       "Sept capacités, trois états, huit modes de panne documentés et rejouables.",
     url: "/systeme/pannes",
-    siteName: "Adama OS",
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "website",
   },

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { divisionName } from "../../../components/brand-signature";
 import { PageIntro, PageShell } from "../../../components/page-shell";
 import { ProjectSheet } from "../../../components/project-sheet";
 import { ProductMark } from "../../../components/product-mark";
@@ -38,7 +39,7 @@ export async function generateMetadata({
       title: `${fiche.titre}, fiche projet`,
       description: fiche.resume,
       url: `/projets/${fiche.slug}`,
-      siteName: "Adama OS",
+      siteName: "ADAMA OS",
       locale: "fr_FR",
       type: "article",
     },
@@ -100,7 +101,7 @@ export default async function FicheProjetPage({
         eyebrow={
           <>
             <ProductMark slug={fiche.slug} taille={20} />
-            {`FICHE PROJET / ${fiche.division.toUpperCase()}`}
+            {`FICHE PROJET / ${divisionName(fiche.division).toUpperCase()}`}
           </>
         }
         title={

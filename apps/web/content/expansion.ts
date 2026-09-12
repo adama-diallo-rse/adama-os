@@ -74,9 +74,9 @@ export const EXPANSION_BRANCHES = [
     status: "Nouveau",
   },
   {
-    name: "STRATA",
+    name: "STRATA ESG",
     purpose: "Le logiciel, quand la méthode le mérite.",
-    audience: "Client STRATA",
+    audience: "Client STRATA ESG",
     status: "Existe",
   },
 ] as const;

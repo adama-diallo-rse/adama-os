@@ -4,13 +4,13 @@
 @source "../../../packages/ui/src/**/*.{ts,tsx}";
 
 /* ------------------------------------------------------------------ */
-/*  Design tokens Adama OS, aligné sur la charte STRATA               */
+/*  Design tokens Adama OS, aligné sur la charte STRATA ESG           */
 /*  Navy ardoise, crème, accent or + signal teal. Ressenti terminal.  */
 /*  (Les noms de tokens restent identiques : la valeur "emerald"       */
-/*   porte désormais le signal teal STRATA #2AFFD6.)                   */
+/*   porte désormais le signal teal STRATA ESG #2AFFD6.)               */
 /* ------------------------------------------------------------------ */
 @theme {
-  /* Fonds, du plus profond au plus surélevé (navy STRATA) */
+  /* Fonds, du plus profond au plus surélevé (navy STRATA ESG) */
   --color-background: #0d1b2a;
   --color-surface: #16273b;
   --color-surface-raised: #1a2d42;
@@ -19,7 +19,7 @@
   --color-border: #24384f;
   --color-border-strong: #35506b;
 
-  /* Texte (crème STRATA) */
+  /* Texte (crème STRATA ESG) */
   --color-foreground: #f2ede4;
   --color-muted: #9db0c0;
   /* L8-T10, audit de contraste du 31 aout 2026. L'ancienne valeur #6b8296
@@ -29,7 +29,7 @@
      4.53:1 sur surface-raised, 4.89:1 sur surface, 5.62:1 sur le fond. */
   --color-faint: #8195a6;
 
-  /* Accent principal : signal teal STRATA (data / CTA / online) */
+  /* Accent principal : signal teal STRATA ESG (data / CTA / online) */
   --color-emerald: #2affd6;
   --color-emerald-bright: #6bffe4;
   /* Fond et etat actif uniquement : 3.52:1 sur surface-raised, insuffisant
@@ -37,7 +37,7 @@
   --color-emerald-dim: #1f8f7c;
   --color-emerald-foreground: #06201a;
 
-  /* États système (or STRATA en secondaire) */
+  /* États système (or STRATA ESG en secondaire) */
   --color-online: #2affd6;
   --color-warning: #c9a96e;
   --color-danger: #e5675c;
@@ -58,7 +58,7 @@
 
 /* ------------------------------------------------------------------ */
 /*  Thème alternatif "gold" (commande `theme` du terminal Ctrl+K)     */
-/*  Bascule l'accent signal teal vers l'or STRATA.                    */
+/*  Bascule l'accent signal teal vers l'or STRATA ESG.                */
 /* ------------------------------------------------------------------ */
 [data-theme="gold"] {
   --color-emerald: #c9a96e;

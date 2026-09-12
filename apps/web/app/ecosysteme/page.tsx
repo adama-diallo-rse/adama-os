@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: "STRATA ESG & IROKO Software Group",
     description: "Les produits, leurs liens et leur avancement.",
     url: "/ecosysteme",
-    siteName: "Adama OS",
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "website",
   },

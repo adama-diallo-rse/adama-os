@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     description:
       "Ce qui entre, ce qui sort, ce qui n’entre jamais. Avec les tests qui le verrouillent.",
     url: "/confiance",
-    siteName: "Adama OS",
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "website",
   },
