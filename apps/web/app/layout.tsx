@@ -33,6 +33,9 @@ import "./narrative.css";
 // fichier de plus dans subpages.css le rendrait illisible.
 import "./systeme.css";
 import "./expansion.css";
+// EH0 : la page de la lettre SIGNAL et sa console privee. Une famille de
+// surfaces, une feuille, comme les precedentes.
+import "./lettre.css";
 import localFont from "next/font/local";
 
 const syne = localFont({

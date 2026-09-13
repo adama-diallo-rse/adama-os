@@ -26,32 +26,39 @@ Puis renseigner les valeurs manquantes.
 
 ## Cles cote web (Vercel)
 
-| Variable                          | Expose au navigateur | Role                                                                                  |
-| --------------------------------- | -------------------- | ------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`            | oui                  | origine canonique (metadonnees, sitemap, robots, JSON-LD)                             |
-| `NEXT_PUBLIC_SUPABASE_URL`        | oui                  | URL du projet Supabase (region UE)                                                    |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY`   | oui                  | cle publique (RLS)                                                                    |
-| `SUPABASE_SERVICE_ROLE_KEY`       | non                  | cle serveur (contourne RLS)                                                           |
-| `OPENAI_API_KEY`                  | non                  | generation gpt-4o + embeddings de requete                                             |
-| `ADAMA_AI_MODEL`                  | non                  | modele adama.ai, optionnel (defaut gpt-4o)                                            |
-| `ADAMA_AI_RATE_LIMIT`             | non                  | L8-T12, requetes /api/chat par fenetre (defaut 12)                                    |
-| `ADAMA_AI_RATE_WINDOW_S`          | non                  | L8-T12, duree de la fenetre en secondes (defaut 300)                                  |
-| `DATABASE_URL`                    | non                  | retrieval RAG pgvector via Drizzle                                                    |
-| `GITHUB_REPOS`                    | non                  | L5-T2, depots agreges dans le feed Shipped                                            |
-| `GITHUB_TOKEN_*`                  | non                  | feed Shipped, un jeton de lecture par propriétaire GitHub                             |
-| `GITHUB_TOKEN`                    | non                  | repli temporaire de l'ancien jeton unique                                             |
-| `ECOSYSTEM_SCOPE_API_URL`         | non                  | L9, origine de l'API STRATA Scope, lecture seule                                      |
-| `ECOSYSTEM_ESG_OPTIMIZER_API_URL` | non                  | L9, origine de l'API ESG Optimizer, lecture seule                                     |
-| `CRON_SECRET`                     | non                  | L9, protege `/api/ecosystem/sync`. Pose par Vercel Cron dans l'en-tete Authorization  |
-| `NEXT_PUBLIC_CAL_LINK`            | oui                  | Cal.com dans le modal recruteur                                                       |
-| `NEXT_PUBLIC_POSTHOG_KEY`         | oui                  | analytics, requis pour les funnels (L8-T7)                                            |
-| `NEXT_PUBLIC_POSTHOG_HOST`        | oui                  | defaut `https://eu.i.posthog.com`                                                     |
-| `BETTERSTACK_API_TOKEN`           | non                  | statut systeme reel                                                                   |
-| `BETTERSTACK_MONITOR_ID`          | non                  | identifiant du monitor uptime                                                         |
-| `NEXT_PUBLIC_SENTRY_DSN`          | oui                  | DSN Sentry (client + serveur)                                                         |
-| `SENTRY_ORG` / `SENTRY_PROJECT`   | non                  | upload source maps                                                                    |
-| `SENTRY_AUTH_TOKEN`               | non                  | upload source maps (build/CI uniquement)                                              |
-| `ADAMA_HIDE_DEMO`                 | non                  | C1, retire du rendu tout contenu de classe demonstration. Lue par `lib/proof/demo.ts` |
+| Variable                           | Expose au navigateur | Role                                                                                  |
+| ---------------------------------- | -------------------- | ------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`             | oui                  | origine canonique (metadonnees, sitemap, robots, JSON-LD)                             |
+| `NEXT_PUBLIC_SUPABASE_URL`         | oui                  | URL du projet Supabase (region UE)                                                    |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY`    | oui                  | cle publique (RLS)                                                                    |
+| `SUPABASE_SERVICE_ROLE_KEY`        | non                  | cle serveur (contourne RLS)                                                           |
+| `OPENAI_API_KEY`                   | non                  | generation gpt-4o + embeddings de requete                                             |
+| `ADAMA_AI_MODEL`                   | non                  | modele adama.ai, optionnel (defaut gpt-4o)                                            |
+| `ADAMA_AI_RATE_LIMIT`              | non                  | L8-T12, requetes /api/chat par fenetre (defaut 12)                                    |
+| `ADAMA_AI_RATE_WINDOW_S`           | non                  | L8-T12, duree de la fenetre en secondes (defaut 300)                                  |
+| `DATABASE_URL`                     | non                  | retrieval RAG pgvector via Drizzle                                                    |
+| `GITHUB_REPOS`                     | non                  | L5-T2, depots agreges dans le feed Shipped                                            |
+| `GITHUB_TOKEN_*`                   | non                  | feed Shipped, un jeton de lecture par propriétaire GitHub                             |
+| `GITHUB_TOKEN`                     | non                  | repli temporaire de l'ancien jeton unique                                             |
+| `ECOSYSTEM_SCOPE_API_URL`          | non                  | L9, origine de l'API STRATA Scope, lecture seule                                      |
+| `ECOSYSTEM_ESG_OPTIMIZER_API_URL`  | non                  | L9, origine de l'API ESG Optimizer, lecture seule                                     |
+| `CRON_SECRET`                      | non                  | L9, protege `/api/ecosystem/sync`. Pose par Vercel Cron dans l'en-tete Authorization  |
+| `LETTRE_SUPABASE_URL`              | non                  | EH0, projet Supabase dedie a la lettre, distinct du projet partage                    |
+| `LETTRE_SUPABASE_SERVICE_ROLE_KEY` | non                  | EH0, cle service du projet dedie, jamais celle du projet partage                      |
+| `LETTRE_RESEND_API_KEY`            | non                  | EH0, compte Resend dedie a ADAMA, envoi seul                                          |
+| `LETTRE_EXPEDITEUR`                | non                  | EH0, adresse sur `lettre.adamesg-os.fr`                                               |
+| `LETTRE_SECRET`                    | non                  | EH0, HMAC des empreintes et des liens de desinscription                               |
+| `LETTRE_ADMINISTRATEURS`           | non                  | EH0, comptes autorises sur `/admin/lettre`                                            |
+| `LETTRE_COLLECTE`                  | non                  | EH0, `ouverte` apres verification de bout en bout                                     |
+| `NEXT_PUBLIC_CAL_LINK`             | oui                  | Cal.com dans le modal recruteur                                                       |
+| `NEXT_PUBLIC_POSTHOG_KEY`          | oui                  | analytics, requis pour les funnels (L8-T7)                                            |
+| `NEXT_PUBLIC_POSTHOG_HOST`         | oui                  | defaut `https://eu.i.posthog.com`                                                     |
+| `BETTERSTACK_API_TOKEN`            | non                  | statut systeme reel                                                                   |
+| `BETTERSTACK_MONITOR_ID`           | non                  | identifiant du monitor uptime                                                         |
+| `NEXT_PUBLIC_SENTRY_DSN`           | oui                  | DSN Sentry (client + serveur)                                                         |
+| `SENTRY_ORG` / `SENTRY_PROJECT`    | non                  | upload source maps                                                                    |
+| `SENTRY_AUTH_TOKEN`                | non                  | upload source maps (build/CI uniquement)                                              |
+| `ADAMA_HIDE_DEMO`                  | non                  | C1, retire du rendu tout contenu de classe demonstration. Lue par `lib/proof/demo.ts` |
 
 Regle : tout ce qui est prefixe `NEXT_PUBLIC_` finit dans le bundle client.
 Ne jamais prefixer une cle secrete avec `NEXT_PUBLIC_`.
@@ -104,6 +111,8 @@ ne suffit pas.
 | `OPENAI_API_KEY`            | Vercel, `packages/db/.env`            | tous les 6 mois, ou apres tout partage d'ecran     |
 | `GITHUB_TOKEN_*`            | Vercel                                | expiration 90 jours, à recréer à échéance          |
 | `CRON_SECRET`               | Vercel                                | tous les 12 mois                                   |
+| `LETTRE_RESEND_API_KEY`     | Vercel                                | tous les 12 mois, immediatement apres un partage   |
+| `LETTRE_SECRET`             | Vercel                                | jamais sans raison : invalide les liens envoyes    |
 | `SENTRY_AUTH_TOKEN`         | Vercel (build)                        | tous les 12 mois                                   |
 | `BETTERSTACK_API_TOKEN`     | Vercel                                | tous les 12 mois                                   |
 
@@ -204,10 +213,11 @@ verifie que **tout** module lisant un secret le declare. `server-only` leve a
 l'import depuis un composant client : une importation fautive casse la
 construction, au lieu de faire fuiter une cle en production.
 
-Huit noms sont surveillés par ce test : `GITHUB_TOKEN`, les trois variables
+Onze noms sont surveillés par ce test : `GITHUB_TOKEN`, les trois variables
 `GITHUB_TOKEN_*`,
 `SUPABASE_SERVICE_ROLE_KEY`, `OPENAI_API_KEY`, `CRON_SECRET`,
-`BETTERSTACK_API_TOKEN`. Ajouter un secret sans l'ajouter a cette liste est
+`BETTERSTACK_API_TOKEN`, et depuis EH0 `LETTRE_SUPABASE_SERVICE_ROLE_KEY`,
+`LETTRE_RESEND_API_KEY` et `LETTRE_SECRET`. Ajouter un secret sans l'ajouter a cette liste est
 possible ; c'est pourquoi la liste vit dans le test, ou elle se relit, et non
 dans un commentaire.
 

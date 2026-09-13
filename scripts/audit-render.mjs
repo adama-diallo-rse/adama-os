@@ -67,6 +67,7 @@ const PAGES = [
   "/principes",
   "/revirements",
   "/metrics",
+  "/lettre",
 ];
 
 const LARGEURS = [320, 390, 768, 1100, 1440];

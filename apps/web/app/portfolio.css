@@ -2100,57 +2100,56 @@ body:has(.portfolio) .consent-notice button {
   font-size: 14px;
   line-height: 1.75;
 }
-.signal-signup form label {
-  display: block;
-  margin-bottom: 10px;
-  font: 600 10px var(--font-ui);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.signal-signup-action {
+  display: grid;
+  gap: 26px;
+}
+.signal-signup-action ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid #2c4058;
+}
+.signal-signup-action li {
+  padding: 13px 0;
+  border-bottom: 1px solid #2c4058;
   color: #b5c1cb;
-}
-.signal-signup form > div {
-  display: flex;
-}
-.signal-signup input {
-  min-width: 0;
-  flex: 1;
-  height: 50px;
-  padding-inline: 16px;
-  border: 1px solid #536878;
-  background: transparent;
-  color: var(--paper);
-  font-size: 16px;
-}
-.signal-signup button {
-  min-height: 50px;
-  padding-inline: 18px;
-  background: var(--strata-gold);
-  color: var(--ink);
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
+  font: 12px var(--font-mono);
   letter-spacing: 0.08em;
 }
-.signal-signup button:disabled {
-  opacity: 0.65;
+.signal-signup-action li::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 12px;
+  border-radius: 50%;
+  background: var(--strata-gold);
+  vertical-align: middle;
 }
-.signal-help,
-.signal-error,
-.signal-status {
-  margin-top: 12px;
-  font-size: 12px;
-  line-height: 1.6;
+.signal-signup-lien {
+  min-height: 56px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6px;
+  background: var(--strata-gold);
+  color: var(--ink);
+  font: 600 12px var(--font-ui);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition:
+    background 0.2s,
+    transform 0.2s;
 }
-.signal-help {
-  color: #9db0c0;
+.signal-signup-lien:hover {
+  background: #d8bd88;
+  transform: translateY(-2px);
 }
-.signal-error {
-  color: #ff9d94;
-}
-.signal-status {
-  padding: 22px;
-  border: 1px solid var(--strata-gold);
-  color: var(--paper);
+.signal-signup-lien:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 3px;
 }
 
 @media (max-width: 1080px) {
@@ -2186,9 +2185,5 @@ body:has(.portfolio) .consent-notice button {
     margin-block: 70px;
     padding: 30px 24px;
     gap: 42px;
-  }
-  .signal-signup form > div {
-    flex-direction: column;
-    gap: 10px;
   }
 }

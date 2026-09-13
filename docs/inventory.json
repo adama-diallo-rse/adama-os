@@ -1,23 +1,28 @@
 {
   "schema_version": 1,
   "surface": {
-    "pages": 26,
-    "api_routes": 9,
-    "components": 50,
-    "lib_modules": 45,
+    "pages": 28,
+    "api_routes": 11,
+    "components": 51,
+    "lib_modules": 52,
     "tables": 11,
     "enums": 14,
     "migrations": 8,
     "policies": 21,
-    "test_files": 38,
-    "test_cases": 367,
+    "test_files": 45,
+    "test_cases": 447,
     "dependencies": 51
   },
   "pages": [
     {
+      "file": "apps/web/app/admin/lettre/page.tsx",
+      "route": "/admin/lettre",
+      "lines": 288
+    },
+    {
       "file": "apps/web/app/admin/page.tsx",
       "route": "/admin",
-      "lines": 86
+      "lines": 90
     },
     {
       "file": "apps/web/app/admin/relecture/page.tsx",
@@ -37,7 +42,7 @@
     {
       "file": "apps/web/app/confidentialite/page.tsx",
       "route": "/confidentialite",
-      "lines": 192
+      "lines": 208
     },
     {
       "file": "apps/web/app/decisions/[adr]/page.tsx",
@@ -57,12 +62,17 @@
     {
       "file": "apps/web/app/expansion/page.tsx",
       "route": "/expansion",
-      "lines": 178
+      "lines": 179
     },
     {
       "file": "apps/web/app/journal/page.tsx",
       "route": "/journal",
       "lines": 123
+    },
+    {
+      "file": "apps/web/app/lettre/page.tsx",
+      "route": "/lettre",
+      "lines": 259
     },
     {
       "file": "apps/web/app/login/page.tsx",
@@ -107,7 +117,7 @@
     {
       "file": "apps/web/app/projets/[slug]/page.tsx",
       "route": "/projets/[slug]",
-      "lines": 162
+      "lines": 163
     },
     {
       "file": "apps/web/app/recruteur/page.tsx",
@@ -122,7 +132,7 @@
     {
       "file": "apps/web/app/revue-architecture/page.tsx",
       "route": "/revue-architecture",
-      "lines": 111
+      "lines": 113
     },
     {
       "file": "apps/web/app/systeme/page.tsx",
@@ -137,7 +147,7 @@
     {
       "file": "apps/web/app/technique/page.tsx",
       "route": "/technique",
-      "lines": 525
+      "lines": 535
     },
     {
       "file": "apps/web/app/verifier/[id]/page.tsx",
@@ -172,6 +182,16 @@
       "lines": 70
     },
     {
+      "file": "apps/web/app/api/lettre/route.ts",
+      "route": "/api/lettre",
+      "lines": 138
+    },
+    {
+      "file": "apps/web/app/api/lettre/sync/route.ts",
+      "route": "/api/lettre/sync",
+      "lines": 66
+    },
+    {
       "file": "apps/web/app/api/metrics/route.ts",
       "route": "/api/metrics",
       "lines": 34
@@ -189,7 +209,7 @@
     {
       "file": "apps/web/app/llms.txt/route.ts",
       "route": "/llms.txt",
-      "lines": 101
+      "lines": 102
     }
   ],
   "components": [
@@ -223,7 +243,7 @@
     },
     {
       "file": "apps/web/components/brand-signature.tsx",
-      "lines": 38
+      "lines": 44
     },
     {
       "file": "apps/web/components/build-log.tsx",
@@ -275,7 +295,7 @@
     },
     {
       "file": "apps/web/components/known-limits.tsx",
-      "lines": 77
+      "lines": 131
     },
     {
       "file": "apps/web/components/layer-a.tsx",
@@ -302,6 +322,10 @@
       "lines": 87
     },
     {
+      "file": "apps/web/components/open-strata-symbol.tsx",
+      "lines": 28
+    },
+    {
       "file": "apps/web/components/org-logo.tsx",
       "lines": 115
     },
@@ -311,11 +335,11 @@
     },
     {
       "file": "apps/web/components/page-shell.tsx",
-      "lines": 82
+      "lines": 83
     },
     {
       "file": "apps/web/components/portfolio-art.tsx",
-      "lines": 168
+      "lines": 169
     },
     {
       "file": "apps/web/components/product-mark.tsx",
@@ -363,11 +387,11 @@
     },
     {
       "file": "apps/web/components/signal-signup.tsx",
-      "lines": 90
+      "lines": 41
     },
     {
       "file": "apps/web/components/site-header.tsx",
-      "lines": 128
+      "lines": 123
     },
     {
       "file": "apps/web/components/site-tools.tsx",
@@ -489,7 +513,31 @@
     },
     {
       "file": "apps/web/lib/legal.ts",
-      "lines": 116
+      "lines": 125
+    },
+    {
+      "file": "apps/web/lib/lettre/config.ts",
+      "lines": 207
+    },
+    {
+      "file": "apps/web/lib/lettre/envoi.ts",
+      "lines": 187
+    },
+    {
+      "file": "apps/web/lib/lettre/jetons.ts",
+      "lines": 152
+    },
+    {
+      "file": "apps/web/lib/lettre/messages.ts",
+      "lines": 390
+    },
+    {
+      "file": "apps/web/lib/lettre/parcours.ts",
+      "lines": 337
+    },
+    {
+      "file": "apps/web/lib/lettre/registre.ts",
+      "lines": 381
     },
     {
       "file": "apps/web/lib/metrics.ts",
@@ -497,7 +545,7 @@
     },
     {
       "file": "apps/web/lib/og.tsx",
-      "lines": 152
+      "lines": 164
     },
     {
       "file": "apps/web/lib/outbound.ts",
@@ -565,7 +613,7 @@
     },
     {
       "file": "apps/web/lib/terminal/inspect.ts",
-      "lines": 297
+      "lines": 298
     },
     {
       "file": "apps/web/lib/trajectory.ts",
@@ -574,6 +622,10 @@
     {
       "file": "apps/web/lib/uptime.ts",
       "lines": 59
+    },
+    {
+      "file": "apps/web/lib/vocabulaire.ts",
+      "lines": 251
     }
   ],
   "database": {
@@ -689,6 +741,7 @@
       "apps/web/tests/adama-moteur.test.ts",
       "apps/web/tests/analytics-consent.test.ts",
       "apps/web/tests/analytics-events.test.ts",
+      "apps/web/tests/angles-preuves.test.ts",
       "apps/web/tests/api-contract.test.ts",
       "apps/web/tests/auth-recuperation.test.ts",
       "apps/web/tests/brand-expansion.test.ts",
@@ -706,6 +759,11 @@
       "apps/web/tests/journal.test.ts",
       "apps/web/tests/layer-d.test.tsx",
       "apps/web/tests/legal.test.tsx",
+      "apps/web/tests/lettre-page.test.tsx",
+      "apps/web/tests/lettre-parcours.test.ts",
+      "apps/web/tests/lettre-sql.test.ts",
+      "apps/web/tests/lettre.integration.test.ts",
+      "apps/web/tests/lettre.test.ts",
       "apps/web/tests/narrative.test.tsx",
       "apps/web/tests/no-fabrication.test.ts",
       "apps/web/tests/outbound.test.ts",
@@ -722,9 +780,10 @@
       "apps/web/tests/rls.integration.test.ts",
       "apps/web/tests/site.test.ts",
       "apps/web/tests/technique.test.tsx",
-      "apps/web/tests/trajectory.test.ts"
+      "apps/web/tests/trajectory.test.ts",
+      "apps/web/tests/vocabulaire.test.ts"
     ],
-    "cases": 367
+    "cases": 447
   },
   "rendu": {
     "pages": 13,
@@ -1095,6 +1154,7 @@
     "adamesg-os.fr",
     "api.github.com",
     "api.openai.com",
+    "api.resend.com",
     "cal.com",
     "esg-optimizer.fr",
     "eu.i.posthog.com",
@@ -1105,7 +1165,9 @@
   ],
   "hardcoded_self_urls": [],
   "markers": [],
-  "long_dashes": [],
+  "long_dashes": [
+    "apps/web/lib/vocabulaire.ts : motif: /[–—]/g,"
+  ],
   "legacy_names": [
     {
       "name": "strata_analytics",
@@ -1399,11 +1461,6 @@
       "id": "apps/web/package.json#@types/react-dom",
       "kind": "dependency",
       "declared_intentional": "Types React DOM resolus implicitement par TypeScript. Meme raison."
-    },
-    {
-      "id": "apps/web/package.json#react-dom",
-      "kind": "dependency",
-      "declared_intentional": "Rendu DOM de React, charge par Next.js lui-meme. Aucun fichier de l'application ne l'importe directement, l'application ne demarre pas sans lui."
     },
     {
       "id": "packages/db/src/adr-catalogue.ts#AdrPreuveKind",
@@ -1718,8 +1775,8 @@
       "id": "surface_pages",
       "level": "surface",
       "label": "Routes de page",
-      "max": 26,
-      "value": 26,
+      "max": 28,
+      "value": 28,
       "broken": false,
       "over": false
     },
@@ -1727,8 +1784,8 @@
       "id": "surface_api",
       "level": "surface",
       "label": "Routes d'API",
-      "max": 10,
-      "value": 9,
+      "max": 11,
+      "value": 11,
       "broken": false,
       "over": false
     },
@@ -1736,8 +1793,8 @@
       "id": "surface_composants",
       "level": "surface",
       "label": "Composants",
-      "max": 50,
-      "value": 50,
+      "max": 51,
+      "value": 51,
       "broken": false,
       "over": false
     },
@@ -1745,8 +1802,8 @@
       "id": "surface_lib",
       "level": "surface",
       "label": "Modules lib",
-      "max": 46,
-      "value": 45,
+      "max": 52,
+      "value": 52,
       "broken": false,
       "over": false
     },

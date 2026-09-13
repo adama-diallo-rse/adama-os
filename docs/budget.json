@@ -115,7 +115,7 @@
       "id": "surface_pages",
       "level": "surface",
       "label": "Routes de page",
-      "max": 26,
+      "max": 28,
       "measure": {
         "kind": "count",
         "of": "pages"
@@ -125,7 +125,7 @@
       "id": "surface_api",
       "level": "surface",
       "label": "Routes d'API",
-      "max": 10,
+      "max": 11,
       "measure": {
         "kind": "count",
         "of": "api_routes"
@@ -135,7 +135,7 @@
       "id": "surface_composants",
       "level": "surface",
       "label": "Composants",
-      "max": 50,
+      "max": 51,
       "measure": {
         "kind": "count",
         "of": "components"
@@ -145,7 +145,7 @@
       "id": "surface_lib",
       "level": "surface",
       "label": "Modules lib",
-      "max": 46,
+      "max": 52,
       "measure": {
         "kind": "count",
         "of": "lib_modules"

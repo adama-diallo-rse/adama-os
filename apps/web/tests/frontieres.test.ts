@@ -157,6 +157,9 @@ describe("C11, aucun secret ne descend dans le navigateur", () => {
       "OPENAI_API_KEY",
       "CRON_SECRET",
       "BETTERSTACK_API_TOKEN",
+      "LETTRE_SUPABASE_SERVICE_ROLE_KEY",
+      "LETTRE_RESEND_API_KEY",
+      "LETTRE_SECRET",
     ];
     const fautes: string[] = [];
     for (const { chemin, code } of SOURCES) {

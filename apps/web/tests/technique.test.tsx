@@ -144,6 +144,7 @@ describe("C10-T4, les contrats d'interface", () => {
       "/.well-known/adama-os.json",
       "/llms.txt",
       "/auth/callback",
+      "/api/lettre",
     ];
     for (const r of routesPubliques()) {
       expect(connues, `${r.route} doit etre documentee`).toContain(r.route);

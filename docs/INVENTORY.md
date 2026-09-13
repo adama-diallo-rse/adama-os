@@ -13,31 +13,33 @@ echouer `--check` a chaque seconde.
 
 | Mesure | Valeur |
 | --- | --- |
-| Routes de page | 26 |
-| Routes d'API | 9 |
-| Composants | 50 |
-| Modules `lib` | 45 |
+| Routes de page | 28 |
+| Routes d'API | 11 |
+| Composants | 51 |
+| Modules `lib` | 52 |
 | Tables Drizzle | 11 |
 | Types enumeres | 14 |
 | Migrations SQL | 8 |
-| Fichiers de test | 38 |
-| Cas de test | 367 |
+| Fichiers de test | 45 |
+| Cas de test | 447 |
 | Dependances directes declarees | 51 |
 
 ## Routes
 
 | Page | Fichier | Lignes |
 | --- | --- | --- |
-| `/admin` | `apps/web/app/admin/page.tsx` | 86 |
+| `/admin/lettre` | `apps/web/app/admin/lettre/page.tsx` | 288 |
+| `/admin` | `apps/web/app/admin/page.tsx` | 90 |
 | `/admin/relecture` | `apps/web/app/admin/relecture/page.tsx` | 227 |
 | `/checkin` | `apps/web/app/checkin/page.tsx` | 326 |
 | `/confiance` | `apps/web/app/confiance/page.tsx` | 300 |
-| `/confidentialite` | `apps/web/app/confidentialite/page.tsx` | 192 |
+| `/confidentialite` | `apps/web/app/confidentialite/page.tsx` | 208 |
 | `/decisions/[adr]` | `apps/web/app/decisions/[adr]/page.tsx` | 305 |
 | `/decisions` | `apps/web/app/decisions/page.tsx` | 148 |
 | `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 178 |
-| `/expansion` | `apps/web/app/expansion/page.tsx` | 178 |
+| `/expansion` | `apps/web/app/expansion/page.tsx` | 179 |
 | `/journal` | `apps/web/app/journal/page.tsx` | 123 |
+| `/lettre` | `apps/web/app/lettre/page.tsx` | 259 |
 | `/login` | `apps/web/app/login/page.tsx` | 84 |
 | `/mentions-legales` | `apps/web/app/mentions-legales/page.tsx` | 114 |
 | `/methode` | `apps/web/app/methode/page.tsx` | 94 |
@@ -46,13 +48,13 @@ echouer `--check` a chaque seconde.
 | `/` | `apps/web/app/page.tsx` | 225 |
 | `/preuves` | `apps/web/app/preuves/page.tsx` | 142 |
 | `/principes` | `apps/web/app/principes/page.tsx` | 146 |
-| `/projets/[slug]` | `apps/web/app/projets/[slug]/page.tsx` | 162 |
+| `/projets/[slug]` | `apps/web/app/projets/[slug]/page.tsx` | 163 |
 | `/recruteur` | `apps/web/app/recruteur/page.tsx` | 324 |
 | `/revirements` | `apps/web/app/revirements/page.tsx` | 178 |
-| `/revue-architecture` | `apps/web/app/revue-architecture/page.tsx` | 111 |
+| `/revue-architecture` | `apps/web/app/revue-architecture/page.tsx` | 113 |
 | `/systeme` | `apps/web/app/systeme/page.tsx` | 148 |
 | `/systeme/pannes` | `apps/web/app/systeme/pannes/page.tsx` | 148 |
-| `/technique` | `apps/web/app/technique/page.tsx` | 525 |
+| `/technique` | `apps/web/app/technique/page.tsx` | 535 |
 | `/verifier/[id]` | `apps/web/app/verifier/[id]/page.tsx` | 316 |
 
 | API | Fichier | Lignes |
@@ -62,10 +64,12 @@ echouer `--check` a chaque seconde.
 | `/api/decisions` | `apps/web/app/api/decisions/route.ts` | 35 |
 | `/api/ecosystem` | `apps/web/app/api/ecosystem/route.ts` | 36 |
 | `/api/ecosystem/sync` | `apps/web/app/api/ecosystem/sync/route.ts` | 70 |
+| `/api/lettre` | `apps/web/app/api/lettre/route.ts` | 138 |
+| `/api/lettre/sync` | `apps/web/app/api/lettre/sync/route.ts` | 66 |
 | `/api/metrics` | `apps/web/app/api/metrics/route.ts` | 34 |
 | `/api/trajectory` | `apps/web/app/api/trajectory/route.ts` | 62 |
 | `/auth/callback` | `apps/web/app/auth/callback/route.ts` | 76 |
-| `/llms.txt` | `apps/web/app/llms.txt/route.ts` | 101 |
+| `/llms.txt` | `apps/web/app/llms.txt/route.ts` | 102 |
 
 ## Base de donnees
 
@@ -96,10 +100,10 @@ Les dix plus gros fichiers, toutes categories confondues :
 | `apps/web/lib/health/criteria.ts` | 459 |
 | `apps/web/components/ecosystem-map.tsx` | 443 |
 | `apps/web/components/layer-d.tsx` | 395 |
+| `apps/web/lib/lettre/messages.ts` | 390 |
+| `apps/web/lib/lettre/registre.ts` | 381 |
 | `apps/web/components/build-log.tsx` | 362 |
 | `apps/web/components/recruit-modal.tsx` | 354 |
-| `apps/web/components/adama-ai.tsx` | 325 |
-| `apps/web/lib/terminal/inspect.ts` | 297 |
 
 ## Variables d'environnement lues dans le code
 
@@ -113,7 +117,7 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 Hotes distincts appeles ou lies depuis le code :
 
-`${vercel_host}`, `adamesg-os.fr`, `api.github.com`, `api.openai.com`, `cal.com`, `esg-optimizer.fr`, `eu.i.posthog.com`, `github.com`, `schema.org`, `scope.esg-optimizer.fr`, `uptime.betterstack.com`
+`${vercel_host}`, `adamesg-os.fr`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `esg-optimizer.fr`, `eu.i.posthog.com`, `github.com`, `schema.org`, `scope.esg-optimizer.fr`, `uptime.betterstack.com`
 
 ### URL absolues du site ecrites en dur
 
@@ -133,7 +137,7 @@ Doctrine du projet : aucun tiret long ni demi-cadratin, dans le code
 comme dans les textes produits. Mesure sur l'application, hors outillage
 et hors tests.
 
-Aucun. Le controle passe.
+- apps/web/lib/vocabulaire.ts : motif: /[–—]/g,
 
 ## Noms historiques
 
@@ -207,7 +211,6 @@ est un defaut ouvert.
 | dependency | `apps/web/package.json#@types/node` | Types Node consommes implicitement par TypeScript via `types` du tsconfig. Jamais importes par un fichier source, indispensables au typecheck. |
 | dependency | `apps/web/package.json#@types/react` | Types React resolus implicitement par TypeScript. Meme raison. |
 | dependency | `apps/web/package.json#@types/react-dom` | Types React DOM resolus implicitement par TypeScript. Meme raison. |
-| dependency | `apps/web/package.json#react-dom` | Rendu DOM de React, charge par Next.js lui-meme. Aucun fichier de l'application ne l'importe directement, l'application ne demarre pas sans lui. |
 | export | `packages/db/src/adr-catalogue.ts#AdrPreuveKind` | Meme union que celle de apps/web/lib/adr.ts, cote catalogue. Le catalogue est la source de verite du contenu ADR : ses types forment son contrat, ils ne sont pas du code appele. |
 | export | `packages/db/src/adr-catalogue.ts#AdrReversibilite` | Voir AdrPreuveKind du meme fichier. |
 | export | `packages/db/src/client.ts#closeDb` | Fermeture explicite de la connexion, appelee par ingest.ts et verify-rag.ts a travers un import dynamique que la detection ne suit pas. Sans elle, process.exit laisse une poignee ouverte et le code de sortie ment sous Windows. |
@@ -287,10 +290,10 @@ Severite actuelle : `error` (avertissement en vague V0, erreur a partir de V2).
 | N2 | Preuves sociales affichees d'un bloc dans la Couche D | 1 | 4 | tenu |
 | N2 | Experiences citees dans le bandeau de la home | 4 | 4 | tenu |
 | N2 | Marques d'organisation affichees sur le site | 4 | 5 | tenu |
-| surface | Routes de page | 26 | 26 | tenu |
-| surface | Routes d'API | 9 | 10 | tenu |
-| surface | Composants | 50 | 50 | tenu |
-| surface | Modules lib | 45 | 46 | tenu |
+| surface | Routes de page | 28 | 28 | tenu |
+| surface | Routes d'API | 11 | 11 | tenu |
+| surface | Composants | 51 | 51 | tenu |
+| surface | Modules lib | 52 | 52 | tenu |
 | surface | Lignes du plus gros composant | 608 | 700 | tenu |
 | surface | Lignes du plus gros module lib | 459 | 460 | tenu |
 

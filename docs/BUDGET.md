@@ -216,3 +216,40 @@ dans l'inventaire parce qu'un audit du 7 aout 2026 avait annonce dix-sept
 regles quand il y en avait vingt et une, et qu'il a fallu recompter a la main
 pour s'en apercevoir. Un chiffre qu'aucune commande ne mesure finit toujours
 par mentir.
+
+## La lettre SIGNAL, 13 septembre 2026 (EH0)
+
+- **`surface_pages`, de 26 à 28.** `/lettre` est la surface de collecte
+  exigée par EH0 : un seul champ, une case jamais précochée, la mention
+  complète sur la page. `/admin/lettre` est la console privée qui tient la
+  note trimestrielle et les demandes d'accès ou d'effacement. La
+  confirmation et la désinscription ne créent aucune page de plus : ce sont
+  des états de `/lettre`.
+- **`surface_api`, de 10 à 11.** `/api/lettre` porte les liens des messages,
+  parce qu'un en-tête List-Unsubscribe exige une adresse HTTP qui accepte
+  POST (RFC 8058). `/api/lettre/sync` applique chaque jour la rétention que
+  la mention annonce et rejoue les messages de bienvenue en attente. Elle
+  finit par `/sync` pour être rangée parmi les routes protégées. Deux routes,
+  un seul point d'entrée public.
+- **`surface_lib`, de 46 à 52.** Sept modules : `vocabulaire`, qui rend enfin
+  exécutable la liste fermée d'ADEC-19, et six sous `lettre/` : `config`,
+  `jetons`, `messages`, `envoi`, `registre`, `parcours`. Quatre sont purs et
+  testés sans réseau ; `envoi` et `registre` sont les deux seules sorties,
+  l'une vers l'outil d'envoi, l'autre vers la base dédiée. Les fondre en deux
+  fichiers aurait mélangé les refus de configuration, qui protègent XINV-22,
+  avec le rendu des messages, et un refus noyé dans du HTML est un refus
+  qu'on ne relit plus.
+
+La lettre n'ajoute aucun composant : le formulaire vit sous `app/lettre/`, et
+l'ancien formulaire de l'accueil est devenu un simple renvoi vers `/lettre`,
+dans le même fichier.
+
+- **`surface_composants`, de 50 à 51, régularisation.** Le relevé du
+  13 septembre 2026 a trouvé l'inventaire périmé depuis le commit `ff049be`,
+  qui a ajouté `components/open-strata-symbol.tsx` sans le régénérer. Le
+  plafond était donc déjà franchi, sans que personne ne le voie, ce qui est
+  exactement le défaut qu'un inventaire versionné doit empêcher. Le composant
+  est justifié : il est le seul tracé du symbole Open Strata, partagé par
+  l'en-tête, l'écosystème et les fiches projet, et le favicon comme les images
+  de partage reprennent ses coordonnées. Le plafond est relevé par écrit, pas
+  en silence.

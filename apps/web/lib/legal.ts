@@ -36,7 +36,7 @@ export const EDITEUR = {
 } as const;
 
 /** Date de dernière mise à jour des pages légales. */
-export const LEGAL_UPDATED_AT = "2026-08-31";
+export const LEGAL_UPDATED_AT = "2026-09-13";
 
 /** Date d'echeance du marquage machine, en francais, pour l'affichage. */
 export const ECHEANCE_MARQUAGE = "2 décembre 2026";
@@ -72,8 +72,17 @@ export const SOUS_TRAITANTS: readonly SousTraitant[] = [
   {
     id: "base",
     nom: "Supabase",
-    donnees: "base de données, partagée avec deux produits du groupe",
+    donnees:
+      "base de données du site, partagée avec deux produits du groupe ; la lettre SIGNAL vit dans un projet distinct, qui ne sert à rien d’autre",
     region: "Union européenne, Irlande",
+  },
+  {
+    id: "envoi",
+    nom: "Resend",
+    donnees:
+      "envoi des messages de la lettre SIGNAL, sans mesure d’ouverture ni de clic",
+    region:
+      "envoi depuis la région Union européenne, société établie aux États-Unis, clauses contractuelles types",
   },
   {
     id: "modele",

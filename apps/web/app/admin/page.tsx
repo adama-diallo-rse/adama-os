@@ -49,6 +49,10 @@ export default async function AdminPage() {
         <Link href="/admin/relecture" className="portfolio-button ghost">
           Relire les décisions à publier →
         </Link>
+        {/* EH0 : la note trimestrielle et les demandes de personnes. */}
+        <Link href="/admin/lettre" className="portfolio-button ghost">
+          Tenir la lettre SIGNAL →
+        </Link>
         <section className="metrics-history">
           <h2>Relevés actuels</h2>
           {error ? (

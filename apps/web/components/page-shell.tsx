@@ -44,6 +44,7 @@ export function PageShell({
         <div className="footer-bottom">
           <span>ADAMA OS · LABORATOIRE PUBLIC</span>
           <div>
+            <Link href="/lettre">Lettre SIGNAL</Link>
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/confidentialite">Confidentialité</Link>
             <Link href="/confiance">Frontières de données</Link>

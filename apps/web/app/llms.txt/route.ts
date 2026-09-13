@@ -81,6 +81,7 @@ lisez un intitulé différent ailleurs, c'est cette version qui fait foi.
 - Frontières de données, ce qui n'entre jamais : ${absoluteUrl("/confiance")}
 - Santé par capacité et modes de panne : ${absoluteUrl("/systeme/pannes")}
 - Journal de construction, lisible et brut : ${absoluteUrl("/journal")}
+- Lettre SIGNAL, consentement et mention d'information : ${absoluteUrl("/lettre")}
 
 ## État du registre
 

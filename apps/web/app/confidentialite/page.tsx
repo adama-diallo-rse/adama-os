@@ -31,10 +31,16 @@ type Traitement = {
 
 const TRAITEMENTS: Traitement[] = [
   {
-    finalite: "Inscription à SIGNAL",
-    donnees: "adresse e-mail",
-    base: "consentement, inscription volontaire",
-    duree: "jusqu'au retrait du consentement ou après 24 mois sans interaction",
+    // EH0, 13 septembre 2026. L'ancienne duree, « ou après 24 mois sans
+    // interaction », ne pouvait pas etre tenue : la lettre ne mesure aucune
+    // interaction. Les durees ci-dessous sont celles que la base applique.
+    finalite:
+      "Lettre SIGNAL, responsable : Adama Diallo, entrepreneur individuel",
+    donnees:
+      "adresse e-mail, version du texte de consentement, page et provenance de l'inscription, dates de demande, de confirmation et de désinscription, empreinte non réversible de l'adresse IP",
+    base: "consentement, case jamais précochée puis double confirmation",
+    duree:
+      "30 jours sans confirmation ; tant que l'inscription dure ; à la désinscription, adresse effacée aussitôt, empreinte et dates gardées 3 ans pour la preuve",
   },
   {
     finalite: "Prise de contact recruteur",
@@ -131,10 +137,12 @@ export default function ConfidentialitePage() {
           }))}
         />
         <p>
-          Deux d&apos;entre eux sont établis hors Union européenne : Vercel et
-          OpenAI. Les transferts correspondants reposent sur les clauses
-          contractuelles types de la Commission européenne. Les données de
-          mesure d&apos;audience et la base restent, elles, dans l&apos;Union.
+          Quatre d&apos;entre eux sont des sociétés établies hors Union
+          européenne : Vercel, OpenAI, GitHub et le service d&apos;envoi de la
+          lettre. Les transferts de données personnelles correspondants reposent
+          sur les clauses contractuelles types de la Commission européenne ;
+          GitHub ne reçoit aucune donnée personnelle. Les données de mesure
+          d&apos;audience et les bases restent, elles, dans l&apos;Union.
         </p>
       </LegalSection>
 
@@ -172,8 +180,16 @@ export default function ConfidentialitePage() {
           est ouvert auprès de la CNIL.
         </p>
         <p>
-          Chaque message SIGNAL contiendra un moyen simple de se désinscrire.
-          Une demande envoyée à {EDITEUR.contact} produit le même effet.
+          Chaque message SIGNAL porte un lien de désinscription en un clic. Une
+          demande envoyée à {EDITEUR.contact} produit le même effet. La mention
+          complète de la lettre, avec ses durées et ses sous-traitants, est sur{" "}
+          <Link
+            href="/lettre#mention"
+            className="text-emerald underline decoration-dotted hover:text-emerald-bright"
+          >
+            la page de la lettre
+          </Link>
+          .
         </p>
         <p>
           Voir aussi les{" "}
