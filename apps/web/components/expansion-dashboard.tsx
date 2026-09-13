@@ -165,7 +165,7 @@ export function ExpansionDashboard({ compact = false }: { compact?: boolean }) {
               </div>
               <div>
                 <span>DÉCISIONS INSCRITES</span>
-                <strong>30 XDEC</strong>
+                <strong>43 XDEC</strong>
               </div>
             </div>
           )}

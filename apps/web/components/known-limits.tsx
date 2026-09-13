@@ -9,6 +9,11 @@
 // Le seul traitement particulier porte sur la derniere ligne de chaque
 // entree : ce qui la fermera. Une limite sans condition de fermeture est un
 // renoncement deguise en transparence.
+//
+// Revision du 13 septembre 2026 : une limite fermee ne disparait plus. Elle
+// passe sous « Fermées », avec sa date et ce qui l'a fermee, et un constat
+// revise montre ce qui etait ecrit avant. On ne fait jamais disparaitre, on
+// marque.
 // =====================================================================
 
 import type { Limite } from "../content/limites";
@@ -26,6 +31,56 @@ function dateCourte(iso: string): string {
   }).format(d);
 }
 
+function Carte({ limite: l }: { limite: Limite }) {
+  const fermee = Boolean(l.fermeeLe);
+  return (
+    <li
+      className="limite-card"
+      id={`limite-${l.id}`}
+      data-fermee={fermee ? "oui" : "non"}
+    >
+      {fermee ? <p className="limite-etiquette">FERMÉE</p> : null}
+      <h3>{l.titre}</h3>
+      <p className="limite-constat">{l.constat}</p>
+      <dl>
+        <div>
+          <dt>Ce que cela coûte</dt>
+          <dd>{l.consequence}</dd>
+        </div>
+        {fermee ? (
+          <div>
+            <dt>Ce qui l’a fermée</dt>
+            <dd>{l.fermeePar}</dd>
+          </div>
+        ) : (
+          <div>
+            <dt>Ce qui la fermera</dt>
+            <dd>{l.fermeture}</dd>
+          </div>
+        )}
+        {l.revision ? (
+          <div className="limite-revision">
+            <dt>Constat révisé le {dateCourte(l.revision.le)}, avant :</dt>
+            <dd>
+              <s>{l.revision.constatAnterieur}</s>
+            </dd>
+          </div>
+        ) : null}
+      </dl>
+      <p className="limite-date">
+        Constatée le{" "}
+        <time dateTime={l.constateLe}>{dateCourte(l.constateLe)}</time>
+        {l.fermeeLe ? (
+          <>
+            {", fermée le "}
+            <time dateTime={l.fermeeLe}>{dateCourte(l.fermeeLe)}</time>
+          </>
+        ) : null}
+      </p>
+    </li>
+  );
+}
+
 export function KnownLimits({
   limites,
   titre = "Ce qui ne marche pas encore",
@@ -33,6 +88,8 @@ export function KnownLimits({
   limites: readonly Limite[];
   titre?: string;
 }) {
+  const ouvertes = limites.filter((l) => !l.fermeeLe);
+  const fermees = limites.filter((l) => Boolean(l.fermeeLe));
   return (
     <section className="limite-section" aria-labelledby="limites-title">
       <div className="limite-intro">
@@ -42,35 +99,32 @@ export function KnownLimits({
           <span className="serif">.</span>
         </h2>
         <p>
-          {limites.length} entrée{limites.length > 1 ? "s" : ""}, relue
-          {limites.length > 1 ? "s" : ""} une par une. Une limite se retire de
-          cette liste quand elle est réglée, jamais quand elle devient gênante.
-          C’est pourquoi chacune porte ce qui la fermera.
+          {ouvertes.length} entrée{ouvertes.length > 1 ? "s" : ""} ouverte
+          {ouvertes.length > 1 ? "s" : ""}, relue
+          {ouvertes.length > 1 ? "s" : ""} une par une. Une limite réglée ne
+          disparaît pas : elle passe sous « Fermées », avec sa date et ce qui
+          l’a fermée. C’est pourquoi chacune porte ce qui la fermera.
         </p>
       </div>
 
       <ul className="limite-list">
-        {limites.map((l) => (
-          <li key={l.id} className="limite-card" id={`limite-${l.id}`}>
-            <h3>{l.titre}</h3>
-            <p className="limite-constat">{l.constat}</p>
-            <dl>
-              <div>
-                <dt>Ce que cela coûte</dt>
-                <dd>{l.consequence}</dd>
-              </div>
-              <div>
-                <dt>Ce qui la fermera</dt>
-                <dd>{l.fermeture}</dd>
-              </div>
-            </dl>
-            <p className="limite-date">
-              Constatée le{" "}
-              <time dateTime={l.constateLe}>{dateCourte(l.constateLe)}</time>
-            </p>
-          </li>
+        {ouvertes.map((l) => (
+          <Carte key={l.id} limite={l} />
         ))}
       </ul>
+
+      {fermees.length > 0 ? (
+        <div className="limite-fermees">
+          <p className="portfolio-label">
+            FERMÉES, GARDÉES VISIBLES ({fermees.length})
+          </p>
+          <ul className="limite-list">
+            {fermees.map((l) => (
+              <Carte key={l.id} limite={l} />
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </section>
   );
 }

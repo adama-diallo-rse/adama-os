@@ -10,6 +10,16 @@
 // a bien eu lieu au lieu de constater sa disparition.
 //
 // Etat de chaque entree au 2 septembre 2026, verifie une par une.
+//
+// Revision du 13 septembre 2026 (EH2, verification des preuves des angles
+// narratifs). Deux entrees ne disaient plus la verite :
+//   - huitieme-depot etait reglee depuis le 12 septembre, par deux jetons de
+//     lecture et non par le jeton unique que sa fermeture prevoyait ;
+//   - corpus-partiel decrivait un socle normatif non ingere, alors que le
+//     premier jeu ESRS l'est et passe le controle de pertinence.
+// Aucune n'est effacee. Une limite fermee reste listee, marquee et datee, avec
+// ce qui l'a fermee ; un constat revise garde ce qui etait ecrit. Retirer une
+// ligne vraie hier ferait disparaitre la preuve qu'on la corrige.
 // =====================================================================
 
 export type Limite = {
@@ -23,6 +33,12 @@ export type Limite = {
   fermeture: string;
   /** Date de constat, ISO. */
   constateLe: string;
+  /** Date de fermeture, ISO. Une limite fermee reste listee, jamais effacee. */
+  fermeeLe?: string;
+  /** Ce qui l'a reellement fermee, verifiable sur le site. */
+  fermeePar?: string;
+  /** Constat anterieur devenu inexact, garde tel qu'il etait ecrit. */
+  revision?: { le: string; constatAnterieur: string };
 };
 
 export const LIMITES: readonly Limite[] = [
@@ -36,6 +52,9 @@ export const LIMITES: readonly Limite[] = [
     fermeture:
       "Le seul jeton couvrant les huit donnerait aussi l’écriture. Tant que cet arbitrage tient, la limite reste ouverte et affichée.",
     constateLe: "2026-08-31",
+    fermeeLe: "2026-09-12",
+    fermeePar:
+      "Deux jetons de lecture seule, un par propriétaire, sans droit d’écriture. Le journal de construction lit désormais les huit dépôts. L’arbitrage d’un jeton unique en écriture n’a jamais été levé : il a été contourné.",
   },
   {
     id: "route-publique-produits",
@@ -74,11 +93,16 @@ export const LIMITES: readonly Limite[] = [
     id: "corpus-partiel",
     titre: "Le corpus documentaire ne couvre pas tout ce que le site évoque",
     constat:
-      "Le corpus contient un standard de reporting simplifié et un profil. Le socle complet des normes européennes est présent dans le dépôt mais n’est pas entièrement ingéré.",
+      "Le corpus contient trois documents : le standard VSME, le premier jeu de normes ESRS et un profil. Les autres textes que le site évoque, à commencer par la directive CSRD elle-même, ne sont pas ingérés.",
     consequence:
       "L’assistant refuse de répondre sur les parties non couvertes, plutôt que de répondre approximativement. Le refus est le comportement attendu, pas un incident.",
     fermeture:
-      "Ingérer le socle complet, puis vérifier que la question de contrôle dépasse le seuil de pertinence, et non simplement qu’elle ramène quelque chose.",
+      "Ingérer chaque texte avant que le site le présente comme couvert, puis vérifier que sa question de contrôle dépasse le seuil de pertinence, et non simplement qu’elle ramène quelque chose.",
     constateLe: "2026-09-02",
+    revision: {
+      le: "2026-09-13",
+      constatAnterieur:
+        "Le corpus contient un standard de reporting simplifié et un profil. Le socle complet des normes européennes est présent dans le dépôt mais n’est pas entièrement ingéré.",
+    },
   },
 ] as const;

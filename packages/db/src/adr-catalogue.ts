@@ -1210,7 +1210,8 @@ const DEC_106: Adr = {
         "La séparation par dépôt rendait le périmètre immédiatement lisible et empêchait le retour des pages produit dupliquées.",
     },
     {
-      option: "Isoler le commerce dans une couche sans dépendance depuis la preuve",
+      option:
+        "Isoler le commerce dans une couche sans dépendance depuis la preuve",
       verdict: "ecartee",
       motif:
         "La branche de connaissance n’existait pas encore et aucun objet propre au cockpit ne justifiait cette complexité.",

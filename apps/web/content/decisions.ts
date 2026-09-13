@@ -119,7 +119,8 @@ export const REGISTRE_ADR: readonly EntreeRegistre[] = [
   },
   {
     adrId: "DEC-106",
-    titre: "Un cockpit sans commerce plutôt qu’une preuve et une offre séparées",
+    titre:
+      "Un cockpit sans commerce plutôt qu’une preuve et une offre séparées",
     statut: "remplace",
     regle: "Le commerce ne gouverne jamais la preuve.",
   },

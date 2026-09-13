@@ -316,8 +316,8 @@ export default function TechniquePage() {
           écarte le manifestement hors sujet avant que le modèle ne voie quoi
           que ce soit. Le seuil de pertinence, lui, sert à dire si le corpus
           couvre ce que l’écran promet, et il vaut{" "}
-          {rag ? rag.seuilOk.toFixed(2) : "0,50"} : en dessous de{" "}
-          {rag ? rag.seuilEchec.toFixed(2) : "0,45"}, la vérification échoue.
+          {rag ? virgule(rag.seuilOk) : "0,50"} : en dessous de{" "}
+          {rag ? virgule(rag.seuilEchec) : "0,45"}, la vérification échoue.
         </p>
         <p className="tech-note">
           {rag
@@ -327,7 +327,7 @@ export default function TechniquePage() {
                   : rag.verdict === "avertissement"
                     ? "passée avec avertissement"
                     : "échouée"
-              }, meilleur score ${rag.best.toFixed(2)}, plus faible ${rag.worst.toFixed(2)}.`
+              }, meilleur score ${virgule(rag.best)}, plus faible ${virgule(rag.worst)}.`
             : "Aucune vérification de pertinence n’a encore été enregistrée. La capacité est donc affichée comme non mesurée, et surtout pas comme opérationnelle."}{" "}
           Un corpus partiel est assumé : l’assistant refuse de répondre sur ce
           qu’il ne couvre pas, plutôt que de répondre approximativement.
@@ -491,6 +491,11 @@ export default function TechniquePage() {
   );
 }
 
+/** Un score a deux decimales, ecrit comme un lecteur francais l'ecrit. */
+function virgule(valeur: number): string {
+  return valeur.toFixed(2).replace(".", ",");
+}
+
 /** Libelles des routes publiques. Une route inconnue se declare inconnue. */
 function descriptionRoute(route: string): string {
   const table: Record<string, string> = {
@@ -502,6 +507,8 @@ function descriptionRoute(route: string): string {
     "/.well-known/adama-os.json":
       "Le registre des affirmations et de leurs preuves.",
     "/llms.txt": "Le site décrit en texte simple, pour un agent.",
+    "/api/lettre":
+      "Les liens de la lettre SIGNAL : confirmation et désinscription. Elle ne publie aucune donnée.",
     "/auth/callback":
       "La reprise d’un lien de connexion. Elle ne publie aucune donnée.",
   };
@@ -511,6 +518,9 @@ function descriptionRoute(route: string): string {
 function comportementRoute(route: string): string {
   if (route === "/api/chat") {
     return "503, et aucune réponse produite sans source.";
+  }
+  if (route === "/api/lettre") {
+    return "Redirection vers /lettre, avec l’état en clair ; 503 pour la désinscription en un clic si la lettre n’est pas configurée.";
   }
   if (route.startsWith("/api/")) {
     return "503, avec la raison en clair.";

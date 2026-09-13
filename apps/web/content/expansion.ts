@@ -3,7 +3,7 @@ export const EXPANSION_TOTALS = [
   { value: "12", label: "branches", detail: "architecture conceptuelle" },
   { value: "208", label: "chantiers", detail: "18 branches de travail" },
   { value: "60", label: "invariants", detail: "règles de tenue" },
-  { value: "30", label: "décisions", detail: "registre XDEC" },
+  { value: "43", label: "décisions", detail: "registre XDEC" },
 ] as const;
 
 export const EXPANSION_BRANCHES = [
@@ -86,7 +86,7 @@ export const EXPANSION_INDICATORS = [
   { label: "Branches", value: "12", verified: true },
   { label: "Chantiers", value: "208", verified: true },
   { label: "Invariants", value: "60", verified: true },
-  { label: "Décisions XDEC", value: "30", verified: true },
+  { label: "Décisions XDEC", value: "43", verified: true },
   { label: "Méthodes PROUVÉES", value: "0", verified: true },
   { label: "Objets périmés", value: "À instrumenter" },
   { label: "Erreurs ouvertes", value: "À instrumenter" },

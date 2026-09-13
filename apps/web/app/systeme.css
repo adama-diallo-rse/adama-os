@@ -412,6 +412,34 @@
   font: 10px var(--font-mono);
   color: var(--secondary);
 }
+/* Revision du 13 septembre 2026 : une limite fermee reste lisible, en
+   retrait, et un constat revise garde sa version barree. */
+.limite-fermees {
+  margin-top: 36px;
+}
+.limite-fermees > .portfolio-label {
+  margin-bottom: 16px;
+}
+.limite-card[data-fermee="oui"] {
+  background: #f7f3ec;
+}
+.limite-card[data-fermee="oui"] h3,
+.limite-card[data-fermee="oui"] .limite-constat {
+  color: var(--secondary);
+}
+.limite-etiquette {
+  width: fit-content;
+  margin-bottom: 12px;
+  padding: 3px 8px;
+  border: 1px solid #2b7c69;
+  border-radius: 3px;
+  color: #1f5a4c;
+  font: 9.5px var(--font-mono);
+  letter-spacing: 0.14em;
+}
+.limite-revision dd s {
+  text-decoration-color: rgb(83 104 120 / 55%);
+}
 
 /* ---------------------------------------------------------------------
    C4, la carte de l'ecosysteme
