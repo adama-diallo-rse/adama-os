@@ -26,7 +26,7 @@ const lignes = [
   ],
   [
     "Appris",
-    "La publication de la page doit encore être vérifiée sur l'environnement public.",
+    "La vérification publique est un critère de publication distinct du build.",
   ],
   [
     "Appris",

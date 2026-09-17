@@ -57,5 +57,5 @@ suivante, avec le lien vers la preuve. L'ancien texte reste visible.
 ## Première édition
 
 La première édition couvre la semaine du 14 au 20 septembre 2026. Elle est
-préparée à partir de la matière réellement présente dans le dépôt et attend la
-vérification de la page en production avant d'être présentée comme publiée.
+préparée à partir de la matière réellement présente dans le dépôt. Elle a été
+versionnée, déployée en production et vérifiée publiquement le 17 septembre 2026.
