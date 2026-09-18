@@ -36,6 +36,8 @@ import "./expansion.css";
 // EH0 : la page de la lettre SIGNAL et sa console privee. Une famille de
 // surfaces, une feuille, comme les precedentes.
 import "./lettre.css";
+// EH3 : l’article long bilingue et ses preuves cassées.
+import "./article.css";
 import localFont from "next/font/local";
 
 const syne = localFont({

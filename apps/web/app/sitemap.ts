@@ -99,6 +99,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     },
     {
+      url: absoluteUrl("/articles/methode-de-preuve"),
+      lastModified: new Date("2026-09-18"),
+      changeFrequency: "yearly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          fr: absoluteUrl("/articles/methode-de-preuve"),
+          en: absoluteUrl("/en/articles/proof-method"),
+        },
+      },
+    },
+    {
+      url: absoluteUrl("/en/articles/proof-method"),
+      lastModified: new Date("2026-09-18"),
+      changeFrequency: "yearly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          fr: absoluteUrl("/articles/methode-de-preuve"),
+          en: absoluteUrl("/en/articles/proof-method"),
+        },
+      },
+    },
+    {
       url: absoluteUrl("/systeme"),
       lastModified: maintenant,
       changeFrequency: "monthly",

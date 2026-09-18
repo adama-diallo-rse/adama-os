@@ -73,6 +73,24 @@ export default function MethodePage() {
 
       <section className="page-next">
         <div>
+          <p className="portfolio-label">ARTICLE LONG / AXP-71</p>
+          <h2>La preuve commence quand le système accepte d’avoir tort.</h2>
+          <p>
+            Quatre méthodes ont perdu leur état après vérification. L’article
+            publie les décisions rejetées, les preuves cassées et ce que cette
+            correction change dans la méthode.
+          </p>
+        </div>
+        <Link
+          href="/articles/methode-de-preuve"
+          className="portfolio-button primary"
+        >
+          Lire l’article <span aria-hidden="true">→</span>
+        </Link>
+      </section>
+
+      <section className="page-next">
+        <div>
           <p className="portfolio-label">APPLICATION</p>
           <h2>
             Un problème d’architecture à <span className="serif">relire ?</span>
