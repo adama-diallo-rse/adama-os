@@ -397,6 +397,19 @@
 .expansion-preview-copy .portfolio-button {
   margin-top: 30px;
 }
+
+.page-next-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+@media (max-width: 760px) {
+  .page-next-actions {
+    justify-content: flex-start;
+  }
+}
 .expansion-preview-map {
   min-width: 0;
   border: 1px solid #cbc5bb;

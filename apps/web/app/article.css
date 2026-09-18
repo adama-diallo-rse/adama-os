@@ -228,6 +228,217 @@
   padding-top: 80px;
 }
 
+/* EJ0, deux publications bilingues sur les contraintes ouest-africaines. */
+.africa-index nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.africa-index nav a {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding: 22px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: #314653;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.africa-index nav a span,
+.africa-method-grid > li > span,
+.africa-signal-list > article > span {
+  color: var(--accent-text);
+  font: 11px var(--font-mono);
+}
+
+.africa-source-note,
+.africa-company-voice {
+  margin-bottom: 32px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper-deep) 58%, transparent);
+}
+
+.africa-source-note h3 {
+  margin-top: 12px;
+  font-size: 22px;
+  font-weight: 450;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+}
+
+.africa-source-note > p:last-child {
+  margin-top: 10px;
+  color: var(--secondary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.africa-company-voice {
+  border-left: 3px solid var(--strata-gold);
+  background: transparent;
+}
+
+.africa-company-voice blockquote {
+  margin-top: 14px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(25px, 2.5vw, 34px);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1.35;
+}
+
+.africa-decision-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 38px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.africa-decision-pair > div {
+  padding: 24px;
+  background: var(--paper);
+}
+
+.africa-decision-pair dt,
+.africa-signal-list dt {
+  margin-bottom: 8px;
+  color: var(--secondary);
+  font: 10px var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.africa-decision-pair dd,
+.africa-signal-list dd {
+  color: #314653;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.africa-method-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  list-style: none;
+}
+
+.africa-method-grid li {
+  min-height: 210px;
+  padding: 28px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.africa-method-grid h3,
+.africa-translation-grid h3,
+.africa-signal-list h3 {
+  margin-top: 22px;
+  font-size: 22px;
+  font-weight: 450;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+.africa-method-grid p {
+  margin-top: 14px;
+  color: var(--secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.africa-translation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.africa-translation-grid article {
+  padding: 28px;
+  border: 1px solid var(--line);
+}
+
+.africa-translation-grid article > p {
+  color: var(--accent-text);
+  font: 11px var(--font-mono);
+  text-transform: uppercase;
+}
+
+.africa-translation-grid article > span {
+  display: block;
+  margin-top: 14px;
+  color: var(--secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.africa-signal-list {
+  border-top: 1px solid var(--line);
+}
+
+.africa-signal-list > article {
+  display: grid;
+  grid-template-columns: 50px minmax(190px, 0.7fr) minmax(0, 1.5fr);
+  gap: 26px;
+  padding-block: 30px;
+  border-bottom: 1px solid var(--line);
+}
+
+.africa-signal-list h3 {
+  margin-top: 0;
+}
+
+.africa-signal-list dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.africa-register {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(36px, 7vw, 90px);
+  margin-top: 52px;
+  padding: 34px;
+  border: 1px solid var(--strata-gold);
+}
+
+.africa-register ul {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+  color: var(--secondary);
+  font-size: 13px;
+  line-height: 1.55;
+  list-style-position: inside;
+}
+
+.africa-register > p,
+.africa-referral > p {
+  color: #314653;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.africa-referral blockquote {
+  text-align: left;
+}
+
+.africa-referral > p {
+  max-width: 720px;
+  margin-inline: auto;
+}
+
 @media (max-width: 760px) {
   .evidence-article-hero,
   .evidence-article-section,
@@ -265,6 +476,22 @@
     grid-template-columns: 1fr;
   }
 
+  .africa-index nav,
+  .africa-decision-pair,
+  .africa-method-grid,
+  .africa-translation-grid,
+  .africa-register {
+    grid-template-columns: 1fr;
+  }
+
+  .africa-signal-list > article {
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .africa-signal-list dl {
+    grid-column: 2;
+  }
+
   .evidence-article-feature blockquote {
     margin-block: 50px;
     text-align: left;
@@ -287,5 +514,22 @@
 
   .evidence-broken-grid > article {
     padding: 26px 22px;
+  }
+
+  .africa-source-note,
+  .africa-company-voice,
+  .africa-method-grid li,
+  .africa-translation-grid article,
+  .africa-register {
+    padding: 22px;
+  }
+
+  .africa-signal-list > article {
+    grid-template-columns: 1fr;
+  }
+
+  .africa-signal-list dl {
+    grid-column: 1;
+    grid-template-columns: 1fr;
   }
 }

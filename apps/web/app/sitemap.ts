@@ -123,6 +123,62 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     },
     {
+      url: absoluteUrl("/articles/sept-contraintes-donnee-esg-afrique-ouest"),
+      lastModified: new Date("2026-09-18"),
+      changeFrequency: "yearly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          fr: absoluteUrl(
+            "/articles/sept-contraintes-donnee-esg-afrique-ouest",
+          ),
+          en: absoluteUrl(
+            "/en/articles/seven-constraints-west-african-esg-data",
+          ),
+        },
+      },
+    },
+    {
+      url: absoluteUrl("/en/articles/seven-constraints-west-african-esg-data"),
+      lastModified: new Date("2026-09-18"),
+      changeFrequency: "yearly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          fr: absoluteUrl(
+            "/articles/sept-contraintes-donnee-esg-afrique-ouest",
+          ),
+          en: absoluteUrl(
+            "/en/articles/seven-constraints-west-african-esg-data",
+          ),
+        },
+      },
+    },
+    {
+      url: absoluteUrl("/articles/architecture-donnee-esg-afrique-ouest"),
+      lastModified: new Date("2026-09-18"),
+      changeFrequency: "yearly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          fr: absoluteUrl("/articles/architecture-donnee-esg-afrique-ouest"),
+          en: absoluteUrl("/en/articles/west-african-esg-data-architecture"),
+        },
+      },
+    },
+    {
+      url: absoluteUrl("/en/articles/west-african-esg-data-architecture"),
+      lastModified: new Date("2026-09-18"),
+      changeFrequency: "yearly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          fr: absoluteUrl("/articles/architecture-donnee-esg-afrique-ouest"),
+          en: absoluteUrl("/en/articles/west-african-esg-data-architecture"),
+        },
+      },
+    },
+    {
       url: absoluteUrl("/systeme"),
       lastModified: maintenant,
       changeFrequency: "monthly",

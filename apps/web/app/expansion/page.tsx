@@ -160,6 +160,34 @@ export default function ExpansionPage() {
 
       <section className="page-next">
         <div>
+          <p className="portfolio-label">AFRIQUE / EJ0</p>
+          <h2>
+            Sept contraintes, <span className="serif">deux lectures.</span>
+          </h2>
+          <p>
+            Le volet Afrique part des conditions réelles de collecte. Un texte
+            parle depuis l’entreprise qui doit répondre. L’autre transforme
+            chaque contrainte en décision d’architecture.
+          </p>
+        </div>
+        <div className="page-next-actions">
+          <Link
+            href="/articles/sept-contraintes-donnee-esg-afrique-ouest"
+            className="portfolio-button primary"
+          >
+            Lire les contraintes <span aria-hidden="true">→</span>
+          </Link>
+          <Link
+            href="/articles/architecture-donnee-esg-afrique-ouest"
+            className="portfolio-button"
+          >
+            Lire l’architecture <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      </section>
+
+      <section className="page-next">
+        <div>
           <p className="portfolio-label">PREMIÈRE APPLICATION</p>
           <h2>
             Relier une idée à <span className="serif">sa preuve.</span>
