@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageIntro, PageShell } from "../../components/page-shell";
 
 export const metadata: Metadata = {
@@ -58,6 +59,21 @@ export default function ChangelogPage() {
             </li>
           ))}
         </ol>
+      </section>
+      <section className="page-next">
+        <div>
+          <p className="portfolio-label">ERROR LOG / EW3</p>
+          <h2>
+            Une correction devient <span className="serif">une méthode.</span>
+          </h2>
+          <p>
+            Le registre public conserve les erreurs établies, leur correction et
+            la règle qui empêche leur répétition.
+          </p>
+        </div>
+        <Link href="/erreurs" className="portfolio-button primary">
+          Ouvrir le registre <span aria-hidden="true">→</span>
+        </Link>
       </section>
     </PageShell>
   );

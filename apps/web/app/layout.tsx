@@ -38,6 +38,8 @@ import "./expansion.css";
 import "./lettre.css";
 // EH3 : l’article long bilingue et ses preuves cassées.
 import "./article.css";
+// EW3 : registre public des erreurs, sa taxonomie et son gabarit en cinq blocs.
+import "./erreurs.css";
 import localFont from "next/font/local";
 
 const syne = localFont({

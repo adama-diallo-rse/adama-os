@@ -80,6 +80,7 @@ lisez un intitulé différent ailleurs, c'est cette version qui fait foi.
 - Inspection technique, inventaire généré : ${absoluteUrl("/technique")}
 - Frontières de données, ce qui n'entre jamais : ${absoluteUrl("/confiance")}
 - Santé par capacité et modes de panne : ${absoluteUrl("/systeme/pannes")}
+- Registre public des erreurs et méthodes obtenues : ${absoluteUrl("/erreurs")}
 - Journal de construction, lisible et brut : ${absoluteUrl("/journal")}
 - Lettre SIGNAL, consentement et mention d'information : ${absoluteUrl("/lettre")}
 

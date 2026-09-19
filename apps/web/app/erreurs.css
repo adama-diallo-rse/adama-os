@@ -1,0 +1,336 @@
+.erreurs-page .portfolio-wrap {
+  max-width: 1280px;
+}
+
+.error-conversion strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.error-doctrine {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.75fr);
+  gap: clamp(44px, 8vw, 110px);
+  padding-block: 64px 82px;
+  border-block: 1px solid var(--line);
+}
+
+.error-doctrine > .portfolio-label {
+  grid-column: 1 / -1;
+}
+
+.error-doctrine h2,
+.error-taxonomy h2,
+.error-register-heading h2 {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 4.8vw, 66px);
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.error-doctrine h2 .serif {
+  color: var(--accent-text);
+}
+
+.error-doctrine > div {
+  display: grid;
+  align-content: end;
+  gap: 18px;
+  color: var(--secondary);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.error-taxonomy {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.62fr) minmax(0, 1.38fr);
+  gap: clamp(44px, 8vw, 110px);
+  padding-block: 84px;
+}
+
+.error-taxonomy h2,
+.error-register-heading h2 {
+  margin-top: 18px;
+  font-size: clamp(34px, 4vw, 54px);
+}
+
+.error-taxonomy ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.error-taxonomy li {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  min-height: 58px;
+  border-bottom: 1px solid var(--line);
+  color: #314653;
+  font-size: 13px;
+}
+
+.error-taxonomy li:nth-child(odd) {
+  padding-right: 22px;
+  border-right: 1px solid var(--line);
+}
+
+.error-taxonomy li:nth-child(even) {
+  padding-left: 22px;
+}
+
+.error-taxonomy li > span {
+  color: var(--accent-text);
+  font: 11px var(--font-mono);
+}
+
+.error-register {
+  padding-top: 26px;
+}
+
+.error-register-heading {
+  max-width: 760px;
+  margin-bottom: 44px;
+}
+
+.error-entries {
+  display: grid;
+  gap: 44px;
+}
+
+.error-entries > article {
+  border: 1px solid var(--line);
+  scroll-margin-top: 90px;
+}
+
+.error-entries > article > header {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.42fr) minmax(0, 1.2fr) auto;
+  gap: 28px;
+  align-items: end;
+  padding: 30px;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper-deep) 52%, transparent);
+}
+
+.error-entries > article > header > div {
+  display: grid;
+  gap: 8px;
+}
+
+.error-entries code,
+.error-entries time,
+.error-entries > article > header > p span {
+  font: 11px var(--font-mono);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.error-entries code {
+  color: var(--accent-text);
+}
+
+.error-entries time {
+  color: var(--secondary);
+}
+
+.error-entries h3 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+.error-entries > article > header > p {
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+}
+
+.error-entries > article > header > p span {
+  color: var(--secondary);
+}
+
+.error-entries > article > header > p [data-status="convertie"] {
+  color: #2f6c57;
+}
+
+.error-entries > article > header > p [data-status="ouverte"] {
+  color: var(--color-danger);
+}
+
+.error-five-blocks {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.error-five-blocks > div {
+  min-width: 0;
+  padding: 28px;
+  border-right: 1px solid var(--line);
+}
+
+.error-five-blocks > div:last-child {
+  border-right: 0;
+}
+
+.error-five-blocks dt {
+  min-height: 58px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.error-five-blocks dt span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--accent-text);
+  font: 11px var(--font-mono);
+}
+
+.error-five-blocks dd {
+  margin-top: 20px;
+  color: #314653;
+  font-size: 13px;
+  line-height: 1.72;
+}
+
+.error-method {
+  margin: 0 28px 28px;
+  padding: 26px;
+  border-left: 3px solid var(--strata-gold);
+  background: color-mix(in srgb, var(--paper-deep) 62%, transparent);
+}
+
+.error-method h4 {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+
+.error-method > p:last-child {
+  max-width: 850px;
+  margin-top: 9px;
+  color: #314653;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.error-entries > article > footer {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 24px;
+  padding: 22px 28px;
+  border-top: 1px solid var(--line);
+  color: var(--secondary);
+  font-size: 12px;
+}
+
+.error-entries > article > footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+
+.error-entries > article > footer a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 1000px) {
+  .error-five-blocks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .error-five-blocks > div {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .error-five-blocks > div:nth-child(even) {
+    border-right: 0;
+  }
+
+  .error-five-blocks > div:last-child {
+    grid-column: 1 / -1;
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .error-doctrine,
+  .error-taxonomy {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .error-doctrine > .portfolio-label {
+    grid-column: auto;
+  }
+
+  .error-entries > article > header {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .error-entries > article > header > p {
+    justify-items: start;
+  }
+
+  .error-entries > article > footer {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .error-conversion .intro-note-label,
+  .error-conversion strong,
+  .error-conversion > strong + p {
+    display: block;
+  }
+
+  .error-conversion strong {
+    margin-right: 0;
+  }
+
+  .error-taxonomy ol,
+  .error-five-blocks {
+    grid-template-columns: 1fr;
+  }
+
+  .error-taxonomy li:nth-child(odd),
+  .error-taxonomy li:nth-child(even) {
+    padding-inline: 0;
+    border-right: 0;
+  }
+
+  .error-five-blocks > div,
+  .error-five-blocks > div:last-child {
+    grid-column: auto;
+    padding: 24px 22px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .error-five-blocks > div:last-child {
+    border-bottom: 0;
+  }
+
+  .error-five-blocks dt {
+    min-height: 0;
+  }
+
+  .error-method {
+    margin: 0 18px 18px;
+    padding: 22px;
+  }
+}
