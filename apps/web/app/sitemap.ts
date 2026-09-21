@@ -216,6 +216,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
     {
+      url: absoluteUrl("/changelog"),
+      lastModified: maintenant,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
+    {
       url: absoluteUrl("/systeme/pannes"),
       lastModified: maintenant,
       changeFrequency: "daily",

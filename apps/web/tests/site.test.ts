@@ -59,5 +59,6 @@ describe("entrées des pages publiques", () => {
 
     expect(lire("components/dashboard.tsx")).toContain('href="/changelog"');
     expect(lire("components/page-shell.tsx")).toContain('href="/changelog"');
+    expect(lire("app/sitemap.ts")).toContain('absoluteUrl("/changelog")');
   });
 });
