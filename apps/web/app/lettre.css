@@ -608,6 +608,164 @@
   font: 400 34px var(--font-sans);
   letter-spacing: -0.05em;
 }
+
+/* --- EH1, lexique anglais provisoire ------------------------------ */
+.lexique-eh1 {
+  margin-top: 20px;
+  display: grid;
+  gap: 18px;
+}
+.lexique-eh1-regle {
+  padding: 20px 22px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+  border: 1px solid #d8c7a6;
+  border-left: 3px solid var(--strata-gold);
+  border-radius: 8px;
+  background: linear-gradient(110deg, #fbf6e9, #fffdf8 70%);
+}
+.lexique-eh1-regle span {
+  color: var(--accent-text);
+  font: 11px var(--font-mono);
+  letter-spacing: 0.12em;
+}
+.lexique-eh1-regle p {
+  color: var(--secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.lexique-eh1-regle code,
+.lexique-eh1-ligne code {
+  color: var(--accent-text);
+  font: 13px var(--font-mono);
+}
+.lexique-eh1-outils {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
+  gap: 18px;
+  align-items: end;
+}
+.lexique-eh1-outils label {
+  display: grid;
+  gap: 7px;
+}
+.lexique-eh1-outils label span {
+  color: var(--secondary);
+  font: 10px var(--font-ui);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.lexique-eh1-outils input {
+  min-height: 44px;
+  padding: 10px 13px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fffdf8;
+  color: var(--ink);
+  font: 14px var(--font-sans);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.lexique-eh1-outils input:focus-visible {
+  outline: none;
+  border-color: var(--strata-gold);
+  box-shadow: 0 0 0 4px rgb(201 169 110 / 18%);
+}
+.lexique-eh1-filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.lexique-eh1-filtres button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fffdf8;
+  color: var(--secondary);
+  font: 600 11px var(--font-ui);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.lexique-eh1-filtres button:hover {
+  border-color: var(--strata-gold);
+  transform: translateY(-1px);
+}
+.lexique-eh1-filtres button[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+.lexique-eh1-compte {
+  color: var(--secondary);
+  font: 11px var(--font-mono);
+}
+.lexique-eh1-table {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fffdf8;
+}
+.lexique-eh1-entete,
+.lexique-eh1-ligne {
+  display: grid;
+  grid-template-columns: 0.8fr 1.15fr 0.75fr 2fr;
+  gap: 18px;
+  align-items: center;
+}
+.lexique-eh1-entete {
+  padding: 12px 18px;
+  background: var(--ink);
+  color: var(--paper);
+  font: 10px var(--font-ui);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.lexique-eh1-ligne {
+  padding: 16px 18px;
+  border-top: 1px solid var(--line);
+  transition: background 0.2s ease;
+}
+.lexique-eh1-ligne:hover {
+  background: #f8f3e9;
+}
+.lexique-eh1-ligne strong {
+  font: 600 13px var(--font-ui);
+}
+.lexique-eh1-ligne span[data-usage] {
+  justify-self: start;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font: 10px var(--font-mono);
+  text-transform: uppercase;
+}
+.lexique-eh1-ligne span[data-usage="protégé"] {
+  background: #efe4cc;
+  color: #5f4a1f;
+}
+.lexique-eh1-ligne span[data-usage="banal"] {
+  background: #e4eeea;
+  color: #1f5a4c;
+}
+.lexique-eh1-ligne p {
+  color: var(--secondary);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.lexique-eh1-vide {
+  padding: 18px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  color: var(--secondary);
+  text-align: center;
+}
 .lettre-redaction {
   margin-top: 18px;
   display: grid;
@@ -844,6 +1002,20 @@
   }
   .lettre-droits {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .lexique-eh1-regle,
+  .lexique-eh1-outils {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .lexique-eh1-entete {
+    display: none;
+  }
+  .lexique-eh1-ligne {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 14px;
+  }
+  .lexique-eh1-ligne p {
+    grid-column: 1 / -1;
   }
   .lettre-parution strong {
     font-size: 36px;

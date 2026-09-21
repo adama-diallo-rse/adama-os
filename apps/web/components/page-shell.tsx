@@ -45,6 +45,7 @@ export function PageShell({
           <span>ADAMA OS · LABORATOIRE PUBLIC</span>
           <div>
             <Link href="/lettre">Lettre SIGNAL</Link>
+            <Link href="/changelog">Journal des versions</Link>
             <Link href="/erreurs">Registre des erreurs</Link>
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/confidentialite">Confidentialité</Link>

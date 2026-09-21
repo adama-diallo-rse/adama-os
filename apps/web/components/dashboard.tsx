@@ -581,6 +581,7 @@ export function Dashboard({
           <div className="footer-bottom">
             <span>ADAMA OS · LABORATOIRE PUBLIC</span>
             <div>
+              <Link href="/changelog">Journal des versions</Link>
               <LegalFooterLinks />
               <Link href="/confiance">Frontières de données</Link>
               <ConsentLink className="portfolio-cookie-link" />

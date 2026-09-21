@@ -14,6 +14,7 @@ import {
 } from "../../../lib/lettre/registre";
 import { createClient } from "../../../lib/supabase/server";
 import { envoyerLotDuJour } from "./actions";
+import { LexiqueAnglaisEH1 } from "./lexique-anglais";
 import { ExerciceDroits, RedactionNote } from "./redaction";
 
 // =====================================================================
@@ -200,8 +201,18 @@ export default async function ConsoleLettrePage({ searchParams }: Props) {
 
         {lecture.ok && administrateur && !erreurBase ? (
           <>
+            <section aria-labelledby="lexique-eh1-titre">
+              <p className="portfolio-label">3. EH1, VOCABULAIRE ANGLAIS</p>
+              <h2 id="lexique-eh1-titre">Liste provisoire avant EB11</h2>
+              <p className="auth-note">
+                Les douze interdits d’ADEC-19, leurs équivalents anglais et la
+                différence entre un usage anglais protégé ou banal.
+              </p>
+              <LexiqueAnglaisEH1 />
+            </section>
+
             <section aria-labelledby="notes-titre">
-              <p className="portfolio-label">3. NOTE DU TRIMESTRE</p>
+              <p className="portfolio-label">4. NOTE DU TRIMESTRE</p>
               <h2 id="notes-titre">
                 {noteChoisie
                   ? `Modifier ${noteChoisie.code}`
@@ -271,7 +282,7 @@ export default async function ConsoleLettrePage({ searchParams }: Props) {
             </section>
 
             <section aria-labelledby="droits-titre">
-              <p className="portfolio-label">4. DEMANDES DE PERSONNES</p>
+              <p className="portfolio-label">5. DEMANDES DE PERSONNES</p>
               <h2 id="droits-titre">Accès et effacement</h2>
               <p className="auth-note">
                 Une demande reçue par écrit se traite ici, puis la réponse part

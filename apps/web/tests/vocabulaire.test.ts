@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { controlerTexte, texteAdmis } from "../lib/vocabulaire";
+import {
+  LEXIQUE_ANGLAIS_PROVISOIRE_EH1,
+  controlerTexte,
+  texteAdmis,
+} from "../lib/vocabulaire";
 
 // =====================================================================
 // ADEC-19 et XDEC-05 : le controle executable du vocabulaire ferme.
@@ -46,6 +50,32 @@ describe("ADEC-19, les douze mots fermés", () => {
     ]) {
       expect(niveaux(phrase), phrase).toContain("interdit");
     }
+  });
+
+  it("porte les douze entrées provisoires EH1 et bloque chaque équivalent anglais", () => {
+    expect(LEXIQUE_ANGLAIS_PROVISOIRE_EH1).toHaveLength(12);
+    for (const entree of LEXIQUE_ANGLAIS_PROVISOIRE_EH1) {
+      for (const equivalent of entree.anglais) {
+        expect(niveaux(equivalent.terme), equivalent.terme).toContain(
+          "interdit",
+        );
+      }
+    }
+  });
+
+  it("classe certified, eligible et official comme banals mais interdits", () => {
+    const banals = LEXIQUE_ANGLAIS_PROVISOIRE_EH1.flatMap((entree) =>
+      entree.anglais
+        .filter((equivalent) => equivalent.usage === "banal")
+        .map((equivalent) => equivalent.terme),
+    );
+    expect(banals).toEqual([
+      "certified",
+      "French skills operator",
+      "eligible",
+      "official",
+    ]);
+    for (const terme of banals) expect(texteAdmis(terme)).toBe(false);
   });
 
   it("laisse passer les trois formes non couvertes du mot certificat", () => {

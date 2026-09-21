@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // L0-T6 : l'origine du site a une seule source. Ce test verrouille l'ordre de
@@ -47,5 +49,15 @@ describe("origine publique du site", () => {
     expect(absoluteUrl("/metrics")).toBe("https://adamesg-os.fr/metrics");
     expect(absoluteUrl("metrics")).toBe("https://adamesg-os.fr/metrics");
     expect(absoluteUrl()).toBe("https://adamesg-os.fr/");
+  });
+});
+
+describe("entrées des pages publiques", () => {
+  it("rend le changelog accessible depuis les deux pieds de page", () => {
+    const lire = (chemin: string) =>
+      readFileSync(join(process.cwd(), chemin), "utf8");
+
+    expect(lire("components/dashboard.tsx")).toContain('href="/changelog"');
+    expect(lire("components/page-shell.tsx")).toContain('href="/changelog"');
   });
 });

@@ -33,6 +33,178 @@ export type Constat = {
 
 type Regle = { niveau: Niveau; motif: RegExp; regle: string };
 
+export type UsageAnglaisEH1 = "protégé" | "banal";
+
+export type EntreeLexiqueAnglaisEH1 = {
+  francais: string;
+  anglais: readonly {
+    terme: string;
+    usage: UsageAnglaisEH1;
+    precision: string;
+  }[];
+};
+
+/**
+ * EH1, liste provisoire jusqu’à EB11 en vague X5.
+ *
+ * Le statut décrit l’usage du terme en anglais, pas son admissibilité dans
+ * SIGNAL. Tous les équivalents ci-dessous restent interdits par ADEC-19,
+ * même lorsque l’anglais courant les emploie sans portée réglementaire.
+ */
+export const LEXIQUE_ANGLAIS_PROVISOIRE_EH1 = [
+  {
+    francais: "certification",
+    anglais: [
+      {
+        terme: "certification",
+        usage: "protégé",
+        precision: "Validation formelle par une autorité ou un organisme.",
+      },
+    ],
+  },
+  {
+    francais: "certifiant",
+    anglais: [
+      {
+        terme: "certifying",
+        usage: "protégé",
+        precision: "Implique le pouvoir de valider ou d’attester.",
+      },
+      {
+        terme: "certification-granting",
+        usage: "protégé",
+        precision: "Attribue explicitement une validation formelle.",
+      },
+    ],
+  },
+  {
+    francais: "certifié",
+    anglais: [
+      {
+        terme: "certified",
+        usage: "banal",
+        precision:
+          "Usage anglais fréquent, mais interdit au même titre que le français.",
+      },
+    ],
+  },
+  {
+    francais: "certifier",
+    anglais: [
+      {
+        terme: "certify",
+        usage: "protégé",
+        precision: "Verbe d’attestation formelle.",
+      },
+    ],
+  },
+  {
+    francais: "Qualiopi",
+    anglais: [
+      {
+        terme: "Qualiopi",
+        usage: "protégé",
+        precision: "Nom propre français, inchangé en anglais.",
+      },
+    ],
+  },
+  {
+    francais: "OPCO",
+    anglais: [
+      {
+        terme: "OPCO",
+        usage: "protégé",
+        precision: "Acronyme français, inchangé en anglais.",
+      },
+      {
+        terme: "French skills operator",
+        usage: "banal",
+        precision: "Périphrase anglaise descriptive du même organisme.",
+      },
+    ],
+  },
+  {
+    francais: "RNCP",
+    anglais: [
+      {
+        terme: "RNCP",
+        usage: "protégé",
+        precision: "Acronyme français, inchangé en anglais.",
+      },
+      {
+        terme: "French national register of professional qualifications",
+        usage: "protégé",
+        precision: "Désigne le registre institutionnel français.",
+      },
+    ],
+  },
+  {
+    francais: "diplôme",
+    anglais: [
+      {
+        terme: "diploma",
+        usage: "protégé",
+        precision: "Titre délivré par un établissement d’enseignement.",
+      },
+      {
+        terme: "degree",
+        usage: "protégé",
+        precision: "Grade académique formel.",
+      },
+    ],
+  },
+  {
+    francais: "titre professionnel",
+    anglais: [
+      {
+        terme: "professional title",
+        usage: "protégé",
+        precision: "Titre professionnel formel.",
+      },
+      {
+        terme: "vocational qualification",
+        usage: "protégé",
+        precision: "Qualification professionnelle formelle.",
+      },
+    ],
+  },
+  {
+    francais: "accréditation",
+    anglais: [
+      {
+        terme: "accreditation",
+        usage: "protégé",
+        precision: "Reconnaissance formelle par un organisme habilité.",
+      },
+      {
+        terme: "accredited",
+        usage: "protégé",
+        precision: "État résultant de cette reconnaissance formelle.",
+      },
+    ],
+  },
+  {
+    francais: "éligible",
+    anglais: [
+      {
+        terme: "eligible",
+        usage: "banal",
+        precision: "Mot courant en anglais, mais fermé par ADEC-19.",
+      },
+    ],
+  },
+  {
+    francais: "officiel",
+    anglais: [
+      {
+        terme: "official",
+        usage: "banal",
+        precision: "Mot courant en anglais, mais fermé par ADEC-19.",
+      },
+    ],
+  },
+] as const satisfies readonly EntreeLexiqueAnglaisEH1[];
+
 // Le texte est compare sans accents ni majuscules. Les motifs sont donc
 // ecrits en ASCII minuscule.
 const LETTRE = "a-z0-9";
@@ -45,7 +217,7 @@ const REGLES: readonly Regle[] = [
   {
     niveau: "interdit",
     motif: mot(
-      "certif(?:ication|ications|iant|iante|iants|iantes|ie|iee|ies|iees|ier|y|ied|ies)",
+      "certif(?:ication|ications|iant|iante|iants|iantes|ie|iee|ies|iees|ier|y|ied|ies|ying)",
     ),
     regle:
       "ADEC-19 : la famille de certification est fermée, dans toutes les langues.",
@@ -64,22 +236,24 @@ const REGLES: readonly Regle[] = [
   },
   {
     niveau: "interdit",
-    motif: mot("opco"),
+    motif: mot("opco|french skills operator"),
     regle: "ADEC-19 : OPCO est fermé.",
   },
   {
     niveau: "interdit",
-    motif: mot("rncp"),
+    motif: mot("rncp|french national register of professional qualifications"),
     regle: "ADEC-19 : RNCP est fermé.",
   },
   {
     niveau: "interdit",
-    motif: mot("diplom[a-z]*"),
+    motif: mot("diplom[a-z]*|degrees?"),
     regle: "ADEC-19 : diplôme est fermé, avec ses dérivés et ses équivalents.",
   },
   {
     niveau: "interdit",
-    motif: mot("titres? professionnels?"),
+    motif: mot(
+      "titres? professionnels?|professional titles?|vocational qualifications?",
+    ),
     regle: "ADEC-19 : titre professionnel est fermé.",
   },
   {
