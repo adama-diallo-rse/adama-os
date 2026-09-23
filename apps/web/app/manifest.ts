@@ -1,5 +1,5 @@
-import type { MetadataRoute } from "next";
-import { ADAMA_OS } from "../content/adama-os";
+﻿import type { MetadataRoute } from "next";
+import { POSITIONNEMENT } from "../content/profil";
 
 // Manifeste d'application : nom et icones affiches quand la page est ajoutee a
 // un ecran d'accueil. Les PNG de public/icons sont des rendus du symbole Open
@@ -8,7 +8,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "ADAMA OS",
     short_name: "ADAMA OS",
-    description: ADAMA_OS.sousTitre,
+    description: POSITIONNEMENT.fr,
     lang: "fr-FR",
     start_url: "/",
     display: "browser",
@@ -26,3 +26,4 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
   };
 }
+

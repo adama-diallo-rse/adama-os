@@ -1,4 +1,5 @@
 "use client";
+import { TITRE_COURT } from "../content/profil";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -23,21 +24,13 @@ export function SiteHeader({
   // dela, la barre deborde a 1100 pixels, ou l'acces recruteur se fait
   // ecraser. Les pages qui n'y figurent pas sont atteintes par les enchainements
   // de fin de page, qui sont concus pour cela.
-  const links: [string, string][] = home
-    ? [
-        ["#explorer", "Commencer"],
-        ["/expansion", "Expansion"],
-        ["/decisions", "Travaux"],
-        ["/preuves", "Preuves"],
-        ["#parcours", "Adama"],
-      ]
-    : [
-        ["/", "Accueil"],
-        ["/expansion", "Expansion"],
-        ["/methode", "Méthode"],
-        ["/decisions", "Travaux"],
-        ["/preuves", "Preuves"],
-      ];
+  const links: [string, string][] = [
+    ["/os", "Explorer"],
+    ["/savoir", "Apprendre"],
+    ["/idees", "Construire"],
+    ["/travaillez-avec-moi", "Travailler ensemble"],
+    ["https://strata-esg.fr", "Utiliser STRATA"],
+  ];
   return (
     <>
       <a href="#contenu" className="portfolio-skip">
@@ -47,15 +40,12 @@ export function SiteHeader({
         <Link
           className="portfolio-brand"
           href={home ? "#top" : "/"}
-          aria-label="ADAMA OS, accueil"
+          aria-label={`${TITRE_COURT}, accueil`}
         >
           <span className="brand-symbol" aria-hidden="true">
             <OpenStrataSymbol />
           </span>
-          <span>
-            ADAMA OS
-            <span className="brand-caption">ESG · DATA · SYSTEMS</span>
-          </span>
+          <span>{TITRE_COURT}</span>
         </Link>
         <nav className="desktop-nav" aria-label="Navigation principale">
           {links.map(([href, label]) => (

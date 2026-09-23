@@ -6,14 +6,14 @@ import { HireActions } from "../../components/hire-actions";
 import { OrgLogo } from "../../components/org-logo";
 import { DataClassMark } from "../../components/proof/data-class";
 import { CONTACT_EMAIL } from "../../components/types";
-import {
+import { TITRE_COURT, 
   DEMANDE,
   DISPONIBILITE,
   EXPERIENCES,
   FORMATION,
   IDENTITE,
   RECHERCHE,
-} from "../../content/profil";
+ } from "../../content/profil";
 import { cartesProjet } from "../../content/projets";
 import { listClaims } from "../../lib/proof/claims";
 import type { ClaimState } from "../../lib/proof/types";
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     title: "Adama Diallo, profil professionnel",
     description: DISPONIBILITE,
     url: "/recruteur",
-    siteName: "ADAMA OS",
+    siteName: TITRE_COURT,
     locale: "fr_FR",
     type: "profile",
   },

@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+﻿import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Courier_Prime, DM_Sans } from "next/font/google";
 import { ConsentBanner } from "../components/consent-banner";
 import {
@@ -7,15 +7,15 @@ import {
   GITHUB_REPO_URL,
 } from "../components/types";
 import { SITE_URL, absoluteUrl } from "../lib/site";
-import {
+import { TITRE_COURT, 
   DEMANDE,
   DISPONIBILITE,
   EXPERIENCE_ACTUELLE,
   IDENTITE,
   POSTE_ACTUEL,
   RECHERCHE,
-} from "../content/profil";
-import { ADAMA_OS } from "../content/adama-os";
+ } from "../content/profil";
+import { POSITIONNEMENT } from "../content/profil";
 import "./globals.css";
 import "./portfolio.css";
 import "./subpages.css";
@@ -36,7 +36,7 @@ import "./expansion.css";
 // EH0 : la page de la lettre SIGNAL et sa console privee. Une famille de
 // surfaces, une feuille, comme les precedentes.
 import "./lettre.css";
-// EH3 : l’article long bilingue et ses preuves cassées.
+// EH3 : lâ€™article long bilingue et ses preuves cassÃ©es.
 import "./article.css";
 // EW3 : registre public des erreurs, sa taxonomie et son gabarit en cinq blocs.
 import "./erreurs.css";
@@ -71,22 +71,22 @@ const courierPrime = Courier_Prime({
   weight: ["400", "700"],
 });
 
-// L8-T5, Métadonnées home. L'image OG est générée au build par
-// app/opengraph-image.tsx (statique : aucune donnée dynamique).
+// L8-T5, MÃ©tadonnÃ©es home. L'image OG est gÃ©nÃ©rÃ©e au build par
+// app/opengraph-image.tsx (statique : aucune donnÃ©e dynamique).
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "ADAMA OS | Construire l’ESG numérique",
-    template: "%s · ADAMA OS",
+    default: `${TITRE_COURT} | Construire l'ESG numérique`,
+    template: `%s Â· ${TITRE_COURT}`,
   },
   // La description est ce qu'un moteur affiche sous le titre : au-dela
   // d'environ 160 caracteres, il coupe et choisit lui-meme la suite. Elle
   // porte donc la capacite et la disponibilite, les deux seules choses
   // qu'un lecteur de resultat de recherche a besoin de savoir. La demande
   // complete reste dans le JSON-LD et sur /recruteur, ou elle a la place.
-  description: `${ADAMA_OS.proposition} ${ADAMA_OS.sousTitre}`,
-  // Les intitulés recherchés viennent de la source unique de profil : un
-  // mot-clé qui ne figure pas sur la page est un mot-clé qui ment.
+  description: `${IDENTITE.capacite} ${POSITIONNEMENT.fr}`,
+  // Les intitulÃ©s recherchÃ©s viennent de la source unique de profil : un
+  // mot-clÃ© qui ne figure pas sur la page est un mot-clÃ© qui ment.
   keywords: [
     IDENTITE.nom,
     "RSE",
@@ -95,14 +95,14 @@ export const metadata: Metadata = {
     "ESRS",
     "VSME",
     ...RECHERCHE.postes,
-    "reporting durabilité",
+    "reporting durabilitÃ©",
     "STRATA ESG",
   ],
   alternates: { canonical: "/" },
   // Favicon, apple-icon et manifeste sont servis par les conventions de
   // fichiers (app/icon.svg, app/favicon.ico, app/apple-icon.png,
   // app/manifest.ts). Seul le libelle d'ecran d'accueil iOS se declare ici.
-  appleWebApp: { title: "ADAMA OS" },
+  appleWebApp: { title: TITRE_COURT },
   robots: { index: true, follow: true },
   // Propriete Search Console https://adamesg-os.fr/, ouverte le 9 septembre
   // 2026. Le jeton est public par construction : il est servi dans le HTML
@@ -113,17 +113,17 @@ export const metadata: Metadata = {
     google: "9MNunaSiGbPwx8_DDYpwGqI7gAocN2nHoB57B7UQF8w",
   },
   openGraph: {
-    title: "ADAMA OS | Construire l’ESG numérique",
-    description: ADAMA_OS.sousTitre,
+    title: `${TITRE_COURT} | Construire l'ESG numérique`,
+    description: POSITIONNEMENT.fr,
     url: "/",
-    siteName: "ADAMA OS",
+    siteName: TITRE_COURT,
     locale: "fr_FR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ADAMA OS | Construire l’ESG numérique",
-    description: ADAMA_OS.sousTitre,
+    title: `${TITRE_COURT} | Construire l'ESG numérique`,
+    description: POSITIONNEMENT.fr,
   },
 };
 
@@ -132,10 +132,10 @@ export const viewport: Viewport = {
   themeColor: "#F2EDE4",
 };
 
-// L8-T5 puis L8-T9, JSON-LD : identité machine-lisible pour Google et les
-// moteurs IA. Deux nœuds ici, statiques et injectés côté serveur : la personne
-// et le site. L'organisation et les logiciels sont déclarés sur /ecosysteme,
-// où ils sont lus depuis le registre produits plutôt que recopiés.
+// L8-T5 puis L8-T9, JSON-LD : identitÃ© machine-lisible pour Google et les
+// moteurs IA. Deux nÅ“uds ici, statiques et injectÃ©s cÃ´tÃ© serveur : la personne
+// et le site. L'organisation et les logiciels sont dÃ©clarÃ©s sur /ecosysteme,
+// oÃ¹ ils sont lus depuis le registre produits plutÃ´t que recopiÃ©s.
 const personJsonLd = {
   "@type": "Person",
   "@id": `${SITE_URL}#adama-diallo`,
@@ -163,7 +163,7 @@ const personJsonLd = {
     "CSRD",
     "ESRS",
     "VSME",
-    "Reporting de durabilité",
+    "Reporting de durabilitÃ©",
     "Next.js",
     "Supabase",
     "Python",
@@ -179,9 +179,9 @@ const personJsonLd = {
 const siteJsonLd = {
   "@type": "WebSite",
   "@id": `${SITE_URL}#site`,
-  name: "ADAMA OS",
-  alternateName: "ADAMA OS, ESG Data Systems",
-  description: ADAMA_OS.sousTitre,
+  name: TITRE_COURT,
+  alternateName: `${TITRE_COURT}, ESG Data Systems`,
+  description: POSITIONNEMENT.fr,
   url: SITE_URL,
   inLanguage: "fr-FR",
   author: { "@id": `${SITE_URL}#adama-diallo` },
@@ -237,3 +237,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+
