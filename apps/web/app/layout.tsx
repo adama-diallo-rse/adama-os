@@ -36,7 +36,7 @@ import "./expansion.css";
 // EH0 : la page de la lettre SIGNAL et sa console privee. Une famille de
 // surfaces, une feuille, comme les precedentes.
 import "./lettre.css";
-// EH3 : lâ€™article long bilingue et ses preuves cassÃ©es.
+// EH3 : lâ€™article long bilingue et ses preuves cassées.
 import "./article.css";
 // EW3 : registre public des erreurs, sa taxonomie et son gabarit en cinq blocs.
 import "./erreurs.css";
@@ -71,13 +71,13 @@ const courierPrime = Courier_Prime({
   weight: ["400", "700"],
 });
 
-// L8-T5, MÃ©tadonnÃ©es home. L'image OG est gÃ©nÃ©rÃ©e au build par
-// app/opengraph-image.tsx (statique : aucune donnÃ©e dynamique).
+// L8-T5, Métadonnées home. L'image OG est générée au build par
+// app/opengraph-image.tsx (statique : aucune donnée dynamique).
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: `${TITRE_COURT} | Construire l'ESG numérique`,
-    template: `%s Â· ${TITRE_COURT}`,
+    template: `%s · ${TITRE_COURT}`,
   },
   // La description est ce qu'un moteur affiche sous le titre : au-dela
   // d'environ 160 caracteres, il coupe et choisit lui-meme la suite. Elle
@@ -85,8 +85,8 @@ export const metadata: Metadata = {
   // qu'un lecteur de resultat de recherche a besoin de savoir. La demande
   // complete reste dans le JSON-LD et sur /recruteur, ou elle a la place.
   description: `${IDENTITE.capacite} ${POSITIONNEMENT.fr}`,
-  // Les intitulÃ©s recherchÃ©s viennent de la source unique de profil : un
-  // mot-clÃ© qui ne figure pas sur la page est un mot-clÃ© qui ment.
+  // Les intitulés recherchés viennent de la source unique de profil : un
+  // mot-clé qui ne figure pas sur la page est un mot-clé qui ment.
   keywords: [
     IDENTITE.nom,
     "RSE",
@@ -95,7 +95,7 @@ export const metadata: Metadata = {
     "ESRS",
     "VSME",
     ...RECHERCHE.postes,
-    "reporting durabilitÃ©",
+    "reporting durabilité",
     "STRATA ESG",
   ],
   alternates: { canonical: "/" },
@@ -132,10 +132,10 @@ export const viewport: Viewport = {
   themeColor: "#F2EDE4",
 };
 
-// L8-T5 puis L8-T9, JSON-LD : identitÃ© machine-lisible pour Google et les
-// moteurs IA. Deux nÅ“uds ici, statiques et injectÃ©s cÃ´tÃ© serveur : la personne
-// et le site. L'organisation et les logiciels sont dÃ©clarÃ©s sur /ecosysteme,
-// oÃ¹ ils sont lus depuis le registre produits plutÃ´t que recopiÃ©s.
+// L8-T5 puis L8-T9, JSON-LD : identité machine-lisible pour Google et les
+// moteurs IA. Deux nœuds ici, statiques et injectés côté serveur : la personne
+// et le site. L'organisation et les logiciels sont déclarés sur /ecosysteme,
+// où ils sont lus depuis le registre produits plutôt que recopiés.
 const personJsonLd = {
   "@type": "Person",
   "@id": `${SITE_URL}#adama-diallo`,
@@ -163,7 +163,7 @@ const personJsonLd = {
     "CSRD",
     "ESRS",
     "VSME",
-    "Reporting de durabilitÃ©",
+    "Reporting de durabilité",
     "Next.js",
     "Supabase",
     "Python",
