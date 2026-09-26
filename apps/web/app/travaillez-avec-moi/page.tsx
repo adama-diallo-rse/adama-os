@@ -16,6 +16,7 @@ import { URL_STRATA } from "../../content/parcours";
 import { EDITEUR } from "../../lib/legal";
 import { lireConfigLettre } from "../../lib/lettre/config";
 import { CODES_PORTE } from "../../lib/conseil/qualification";
+import { demandesOuvertes } from "../../lib/conseil/registre";
 import { FormulaireDemande } from "./formulaire";
 
 // =====================================================================
@@ -60,7 +61,7 @@ function lirePorte(brut: string | string[] | undefined): CodePorte | null {
 export default async function TravaillezAvecMoiPage({ searchParams }: Props) {
   const porteInitiale = lirePorte((await searchParams).porte);
   const periode = periodeCourante();
-  const relie = lireConfigLettre().ok;
+  const relie = lireConfigLettre().ok && demandesOuvertes();
   const verrouAssurance = VERROUS.assurance;
 
   return (
@@ -215,6 +216,7 @@ export default async function TravaillezAvecMoiPage({ searchParams }: Props) {
           mentionVersion={MENTION_DEMANDE.version}
           texteCase={MENTION_DEMANDE.texteCase}
           relie={relie}
+          contact={EDITEUR.contact}
           plafond={periode.plafond}
           mention={
             <>

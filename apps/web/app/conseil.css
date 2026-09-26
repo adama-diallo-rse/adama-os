@@ -621,11 +621,15 @@ label[data-choisi="oui"] .conseil-option-marque::after {
   cursor: progress;
 }
 .conseil-indisponible {
-  padding: 14px 16px;
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  padding: 18px 20px;
   border: 1px dashed #b9b3a6;
   border-radius: 6px;
   color: var(--secondary);
   font-size: 14px;
+  line-height: 1.65;
 }
 
 /* --- Le panneau de qualification, seule surface sombre ------------- */
@@ -1227,6 +1231,14 @@ label[data-choisi="oui"] .conseil-option-marque::after {
   }
   .diagnostic-note:hover .diagnostic-feuille {
     transform: rotate(0deg) translateY(-4px);
+  }
+}
+
+/* Un panneau plus haut que la fenetre ne peut pas rester colle sans
+   perdre son titre : sur un ecran bas, il suit le flux. */
+@media (max-height: 860px) {
+  .conseil-panneau {
+    position: static;
   }
 }
 

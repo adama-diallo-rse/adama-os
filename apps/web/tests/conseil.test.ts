@@ -15,7 +15,7 @@ import {
   periodeCourante,
   reponseReception,
 } from "../content/conseil";
-import { messageNotification } from "../lib/conseil/registre";
+import { demandesOuvertes, messageNotification } from "../lib/conseil/registre";
 import {
   CHOIX_ATTENDU,
   CHOIX_ECHEANCE,
@@ -238,6 +238,14 @@ describe("EG0, la base dediee", () => {
       "statut <> 'acceptee' or (condition_4_verifiee and strata_verifie)",
     );
     expect(SQL).toContain("interval '12 months'");
+  });
+});
+
+describe("EG0, l'ouverture de la reception en ligne", () => {
+  it("ne s'ouvre que par la valeur exacte, jamais par defaut", () => {
+    expect(demandesOuvertes({})).toBe(false);
+    expect(demandesOuvertes({ CONSEIL_DEMANDES: "oui" })).toBe(false);
+    expect(demandesOuvertes({ CONSEIL_DEMANDES: "ouvertes" })).toBe(true);
   });
 });
 

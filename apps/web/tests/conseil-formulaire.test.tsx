@@ -27,7 +27,7 @@ import { CONDITIONS, MENTION_DEMANDE, PORTES } from "../content/conseil";
 
 afterEach(cleanup);
 
-function rendre() {
+function rendre(relie = true) {
   return render(
     <FormulaireDemande
       portes={PORTES.map((p) => ({
@@ -40,7 +40,8 @@ function rendre() {
       mentionVersion={MENTION_DEMANDE.version}
       texteCase={MENTION_DEMANDE.texteCase}
       mention={<p>mention</p>}
-      relie
+      relie={relie}
+      contact="diadamflow@gmail.com"
       plafond="Aucune mission."
     />,
   );
@@ -100,5 +101,22 @@ describe("EG0, le formulaire commun", () => {
   it("marque la condition 4 comme verifiee de mon cote, jamais par le formulaire", () => {
     rendre();
     expect(screen.getAllByText(/vérifiée de mon côté/)).toHaveLength(1);
+  });
+
+  it("propose un courriel pre-rempli tant que la reception en ligne est fermee", () => {
+    rendre(false);
+    choisir(/Une lecture de notre système/);
+    choisir(/^Aucune relation$/);
+    choisir(/Plus de deux mois/);
+    expect(
+      screen.queryByRole("button", { name: /Envoyer la demande/ }),
+    ).toBeNull();
+    const lien = screen.getByRole("link", {
+      name: /Écrire à diadamflow@gmail.com/,
+    });
+    const href = decodeURIComponent(lien.getAttribute("href") ?? "");
+    expect(href.startsWith("mailto:diadamflow@gmail.com?subject=")).toBe(true);
+    expect(href).toContain("Porte : 02 Donnée");
+    expect(href).toContain("Échéance : Plus de deux mois");
   });
 });

@@ -50,6 +50,7 @@ Puis renseigner les valeurs manquantes.
 | `LETTRE_SECRET`                    | non                  | EH0, HMAC des empreintes et des liens de desinscription                               |
 | `LETTRE_ADMINISTRATEURS`           | non                  | EH0, comptes autorises sur `/admin/lettre`                                            |
 | `LETTRE_COLLECTE`                  | non                  | EH0, `ouverte` apres verification de bout en bout                                     |
+| `CONSEIL_DEMANDES`                 | non                  | EG0, `ouvertes` apres la migration 0002_conseil et un essai de bout en bout           |
 | `NEXT_PUBLIC_CAL_LINK`             | oui                  | Cal.com dans le modal recruteur                                                       |
 | `NEXT_PUBLIC_POSTHOG_KEY`          | oui                  | analytics, requis pour les funnels (L8-T7)                                            |
 | `NEXT_PUBLIC_POSTHOG_HOST`         | oui                  | defaut `https://eu.i.posthog.com`                                                     |

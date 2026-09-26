@@ -114,6 +114,30 @@ function Choix({
   );
 }
 
+/** Le message de repli, pre-rempli avec les reponses deja donnees. */
+function lienRepli(
+  contact: string,
+  r: Record<"porte" | "attendu" | "strata" | "echeance" | "probleme", string>,
+): string {
+  const libelle = (liste: readonly Option[], v: string) =>
+    liste.find((o) => o.valeur === v)?.libelle ?? "non renseigné";
+  const corps = [
+    "Bonjour Adama,",
+    "",
+    `Porte : ${r.porte || "non renseignée"}`,
+    `Ce que j’attends : ${libelle(CHOIX_ATTENDU, r.attendu)}`,
+    `Relation avec STRATA ESG : ${libelle(CHOIX_STRATA, r.strata)}`,
+    `Échéance : ${libelle(CHOIX_ECHEANCE, r.echeance)}`,
+    "",
+    "Le problème :",
+    r.probleme.trim() || "",
+    "",
+  ].join("\n");
+  return `mailto:${contact}?subject=${encodeURIComponent(
+    "Demande par les quatre portes",
+  )}&body=${encodeURIComponent(corps)}`;
+}
+
 function Bouton({ desactive }: { desactive: boolean }) {
   const { pending } = useFormStatus();
   return (
@@ -169,6 +193,7 @@ export function FormulaireDemande({
   texteCase,
   mention,
   relie,
+  contact,
   plafond,
 }: {
   portes: readonly PorteChoix[];
@@ -178,6 +203,8 @@ export function FormulaireDemande({
   texteCase: string;
   mention: ReactNode;
   relie: boolean;
+  /** Adresse de repli tant que la reception en ligne n'est pas ouverte. */
+  contact: string;
   /** Le plafond de la periode en cours, dit apres la reception. */
   plafond: string;
 }) {
@@ -196,6 +223,11 @@ export function FormulaireDemande({
   useEffect(() => {
     if (etat.statut !== "repos") annonce.current?.focus();
   }, [etat]);
+
+  const porteChoisie = portes.find((p) => p.code === porte);
+  const libellePorte = porteChoisie
+    ? `${porteChoisie.numero} ${porteChoisie.titre}`
+    : "";
 
   // La meme regle que le serveur, sur ce qui est deja renseigne.
   const complet = Boolean(attendu && strata && echeance);
@@ -476,10 +508,25 @@ export function FormulaireDemande({
                     {relie ? (
                       <Bouton desactive={false} />
                     ) : (
-                      <p className="conseil-indisponible">
-                        Le formulaire n’est pas encore relié dans cet
-                        environnement. Rien ne sera enregistré.
-                      </p>
+                      <div className="conseil-indisponible">
+                        <p>
+                          La réception en ligne n’est pas encore ouverte. La
+                          règle vient de vous ranger : écrivez directement, vos
+                          réponses sont déjà reprises dans le message.
+                        </p>
+                        <a
+                          href={lienRepli(contact, {
+                            porte: libellePorte,
+                            attendu,
+                            strata,
+                            echeance,
+                            probleme,
+                          })}
+                          className="portfolio-button primary"
+                        >
+                          Écrire à {contact} <span aria-hidden="true">→</span>
+                        </a>
+                      </div>
                     )}
                   </motion.div>
                 )}

@@ -17,6 +17,18 @@ import type { ConfigLettre } from "../lettre/config";
 import { verifierExpediteur } from "../lettre/envoi";
 import { CHOIX_ECHEANCE, type Demande } from "./qualification";
 
+/**
+ * La reception en ligne s'ouvre par un geste, comme la collecte de la lettre
+ * (XDEC-40) : CONSEIL_DEMANDES vaut exactement « ouvertes », pose apres la
+ * migration 0002_conseil et un essai de bout en bout. Une configuration
+ * complete ne suffit pas.
+ */
+export function demandesOuvertes(
+  env: Record<string, string | undefined> = process.env,
+): boolean {
+  return env.CONSEIL_DEMANDES?.trim() === "ouvertes";
+}
+
 let cache: { url: string; client: SupabaseClient } | null = null;
 
 function client(config: ConfigLettre): SupabaseClient {

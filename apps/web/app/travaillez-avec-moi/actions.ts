@@ -23,6 +23,7 @@ import {
   type MotifRefus,
 } from "../../lib/conseil/qualification";
 import {
+  demandesOuvertes,
   deposer,
   noterNotification,
   notifier,
@@ -43,7 +44,7 @@ const limiteur = createRateLimiter({ limit: 5, windowMs: 60 * 60 * 1000 });
 const INDISPONIBLE: EtatDemande = {
   statut: "erreur",
   message:
-    "Le formulaire n’est pas relié pour le moment. Rien n’a été enregistré.",
+    "La réception en ligne n’est pas encore ouverte. Rien n’a été enregistré : écrivez directement, l’adresse est sous le formulaire.",
 };
 
 export async function deposerDemande(
@@ -87,7 +88,7 @@ export async function deposerDemande(
   }
 
   const config = lireConfigLettre();
-  if (!config.ok) return INDISPONIBLE;
+  if (!config.ok || !demandesOuvertes()) return INDISPONIBLE;
 
   try {
     const depot = await deposer(config.config, {

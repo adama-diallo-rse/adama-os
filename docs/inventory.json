@@ -10,7 +10,7 @@
     "migrations": 8,
     "policies": 21,
     "test_files": 54,
-    "test_cases": 525,
+    "test_cases": 527,
     "dependencies": 51
   },
   "pages": [
@@ -87,7 +87,7 @@
     {
       "file": "apps/web/app/diagnostic/page.tsx",
       "route": "/diagnostic",
-      "lines": 211
+      "lines": 215
     },
     {
       "file": "apps/web/app/ecosysteme/page.tsx",
@@ -207,7 +207,7 @@
     {
       "file": "apps/web/app/travaillez-avec-moi/page.tsx",
       "route": "/travaillez-avec-moi",
-      "lines": 308
+      "lines": 310
     },
     {
       "file": "apps/web/app/verifier/[id]/page.tsx",
@@ -537,7 +537,7 @@
     },
     {
       "file": "apps/web/lib/conseil/registre.ts",
-      "lines": 257
+      "lines": 269
     },
     {
       "file": "apps/web/lib/ecosystem/client.ts",
@@ -872,7 +872,7 @@
       "apps/web/tests/trajectory.test.ts",
       "apps/web/tests/vocabulaire.test.ts"
     ],
-    "cases": 525
+    "cases": 527
   },
   "rendu": {
     "pages": 13,

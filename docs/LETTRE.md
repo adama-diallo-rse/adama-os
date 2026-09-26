@@ -411,3 +411,23 @@ L'ancien formulaire de l'accueil écrivait dans la table `leads` du projet
 partagé, sans consentement ni double confirmation. Il est remplacé par un renvoi
 vers `/lettre`. Relevé en lecture seule le 13 septembre 2026 : la table `leads`
 ne contenait aucune ligne. Rien n'a été migré, et rien ne le sera.
+
+## 11. Les demandes de conseil, EG0, même projet dédié
+
+Les demandes recevables de `/travaillez-avec-moi` vivent dans le projet
+Supabase de la lettre, jamais dans `strata-scope` (protection 4 de la branche
+EK). Une demande que la règle d'acceptation refuse n'est jamais enregistrée.
+
+1. Dans l'éditeur SQL du projet dédié, jouer
+   `packages/db/migrations-lettre/0002_conseil.sql`. Les contrôles en fin de
+   fichier doivent rendre deux tables à RLS active sans politique, puis zéro
+   fonction exécutable par `anon`.
+2. Poser `CONSEIL_DEMANDES=ouvertes` en Production sur Vercel, puis
+   redéployer.
+3. Essai de bout en bout : une demande recevable depuis une navigation
+   privée. Preuve : la notification arrive dans la boîte de l'éditeur, et la
+   demande apparaît sur `/admin/demandes`. L'effacer ensuite depuis la
+   console.
+
+Tant que l'étape 2 n'est pas faite, le formulaire qualifie la demande puis
+propose un courriel pré-rempli : rien n'est enregistré.

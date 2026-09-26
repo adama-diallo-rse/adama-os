@@ -21,7 +21,7 @@ echouer `--check` a chaque seconde.
 | Types enumeres | 14 |
 | Migrations SQL | 8 |
 | Fichiers de test | 54 |
-| Cas de test | 525 |
+| Cas de test | 527 |
 | Dependances directes declarees | 51 |
 
 ## Routes
@@ -42,7 +42,7 @@ echouer `--check` a chaque seconde.
 | `/confidentialite` | `apps/web/app/confidentialite/page.tsx` | 219 |
 | `/decisions/[adr]` | `apps/web/app/decisions/[adr]/page.tsx` | 305 |
 | `/decisions` | `apps/web/app/decisions/page.tsx` | 148 |
-| `/diagnostic` | `apps/web/app/diagnostic/page.tsx` | 211 |
+| `/diagnostic` | `apps/web/app/diagnostic/page.tsx` | 215 |
 | `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 178 |
 | `/en/articles/proof-method` | `apps/web/app/en/articles/proof-method/page.tsx` | 53 |
 | `/en/articles/seven-constraints-west-african-esg-data` | `apps/web/app/en/articles/seven-constraints-west-african-esg-data/page.tsx` | 53 |
@@ -66,7 +66,7 @@ echouer `--check` a chaque seconde.
 | `/systeme` | `apps/web/app/systeme/page.tsx` | 148 |
 | `/systeme/pannes` | `apps/web/app/systeme/pannes/page.tsx` | 148 |
 | `/technique` | `apps/web/app/technique/page.tsx` | 535 |
-| `/travaillez-avec-moi` | `apps/web/app/travaillez-avec-moi/page.tsx` | 308 |
+| `/travaillez-avec-moi` | `apps/web/app/travaillez-avec-moi/page.tsx` | 310 |
 | `/verifier/[id]` | `apps/web/app/verifier/[id]/page.tsx` | 316 |
 
 | API | Fichier | Lignes |
