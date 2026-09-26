@@ -1,4 +1,4 @@
-﻿import { readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
@@ -9,7 +9,7 @@ function read(relativePath: string) {
 }
 
 describe("charte typographique STRATA ESG", () => {
-  it("charge uniquement les quatre familles prÃ©vues par la charte", () => {
+  it("charge uniquement les quatre familles prévues par la charte", () => {
     const layout = read("app/layout.tsx");
     const globals = read("app/globals.css");
 
@@ -21,7 +21,7 @@ describe("charte typographique STRATA ESG", () => {
     expect(globals).not.toContain("font-geist");
   });
 
-  it("ne laisse aucune ancienne police Ã©ditoriale dans les feuilles publiques", () => {
+  it("ne laisse aucune ancienne police éditoriale dans les feuilles publiques", () => {
     const styles = [
       "app/globals.css",
       "app/portfolio.css",
@@ -39,7 +39,7 @@ describe("charte typographique STRATA ESG", () => {
   });
 });
 
-describe("surface publique du plan dâ€™expansion", () => {
+describe("surface publique du plan d’expansion", () => {
   const source = [
     "content/expansion.ts",
     "components/expansion-dashboard.tsx",
@@ -49,20 +49,19 @@ describe("surface publique du plan dâ€™expansion", () => {
     .map(read)
     .join("\n");
 
-  it("ne publie ni calendrier X0 Ã  X4 ni date de planification", () => {
+  it("ne publie ni calendrier X0 à X4 ni date de planification", () => {
     expect(source).not.toMatch(
-      /\bX[0-4]\b|septembre 2026|octobre Ã  dÃ©cembre|janvier Ã  mars|avril Ã  dÃ©cembre|2028 et aprÃ¨s/i,
+      /\bX[0-4]\b|septembre 2026|octobre à décembre|janvier à mars|avril à décembre|2028 et après/i,
     );
   });
 
   it("ne publie aucun indicateur ou objectif financier", () => {
     expect(source).not.toMatch(
-      /chiffre encaissÃ©|revenu rÃ©current|premier euro|paiement unique|contrat annuel|\bventes\b/i,
+      /chiffre encaissé|revenu récurrent|premier euro|paiement unique|contrat annuel|\bventes\b/i,
     );
   });
 
-  it("nâ€™emploie aucun tiret cadratin ou demi-cadratin", () => {
-    expect(source).not.toMatch(/[\u2014\u2013]/);
+  it("n’emploie aucun tiret cadratin ou demi-cadratin", () => {
+    expect(source).not.toMatch(/[—–]/);
   });
 });
-

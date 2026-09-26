@@ -13,36 +13,47 @@ echouer `--check` a chaque seconde.
 
 | Mesure | Valeur |
 | --- | --- |
-| Routes de page | 28 |
+| Routes de page | 40 |
 | Routes d'API | 11 |
-| Composants | 51 |
-| Modules `lib` | 52 |
+| Composants | 54 |
+| Modules `lib` | 54 |
 | Tables Drizzle | 11 |
 | Types enumeres | 14 |
 | Migrations SQL | 8 |
-| Fichiers de test | 45 |
-| Cas de test | 447 |
+| Fichiers de test | 54 |
+| Cas de test | 525 |
 | Dependances directes declarees | 51 |
 
 ## Routes
 
 | Page | Fichier | Lignes |
 | --- | --- | --- |
-| `/admin/lettre` | `apps/web/app/admin/lettre/page.tsx` | 288 |
-| `/admin` | `apps/web/app/admin/page.tsx` | 90 |
+| `/admin/demandes` | `apps/web/app/admin/demandes/page.tsx` | 176 |
+| `/admin/lettre` | `apps/web/app/admin/lettre/page.tsx` | 299 |
+| `/admin` | `apps/web/app/admin/page.tsx` | 94 |
 | `/admin/relecture` | `apps/web/app/admin/relecture/page.tsx` | 227 |
+| `/articles/architecture-donnee-esg-afrique-ouest` | `apps/web/app/articles/architecture-donnee-esg-afrique-ouest/page.tsx` | 53 |
+| `/articles/methode-de-preuve` | `apps/web/app/articles/methode-de-preuve/page.tsx` | 53 |
+| `/articles` | `apps/web/app/articles/page.tsx` | 94 |
+| `/articles/sept-contraintes-donnee-esg-afrique-ouest` | `apps/web/app/articles/sept-contraintes-donnee-esg-afrique-ouest/page.tsx` | 53 |
+| `/changelog` | `apps/web/app/changelog/page.tsx` | 81 |
 | `/checkin` | `apps/web/app/checkin/page.tsx` | 326 |
 | `/confiance` | `apps/web/app/confiance/page.tsx` | 300 |
-| `/confidentialite` | `apps/web/app/confidentialite/page.tsx` | 208 |
+| `/confidentialite` | `apps/web/app/confidentialite/page.tsx` | 219 |
 | `/decisions/[adr]` | `apps/web/app/decisions/[adr]/page.tsx` | 305 |
 | `/decisions` | `apps/web/app/decisions/page.tsx` | 148 |
+| `/diagnostic` | `apps/web/app/diagnostic/page.tsx` | 211 |
 | `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 178 |
-| `/expansion` | `apps/web/app/expansion/page.tsx` | 179 |
+| `/en/articles/proof-method` | `apps/web/app/en/articles/proof-method/page.tsx` | 53 |
+| `/en/articles/seven-constraints-west-african-esg-data` | `apps/web/app/en/articles/seven-constraints-west-african-esg-data/page.tsx` | 53 |
+| `/en/articles/west-african-esg-data-architecture` | `apps/web/app/en/articles/west-african-esg-data-architecture/page.tsx` | 53 |
+| `/erreurs` | `apps/web/app/erreurs/page.tsx` | 215 |
+| `/expansion` | `apps/web/app/expansion/page.tsx` | 207 |
 | `/journal` | `apps/web/app/journal/page.tsx` | 123 |
 | `/lettre` | `apps/web/app/lettre/page.tsx` | 259 |
 | `/login` | `apps/web/app/login/page.tsx` | 84 |
-| `/mentions-legales` | `apps/web/app/mentions-legales/page.tsx` | 114 |
-| `/methode` | `apps/web/app/methode/page.tsx` | 94 |
+| `/mentions-legales` | `apps/web/app/mentions-legales/page.tsx` | 118 |
+| `/methode` | `apps/web/app/methode/page.tsx` | 113 |
 | `/metrics` | `apps/web/app/metrics/page.tsx` | 253 |
 | `/mot-de-passe` | `apps/web/app/mot-de-passe/page.tsx` | 38 |
 | `/` | `apps/web/app/page.tsx` | 225 |
@@ -51,10 +62,11 @@ echouer `--check` a chaque seconde.
 | `/projets/[slug]` | `apps/web/app/projets/[slug]/page.tsx` | 163 |
 | `/recruteur` | `apps/web/app/recruteur/page.tsx` | 324 |
 | `/revirements` | `apps/web/app/revirements/page.tsx` | 178 |
-| `/revue-architecture` | `apps/web/app/revue-architecture/page.tsx` | 113 |
+| `/revue-architecture` | `apps/web/app/revue-architecture/page.tsx` | 164 |
 | `/systeme` | `apps/web/app/systeme/page.tsx` | 148 |
 | `/systeme/pannes` | `apps/web/app/systeme/pannes/page.tsx` | 148 |
 | `/technique` | `apps/web/app/technique/page.tsx` | 535 |
+| `/travaillez-avec-moi` | `apps/web/app/travaillez-avec-moi/page.tsx` | 308 |
 | `/verifier/[id]` | `apps/web/app/verifier/[id]/page.tsx` | 316 |
 
 | API | Fichier | Lignes |
@@ -69,7 +81,7 @@ echouer `--check` a chaque seconde.
 | `/api/metrics` | `apps/web/app/api/metrics/route.ts` | 34 |
 | `/api/trajectory` | `apps/web/app/api/trajectory/route.ts` | 62 |
 | `/auth/callback` | `apps/web/app/auth/callback/route.ts` | 76 |
-| `/llms.txt` | `apps/web/app/llms.txt/route.ts` | 102 |
+| `/llms.txt` | `apps/web/app/llms.txt/route.ts` | 105 |
 
 ## Base de donnees
 
@@ -94,16 +106,16 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 | Fichier | Lignes |
 | --- | --- |
-| `apps/web/components/dashboard.tsx` | 608 |
+| `apps/web/components/dashboard.tsx` | 615 |
 | `apps/web/components/terminal.tsx` | 563 |
 | `apps/web/components/vsme-simulator.tsx` | 550 |
 | `apps/web/lib/health/criteria.ts` | 459 |
 | `apps/web/components/ecosystem-map.tsx` | 443 |
+| `apps/web/lib/vocabulaire.ts` | 425 |
 | `apps/web/components/layer-d.tsx` | 395 |
 | `apps/web/lib/lettre/messages.ts` | 390 |
 | `apps/web/lib/lettre/registre.ts` | 381 |
 | `apps/web/components/build-log.tsx` | 362 |
-| `apps/web/components/recruit-modal.tsx` | 354 |
 
 ## Variables d'environnement lues dans le code
 
@@ -117,7 +129,7 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 Hotes distincts appeles ou lies depuis le code :
 
-`${vercel_host}`, `adamesg-os.fr`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `esg-optimizer.fr`, `eu.i.posthog.com`, `github.com`, `schema.org`, `scope.esg-optimizer.fr`, `uptime.betterstack.com`
+`${vercel_host}`, `adamesg-os.fr`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `esg-optimizer.fr`, `eu.i.posthog.com`, `github.com`, `schema.org`, `scope.esg-optimizer.fr`, `uptime.betterstack.com`, `www.strata-esg.fr`
 
 ### URL absolues du site ecrites en dur
 
@@ -290,11 +302,11 @@ Severite actuelle : `error` (avertissement en vague V0, erreur a partir de V2).
 | N2 | Preuves sociales affichees d'un bloc dans la Couche D | 1 | 4 | tenu |
 | N2 | Experiences citees dans le bandeau de la home | 4 | 4 | tenu |
 | N2 | Marques d'organisation affichees sur le site | 4 | 5 | tenu |
-| surface | Routes de page | 28 | 28 | tenu |
+| surface | Routes de page | 40 | 40 | tenu |
 | surface | Routes d'API | 11 | 11 | tenu |
-| surface | Composants | 51 | 51 | tenu |
-| surface | Modules lib | 52 | 52 | tenu |
-| surface | Lignes du plus gros composant | 608 | 700 | tenu |
+| surface | Composants | 54 | 54 | tenu |
+| surface | Modules lib | 54 | 54 | tenu |
+| surface | Lignes du plus gros composant | 615 | 700 | tenu |
 | surface | Lignes du plus gros module lib | 459 | 460 | tenu |
 
 Aucun depassement.

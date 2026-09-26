@@ -18,9 +18,9 @@ export const CATEGORIES_ERREUR = [
   "Idée abandonnée",
 ] as const;
 
-export type CategorieErreur = (typeof CATEGORIES_ERREUR)[number];
+type CategorieErreur = (typeof CATEGORIES_ERREUR)[number];
 
-export type EntreeErreur = {
+type EntreeErreur = {
   id: `FAIL-${string}`;
   date: `${number}-${number}-${number}`;
   titre: string;

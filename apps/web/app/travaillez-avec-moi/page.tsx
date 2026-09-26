@@ -1,134 +1,306 @@
 import type { Metadata } from "next";
-import { PageShell, PageIntro } from "../../components/page-shell";
+import Link from "next/link";
+import { PageIntro, PageShell } from "../../components/page-shell";
+import {
+  CAPACITE,
+  CLAUSE_RENVOI,
+  CONDITIONS,
+  INTERDITS,
+  MENTION_DEMANDE,
+  PORTES,
+  VERROUS,
+  periodeCourante,
+  type CodePorte,
+} from "../../content/conseil";
+import { URL_STRATA } from "../../content/parcours";
+import { EDITEUR } from "../../lib/legal";
+import { lireConfigLettre } from "../../lib/lettre/config";
+import { CODES_PORTE } from "../../lib/conseil/qualification";
+import { FormulaireDemande } from "./formulaire";
+
+// =====================================================================
+// EG0, AXP-59, la page « travaillez avec moi ».
+//
+// Une page, quatre chemins, un formulaire commun. Le visiteur se range
+// lui-meme, ce qui qualifie la demande avant le premier echange.
+//
+// Aucun prix sur cette page (EG0) : le prix vient apres la qualification,
+// dans la proposition ecrite, ou sur la page du format quand il sert de
+// filtre (le diagnostic court). Le plafond de capacite est affiche comme
+// une regle tenue, pas comme une excuse (EG9).
+// =====================================================================
 
 export const metadata: Metadata = {
   title: "Travailler ensemble",
-  description: "Diagnostic, revues d’architecture, et accompagnement pour construire des systèmes ESG souverains.",
+  description:
+    "Quatre portes pour faire relire un système de donnée, de preuve ou d’intelligence artificielle appliqué à l’ESG. Un formulaire commun, une règle d’acceptation écrite, une réponse à chaque demande.",
+  alternates: { canonical: "/travaillez-avec-moi" },
+  openGraph: {
+    title: "Travailler ensemble, quatre portes",
+    description:
+      "Construire, donnée, intelligence artificielle, système. Le visiteur se range lui-même, la règle d’acceptation est publique.",
+    url: "/travaillez-avec-moi",
+    siteName: "ADAMA OS",
+    locale: "fr_FR",
+    type: "website",
+  },
 };
 
-export default function WorkWithMePage() {
+type Props = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+function lirePorte(brut: string | string[] | undefined): CodePorte | null {
+  return typeof brut === "string" &&
+    (CODES_PORTE as readonly string[]).includes(brut)
+    ? (brut as CodePorte)
+    : null;
+}
+
+export default async function TravaillezAvecMoiPage({ searchParams }: Props) {
+  const porteInitiale = lirePorte((await searchParams).porte);
+  const periode = periodeCourante();
+  const relie = lireConfigLettre().ok;
+  const verrouAssurance = VERROUS.assurance;
+
   return (
-    <PageShell>
+    <PageShell className="conseil-page">
       <PageIntro
-        eyebrow="Expertise & Accompagnement"
-        title="Travailler ensemble"
-        description="Une capacité volontairement limitée pour garantir le plus haut niveau d’engagement sur la conception de votre système ESG."
-      />
-      <section className="portfolio-section">
-        <div className="portfolio-wrap">
-          <h2 className="section-title">Quatre problèmes, quatre entrées</h2>
-          <div className="portfolio-grid mt-8">
-            <div className="portfolio-card">
-              <h3>Construire</h3>
-              <p className="mt-2 font-serif italic">« Nous voulons construire un produit ESG et nous ne savons pas par où commencer »</p>
-              <p className="tone-info mt-4">Diagnostic court, puis revue d’architecture</p>
-            </div>
-            <div className="portfolio-card">
-              <h3>Donnée</h3>
-              <p className="mt-2 font-serif italic">« Nos données ESG sont dispersées, on ne sait pas d’où vient un chiffre »</p>
-              <p className="tone-info mt-4">Revue d’architecture de donnée et modèle cible</p>
-            </div>
-            <div className="portfolio-card">
-              <h3>Intelligence Artificielle</h3>
-              <p className="mt-2 font-serif italic">« Nous voulons mettre de l’IA dans nos processus ESG sans dire de bêtises »</p>
-              <p className="tone-info mt-4">Atelier d’une journée, puis architecture de validation</p>
-            </div>
-            <div className="portfolio-card">
-              <h3>Système</h3>
-              <p className="mt-2 font-serif italic">« Notre organisation produit du désordre, on refait les mêmes arbitrages tous les mois »</p>
-              <p className="tone-info mt-4">Accompagnement de trois mois, ou système installé</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section className="portfolio-section bg-muted">
-        <div className="portfolio-wrap">
-          <h2 className="section-title">Capacité & Disponibilité</h2>
-          <div className="portfolio-prose">
-            <p>L’accompagnement est strictement plafonné pour préserver le temps alloué à la construction de l’écosystème logiciel.</p>
-            <ul>
-              <li><strong>Jusqu’à octobre 2026 :</strong> Zéro mission (mois commerciaux à plein temps).</li>
-              <li><strong>Novembre 2026 à février 2027 :</strong> Une revue courte au maximum par mois, sous réserve d’accord.</li>
-              <li><strong>À partir de mars 2027 :</strong> Quatre jours vendus par mois au maximum, tout format confondu.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section className="portfolio-section">
-        <div className="portfolio-wrap">
-          <h2 className="section-title">Demande de qualification</h2>
-          <p className="portfolio-prose mb-8">
-            Renseignez ce formulaire. La réponse permet de s’assurer que votre besoin correspond au périmètre d’intervention, avant même notre premier échange.
-          </p>
-          
-          <form className="form-stack mt-8" style={{ maxWidth: '600px' }}>
-            <fieldset style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <div>
-                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>
-                  Relation avec STRATA ESG
-                </label>
-                <select style={{ width: '100%', padding: '0.5rem', border: '1px solid var(--border)' }}>
-                  <option value="">Sélectionner...</option>
-                  <option value="non">Nous ne sommes ni prospect ni client de STRATA</option>
-                  <option value="oui">Nous sommes déjà en contact avec STRATA ou client</option>
-                </select>
-              </div>
-
-              <div>
-                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>
-                  Nature de la demande
-                </label>
-                <select style={{ width: '100%', padding: '0.5rem', border: '1px solid var(--border)' }}>
-                  <option value="">Sélectionner...</option>
-                  <option value="systeme">Conception de système (architecture, flux, modélisation)</option>
-                  <option value="esg">Production d’un livrable ESG / CSRD (Bilan carbone, rapport de durabilité)</option>
-                </select>
-                <p className="text-sm tone-muted mt-2">
-                  Le conseil d’architecture ne produit pas de livrables ESG. Ce besoin relève des outils logiciels ou d’un cabinet conseil.
-                </p>
-              </div>
-
-              <div>
-                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>
-                  Délai de réalisation souhaité
-                </label>
-                <select style={{ width: '100%', padding: '0.5rem', border: '1px solid var(--border)' }}>
-                  <option value="">Sélectionner...</option>
-                  <option value="urgent">Urgent (Moins de deux semaines)</option>
-                  <option value="normal">Normal (Deux semaines et plus)</option>
-                </select>
-              </div>
-
-              <div style={{ marginTop: '1rem' }}>
-                <button 
-                  type="button" 
-                  disabled
-                  style={{ 
-                    padding: '0.75rem 1.5rem', 
-                    background: 'var(--text)', 
-                    color: 'var(--bg)', 
-                    border: 'none', 
-                    fontWeight: 'bold',
-                    opacity: 0.5,
-                    cursor: 'not-allowed'
-                  }}
-                >
-                  Formulaire gelé (En attente d’accord légal)
-                </button>
-              </div>
-            </fieldset>
-          </form>
-          
-          <div className="portfolio-prose mt-12 tone-muted">
-            <h3>En cas de refus</h3>
+        eyebrow="TRAVAILLER ENSEMBLE / QUATRE PORTES"
+        title={
+          <>
+            Choisissez la porte
+            <br />
+            <span className="serif">qui ressemble à votre problème.</span>
+          </>
+        }
+        description="Chaque porte part d’un problème dit avec les mots de celles et ceux qui le vivent. Vous vous rangez vous-même, la règle d’acceptation s’applique sous vos yeux, et chaque demande reçoit une réponse écrite."
+        aside={
+          <div className="intro-note conseil-capacite-note">
+            <span className="intro-note-label">
+              CAPACITÉ, {periode.libelle.toUpperCase()}
+            </span>
+            <strong>{periode.plafond}</strong>
             <p>
-              <em>Gabarit de refus type, si les conditions de délai, de nature ou de conflit d’intérêt ne sont pas remplies :</em><br/>
-              « Je vous remercie pour votre demande. Après lecture, votre besoin sort du périmètre d’architecture stricte sur lequel je peux m’engager, soit pour des raisons de délai, soit parce qu’il relève d’une mission de production ESG ou qu’il croise l’écosystème STRATA. Je ne pourrai donc pas y donner une suite favorable. Je vous souhaite une excellente continuation dans vos projets. »
+              Le plafond est écrit avant la première mission et publié ici. Il
+              protège le temps de construction des systèmes que vous lisez sur
+              ce site.
             </p>
           </div>
+        }
+      />
+
+      <section className="conseil-portes" aria-labelledby="portes-titre">
+        <h2 id="portes-titre" className="sr-only">
+          Les quatre portes
+        </h2>
+        <ol>
+          {PORTES.map((porte) => (
+            <li key={porte.code} id={`porte-${porte.code}`}>
+              <article className="conseil-porte">
+                <header>
+                  <span className="conseil-porte-numero">{porte.numero}</span>
+                  <h3>{porte.titre}</h3>
+                </header>
+                <blockquote>« {porte.probleme} »</blockquote>
+                <dl>
+                  <div>
+                    <dt>En premier</dt>
+                    <dd>{porte.premierPas}</dd>
+                  </div>
+                  <div>
+                    <dt>Ce que vous recevez</dt>
+                    <dd>
+                      <ul>
+                        {porte.livre.map((l) => (
+                          <li key={l}>{l}</li>
+                        ))}
+                      </ul>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Ce que vous ne recevez pas</dt>
+                    <dd>{porte.neLivrePas}</dd>
+                  </div>
+                  <div>
+                    <dt>Ordre de grandeur</dt>
+                    <dd className="conseil-duree">{porte.duree}</dd>
+                  </div>
+                </dl>
+                {porte.ouverture ? (
+                  <p className="conseil-porte-ouverture">{porte.ouverture}</p>
+                ) : null}
+                <footer>
+                  <Link
+                    href={`?porte=${porte.code}#demande`}
+                    scroll={false}
+                    className="conseil-porte-choisir"
+                  >
+                    Entrer par cette porte <span aria-hidden="true">→</span>
+                  </Link>
+                  <Link href={porte.suite.href} className="conseil-porte-suite">
+                    {porte.suite.libelle}
+                  </Link>
+                </footer>
+              </article>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="conseil-regle" aria-labelledby="regle-titre">
+        <div className="conseil-regle-tete">
+          <p className="portfolio-label">LA RÈGLE D’ACCEPTATION</p>
+          <h2 id="regle-titre">
+            Une mission se refuse{" "}
+            <span className="serif">si une seule condition manque.</span>
+          </h2>
+          <p>
+            Elle est écrite avant la première demande, et elle vaut pour
+            chacune. La lire avant d’écrire vous fait gagner du temps.
+          </p>
         </div>
+        <div className="conseil-regle-colonnes">
+          <ol className="conseil-conditions">
+            {CONDITIONS.map((c) => (
+              <li key={c.code}>
+                <span>{c.numero}</span>
+                <div>
+                  <p>{c.texte}</p>
+                  <small>{c.verification}</small>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <ul className="conseil-interdits" aria-label="Les quatre interdits">
+            {INTERDITS.map((i) => (
+              <li key={i.code}>
+                <strong>{i.titre}</strong>
+                <p>{i.texte}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section
+        className="conseil-demande"
+        id="demande"
+        aria-labelledby="demande-titre"
+      >
+        <div className="conseil-demande-tete">
+          <p className="portfolio-label">LE FORMULAIRE COMMUN</p>
+          <h2 id="demande-titre">
+            Décrivez le problème,{" "}
+            <span className="serif">pas la solution.</span>
+          </h2>
+          <p>
+            Quatre questions pour vous ranger, puis le problème. Si la règle ne
+            peut pas être tenue, vous le saurez avant d’avoir écrit une ligne,
+            avec l’adresse qui vous servira mieux.
+          </p>
+        </div>
+        <FormulaireDemande
+          key={porteInitiale ?? "aucune"}
+          portes={PORTES.map((p) => ({
+            code: p.code,
+            numero: p.numero,
+            titre: p.titre,
+          }))}
+          porteInitiale={porteInitiale}
+          conditions={CONDITIONS.map((c) => ({
+            numero: c.numero,
+            texte: c.texte,
+          }))}
+          mentionVersion={MENTION_DEMANDE.version}
+          texteCase={MENTION_DEMANDE.texteCase}
+          relie={relie}
+          plafond={periode.plafond}
+          mention={
+            <>
+              <dl>
+                {MENTION_DEMANDE.lignes.map((l) => (
+                  <div key={l.label}>
+                    <dt>{l.label}</dt>
+                    <dd>{l.valeur}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p>
+                Accès, rectification et effacement :{" "}
+                <a href={`mailto:${EDITEUR.contact}`}>{EDITEUR.contact}</a>. La
+                politique du site entier est sur la page{" "}
+                <Link href="/confidentialite">confidentialité</Link>.
+              </p>
+            </>
+          }
+        />
+      </section>
+
+      <section className="conseil-capacite" aria-labelledby="capacite-titre">
+        <div className="conseil-capacite-tete">
+          <p className="portfolio-label">LE PLAFOND, PÉRIODE PAR PÉRIODE</p>
+          <h2 id="capacite-titre">
+            Peu de missions,{" "}
+            <span className="serif">et c’est écrit d’avance.</span>
+          </h2>
+          <p>
+            Une revue demande du temps de lecture que rien ne remplace. Le
+            plafond se fixe avant la première vente, parce qu’après il se
+            négocie avec soi-même.
+          </p>
+        </div>
+        <ol className="conseil-periodes">
+          {CAPACITE.map((p) => (
+            <li
+              key={p.debut}
+              data-courante={p.debut === periode.debut ? "oui" : "non"}
+            >
+              <span className="conseil-periode-libelle">{p.libelle}</span>
+              <strong>{p.plafond}</strong>
+              {p.debut === periode.debut ? (
+                <span className="conseil-periode-marque">Période en cours</span>
+              ) : null}
+            </li>
+          ))}
+        </ol>
+        {!verrouAssurance.leve ? (
+          <p className="conseil-verrou">
+            <span>{verrouAssurance.code}</span>
+            Aucune revue n’est vendue avant la souscription de{" "}
+            {verrouAssurance.objet} qui la couvre. Une demande reçue avant est
+            lue, qualifiée et datée : elle n’est pas vendue.
+          </p>
+        ) : null}
+      </section>
+
+      <section className="review-boundary">
+        <div>
+          <p className="portfolio-label">FRONTIÈRE</p>
+          <h2>
+            ADAMA OS explique la construction. STRATA ESG livre le logiciel.
+          </h2>
+        </div>
+        <p>{CLAUSE_RENVOI}</p>
+        <a href={URL_STRATA} target="_blank" rel="noopener noreferrer">
+          Voir STRATA ESG ↗
+        </a>
+      </section>
+
+      <section className="page-next">
+        <div>
+          <p className="portfolio-label">PAS ENCORE PRÊT</p>
+          <h2>
+            Lire la méthode <span className="serif">avant d’écrire.</span>
+          </h2>
+          <p>
+            La méthode publique relie une idée, une décision, une preuve et un
+            actif réutilisable. Elle suffit parfois à trancher seul.
+          </p>
+        </div>
+        <Link href="/methode" className="portfolio-button primary">
+          Lire la méthode <span aria-hidden="true">→</span>
+        </Link>
       </section>
     </PageShell>
   );

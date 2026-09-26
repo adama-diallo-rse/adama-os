@@ -20,6 +20,7 @@ export function OutboundLink({
   division = "",
   source,
   className,
+  onNavigate,
   children,
 }: {
   href: string;
@@ -30,6 +31,8 @@ export function OutboundLink({
   /** D'où vient le clic (ex: "nav", "layer-d", "ecosysteme", "terminal"). */
   source: string;
   className?: string;
+  /** Appele apres la mesure, par exemple pour refermer un menu. */
+  onNavigate?: () => void;
   children: ReactNode;
 }) {
   const ctx = { product, division, source };
@@ -43,6 +46,7 @@ export function OutboundLink({
         captureEvent(OUTBOUND_EVENT, outboundProperties(ctx));
         // Double émission jusqu'au 30 septembre 2026, voir lib/outbound.
         captureEvent(LEGACY_OUTBOUND_EVENT, legacyOutboundProperties(ctx));
+        onNavigate?.();
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-﻿import type { Metadata, Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Courier_Prime, DM_Sans } from "next/font/google";
 import { ConsentBanner } from "../components/consent-banner";
 import {
@@ -7,15 +7,16 @@ import {
   GITHUB_REPO_URL,
 } from "../components/types";
 import { SITE_URL, absoluteUrl } from "../lib/site";
-import { TITRE_COURT, 
+import {
   DEMANDE,
   DISPONIBILITE,
   EXPERIENCE_ACTUELLE,
   IDENTITE,
   POSTE_ACTUEL,
   RECHERCHE,
- } from "../content/profil";
-import { POSITIONNEMENT } from "../content/profil";
+  TITRE_COURT,
+} from "../content/profil";
+import { ADAMA_OS } from "../content/adama-os";
 import "./globals.css";
 import "./portfolio.css";
 import "./subpages.css";
@@ -36,10 +37,13 @@ import "./expansion.css";
 // EH0 : la page de la lettre SIGNAL et sa console privee. Une famille de
 // surfaces, une feuille, comme les precedentes.
 import "./lettre.css";
-// EH3 : lâ€™article long bilingue et ses preuves cassées.
+// EH3 : l’article long bilingue et ses preuves cassées.
 import "./article.css";
 // EW3 : registre public des erreurs, sa taxonomie et son gabarit en cinq blocs.
 import "./erreurs.css";
+// EC1 a EG2 : signature verifiable, parcours en cinq temps, notes de fond,
+// quatre portes, diagnostic court, revue et console des demandes.
+import "./conseil.css";
 import localFont from "next/font/local";
 
 const syne = localFont({
@@ -76,15 +80,15 @@ const courierPrime = Courier_Prime({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${TITRE_COURT} | Construire l'ESG numérique`,
-    template: `%s · ${TITRE_COURT}`,
+    default: "ADAMA OS | Construire l’ESG numérique",
+    template: "%s · ADAMA OS",
   },
   // La description est ce qu'un moteur affiche sous le titre : au-dela
   // d'environ 160 caracteres, il coupe et choisit lui-meme la suite. Elle
   // porte donc la capacite et la disponibilite, les deux seules choses
   // qu'un lecteur de resultat de recherche a besoin de savoir. La demande
   // complete reste dans le JSON-LD et sur /recruteur, ou elle a la place.
-  description: `${IDENTITE.capacite} ${POSITIONNEMENT.fr}`,
+  description: `${ADAMA_OS.proposition} ${ADAMA_OS.sousTitre}`,
   // Les intitulés recherchés viennent de la source unique de profil : un
   // mot-clé qui ne figure pas sur la page est un mot-clé qui ment.
   keywords: [
@@ -102,7 +106,7 @@ export const metadata: Metadata = {
   // Favicon, apple-icon et manifeste sont servis par les conventions de
   // fichiers (app/icon.svg, app/favicon.ico, app/apple-icon.png,
   // app/manifest.ts). Seul le libelle d'ecran d'accueil iOS se declare ici.
-  appleWebApp: { title: TITRE_COURT },
+  appleWebApp: { title: "ADAMA OS" },
   robots: { index: true, follow: true },
   // Propriete Search Console https://adamesg-os.fr/, ouverte le 9 septembre
   // 2026. Le jeton est public par construction : il est servi dans le HTML
@@ -113,17 +117,17 @@ export const metadata: Metadata = {
     google: "9MNunaSiGbPwx8_DDYpwGqI7gAocN2nHoB57B7UQF8w",
   },
   openGraph: {
-    title: `${TITRE_COURT} | Construire l'ESG numérique`,
-    description: POSITIONNEMENT.fr,
+    title: "ADAMA OS | Construire l’ESG numérique",
+    description: ADAMA_OS.sousTitre,
     url: "/",
-    siteName: TITRE_COURT,
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${TITRE_COURT} | Construire l'ESG numérique`,
-    description: POSITIONNEMENT.fr,
+    title: "ADAMA OS | Construire l’ESG numérique",
+    description: ADAMA_OS.sousTitre,
   },
 };
 
@@ -179,9 +183,10 @@ const personJsonLd = {
 const siteJsonLd = {
   "@type": "WebSite",
   "@id": `${SITE_URL}#site`,
-  name: TITRE_COURT,
-  alternateName: `${TITRE_COURT}, ESG Data Systems`,
-  description: POSITIONNEMENT.fr,
+  name: "ADAMA OS",
+  // EC1 : le titre court se lit dans la source du profil, comme partout.
+  alternateName: `ADAMA OS, ${TITRE_COURT.texte}`,
+  description: ADAMA_OS.sousTitre,
   url: SITE_URL,
   inLanguage: "fr-FR",
   author: { "@id": `${SITE_URL}#adama-diallo` },
@@ -237,5 +242,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-

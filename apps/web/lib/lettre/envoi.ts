@@ -50,7 +50,7 @@ type Resultat =
 
 type Fetch = typeof fetch;
 
-function verifierExpediteur(config: ConfigLettre): string | null {
+export function verifierExpediteur(config: ConfigLettre): string | null {
   const adresse = adresseDe(config.expediteur);
   if (!adresse) return "Expéditeur illisible.";
   const domaine = domaineDe(adresse);

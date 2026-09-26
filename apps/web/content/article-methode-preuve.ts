@@ -1,4 +1,6 @@
-export type ArticleLangue = "fr" | "en";
+import { AIMANT_METHODE } from "./aimants";
+
+type ArticleLangue = "fr" | "en";
 
 type SectionArticle = {
   id: string;
@@ -308,7 +310,7 @@ export const ARTICLE_PREUVE_FR: ArticleMethodePreuve = {
     texte:
       "La lettre reprend les décisions, les échecs et l’avancement réel du système. La liste ADAMA reste séparée de toute liste commerciale.",
     lien: "Lire la page de SIGNAL",
-    href: "/lettre",
+    href: AIMANT_METHODE.lien.fr,
   },
 };
 
@@ -556,7 +558,7 @@ export const ARTICLE_PREUVE_EN: ArticleMethodePreuve = {
     texte:
       "The letter covers decisions, failures, and real progress. The ADAMA list remains separate from every commercial list.",
     lien: "Read the SIGNAL page",
-    href: "/lettre",
+    href: AIMANT_METHODE.lien.en,
   },
 };
 

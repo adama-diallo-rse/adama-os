@@ -43,6 +43,17 @@ const TRAITEMENTS: Traitement[] = [
       "30 jours sans confirmation ; tant que l'inscription dure ; à la désinscription, adresse effacée aussitôt, empreinte et dates gardées 3 ans pour la preuve",
   },
   {
+    // EG0, 26 septembre 2026. Seule une demande recevable est enregistree :
+    // une demande que la regle d'acceptation refuse ne laisse aucune trace.
+    finalite:
+      "Demandes de conseil, formulaire des quatre portes, responsable : Adama Diallo, entrepreneur individuel",
+    donnees:
+      "porte choisie, échéance, organisation, nom, adresse e-mail, description du problème, version de la mention, empreinte non réversible de l'adresse IP",
+    base: "mesures précontractuelles prises à votre demande",
+    duree:
+      "12 mois après le dernier échange si aucune mission ne suit ; effacement immédiat sur simple demande",
+  },
+  {
     finalite: "Prise de contact recruteur",
     donnees: "adresse e-mail, contexte du clic (page, intention déclarée)",
     base: "consentement, formulaire volontaire",

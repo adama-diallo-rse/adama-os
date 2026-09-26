@@ -6,14 +6,15 @@ import { HireActions } from "../../components/hire-actions";
 import { OrgLogo } from "../../components/org-logo";
 import { DataClassMark } from "../../components/proof/data-class";
 import { CONTACT_EMAIL } from "../../components/types";
-import { TITRE_COURT, 
+import {
   DEMANDE,
   DISPONIBILITE,
   EXPERIENCES,
   FORMATION,
   IDENTITE,
   RECHERCHE,
- } from "../../content/profil";
+  TITRE_COURT,
+} from "../../content/profil";
 import { cartesProjet } from "../../content/projets";
 import { listClaims } from "../../lib/proof/claims";
 import type { ClaimState } from "../../lib/proof/types";
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     title: "Adama Diallo, profil professionnel",
     description: DISPONIBILITE,
     url: "/recruteur",
-    siteName: TITRE_COURT,
+    siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "profile",
   },
@@ -121,8 +122,7 @@ export default async function RecruteurPage() {
           <span className="hire-duree">10 secondes</span>
         </div>
         <p className="hero-eyebrow">
-          <span className="status-dot" />{" "}
-          {IDENTITE.domaines.join(" · ").toUpperCase()}
+          <span className="status-dot" /> {TITRE_COURT.affiche}
         </p>
         <h1>
           {IDENTITE.prenom} <span className="serif">{IDENTITE.patronyme}.</span>

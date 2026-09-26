@@ -253,3 +253,39 @@ dans le même fichier.
   l'en-tête, l'écosystème et les fiches projet, et le favicon comme les images
   de partage reprennent ses coordonnées. Le plafond est relevé par écrit, pas
   en silence.
+
+## Trois plafonds relevés le 26 septembre 2026, vague X1
+
+Le relevé du 26 septembre 2026 a de nouveau trouvé l'inventaire périmé :
+les commits de l'article long (EH3), des deux publications africaines (EJ0),
+du journal des versions et du registre des erreurs (EW1, EW3) ont ajouté
+huit pages et deux composants sans régénérer `docs/inventory.json`. Le
+contrôle d'intégrité les aurait vus au premier passage. Ces ajouts sont
+régularisés ici, séparément de ceux de la vague X1, pour que chaque
+relèvement garde sa raison.
+
+- **`surface_pages`, de 28 à 40.**
+  - Régularisation, huit pages déjà en ligne : les trois articles français
+    sous `/articles/`, leurs trois versions anglaises sous `/en/articles/`,
+    `/changelog` et `/erreurs`. Un article publié le même jour dans deux
+    langues est deux adresses, par construction (EH3, critère de sortie).
+  - Vague X1, quatre pages. `/articles` est le temps « Apprendre » du
+    parcours en cinq temps (EC4) : sans lui, ce temps n'aurait mené nulle
+    part, et la barre ne peut pas renvoyer à `/savoir`, chantier de la
+    vague X3. `/travaillez-avec-moi` est la page des quatre portes (EG0).
+    `/diagnostic` porte le seul format dont le prix sert de filtre (EG1), et
+    la branche EG interdit tout prix sur la page des portes. `/admin/demandes`
+    est privée : c'est la console des demandes recevables.
+- **`surface_composants`, de 51 à 54.** Régularisation de
+  `article-methode-preuve.tsx` et `article-afrique.tsx`, qui rendent les six
+  pages d'articles, plus `signature.tsx` pour EC3 : la signature vérifiable
+  est rendue par un seul composant, lu par le pied de page des sous-pages,
+  l'accueil et la méthode. Trois recopies du même lien auraient divergé au
+  premier changement de preuve.
+- **`surface_lib`, de 52 à 54.** Deux modules sous `conseil/`.
+  `qualification` est pur : la même règle d'acceptation tourne dans le
+  navigateur, pour afficher le refus avant que la personne écrive, et sur le
+  serveur, qui la rejoue. `registre` est la seule sortie, vers la base
+  dédiée et vers l'outil d'envoi. La notification a été fondue dans le
+  registre plutôt que tenue à part : les deux gestes vont ensemble, et un
+  troisième module n'aurait rien isolé de plus.

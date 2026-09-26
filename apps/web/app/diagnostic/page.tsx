@@ -1,92 +1,213 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageShell, PageIntro } from "../../components/page-shell";
+import { PageIntro, PageShell } from "../../components/page-shell";
+import { DIAGNOSTIC, VERROUS, periodeCourante } from "../../content/conseil";
+
+// =====================================================================
+// EG1, AXP-63, le diagnostic court payant.
+//
+// 90 minutes, une note d'une page, 250 a 450 euros. Le prix est affiche ici
+// parce qu'il fait partie du filtre : il convertit une conversation en
+// client et renvoie les curieux ailleurs. Il ne s'affiche pas sur la page
+// des quatre portes (EG0).
+//
+// Tant que EK3 n'est pas franchi, aucune reservation n'est ouverte et rien
+// ne s'encaisse : la page le dit, et son seul appel mene au formulaire
+// commun, qui qualifie et date.
+// =====================================================================
+
+// La periode de capacite change a date fixe (EG9) : la page se reconstruit
+// toutes les heures, pour ne jamais afficher un plafond perime.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Diagnostic court",
-  description: "90 minutes pour analyser et cadrer votre architecture de données ESG.",
+  description:
+    "Quatre-vingt-dix minutes pour lire un système de donnée ESG avant d’y ajouter un outil, et une note d’une page. Déroulé, contenu de la note et règle de prix publiés.",
   alternates: { canonical: "/diagnostic" },
 };
 
+function minutes(debut: number): string {
+  const fin = debut + 15;
+  return `${String(debut).padStart(2, "0")} à ${fin} min`;
+}
+
+const euros = new Intl.NumberFormat("fr-FR", {
+  style: "currency",
+  currency: "EUR",
+  maximumFractionDigits: 0,
+});
+
 export default function DiagnosticPage() {
+  const vente = VERROUS.vente;
+  const periode = periodeCourante();
   return (
-    <PageShell>
+    <PageShell className="conseil-page diagnostic-page">
       <PageIntro
-        eyebrow="Expertise ponctuelle"
-        title="Diagnostic court"
-        description="Une séance de 90 minutes pour débloquer une impasse d’architecture ESG ou valider un choix de conception, suivie d’une note de synthèse d’une page."
+        eyebrow="TRAVAILLER ENSEMBLE / DIAGNOSTIC COURT"
+        title={
+          <>
+            Quatre-vingt-dix minutes
+            <br />
+            <span className="serif">avant d’ajouter un outil.</span>
+          </>
+        }
+        description="Une séance pour lire votre système tel qu’il existe ou tel qu’il est imaginé, et une note d’une page qui dit ce qu’il faut trancher d’abord. La conclusion peut être de ne rien acheter, ni ici ni ailleurs."
+        aside={
+          <div className="intro-note conseil-prix-note">
+            <span className="intro-note-label">PRIX</span>
+            <strong>
+              {euros.format(DIAGNOSTIC.prix.min)} à{" "}
+              {euros.format(DIAGNOSTIC.prix.max)}
+            </strong>
+            <p>Selon le système lu. La règle est publiée plus bas.</p>
+          </div>
+        }
       />
-      <section className="portfolio-section">
-        <div className="portfolio-wrap">
-          <h2 className="section-title">Déroulé des 90 minutes</h2>
-          <div className="portfolio-prose">
-            <p>
-              Avant la séance, le client fournit une brève description du contexte technique et le schéma du flux de données concerné (même à l’état de brouillon).
-            </p>
-            <ul className="mt-4 space-y-4">
-              <li><strong>00:00 - 00:15 : Le problème.</strong> Reformulation du problème et des contraintes par le système, pas par le métier. Ce qui coûte trop cher, ce qui ne tient pas l’échelle.</li>
-              <li><strong>00:15 - 00:30 : Les entrées et les sorties.</strong> Frontières du système, qualité de la donnée disponible et usages réels (qui regarde le tableau de bord, qui lit le rapport).</li>
-              <li><strong>00:30 - 00:45 : Les hypothèses non vérifiées.</strong> Recherche des points de rupture, des promesses logicielles non testées, et des fausses dépendances.</li>
-              <li><strong>00:45 - 01:15 : Déconstruction et options.</strong> Propositions d’architecture, découpage du problème en sous-problèmes, options rejetées et pourquoi.</li>
-              <li><strong>01:15 - 01:30 : La prochaine action.</strong> Définition de l’étape suivante, claire et mesurable. Prise de recul sur le périmètre de la note de synthèse.</li>
-            </ul>
-          </div>
+
+      <section className="diagnostic-avant" aria-labelledby="avant-titre">
+        <div>
+          <p className="portfolio-label">AVANT LA SÉANCE</p>
+          <h2 id="avant-titre">
+            Quatre choses à préparer,{" "}
+            <span className="serif">une à ne pas envoyer.</span>
+          </h2>
+        </div>
+        <ul>
+          {DIAGNOSTIC.avant.map((a, i) => (
+            <li
+              key={a}
+              data-refus={i === DIAGNOSTIC.avant.length - 1 ? "oui" : "non"}
+            >
+              {a}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="diagnostic-deroule" aria-labelledby="deroule-titre">
+        <div className="diagnostic-deroule-tete">
+          <p className="portfolio-label">
+            LE DÉROULÉ, PAR BLOCS DE QUINZE MINUTES
+          </p>
+          <h2 id="deroule-titre">
+            Six blocs, <span className="serif">toujours dans cet ordre.</span>
+          </h2>
+        </div>
+        <ol className="diagnostic-frise">
+          {DIAGNOSTIC.deroule.map((bloc) => (
+            <li key={bloc.debut}>
+              <time className="diagnostic-minute">{minutes(bloc.debut)}</time>
+              <h3>{bloc.titre}</h3>
+              <p>{bloc.texte}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="diagnostic-note" aria-labelledby="note-titre">
+        <div className="diagnostic-feuille" aria-hidden="true">
+          <span className="diagnostic-feuille-tete">
+            NOTE DE DIAGNOSTIC · 1 PAGE
+          </span>
+          {DIAGNOSTIC.note.sections.map((s, i) => (
+            <span key={s} className="diagnostic-feuille-ligne">
+              <b>{String(i + 1).padStart(2, "0")}</b>
+              {s}
+            </span>
+          ))}
+        </div>
+        <div>
+          <p className="portfolio-label">LA NOTE D’UNE PAGE</p>
+          <h2 id="note-titre">
+            Une lecture de système,{" "}
+            <span className="serif">pas un livrable ESG.</span>
+          </h2>
+          <ol className="diagnostic-sections">
+            {DIAGNOSTIC.note.sections.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ol>
+          <p className="diagnostic-jamais-titre">Elle ne contient jamais</p>
+          <ul className="diagnostic-jamais">
+            {DIAGNOSTIC.note.jamais.map((j) => (
+              <li key={j}>{j}</li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section className="portfolio-section bg-muted">
-        <div className="portfolio-wrap">
-          <h2 className="section-title">La note de synthèse (Livrable)</h2>
-          <div className="portfolio-prose">
-            <p>
-              Un document d’une page, envoyé sous 48 heures ouvrées.
-            </p>
-            <h3 className="mt-4 text-lg font-bold">Ce qu’elle contient</h3>
-            <ul>
-              <li>Le diagnostic du point de rupture de l’architecture.</li>
-              <li>Les options écartées avec leurs raisons.</li>
-              <li>La recommandation d’architecture ou de flux.</li>
-              <li>La feuille de route immédiate pour la prochaine action.</li>
-            </ul>
-            <h3 className="mt-4 text-lg font-bold">Ce qu’elle ne contient jamais</h3>
-            <p className="tone-info mt-2 p-4 border border-[var(--border)] rounded bg-background">
-              <strong>Attention :</strong> Cette note n’est pas un livrable ESG. Elle ne comporte aucun calcul carbone, aucune matrice de double matérialité, et aucun rapport de conformité CSRD. Il s’agit d’une lecture de système logiciel et de donnée, pas de conseil en développement durable.
-            </p>
-          </div>
+      <section className="diagnostic-prix" aria-labelledby="prix-titre">
+        <div>
+          <p className="portfolio-label">LA RÈGLE DE PRIX</p>
+          <h2 id="prix-titre">
+            Le prix suit le système lu,{" "}
+            <span className="serif">pas la personne qui demande.</span>
+          </h2>
+          <p>
+            Il est annoncé par écrit avant la séance, et il ne change pas
+            pendant.
+          </p>
         </div>
+        <ol>
+          {DIAGNOSTIC.prixRegle.map((r) => (
+            <li key={r.prix}>
+              <strong>{euros.format(r.prix)}</strong>
+              <p>{r.quand}</p>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section className="portfolio-section">
-        <div className="portfolio-wrap">
-          <h2 className="section-title">Tarification & Acceptation</h2>
-          <div className="portfolio-grid mt-6">
-            <div className="portfolio-card">
-              <h3>Filtre d’acceptation</h3>
-              <p className="mt-2 text-sm tone-muted">
-                Un diagnostic est refusé si la demande cible un calcul métier plutôt qu’une conception de système, si le client est un prospect STRATA ESG (conflit), ou s’il s’agit d’une vérification de conformité légale (tiers indépendant requis).
-              </p>
-            </div>
-            <div className="portfolio-card">
-              <h3>Tarification (250 € à 450 €)</h3>
-              <p className="mt-2 text-sm tone-muted">
-                <strong>250 €</strong> : Problématique isolée (un flux, une intégration, un outil spécifique).<br />
-                <strong>450 €</strong> : Architecture d’ensemble, choix de composants structurants, ou données très dispersées.
-              </p>
-            </div>
-          </div>
-          
-          <div className="mt-12 p-6 border-l-4 border-[var(--text)] bg-muted">
-            <h3 className="font-bold">Avertissement de contractualisation (EK3)</h3>
-            <p className="mt-2 font-mono text-sm">
-              L’encaissement et la facturation de ce service sont temporairement bloqués dans l’attente de l’immatriculation finale de la structure juridique portant les contrats (Jalon EK3). La souscription directe en ligne ouvrira lors de la levée de ce verrou.
-            </p>
-            <div className="mt-6">
-              <Link href="/travaillez-avec-moi" className="btn btn-primary" style={{ display: 'inline-block' }}>
-                Soumettre une demande de qualification
-              </Link>
-            </div>
-          </div>
+      <section className="diagnostic-filtre" aria-labelledby="filtre-titre">
+        <div>
+          <p className="portfolio-label">LE FILTRE</p>
+          <h2 id="filtre-titre">
+            Le diagnostic se refuse <span className="serif">quand</span>
+          </h2>
         </div>
+        <ul>
+          {DIAGNOSTIC.filtre.map((f) => (
+            <li key={f}>{f}</li>
+          ))}
+        </ul>
+      </section>
+
+      {!vente.leve ? (
+        <section className="conseil-verrou-bloc" aria-labelledby="verrou-titre">
+          <span className="conseil-verrou-code">{vente.code}</span>
+          <div>
+            <h2 id="verrou-titre">
+              Les réservations ne sont pas encore ouvertes.
+            </h2>
+            <p>
+              Rien ne s’encaisse avant la publication des conditions de vente,
+              avec leur droit de rétractation et leur facturation. Une demande
+              envoyée maintenant est lue, qualifiée et datée, puis reçoit une
+              réponse écrite. Capacité de la période en cours :{" "}
+              {periode.plafond.toLowerCase()}
+            </p>
+          </div>
+        </section>
+      ) : null}
+
+      <section className="page-next">
+        <div>
+          <p className="portfolio-label">PROCHAINE ÉTAPE</p>
+          <h2>
+            Entrer par la porte <span className="serif">Construire.</span>
+          </h2>
+          <p>
+            Le formulaire commun vous range en quatre questions et applique la
+            règle d’acceptation avant que vous écriviez votre problème.
+          </p>
+        </div>
+        <Link
+          href="/travaillez-avec-moi?porte=construire#demande"
+          className="portfolio-button primary"
+        >
+          Décrire mon problème <span aria-hidden="true">→</span>
+        </Link>
       </section>
     </PageShell>
   );

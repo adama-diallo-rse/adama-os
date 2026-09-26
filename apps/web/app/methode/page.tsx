@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Signature } from "../../components/signature";
 import { PageIntro, PageShell } from "../../components/page-shell";
 import {
   ADAMA_OS,
@@ -105,7 +106,7 @@ export default function MethodePage() {
         </Link>
       </section>
 
-      <p className="method-signature">{ADAMA_OS.signature}</p>
+      <Signature className="method-signature" />
     </PageShell>
   );
 }

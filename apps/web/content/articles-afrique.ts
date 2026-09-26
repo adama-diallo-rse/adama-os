@@ -1,6 +1,6 @@
-export type LangueArticleAfrique = "fr" | "en";
+type LangueArticleAfrique = "fr" | "en";
 
-export type ContrainteArticleAfrique = {
+type ContrainteArticleAfrique = {
   id: string;
   nom: string;
   consequence: string;

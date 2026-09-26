@@ -35,7 +35,7 @@ type Regle = { niveau: Niveau; motif: RegExp; regle: string };
 
 export type UsageAnglaisEH1 = "protégé" | "banal";
 
-export type EntreeLexiqueAnglaisEH1 = {
+type EntreeLexiqueAnglaisEH1 = {
   francais: string;
   anglais: readonly {
     terme: string;

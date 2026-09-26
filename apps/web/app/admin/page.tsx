@@ -53,6 +53,10 @@ export default async function AdminPage() {
         <Link href="/admin/lettre" className="portfolio-button ghost">
           Tenir la lettre SIGNAL →
         </Link>
+        {/* EG0 : les demandes arrivees par les quatre portes. */}
+        <Link href="/admin/demandes" className="portfolio-button ghost">
+          Lire les demandes de conseil →
+        </Link>
         <section className="metrics-history">
           <h2>Relevés actuels</h2>
           {error ? (

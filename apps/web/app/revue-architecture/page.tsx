@@ -1,29 +1,36 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro, PageShell } from "../../components/page-shell";
+import {
+  CLAUSE_RENVOI,
+  FORMATS_REVUE,
+  RAPPORT_REVUE,
+  VERROUS,
+} from "../../content/conseil";
+import { URL_STRATA } from "../../content/parcours";
+
+// =====================================================================
+// EG2, AXP-60, la revue d'architecture.
+//
+// Le rapport en sept parties et les trois formats viennent de la branche
+// EG. Aucun prix ici : il est ecrit dans la proposition, apres
+// qualification, et la proposition ne part qu'une fois l'assurance EK2
+// souscrite. Avant, une demande se date, elle ne se vend pas.
+// =====================================================================
 
 export const metadata: Metadata = {
   title: "Revue d’architecture",
   description:
-    "Revue indépendante d’un système de donnée, de preuve, d’automatisation ou d’intelligence artificielle appliqué à l’ESG.",
+    "Relecture structurée d’un système de donnée, de preuve, d’automatisation ou d’intelligence artificielle appliqué à l’ESG.",
   alternates: { canonical: "/revue-architecture" },
 };
 
-const SORTIES = [
-  { titre: "1. Ce qui a été lu (et ce qui ne l’a pas été)", desc: "La délimitation honnête du périmètre." },
-  { titre: "2. Les problèmes, classés par gravité", desc: "Avec l’effet concret de chacun." },
-  { titre: "3. Les risques", desc: "Ce qui n’est pas encore un problème et le deviendra." },
-  { titre: "4. Les incohérences", desc: "Deux endroits qui disent deux choses différentes." },
-  { titre: "5. Les priorités", desc: "Trois à cinq, pas quinze. Une liste de quinze priorités n’en contient aucune." },
-  { titre: "6. L’architecture cible", desc: "Un schéma, et les options rejetées avec leur raison." },
-  { titre: "7. La feuille de route", desc: "Datable par vos équipes, avec les dépendances." },
-] as const;
-
 export default function RevueArchitecturePage() {
+  const assurance = VERROUS.assurance;
   return (
-    <PageShell className="review-page">
+    <PageShell className="review-page conseil-page">
       <PageIntro
-        eyebrow="CONSEIL / REVUE D’ARCHITECTURE"
+        eyebrow="TRAVAILLER ENSEMBLE / REVUE D’ARCHITECTURE"
         title={
           <>
             Voir le système
@@ -31,101 +38,108 @@ export default function RevueArchitecturePage() {
             <span className="serif">avant d’ajouter un outil.</span>
           </>
         }
-        description="Une lecture structurée de votre architecture de donnée, de preuve ou d’automatisation. La revue cherche les frontières floues, les dépendances cachées et les affirmations impossibles à vérifier."
+        description="Une lecture structurée de votre architecture de donnée, de preuve ou d’automatisation. La revue cherche les frontières floues, les dépendances cachées et les affirmations impossibles à vérifier, puis dit dans quel ordre agir."
         aside={
           <div className="intro-note">
-            <span className="intro-note-label">POINT DE DÉPART</span>
-            <strong>1</strong>
+            <span className="intro-note-label">LE RAPPORT</span>
+            <strong>7</strong>
             <p>
-              Un problème précis, un système existant ou une décision à prendre.
+              parties, dont la première dit ce qui n’a pas été lu. Sans elle, le
+              premier angle mort devient une faute.
             </p>
           </div>
         }
       />
 
-      <section className="portfolio-section">
-        <div className="portfolio-wrap">
-          <p className="portfolio-label">CE QUE VOUS RECEVEZ</p>
-          <h2>Un rapport en sept parties</h2>
-          <div className="portfolio-grid mt-8">
-            {SORTIES.map((sortie) => (
-              <div key={sortie.titre} className="portfolio-card">
-                <h3 className="text-lg">{sortie.titre}</h3>
-                <p className="tone-muted mt-2">{sortie.desc}</p>
+      <section className="review-fit">
+        <div>
+          <p className="portfolio-label">C’EST UTILE SI</p>
+          <h2>
+            Le système fonctionne, mais personne ne peut l’expliquer simplement.
+          </h2>
+        </div>
+        <ul>
+          <li>Les données circulent sans propriétaire clair.</li>
+          <li>Les réponses générées ne remontent pas jusqu’à leurs sources.</li>
+          <li>Les outils se multiplient plus vite que les décisions.</li>
+          <li>Une exigence ESG se transforme en travail manuel permanent.</li>
+        </ul>
+      </section>
+
+      <section className="review-output revue-rapport">
+        <p className="portfolio-label">CE QUE VOUS RECEVEZ, EN SEPT PARTIES</p>
+        <ol>
+          {RAPPORT_REVUE.map((partie, index) => (
+            <li key={partie.titre}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <h3>{partie.titre}</h3>
+                <p>{partie.raison}</p>
               </div>
-            ))}
-          </div>
-        </div>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section className="portfolio-section bg-muted">
-        <div className="portfolio-wrap">
-          <p className="portfolio-label">FORMATS & TARIFS</p>
-          <h2>Une grille de prix lisible et assumée</h2>
-          <div className="mt-8 overflow-x-auto">
-            <table className="w-full text-left" style={{ borderCollapse: 'collapse' }}>
-              <thead>
-                <tr style={{ borderBottom: '2px solid var(--border)' }}>
-                  <th className="py-4 font-bold">Format</th>
-                  <th className="py-4 font-bold">Durée estimée</th>
-                  <th className="py-4 font-bold">Prix</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style={{ borderBottom: '1px solid var(--border)' }}>
-                  <td className="py-4">Revue courte, un seul sujet</td>
-                  <td className="py-4">2 jours</td>
-                  <td className="py-4 font-mono">1 800 à 3 000 €</td>
-                </tr>
-                <tr style={{ borderBottom: '1px solid var(--border)' }}>
-                  <td className="py-4">Revue complète</td>
-                  <td className="py-4">5 jours</td>
-                  <td className="py-4 font-mono">4 500 à 8 000 €</td>
-                </tr>
-                <tr style={{ borderBottom: '1px solid var(--border)' }}>
-                  <td className="py-4">Revue complète avec restitution en équipe et suivi à 3 mois</td>
-                  <td className="py-4">7 jours</td>
-                  <td className="py-4 font-mono">8 000 à 14 000 €</td>
-                </tr>
-                <tr style={{ borderBottom: '1px solid var(--border)' }}>
-                  <td className="py-4">Audit pour investisseur</td>
-                  <td className="py-4">Variable</td>
-                  <td className="py-4 font-mono">6 000 à 20 000 €</td>
-                </tr>
-                <tr style={{ borderBottom: '1px solid var(--border)' }}>
-                  <td className="py-4">Revue pour financeur, volet Afrique</td>
-                  <td className="py-4">Variable</td>
-                  <td className="py-4 font-mono">8 000 à 40 000 €</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      <section className="revue-formats" aria-labelledby="formats-titre">
+        <div className="revue-formats-tete">
+          <p className="portfolio-label">TROIS FORMATS</p>
+          <h2 id="formats-titre">
+            Le périmètre d’abord,{" "}
+            <span className="serif">la durée ensuite.</span>
+          </h2>
+          <p>
+            Le prix est écrit dans la proposition, avec le périmètre exact, ce
+            qui en est exclu et le livrable. Il ne se négocie pas en séance.
+          </p>
         </div>
+        <ol>
+          {FORMATS_REVUE.map((f) => (
+            <li key={f.code}>
+              <span className="revue-format-duree">{f.duree}</span>
+              <h3>{f.titre}</h3>
+              <p>{f.perimetre}</p>
+              <small>{f.ouvre}</small>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section className="portfolio-section">
-        <div className="portfolio-wrap">
-          <p className="portfolio-label">FRONTIÈRE & CONFORMITÉ</p>
-          <h2>Ce que la revue ne fait jamais</h2>
-          <div className="portfolio-prose mt-6">
-            <ul>
-              <li><strong>Aucun conseil juridique nominatif.</strong> Interpréter un texte pour une entreprise donnée et engager sa responsabilité est hors périmètre.</li>
-              <li><strong>Aucune vérification par tiers indépendant.</strong> Ce rôle est réservé aux OTI.</li>
-              <li><strong>Aucune production de livrable ESG pour le client.</strong> Un client qui a besoin de rapports est orienté vers des produits logiciels ou cabinets.</li>
-              <li><strong>Aucun développement logiciel facturé.</strong> Ce n’est pas une agence de développement.</li>
-            </ul>
-            <div className="mt-8 p-6 bg-muted border-l-4 border-[var(--text)]">
-              <h3 className="font-bold">Clause de renvoi obligatoire</h3>
-              <p className="mt-2 text-sm">
-                La revue ne vend pas un produit STRATA ESG déguisé. Si votre besoin est déjà couvert par un logiciel existant, la conclusion peut être de ne rien construire ici et vous serez redirigé.
-              </p>
-              <Link href="https://strata-esg.fr" className="mt-4 inline-block font-bold">Utiliser les logiciels STRATA ESG →</Link>
-            </div>
+      {!assurance.leve ? (
+        <section className="conseil-verrou-bloc" aria-labelledby="verrou-titre">
+          <span className="conseil-verrou-code">{assurance.code}</span>
+          <div>
+            <h2 id="verrou-titre">
+              On ne vend pas encore. <span className="serif">On date.</span>
+            </h2>
+            <p>
+              Aucune revue n’est proposée avant la souscription de{" "}
+              {assurance.objet} qui la couvre. Un avis d’architecte suivi par un
+              client engage la responsabilité de celui qui le donne. Une demande
+              reçue maintenant est lue, qualifiée et datée, et sa réponse écrite
+              dit à partir de quand une proposition peut partir.
+            </p>
           </div>
+        </section>
+      ) : null}
+
+      <section className="review-boundary">
+        <div>
+          <p className="portfolio-label">FRONTIÈRE</p>
+          <h2>
+            ADAMA OS explique la construction. STRATA ESG livre le logiciel.
+          </h2>
         </div>
+        <p>
+          {CLAUSE_RENVOI} Si votre besoin est déjà couvert par un logiciel
+          existant, la conclusion peut être de ne rien construire ici.
+        </p>
+        <a href={URL_STRATA} target="_blank" rel="noopener noreferrer">
+          Voir STRATA ESG ↗
+        </a>
       </section>
 
-      <section className="page-next bg-background border-t border-[var(--border)]">
+      <section className="page-next">
         <div>
           <p className="portfolio-label">PREMIER ÉCHANGE</p>
           <h2>
@@ -133,15 +147,16 @@ export default function RevueArchitecturePage() {
             <span className="serif">pas la solution.</span>
           </h2>
           <p>
-            Toute demande est soumise à une qualification stricte pour garantir l’indépendance et la faisabilité. 
+            Le formulaire commun vous range en quatre questions, applique la
+            règle d’acceptation sous vos yeux, et date votre demande.
           </p>
         </div>
-        <Link href="/travaillez-avec-moi" className="portfolio-button primary mt-6">
-          Soumettre une demande de qualification <span aria-hidden="true">→</span>
+        <Link
+          href="/travaillez-avec-moi?porte=donnee#demande"
+          className="portfolio-button primary"
+        >
+          Soumettre un problème <span aria-hidden="true">→</span>
         </Link>
-        <p className="mt-4 text-sm tone-muted text-center">
-          Note de contractualisation : les ventes sont temporairement suspendues dans l’attente de la levée des verrous d’assurance et d’immatriculation. On ne vend pas, on date.
-        </p>
       </section>
     </PageShell>
   );

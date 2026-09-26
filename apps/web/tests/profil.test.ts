@@ -88,13 +88,15 @@ const MOTIFS_DE_PROFIL: { motif: RegExp; quoi: string }[] = [
 const EXCEPTIONS: Record<string, string> = {
   "components/vsme-simulator.tsx":
     "Le sigle CDI y designe un indicateur social du referentiel VSME, la part de contrats stables dans l'effectif. Il ne parle pas du contrat recherche par Adama, et le confondre avec lui serait une erreur de lecture, pas une divergence de profil.",
+  "content/conseil.ts":
+    "Les mois de 2026 y bornent les periodes du plafond de capacite EG9, ecrites dans la branche EG avant la premiere vente. Ils ne disent rien de la disponibilite recherchee par Adama, et les lire depuis le profil lierait deux regles qui changent pour des raisons differentes.",
 };
 
 describe("C9-T8, une seule source pour le profil", () => {
   it("n'ecrit aucun intitule de poste recherche ailleurs que dans la source", () => {
     for (const poste of RECHERCHE.postes) {
       const coupables = fichiers
-        .filter((f) => f.relatif !== SOURCE_PROFIL && !f.relatif.includes("travaillez-avec-moi") && !f.relatif.includes("diagnostic") && !f.relatif.includes("revue-architecture"))
+        .filter((f) => f.relatif !== SOURCE_PROFIL)
         .filter((f) => f.code.includes(poste))
         .map((f) => f.relatif);
       expect(
@@ -106,7 +108,7 @@ describe("C9-T8, une seule source pour le profil", () => {
 
   it("n'ecrit la ligne de disponibilite qu'a un seul endroit", () => {
     const coupables = fichiers
-      .filter((f) => f.relatif !== SOURCE_PROFIL && !f.relatif.includes("travaillez-avec-moi") && !f.relatif.includes("diagnostic") && !f.relatif.includes("revue-architecture"))
+      .filter((f) => f.relatif !== SOURCE_PROFIL)
       .filter((f) => f.code.includes(DISPONIBILITE))
       .map((f) => f.relatif);
     expect(coupables).toEqual([]);
@@ -140,7 +142,7 @@ describe("C9-T8, une seule source pour le profil", () => {
     // On cherche donc la FORME d'un intitule, pas sa formulation.
     for (const { motif, quoi } of MOTIFS_DE_PROFIL) {
       const coupables = fichiers
-        .filter((f) => f.relatif !== SOURCE_PROFIL && !f.relatif.includes("travaillez-avec-moi") && !f.relatif.includes("diagnostic") && !f.relatif.includes("revue-architecture"))
+        .filter((f) => f.relatif !== SOURCE_PROFIL)
         .filter((f) => motif.test(f.code))
         .map((f) => f.relatif)
         .filter((relatif) => !EXCEPTIONS[relatif]);

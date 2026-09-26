@@ -4,7 +4,7 @@ import {
   LegalPage,
   LegalSection,
 } from "../../components/legal-page";
-import { EDITEUR } from "../../lib/legal";
+import { EDITEUR, PORTEUR_CONSEIL } from "../../lib/legal";
 import { SITE_HOST } from "../../lib/site";
 
 // L10-T2, mentions légales du cockpit.
@@ -24,7 +24,7 @@ export default function MentionsLegalesPage() {
   return (
     <LegalPage
       title="Mentions légales"
-      intro="Adama OS est un tableau de bord personnel, publié à titre individuel. Il ne vend rien, n'héberge aucun produit et ne traite aucune donnée client."
+      intro="Adama OS est un laboratoire public, publié à titre individuel. Il présente une activité de conseil, n’encaisse aucun paiement en ligne, n’héberge aucun produit et ne traite aucune donnée client."
     >
       <LegalSection title="Éditeur">
         <LegalDefinitionList
@@ -44,12 +44,16 @@ export default function MentionsLegalesPage() {
               ),
             },
             { label: "Domaine", value: SITE_HOST },
+            {
+              label: "Activité de conseil",
+              value: `${PORTEUR_CONSEIL.nom}, ${PORTEUR_CONSEIL.statut}, SIREN ${PORTEUR_CONSEIL.siren}`,
+            },
           ]}
         />
         <p>
-          Directeur de la publication : {EDITEUR.nom}. Le site ne relève
-          d&apos;aucune immatriculation commerciale : il n&apos;exerce aucune
-          activité de vente et ne perçoit aucun paiement.
+          Directeur de la publication : {EDITEUR.nom}. Aucune vente n&apos;est
+          conclue et aucun paiement n&apos;est perçu sur ce site. Les conditions
+          de vente seront publiées avant tout encaissement.
         </p>
       </LegalSection>
 

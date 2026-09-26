@@ -1,17 +1,22 @@
-﻿// @vitest-environment jsdom
+// @vitest-environment jsdom
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { SkillCards } from "../components/skill-cards";
-import { COMPETENCES, DISPONIBILITE, RECHERCHE, IDENTITE, POSITIONNEMENT } from "../content/profil";
-
+import {
+  COMPETENCES,
+  DISPONIBILITE,
+  POSITIONNEMENT,
+  RECHERCHE,
+} from "../content/profil";
+import { ADAMA_OS } from "../content/adama-os";
 
 // =====================================================================
 // C9-T6, test anti regression narrative.
 //
 // Le defaut que ce test rend impossible : quelqu'un retouche le texte du
-// premier ecran, deplace la ligne de disponibilite plus bas Â« pour aerer Â»,
+// premier ecran, deplace la ligne de disponibilite plus bas « pour aerer »,
 // et le site cesse de dire ce qu'on lui demande sans que rien ne casse.
 //
 // Pourquoi une lecture de source plutot qu'un rendu du composant. Le premier
@@ -49,14 +54,17 @@ describe("C9-T6, le premier ecran dit ce qu'on lui demande", () => {
   const ecran = premierEcran();
 
   it("porte la proposition de valeur ADAMA OS", () => {
-    expect(ecran).toContain("IDENTITE.capacite");
-    expect(IDENTITE.capacite.length).toBeGreaterThan(60);
+    // EC2 : la phrase se lit dans sa source unique, jamais recopiee.
+    expect(ecran).toContain("POSITIONNEMENT.fr");
+    expect(ADAMA_OS.proposition).toBe(POSITIONNEMENT.fr);
+    expect(POSITIONNEMENT.fr.length).toBeGreaterThan(60);
     // Une capacite se dit a la premiere personne et avec des verbes d'action.
-    expect(IDENTITE.capacite).toMatch(/^Je /);
+    expect(POSITIONNEMENT.fr).toMatch(/^Je /);
   });
 
   it("porte la signature de preuve comme une affirmation autonome", () => {
-    expect(ecran).toContain("SIGNATURE.phrase");
+    // EC3 : la signature est rendue par son composant, avec ses preuves.
+    expect(ecran).toContain("<Signature");
     expect(ecran).toContain('className="hero-availability"');
   });
 
@@ -67,13 +75,13 @@ describe("C9-T6, le premier ecran dit ce qu'on lui demande", () => {
   });
 
   it("annonce la zone geographique, accents portes", () => {
-    expect(DISPONIBILITE).toContain("ÃŽle-de-France");
+    expect(DISPONIBILITE).toContain("Île-de-France");
   });
 
   it("range la proposition avant le sous-titre, puis la signature avant les actions", () => {
-    const capacite = ecran.indexOf("hero-description");
-    const situation = ecran.indexOf("hero-situation");
-    const signature = ecran.indexOf("hero-availability");
+    const capacite = ecran.indexOf("POSITIONNEMENT.fr");
+    const situation = ecran.indexOf("ADAMA_OS.sousTitre");
+    const signature = ecran.indexOf("<Signature");
     const actions = ecran.indexOf('className="hero-actions"');
     expect(capacite).toBeGreaterThan(-1);
     expect(situation).toBeGreaterThan(capacite);
@@ -132,5 +140,3 @@ describe("C9-T2, les trois cartes de competence", () => {
     }
   });
 });
-
-

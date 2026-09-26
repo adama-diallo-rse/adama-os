@@ -1,10 +1,14 @@
+import { POSITIONNEMENT, SIGNATURE_TEXTE, TITRE_COURT } from "./profil";
+
+// La marque lit sa source unique (EC1 a EC3) : aucune de ces trois chaines
+// n'est recopiee ici, pour qu'un changement de phrase ne laisse jamais deux
+// versions en ligne.
 export const ADAMA_OS = {
   nom: "ADAMA OS",
-  territoire: "ESG · DATA · SYSTEMS",
-  proposition:
-    "Je conçois des systèmes numériques qui rendent la donnée de durabilité exploitable, vérifiable et opposable.",
+  territoire: TITRE_COURT.affiche,
+  proposition: POSITIONNEMENT.fr,
   sousTitre: "Méthodes, systèmes et outils pour construire l’ESG numérique.",
-  signature: "Construit par Adama. Chaque mot vérifiable en un clic.",
+  signature: SIGNATURE_TEXTE,
 } as const;
 
 export const PARCOURS_PUBLICS = [
@@ -29,8 +33,8 @@ export const PARCOURS_PUBLICS = [
     titre: "Résoudre un problème",
     description:
       "Faire relire une architecture de donnée, de preuve ou d’automatisation avant d’empiler des outils.",
-    action: "Voir la revue",
-    href: "/revue-architecture",
+    action: "Choisir une porte",
+    href: "/travaillez-avec-moi",
   },
 ] as const;
 

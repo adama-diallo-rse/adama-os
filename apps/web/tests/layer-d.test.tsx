@@ -126,7 +126,7 @@ describe("Couche D, source présente", () => {
   it("affiche la preuve sociale, qui ne dépend d'aucune source externe", () => {
     render(<LayerD analytics={[]} products={[]} gateways={[]} />);
     expect(screen.getByText("AG2R LA MONDIALE")).toBeTruthy();
-    expect(screen.getByText("MinistÃ¨re des Finances")).toBeTruthy();
+    expect(screen.getByText("Ministère des Finances")).toBeTruthy();
   });
 
   it("restitue l'état de la sonde du produit", () => {

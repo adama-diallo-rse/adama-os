@@ -31,12 +31,24 @@ export const PROVENANCE_HEADER = "ai-generated; model=llm; retrieval=corpus";
 export const EDITEUR = {
   nom: "Adama Diallo",
   statut: "personne physique",
-  objet: "site personnel, sans activité commerciale ni collecte de paiement",
+  objet:
+    "site personnel et laboratoire public ; il présente une activité de conseil, sans aucun paiement en ligne",
   contact: "diadamflow@gmail.com",
 } as const;
 
+/**
+ * EG0, XDEC-48 : l'activite de conseil presentee sur le site est portee par
+ * l'entreprise individuelle, comme la liste SIGNAL (XDEC-41). L'editeur du
+ * site ne change pas.
+ */
+export const PORTEUR_CONSEIL = {
+  nom: "Adama Diallo",
+  statut: "entrepreneur individuel",
+  siren: "913518031",
+} as const;
+
 /** Date de dernière mise à jour des pages légales. */
-export const LEGAL_UPDATED_AT = "2026-09-13";
+export const LEGAL_UPDATED_AT = "2026-09-26";
 
 /** Date d'echeance du marquage machine, en francais, pour l'affichage. */
 export const ECHEANCE_MARQUAGE = "2 décembre 2026";
@@ -73,14 +85,14 @@ export const SOUS_TRAITANTS: readonly SousTraitant[] = [
     id: "base",
     nom: "Supabase",
     donnees:
-      "base de données du site, partagée avec deux produits du groupe ; la lettre SIGNAL vit dans un projet distinct, qui ne sert à rien d’autre",
+      "base de données du site, partagée avec deux produits du groupe ; la lettre SIGNAL et les demandes de conseil vivent dans un projet distinct, qui ne sert à rien d’autre",
     region: "Union européenne, Irlande",
   },
   {
     id: "envoi",
     nom: "Resend",
     donnees:
-      "envoi des messages de la lettre SIGNAL, sans mesure d’ouverture ni de clic",
+      "envoi des messages de la lettre SIGNAL, sans mesure d’ouverture ni de clic, et notification des demandes de conseil à la seule boîte de l’éditeur",
     region:
       "envoi depuis la région Union européenne, société établie aux États-Unis, clauses contractuelles types",
   },

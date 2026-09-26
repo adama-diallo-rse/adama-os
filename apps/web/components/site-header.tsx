@@ -1,11 +1,13 @@
 "use client";
-import { TITRE_COURT } from "../content/profil";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { OpenStrataSymbol } from "./open-strata-symbol";
+import { OutboundLink } from "./outbound-link";
 import { RecruiterEntry } from "./recruiter-entry";
+import { PARCOURS_VISITEUR, type TempsParcours } from "../content/parcours";
+import { TITRE_COURT } from "../content/profil";
 
 export function SiteHeader({
   home = false,
@@ -17,20 +19,14 @@ export function SiteHeader({
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
-  // C2 : /preuves figure dans les deux barres. Une page qui dit « ne me
-  // croyez pas, verifiez » et qu'on ne peut atteindre qu'en la connaissant
-  // deja ne sert a personne.
-  // Cinq entrees au maximum, et c'est une contrainte de place mesuree : au
-  // dela, la barre deborde a 1100 pixels, ou l'acces recruteur se fait
-  // ecraser. Les pages qui n'y figurent pas sont atteintes par les enchainements
-  // de fin de page, qui sont concus pour cela.
-  const links: [string, string][] = [
-    ["/os", "Explorer"],
-    ["/savoir", "Apprendre"],
-    ["/idees", "Construire"],
-    ["/travaillez-avec-moi", "Travailler ensemble"],
-    ["https://strata-esg.fr", "Utiliser STRATA"],
-  ];
+  // EC4, AXP-158 : la navigation suit les cinq temps du visiteur, dans cet
+  // ordre, sur toutes les pages. Explorer, apprendre, construire,
+  // travailler ensemble, puis la seule sortie du site, vers le logiciel.
+  // Cinq entrees au maximum reste une contrainte de place mesuree : au dela,
+  // la barre deborde a 1100 pixels, ou l'acces recruteur se fait ecraser.
+  // /preuves quitte la barre (XDEC-47) : la signature de chaque pied de
+  // page renvoie a ses preuves, et Explorer y mene en un clic.
+  const liens = PARCOURS_VISITEUR;
   return (
     <>
       <a href="#contenu" className="portfolio-skip">
@@ -40,22 +36,23 @@ export function SiteHeader({
         <Link
           className="portfolio-brand"
           href={home ? "#top" : "/"}
-          aria-label={`${TITRE_COURT}, accueil`}
+          aria-label="ADAMA OS, accueil"
         >
           <span className="brand-symbol" aria-hidden="true">
             <OpenStrataSymbol />
           </span>
-          <span>{TITRE_COURT}</span>
+          <span>
+            ADAMA OS
+            <span className="brand-caption">{TITRE_COURT.affiche}</span>
+          </span>
         </Link>
         <nav className="desktop-nav" aria-label="Navigation principale">
-          {links.map(([href, label]) => (
-            <Link
-              key={href}
-              href={href}
-              aria-current={!home && pathname === href ? "page" : undefined}
-            >
-              {label}
-            </Link>
+          {liens.map((temps) => (
+            <LienParcours
+              key={temps.href}
+              temps={temps}
+              courant={!home && estCourant(pathname, temps)}
+            />
           ))}
         </nav>
         <div className="header-actions">
@@ -98,15 +95,73 @@ export function SiteHeader({
               variant="mobile"
               onNavigate={() => setMenuOpen(false)}
             />
-            {links.map(([href, label]) => (
-              <Link key={href} href={href} onClick={() => setMenuOpen(false)}>
-                {label}
-                <span aria-hidden="true">↗</span>
-              </Link>
+            {liens.map((temps) => (
+              <LienParcours
+                key={temps.href}
+                temps={temps}
+                courant={estCourant(pathname, temps)}
+                onNavigate={() => setMenuOpen(false)}
+                mobile
+              />
             ))}
           </nav>
         )}
       </header>
     </>
+  );
+}
+
+function estCourant(pathname: string | null, temps: TempsParcours): boolean {
+  if (!pathname || temps.sortie) return false;
+  return temps.actifSur.some(
+    (racine) => pathname === racine || pathname.startsWith(`${racine}/`),
+  );
+}
+
+/**
+ * Un temps du parcours. Le cinquieme quitte le site : il s'ouvre dans un
+ * nouvel onglet, porte la fleche sortante et le dit au lecteur d'ecran,
+ * sans jamais ressembler a un bouton d'achat.
+ */
+function LienParcours({
+  temps,
+  courant,
+  onNavigate,
+  mobile = false,
+}: {
+  temps: TempsParcours;
+  courant: boolean;
+  onNavigate?: () => void;
+  mobile?: boolean;
+}) {
+  if (temps.sortie) {
+    // La seule sortie du site. OutboundLink pose les parametres de campagne
+    // et mesure le clic apres consentement, comme toute sortie vers un
+    // produit du groupe. Elle ne ressemble jamais a un bouton d'achat.
+    return (
+      <OutboundLink
+        href={temps.href}
+        product="strata-esg"
+        division="STRATA"
+        source={mobile ? "nav-mobile" : "nav"}
+        className="nav-sortie"
+        onNavigate={onNavigate}
+      >
+        {temps.libelle}
+        <span aria-hidden="true"> ↗</span>
+        <span className="sr-only"> (site de STRATA ESG, nouvel onglet)</span>
+      </OutboundLink>
+    );
+  }
+  return (
+    <Link
+      href={temps.href}
+      data-temps={temps.code}
+      aria-current={courant ? "page" : undefined}
+      onClick={onNavigate}
+    >
+      {temps.libelle}
+      {mobile ? <span aria-hidden="true">↗</span> : null}
+    </Link>
   );
 }

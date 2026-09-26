@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -19,6 +19,7 @@ import { ProjectGrid } from "./project-grid";
 import { SkillCards } from "./skill-cards";
 import { JourneyGateway } from "./journey-gateway";
 import { SignalSignup } from "./signal-signup";
+import { Signature } from "./signature";
 import { ExpansionDashboard, ExpansionPreview } from "./expansion-dashboard";
 import { OrgLogo, marqueDe } from "./org-logo";
 import {
@@ -30,15 +31,14 @@ import {
 } from "./types";
 import { captureEvent as capture } from "../lib/analytics";
 import { EVENT_RECRUITER_CV } from "../lib/analytics-events";
-import { 
+import {
   DISPONIBILITE,
   EXPERIENCES,
   FORMATION,
   IDENTITE,
   POSITIONNEMENT,
-  SIGNATURE
+  TITRE_COURT,
 } from "../content/profil";
-
 import type { CarteProjet } from "../content/projets";
 import { ADAMA_OS } from "../content/adama-os";
 
@@ -126,19 +126,21 @@ export function Dashboard({
                 une mesure cassee compte comme un depassement. */}
             <div className="hero-copy">
               <p className="hero-eyebrow">
-                <span className="status-dot" /> {"ESG Â· DATA Â· SYSTEMS"}
+                <span className="status-dot" /> {TITRE_COURT.affiche}
               </p>
               <h1 id="hero-title">
-                Lâ€™ESG numÃ©rique,
+                L’ESG numérique,
                 <br />
                 <span className="hero-serif">construit en public.</span>
               </h1>
               <div className="hero-copy-lines">
-                <p className="hero-description">{IDENTITE.capacite}</p>
-                <p className="hero-situation">{POSITIONNEMENT.fr}</p>
+                <p className="hero-description">{POSITIONNEMENT.fr}</p>
+                <p className="hero-situation">{ADAMA_OS.sousTitre}</p>
                 <p className="hero-availability">
                   <span className="note-line" aria-hidden="true" />
-                  <strong>{SIGNATURE.phrase}</strong>
+                  <strong>
+                    <Signature as="span" />
+                  </strong>
                 </p>
               </div>
               <div className="hero-actions">
@@ -146,13 +148,13 @@ export function Dashboard({
                   Explorer les travaux <Arrow />
                 </Link>
                 <Link href="/expansion" className="portfolio-button ghost">
-                  Voir lâ€™expansion <Arrow diagonal />
+                  Voir l’expansion <Arrow diagonal />
                 </Link>
                 <Link
                   href="/revue-architecture"
                   className="portfolio-text-link"
                 >
-                  Soumettre un problÃ¨me <Arrow />
+                  Soumettre un problème <Arrow />
                 </Link>
               </div>
             </div>
@@ -160,16 +162,16 @@ export function Dashboard({
               <ExpansionDashboard compact />
             </div>
             <div className="hero-bottom">
-              <span>PLAN Dâ€™EXPANSION / Ã‰TAT PUBLIC</span>
+              <span>PLAN D’EXPANSION / ÉTAT PUBLIC</span>
               <Link href="/expansion">
-                Lire le systÃ¨me <span aria-hidden="true">â†’</span>
+                Lire le système <span aria-hidden="true">→</span>
               </Link>
             </div>
           </section>
           <JourneyGateway />
           <ExpansionPreview />
           {/* C9-T2. Visible sans defilement sur un ecran de bureau : c'est
-              la reponse a Â« que sait faire cette personne Â», posee avant
+              la reponse a « que sait faire cette personne », posee avant
               tout le reste. */}
           <div className="portfolio-wrap">
             <SkillCards proofStates={data.proofStates} />
@@ -187,11 +189,11 @@ export function Dashboard({
               exactement le genre d'invention que ce site refuse. */}
           <section
             className="experience-strip"
-            aria-label="ExpÃ©riences, engagement associatif et formation"
+            aria-label="Expériences, engagement associatif et formation"
           >
             <div className="portfolio-wrap experience-inner">
               <p>
-                ExpÃ©riences et engagement
+                Expériences et engagement
                 <br />
                 <span>associatif, formation</span>
               </p>
@@ -230,14 +232,14 @@ export function Dashboard({
             <SectionLabel number="02">FICHES PROJET</SectionLabel>
             <div className="section-heading">
               <h2 id="projects-title">
-                Ce que jâ€™ai
+                Ce que j’ai
                 <br />
                 <span className="serif">construit.</span>
               </h2>
               <p>
-                Trois fiches, le mÃªme gabarit, huit blocs chacune. Un bloc
-                entier y est consacrÃ© Ã  ce que jâ€™ai personnellement conÃ§u,
-                arbitrÃ© et livrÃ©.
+                Trois fiches, le même gabarit, huit blocs chacune. Un bloc
+                entier y est consacré à ce que j’ai personnellement conçu,
+                arbitré et livré.
               </p>
             </div>
             <ProjectGrid
@@ -249,11 +251,11 @@ export function Dashboard({
               IROKO Software Group et les autres produits du groupe, leurs liens
               et leur avancement, sont dans le{" "}
               <Link href="/ecosysteme">
-                registre de lâ€™Ã©cosystÃ¨me <span aria-hidden="true">â†-</span>
+                registre de l’écosystème <span aria-hidden="true">↗</span>
               </Link>
               . Les arbitrages qui ont produit ces projets sont dans le{" "}
               <Link href="/decisions">
-                journal des dÃ©cisions <span aria-hidden="true">â†-</span>
+                journal des décisions <span aria-hidden="true">↗</span>
               </Link>
               .
             </p>
@@ -264,31 +266,31 @@ export function Dashboard({
             aria-labelledby="approach-title"
           >
             <div className="portfolio-wrap portfolio-section">
-              <SectionLabel number="03">MA FAÃ‡ON DE FAIRE</SectionLabel>
+              <SectionLabel number="03">MA FAÇON DE FAIRE</SectionLabel>
               <div className="section-heading">
                 <h2 id="approach-title">
                   Du reporting
                   <br />
-                  <span className="serif">au dÃ©veloppement.</span>
+                  <span className="serif">au développement.</span>
                 </h2>
                 <p>
-                  Mon travail touche autant aux donnÃ©es et aux exigences RSE
-                  quâ€™aux outils utilisÃ©s pour les traiter.
+                  Mon travail touche autant aux données et aux exigences RSE
+                  qu’aux outils utilisés pour les traiter.
                 </p>
               </div>
               <div className="approach-grid">
                 <article>
                   <span className="approach-icon" aria-hidden="true">
-                    â†-
+                    ↗
                   </span>
                   <span className="approach-number">RSE & ESG</span>
                   <h3>Comprendre la demande.</h3>
                   <p>
-                    Je commence par les questions mÃ©tier : quelles informations
-                    sont attendues, par qui, et Ã  partir de quelles sources ?
+                    Je commence par les questions métier : quelles informations
+                    sont attendues, par qui, et à partir de quelles sources ?
                   </p>
                   <div>
-                    RSE & ESG <span>Â·</span> Analyse mÃ©tier
+                    RSE & ESG <span>·</span> Analyse métier
                   </div>
                 </article>
                 <article>
@@ -296,31 +298,31 @@ export function Dashboard({
                     className="approach-icon icon-connect"
                     aria-hidden="true"
                   >
-                    âŒ˜
+                    ⌘
                   </span>
                   <span className="approach-number">DATA</span>
-                  <h3>Organiser les donnÃ©es.</h3>
+                  <h3>Organiser les données.</h3>
                   <p>
-                    Je rassemble les sources, vÃ©rifie les donnÃ©es et automatise
-                    les tÃ¢ches rÃ©pÃ©titives quand câ€™est possible.
+                    Je rassemble les sources, vérifie les données et automatise
+                    les tâches répétitives quand c’est possible.
                   </p>
                   <div>
-                    Data <span>Â·</span> Automatisation
+                    Data <span>·</span> Automatisation
                   </div>
                 </article>
                 <article>
                   <span className="approach-icon" aria-hidden="true">
-                    âŠž
+                    ⊞
                   </span>
-                  <span className="approach-number">DÃ‰VELOPPEMENT</span>
-                  <h3>Coder, puis vÃ©rifier.</h3>
+                  <span className="approach-number">DÉVELOPPEMENT</span>
+                  <h3>Coder, puis vérifier.</h3>
                   <p>
-                    Je dÃ©veloppe les interfaces et les traitements, puis je
-                    teste ce qui se passe quand les donnÃ©es manquent ou quâ€™un
-                    service ne rÃ©pond plus.
+                    Je développe les interfaces et les traitements, puis je
+                    teste ce qui se passe quand les données manquent ou qu’un
+                    service ne répond plus.
                   </p>
                   <div>
-                    DÃ©veloppement <span>Â·</span> Produit
+                    Développement <span>·</span> Produit
                   </div>
                 </article>
               </div>
@@ -335,32 +337,32 @@ export function Dashboard({
             aria-labelledby="thinking-title"
           >
             <div className="thinking-intro">
-              <SectionLabel number="04">COMMENT JE DÃ‰CIDE</SectionLabel>
+              <SectionLabel number="04">COMMENT JE DÉCIDE</SectionLabel>
               <h2 id="thinking-title">
-                Les arbitrages, <span className="serif">et leur coÃ»t.</span>
+                Les arbitrages, <span className="serif">et leur coût.</span>
               </h2>
             </div>
             <nav className="thinking-nav" aria-label="Le raisonnement">
               <Link href="/decisions">
-                <span>Journal des dÃ©cisions</span>
+                <span>Journal des décisions</span>
                 <span>
-                  Chaque dÃ©cision structurante, avec les options Ã©cartÃ©es et ce
-                  quâ€™elle coÃ»te.
+                  Chaque décision structurante, avec les options écartées et ce
+                  qu’elle coûte.
                 </span>
                 <Arrow diagonal />
               </Link>
               <Link href="/revirements">
                 <span>Ce sur quoi je suis revenu</span>
                 <span>
-                  Les corrections, leur trace dans le code, et ce quâ€™elles ont
-                  coÃ»tÃ©.
+                  Les corrections, leur trace dans le code, et ce qu’elles ont
+                  coûté.
                 </span>
                 <Arrow diagonal />
               </Link>
               <Link href="/principes">
                 <span>Les principes</span>
                 <span>
-                  Cinq rÃ¨gles, dÃ©rivÃ©es dâ€™erreurs rÃ©elles, chacune avec son
+                  Cinq règles, dérivées d’erreurs réelles, chacune avec son
                   prix.
                 </span>
                 <Arrow diagonal />
@@ -373,7 +375,7 @@ export function Dashboard({
             aria-labelledby="about-title"
           >
             <div className="about-copy">
-              <SectionLabel number="05">EXPÃ‰RIENCES</SectionLabel>
+              <SectionLabel number="05">EXPÉRIENCES</SectionLabel>
               <h2 id="about-title">
                 Mon <span className="serif">parcours.</span>
               </h2>
@@ -382,9 +384,9 @@ export function Dashboard({
                 solutions IA au sein de la direction RSE.
               </p>
               <p>
-                Jâ€™ai aussi travaillÃ© sur la coordination RSE chez Younivibe et
-                sur le reporting au ministÃ¨re des Finances au SÃ©nÃ©gal. Ã€ lâ€™AFEV,
-                je me suis engagÃ© dans le mentorat Ã©tudiant.
+                J’ai aussi travaillé sur la coordination RSE chez Younivibe et
+                sur le reporting au ministère des Finances au Sénégal. À l’AFEV,
+                je me suis engagé dans le mentorat étudiant.
               </p>
               <Link href="/recruteur" className="portfolio-text-link">
                 Voir mon profil professionnel <Arrow diagonal />
@@ -392,9 +394,9 @@ export function Dashboard({
             </div>
             {/* C9-T8 tenu jusqu'au bout. Cette liste recopiait les quatre
                 organisations, leurs roles et leurs categories en clair, et
-                elle avait deja diverge de la source : Â« Stage Data ESG &
-                Solutions IA Â» ici, Â« Data ESG et solutions IA, direction
-                RSE Â» dans content/profil.ts. Deux parcours pour une seule
+                elle avait deja diverge de la source : « Stage Data ESG &
+                Solutions IA » ici, « Data ESG et solutions IA, direction
+                RSE » dans content/profil.ts. Deux parcours pour une seule
                 personne, sur la meme page. Elle lit desormais la source. */}
             <div className="journey-list">
               {EXPERIENCES.map((exp, rang) => (
@@ -440,14 +442,14 @@ export function Dashboard({
             aria-labelledby="atelier-title"
           >
             <div className="portfolio-wrap portfolio-section">
-              <SectionLabel number="06">JOURNAL DE DÃ‰VELOPPEMENT</SectionLabel>
+              <SectionLabel number="06">JOURNAL DE DÉVELOPPEMENT</SectionLabel>
               <div className="section-heading">
                 <h2 id="atelier-title">
-                  Dans <span className="serif">lâ€™atelier.</span>
+                  Dans <span className="serif">l’atelier.</span>
                 </h2>
                 <p>
-                  Les derniÃ¨res contributions au code, les dÃ©cisions publiÃ©es et
-                  les prochaines Ã©tapes des projets.
+                  Les dernières contributions au code, les décisions publiées et
+                  les prochaines étapes des projets.
                 </p>
               </div>
               <div className="atelier-tools">
@@ -456,7 +458,7 @@ export function Dashboard({
                     &gt;_
                   </span>
                   <h3>
-                    Adama OS <span>/ lâ€™atelier personnel</span>
+                    Adama OS <span>/ l’atelier personnel</span>
                   </h3>
                   <p>
                     {currentFocus ||
@@ -481,7 +483,7 @@ export function Dashboard({
                     cockpit complet
                   </span>
                   <span className="disclosure-caption">
-                    Journal Â· Trajectoire Â· Ã‰cosystÃ¨me
+                    Journal · Trajectoire · Écosystème
                   </span>
                 </summary>
                 <div className="cockpit-content">
@@ -504,7 +506,7 @@ export function Dashboard({
               </details>
               <div className="atelier-bottom">
                 <Link href="/metrics">
-                  Consulter les mÃ©triques publiÃ©es <Arrow diagonal />
+                  Consulter les métriques publiées <Arrow diagonal />
                 </Link>
                 <Link href="/systeme">
                   Comment ce site fonctionne <Arrow diagonal />
@@ -530,7 +532,7 @@ export function Dashboard({
               <button
                 type="button"
                 className="contact-circle"
-                aria-label="Ã‰changer avec Adama"
+                aria-label="Échanger avec Adama"
                 onClick={() => setRecruitOpen(true)}
               >
                 <Arrow diagonal />
@@ -538,9 +540,9 @@ export function Dashboard({
             </div>
             <div className="contact-bottom">
               <p>
-                Pour une opportunitÃ© en RSE ou en data,
+                Pour une opportunité en RSE ou en data,
                 <br />
-                ou une question sur mes projets, Ã©crivez-moi.
+                ou une question sur mes projets, écrivez-moi.
               </p>
               <a href={`mailto:${CONTACT_EMAIL}`}>
                 {CONTACT_EMAIL}
@@ -574,22 +576,23 @@ export function Dashboard({
                   })
                 }
               >
-                TÃ©lÃ©charger mon CV <Arrow diagonal />
+                Télécharger mon CV <Arrow diagonal />
               </a>
               <a href="#top" aria-label="Retour en haut de page">
-                â†‘
+                ↑
               </a>
             </div>
           </div>
           <div className="footer-bottom">
-            <span>ADAMA OS Â· LABORATOIRE PUBLIC</span>
+            <Signature className="footer-signature-verifiable" />
             <div>
+              <Link href="/lettre">Lettre SIGNAL</Link>
               <Link href="/changelog">Journal des versions</Link>
               <LegalFooterLinks />
-              <Link href="/confiance">FrontiÃ¨res de donnÃ©es</Link>
+              <Link href="/confiance">Frontières de données</Link>
               <ConsentLink className="portfolio-cookie-link" />
             </div>
-            <span>FR / ÃŽLE-DE-FRANCE</span>
+            <span>FR / ÎLE-DE-FRANCE</span>
           </div>
         </footer>
         <RecruitModal open={recruitOpen} onOpenChange={setRecruitOpen} />
@@ -609,5 +612,3 @@ export function Dashboard({
     </MotionConfig>
   );
 }
-
-

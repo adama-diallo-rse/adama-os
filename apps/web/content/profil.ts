@@ -1,4 +1,4 @@
-﻿// =====================================================================
+// =====================================================================
 // C9-T8, la source unique de profil.
 //
 // Le defaut que ce fichier rend impossible : le hero annonce un intitule de
@@ -22,13 +22,13 @@ export const IDENTITE = {
   prenom: "Adama",
   patronyme: "Diallo",
   /** Les trois domaines, dans l'ordre ou ils se lisent partout. */
-  domaines: ["RSE", "Data", "SystÃ¨mes"] as const,
+  domaines: ["RSE", "Data", "Systèmes"] as const,
   /** Ce que je sais faire. Vend une capacite, pas une situation. */
   capacite:
-    "Je conÃ§ois des systÃ¨mes numÃ©riques qui rendent la donnÃ©e de durabilitÃ© exploitable, vÃ©rifiable et opposable.",
+    "Je conçois des systèmes numériques qui rendent la donnée de durabilité exploitable, vérifiable et opposable.",
   /** Ou j'en suis. Vient apres la capacite, jamais avant. */
   situation:
-    "Aujourdâ€™hui data ESG et solutions IA chez AG2R LA MONDIALE, et en parallÃ¨le mon propre Ã©cosystÃ¨me logiciel.",
+    "Aujourd’hui data ESG et solutions IA chez AG2R LA MONDIALE, et en parallèle mon propre écosystème logiciel.",
 } as const;
 
 /**
@@ -38,11 +38,11 @@ export const IDENTITE = {
 export const RECHERCHE = {
   contrats: ["CDI", "CDD"] as const,
   postes: [
-    "ChargÃ© de mission RSE et data ESG",
+    "Chargé de mission RSE et data ESG",
     "Consultant RSE",
-    "Chef de projet conformitÃ© et automatisation",
+    "Chef de projet conformité et automatisation",
   ] as const,
-  zone: "ÃŽle-de-France",
+  zone: "Île-de-France",
   /** Mois de prise de fonction, en clair. */
   mois: "novembre",
   annee: "2026",
@@ -53,14 +53,14 @@ export const RECHERCHE = {
 /** La ligne de disponibilite, formulee une fois pour tout le site. */
 export const DISPONIBILITE = `Disponible en ${RECHERCHE.contrats.join(
   " ou ",
-)} dÃ¨s ${RECHERCHE.mois} ${RECHERCHE.annee}, ${RECHERCHE.zone}.`;
+)} dès ${RECHERCHE.mois} ${RECHERCHE.annee}, ${RECHERCHE.zone}.`;
 
 /** La demande, en une phrase, pour le JSON-LD et le mode recruteur. */
 export const DEMANDE = `${RECHERCHE.contrats.join(
   " / ",
 )} : ${RECHERCHE.postes.join(
   ", ",
-)}, ${RECHERCHE.zone}, Ã  partir de ${RECHERCHE.mois} ${RECHERCHE.annee}.`;
+)}, ${RECHERCHE.zone}, à partir de ${RECHERCHE.mois} ${RECHERCHE.annee}.`;
 
 /**
  * C9-T2, les trois domaines de competence.
@@ -87,23 +87,23 @@ export type DomaineCompetence = {
 export const COMPETENCES: readonly DomaineCompetence[] = [
   {
     id: "esg",
-    titre: "ESG et durabilitÃ©",
-    matieres: ["cadre rÃ©glementaire", "donnÃ©e de durabilitÃ©", "conformitÃ©"],
-    fait: "Je travaille la donnÃ©e ESG et les rÃ©fÃ©rentiels CSRD, ESRS et VSME, en stage Ã  la direction RSE dâ€™AG2R LA MONDIALE et sur mes propres produits.",
+    titre: "ESG et durabilité",
+    matieres: ["cadre réglementaire", "donnée de durabilité", "conformité"],
+    fait: "Je travaille la donnée ESG et les référentiels CSRD, ESRS et VSME, en stage à la direction RSE d’AG2R LA MONDIALE et sur mes propres produits.",
     preuveId: "esg-optimizer-en-ligne",
   },
   {
     id: "donnee",
-    titre: "DonnÃ©e et IA",
-    matieres: ["rÃ©cupÃ©ration documentaire", "pipelines", "agents", "API"],
-    fait: "Jâ€™ai construit la chaÃ®ne de rÃ©cupÃ©ration documentaire de ce site, son agent conversationnel et les passerelles qui interrogent les produits du groupe.",
+    titre: "Donnée et IA",
+    matieres: ["récupération documentaire", "pipelines", "agents", "API"],
+    fait: "J’ai construit la chaîne de récupération documentaire de ce site, son agent conversationnel et les passerelles qui interrogent les produits du groupe.",
     preuveId: "metriques-portent-leur-provenance",
   },
   {
     id: "logiciel",
-    titre: "Logiciel et systÃ¨mes",
-    matieres: ["architecture", "intÃ©gration", "sÃ©curitÃ©", "exploitation"],
-    fait: "Jâ€™architecture, je dÃ©ploie et jâ€™exploite les logiciels du groupe : base de donnÃ©es, politiques de sÃ©curitÃ©, sondes, tests et mise en production.",
+    titre: "Logiciel et systèmes",
+    matieres: ["architecture", "intégration", "sécurité", "exploitation"],
+    fait: "J’architecture, je déploie et j’exploite les logiciels du groupe : base de données, politiques de sécurité, sondes, tests et mise en production.",
     preuveId: "cockpit-code-public",
   },
 ] as const;
@@ -127,28 +127,28 @@ export const EXPERIENCES: readonly Experience[] = [
     organisation: "AG2R LA MONDIALE",
     precision: "",
     role: "Data ESG et solutions IA, direction RSE",
-    categorie: "RSE Ã— DATA",
+    categorie: "RSE × DATA",
   },
   {
     id: "younivibe",
     organisation: "Younivibe",
     precision: "",
     role: "Coordination RSE et reporting",
-    categorie: "COORDINATION Ã— IMPACT",
+    categorie: "COORDINATION × IMPACT",
   },
   {
     id: "afev",
     organisation: "AFEV",
     precision: "",
-    role: "Engagement et mentorat Ã©tudiant",
-    categorie: "ENGAGEMENT Ã— TRANSMISSION",
+    role: "Engagement et mentorat étudiant",
+    categorie: "ENGAGEMENT × TRANSMISSION",
   },
   {
     id: "ministere",
-    organisation: "MinistÃ¨re des Finances",
-    precision: "SÃ©nÃ©gal",
-    role: "Reporting et donnÃ©es",
-    categorie: "SECTEUR PUBLIC Ã— DONNÃ‰ES",
+    organisation: "Ministère des Finances",
+    precision: "Sénégal",
+    role: "Reporting et données",
+    categorie: "SECTEUR PUBLIC × DONNÉES",
   },
 ] as const;
 
@@ -176,29 +176,92 @@ export const FORMATION: readonly Formation[] = [
   {
     id: "upec",
     organisation: "UPEC",
-    precision: "UniversitÃ© Paris-Est CrÃ©teil",
+    precision: "Université Paris-Est Créteil",
   },
 ] as const;
 
 /** Titre de poste actuel, pour le JSON-LD. Decrit le present, pas la cible. */
 export const POSTE_ACTUEL = "Data ESG et solutions IA, direction RSE";
 
-/** EC1: Titre court de la marque */
-export const TITRE_COURT = "ESG DATA SYSTEMS";
+// =====================================================================
+// EC0 a EC3, la marque en une seule source (XDEC-44 a XDEC-46).
+//
+// Une seule marque publique, ADAMA OS (option A de la branche EC). Son
+// titre court, sa phrase de positionnement et sa signature se lisent ici
+// et nulle part ailleurs : tests/marque.test.ts refuse toute copie en dur
+// dans un composant ou une page.
+// =====================================================================
 
-/** EC2: Phrase de positionnement */
+/**
+ * EC1, AXP-18. Le titre court, lu par quatre surfaces : la barre de
+ * navigation, le surtitre de l'accueil, le balisage JSON-LD du site et
+ * l'en-tete du mode recruteur.
+ */
+export const TITRE_COURT = {
+  /** Forme affichee, avec ses points medians, telle que la charte l'ecrit. */
+  affiche: "ESG · DATA · SYSTEMS",
+  /** Forme lue par une machine ou une voix de synthese. */
+  texte: "ESG Data Systems",
+} as const;
+
+/**
+ * EC2, AXP-19 et AXP-159. Une seule phrase, tenue partout, dans les deux
+ * langues. Elle est la capacite du profil : il n'en existe pas de seconde.
+ * Les variantes sont gardees datees, jamais affichees.
+ */
 export const POSITIONNEMENT = {
-  fr: "L'expertise en architecture de donnÃ©es ESG, pour des systÃ¨mes vÃ©rifiables et souverains.",
-  en: "Expertise in ESG data architecture, for verifiable and sovereign systems.",
-  varianteCourte: "Architecture de donnÃ©es ESG",
+  fr: IDENTITE.capacite,
+  en: "I design digital systems that make sustainability data usable, verifiable and defensible.",
+  /** Alternatives datees : elles ne s'affichent pas, elles se testent. */
+  variantes: [
+    {
+      code: "AXP-19",
+      fr: "Je construis des systèmes pour la donnée durable.",
+      en: "I build systems for sustainable data.",
+      gardeeLe: "2026-09-26",
+    },
+    {
+      code: "AXP-159",
+      fr: "Recherche, construction, systèmes. Un laboratoire public.",
+      en: "Research. Build. Systems. A public laboratory.",
+      gardeeLe: "2026-09-26",
+    },
+  ],
 } as const;
 
-/** EC3: Signature de pied de page */
-export const SIGNATURE = {
-  phrase: "Construit par Adama, à partir de systèmes réellement mis en ligne.",
-  preuves: [
-    { texte: "Construit par Adama", lien: "/technique" },
-    { texte: "systèmes réellement mis en ligne", lien: "/preuves" },
-  ]
-} as const;
+/**
+ * EC3, AXP-113. La signature, en pied de chaque surface. Chaque groupe de
+ * mots qui affirme quelque chose porte le lien qui le prouve : un mot sans
+ * preuve cliquable sort de la phrase (regle de retrait ecrite en XDEC-46).
+ */
+type SegmentSignature = {
+  texte: string;
+  /** Route interne qui prouve le segment. Absente pour la ponctuation. */
+  preuve?: string;
+  /** Ce que la preuve montre, pour le lecteur d'ecran et le survol. */
+  montre?: string;
+};
 
+export const SIGNATURE: {
+  segments: readonly SegmentSignature[];
+  en: string;
+} = {
+  segments: [
+    {
+      texte: "Construit par Adama",
+      preuve: "/journal",
+      montre: "les commits réels des huit dépôts suivis, datés et attribués",
+    },
+    { texte: ", à partir de " },
+    {
+      texte: "systèmes réellement mis en ligne",
+      preuve: "/ecosysteme",
+      montre: "les produits en production, avec leur adresse et leur état",
+    },
+    { texte: "." },
+  ],
+  en: "Built by Adama, from systems actually shipped.",
+};
+
+/** La signature en texte continu, pour les metadonnees et les tests. */
+export const SIGNATURE_TEXTE = SIGNATURE.segments.map((s) => s.texte).join("");

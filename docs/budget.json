@@ -115,7 +115,7 @@
       "id": "surface_pages",
       "level": "surface",
       "label": "Routes de page",
-      "max": 28,
+      "max": 40,
       "measure": {
         "kind": "count",
         "of": "pages"
@@ -135,7 +135,7 @@
       "id": "surface_composants",
       "level": "surface",
       "label": "Composants",
-      "max": 51,
+      "max": 54,
       "measure": {
         "kind": "count",
         "of": "components"
@@ -145,7 +145,7 @@
       "id": "surface_lib",
       "level": "surface",
       "label": "Modules lib",
-      "max": 52,
+      "max": 54,
       "measure": {
         "kind": "count",
         "of": "lib_modules"

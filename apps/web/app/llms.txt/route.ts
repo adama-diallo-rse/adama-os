@@ -83,6 +83,8 @@ lisez un intitulé différent ailleurs, c'est cette version qui fait foi.
 - Registre public des erreurs et méthodes obtenues : ${absoluteUrl("/erreurs")}
 - Journal de construction, lisible et brut : ${absoluteUrl("/journal")}
 - Lettre SIGNAL, consentement et mention d'information : ${absoluteUrl("/lettre")}
+- Notes de fond, en français et en anglais : ${absoluteUrl("/articles")}
+- Travailler ensemble, quatre portes et règle d'acceptation : ${absoluteUrl("/travaillez-avec-moi")}
 
 ## État du registre
 

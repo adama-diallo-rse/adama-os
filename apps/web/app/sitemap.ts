@@ -98,6 +98,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    // EC4 et EG0 a EG2 : le temps Apprendre et les pages de conseil.
+    ...[
+      "/articles",
+      "/travaillez-avec-moi",
+      "/diagnostic",
+      "/revue-architecture",
+    ].map((chemin) => ({
+      url: absoluteUrl(chemin),
+      lastModified: maintenant,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
     {
       url: absoluteUrl("/articles/methode-de-preuve"),
       lastModified: new Date("2026-09-18"),
