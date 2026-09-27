@@ -4,7 +4,7 @@ import { methodesProuvees } from "./methodes";
 // Le registre XDEC est tenu dans Notion : son compte est recopié ici, et
 // porte donc la date de sa copie (FAIL-004). Les deux compteurs qui ont un
 // registre dans le dépôt, erreurs ouvertes et méthodes prouvées, y sont lus.
-const DECISIONS_XDEC = { nombre: 60, releveLe: "2026-09-27" } as const;
+const DECISIONS_XDEC = { nombre: 61, releveLe: "2026-09-27" } as const;
 
 export const EXPANSION_TOTALS = [
   { value: "298", label: "idées réelles", detail: "AXP-01 à AXP-300" },

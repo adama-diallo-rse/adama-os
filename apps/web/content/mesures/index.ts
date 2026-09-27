@@ -8,6 +8,7 @@
 // =====================================================================
 
 import releve20260927 from "./m001-2026-09-27.json";
+import releve20260927T2113 from "./m001-2026-09-27T2113Z.json";
 
 type Verdict =
   | "concordant"
@@ -41,6 +42,7 @@ type ReleveM001 = {
 
 /** Du plus récent au plus ancien. */
 export const RELEVES_M001: readonly ReleveM001[] = [
+  releve20260927T2113 as ReleveM001,
   releve20260927 as ReleveM001,
 ];
 

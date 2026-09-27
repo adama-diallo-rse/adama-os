@@ -115,7 +115,9 @@ const methodes = METHODES.map((m) =>
     type: "methode",
     titre: m.nomAffiche,
     version: m.version,
-    etat: ETAT[m.etat],
+    // Un objet n'entre jamais dans le graphe à PROUVÉ : il y entre à TESTÉ
+    // et y monte par PASSAGES_EN0, une fois sa mesure publiée liée.
+    etat: m.etat === "PROUVÉ" ? "teste" : ETAT[m.etat],
     source: m.source.href,
     date_objet: m.dateDocumentation,
     date_derniere_revue: m.dateDerniereRevue,
@@ -241,6 +243,7 @@ const XDEC_DU_JOUR: readonly [number, string][] = [
   [58, "Les seuils d’arrêt chiffrés par branche"],
   [59, "Le seuil hebdomadaire de charge personnelle"],
   [60, "La position sur l’écriture avec assistance et sa revue"],
+  [61, "Passage de M-001 à l’état PROUVÉ"],
 ];
 const xdec = XDEC_DU_JOUR.map(([n, titre]) =>
   base({
@@ -417,6 +420,13 @@ const idees = IDEES.slice(0, Math.max(0, 100 - sansIdees.length)).map(
 
 export const ECHANTILLON_EN0: readonly ObjetGraphe[] = [...sansIdees, ...idees];
 
+/** Les montées d'état réelles, rejouées après l'insertion des liens. */
+export const PASSAGES_EN0: readonly { id: string; etat: "prouve" }[] =
+  METHODES.filter((m) => m.etat === "PROUVÉ").map((m) => ({
+    id: m.identifiant,
+    etat: "prouve" as const,
+  }));
+
 /** Types sans objet réel au jour du relevé : déclarés vides, jamais remplis. */
 export const TYPES_SANS_OBJET_REEL = ["playbook", "parcours"] as const;
 
@@ -449,6 +459,7 @@ export const LIENS_EN0: readonly LienGraphe[] = [
   // l'article long applique M-001, la décision du jour la régit
   { de: "ART-methode-de-preuve", nature: "applique", vers: "M-001" },
   { de: "XDEC-53", nature: "decide", vers: "M-001" },
+  { de: "XDEC-61", nature: "decide", vers: "M-001" },
   { de: "GAB-FICHE-METHODE", nature: "applique", vers: "M-001" },
   // un ADR remplacé et son successeur
   ...ADR_CATALOGUE.filter((a) => a.remplace).map((a) => ({

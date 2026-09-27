@@ -5,6 +5,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import {
   ECHANTILLON_EN0,
   LIENS_EN0,
+  PASSAGES_EN0,
   TYPES_SANS_OBJET_REEL,
   type ObjetGraphe,
 } from "./graphe/echantillon";
@@ -147,6 +148,12 @@ beforeAll(async () => {
   await db.exec("begin");
   for (const o of ECHANTILLON_EN0) await inserer(o);
   for (const l of LIENS_EN0) await lier(l.de, l.nature, l.vers);
+  for (const p of PASSAGES_EN0) {
+    await db.query("update graphe_objets set etat = $2 where id = $1", [
+      p.id,
+      p.etat,
+    ]);
+  }
   await db.exec("commit");
 }, 60_000);
 

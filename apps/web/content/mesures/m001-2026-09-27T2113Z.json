@@ -1,0 +1,189 @@
+{
+  "mesure": "M-001, taux de reproduction tierce des preuves publiques",
+  "protocole": "scripts/mesure-m001.mjs",
+  "site": "https://adamesg-os.fr",
+  "releveLe": "2026-09-27T21:13:35.922Z",
+  "derniereVerificationDuSite": "2026-09-27T06:00:47.031+00:00",
+  "basePublique": "fichier public /_next/static/chunks/30qw2e_-631ah.js",
+  "affirmations": 11,
+  "preuves": [
+    {
+      "affirmation": "strata-scope-en-ligne",
+      "nature": "api",
+      "adresse": "https://scope.esg-optimizer.fr",
+      "publie": "HTTP 200 OK en 558 ms",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "HTTP 200"
+    },
+    {
+      "affirmation": "strata-scope-en-ligne",
+      "nature": "depot",
+      "adresse": "adama-diallo-rse/strata-scope",
+      "publie": "dernier commit 80c53d1 du 2026-09-25",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "adama",
+      "verdict": "hors_tiers",
+      "reobserve": "déclarée vérifiable par adama"
+    },
+    {
+      "affirmation": "strata-scope-depot-suivi",
+      "nature": "depot",
+      "adresse": "adama-diallo-rse/strata-scope",
+      "publie": "dernier commit 80c53d1 du 2026-09-25",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "adama",
+      "verdict": "hors_tiers",
+      "reobserve": "déclarée vérifiable par adama"
+    },
+    {
+      "affirmation": "strata-scope-sondes-tracees",
+      "nature": "base",
+      "adresse": "ecosystem_probes",
+      "publie": "50 ligne(s) lisibles publiquement dans ecosystem_probes",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "50 ligne(s) lisibles sans compte"
+    },
+    {
+      "affirmation": "esg-optimizer-en-ligne",
+      "nature": "api",
+      "adresse": "https://esg-optimizer.fr",
+      "publie": "HTTP 200 OK en 392 ms",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "HTTP 200"
+    },
+    {
+      "affirmation": "esg-optimizer-en-ligne",
+      "nature": "depot",
+      "adresse": "iroko-software-group/esg-optimizer",
+      "publie": "dernier commit 0ecf4af du 2026-09-26",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "adama",
+      "verdict": "hors_tiers",
+      "reobserve": "déclarée vérifiable par adama"
+    },
+    {
+      "affirmation": "esg-optimizer-depot-suivi",
+      "nature": "depot",
+      "adresse": "iroko-software-group/esg-optimizer",
+      "publie": "dernier commit 0ecf4af du 2026-09-26",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "adama",
+      "verdict": "hors_tiers",
+      "reobserve": "déclarée vérifiable par adama"
+    },
+    {
+      "affirmation": "esg-optimizer-sondes-tracees",
+      "nature": "base",
+      "adresse": "ecosystem_probes",
+      "publie": "50 ligne(s) lisibles publiquement dans ecosystem_probes",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "50 ligne(s) lisibles sans compte"
+    },
+    {
+      "affirmation": "cockpit-code-public",
+      "nature": "depot",
+      "adresse": "adama-diallo-rse/adama-os",
+      "publie": "dernier commit 20c34d6 du 2026-09-26",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "commit 20c34d6 du 2026-09-26"
+    },
+    {
+      "affirmation": "registre-produits-en-base",
+      "nature": "base",
+      "adresse": "ecosystem_products",
+      "publie": "7 ligne(s) lisibles publiquement dans ecosystem_products",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "7 ligne(s) lisibles sans compte"
+    },
+    {
+      "affirmation": "registre-produits-en-base",
+      "nature": "depot",
+      "adresse": "adama-diallo-rse/adama-os",
+      "publie": "dernier commit 20c34d6 du 2026-09-26",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "commit 20c34d6 du 2026-09-26"
+    },
+    {
+      "affirmation": "metriques-portent-leur-provenance",
+      "nature": "base",
+      "adresse": "ecosystem_analytics",
+      "publie": "54 ligne(s) lisibles publiquement dans ecosystem_analytics",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "54 ligne(s) lisibles sans compte"
+    },
+    {
+      "affirmation": "metriques-portent-leur-provenance",
+      "nature": "depot",
+      "adresse": "adama-diallo-rse/adama-os",
+      "publie": "dernier commit 20c34d6 du 2026-09-26",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "commit 20c34d6 du 2026-09-26"
+    },
+    {
+      "affirmation": "sondes-distinguent-les-pannes",
+      "nature": "base",
+      "adresse": "ecosystem_probes",
+      "publie": "50 ligne(s) lisibles publiquement dans ecosystem_probes",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "50 ligne(s) lisibles sans compte"
+    },
+    {
+      "affirmation": "sondes-distinguent-les-pannes",
+      "nature": "depot",
+      "adresse": "adama-diallo-rse/adama-os",
+      "publie": "dernier commit 20c34d6 du 2026-09-26",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "commit 20c34d6 du 2026-09-26"
+    },
+    {
+      "affirmation": "registre-de-preuve-tenu",
+      "nature": "base",
+      "adresse": "proof_claims",
+      "publie": "11 ligne(s) lisibles publiquement dans proof_claims",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "11 ligne(s) lisibles sans compte"
+    },
+    {
+      "affirmation": "registre-de-preuve-tenu",
+      "nature": "base",
+      "adresse": "proof_evidence",
+      "publie": "17 ligne(s) lisibles publiquement dans proof_evidence",
+      "publieLe": "2026-09-27T06:00:47.031+00:00",
+      "verifiablePar": "visiteur",
+      "verdict": "concordant",
+      "reobserve": "17 ligne(s) lisibles sans compte"
+    }
+  ],
+  "totaux": {
+    "preuves": 17,
+    "concordant": 13,
+    "valeurChangee": 0,
+    "discordant": 0,
+    "nonReproductible": 0,
+    "horsTiers": 4
+  }
+}

@@ -5,7 +5,7 @@
     "exactement le probleme que ce fichier existe pour empecher."
   ],
   "schema_version": 1,
-  "executed_at": "2026-09-27T21:10:55.893Z",
+  "executed_at": "2026-09-27T21:18:06.922Z",
   "verdict": "partiel",
   "reussis": 9,
   "echoues": 0,
@@ -19,7 +19,7 @@
       "detail": "Aucune valeur ne se rend sans son marqueur de provenance, nulle part.",
       "status": "reussi",
       "message": "39 cas vérifiés",
-      "duree_secondes": 2.8
+      "duree_secondes": 2.5
     },
     {
       "id": "aucune-metrique-fabriquee",
@@ -27,7 +27,7 @@
       "detail": "Un repli chiffré, même bien intentionné, fait échouer ce contrôle.",
       "status": "reussi",
       "message": "9 cas vérifiés",
-      "duree_secondes": 2.5
+      "duree_secondes": 2.6
     },
     {
       "id": "passerelles-lecture-seule",
@@ -35,7 +35,7 @@
       "detail": "Aucune méthode d’écriture n’est appelée vers un produit du groupe.",
       "status": "reussi",
       "message": "23 cas vérifiés",
-      "duree_secondes": 1.2
+      "duree_secondes": 1.1
     },
     {
       "id": "rls",
@@ -50,8 +50,8 @@
       "label": "Typage, analyse statique, tests et construction passent",
       "detail": "La séquence complète de vérification locale, celle qui remplace l’intégration continue absente.",
       "status": "reussi",
-      "message": "typage, tests, analyse statique et construction passent, 830 cas vérifiés",
-      "duree_secondes": 42.6
+      "message": "typage, tests, analyse statique et construction passent, 831 cas vérifiés",
+      "duree_secondes": 40.2
     },
     {
       "id": "inventaire",
@@ -83,7 +83,7 @@
       "detail": "Au premier contact et en permanence dans l’en-tête de l’assistant.",
       "status": "reussi",
       "message": "7 cas vérifiés",
-      "duree_secondes": 1.9
+      "duree_secondes": 1.8
     },
     {
       "id": "preuves-fraiches",
@@ -91,7 +91,7 @@
       "detail": "Une affirmation dont la preuve a dépassé sa durée de validité se rend périmée, jamais fraîche. La règle est exercée sur des observations simulées, y compris les réponses qui ne confirment rien. Ce contrôle n’interroge pas le registre publié : l’état réel des preuves en ligne se lit sur la page des preuves, pas ici.",
       "status": "reussi",
       "message": "20 cas vérifiés",
-      "duree_secondes": 1.2
+      "duree_secondes": 1.1
     }
   ]
 }

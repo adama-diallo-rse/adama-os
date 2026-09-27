@@ -75,6 +75,61 @@ type VersionAnterieure = Omit<EntreeErreur, "historique"> & {
   motif: string;
 };
 
+const OBJET_FAIL_003: ObjetCorrige = {
+  nature: "Affirmation publiée",
+  reference: "strata-scope-depot-suivi et esg-optimizer-depot-suivi",
+  version: "Registre de preuve C2, énoncés semés avant le 27 septembre 2026",
+  href: "/verifier/strata-scope-depot-suivi",
+  ecrit: [
+    "Le code de STRATA Scope est versionné dans un dépôt suivi par ce cockpit, dont le dernier commit est lisible publiquement.",
+    "Le code d’ESG Optimizer est versionné dans un dépôt suivi par ce cockpit, dont le dernier commit est lisible publiquement.",
+  ],
+  vrai: "Les deux dépôts sont privés. Le cockpit en relève le dernier commit avec son jeton de lecture ; un visiteur ne peut pas relire ce commit.",
+  sourceVrai: {
+    label: "Mesure de reproduction tierce du 27 septembre 2026",
+    href: "/methodes/m-001#mesure",
+  },
+  changementMethode:
+    "Chaque preuve marquée vérifiable par un visiteur est relue sans jeton avant d’être publiée comme telle. Le protocole de la mesure de M-001 est ce contrôle, et il se rejoue par quiconque.",
+  dateConstat: "2026-09-27",
+  dateCorrection: null,
+};
+
+const FAIL_003_V1 = {
+  id: "FAIL-003",
+  version: 1,
+  date: "2026-09-27",
+  titre: "Deux dépôts privés étaient présentés comme lisibles publiquement",
+  categorie: "Mauvaise hypothèse",
+  statut: "ouverte",
+  pense:
+    "Une preuve lue avec succès par le cockpit pouvait être présentée comme vérifiable par n’importe quel visiteur, puisque l’adresse du dépôt était publiée.",
+  faits:
+    "Le 27 septembre 2026, la mesure de reproduction tierce a appelé l’API publique de GitHub sans jeton. Les dépôts de STRATA Scope et d’ESG Optimizer répondent 404 : quatre preuves publiques sur dix-sept ne se relisent pas.",
+  cause:
+    "Le cockpit lit GitHub avec son propre jeton. Il voyait donc des dépôts privés comme lisibles, et aucune étape ne refaisait la lecture depuis la position d’un visiteur sans compte.",
+  changement:
+    "Une preuve ne se déclare vérifiable par un visiteur qu’après une relecture sans jeton. La mesure de M-001 refait cette relecture sur chaque preuve publique, et les deux énoncés sont corrigés sans changer leur adresse de vérification.",
+  implication:
+    "Pour STRATA ESG, une preuve remise à un client sera relue depuis un poste sans accès avant d’être dite vérifiable par lui. Une preuve que seul l’éditeur peut relire se déclare comme telle.",
+  methode: {
+    titre: "Relire depuis la position du lecteur",
+    regle:
+      "Une preuve se déclare vérifiable par un visiteur seulement si un appel sans jeton, sans compte et sans accès privé la relit avec le même résultat.",
+  },
+  objet: OBJET_FAIL_003,
+  sources: [
+    {
+      label: "Protocole de la mesure, rejouable sans compte",
+      href: "https://github.com/adama-diallo-rse/adama-os/blob/main/scripts/mesure-m001.mjs",
+    },
+    {
+      label: "Correction datée des deux énoncés et des quatre preuves",
+      href: "https://github.com/adama-diallo-rse/adama-os/blob/main/packages/db/migrations/0008_depots_prives.sql",
+    },
+  ],
+} satisfies EntreeErreur;
+
 export const ERREURS: readonly EntreeErreur[] = [
   {
     id: "FAIL-004",
@@ -128,55 +183,25 @@ export const ERREURS: readonly EntreeErreur[] = [
     ],
   },
   {
-    id: "FAIL-003",
-    version: 1,
-    date: "2026-09-27",
-    titre: "Deux dépôts privés étaient présentés comme lisibles publiquement",
-    categorie: "Mauvaise hypothèse",
-    statut: "ouverte",
-    pense:
-      "Une preuve lue avec succès par le cockpit pouvait être présentée comme vérifiable par n’importe quel visiteur, puisque l’adresse du dépôt était publiée.",
-    faits:
-      "Le 27 septembre 2026, la mesure de reproduction tierce a appelé l’API publique de GitHub sans jeton. Les dépôts de STRATA Scope et d’ESG Optimizer répondent 404 : quatre preuves publiques sur dix-sept ne se relisent pas.",
-    cause:
-      "Le cockpit lit GitHub avec son propre jeton. Il voyait donc des dépôts privés comme lisibles, et aucune étape ne refaisait la lecture depuis la position d’un visiteur sans compte.",
+    ...FAIL_003_V1,
+    version: 2,
+    statut: "convertie",
     changement:
-      "Une preuve ne se déclare vérifiable par un visiteur qu’après une relecture sans jeton. La mesure de M-001 refait cette relecture sur chaque preuve publique, et les deux énoncés sont corrigés sans changer leur adresse de vérification.",
-    implication:
-      "Pour STRATA ESG, une preuve remise à un client sera relue depuis un poste sans accès avant d’être dite vérifiable par lui. Une preuve que seul l’éditeur peut relire se déclare comme telle.",
-    methode: {
-      titre: "Relire depuis la position du lecteur",
-      regle:
-        "Une preuve se déclare vérifiable par un visiteur seulement si un appel sans jeton, sans compte et sans accès privé la relit avec le même résultat.",
-    },
-    objet: {
-      nature: "Affirmation publiée",
-      reference: "strata-scope-depot-suivi et esg-optimizer-depot-suivi",
-      version:
-        "Registre de preuve C2, énoncés semés avant le 27 septembre 2026",
-      href: "/verifier/strata-scope-depot-suivi",
-      ecrit: [
-        "Le code de STRATA Scope est versionné dans un dépôt suivi par ce cockpit, dont le dernier commit est lisible publiquement.",
-        "Le code d’ESG Optimizer est versionné dans un dépôt suivi par ce cockpit, dont le dernier commit est lisible publiquement.",
-      ],
-      vrai: "Les deux dépôts sont privés. Le cockpit en relève le dernier commit avec son jeton de lecture ; un visiteur ne peut pas relire ce commit.",
-      sourceVrai: {
-        label: "Mesure de reproduction tierce du 27 septembre 2026",
-        href: "/methodes/m-001#mesure",
-      },
-      changementMethode:
-        "Chaque preuve marquée vérifiable par un visiteur est relue sans jeton avant d’être publiée comme telle. Le protocole de la mesure de M-001 est ce contrôle, et il se rejoue par quiconque.",
-      dateConstat: "2026-09-27",
-      dateCorrection: null,
-    },
+      "Une preuve ne se déclare vérifiable par un visiteur qu’après une relecture sans jeton. Les deux énoncés et les quatre preuves sont corrigés en ligne le 27 septembre 2026, sans changer leur adresse, et le relevé de 21 h 13 ne compte plus aucune discordance.",
+    objet: { ...OBJET_FAIL_003, dateCorrection: "2026-09-27" },
     sources: [
+      ...FAIL_003_V1.sources,
       {
-        label: "Protocole de la mesure, rejouable sans compte",
-        href: "https://github.com/adama-diallo-rse/adama-os/blob/main/scripts/mesure-m001.mjs",
+        label: "Relevé du 27 septembre 2026 à 21 h 13 UTC, zéro discordance",
+        href: "https://github.com/adama-diallo-rse/adama-os/blob/main/apps/web/content/mesures/m001-2026-09-27T2113Z.json",
       },
+    ],
+    historique: [
       {
-        label: "Correction datée des deux énoncés et des quatre preuves",
-        href: "https://github.com/adama-diallo-rse/adama-os/blob/main/packages/db/migrations/0008_depots_prives.sql",
+        ...FAIL_003_V1,
+        remplaceeLe: "2026-09-27",
+        motif:
+          "correction 0008 jouée en production et second relevé sans discordance",
       },
     ],
   },

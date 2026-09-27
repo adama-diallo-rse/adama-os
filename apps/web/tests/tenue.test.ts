@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { ERREURS } from "../content/erreurs";
+import { METHODES } from "../content/methodes";
 import {
   INDICATEURS_ES0,
   premierDimancheApres,
@@ -86,7 +87,7 @@ describe("ES0, aucune valeur estimée (XINV-56)", () => {
       String(ERREURS.filter((e) => e.statut === "ouverte").length),
     );
     expect(releve.find((v) => v.code === "methodes_prouvees")?.valeur).toBe(
-      "0 sur 7",
+      `${METHODES.filter((m) => m.etat === "PROUVÉ").length} sur ${METHODES.length}`,
     );
   });
 

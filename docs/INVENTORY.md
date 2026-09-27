@@ -56,7 +56,7 @@ echouer `--check` a chaque seconde.
 | `/login` | `apps/web/app/login/page.tsx` | 84 |
 | `/mentions-legales` | `apps/web/app/mentions-legales/page.tsx` | 118 |
 | `/methode` | `apps/web/app/methode/page.tsx` | 127 |
-| `/methodes/[code]` | `apps/web/app/methodes/[code]/page.tsx` | 470 |
+| `/methodes/[code]` | `apps/web/app/methodes/[code]/page.tsx` | 471 |
 | `/methodes` | `apps/web/app/methodes/page.tsx` | 172 |
 | `/metrics` | `apps/web/app/metrics/page.tsx` | 253 |
 | `/mot-de-passe` | `apps/web/app/mot-de-passe/page.tsx` | 38 |

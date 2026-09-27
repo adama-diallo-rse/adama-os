@@ -227,9 +227,9 @@ export const CHAMPS_FICHE = [
  * La mesure publiée de M-001 se lit dans le dernier relevé publié, jamais
  * recopiée : un nouveau relevé change la fiche sans qu'on la réécrive.
  */
-function mesureM001(): MesurePubliee | null {
+function mesureM001(): MesurePubliee {
   const releve = RELEVES_M001[0];
-  if (!releve) return null;
+  if (!releve) throw new Error("M-001 exige un relevé publié.");
   const t = totauxDe(releve);
   return {
     titre: "Taux de reproduction tierce des preuves publiques",
@@ -259,8 +259,8 @@ export const METHODES: readonly FicheMethode[] = [
     codeAxp: "AXP-192",
     nom: "Evidence-First ESG Architecture",
     nomAffiche: "Evidence-First ESG Architecture",
-    version: "1.0",
-    etat: "TESTÉ",
+    version: "1.1",
+    etat: "PROUVÉ",
     utiliseeDans: [
       { libelle: "Registre de preuve du site", href: "/preuves" },
       {
@@ -290,6 +290,12 @@ export const METHODES: readonly FicheMethode[] = [
     ],
     journal: [
       {
+        version: "1.1",
+        date: "2026-09-27",
+        changement:
+          "Passage à PROUVÉ (XDEC-61) : le relevé de 21 h 13 UTC, postérieur à la correction FAIL-003, ne compte aucune discordance.",
+      },
+      {
         version: "1.0",
         date: "2026-09-27",
         changement:
@@ -307,8 +313,13 @@ export const METHODES: readonly FicheMethode[] = [
       prixVerifieLe: "2026-09-27",
       semainesPersonne: 6,
     },
-    pourMonter: "Publier une mesure de résultat datée.",
-    preuveEtat: PREUVE_ETATS,
+    pourMonter:
+      "État le plus haut. M-001 redescend si un relevé compte une discordance non corrigée sous trente jours (XDEC-53).",
+    preuveEtat: {
+      libelle: "Mesure de résultat publiée, second relevé sans discordance",
+      href: "/methodes/m-001#mesure",
+      date: "2026-09-27",
+    },
     mesure: mesureM001(),
   },
   {

@@ -81,9 +81,9 @@ describe("EM1, les sept méthodes", () => {
     ]);
   });
 
-  it("porte les états qui font foi : six TESTÉ, un RECHERCHE, zéro PROUVÉ", () => {
+  it("porte les états qui font foi : M-001 PROUVÉ (XDEC-61), cinq TESTÉ, un RECHERCHE", () => {
     expect(METHODES.map((m) => m.etat)).toEqual([
-      "TESTÉ",
+      "PROUVÉ",
       "TESTÉ",
       "TESTÉ",
       "TESTÉ",
@@ -91,7 +91,7 @@ describe("EM1, les sept méthodes", () => {
       "TESTÉ",
       "RECHERCHE",
     ]);
-    expect(methodesProuvees()).toEqual({ prouvees: 0, total: 7 });
+    expect(methodesProuvees()).toEqual({ prouvees: 1, total: 7 });
   });
 
   it("relie AXP-192 à AXP-198 aux sept méthodes, code par code", () => {
@@ -193,7 +193,12 @@ describe("EM2, la mesure de résultat de M-001", () => {
     expect(m001?.mesure?.releveLe).toBe(releve.releveLe.slice(0, 10));
   });
 
-  it("reste TESTÉ tant qu'Adama n'a pas écrit la décision de passage", () => {
-    expect(METHODES[0]?.etat).toBe("TESTÉ");
+  it("n'est PROUVÉ que porté par un relevé sans discordance, postérieur au défavorable", () => {
+    const m001 = METHODES[0];
+    expect(m001?.etat).toBe("PROUVÉ");
+    if (!releve) return;
+    expect(totauxDe(releve).discordant).toBe(0);
+    expect(RELEVES_M001.some((r) => totauxDe(r).discordant > 0)).toBe(true);
+    expect(m001 && controlerFiche(m001).filter((x) => x.bloquant)).toEqual([]);
   });
 });

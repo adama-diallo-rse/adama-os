@@ -32,7 +32,7 @@
 // tiers » : elle n'est ni concordante ni discordante, elle est honnête.
 // =====================================================================
 
-import { writeFileSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -209,16 +209,26 @@ const sortie = JSON.stringify(releve, null, 2);
 process.stdout.write(`${sortie}\n`);
 
 if (ECRIRE) {
-  const jour = debut.toISOString().slice(0, 10);
-  const cible = join(
-    RACINE,
-    "apps",
-    "web",
-    "content",
-    "mesures",
-    `m001-${jour}.json`,
-  );
+  // Un relevé publié ne se réécrit jamais : le nom porte le jour et l'heure
+  // UTC à la minute, et le script refuse d'écraser un fichier existant. Le
+  // premier relevé, du 27 septembre 2026 à 10 h 48, garde son nom d'origine.
+  const instant = debut.toISOString();
+  const nom = `m001-${instant.slice(0, 10)}T${instant.slice(11, 13)}${instant.slice(14, 16)}Z.json`;
+  const cible = join(RACINE, "apps", "web", "content", "mesures", nom);
+  if (existsSync(cible)) {
+    process.stderr.write(
+      `Refusé : ${cible} existe déjà, un relevé ne se réécrit pas.
+`,
+    );
+    process.exit(1);
+  }
   mkdirSync(dirname(cible), { recursive: true });
-  writeFileSync(cible, `${sortie}\n`, "utf8");
-  process.stderr.write(`Relevé écrit : ${cible}\n`);
+  writeFileSync(
+    cible,
+    `${sortie}
+`,
+    { encoding: "utf8", flag: "wx" },
+  );
+  process.stderr.write(`Relevé écrit : ${cible}
+`);
 }

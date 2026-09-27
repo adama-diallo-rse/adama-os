@@ -400,6 +400,7 @@ function DossierM001() {
               <li key={c}>{c}</li>
             ))}
           </ol>
+          <p className="strates-constat">{REGLE_PASSAGE_M001.constat}</p>
           <p>{REGLE_PASSAGE_M001.redescente}</p>
         </div>
       </section>

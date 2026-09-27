@@ -62,6 +62,8 @@ export const REGLE_PASSAGE_M001 = {
     "Un relevé postérieur à la mise en ligne de la correction FAIL-003 ne compte aucune preuve discordante parmi celles que le site déclare vérifiables par un visiteur.",
     "Adama constate ces deux faits et les écrit dans une décision datée du registre XDEC.",
   ],
+  constat:
+    "Les trois conditions sont réunies le 27 septembre 2026 : la correction FAIL-003 est en ligne, le relevé de 21 h 13 UTC ne compte aucune discordance, et la décision XDEC-61 écrit le passage de M-001 à l’état PROUVÉ.",
   redescente:
     "M-001 redescend si un relevé ultérieur compte une preuve discordante qui n’est pas corrigée dans les trente jours, avec son entrée au registre public des erreurs.",
 } as const;

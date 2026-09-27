@@ -24,6 +24,8 @@ export const EMPREINTES_ERREURS: Readonly<Record<string, string>> = {
     "5ea5eec304aa70b5b5fe5b0bf7171c83bed8fd9e5b8c91925d7228f269c5bb92",
   "FAIL-003@1":
     "a4f8d038e68eec9dd7f06554acc3b77cf9dfa586daeb7da1e2136baa234f7b64",
+  "FAIL-003@2":
+    "336fbd266a32d952617b335fa0792ea3883413bce6e58192b364c7448de330b4",
   "FAIL-004@1":
     "525846444e3e1d217ad832be906d2d3e68ffd05be78a495d3c560eff9fbd1ae4",
 };

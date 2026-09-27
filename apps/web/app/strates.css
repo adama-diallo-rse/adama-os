@@ -71,8 +71,15 @@
   border-color: var(--strata-gold);
 }
 
-.strates-etat[data-etat="PROUVÉ"] {
+.strates-etat[data-etat="PROUVÉ"],
+.intro-note .strates-etat-grand[data-etat="PROUVÉ"] {
   color: #2f6c57;
+}
+
+.strates-constat {
+  padding-left: 14px;
+  border-left: 3px solid #2f6c57;
+  color: var(--ink);
 }
 
 .strates-etat[data-etat="PROUVÉ"]::before {
