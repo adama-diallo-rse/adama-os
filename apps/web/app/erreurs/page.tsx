@@ -11,6 +11,14 @@ import { absoluteUrl } from "../../lib/site";
 const CHEMIN = "/erreurs";
 const mesure = mesurerConversion();
 
+const dateLongue = (date: string) =>
+  new Intl.DateTimeFormat("fr-FR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+    timeZone: "Europe/Paris",
+  }).format(new Date(`${date}T12:00:00+02:00`));
+
 export const metadata: Metadata = {
   title: "Registre public des erreurs",
   description:
@@ -70,7 +78,9 @@ export default function ErreursPage() {
           description="Une erreur n’est publiée ni pour se confesser, ni pour meubler un récit. Elle entre ici quand les faits sont établis, que la correction est traçable et qu’une règle réutilisable en est sortie."
           aside={
             <div className="intro-note error-conversion">
-              <span className="intro-note-label">CONVERSION DU REGISTRE</span>
+              <span className="intro-note-label">
+                ERREURS DEVENUES MÉTHODES
+              </span>
               <strong>
                 {mesure.converties}/{mesure.publiees}
               </strong>
@@ -165,12 +175,108 @@ export default function ErreursPage() {
                   ))}
                 </dl>
 
+                {erreur.objet && (
+                  <section
+                    className="error-correction"
+                    aria-label={`Correction de l’objet ${erreur.objet.reference}`}
+                  >
+                    <header>
+                      <p className="portfolio-label">
+                        OBJET CORRIGÉ / {erreur.objet.nature.toUpperCase()}
+                      </p>
+                      <p>
+                        <Link href={erreur.objet.href}>
+                          {erreur.objet.reference}
+                        </Link>
+                        <span>{erreur.objet.version}</span>
+                      </p>
+                      <dl>
+                        <div>
+                          <dt>Constatée le</dt>
+                          <dd>
+                            <time dateTime={erreur.objet.dateConstat}>
+                              {dateLongue(erreur.objet.dateConstat)}
+                            </time>
+                          </dd>
+                        </div>
+                        <div>
+                          <dt>Corrigée en ligne le</dt>
+                          <dd data-attente={!erreur.objet.dateCorrection}>
+                            {erreur.objet.dateCorrection ? (
+                              <time dateTime={erreur.objet.dateCorrection}>
+                                {dateLongue(erreur.objet.dateCorrection)}
+                              </time>
+                            ) : (
+                              "Correction écrite, pas encore en ligne"
+                            )}
+                          </dd>
+                        </div>
+                      </dl>
+                    </header>
+                    <div className="error-correction-grid">
+                      <div>
+                        <h4>Ce qui était écrit</h4>
+                        {erreur.objet.ecrit.map((texte) => (
+                          <blockquote key={texte}>
+                            <del>{texte}</del>
+                          </blockquote>
+                        ))}
+                      </div>
+                      <div>
+                        <h4>Ce qui est vrai</h4>
+                        <p>{erreur.objet.vrai}</p>
+                        <Link href={erreur.objet.sourceVrai.href}>
+                          {erreur.objet.sourceVrai.label}{" "}
+                          <span aria-hidden="true">→</span>
+                        </Link>
+                      </div>
+                      <div>
+                        <h4>Ce qui a changé dans la méthode</h4>
+                        <p>{erreur.objet.changementMethode}</p>
+                      </div>
+                    </div>
+                  </section>
+                )}
+
                 {erreur.methode && (
                   <aside className="error-method" aria-label="Méthode obtenue">
                     <p className="portfolio-label">MÉTHODE OBTENUE</p>
                     <h4>{erreur.methode.titre}</h4>
                     <p>{erreur.methode.regle}</p>
                   </aside>
+                )}
+
+                {erreur.historique && erreur.historique.length > 0 && (
+                  <details className="error-history">
+                    <summary>
+                      Versions antérieures, conservées telles que publiées (
+                      {erreur.historique.length})
+                    </summary>
+                    {erreur.historique.map((ancienne) => (
+                      <article key={`${ancienne.id}-${ancienne.version ?? 1}`}>
+                        <p>
+                          <code>Version {ancienne.version ?? 1}</code>
+                          <span>
+                            Remplacée le{" "}
+                            <time dateTime={ancienne.remplaceeLe}>
+                              {dateLongue(ancienne.remplaceeLe)}
+                            </time>
+                            , {ancienne.motif}
+                          </span>
+                        </p>
+                        <dl>
+                          {BLOCS.map(([label, champ]) => (
+                            <div key={champ}>
+                              <dt>{label}</dt>
+                              <dd>
+                                <del>{ancienne[champ]}</del>
+                              </dd>
+                            </div>
+                          ))}
+                        </dl>
+                      </article>
+                    ))}
+                  </details>
                 )}
 
                 <footer>

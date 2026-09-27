@@ -74,6 +74,20 @@ export default function MethodePage() {
 
       <section className="page-next">
         <div>
+          <p className="portfolio-label">BIBLIOTHÈQUE / M-001 À M-007</p>
+          <h2>Cette chaîne applique M-001 à la provenance des idées.</h2>
+          <p>
+            Les sept méthodes ont chacune leur fiche, leur état exact, la preuve
+            qui le justifie et ce qu’il faut pour monter.
+          </p>
+        </div>
+        <Link href="/methodes" className="portfolio-button primary">
+          Ouvrir la bibliothèque <span aria-hidden="true">→</span>
+        </Link>
+      </section>
+
+      <section className="page-next">
+        <div>
           <p className="portfolio-label">ARTICLE LONG / AXP-71</p>
           <h2>La preuve commence quand le système accepte d’avoir tort.</h2>
           <p>

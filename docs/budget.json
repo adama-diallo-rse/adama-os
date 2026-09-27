@@ -115,7 +115,7 @@
       "id": "surface_pages",
       "level": "surface",
       "label": "Routes de page",
-      "max": 40,
+      "max": 46,
       "measure": {
         "kind": "count",
         "of": "pages"

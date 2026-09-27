@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@adama/config": "workspace:*",
+    "@electric-sql/pglite": "0.3.16",
     "dotenv": "^16.4.7",
     "drizzle-kit": "^0.28.0",
     "eslint": "^9.18.0",

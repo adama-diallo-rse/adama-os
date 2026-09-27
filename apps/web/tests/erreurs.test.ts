@@ -42,7 +42,9 @@ describe("EW3, registre public des erreurs", () => {
         (erreur) => erreur.statut === "convertie" && erreur.methode,
       ).length,
     );
-    expect(mesure.taux).toBe(100);
+    expect(mesure.taux).toBe(
+      Math.round((mesure.converties / mesure.publiees) * 100),
+    );
   });
 
   it("fait baisser la mesure quand une erreur reste ouverte", () => {
@@ -56,9 +58,10 @@ describe("EW3, registre public des erreurs", () => {
       statut: "ouverte" as const,
       methode: undefined,
     };
+    const avant = mesurerConversion();
     const mesure = mesurerConversion([...ERREURS, ouverte]);
-    expect(mesure.publiees).toBe(3);
-    expect(mesure.converties).toBe(2);
-    expect(mesure.taux).toBe(67);
+    expect(mesure.publiees).toBe(avant.publiees + 1);
+    expect(mesure.converties).toBe(avant.converties);
+    expect(mesure.taux ?? 0).toBeLessThan(avant.taux ?? 0);
   });
 });

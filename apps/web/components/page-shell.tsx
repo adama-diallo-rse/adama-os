@@ -48,6 +48,7 @@ export function PageShell({
             <Link href="/lettre">Lettre SIGNAL</Link>
             <Link href="/changelog">Journal des versions</Link>
             <Link href="/erreurs">Registre des erreurs</Link>
+            <Link href="/ecriture">Écriture et assistance</Link>
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/confidentialite">Confidentialité</Link>
             <Link href="/confiance">Frontières de données</Link>

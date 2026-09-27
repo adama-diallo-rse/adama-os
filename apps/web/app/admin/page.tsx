@@ -57,6 +57,10 @@ export default async function AdminPage() {
         <Link href="/admin/demandes" className="portfolio-button ghost">
           Lire les demandes de conseil →
         </Link>
+        {/* ES0 : les huit indicateurs de la branche, relevés et non estimés. */}
+        <Link href="/admin/tenue" className="portfolio-button ghost">
+          Relever la tenue de la branche →
+        </Link>
         <section className="metrics-history">
           <h2>Relevés actuels</h2>
           {error ? (

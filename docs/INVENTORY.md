@@ -13,16 +13,16 @@ echouer `--check` a chaque seconde.
 
 | Mesure | Valeur |
 | --- | --- |
-| Routes de page | 40 |
+| Routes de page | 44 |
 | Routes d'API | 11 |
 | Composants | 54 |
 | Modules `lib` | 54 |
 | Tables Drizzle | 11 |
 | Types enumeres | 14 |
-| Migrations SQL | 8 |
-| Fichiers de test | 54 |
-| Cas de test | 527 |
-| Dependances directes declarees | 51 |
+| Migrations SQL | 10 |
+| Fichiers de test | 60 |
+| Cas de test | 593 |
+| Dependances directes declarees | 53 |
 
 ## Routes
 
@@ -30,8 +30,9 @@ echouer `--check` a chaque seconde.
 | --- | --- | --- |
 | `/admin/demandes` | `apps/web/app/admin/demandes/page.tsx` | 176 |
 | `/admin/lettre` | `apps/web/app/admin/lettre/page.tsx` | 299 |
-| `/admin` | `apps/web/app/admin/page.tsx` | 94 |
+| `/admin` | `apps/web/app/admin/page.tsx` | 98 |
 | `/admin/relecture` | `apps/web/app/admin/relecture/page.tsx` | 227 |
+| `/admin/tenue` | `apps/web/app/admin/tenue/page.tsx` | 183 |
 | `/articles/architecture-donnee-esg-afrique-ouest` | `apps/web/app/articles/architecture-donnee-esg-afrique-ouest/page.tsx` | 53 |
 | `/articles/methode-de-preuve` | `apps/web/app/articles/methode-de-preuve/page.tsx` | 53 |
 | `/articles` | `apps/web/app/articles/page.tsx` | 94 |
@@ -44,16 +45,19 @@ echouer `--check` a chaque seconde.
 | `/decisions` | `apps/web/app/decisions/page.tsx` | 148 |
 | `/diagnostic` | `apps/web/app/diagnostic/page.tsx` | 215 |
 | `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 178 |
+| `/ecriture` | `apps/web/app/ecriture/page.tsx` | 155 |
 | `/en/articles/proof-method` | `apps/web/app/en/articles/proof-method/page.tsx` | 53 |
 | `/en/articles/seven-constraints-west-african-esg-data` | `apps/web/app/en/articles/seven-constraints-west-african-esg-data/page.tsx` | 53 |
 | `/en/articles/west-african-esg-data-architecture` | `apps/web/app/en/articles/west-african-esg-data-architecture/page.tsx` | 53 |
-| `/erreurs` | `apps/web/app/erreurs/page.tsx` | 215 |
+| `/erreurs` | `apps/web/app/erreurs/page.tsx` | 321 |
 | `/expansion` | `apps/web/app/expansion/page.tsx` | 207 |
 | `/journal` | `apps/web/app/journal/page.tsx` | 123 |
 | `/lettre` | `apps/web/app/lettre/page.tsx` | 259 |
 | `/login` | `apps/web/app/login/page.tsx` | 84 |
 | `/mentions-legales` | `apps/web/app/mentions-legales/page.tsx` | 118 |
-| `/methode` | `apps/web/app/methode/page.tsx` | 113 |
+| `/methode` | `apps/web/app/methode/page.tsx` | 127 |
+| `/methodes/[code]` | `apps/web/app/methodes/[code]/page.tsx` | 470 |
+| `/methodes` | `apps/web/app/methodes/page.tsx` | 172 |
 | `/metrics` | `apps/web/app/metrics/page.tsx` | 253 |
 | `/mot-de-passe` | `apps/web/app/mot-de-passe/page.tsx` | 38 |
 | `/` | `apps/web/app/page.tsx` | 225 |
@@ -81,7 +85,7 @@ echouer `--check` a chaque seconde.
 | `/api/metrics` | `apps/web/app/api/metrics/route.ts` | 34 |
 | `/api/trajectory` | `apps/web/app/api/trajectory/route.ts` | 62 |
 | `/auth/callback` | `apps/web/app/auth/callback/route.ts` | 76 |
-| `/llms.txt` | `apps/web/app/llms.txt/route.ts` | 105 |
+| `/llms.txt` | `apps/web/app/llms.txt/route.ts` | 108 |
 
 ## Base de donnees
 
@@ -98,6 +102,8 @@ Migrations :
 - `packages/db/migrations/0004_proof.sql`
 - `packages/db/migrations/0005_adr.sql`
 - `packages/db/migrations/0006_revirements.sql`
+- `packages/db/migrations/0007_graphe.sql`
+- `packages/db/migrations/0008_depots_prives.sql`
 - `packages/db/migrations/seed_ecosystem_products.sql`
 
 ## Composants et modules
@@ -129,7 +135,7 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 Hotes distincts appeles ou lies depuis le code :
 
-`${vercel_host}`, `adamesg-os.fr`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `esg-optimizer.fr`, `eu.i.posthog.com`, `github.com`, `schema.org`, `scope.esg-optimizer.fr`, `uptime.betterstack.com`, `www.strata-esg.fr`
+`${vercel_host}`, `adamesg-os.fr`, `adamesg-os.fr${a.href}`, `adamesg-os.fr${chemin}`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `esg-optimizer.fr`, `eu.i.posthog.com`, `eur-lex.europa.eu`, `ghgprotocol.org`, `github.com`, `schema.org`, `scope.esg-optimizer.fr`, `uptime.betterstack.com`, `www.efrag.org`, `www.ifrs.org`, `www.notion.so`, `www.strata-esg.fr`
 
 ### URL absolues du site ecrites en dur
 
@@ -137,7 +143,14 @@ Regle : l'origine du site vit dans `apps/web/lib/site.ts` et nulle part
 ailleurs. Les origines d'API tierces ne sont pas concernees, elles n'ont
 pas d'autre endroit ou vivre.
 
-Aucune. Le controle passe.
+- apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr${a.href}
+- apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr${chemin}
+- apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/decisions/${a.adrId}
+- apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/ecriture
+- apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/erreurs
+- apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/methodes#fiche-type
+- apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/methodes/m-001#mesure
+- apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/verifier/${id}
 
 ## Marqueurs TODO et FIXME
 
@@ -170,6 +183,7 @@ est un defaut ouvert.
 | Nature | Entree | Justification declaree |
 | --- | --- | --- |
 | export | `apps/web/app/api/chat/route.ts#questionDeRecherche` | Regle de construction de la question envoyee a la recherche documentaire, dans la route qui l'emploie. Exportee pour etre verifiee directement : c'est une regle de comportement, pas un detail d'implementation, et la tester a travers une requete HTTP complete demanderait une base et une cle d'API. Voir tests/adama-moteur.test.ts. |
+| export | `apps/web/app/methodes/[code]/page.tsx#dynamicParams` | Convention de Next.js : dynamicParams = false refuse toute fiche de méthode hors des sept que generateStaticParams déclare. Next la lit par son nom exporté, aucun module ne l'importe. |
 | export | `apps/web/components/build-log.tsx#JournalFiltres` | Forme des filtres du journal, produite par lireFiltres et consommee par BuildLog dans le meme fichier. Exportee parce que la page /journal la transporte entre les deux : c'est le contrat de l'etat porte par l'URL. |
 | export | `apps/web/components/health-matrix.tsx#HealthMark` | Le marqueur d'etat de sante, seul endroit qui decide de son rendu. Exporte au meme titre que DataClassMark pour C1 : le jour ou un etat de sante s'affiche ailleurs, il doit venir d'ici et non d'une seconde composition. |
 | export | `apps/web/components/types.ts#TrajectoryType` | Type du champ `type` de la table trajectory. Utilise dans ce meme fichier par TrajectoryRow, exporte pour rester citable par un composant a venir. Le retirer forcerait a reecrire l'union en clair a chaque usage. |
@@ -302,7 +316,7 @@ Severite actuelle : `error` (avertissement en vague V0, erreur a partir de V2).
 | N2 | Preuves sociales affichees d'un bloc dans la Couche D | 1 | 4 | tenu |
 | N2 | Experiences citees dans le bandeau de la home | 4 | 4 | tenu |
 | N2 | Marques d'organisation affichees sur le site | 4 | 5 | tenu |
-| surface | Routes de page | 40 | 40 | tenu |
+| surface | Routes de page | 44 | 46 | tenu |
 | surface | Routes d'API | 11 | 11 | tenu |
 | surface | Composants | 54 | 54 | tenu |
 | surface | Modules lib | 54 | 54 | tenu |

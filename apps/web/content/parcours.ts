@@ -42,6 +42,7 @@ export const PARCOURS_VISITEUR: readonly TempsParcours[] = [
       "/journal",
       "/erreurs",
       "/expansion",
+      "/ecriture",
     ],
     question: "Qu’est-ce qui a réellement été fait, et comment le vérifier ?",
     signalInutile:
@@ -63,7 +64,7 @@ export const PARCOURS_VISITEUR: readonly TempsParcours[] = [
     libelle: "Construire",
     libelleEn: "Build",
     href: "/methode",
-    actifSur: ["/methode", "/principes", "/technique"],
+    actifSur: ["/methode", "/methodes", "/principes", "/technique"],
     question: "Comment passer d’une idée à un actif vérifiable ?",
     signalInutile: "La méthode est ouverte puis quittée sans lecture.",
     sortie: false,

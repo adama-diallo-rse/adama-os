@@ -71,7 +71,8 @@
     "packages/db/src/client.ts#closeDb": "Fermeture explicite de la connexion, appelee par ingest.ts et verify-rag.ts a travers un import dynamique que la detection ne suit pas. Sans elle, process.exit laisse une poignee ouverte et le code de sortie ment sous Windows.",
     "packages/db/src/index.ts#DB_PACKAGE": "Marqueur d'identite du paquet, lu a l'oeil dans un journal ou une session Node pour verifier quel paquet est charge.",
     "packages/db/src/schema.ts#*": "Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit.",
-    "packages/ui/src/index.ts#UI_PACKAGE": "Meme role que DB_PACKAGE pour @adama/ui."
+    "packages/ui/src/index.ts#UI_PACKAGE": "Meme role que DB_PACKAGE pour @adama/ui.",
+    "apps/web/app/methodes/[code]/page.tsx#dynamicParams": "Convention de Next.js : dynamicParams = false refuse toute fiche de méthode hors des sept que generateStaticParams déclare. Next la lit par son nom exporté, aucun module ne l'importe."
   },
   "components": {},
   "routes": {},

@@ -44,6 +44,9 @@ import "./erreurs.css";
 // EC1 a EG2 : signature verifiable, parcours en cinq temps, notes de fond,
 // quatre portes, diagnostic court, revue et console des demandes.
 import "./conseil.css";
+// Vague 1 des strates : méthodes, mesure de M-001, écriture avec assistance,
+// tenue privée et corrections d’objets publiés.
+import "./strates.css";
 import localFont from "next/font/local";
 
 const syne = localFont({

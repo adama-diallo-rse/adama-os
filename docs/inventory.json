@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
   "surface": {
-    "pages": 40,
+    "pages": 44,
     "api_routes": 11,
     "components": 54,
     "lib_modules": 54,
     "tables": 11,
     "enums": 14,
-    "migrations": 8,
+    "migrations": 10,
     "policies": 21,
-    "test_files": 54,
-    "test_cases": 527,
-    "dependencies": 51
+    "test_files": 60,
+    "test_cases": 593,
+    "dependencies": 53
   },
   "pages": [
     {
@@ -27,12 +27,17 @@
     {
       "file": "apps/web/app/admin/page.tsx",
       "route": "/admin",
-      "lines": 94
+      "lines": 98
     },
     {
       "file": "apps/web/app/admin/relecture/page.tsx",
       "route": "/admin/relecture",
       "lines": 227
+    },
+    {
+      "file": "apps/web/app/admin/tenue/page.tsx",
+      "route": "/admin/tenue",
+      "lines": 183
     },
     {
       "file": "apps/web/app/articles/architecture-donnee-esg-afrique-ouest/page.tsx",
@@ -95,6 +100,11 @@
       "lines": 178
     },
     {
+      "file": "apps/web/app/ecriture/page.tsx",
+      "route": "/ecriture",
+      "lines": 155
+    },
+    {
       "file": "apps/web/app/en/articles/proof-method/page.tsx",
       "route": "/en/articles/proof-method",
       "lines": 53
@@ -112,7 +122,7 @@
     {
       "file": "apps/web/app/erreurs/page.tsx",
       "route": "/erreurs",
-      "lines": 215
+      "lines": 321
     },
     {
       "file": "apps/web/app/expansion/page.tsx",
@@ -142,7 +152,17 @@
     {
       "file": "apps/web/app/methode/page.tsx",
       "route": "/methode",
-      "lines": 113
+      "lines": 127
+    },
+    {
+      "file": "apps/web/app/methodes/[code]/page.tsx",
+      "route": "/methodes/[code]",
+      "lines": 470
+    },
+    {
+      "file": "apps/web/app/methodes/page.tsx",
+      "route": "/methodes",
+      "lines": 172
     },
     {
       "file": "apps/web/app/metrics/page.tsx",
@@ -269,7 +289,7 @@
     {
       "file": "apps/web/app/llms.txt/route.ts",
       "route": "/llms.txt",
-      "lines": 105
+      "lines": 108
     }
   ],
   "components": [
@@ -403,7 +423,7 @@
     },
     {
       "file": "apps/web/components/page-shell.tsx",
-      "lines": 86
+      "lines": 87
     },
     {
       "file": "apps/web/components/portfolio-art.tsx",
@@ -746,6 +766,8 @@
       "packages/db/migrations/0004_proof.sql",
       "packages/db/migrations/0005_adr.sql",
       "packages/db/migrations/0006_revirements.sql",
+      "packages/db/migrations/0007_graphe.sql",
+      "packages/db/migrations/0008_depots_prives.sql",
       "packages/db/migrations/seed_ecosystem_products.sql"
     ],
     "policies": [
@@ -784,6 +806,9 @@
       "ecosystem_probes.ecosystem_probes_service_write",
       "ecosystem_products.ecosystem_admin_write",
       "ecosystem_products.ecosystem_public_read",
+      "graphe_liaisons_permises.graphe_liaisons_lecture",
+      "graphe_liens.graphe_liens_lecture_publique",
+      "graphe_objets.graphe_objets_lecture_publique",
       "leads.leads_admin_read",
       "leads.leads_public_insert",
       "proof_claims.proof_claims_public_read",
@@ -805,6 +830,10 @@
       "ecosystem_analytics",
       "ecosystem_probes",
       "ecosystem_products",
+      "graphe_journal_etats",
+      "graphe_liaisons_permises",
+      "graphe_liens",
+      "graphe_objets",
       "leads",
       "proof_claims",
       "proof_evidence",
@@ -837,9 +866,12 @@
       "apps/web/tests/ecosystem-catalog.test.tsx",
       "apps/web/tests/ecosystem-gateway.test.ts",
       "apps/web/tests/ecosystem-map.test.tsx",
+      "apps/web/tests/erreurs-registre.test.ts",
       "apps/web/tests/erreurs.test.ts",
+      "apps/web/tests/formulation-institutionnelle.test.ts",
       "apps/web/tests/frontieres.test.ts",
       "apps/web/tests/github-auth.test.ts",
+      "apps/web/tests/graphe-sql.test.ts",
       "apps/web/tests/health.test.tsx",
       "apps/web/tests/integrite.test.tsx",
       "apps/web/tests/journal.test.ts",
@@ -852,10 +884,12 @@
       "apps/web/tests/lettre.test.ts",
       "apps/web/tests/lexique-anglais.test.tsx",
       "apps/web/tests/marque.test.ts",
+      "apps/web/tests/methodes.test.ts",
       "apps/web/tests/narrative.test.tsx",
       "apps/web/tests/no-fabrication.test.ts",
       "apps/web/tests/outbound.test.ts",
       "apps/web/tests/parcours.test.ts",
+      "apps/web/tests/position-assistance.test.ts",
       "apps/web/tests/principes.test.ts",
       "apps/web/tests/profil.test.ts",
       "apps/web/tests/projets.test.ts",
@@ -869,10 +903,11 @@
       "apps/web/tests/rls.integration.test.ts",
       "apps/web/tests/site.test.ts",
       "apps/web/tests/technique.test.tsx",
+      "apps/web/tests/tenue.test.ts",
       "apps/web/tests/trajectory.test.ts",
       "apps/web/tests/vocabulaire.test.ts"
     ],
-    "cases": 527
+    "cases": 593
   },
   "rendu": {
     "pages": 13,
@@ -912,6 +947,12 @@
       "name": "@ai-sdk/react",
       "range": "^2.0.0",
       "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@electric-sql/pglite",
+      "range": "0.3.16",
+      "kind": "devDependencies"
     },
     {
       "workspace": "apps/web/package.json",
@@ -1107,6 +1148,12 @@
     },
     {
       "workspace": "packages/db/package.json",
+      "name": "@electric-sql/pglite",
+      "range": "0.3.16",
+      "kind": "devDependencies"
+    },
+    {
+      "workspace": "packages/db/package.json",
       "name": "dotenv",
       "range": "^16.4.7",
       "kind": "devDependencies"
@@ -1241,19 +1288,35 @@
   "outbound_hosts": [
     "${vercel_host}",
     "adamesg-os.fr",
+    "adamesg-os.fr${a.href}",
+    "adamesg-os.fr${chemin}",
     "api.github.com",
     "api.openai.com",
     "api.resend.com",
     "cal.com",
     "esg-optimizer.fr",
     "eu.i.posthog.com",
+    "eur-lex.europa.eu",
+    "ghgprotocol.org",
     "github.com",
     "schema.org",
     "scope.esg-optimizer.fr",
     "uptime.betterstack.com",
+    "www.efrag.org",
+    "www.ifrs.org",
+    "www.notion.so",
     "www.strata-esg.fr"
   ],
-  "hardcoded_self_urls": [],
+  "hardcoded_self_urls": [
+    "apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr${a.href}",
+    "apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr${chemin}",
+    "apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/decisions/${a.adrId}",
+    "apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/ecriture",
+    "apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/erreurs",
+    "apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/methodes#fiche-type",
+    "apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/methodes/m-001#mesure",
+    "apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/verifier/${id}"
+  ],
   "markers": [],
   "long_dashes": [
     "apps/web/lib/vocabulaire.ts : motif: /[–—]/g,"
@@ -1286,6 +1349,11 @@
       "id": "apps/web/app/api/chat/route.ts#questionDeRecherche",
       "kind": "export",
       "declared_intentional": "Regle de construction de la question envoyee a la recherche documentaire, dans la route qui l'emploie. Exportee pour etre verifiee directement : c'est une regle de comportement, pas un detail d'implementation, et la tester a travers une requete HTTP complete demanderait une base et une cle d'API. Voir tests/adama-moteur.test.ts."
+    },
+    {
+      "id": "apps/web/app/methodes/[code]/page.tsx#dynamicParams",
+      "kind": "export",
+      "declared_intentional": "Convention de Next.js : dynamicParams = false refuse toute fiche de méthode hors des sept que generateStaticParams déclare. Next la lit par son nom exporté, aucun module ne l'importe."
     },
     {
       "id": "apps/web/components/build-log.tsx#JournalFiltres",
@@ -1865,8 +1933,8 @@
       "id": "surface_pages",
       "level": "surface",
       "label": "Routes de page",
-      "max": 40,
-      "value": 40,
+      "max": 46,
+      "value": 44,
       "broken": false,
       "over": false
     },

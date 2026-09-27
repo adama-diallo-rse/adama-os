@@ -68,6 +68,11 @@ const PAGES = [
   "/revirements",
   "/metrics",
   "/lettre",
+  // Vague 1 des strates.
+  "/erreurs",
+  "/methodes",
+  "/methodes/m-001",
+  "/ecriture",
 ];
 
 const LARGEURS = [320, 390, 768, 1100, 1440];

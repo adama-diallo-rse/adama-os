@@ -1,3 +1,4 @@
+import { METHODES } from "../content/methodes";
 import type { MetadataRoute } from "next";
 import { SITE_URL, absoluteUrl } from "../lib/site";
 import { listClaims } from "../lib/proof/claims";
@@ -239,9 +240,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 0.6,
     },
+    // Vague 1 des strates : la bibliothèque des méthodes, chaque fiche, et
+    // la position sur l'écriture avec assistance.
+    ...[
+      "/methodes",
+      ...METHODES.map((m) => `/methodes/${m.identifiant.toLowerCase()}`),
+      "/ecriture",
+    ].map((chemin) => ({
+      url: absoluteUrl(chemin),
+      lastModified: new Date("2026-09-27"),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
     {
       url: absoluteUrl("/erreurs"),
-      lastModified: new Date("2026-09-19"),
+      lastModified: new Date("2026-09-27"),
       changeFrequency: "weekly",
       priority: 0.7,
     },

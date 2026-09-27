@@ -1,9 +1,21 @@
+import { erreursOuvertes } from "./erreurs";
+import { methodesProuvees } from "./methodes";
+
+// Le registre XDEC est tenu dans Notion : son compte est recopié ici, et
+// porte donc la date de sa copie (FAIL-004). Les deux compteurs qui ont un
+// registre dans le dépôt, erreurs ouvertes et méthodes prouvées, y sont lus.
+const DECISIONS_XDEC = { nombre: 60, releveLe: "2026-09-27" } as const;
+
 export const EXPANSION_TOTALS = [
   { value: "298", label: "idées réelles", detail: "AXP-01 à AXP-300" },
   { value: "12", label: "branches", detail: "architecture conceptuelle" },
   { value: "208", label: "chantiers", detail: "18 branches de travail" },
   { value: "60", label: "invariants", detail: "règles de tenue" },
-  { value: "43", label: "décisions", detail: "registre XDEC" },
+  {
+    value: String(DECISIONS_XDEC.nombre),
+    label: "décisions",
+    detail: "registre XDEC, relevé du 27/09/2026",
+  },
 ] as const;
 
 export const EXPANSION_BRANCHES = [
@@ -86,17 +98,29 @@ export const EXPANSION_INDICATORS = [
   { label: "Branches", value: "12", verified: true },
   { label: "Chantiers", value: "208", verified: true },
   { label: "Invariants", value: "60", verified: true },
-  { label: "Décisions XDEC", value: "43", verified: true },
-  { label: "Méthodes PROUVÉES", value: "0", verified: true },
+  {
+    label: "Décisions XDEC",
+    value: String(DECISIONS_XDEC.nombre),
+    verified: true,
+  },
+  {
+    label: "Méthodes PROUVÉES",
+    value: `${methodesProuvees().prouvees}/${methodesProuvees().total}`,
+    verified: true,
+  },
   { label: "Objets périmés", value: "À instrumenter" },
-  { label: "Erreurs ouvertes", value: "À instrumenter" },
+  {
+    label: "Erreurs ouvertes",
+    value: String(erreursOuvertes()),
+    verified: true,
+  },
 ] as const;
 
 export const EXPANSION_VISIBILITY = [
   { code: "NV0", label: "Public", access: "Sans inscription" },
-  { code: "NV1", label: "Sur demande", access: "Accès identifié" },
-  { code: "NV2", label: "Réservé", access: "Accès individuel" },
-  { code: "NV3", label: "Partenaire", access: "Accès contractuel" },
+  { code: "NV1", label: "Contre une adresse", access: "Adresse confirmée" },
+  { code: "NV2", label: "Payant", access: "Achat individuel" },
+  { code: "NV3", label: "Sous licence", access: "Licence écrite" },
 ] as const;
 
 export const EXPANSION_MATURITY = [

@@ -102,8 +102,8 @@ const CLAIMS: ClaimSeed[] = [
         source: "Dépôt adama-diallo-rse/strata-scope",
         locator: "adama-diallo-rse/strata-scope",
         method:
-          "Lecture du dernier commit du dépôt via l'API publique de GitHub.",
-        verifiableBy: "visiteur",
+          "Lecture du dernier commit du dépôt privé par le cockpit, avec son jeton de lecture. Le dépôt n'est pas public : un visiteur ne peut pas relire ce commit.",
+        verifiableBy: "adama",
         refreshKind: "github_commit",
         position: 20,
       },
@@ -135,8 +135,8 @@ const CLAIMS: ClaimSeed[] = [
         source: "Dépôt iroko-software-group/esg-optimizer",
         locator: "iroko-software-group/esg-optimizer",
         method:
-          "Lecture du dernier commit du dépôt via l'API publique de GitHub.",
-        verifiableBy: "visiteur",
+          "Lecture du dernier commit du dépôt privé par le cockpit, avec son jeton de lecture. Le dépôt n'est pas public : un visiteur ne peut pas relire ce commit.",
+        verifiableBy: "adama",
         refreshKind: "github_commit",
         position: 20,
       },
@@ -145,7 +145,7 @@ const CLAIMS: ClaimSeed[] = [
   {
     id: "esg-optimizer-depot-suivi",
     statement:
-      "Le code d'ESG Optimizer est versionné dans un dépôt suivi par ce cockpit, dont le dernier commit est lisible publiquement.",
+      "Le code d'ESG Optimizer est versionné dans un dépôt privé, suivi par ce cockpit qui en relève le dernier commit.",
     subjectType: "produit",
     subjectRef: "esg-optimizer",
     dataClass: "real",
@@ -158,8 +158,8 @@ const CLAIMS: ClaimSeed[] = [
         source: "Dépôt iroko-software-group/esg-optimizer",
         locator: "iroko-software-group/esg-optimizer",
         method:
-          "Lecture du dernier commit du dépôt via l'API publique de GitHub, à la même adresse que celle du journal des livraisons.",
-        verifiableBy: "visiteur",
+          "Lecture du dernier commit du dépôt privé par le cockpit, avec son jeton de lecture. Le dépôt n'est pas public : un visiteur ne peut pas relire ce commit.",
+        verifiableBy: "adama",
         refreshKind: "github_commit",
         position: 10,
       },
@@ -191,7 +191,7 @@ const CLAIMS: ClaimSeed[] = [
   {
     id: "strata-scope-depot-suivi",
     statement:
-      "Le code de STRATA Scope est versionné dans un dépôt suivi par ce cockpit, dont le dernier commit est lisible publiquement.",
+      "Le code de STRATA Scope est versionné dans un dépôt privé, suivi par ce cockpit qui en relève le dernier commit.",
     subjectType: "produit",
     subjectRef: "strata-scope",
     dataClass: "real",
@@ -204,8 +204,8 @@ const CLAIMS: ClaimSeed[] = [
         source: "Dépôt adama-diallo-rse/strata-scope",
         locator: "adama-diallo-rse/strata-scope",
         method:
-          "Lecture du dernier commit du dépôt via l'API publique de GitHub, à la même adresse que celle du journal des livraisons.",
-        verifiableBy: "visiteur",
+          "Lecture du dernier commit du dépôt privé par le cockpit, avec son jeton de lecture. Le dépôt n'est pas public : un visiteur ne peut pas relire ce commit.",
+        verifiableBy: "adama",
         refreshKind: "github_commit",
         position: 10,
       },

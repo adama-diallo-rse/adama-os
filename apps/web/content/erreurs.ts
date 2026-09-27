@@ -20,9 +20,38 @@ export const CATEGORIES_ERREUR = [
 
 type CategorieErreur = (typeof CATEGORIES_ERREUR)[number];
 
-type EntreeErreur = {
+type DateIso = `${number}-${number}-${number}`;
+
+/**
+ * ES2, l'erreur publiée dans un objet. Les trois champs de XDEC-26 se
+ * rangent dans les blocs d'EW3 : ce qui était écrit va dans le bloc 1, ce qui
+ * est vrai dans le bloc 2, ce qui a changé dans la méthode dans le bloc 4.
+ * Ce type ajoute ce que les blocs ne portent pas : l'objet et sa version, la
+ * citation mot pour mot, la source de ce qui est vrai et les deux dates.
+ */
+type ObjetCorrige = {
+  nature: "Affirmation publiée" | "Article" | "Fiche de méthode" | "Page";
+  reference: string;
+  version: string;
+  href: string;
+  /** Ce qui était écrit, mot pour mot. */
+  ecrit: readonly string[];
+  vrai: string;
+  sourceVrai: { label: string; href: string };
+  changementMethode: string;
+  dateConstat: DateIso;
+  /** Null tant que la correction n'est pas en ligne. */
+  dateCorrection: DateIso | null;
+};
+
+export type EntreeErreur = {
   id: `FAIL-${string}`;
-  date: `${number}-${number}-${number}`;
+  /** Version publiée de l'entrée. Toute modification publiée l'incrémente. */
+  version?: number;
+  objet?: ObjetCorrige;
+  /** Les versions antérieures, conservées telles qu'elles ont été publiées. */
+  historique?: readonly VersionAnterieure[];
+  date: DateIso;
   titre: string;
   categorie: CategorieErreur;
   statut: "convertie" | "ouverte";
@@ -41,7 +70,116 @@ type EntreeErreur = {
   }[];
 };
 
+type VersionAnterieure = Omit<EntreeErreur, "historique"> & {
+  remplaceeLe: DateIso;
+  motif: string;
+};
+
 export const ERREURS: readonly EntreeErreur[] = [
+  {
+    id: "FAIL-004",
+    version: 1,
+    date: "2026-09-27",
+    titre:
+      "La page du programme publiait des niveaux d’accès et un compte de décisions faux",
+    categorie: "Erreur de communication",
+    statut: "convertie",
+    pense:
+      "Les libellés des niveaux de visibilité et le nombre de décisions pouvaient être recopiés depuis une version de travail du programme, sans relecture contre le registre qui fait foi.",
+    faits:
+      "La page /expansion publiait NV1 « Sur demande », NV2 « Réservé » et NV3 « Partenaire », alors que l’arbitrage du 7 septembre 2026 fixe NV1 contre une adresse, NV2 payant et NV3 sous licence. Elle annonçait 43 décisions quand le registre en comptait 48.",
+    cause:
+      "Les valeurs étaient écrites en dur dans le contenu de la page, sans lien avec le registre qui fait foi, et aucun contrôle ne comparait les deux.",
+    changement:
+      "Les libellés reprennent l’arbitrage mot pour mot. Les compteurs d’erreurs ouvertes et de méthodes prouvées sont lus dans leurs registres, et le compte de décisions, tenu hors du dépôt, porte la date de son relevé.",
+    implication:
+      "Pour STRATA ESG, un chiffre ou un libellé affiché sur une page publique se lit dans sa source au moment de la construction, ou il porte la date à laquelle il a été recopié.",
+    methode: {
+      titre: "Lire la source, ou dater la copie",
+      regle:
+        "Un compteur ou un libellé repris d’un registre se lit dans ce registre. S’il est recopié, il porte la date de sa copie.",
+    },
+    objet: {
+      nature: "Page",
+      reference: "/expansion",
+      version: "Page publiée le 26 septembre 2026, commit 7061a50",
+      href: "/expansion",
+      ecrit: [
+        "NV1, Sur demande, Accès identifié",
+        "NV2, Réservé, Accès individuel",
+        "NV3, Partenaire, Accès contractuel",
+        "Décisions XDEC : 43",
+      ],
+      vrai: "NV1 contre une adresse, NV2 payant, NV3 sous licence, selon l’arbitrage 3 de la passe de vérification n° 2. Le registre XDEC comptait 48 décisions le 26 septembre 2026 et en compte 60 au relevé du 27 septembre 2026.",
+      sourceVrai: {
+        label: "Niveaux de visibilité repris dans la fiche type des méthodes",
+        href: "/methodes#fiche-type",
+      },
+      changementMethode:
+        "Un libellé ou un compteur public qui vient d’un registre est lu dans ce registre par le code de la page, ou porte la date de sa copie. Un test compare désormais les niveaux publiés à ceux de la fiche type.",
+      dateConstat: "2026-09-27",
+      dateCorrection: "2026-09-27",
+    },
+    sources: [
+      {
+        label: "Contenu corrigé de la page du programme",
+        href: "https://github.com/adama-diallo-rse/adama-os/blob/main/apps/web/content/expansion.ts",
+      },
+    ],
+  },
+  {
+    id: "FAIL-003",
+    version: 1,
+    date: "2026-09-27",
+    titre: "Deux dépôts privés étaient présentés comme lisibles publiquement",
+    categorie: "Mauvaise hypothèse",
+    statut: "ouverte",
+    pense:
+      "Une preuve lue avec succès par le cockpit pouvait être présentée comme vérifiable par n’importe quel visiteur, puisque l’adresse du dépôt était publiée.",
+    faits:
+      "Le 27 septembre 2026, la mesure de reproduction tierce a appelé l’API publique de GitHub sans jeton. Les dépôts de STRATA Scope et d’ESG Optimizer répondent 404 : quatre preuves publiques sur dix-sept ne se relisent pas.",
+    cause:
+      "Le cockpit lit GitHub avec son propre jeton. Il voyait donc des dépôts privés comme lisibles, et aucune étape ne refaisait la lecture depuis la position d’un visiteur sans compte.",
+    changement:
+      "Une preuve ne se déclare vérifiable par un visiteur qu’après une relecture sans jeton. La mesure de M-001 refait cette relecture sur chaque preuve publique, et les deux énoncés sont corrigés sans changer leur adresse de vérification.",
+    implication:
+      "Pour STRATA ESG, une preuve remise à un client sera relue depuis un poste sans accès avant d’être dite vérifiable par lui. Une preuve que seul l’éditeur peut relire se déclare comme telle.",
+    methode: {
+      titre: "Relire depuis la position du lecteur",
+      regle:
+        "Une preuve se déclare vérifiable par un visiteur seulement si un appel sans jeton, sans compte et sans accès privé la relit avec le même résultat.",
+    },
+    objet: {
+      nature: "Affirmation publiée",
+      reference: "strata-scope-depot-suivi et esg-optimizer-depot-suivi",
+      version:
+        "Registre de preuve C2, énoncés semés avant le 27 septembre 2026",
+      href: "/verifier/strata-scope-depot-suivi",
+      ecrit: [
+        "Le code de STRATA Scope est versionné dans un dépôt suivi par ce cockpit, dont le dernier commit est lisible publiquement.",
+        "Le code d’ESG Optimizer est versionné dans un dépôt suivi par ce cockpit, dont le dernier commit est lisible publiquement.",
+      ],
+      vrai: "Les deux dépôts sont privés. Le cockpit en relève le dernier commit avec son jeton de lecture ; un visiteur ne peut pas relire ce commit.",
+      sourceVrai: {
+        label: "Mesure de reproduction tierce du 27 septembre 2026",
+        href: "/methodes/m-001#mesure",
+      },
+      changementMethode:
+        "Chaque preuve marquée vérifiable par un visiteur est relue sans jeton avant d’être publiée comme telle. Le protocole de la mesure de M-001 est ce contrôle, et il se rejoue par quiconque.",
+      dateConstat: "2026-09-27",
+      dateCorrection: null,
+    },
+    sources: [
+      {
+        label: "Protocole de la mesure, rejouable sans compte",
+        href: "https://github.com/adama-diallo-rse/adama-os/blob/main/scripts/mesure-m001.mjs",
+      },
+      {
+        label: "Correction datée des deux énoncés et des quatre preuves",
+        href: "https://github.com/adama-diallo-rse/adama-os/blob/main/packages/db/migrations/0008_depots_prives.sql",
+      },
+    ],
+  },
   {
     id: "FAIL-002",
     date: "2026-09-12",
@@ -107,6 +245,43 @@ export const ERREURS: readonly EntreeErreur[] = [
     ],
   },
 ] as const;
+
+/**
+ * ES2 et ES0 : une erreur ouverte est une entrée publiée dont le statut est
+ * « ouverte », c'est-à-dire dont la correction n'est pas encore en ligne ou
+ * dont aucune méthode ne ferme le défaut. C'est la seule lecture de
+ * l'indicateur « erreurs ouvertes » du tableau de bord.
+ */
+export function erreursOuvertes(erreurs: readonly EntreeErreur[] = ERREURS) {
+  return erreurs.filter((erreur) => erreur.statut === "ouverte").length;
+}
+
+/**
+ * La forme canonique d'une version publiée, celle dont l'empreinte est
+ * inscrite dans content/erreurs-empreintes.ts. L'ordre des clés est fixé ici
+ * et nulle part ailleurs : changer un seul caractère publié change
+ * l'empreinte.
+ */
+export function formeCanonique(
+  entree: Omit<EntreeErreur, "historique">,
+): string {
+  return JSON.stringify([
+    entree.id,
+    entree.version ?? 1,
+    entree.date,
+    entree.titre,
+    entree.categorie,
+    entree.statut,
+    entree.pense,
+    entree.faits,
+    entree.cause,
+    entree.changement,
+    entree.implication,
+    entree.methode ?? null,
+    entree.objet ?? null,
+    entree.sources,
+  ]);
+}
 
 export function mesurerConversion(erreurs: readonly EntreeErreur[] = ERREURS) {
   const publiees = erreurs.length;
