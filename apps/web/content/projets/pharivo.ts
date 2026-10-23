@@ -58,11 +58,13 @@ export const PHARIVO: FicheProjet = {
       "Je construis le produit avec un associé qui apporte l’accès au terrain et au réseau des officines, et je porte le code, l’architecture et la mise en ligne.",
     ],
     aValider: false,
-    questions: [
-      "Le niveau « contributeur » sur le commercial reflète-t-il bien le partage avec l’associé, ou faut-il passer à « responsable » ?",
-      "L’associé peut-il être nommé sur cette fiche publique, et sous quelle forme ?",
-      "Les chiffres du référentiel affichés par le site public peuvent-ils être repris ici, avec leur date de mise à jour ?",
-    ],
+    // Relue le 23 octobre 2026 en l'etat : commercial en contributeur,
+    // associe non nomme, chiffres du referentiel non repris. Questions
+    // encore ouvertes, retirees de la page publique :
+    // - le commercial doit-il passer a « responsable » ?
+    // - l'associe peut-il etre nomme, et sous quelle forme ?
+    // - les chiffres du referentiel peuvent-ils etre repris, dates ?
+    questions: [],
   },
 
   architecture: {
