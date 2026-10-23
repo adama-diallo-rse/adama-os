@@ -7,10 +7,10 @@
     "lib_modules": 54,
     "tables": 11,
     "enums": 14,
-    "migrations": 10,
+    "migrations": 11,
     "policies": 21,
-    "test_files": 60,
-    "test_cases": 593,
+    "test_files": 61,
+    "test_cases": 597,
     "dependencies": 53
   },
   "pages": [
@@ -97,7 +97,7 @@
     {
       "file": "apps/web/app/ecosysteme/page.tsx",
       "route": "/ecosysteme",
-      "lines": 178
+      "lines": 186
     },
     {
       "file": "apps/web/app/ecriture/page.tsx",
@@ -192,12 +192,12 @@
     {
       "file": "apps/web/app/projets/[slug]/page.tsx",
       "route": "/projets/[slug]",
-      "lines": 163
+      "lines": 172
     },
     {
       "file": "apps/web/app/recruteur/page.tsx",
       "route": "/recruteur",
-      "lines": 324
+      "lines": 340
     },
     {
       "file": "apps/web/app/revirements/page.tsx",
@@ -331,7 +331,7 @@
     },
     {
       "file": "apps/web/components/brand-signature.tsx",
-      "lines": 44
+      "lines": 105
     },
     {
       "file": "apps/web/components/build-log.tsx",
@@ -343,7 +343,7 @@
     },
     {
       "file": "apps/web/components/dashboard.tsx",
-      "lines": 615
+      "lines": 617
     },
     {
       "file": "apps/web/components/ecosystem-catalog.tsx",
@@ -415,7 +415,7 @@
     },
     {
       "file": "apps/web/components/org-logo.tsx",
-      "lines": 115
+      "lines": 190
     },
     {
       "file": "apps/web/components/outbound-link.tsx",
@@ -431,11 +431,11 @@
     },
     {
       "file": "apps/web/components/product-mark.tsx",
-      "lines": 134
+      "lines": 157
     },
     {
       "file": "apps/web/components/project-grid.tsx",
-      "lines": 177
+      "lines": 182
     },
     {
       "file": "apps/web/components/project-sheet.tsx",
@@ -463,11 +463,11 @@
     },
     {
       "file": "apps/web/components/recruit-modal.tsx",
-      "lines": 354
+      "lines": 351
     },
     {
       "file": "apps/web/components/recruiter-entry.tsx",
-      "lines": 41
+      "lines": 46
     },
     {
       "file": "apps/web/components/shipped-feed.tsx",
@@ -513,7 +513,7 @@
   "lib_modules": [
     {
       "file": "apps/web/lib/adr.ts",
-      "lines": 224
+      "lines": 226
     },
     {
       "file": "apps/web/lib/ai/config.ts",
@@ -673,7 +673,7 @@
     },
     {
       "file": "apps/web/lib/proof/well-known.ts",
-      "lines": 210
+      "lines": 217
     },
     {
       "file": "apps/web/lib/rate-limit.ts",
@@ -681,7 +681,7 @@
     },
     {
       "file": "apps/web/lib/repos.ts",
-      "lines": 164
+      "lines": 178
     },
     {
       "file": "apps/web/lib/site.ts",
@@ -713,7 +713,7 @@
     },
     {
       "file": "apps/web/lib/terminal/inspect.ts",
-      "lines": 298
+      "lines": 299
     },
     {
       "file": "apps/web/lib/trajectory.ts",
@@ -768,6 +768,7 @@
       "packages/db/migrations/0006_revirements.sql",
       "packages/db/migrations/0007_graphe.sql",
       "packages/db/migrations/0008_depots_prives.sql",
+      "packages/db/migrations/0009_pharivo_et_registre.sql",
       "packages/db/migrations/seed_ecosystem_products.sql"
     ],
     "policies": [
@@ -899,6 +900,7 @@
       "apps/web/tests/proof-well-known.test.ts",
       "apps/web/tests/rate-limit.test.ts",
       "apps/web/tests/recruit-modal.test.tsx",
+      "apps/web/tests/repos-public.test.ts",
       "apps/web/tests/retrieval.integration.test.ts",
       "apps/web/tests/rls.integration.test.ts",
       "apps/web/tests/site.test.ts",
@@ -907,15 +909,15 @@
       "apps/web/tests/trajectory.test.ts",
       "apps/web/tests/vocabulaire.test.ts"
     ],
-    "cases": 593
+    "cases": 597
   },
   "rendu": {
-    "pages": 13,
-    "pages_mesurees": 13,
+    "pages": 18,
+    "pages_mesurees": 18,
     "anomalies": 0,
     "non_mesurees": 0,
-    "poids_max_ko": 925,
-    "noeuds_max": 786
+    "poids_max_ko": 975,
+    "noeuds_max": 997
   },
   "dependencies": [
     {
@@ -1287,9 +1289,11 @@
   ],
   "outbound_hosts": [
     "${vercel_host}",
+    "academy.esg-optimizer.fr",
     "adamesg-os.fr",
     "adamesg-os.fr${a.href}",
     "adamesg-os.fr${chemin}",
+    "africa.esg-optimizer.fr",
     "api.github.com",
     "api.openai.com",
     "api.resend.com",
@@ -1297,11 +1301,15 @@
     "esg-optimizer.fr",
     "eu.i.posthog.com",
     "eur-lex.europa.eu",
+    "foundation.esg-optimizer.fr",
     "ghgprotocol.org",
     "github.com",
+    "officine.pharivo.com",
+    "pharivo.com",
     "schema.org",
     "scope.esg-optimizer.fr",
     "uptime.betterstack.com",
+    "watch.esg-optimizer.fr",
     "www.efrag.org",
     "www.ifrs.org",
     "www.notion.so",
@@ -1897,8 +1905,8 @@
       "id": "n2_projets_home",
       "level": "N2",
       "label": "Fiches projet mises en avant sur la home",
-      "max": 3,
-      "value": 3,
+      "max": 4,
+      "value": 4,
       "broken": false,
       "over": false
     },
@@ -1915,8 +1923,8 @@
       "id": "n2_experiences_home",
       "level": "N2",
       "label": "Experiences citees dans le bandeau de la home",
-      "max": 4,
-      "value": 4,
+      "max": 6,
+      "value": 6,
       "broken": false,
       "over": false
     },
@@ -1924,8 +1932,8 @@
       "id": "n2_marques_home",
       "level": "N2",
       "label": "Marques d'organisation affichees sur le site",
-      "max": 5,
-      "value": 4,
+      "max": 6,
+      "value": 6,
       "broken": false,
       "over": false
     },
@@ -1970,7 +1978,7 @@
       "level": "surface",
       "label": "Lignes du plus gros composant",
       "max": 700,
-      "value": 615,
+      "value": 617,
       "broken": false,
       "over": false
     },

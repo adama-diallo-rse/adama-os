@@ -54,14 +54,14 @@ const PRODUITS: EcosystemProductRow[] = [
     position: 50,
   },
   {
-    slug: "iroko-platform",
-    name: "IROKO Platform",
-    division: "IROKO",
+    slug: "pharivo",
+    name: "Pharivo",
+    division: "Pharivo",
     pillar: null,
     description: null,
     status: "building",
     url: null,
-    position: 70,
+    position: 80,
   },
 ];
 
@@ -171,7 +171,7 @@ describe("Couche D, source présente", () => {
 });
 
 describe("regroupement par division", () => {
-  it("ordonne STRATA, IROKO, puis le reste", () => {
+  it("ordonne STRATA, Pharivo, puis le reste", () => {
     const groupes = grouperParDivision([
       { ...PRODUITS[2]! },
       { ...PRODUITS[0]! },
@@ -179,7 +179,7 @@ describe("regroupement par division", () => {
     ]);
     expect(groupes.map((g) => g.division)).toEqual([
       "STRATA",
-      "IROKO",
+      "Pharivo",
       "AUTRE",
     ]);
   });

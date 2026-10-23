@@ -28,22 +28,22 @@ import {
 } from "../lib/analytics-events";
 import { createClient } from "../lib/supabase/client";
 import { CAL_LINK, CONTACT_EMAIL, CV_DOWNLOAD_NAME, CV_PATH } from "./types";
-import { DISPONIBILITE, RECHERCHE } from "../content/profil";
+import { ACTIVITE, IDENTITE, OUVERTURE } from "../content/profil";
 
 type SubmitState = "idle" | "sending" | "done" | "error";
 
 const VALUE_PROPS: { title: string; body: string }[] = [
   {
-    title: "RSE / ESG",
-    body: "Reporting de durabilité, données ESG et travail sur les référentiels CSRD, ESRS et VSME.",
+    title: "STRATA ESG",
+    body: "Logiciels et accompagnement pour la donnée de durabilité : CSRD, ESRS, VSME, empreinte carbone et veille réglementaire.",
+  },
+  {
+    title: "Pharivo",
+    body: "Le logiciel de l’officine sénégalaise : comptoir, stock par lot, péremptions et prix administrés, même sans réseau.",
   },
   {
     title: "Développement",
-    body: "Next.js, Python, FastAPI et Supabase, utilisés dans mes projets STRATA ESG, IROKO et Adama OS.",
-  },
-  {
-    title: "Projets",
-    body: "Calcul carbone, veille réglementaire et logiciels de gestion. Les dépôts et le suivi des projets sont accessibles depuis ce site.",
+    body: "Next.js, TypeScript, Python, FastAPI et PostgreSQL, du schéma de données à la mise en production.",
   },
 ];
 
@@ -215,7 +215,7 @@ export function RecruitModal({
                   Faisons connaissance.
                 </h2>
                 <Badge variant="emerald" dot>
-                  open to work
+                  {ACTIVITE.titre.toLowerCase()}
                 </Badge>
               </div>
               <button
@@ -232,11 +232,8 @@ export function RecruitModal({
               {/* Proposition de valeur hybride */}
               <div>
                 <p className="font-sans text-sm leading-relaxed text-muted">
-                  Je recherche un poste de{" "}
-                  <span className="text-foreground">
-                    {RECHERCHE.postes.join(", ")}
-                  </span>
-                  . {DISPONIBILITE}
+                  <span className="text-foreground">{IDENTITE.situation}</span>{" "}
+                  {OUVERTURE}
                 </p>
                 <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                   {VALUE_PROPS.map((v) => (

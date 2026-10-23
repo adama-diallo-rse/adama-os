@@ -210,6 +210,29 @@
 .logo-adama {
   background: #e2e6e9;
 }
+/* Pharivo : le mot-symbole de sa charte, en creme sur le bleu Atlantique,
+   avec le faisceau du phare en quart de cercle, comme sur pharivo.com. */
+.logo-pharivo {
+  position: relative;
+  background: var(--pharivo-atlantique);
+  color: var(--paper);
+}
+.logo-pharivo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 38%;
+  aspect-ratio: 1;
+  border-bottom-left-radius: 100%;
+  background: var(--pharivo-faisceau);
+}
+.brand-pharivo {
+  position: relative;
+  display: block;
+  width: min(62%, 210px);
+  height: auto;
+}
 .brand-adama {
   display: flex;
   flex-direction: column;
@@ -392,6 +415,34 @@
 .brand-art-iroko {
   background: #e5e5e5;
   padding: 38px 12px;
+}
+.project-pharivo .project-art-label,
+.project-pharivo .project-art-name > span {
+  color: #c9d9f2;
+}
+.project-pharivo .project-art-name {
+  font-size: 12px;
+}
+/* Le faisceau du phare : un quart de cercle accroche au coin, qui s'ouvre
+   au survol. La regle globale de mouvement reduit coupe la transition. */
+.brand-art-pharivo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44%;
+  aspect-ratio: 1;
+  border-bottom-left-radius: 100%;
+  background: var(--pharivo-faisceau);
+  transform-origin: top right;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.project-image-link:hover .brand-art-pharivo::before,
+.project-image-link:focus-visible .brand-art-pharivo::before {
+  transform: scale(1.18);
+}
+.brand-art-pharivo .brand-pharivo {
+  width: min(58%, 190px);
 }
 .brand-art-iroko .brand-iroko {
   max-width: 285px;

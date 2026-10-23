@@ -3,16 +3,18 @@ import Link from "next/link";
 import { PageShell } from "../../components/page-shell";
 import { SkillCards } from "../../components/skill-cards";
 import { HireActions } from "../../components/hire-actions";
-import { OrgLogo } from "../../components/org-logo";
+import { OrgMark } from "../../components/org-logo";
+import { OutboundLink } from "../../components/outbound-link";
 import { DataClassMark } from "../../components/proof/data-class";
 import { CONTACT_EMAIL } from "../../components/types";
 import {
-  DEMANDE,
-  DISPONIBILITE,
   EXPERIENCES,
   FORMATION,
   IDENTITE,
-  RECHERCHE,
+  ORGANISATIONS_ACTUELLES,
+  OUVERTURE,
+  PORTES_ENTREE,
+  POSTE_ACTUEL,
   TITRE_COURT,
 } from "../../content/profil";
 import { cartesProjet } from "../../content/projets";
@@ -21,10 +23,14 @@ import type { ClaimState } from "../../lib/proof/types";
 import { absoluteUrl } from "../../lib/site";
 
 // =====================================================================
-// C9-T3, le parcours recruteur.
+// C9-T3, le profil professionnel (ex parcours recruteur).
 //
-// Un parcours autonome et complet, pour une personne des ressources
-// humaines qui a quatre-vingt-dix secondes, pas pour un ingenieur.
+// Un parcours autonome et complet, pour une personne qui a quatre-vingt-dix
+// secondes et n'est pas ingenieur : un client, un partenaire, un financeur,
+// un jury. Jusqu'au 23 octobre 2026, cette page servait une recherche de
+// poste, close le 10 octobre. L'adresse /recruteur est conservee, parce que
+// des liens partages y menent ; la section 06 dit desormais a qui
+// s'adresser, plus ce que je cherche.
 //
 // Regle de la couche, tenue ici : cette page NE DUPLIQUE AUCUN CONTENU.
 // Elle compose les memes sources que le reste du site, les fiches projet de
@@ -34,10 +40,17 @@ import { absoluteUrl } from "../../lib/site";
 //
 // Sept sections, dans cet ordre, parce que c'est l'ordre dans lequel la
 // question se pose : qui, quoi, quelles preuves, quels projets, quel
-// parcours, ce que je cherche, comment me joindre.
+// parcours, travailler ensemble, comment me joindre.
 // =====================================================================
 
 export const dynamic = "force-dynamic";
+
+/** Le produit du registre vers lequel mene chaque porte, pour la mesure des
+ *  sorties. La porte des partenaires n'a pas d'adresse, donc pas d'entree. */
+const PRODUIT_DE_PORTE: Record<string, string> = {
+  strata: "strata-platform",
+  pharivo: "pharivo",
+};
 
 /** Trois preuves, les plus fortes. L'ordre vient du registre lui-meme, il
  *  n'est pas recalcule ici : le classement editorial appartient au registre. */
@@ -45,11 +58,11 @@ const PREUVES_EN_TETE = 3;
 
 export const metadata: Metadata = {
   title: "Profil professionnel",
-  description: `${IDENTITE.capacite} ${DISPONIBILITE}`,
+  description: `${IDENTITE.situation} ${IDENTITE.capacite}`,
   alternates: { canonical: "/recruteur" },
   openGraph: {
     title: "Adama Diallo, profil professionnel",
-    description: DISPONIBILITE,
+    description: IDENTITE.situation,
     url: "/recruteur",
     siteName: "ADAMA OS",
     locale: "fr_FR",
@@ -99,8 +112,12 @@ export default async function RecruteurPage() {
     mainEntity: {
       "@type": "Person",
       name: IDENTITE.nom,
+      jobTitle: POSTE_ACTUEL,
       description: IDENTITE.capacite,
-      seeks: { "@type": "Demand", name: DEMANDE },
+      worksFor: ORGANISATIONS_ACTUELLES.map((o) => ({
+        "@type": "Organization",
+        name: o.organisation,
+      })),
     },
   };
 
@@ -131,7 +148,7 @@ export default async function RecruteurPage() {
         <p className="hire-situation">{IDENTITE.situation}</p>
         <p className="hire-dispo">
           <span className="note-line" aria-hidden="true" />
-          <strong>{DISPONIBILITE}</strong>
+          <strong>{OUVERTURE}</strong>
         </p>
         <HireActions source="recruteur" />
       </header>
@@ -174,7 +191,7 @@ export default async function RecruteurPage() {
         </p>
       </Section>
 
-      {/* 04. Projets, trois maximum. */}
+      {/* 04. Projets, quatre maximum. */}
       <Section numero="04" titre="PROJETS" duree="15 secondes">
         <ul className="hire-projets">
           {cartes.map((projet) => (
@@ -204,7 +221,7 @@ export default async function RecruteurPage() {
           {EXPERIENCES.map((exp) => (
             <li key={exp.id}>
               <span className="hire-exp-org">
-                <OrgLogo
+                <OrgMark
                   id={exp.id}
                   nom={exp.organisation}
                   decoratif
@@ -221,7 +238,7 @@ export default async function RecruteurPage() {
           {FORMATION.map((f) => (
             <li key={f.id}>
               <span className="hire-exp-org">
-                <OrgLogo
+                <OrgMark
                   id={f.id}
                   nom={f.organisation}
                   decoratif
@@ -238,33 +255,32 @@ export default async function RecruteurPage() {
         </ul>
       </Section>
 
-      {/* 06. Ce que je cherche. */}
-      <Section numero="06" titre="CE QUE JE CHERCHE" duree="10 secondes">
-        <dl className="hire-recherche">
-          <div>
-            <dt>Postes</dt>
-            <dd>
-              <ul>
-                {RECHERCHE.postes.map((poste) => (
-                  <li key={poste}>{poste}</li>
-                ))}
-              </ul>
-            </dd>
-          </div>
-          <div>
-            <dt>Contrat</dt>
-            <dd>{RECHERCHE.contrats.join(" ou ")}</dd>
-          </div>
-          <div>
-            <dt>Zone</dt>
-            <dd>{RECHERCHE.zone}</dd>
-          </div>
-          <div>
-            <dt>Prise de fonction</dt>
-            <dd>
-              {RECHERCHE.mois} {RECHERCHE.annee}
-            </dd>
-          </div>
+      {/* 06. Travailler ensemble. Trois publics, chacun avec l'adresse de la
+          maison qui lui repond. Aucun prix ni aucune offre ici : les
+          conditions vivent sur le site de chaque maison. */}
+      <Section numero="06" titre="TRAVAILLER ENSEMBLE" duree="10 secondes">
+        <dl className="hire-recherche hire-portes">
+          {PORTES_ENTREE.map((porte) => (
+            <div key={porte.id}>
+              <dt>{porte.public}</dt>
+              <dd>
+                {porte.objet}
+                {porte.lien ? (
+                  <>
+                    {" "}
+                    <OutboundLink
+                      href={porte.lien}
+                      product={PRODUIT_DE_PORTE[porte.id] ?? porte.id}
+                      division={porte.id === "pharivo" ? "Pharivo" : "STRATA"}
+                      source="profil"
+                    >
+                      {porte.libelleLien} <span aria-hidden="true">↗</span>
+                    </OutboundLink>
+                  </>
+                ) : null}
+              </dd>
+            </div>
+          ))}
         </dl>
       </Section>
 

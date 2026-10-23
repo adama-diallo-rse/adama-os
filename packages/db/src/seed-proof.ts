@@ -143,6 +143,46 @@ const CLAIMS: ClaimSeed[] = [
     ],
   },
   {
+    // Ajoutee le 23 octobre 2026. Pharivo est la seconde maison nommee
+    // publiquement, en production depuis le 6 octobre 2026. Ses deux
+    // adresses sont relevees : le site public et l'application d'officine,
+    // dont seule la page de connexion est publique. Le depot est prive et
+    // hors du perimetre du jeton de lecture du cockpit : aucune preuve de
+    // depot n'est donc declaree, plutot qu'une preuve qui ne se rafraichirait
+    // jamais.
+    id: "pharivo-en-ligne",
+    statement:
+      "Pharivo, le logiciel de gestion d'officine conçu pour le Sénégal, répond en production sur son site public et sur son application.",
+    subjectType: "produit",
+    subjectRef: "pharivo",
+    dataClass: "real",
+    maxAgeSeconds: DEUX_JOURS,
+    visibility: "public",
+    position: 21,
+    evidence: [
+      {
+        kind: "api",
+        source: "Site public de Pharivo",
+        locator: "https://pharivo.com",
+        method:
+          "Appel GET sur l'adresse publique du site depuis le cockpit, code de retour conservé tel quel.",
+        verifiableBy: "visiteur",
+        refreshKind: "http_status",
+        position: 10,
+      },
+      {
+        kind: "api",
+        source: "Application d'officine Pharivo",
+        locator: "https://officine.pharivo.com",
+        method:
+          "Appel GET sur la page de connexion de l'application depuis le cockpit, code de retour conservé tel quel. Aucun compte n'est utilisé.",
+        verifiableBy: "visiteur",
+        refreshKind: "http_status",
+        position: 20,
+      },
+    ],
+  },
+  {
     id: "esg-optimizer-depot-suivi",
     statement:
       "Le code d'ESG Optimizer est versionné dans un dépôt privé, suivi par ce cockpit qui en relève le dernier commit.",

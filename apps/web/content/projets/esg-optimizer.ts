@@ -16,7 +16,7 @@ export const ESG_OPTIMIZER: FicheProjet = {
   categorie: "Durabilité",
   resume:
     "Une PME reçoit un questionnaire CSRD de son donneur d’ordre et ne sait ni par où commencer, ni ce qu’elle risque d’oublier.",
-  roleEnUnMot: "Fondateur",
+  roleEnUnMot: "Co-fondateur",
   ordre: 10,
   reluParAdama: false,
   preuveVedette: "esg-optimizer-en-ligne",
@@ -114,7 +114,7 @@ export const ESG_OPTIMIZER: FicheProjet = {
   etat: {
     valeur: "production",
     precision:
-      "Ouvert au public sur son domaine. Son API expose une route de santé que ce site interroge, et le résultat de cette interrogation est visible dans la page de vérification de l’affirmation correspondante.",
+      "Ouvert au public sur son domaine, avec un module Afrique servi sur son propre sous-domaine. Son API expose une route de santé que ce site interroge, et le résultat de cette interrogation est visible dans la page de vérification de l’affirmation correspondante.",
   },
 
   suite: [

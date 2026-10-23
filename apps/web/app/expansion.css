@@ -443,6 +443,16 @@
   color: var(--secondary);
   font: normal 8px var(--font-mono);
 }
+/* Sur une branche ouverte, fond ardoise, le numero passe au gris clair :
+   le gris secondaire n'y donnait que 3:1 (audit de rendu, 23 octobre 2026). */
+.expansion-branch-cloud > span.is-live i {
+  color: #b5c1cb;
+}
+/* Le fond de cet apercu est plus sombre que la creme : l'or de texte y
+   tombait a 4,39:1. Une nuance plus profonde du meme or tient 5,21:1. */
+.expansion-preview .portfolio-label > span:first-child:not(.status-dot) {
+  color: #735829;
+}
 .expansion-boundary {
   padding: 22px;
   display: grid;

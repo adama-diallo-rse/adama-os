@@ -8,11 +8,11 @@
 // telecharge ailleurs, ou dessine dans un autre vocabulaire, aurait donc ete
 // un corps etranger dans la charte.
 //
-// Ces huit marques sont donc construites avec les deux seules primitives que
+// Ces marques sont donc construites avec les deux seules primitives que
 // la charte autorise, l'arc et la strate, et rien d'autre : trait uniquement,
 // une seule couleur heritee du contexte, aucun aplat, aucun degrade, aucune
 // ombre portee. Elles forment une famille lisible : on doit voir d'un coup
-// d'oeil que les huit appartiennent au meme groupe, et distinguer laquelle
+// d'oeil qu'elles appartiennent au meme ensemble, et distinguer laquelle
 // est laquelle.
 //
 // Le libelle reste le nom du produit, ecrit a cote. Une marque de vingt-deux
@@ -81,6 +81,29 @@ const TRACES: Record<string, React.ReactNode> = {
       <path d="M4.5 15a11.5 11.5 0 0 1 23 0Z" />
       <path d="M16 28V15" />
       <path d="M11.5 25h9" />
+    </>
+  ),
+  // Quatre strates qui se resserrent vers un point : une cotation de A a D,
+  // lue de bas en haut. Meme vocabulaire que la marque d'ESG Optimizer,
+  // dont ce module est la declinaison africaine.
+  "esg-optimizer-africa": (
+    <>
+      <path d="M5 26h22" />
+      <path d="M8 21h16" />
+      <path d="M11 16h10" />
+      <path d="M14 11h4" />
+      <circle cx="16" cy="6.4" r="1.4" />
+    </>
+  ),
+  // Une tour et son faisceau, au trait : le phare des Mamelles du symbole
+  // de Pharivo, ramene aux deux primitives de cette famille, la ligne et
+  // l'arc. Pharivo n'est pas un produit STRATA, mais sa marque se range ici
+  // avec la meme grammaire pour que la carte reste lisible d'un coup d'oeil.
+  pharivo: (
+    <>
+      <path d="M5 27h22" />
+      <path d="M9 27V5h3.6v22" />
+      <path d="M15.4 5a11.6 11.6 0 0 1 11.6 11.6H15.4Z" />
     </>
   ),
   // Une orbite, un horizon, un point : le cockpit.

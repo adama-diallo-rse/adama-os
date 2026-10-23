@@ -16,7 +16,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { BrandSignature, divisionName } from "./brand-signature";
+import {
+  BrandSignature,
+  divisionName,
+  type MarqueSignature,
+} from "./brand-signature";
 import { ProjectArt } from "./portfolio-art";
 import type { CarteProjet } from "../content/projets";
 import type { ClaimState } from "../lib/proof/types";
@@ -25,9 +29,10 @@ import type { ClaimState } from "../lib/proof/types";
 // elle vit donc ici et non dans les fiches.
 const ART_PROJET: Record<
   string,
-  { brand: "strata" | "iroko" | null; legende: string }
+  { brand: Exclude<MarqueSignature, "adama"> | null; legende: string }
 > = {
   "esg-optimizer": { brand: "strata", legende: "AUDIT ET CONFORMITÉ" },
+  pharivo: { brand: "pharivo", legende: "GESTION D’OFFICINE" },
   "strata-scope": { brand: "strata", legende: "EMPREINTE CARBONE" },
   "adama-os": { brand: null, legende: "COCKPIT ET PREUVE" },
 };

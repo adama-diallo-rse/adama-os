@@ -145,7 +145,7 @@ export default function TechniquePage() {
               cas de test répartis sur {s.test_files} fichiers, pour {s.pages}{" "}
               routes de page et {s.components} composants.
             </p>
-            <Link href="/recruteur">Passer au parcours recruteur ↗</Link>
+            <Link href="/recruteur">Passer au profil professionnel ↗</Link>
           </div>
         }
       />
@@ -476,15 +476,15 @@ export default function TechniquePage() {
           <p className="portfolio-label">L’AUTRE PORTE</p>
           <h2>
             Vous cherchez plutôt{" "}
-            <span className="serif">un profil à recruter ?</span>
+            <span className="serif">la personne derrière ?</span>
           </h2>
           <p>
-            Le même dossier, lu dans l’autre sens : ce que je cherche, ce que je
-            sais faire, et sous quel délai.
+            Le même dossier, lu dans l’autre sens : ce que je sais faire, ce que
+            j’ai construit, et à qui s’adresser.
           </p>
         </div>
         <Link href="/recruteur" className="portfolio-button primary">
-          Ouvrir le parcours recruteur <span aria-hidden="true">→</span>
+          Ouvrir le profil professionnel <span aria-hidden="true">→</span>
         </Link>
       </section>
     </PageShell>

@@ -87,6 +87,23 @@ export const REGISTRE_ADR: readonly EntreeRegistre[] = [
     statut: "accepte",
   },
   {
+    adrId: "DEC-012",
+    titre: "Un journal de mouvements plutôt qu’un compteur de stock",
+    statut: "accepte",
+  },
+  {
+    adrId: "DEC-013",
+    titre:
+      "Le comptoir dès la première version plutôt qu’un logiciel de stock seul",
+    statut: "accepte",
+  },
+  {
+    adrId: "DEC-014",
+    titre:
+      "Un registre sensible construit mais fermé plutôt qu’ouvert sans avis juridique",
+    statut: "accepte",
+  },
+  {
     adrId: "DEC-101",
     titre: "Un moteur de calcul dans le cockpit plutôt que dans le produit",
     statut: "remplace",

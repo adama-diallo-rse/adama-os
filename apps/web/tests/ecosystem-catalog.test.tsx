@@ -38,7 +38,7 @@ const products: EcosystemProductRow[] = [
   {
     slug: "test-no-link",
     name: "Produit sans URL",
-    division: "IROKO",
+    division: "Pharivo",
     pillar: null,
     description: null,
     status: "live",
@@ -111,7 +111,7 @@ describe("marques produit et registre", () => {
     ...readFileSync(
       join(process.cwd(), "components", "product-mark.tsx"),
       "utf8",
-    ).matchAll(/^  "([a-z0-9-]+)": \($/gm),
+    ).matchAll(/^  "?([a-z0-9-]+)"?: \($/gm),
   ].map((m) => m[1] as string);
 
   it("lit bien les deux listes", () => {

@@ -57,7 +57,7 @@ const STATUT: Record<
 
 // Ordre d'affichage des divisions. Une division inconnue passe après, par
 // ordre alphabétique : ajouter un produit ne casse jamais la grille.
-const ORDRE_DIVISIONS = ["STRATA", "IROKO", "Cockpit"];
+const ORDRE_DIVISIONS = ["STRATA", "Pharivo", "Cockpit"];
 
 function rangDivision(division: string): number {
   const i = ORDRE_DIVISIONS.indexOf(division);

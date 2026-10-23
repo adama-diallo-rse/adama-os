@@ -17,7 +17,7 @@ export const STRATA_SCOPE: FicheProjet = {
   categorie: "Durabilité",
   resume:
     "Une PME doit publier son empreinte carbone, mais chaque prestataire lui rend un chiffre différent sans montrer d’où il vient.",
-  roleEnUnMot: "Fondateur",
+  roleEnUnMot: "Co-fondateur",
   ordre: 20,
   reluParAdama: false,
   preuveVedette: "strata-scope-en-ligne",

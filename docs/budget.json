@@ -65,7 +65,7 @@
       "id": "n2_projets_home",
       "level": "N2",
       "label": "Fiches projet mises en avant sur la home",
-      "max": 3,
+      "max": 4,
       "measure": {
         "kind": "count_in_region",
         "file": "apps/web/content/projets/index.ts",
@@ -89,7 +89,7 @@
       "id": "n2_experiences_home",
       "level": "N2",
       "label": "Experiences citees dans le bandeau de la home",
-      "max": 4,
+      "max": 6,
       "measure": {
         "kind": "count_in_region",
         "file": "apps/web/content/profil.ts",
@@ -102,13 +102,13 @@
       "id": "n2_marques_home",
       "level": "N2",
       "label": "Marques d'organisation affichees sur le site",
-      "max": 5,
+      "max": 6,
       "measure": {
         "kind": "count_in_region",
         "file": "apps/web/components/org-logo.tsx",
         "from": "const MARQUES",
-        "to": "export function marqueDe",
-        "pattern": "^  [a-z0-9-]+: \\{"
+        "to": "export function aUneMarque",
+        "pattern": "^  [a-z0-9-]+: (\\{|\")"
       }
     },
     {

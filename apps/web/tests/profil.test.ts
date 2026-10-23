@@ -3,13 +3,14 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
+  ACTIVITE,
   COMPETENCES,
-  DEMANDE,
-  DISPONIBILITE,
   EXPERIENCES,
   IDENTITE,
+  ORGANISATIONS_ACTUELLES,
+  OUVERTURE,
+  PORTES_ENTREE,
   POSTE_ACTUEL,
-  RECHERCHE,
   FORMATION,
   type DomaineCompetence,
   type Experience,
@@ -23,10 +24,16 @@ import {
 // JSON-LD un autre, la modale un troisieme, et un recruteur qui compare la
 // page et le resultat de recherche voit deux personnes differentes.
 //
-// La regle verrouillee ici : un intitule de poste, une echeance ou une zone
-// geographique ne s'ecrivent nulle part ailleurs que dans
-// apps/web/content/profil.ts. Les quatre endroits qui les portent, le hero,
-// le JSON-LD, le mode recruteur et le CV, lisent la meme source.
+// La regle verrouillee ici : un titre, une maison ou une ligne d'ouverture
+// ne s'ecrivent nulle part ailleurs que dans apps/web/content/profil.ts. Les
+// endroits qui les portent, le hero, le JSON-LD, le profil professionnel et
+// le CV, lisent la meme source.
+//
+// 23 octobre 2026. La recherche de poste est close depuis le 10 octobre.
+// Les motifs d'intitule ci-dessous ne servent plus a garder une recherche
+// coherente : ils verifient qu'elle a disparu PARTOUT, source comprise. Un
+// « Disponible en CDI » oublie dans un coin du site contredirait le profil
+// de fondateur que tout le reste affiche.
 // =====================================================================
 
 const WEB = fileURLToPath(new URL("..", import.meta.url));
@@ -79,6 +86,9 @@ const MOTIFS_DE_PROFIL: { motif: RegExp; quoi: string }[] = [
   { motif: /chef(fe)?\s+de\s+projet/i, quoi: "Un intitule de poste" },
   { motif: /novembre\s+2026/i, quoi: "L'echeance de disponibilite" },
   { motif: /\bCDI\b/, quoi: "Le type de contrat recherche" },
+  { motif: /open to work/i, quoi: "Le badge de recherche" },
+  { motif: /prise de fonction/i, quoi: "L'echeance de disponibilite" },
+  { motif: /je (re)?cherche un poste/i, quoi: "La recherche de poste" },
 ];
 
 /**
@@ -93,28 +103,26 @@ const EXCEPTIONS: Record<string, string> = {
 };
 
 describe("C9-T8, une seule source pour le profil", () => {
-  it("n'ecrit aucun intitule de poste recherche ailleurs que dans la source", () => {
-    for (const poste of RECHERCHE.postes) {
-      const coupables = fichiers
-        .filter((f) => f.relatif !== SOURCE_PROFIL)
-        .filter((f) => f.code.includes(poste))
-        .map((f) => f.relatif);
-      expect(
-        coupables,
-        `L'intitule « ${poste} » est ecrit en dur dans ${coupables.join(", ")}. Il doit etre lu depuis content/profil.ts.`,
-      ).toEqual([]);
-    }
-  });
-
-  it("n'ecrit la ligne de disponibilite qu'a un seul endroit", () => {
+  it("n'ecrit le titre actuel qu'a un seul endroit", () => {
     const coupables = fichiers
       .filter((f) => f.relatif !== SOURCE_PROFIL)
-      .filter((f) => f.code.includes(DISPONIBILITE))
+      .filter((f) => f.code.includes(POSTE_ACTUEL))
+      .map((f) => f.relatif);
+    expect(
+      coupables,
+      `Le titre « ${POSTE_ACTUEL} » est ecrit en dur dans ${coupables.join(", ")}. Il doit etre lu depuis content/profil.ts.`,
+    ).toEqual([]);
+  });
+
+  it("n'ecrit la ligne d'ouverture qu'a un seul endroit", () => {
+    const coupables = fichiers
+      .filter((f) => f.relatif !== SOURCE_PROFIL)
+      .filter((f) => f.code.includes(OUVERTURE))
       .map((f) => f.relatif);
     expect(coupables).toEqual([]);
   });
 
-  it("fait lire cette source par les quatre endroits qui portent le profil", () => {
+  it("fait lire cette source par les endroits qui portent le profil", () => {
     const attendus = [
       "components/dashboard.tsx",
       "app/layout.tsx",
@@ -130,25 +138,20 @@ describe("C9-T8, une seule source pour le profil", () => {
     }
   });
 
-  it("n'ecrit aucun motif de profil en dur, hors exceptions justifiees", () => {
+  it("ne garde aucune trace de la recherche de poste, source comprise", () => {
     // Ce cas existe parce que la premiere version du test ne cherchait que
-    // les chaines EXACTES de RECHERCHE.postes, et qu'elle a laisse passer
-    // quatre variantes divergentes : llms.txt annoncait « charge de mission
-    // Data ESG », le document machine « chef de projet conformite ou
-    // automatisation », les mots-cles du layout une cinquieme formulation,
-    // et la modale « un poste en RSE ou data ESG ». Un agent qui pre-filtre
-    // une candidature lisait donc un intitule que la page ne portait pas.
-    //
-    // On cherche donc la FORME d'un intitule, pas sa formulation.
+    // les chaines EXACTES des intitules, et qu'elle a laisse passer quatre
+    // variantes divergentes. On cherche donc la FORME d'un intitule, pas sa
+    // formulation. Depuis le 23 octobre 2026, content/profil.ts n'est plus
+    // exempte : la recherche est close, elle ne doit plus s'ecrire nulle part.
     for (const { motif, quoi } of MOTIFS_DE_PROFIL) {
       const coupables = fichiers
-        .filter((f) => f.relatif !== SOURCE_PROFIL)
         .filter((f) => motif.test(f.code))
         .map((f) => f.relatif)
         .filter((relatif) => !EXCEPTIONS[relatif]);
       expect(
         coupables,
-        `${quoi} ecrit en dur dans ${coupables.join(", ")}. Lire content/profil.ts, ou declarer une exception avec sa raison.`,
+        `${quoi} ecrit dans ${coupables.join(", ")}. La recherche de poste est close depuis le 10 octobre 2026, ou declarer une exception avec sa raison.`,
       ).toEqual([]);
     }
   });
@@ -163,26 +166,40 @@ describe("C9-T8, une seule source pour le profil", () => {
     }
   });
 
-  it("compose la demande a partir des memes intitules", () => {
-    for (const poste of RECHERCHE.postes) {
-      expect(DEMANDE).toContain(poste);
+  it("compose le titre et la situation depuis l'activite", () => {
+    expect(POSTE_ACTUEL.startsWith(ACTIVITE.titre)).toBe(true);
+    for (const maison of ACTIVITE.maisons) {
+      expect(POSTE_ACTUEL).toContain(maison);
+      expect(IDENTITE.situation).toContain(maison);
     }
-    expect(DEMANDE).toContain(RECHERCHE.zone);
-    expect(DEMANDE).toContain(RECHERCHE.annee);
+    for (const ville of ACTIVITE.villes) {
+      expect(IDENTITE.situation).toContain(ville);
+    }
   });
 
-  it("garde une date de disponibilite coherente avec le mois annonce", () => {
-    // « novembre 2026 » et une date ISO qui tomberait en janvier seraient
-    // deux affirmations differentes sur la meme chose.
-    const mois = new Date(RECHERCHE.disponibleLe).getUTCMonth() + 1;
-    expect(mois).toBe(11);
-    expect(RECHERCHE.disponibleLe.startsWith(RECHERCHE.annee)).toBe(true);
+  it("declare comme actuelles exactement les deux maisons", () => {
+    // Le JSON-LD lit worksFor dans cette projection : une maison absente
+    // d'ici disparaitrait des resultats de recherche sans que la page change.
+    expect(ORGANISATIONS_ACTUELLES.map((o) => o.organisation).sort()).toEqual(
+      [...ACTIVITE.maisons].sort(),
+    );
   });
 
-  it("distingue le poste actuel de ceux qui sont recherches", () => {
-    // Le JSON-LD decrit le present dans jobTitle et la cible dans seeks.
-    // Les confondre ferait passer une recherche pour un poste occupe.
-    expect(RECHERCHE.postes).not.toContain(POSTE_ACTUEL);
+  it("ouvre trois portes, chacune adressee et sans prix", () => {
+    expect(PORTES_ENTREE).toHaveLength(3);
+    for (const porte of PORTES_ENTREE) {
+      expect(porte.public.length).toBeGreaterThan(8);
+      expect(porte.objet.length).toBeGreaterThan(30);
+      // Un prix vit sur le site de la maison, qui en repond. Le recopier ici
+      // le ferait diverger a la premiere revision tarifaire.
+      expect(porte.objet).not.toMatch(/€|euros?\b|F\s?CFA|\bXOF\b|\d/i);
+      if (porte.lien) {
+        expect(porte.lien).toMatch(/^https:\/\//);
+        expect(porte.libelleLien?.length ?? 0).toBeGreaterThan(3);
+      } else {
+        expect(porte.libelleLien).toBeNull();
+      }
+    }
   });
 });
 
@@ -207,7 +224,7 @@ describe("C9, la matiere du profil", () => {
   // categorie ne soit recopie ailleurs.
   it("projette les experiences depuis la source, sans recopier role ni categorie", () => {
     const experiences: readonly Experience[] = EXPERIENCES;
-    expect(experiences).toHaveLength(4);
+    expect(experiences).toHaveLength(6);
     const dashboard = fichiers.find(
       (f) => f.relatif === "components/dashboard.tsx",
     );
@@ -245,11 +262,22 @@ describe("C9, la matiere du profil", () => {
     // l'organisation quelque part, en attribut JSX ou en propriete d'objet.
     // Le nom cite dans une phrase reste permis, c'est de la prose, pas une
     // seconde liste.
+    //
+    // Les deux maisons en sont sorties le 23 octobre 2026. « STRATA ESG » et
+    // « Pharivo » sont aussi des noms de marque, de division du registre et
+    // de fiche projet : les ecrire en valeur ne recopie pas le parcours, cela
+    // nomme un produit. La regle reste entiere pour les quatre experiences
+    // passees, qui ne sont rien d'autre qu'une ligne de parcours.
     const valeurs = /(?:\b[a-zA-Z]+=\{?|\b[a-zA-Z]+:\s*)"([^"]{2,60})"/g;
+    const maisons: readonly string[] = ACTIVITE.maisons;
+    const parcours = EXPERIENCES.filter(
+      (exp) => !maisons.includes(exp.organisation),
+    );
+    expect(parcours).toHaveLength(EXPERIENCES.length - maisons.length);
     for (const f of fichiers) {
       if (f.relatif.endsWith("content/profil.ts")) continue;
       for (const [, valeur] of f.code.matchAll(valeurs)) {
-        for (const exp of EXPERIENCES) {
+        for (const exp of parcours) {
           expect(
             valeur,
             `${f.relatif} pose « ${valeur} » en valeur : la liste des experiences se projette, elle ne se recopie pas`,
@@ -284,8 +312,8 @@ describe("C9, la matiere du profil", () => {
     const textes = [
       IDENTITE.capacite,
       IDENTITE.situation,
-      DISPONIBILITE,
-      DEMANDE,
+      OUVERTURE,
+      ...PORTES_ENTREE.flatMap((p) => [p.public, p.objet]),
       ...COMPETENCES.map((c) => c.fait),
       ...EXPERIENCES.map((e) => e.role),
     ];

@@ -5,17 +5,23 @@
 // synchronise pas depuis une base : une fiche projet n'est pas une donnee,
 // c'est un texte dont quelqu'un repond.
 //
-// Trois fiches. Une quatrieme dilue : le lecteur qui en compare trois les
+// Quatre fiches depuis le 23 octobre 2026, une par produit nomme
+// publiquement plus ce cockpit. La regle d'origine tenait a trois : une
+// quatrieme diluait. Pharivo n'est pas une quatrieme fiche de plus sur le
+// meme sujet, c'est la seconde maison, et la taire rendrait le profil faux.
+// Le plafond reste ferme a quatre : le lecteur qui en compare quatre les
 // lit toutes, celui qui en voit huit n'en lit aucune.
 // =====================================================================
 
 import { ADAMA_OS } from "./adama-os";
 import { ESG_OPTIMIZER } from "./esg-optimizer";
+import { PHARIVO } from "./pharivo";
 import { STRATA_SCOPE } from "./strata-scope";
 import { ETAT_LABEL, type EtatProjet, type FicheProjet } from "./gabarit";
 
 export const FICHES: readonly FicheProjet[] = [
   ESG_OPTIMIZER,
+  PHARIVO,
   STRATA_SCOPE,
   ADAMA_OS,
 ].sort((a, b) => a.ordre - b.ordre);

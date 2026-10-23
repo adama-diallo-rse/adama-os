@@ -443,7 +443,7 @@ export function Terminal({
                   {onRecruit ? (
                     <TerminalItem
                       value="recruit"
-                      hint="recruter l'architecte"
+                      hint="échanger avec Adama"
                       onSelect={() => {
                         close();
                         onRecruit();

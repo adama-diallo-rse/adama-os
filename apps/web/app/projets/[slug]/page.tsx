@@ -7,6 +7,14 @@ import { ProjectSheet } from "../../../components/project-sheet";
 import { ProductMark } from "../../../components/product-mark";
 import { ETAT_LABEL, FICHES, ficheParSlug } from "../../../content/projets";
 import { listAdr } from "../../../lib/adr";
+
+/** Le nombre des autres fiches, en lettres : il suit FICHES, il ne s'ecrit
+ *  plus a la main (il disait « deux » apres l'arrivee de la quatrieme). */
+const AUTRES_EN_LETTRES: Record<number, string> = {
+  2: "deux",
+  3: "trois",
+  4: "quatre",
+};
 import { listClaims } from "../../../lib/proof/claims";
 import { absoluteUrl } from "../../../lib/site";
 
@@ -117,7 +125,8 @@ export default async function FicheProjetPage({
             <strong className="case-role-mot">{fiche.roleEnUnMot}</strong>
             <p>
               {ETAT_LABEL[fiche.etat.valeur]}. Huit blocs, le même gabarit que
-              les deux autres fiches.
+              les {AUTRES_EN_LETTRES[FICHES.length - 1] ?? FICHES.length - 1}{" "}
+              autres fiches.
             </p>
             <Link href={`/projets/${suivante?.slug ?? fiche.slug}`}>
               Comparer avec {suivante?.titre} ↗

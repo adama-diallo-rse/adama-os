@@ -497,8 +497,13 @@
 }
 /* La marque precede le nom sur sa propre ligne : alignee sur le texte, elle
    ferait varier la hauteur de chaque rangee selon la largeur du logo. */
-.hire-exp-org .org-logo {
+.hire-exp-org .org-logo,
+.hire-exp-org .org-maison {
   margin-bottom: 9px;
+}
+.hire-exp-org .org-maison {
+  display: flex;
+  width: fit-content;
 }
 .hire-exp-org small {
   display: block;
@@ -539,6 +544,29 @@
 .hire-recherche dd ul li::before {
   content: "· ";
   color: var(--accent-text);
+}
+/* Section 06 du profil, depuis le 23 octobre 2026 : trois publics plutot
+   que quatre criteres de recherche. Meme grille, une colonne de plus. */
+.hire-portes {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.hire-portes dd {
+  font-size: 15px;
+  line-height: 1.65;
+}
+.hire-portes dd a {
+  display: inline-block;
+  margin-top: 6px;
+  border-bottom: 1px solid var(--strata-gold);
+  white-space: nowrap;
+}
+.hire-portes dd a:hover {
+  color: var(--accent-text);
+}
+@media (max-width: 800px) {
+  .hire-portes {
+    grid-template-columns: 1fr;
+  }
 }
 .hire-contact p {
   font-size: 15px;

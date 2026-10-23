@@ -12,6 +12,12 @@
   --line: #d4d6d5;
   --accent-text: #806332;
   --art-paper: #e2e6e9;
+  /* Pharivo, bleu Atlantique de sa charte et son ciel de nuit. Le bleu
+     porte le mot-symbole au survol et le fond de sa carte projet ; il
+     n'entre dans aucun texte courant du portfolio. */
+  --pharivo-atlantique: #05418d;
+  --pharivo-nuit: #032d63;
+  --pharivo-faisceau: #0a55b0;
 }
 .portfolio {
   --font-display: var(--font-cormorant), "Times New Roman", serif;
@@ -467,6 +473,38 @@
 .experience-marks > li:hover .org-logo-couleur {
   opacity: 1;
 }
+/* Les deux maisons. Leur mot-symbole est trace en ligne, a la couleur du
+   texte : meme regle d'etat que les logos fournis, encre au repos, couleur
+   de la maison au survol, sans second fichier. */
+.org-maison {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: var(--maison-hauteur, 30px);
+  color: var(--ink);
+  opacity: 0.82;
+  transition:
+    color 0.35s ease,
+    opacity 0.35s ease;
+}
+.org-maison .pharivo-wordmark {
+  display: block;
+  height: 70%;
+  width: auto;
+}
+.org-maison .brand-strata {
+  font-size: calc(var(--maison-hauteur, 30px) * 0.42);
+}
+.experience-marks > li:hover .org-maison,
+.journey-list article:hover .org-maison {
+  opacity: 1;
+}
+.experience-marks > li:hover .org-maison--pharivo:not(.org-maison--encre) {
+  color: var(--pharivo-atlantique);
+}
+.experience-marks > li:hover .org-maison--strata:not(.org-maison--encre) {
+  color: var(--accent-text);
+}
 .portfolio-section {
   padding-block: 104px;
 }
@@ -538,10 +576,13 @@
   font: 10px var(--font-mono);
   color: var(--secondary);
 }
+/* Quatre fiches depuis le 23 octobre 2026 : quatre colonnes au bureau,
+   deux en tablette, une au telephone. Trois colonnes laissaient la
+   quatrieme carte seule sur sa rangee. */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
   align-items: start;
 }
 .project-card {
@@ -566,6 +607,10 @@
 }
 .project-adama .project-art {
   background: var(--strata-slate);
+  color: var(--paper);
+}
+.project-pharivo .project-art {
+  background: var(--pharivo-atlantique);
   color: var(--paper);
 }
 .project-art-label {
@@ -910,6 +955,24 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
+}
+/* Dans la colonne de marque du parcours, large de 92 pixels, le
+   mot-symbole STRATA ESG passe sur deux lignes plutot que de deborder sur
+   le texte : meme fonte, meme interlettrage, mot par mot. Celui de Pharivo
+   se cale sur la largeur de la colonne. */
+.journey-mark .org-maison {
+  max-width: 100%;
+}
+.journey-mark .org-maison .pharivo-wordmark {
+  width: 100%;
+  height: auto;
+}
+.journey-mark .org-maison .brand-strata {
+  display: block;
+  width: min-content;
+  font-size: 11px;
+  line-height: 1.55;
+  white-space: normal;
 }
 .journey-initiale {
   width: 46px;
@@ -1274,6 +1337,9 @@ body:has(.portfolio) .consent-notice button {
   }
 }
 @media (max-width: 1100px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .portfolio-wrap {
     width: calc(100% - 72px);
   }
@@ -1520,6 +1586,9 @@ body:has(.portfolio) .consent-notice button {
   .journey-mark {
     width: 74px;
     height: 36px;
+  }
+  .journey-mark .org-maison .brand-strata {
+    font-size: 9px;
   }
   .journey-initiale {
     width: 36px;
@@ -1946,6 +2015,10 @@ body:has(.portfolio) .consent-notice button {
   .org-logo-encre {
     opacity: 1;
   }
+  .org-maison {
+    color: var(--ink) !important;
+    opacity: 1;
+  }
   .org-logo-couleur {
     display: none;
   }
@@ -2085,6 +2158,11 @@ body:has(.portfolio) .consent-notice button {
   align-items: end;
   background: var(--ink);
   color: var(--paper);
+}
+/* Le surtitre est sur l'ardoise : le gris secondaire n'y donnait que 3:1.
+   Releve par l'audit de rendu du 23 octobre 2026. */
+.signal-signup .portfolio-label {
+  color: #b5c1cb;
 }
 .signal-signup h2 {
   font-family: var(--font-display);

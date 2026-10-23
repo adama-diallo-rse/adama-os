@@ -16,6 +16,36 @@
 // n'en portent pas.
 // =====================================================================
 
+// =====================================================================
+// Fin de la recherche de poste, 10 octobre 2026.
+//
+// Jusqu'au 10 octobre 2026, ce fichier portait une recherche de CDI ou de
+// CDD (intitules vises, zone, mois de prise de fonction) et le site la
+// relayait partout : JSON-LD de type Demand, mode recruteur, modale « open
+// to work », document machine, llms.txt. Adama a clos cette recherche ce
+// jour-la et garde la voie de fondateur a plein temps. Le positionnement
+// public a ete arrete le 22 octobre 2026 : co-fondateur de STRATA ESG et de
+// Pharivo, une these commune, et une regle d'apparition (un projet n'est
+// nomme publiquement qu'avec un produit en ligne ou un client).
+//
+// La recherche n'est donc plus une donnee du profil. A sa place, l'activite
+// et les portes d'entree : a qui ces deux maisons s'adressent. Les memes
+// surfaces les lisent, toujours depuis ce seul fichier.
+// =====================================================================
+
+/** L'activite, au niveau ou elle reste vraie. */
+export const ACTIVITE = {
+  titre: "Co-fondateur",
+  /** Les deux maisons nommees publiquement, dans l'ordre du titre. */
+  maisons: ["STRATA ESG", "Pharivo"] as const,
+  villes: ["Paris", "Dakar"] as const,
+} as const;
+
+/** Titre de poste actuel, pour le JSON-LD. Decrit le present. */
+export const POSTE_ACTUEL = `${ACTIVITE.titre} de ${ACTIVITE.maisons.join(
+  " et de ",
+)}`;
+
 /** Etat civil et positionnement, au niveau ou cela reste vrai des mois. */
 export const IDENTITE = {
   nom: "Adama Diallo",
@@ -23,44 +53,62 @@ export const IDENTITE = {
   patronyme: "Diallo",
   /** Les trois domaines, dans l'ordre ou ils se lisent partout. */
   domaines: ["RSE", "Data", "Systèmes"] as const,
-  /** Ce que je sais faire. Vend une capacite, pas une situation. */
+  /** Ce que je sais faire. Vend une capacite, pas une situation. La these
+   *  commune des deux maisons, validee par Adama le 22 octobre 2026. */
   capacite:
-    "Je conçois des systèmes numériques qui rendent la donnée de durabilité exploitable, vérifiable et opposable.",
-  /** Ou j'en suis. Vient apres la capacite, jamais avant. */
-  situation:
-    "Aujourd’hui data ESG et solutions IA chez AG2R LA MONDIALE, et en parallèle mon propre écosystème logiciel.",
+    "Je construis des logiciels qui rendent l’économie réelle mesurable et vérifiable, de la donnée de durabilité d’une entreprise au stock d’une officine.",
+  /** Ou j'en suis. Vient apres la capacite, jamais avant. Composee depuis
+   *  l'activite, pour que le titre et les maisons ne s'ecrivent qu'une fois. */
+  situation: `${POSTE_ACTUEL}, entre ${ACTIVITE.villes.join(" et ")}.`,
 } as const;
 
 /**
- * Ce que je cherche. Une seule liste, reprise a l'identique dans le hero, le
- * JSON-LD, le mode recruteur, la modale et le CV.
+ * La ligne d'ouverture, formulee une fois pour tout le site. Elle remplace
+ * la ligne de disponibilite : elle dit a qui parler, pas quand embaucher.
  */
-export const RECHERCHE = {
-  contrats: ["CDI", "CDD"] as const,
-  postes: [
-    "Chargé de mission RSE et data ESG",
-    "Consultant RSE",
-    "Chef de projet conformité et automatisation",
-  ] as const,
-  zone: "Île-de-France",
-  /** Mois de prise de fonction, en clair. */
-  mois: "novembre",
-  annee: "2026",
-  /** Date ISO de fin du stage en cours. Sert au JSON-LD et au tri. */
-  disponibleLe: "2026-11-01",
-} as const;
+export const OUVERTURE =
+  "Ouvert aux échanges avec les entreprises, les cabinets et les officines, comme avec les partenaires et les financeurs de ces deux maisons.";
 
-/** La ligne de disponibilite, formulee une fois pour tout le site. */
-export const DISPONIBILITE = `Disponible en ${RECHERCHE.contrats.join(
-  " ou ",
-)} dès ${RECHERCHE.mois} ${RECHERCHE.annee}, ${RECHERCHE.zone}.`;
+/**
+ * Les portes d'entree. Trois publics, chacun avec ce qu'il trouve et
+ * l'adresse ou le trouver. Aucune porte ne promet un prix ni une date : les
+ * conditions vivent sur le site de chaque maison, qui en repond.
+ */
+type PorteEntree = {
+  id: string;
+  public: string;
+  objet: string;
+  /** Adresse publique de la maison, ou null quand le contact passe par moi. */
+  lien: string | null;
+  libelleLien: string | null;
+};
 
-/** La demande, en une phrase, pour le JSON-LD et le mode recruteur. */
-export const DEMANDE = `${RECHERCHE.contrats.join(
-  " / ",
-)} : ${RECHERCHE.postes.join(
-  ", ",
-)}, ${RECHERCHE.zone}, à partir de ${RECHERCHE.mois} ${RECHERCHE.annee}.`;
+export const PORTES_ENTREE: readonly PorteEntree[] = [
+  {
+    id: "strata",
+    public: "Entreprises, cabinets et consultants",
+    objet:
+      "Les logiciels et l’accompagnement de STRATA ESG pour le reporting de durabilité, la conformité et l’empreinte carbone.",
+    lien: "https://www.strata-esg.fr",
+    libelleLien: "strata-esg.fr",
+  },
+  {
+    id: "pharivo",
+    public: "Officines au Sénégal",
+    objet:
+      "Pharivo, le logiciel de l’officine sénégalaise, et son programme d’officines pilotes.",
+    lien: "https://pharivo.com",
+    libelleLien: "pharivo.com",
+  },
+  {
+    id: "partenaires",
+    public: "Réseaux, partenaires et financeurs",
+    objet:
+      "La distribution, les partenariats et le financement des deux maisons. Le contact passe par moi.",
+    lien: null,
+    libelleLien: null,
+  },
+] as const;
 
 /**
  * C9-T2, les trois domaines de competence.
@@ -89,7 +137,7 @@ export const COMPETENCES: readonly DomaineCompetence[] = [
     id: "esg",
     titre: "ESG et durabilité",
     matieres: ["cadre réglementaire", "donnée de durabilité", "conformité"],
-    fait: "Je travaille la donnée ESG et les référentiels CSRD, ESRS et VSME, en stage à la direction RSE d’AG2R LA MONDIALE et sur mes propres produits.",
+    fait: "Je travaille la donnée ESG et les référentiels CSRD, ESRS et VSME dans les logiciels de STRATA ESG, après un stage à la direction RSE d’AG2R LA MONDIALE.",
     preuveId: "esg-optimizer-en-ligne",
   },
   {
@@ -103,14 +151,15 @@ export const COMPETENCES: readonly DomaineCompetence[] = [
     id: "logiciel",
     titre: "Logiciel et systèmes",
     matieres: ["architecture", "intégration", "sécurité", "exploitation"],
-    fait: "J’architecture, je déploie et j’exploite les logiciels du groupe : base de données, politiques de sécurité, sondes, tests et mise en production.",
+    fait: "J’architecture, je déploie et j’exploite les logiciels de STRATA ESG et de Pharivo : base de données, politiques de sécurité, sondes, tests et mise en production.",
     preuveId: "cockpit-code-public",
   },
 ] as const;
 
 /**
  * Les experiences, dans l'ordre d'affichage. Preuve sociale deja publique :
- * ces quatre noms figurent sur le CV et sur LinkedIn.
+ * ces noms figurent sur le CV et sur LinkedIn, dans cet ordre depuis le
+ * 22 octobre 2026 : les deux maisons d'abord, puis le parcours.
  */
 export type Experience = {
   id: string;
@@ -119,29 +168,50 @@ export type Experience = {
   precision: string;
   role: string;
   categorie: string;
+  /** Vrai pour une activite en cours, qui alimente worksFor du JSON-LD. */
+  actuelle: boolean;
 };
 
 export const EXPERIENCES: readonly Experience[] = [
   {
+    id: "pharivo",
+    organisation: "Pharivo",
+    precision: "Dakar",
+    role: "Co-fondateur, logiciel de gestion d’officine",
+    categorie: "SANTÉ × LOGICIEL",
+    actuelle: true,
+  },
+  {
+    id: "strata",
+    organisation: "STRATA ESG",
+    precision: "Paris",
+    role: "Co-fondateur, logiciels et accompagnement de durabilité",
+    categorie: "DURABILITÉ × LOGICIEL",
+    actuelle: true,
+  },
+  {
     id: "ag2r",
     organisation: "AG2R LA MONDIALE",
-    precision: "",
+    precision: "Stage",
     role: "Data ESG et solutions IA, direction RSE",
     categorie: "RSE × DATA",
+    actuelle: false,
   },
   {
     id: "younivibe",
     organisation: "Younivibe",
-    precision: "",
+    precision: "Stage",
     role: "Coordination RSE et reporting",
     categorie: "COORDINATION × IMPACT",
+    actuelle: false,
   },
   {
     id: "afev",
     organisation: "AFEV",
-    precision: "",
+    precision: "Service civique",
     role: "Engagement et mentorat étudiant",
     categorie: "ENGAGEMENT × TRANSMISSION",
+    actuelle: false,
   },
   {
     id: "ministere",
@@ -149,16 +219,17 @@ export const EXPERIENCES: readonly Experience[] = [
     precision: "Sénégal",
     role: "Reporting et données",
     categorie: "SECTEUR PUBLIC × DONNÉES",
+    actuelle: false,
   },
 ] as const;
 
 /**
- * L'experience en cours. Elle sert au JSON-LD, qui declare l'employeur
- * actuel : sans cette projection, le nom serait recopie dans le balisage et
- * finirait par diverger de la page, ce qui montrerait deux personnes
- * differentes a un moteur de recherche et a un lecteur.
+ * Les activites en cours. Elles servent au JSON-LD, qui declare les
+ * organisations actuelles : sans cette projection, les noms seraient
+ * recopies dans le balisage et finiraient par diverger de la page.
  */
-export const EXPERIENCE_ACTUELLE: Experience = EXPERIENCES[0] as Experience;
+export const ORGANISATIONS_ACTUELLES: readonly Experience[] =
+  EXPERIENCES.filter((e) => e.actuelle);
 
 /**
  * La formation, au meme niveau de detail que les experiences : l'etablissement
@@ -179,9 +250,6 @@ export const FORMATION: readonly Formation[] = [
     precision: "Université Paris-Est Créteil",
   },
 ] as const;
-
-/** Titre de poste actuel, pour le JSON-LD. Decrit le present, pas la cible. */
-export const POSTE_ACTUEL = "Data ESG et solutions IA, direction RSE";
 
 // =====================================================================
 // EC0 a EC3, la marque en une seule source (XDEC-44 a XDEC-46).
@@ -211,7 +279,7 @@ export const TITRE_COURT = {
  */
 export const POSITIONNEMENT = {
   fr: IDENTITE.capacite,
-  en: "I design digital systems that make sustainability data usable, verifiable and defensible.",
+  en: "I build software that makes the real economy measurable and verifiable, from a company’s sustainability data to a pharmacy’s stock.",
   /** Alternatives datees : elles ne s'affichent pas, elles se testent. */
   variantes: [
     {
@@ -225,6 +293,14 @@ export const POSITIONNEMENT = {
       fr: "Recherche, construction, systèmes. Un laboratoire public.",
       en: "Research. Build. Systems. A public laboratory.",
       gardeeLe: "2026-09-26",
+    },
+    {
+      // La phrase affichee jusqu'au 23 octobre 2026. Elle ne disait que la
+      // durabilite, et Pharivo n'y entrait pas.
+      code: "EC2-0",
+      fr: "Je conçois des systèmes numériques qui rendent la donnée de durabilité exploitable, vérifiable et opposable.",
+      en: "I design digital systems that make sustainability data usable, verifiable and defensible.",
+      gardeeLe: "2026-10-23",
     },
   ],
 } as const;
@@ -250,7 +326,7 @@ export const SIGNATURE: {
     {
       texte: "Construit par Adama",
       preuve: "/journal",
-      montre: "les commits réels des huit dépôts suivis, datés et attribués",
+      montre: "les commits réels des dépôts suivis, datés et attribués",
     },
     { texte: ", à partir de " },
     {

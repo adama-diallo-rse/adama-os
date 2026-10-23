@@ -13,7 +13,7 @@ export type { GatewayFailure };
 export type ImportedMetric = {
   /** Produit d'origine, slug de ecosystem_products. */
   productSlug: string;
-  /** Division du groupe (STRATA, IROKO, Cockpit). */
+  /** Division du groupe (STRATA, Pharivo, Cockpit). */
   division: string;
   /** Clé de la métrique, telle qu'elle sera stockée et libellée. */
   metric: string;

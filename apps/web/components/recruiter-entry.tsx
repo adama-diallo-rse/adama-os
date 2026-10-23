@@ -1,5 +1,10 @@
 // =====================================================================
-// C9-T4, l'entree visible du parcours recruteur.
+// C9-T4, l'entree visible du profil professionnel (ex parcours recruteur).
+//
+// Libelle change le 23 octobre 2026 : la recherche de poste est close
+// depuis le 10 octobre, l'entree ne s'adresse plus a un recruteur mais a
+// quiconque veut lire le profil en quatre-vingt-dix secondes. L'adresse et
+// les evenements analytiques restent ceux d'origine.
 //
 // Presente sur chaque page, discrete, et jamais enfouie dans un menu :
 // c'est la contrainte de la couche, et elle a une raison. Un recruteur qui
@@ -29,9 +34,9 @@ export function RecruiterEntry({
     >
       <span className="recruiter-entry-dot" aria-hidden="true" />
       <span>
-        Recruteur
+        Profil
         <span className="recruiter-entry-caption">
-          Profil, preuves, disponibilité
+          Parcours, preuves, maisons
         </span>
       </span>
       <span aria-hidden="true">↗</span>

@@ -12,17 +12,17 @@ const divisions = [
     brand: "strata",
     title: "Le reporting de durabilité.",
     description:
-      "Conformité CSRD, calcul carbone, veille et formation. Des outils pour organiser les données ESG des PME européennes.",
+      "Conformité CSRD, empreinte carbone, veille réglementaire, formation et cotation pour l’Afrique. Des logiciels et un accompagnement pour la donnée de durabilité des PME.",
     label: "DURABILITÉ / EUROPE",
   },
   {
-    key: "IROKO",
-    id: "iroko",
-    brand: "iroko",
-    title: "La gestion, au quotidien.",
+    key: "Pharivo",
+    id: "pharivo",
+    brand: "pharivo",
+    title: "L’officine, au franc près.",
     description:
-      "Facturation et encaissements pour les entreprises d’Afrique de l’Ouest, avec les moyens de paiement qu’elles utilisent : Wave et Orange Money.",
-    label: "GESTION / AFRIQUE DE L’OUEST",
+      "Le logiciel de l’officine sénégalaise : comptoir, stock par lot, péremptions et prix administrés, avec Wave et Orange Money, même quand le réseau coupe.",
+    label: "SANTÉ / SÉNÉGAL",
   },
   {
     key: "Cockpit",
@@ -55,7 +55,7 @@ export function EcosystemCatalog({
         : p.status !== "live"),
   );
   const extra = [...new Set(products.map((p) => p.division))].filter(
-    (d) => !["STRATA", "STRATA ESG", "IROKO", "Cockpit"].includes(d),
+    (d) => !["STRATA", "STRATA ESG", "Pharivo", "Cockpit"].includes(d),
   );
   return (
     <>

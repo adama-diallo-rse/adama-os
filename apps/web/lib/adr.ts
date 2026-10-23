@@ -20,6 +20,7 @@ export type AdrPortee =
   | "adama-os"
   | "esg-optimizer"
   | "strata-scope"
+  | "pharivo"
   | "groupe";
 export type AdrImpact =
   | "architecture"
@@ -119,6 +120,7 @@ export const PORTEE_LABEL: Record<AdrPortee, string> = {
   "adama-os": "Ce cockpit",
   "esg-optimizer": "ESG Optimizer",
   "strata-scope": "STRATA Scope",
+  pharivo: "Pharivo",
   groupe: "Le groupe",
 };
 

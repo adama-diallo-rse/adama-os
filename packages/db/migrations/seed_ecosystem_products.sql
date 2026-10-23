@@ -5,9 +5,10 @@
 -- utile quand la connection string locale n'est pas disponible.
 -- Idempotent : conflit sur slug ignore, rien n'est ecrase.
 --
--- Regle tenue par la base : status 'live' exige une URL. Seuls les deux
--- produits reellement ouverts au public la portent. Les autres sont en
--- construction, sans lien et sans date promise.
+-- Regle tenue par la base : status 'live' exige une URL. Etat d'ouverture
+-- du 31 aout 2026 : deux produits ouverts. Pour une base neuve, jouer
+-- ensuite 0009_pharivo_et_registre.sql, qui remet le registre a l'etat
+-- releve le 23 octobre 2026 (sept produits en ligne, Pharivo compris).
 -- =====================================================================
 
 insert into ecosystem_products

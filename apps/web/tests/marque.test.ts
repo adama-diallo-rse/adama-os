@@ -91,6 +91,7 @@ describe("EC2, la phrase de positionnement", () => {
     expect(POSITIONNEMENT.variantes.map((v) => v.code)).toEqual([
       "AXP-19",
       "AXP-159",
+      "EC2-0",
     ]);
     for (const v of POSITIONNEMENT.variantes) {
       expect(v.gardeeLe).toMatch(/^\d{4}-\d{2}-\d{2}$/);

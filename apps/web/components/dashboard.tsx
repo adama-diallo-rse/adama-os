@@ -21,7 +21,7 @@ import { JourneyGateway } from "./journey-gateway";
 import { SignalSignup } from "./signal-signup";
 import { Signature } from "./signature";
 import { ExpansionDashboard, ExpansionPreview } from "./expansion-dashboard";
-import { OrgLogo, marqueDe } from "./org-logo";
+import { OrgMark, aUneMarque } from "./org-logo";
 import {
   CONTACT_EMAIL,
   CV_DOWNLOAD_NAME,
@@ -32,7 +32,7 @@ import {
 import { captureEvent as capture } from "../lib/analytics";
 import { EVENT_RECRUITER_CV } from "../lib/analytics-events";
 import {
-  DISPONIBILITE,
+  ACTIVITE,
   EXPERIENCES,
   FORMATION,
   IDENTITE,
@@ -40,7 +40,6 @@ import {
   TITRE_COURT,
 } from "../content/profil";
 import type { CarteProjet } from "../content/projets";
-import { ADAMA_OS } from "../content/adama-os";
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return (
@@ -129,13 +128,13 @@ export function Dashboard({
                 <span className="status-dot" /> {TITRE_COURT.affiche}
               </p>
               <h1 id="hero-title">
-                L’ESG numérique,
+                L’économie réelle,
                 <br />
-                <span className="hero-serif">construit en public.</span>
+                <span className="hero-serif">rendue mesurable.</span>
               </h1>
               <div className="hero-copy-lines">
                 <p className="hero-description">{POSITIONNEMENT.fr}</p>
-                <p className="hero-situation">{ADAMA_OS.sousTitre}</p>
+                <p className="hero-situation">{IDENTITE.situation}</p>
                 <p className="hero-availability">
                   <span className="note-line" aria-hidden="true" />
                   <strong>
@@ -200,8 +199,8 @@ export function Dashboard({
               <ul className="experience-marks">
                 {EXPERIENCES.map((exp) => (
                   <li key={exp.id}>
-                    {marqueDe(exp.id) ? (
-                      <OrgLogo id={exp.id} nom={exp.organisation} />
+                    {aUneMarque(exp.id) ? (
+                      <OrgMark id={exp.id} nom={exp.organisation} />
                     ) : (
                       <span className={`experience-name ${exp.id}`}>
                         {exp.organisation}
@@ -212,8 +211,8 @@ export function Dashboard({
                 ))}
                 {FORMATION.map((f) => (
                   <li className="experience-formation" key={f.id}>
-                    {marqueDe(f.id) ? (
-                      <OrgLogo id={f.id} nom={f.precision} />
+                    {aUneMarque(f.id) ? (
+                      <OrgMark id={f.id} nom={f.precision} />
                     ) : (
                       <span className={`experience-name ${f.id}`}>
                         {f.organisation}
@@ -237,7 +236,7 @@ export function Dashboard({
                 <span className="serif">construit.</span>
               </h2>
               <p>
-                Trois fiches, le même gabarit, huit blocs chacune. Un bloc
+                Quatre fiches, le même gabarit, huit blocs chacune. Un bloc
                 entier y est consacré à ce que j’ai personnellement conçu,
                 arbitré et livré.
               </p>
@@ -248,8 +247,8 @@ export function Dashboard({
               proofStates={data.proofStates}
             />
             <p className="projects-note">
-              IROKO Software Group et les autres produits du groupe, leurs liens
-              et leur avancement, sont dans le{" "}
+              Les autres produits de STRATA ESG, de la veille réglementaire à la
+              formation, leurs liens et leur avancement, sont dans le{" "}
               <Link href="/ecosysteme">
                 registre de l’écosystème <span aria-hidden="true">↗</span>
               </Link>
@@ -380,13 +379,16 @@ export function Dashboard({
                 Mon <span className="serif">parcours.</span>
               </h2>
               <p>
-                Chez AG2R LA MONDIALE, mon stage porte sur la data ESG et les
-                solutions IA au sein de la direction RSE.
+                Je co-fonde deux maisons de logiciels : STRATA ESG, pour la
+                donnée de durabilité des entreprises, et Pharivo, pour la
+                gestion des officines au Sénégal. J’y porte l’architecture, le
+                code et la mise en production, et je les vends.
               </p>
               <p>
-                J’ai aussi travaillé sur la coordination RSE chez Younivibe et
-                sur le reporting au ministère des Finances au Sénégal. À l’AFEV,
-                je me suis engagé dans le mentorat étudiant.
+                Avant elles, un stage en data ESG et solutions IA à la direction
+                RSE d’AG2R LA MONDIALE, la coordination RSE chez Younivibe, le
+                reporting au ministère des Finances au Sénégal, et un service
+                civique de mentorat à l’AFEV.
               </p>
               <Link href="/recruteur" className="portfolio-text-link">
                 Voir mon profil professionnel <Arrow diagonal />
@@ -402,8 +404,8 @@ export function Dashboard({
               {EXPERIENCES.map((exp, rang) => (
                 <article key={exp.id}>
                   <span className="journey-mark" aria-hidden="true">
-                    {marqueDe(exp.id) ? (
-                      <OrgLogo
+                    {aUneMarque(exp.id) ? (
+                      <OrgMark
                         id={exp.id}
                         nom={exp.organisation}
                         decoratif
@@ -540,9 +542,9 @@ export function Dashboard({
             </div>
             <div className="contact-bottom">
               <p>
-                Pour une opportunité en RSE ou en data,
+                Pour un projet avec STRATA ESG, une officine Pharivo,
                 <br />
-                ou une question sur mes projets, écrivez-moi.
+                un partenariat ou une question sur mes travaux, écrivez-moi.
               </p>
               <a href={`mailto:${CONTACT_EMAIL}`}>
                 {CONTACT_EMAIL}
@@ -592,7 +594,7 @@ export function Dashboard({
               <Link href="/confiance">Frontières de données</Link>
               <ConsentLink className="portfolio-cookie-link" />
             </div>
-            <span>FR / ÎLE-DE-FRANCE</span>
+            <span>{ACTIVITE.villes.join(" / ").toUpperCase()}</span>
           </div>
         </footer>
         <RecruitModal open={recruitOpen} onOpenChange={setRecruitOpen} />

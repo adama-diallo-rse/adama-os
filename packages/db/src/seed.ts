@@ -207,16 +207,18 @@ async function seed() {
 
   // --- ecosystem_products : registre reel du groupe (L1-T9) ---------
   // Ce n'est PAS de la donnee de demo. Seuls les produits reellement
-  // ouverts portent une URL et le statut "live" ; les autres restent en
-  // construction, sans date. Reexecutable : conflit sur slug ignore.
+  // ouverts portent le statut "live" ; une URL sans "live" signale un
+  // produit en ligne mais pas encore complet. Etat releve le 23 octobre
+  // 2026, identique a migrations/0009_pharivo_et_registre.sql.
+  // Reexecutable : conflit sur slug ignore.
   const products = [
     {
       slug: "esg-optimizer",
       name: "ESG Optimizer",
       division: "STRATA",
-      pillar: "Audit et conformite CSRD",
+      pillar: "Audit et conformité CSRD",
       description:
-        "Deposez vos documents, obtenez un scoring sur les 10 standards ESRS et un rapport structure.",
+        "Déposez vos documents, obtenez un scoring sur les 10 standards ESRS et un rapport structuré.",
       status: "live" as const,
       url: "https://esg-optimizer.fr",
       repoFullName: "iroko-software-group/esg-optimizer",
@@ -235,13 +237,26 @@ async function seed() {
       position: 20,
     },
     {
+      slug: "esg-optimizer-africa",
+      name: "ESG Optimizer Africa",
+      division: "STRATA",
+      pillar: "Cotation ESG pour l'Afrique",
+      description:
+        "Une cotation ESG de A à D, à présenter à sa banque ou à son donneur d'ordre, sans partager ses documents. Prix en francs CFA.",
+      status: "live" as const,
+      url: "https://africa.esg-optimizer.fr",
+      repoFullName: null,
+      position: 25,
+    },
+    {
       slug: "strata-platform",
       name: "STRATA Platform",
       division: "STRATA",
-      pillar: "Site corporate du groupe",
-      description: "La vitrine de STRATA ESG et son socle d'authentification.",
-      status: "building" as const,
-      url: null,
+      pillar: "Site de STRATA ESG",
+      description:
+        "Le site de STRATA ESG : ses logiciels, son accompagnement, et le point d'entrée commun des produits.",
+      status: "live" as const,
+      url: "https://www.strata-esg.fr",
       repoFullName: "iroko-software-group/strata-platform",
       position: 30,
     },
@@ -249,11 +264,11 @@ async function seed() {
       slug: "strata-foundation",
       name: "STRATA Foundation",
       division: "STRATA",
-      pillar: "Point de depart ESG",
+      pillar: "Point de départ ESG",
       description:
-        "Un premier diagnostic de maturite durable, gratuit, pour se situer en dix minutes.",
-      status: "building" as const,
-      url: null,
+        "Gratuit pour les PME : ce qui vous vise, où vous en êtes, l'inventaire de vos données et des ressources prêtes à l'emploi. Sans carte bancaire.",
+      status: "live" as const,
+      url: "https://foundation.esg-optimizer.fr",
       repoFullName: "iroko-software-group/strata-foundation",
       position: 40,
     },
@@ -261,11 +276,11 @@ async function seed() {
       slug: "strata-watch",
       name: "STRATA Watch",
       division: "STRATA",
-      pillar: "Veille reglementaire",
+      pillar: "Veille réglementaire",
       description:
-        "Veille automatisee sur les sources officielles (EFRAG, AMF, JOUE), transformee en alertes utiles.",
-      status: "building" as const,
-      url: null,
+        "Les sources réglementaires officielles, européennes et françaises, filtrées pour votre entreprise et transformées en échéances datées.",
+      status: "live" as const,
+      url: "https://watch.esg-optimizer.fr",
       repoFullName: "iroko-software-group/strata-watch",
       position: 50,
     },
@@ -273,11 +288,11 @@ async function seed() {
       slug: "strata-academy",
       name: "STRATA Academy",
       division: "STRATA",
-      pillar: "Formation a la durabilite",
+      pillar: "Formation à la durabilité",
       description:
-        "Des parcours courts sur la CSRD, la VSME et le carbone, penses pour les equipes de PME.",
+        "Des parcours en ligne sur la CSRD, la VSME et la taxonomie, pour les PME et leurs conseils. Le catalogue se construit.",
       status: "building" as const,
-      url: null,
+      url: "https://academy.esg-optimizer.fr",
       repoFullName: "iroko-software-group/strata-esg-academy",
       position: 60,
     },
@@ -285,12 +300,27 @@ async function seed() {
       slug: "iroko-platform",
       name: "IROKO Platform",
       division: "IROKO",
-      pillar: "Operating system des entreprises africaines",
-      description: "Le socle de la branche Afrique du groupe.",
+      pillar: "Socle des entreprises africaines",
+      description: "Le socle commun des produits africains du groupe.",
       status: "building" as const,
       url: null,
       repoFullName: "iroko-software-group/iroko-platform",
+      // Hors de la vitrine publique depuis le 23 octobre 2026 : regle
+      // d'apparition du positionnement public d'Adama.
+      isPublic: false,
       position: 70,
+    },
+    {
+      slug: "pharivo",
+      name: "Pharivo",
+      division: "Pharivo",
+      pillar: "Gestion d'officine",
+      description:
+        "Le logiciel de l'officine sénégalaise : comptoir, stock par lot, péremptions et prix administrés, même sans réseau.",
+      status: "live" as const,
+      url: "https://pharivo.com",
+      repoFullName: null,
+      position: 80,
     },
     {
       slug: "adama-os",
@@ -298,7 +328,7 @@ async function seed() {
       division: "Cockpit",
       pillar: "Cockpit du fondateur",
       description:
-        "Ce tableau de bord. Suivi pour le feed Shipped, mais ce n'est pas un produit de la grille.",
+        "Ce tableau de bord. Suivi pour le journal de développement, ce n'est pas un produit de la grille.",
       status: "building" as const,
       url: null,
       repoFullName: "adama-diallo-rse/adama-os",

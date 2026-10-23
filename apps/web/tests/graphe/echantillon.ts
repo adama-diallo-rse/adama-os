@@ -219,7 +219,11 @@ const produits = [
 // ---------------------------------------------------------------------
 // DECISION : les ADR du catalogue, puis les décisions XDEC du jour
 // ---------------------------------------------------------------------
-const adr = ADR_CATALOGUE.map((a) =>
+// Echantillon arrete au JOUR : un ADR date apres lui (les decisions Pharivo
+// du 23 octobre 2026 en portent un du 6 octobre) aurait une revue anterieure
+// a sa propre date, ce que la contrainte graphe_objets_revue_apres_date
+// refuse a juste titre. L'echantillon reste celui du 27 septembre.
+const adr = ADR_CATALOGUE.filter((a) => a.date <= JOUR).map((a) =>
   base({
     id: a.adrId,
     type: "decision",

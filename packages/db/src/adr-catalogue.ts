@@ -26,6 +26,7 @@ export type AdrPortee =
   | "adama-os"
   | "esg-optimizer"
   | "strata-scope"
+  | "pharivo"
   | "groupe";
 export type AdrImpact =
   | "architecture"
@@ -832,6 +833,200 @@ const DEC_011: Adr = {
 };
 
 // ---------------------------------------------------------------------
+// Pharivo, ajoutees le 23 octobre 2026
+//
+// Trois decisions de produit et d'architecture, reconstruites depuis le hub
+// Notion du projet (pages 04, 06 et 17), sa base Decisions et le site public
+// pharivo.com. Le depot Pharivo/pharivo est prive et n'est pas sur le poste
+// qui a redige ces lignes : aucune empreinte de commit n'a pu etre relevee,
+// les preuves sont donc des adresses publiques, que n'importe quel visiteur
+// peut ouvrir. La question de chaque ADR demande a Adama la trace de code
+// qui remplacera la route.
+// ---------------------------------------------------------------------
+
+const DEC_012: Adr = {
+  adrId: "DEC-012",
+  titre: "Un journal de mouvements plutôt qu’un compteur de stock",
+  statut: "accepte",
+  date: "2026-09-15",
+  portee: "pharivo",
+  impact: "architecture",
+  reversibilite: "faible",
+  remplace: null,
+  contexte: [
+    "Une officine suit des milliers de produits, chacun en plusieurs lots, avec des dates de péremption différentes. Un écart de stock se paie en vente perdue ou en boîte périmée retrouvée trop tard.",
+    "Le poste de comptoir doit continuer à vendre quand le réseau tombe, puis se réconcilier sans intervention. Deux postes qui se resynchronisent ne doivent jamais se contredire.",
+    "La traçabilité par lot n’est pas un confort : un retrait de lot ou un contrôle exige de savoir qui a fait entrer ou sortir quoi, et quand.",
+  ],
+  options: [
+    {
+      option:
+        "Un compteur de quantité par produit, mis à jour à chaque opération",
+      verdict: "ecartee",
+      motif:
+        "Deux compteurs modifiés hors ligne se contredisent à la synchronisation, et une correction efface la valeur précédente sans laisser de trace.",
+    },
+    {
+      option:
+        "Un journal immuable de mouvements, dont la quantité se calcule, avec un instantané reconstructible pour la vitesse",
+      verdict: "retenue",
+      motif:
+        "Deux journaux se fusionnent là où deux compteurs s’écrasent, et chaque chiffre affiché peut être recalculé depuis ses mouvements.",
+    },
+  ],
+  decision:
+    "Le stock de Pharivo est un journal de mouvements typés : réception, vente, retour, correction, casse, péremption, inventaire, transfert. La quantité d’un lot se calcule depuis ce journal, et l’instantané conservé pour la performance reste toujours reconstructible.",
+  raisonnement: {
+    technique:
+      "Un mouvement est un fait daté qui ne se modifie pas. La synchronisation hors ligne devient une fusion d’événements, et une correction est un nouveau mouvement plutôt qu’une réécriture.",
+    reglementaire:
+      "Chaque entrée et chaque sortie restent attribuées à un lot, à un opérateur et à une date, ce qu’exige un retrait de lot ou un contrôle d’officine.",
+    economique:
+      "Une officine qui ne fait plus confiance à son stock revient à son cahier en quelques semaines. La confiance dans le chiffre est la condition de l’abonnement.",
+  },
+  compromis:
+    "Plus de lignes en base, et un instantané à tenir aligné sur le journal, contrôlé par les tests plutôt que supposé juste.",
+  consequence:
+    "Le site public décrit ventes, livraisons et comptages enregistrés dans un journal unique, d’où sont calculés le stock, les péremptions, les alertes et les rapports. Les transferts entre officines d’un même groupe, livrés le 22 octobre 2026, passent par deux mouvements liés, une sortie et une entrée, plutôt que par une modification de quantité.",
+  preuves: [
+    {
+      kind: "route",
+      libelle: "Page À propos du site public, qui décrit le journal unique",
+      locator: "https://pharivo.com/a-propos",
+    },
+  ],
+  tags: ["architecture", "stock", "hors-ligne", "pharivo"],
+  reconstruit: true,
+  questions: [
+    "Quel fichier de migration ou quel commit du dépôt Pharivo pose le journal de mouvements, pour remplacer la preuve par route par une preuve de code ?",
+  ],
+  revirement: null,
+};
+
+const DEC_013: Adr = {
+  adrId: "DEC-013",
+  titre:
+    "Le comptoir dès la première version plutôt qu’un logiciel de stock seul",
+  statut: "accepte",
+  date: "2026-09-05",
+  portee: "pharivo",
+  impact: "produit",
+  reversibilite: "moyenne",
+  remplace: null,
+  contexte: [
+    "La spécification d’origine portait sur la gestion de stock des officines. Le marché sénégalais compte déjà plusieurs logiciels de stock et de caisse vendus aux officines.",
+    "Les entretiens et l’analyse du terrain ont montré que la vente est le point où le stock change. Un stock que les ventes ne décrémentent pas tout seul diverge en quelques jours.",
+    "Le poste visé est un ordinateur Windows d’entrée de gamme, avec une douchette et une imprimante de tickets, sur un réseau qui coupe : le comptoir doit tenir dans ces conditions-là.",
+  ],
+  options: [
+    {
+      option:
+        "Un logiciel de stock seul, la vente restant au cahier ou dans un autre outil",
+      verdict: "ecartee",
+      motif:
+        "Sans la vente, la donnée diverge dès la première semaine et l’officine retourne à son cahier : le produit meurt à l’usage, pas à la vente.",
+    },
+    {
+      option: "Stock, lots, péremptions et comptoir dans le même produit",
+      verdict: "retenue",
+      motif:
+        "La vente décompte automatiquement le bon lot, et le stock reste juste sans double saisie.",
+    },
+  ],
+  decision:
+    "La première version de Pharivo comprend le comptoir : vente au clavier et à la douchette, décompte automatique du lot, encaissement en espèces, Wave ou Orange Money. Il n’existe pas de version stock seul.",
+  raisonnement: {
+    technique:
+      "Le comptoir est l’écriture la plus fréquente du journal de mouvements. Le construire tôt fixe le modèle sur l’opération qui compte, plutôt que sur l’inventaire.",
+    reglementaire:
+      "Le comptoir est aussi l’endroit où se contrôle le prix administré de chaque vente, ce qu’un logiciel de stock seul ne voit jamais.",
+    economique:
+      "Un logiciel de stock de plus ne se vend pas sur ce marché. La suppression de la double saisie est ce que l’officine achète.",
+  },
+  compromis:
+    "Une première version plus longue à construire, avec une interface de comptoir qui doit tenir sur un poste d’entrée de gamme, au clavier, et sans réseau.",
+  consequence:
+    "Le comptoir est en production sur l’application d’officine, et le site public le présente comme la première des fonctions du produit. Le hors-ligne en découle : la vente est conservée sur le poste puis synchronisée au retour du réseau.",
+  preuves: [
+    {
+      kind: "route",
+      libelle: "Page d’accueil du site public, section comptoir",
+      locator: "https://pharivo.com",
+    },
+    {
+      kind: "route",
+      libelle: "Page de connexion de l’application d’officine",
+      locator: "https://officine.pharivo.com",
+    },
+  ],
+  tags: ["produit", "comptoir", "pharivo"],
+  reconstruit: true,
+  questions: [
+    "Faut-il dater cette décision au 5 septembre 2026, date du hub, ou à la livraison du comptoir dans le dépôt ?",
+  ],
+  revirement: null,
+};
+
+const DEC_014: Adr = {
+  adrId: "DEC-014",
+  titre:
+    "Un registre sensible construit mais fermé plutôt qu’ouvert sans avis juridique",
+  statut: "accepte",
+  date: "2026-10-06",
+  portee: "pharivo",
+  impact: "conformite",
+  reversibilite: "forte",
+  remplace: null,
+  contexte: [
+    "La conformité locale d’une officine sénégalaise comprend deux blocs : le contrôle des prix administrés et des gardes, sans donnée de patient, et les registres légaux, ordonnancier et stupéfiants, qui en portent.",
+    "Ouvrir le second bloc engage le traitement de données de santé nominatives, donc des obligations d’hébergement et de déclaration que le projet n’a pas encore fait valider.",
+    "Certaines officines attendent pourtant ces registres, tenus aujourd’hui à la main : les retarder a un coût commercial réel.",
+  ],
+  options: [
+    {
+      option: "Livrer les deux blocs ensemble, ouverts en production",
+      verdict: "ecartee",
+      motif:
+        "Le produit traiterait des données de patients avant qu’un avis juridique ait fixé le cadre, ce qui ferait porter le risque à l’officine cliente.",
+    },
+    {
+      option:
+        "Livrer le contrôle des prix, construire les registres et les garder fermés par un drapeau",
+      verdict: "retenue",
+      motif:
+        "La valeur sans risque est livrée tout de suite, et le travail sur les registres n’est pas perdu : il attend une décision qui ne dépend pas du code.",
+    },
+  ],
+  decision:
+    "Le contrôle des prix administrés, l’alerte au comptoir, le rapport mensuel des écarts et le tour de garde sont en production. L’ordonnancier et le registre des stupéfiants sont construits, mais restent derrière un drapeau éteint en production tant que l’avis juridique n’est pas rendu.",
+  raisonnement: {
+    technique:
+      "Un drapeau fonctionnel par organisation sépare la livraison du code de son ouverture : le même déploiement sert les deux états, et l’ouverture ne demande aucune nouvelle version.",
+    reglementaire:
+      "Aucune donnée nominative de patient n’entre dans le produit avant que le cadre d’hébergement et de déclaration soit écrit.",
+    economique:
+      "Le contrôle des prix administrés est un argument que les éditeurs généralistes n’ont pas, et il se vend sans attendre les registres.",
+  },
+  compromis:
+    "Du code maintenu sans être utilisé, et une fonction attendue par certaines officines qui reste indisponible tant que la question juridique n’est pas tranchée.",
+  consequence:
+    "Le site public annonce la comparaison de chaque vente au prix public administré, sur un référentiel national préchargé, et ne mentionne aucun registre de patients. Le même principe ferme les transferts de stock vers une autre organisation, refusés par la base jusqu’à l’avis juridique.",
+  preuves: [
+    {
+      kind: "route",
+      libelle: "Section conformité du site public",
+      locator: "https://pharivo.com",
+    },
+  ],
+  tags: ["conformite", "donnees-de-sante", "drapeau", "pharivo"],
+  reconstruit: true,
+  questions: [
+    "Le nom du drapeau et la migration qui pose les registres peuvent-ils être cités comme preuves, ou doivent-ils rester internes ?",
+  ],
+  revirement: null,
+};
+
+// ---------------------------------------------------------------------
 // Les decisions remplacees, qui portent les revirements (C7)
 //
 // Un revirement n'est pas une entree separee : c'est la decision initiale,
@@ -1274,6 +1469,9 @@ export const ADR_CATALOGUE: readonly Adr[] = [
   DEC_009,
   DEC_010,
   DEC_011,
+  DEC_012,
+  DEC_013,
+  DEC_014,
   DEC_101,
   DEC_102,
   DEC_103,

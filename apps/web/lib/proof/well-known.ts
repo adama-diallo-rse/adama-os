@@ -19,16 +19,23 @@
 
 import { CONTACT_EMAIL } from "../../components/types";
 import {
-  DEMANDE,
+  ACTIVITE,
   IDENTITE,
+  OUVERTURE,
   POSTE_ACTUEL,
-  RECHERCHE,
 } from "../../content/profil";
 import { SITE_URL, absoluteUrl } from "../site";
 import { resolveClaimState } from "./types";
 import type { ProofClaim } from "./claims";
 
-export const WELL_KNOWN_SCHEMA_VERSION = "1.0";
+/**
+ * 1.1, 23 octobre 2026 : `person.seeking` et `person.available_from` sont
+ * retires (la recherche de poste est close depuis le 10 octobre 2026),
+ * `person.organisations` et `person.open_to` les remplacent. Un lecteur de
+ * la 1.0 qui exigerait les anciens champs doit echouer franchement plutot
+ * que lire une recherche qui n'existe plus : la version mineure le signale.
+ */
+export const WELL_KNOWN_SCHEMA_VERSION = "1.1";
 
 export type WellKnownEvidence = {
   kind: string;
@@ -66,8 +73,8 @@ export type WellKnownDocument = {
   person: {
     name: string;
     role: string;
-    seeking: string;
-    available_from: string;
+    organisations: string[];
+    open_to: string;
     location: string;
     contact: string;
   };
@@ -90,9 +97,9 @@ export type WellKnownDocument = {
 const PERSONNE = {
   name: IDENTITE.nom,
   role: POSTE_ACTUEL,
-  seeking: DEMANDE,
-  available_from: RECHERCHE.disponibleLe,
-  location: `${RECHERCHE.zone}, France`,
+  organisations: [...ACTIVITE.maisons],
+  open_to: OUVERTURE,
+  location: ACTIVITE.villes.join(", "),
   contact: CONTACT_EMAIL,
 };
 

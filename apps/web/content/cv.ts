@@ -9,7 +9,7 @@
 // precedentes, parce qu'elle est la seule chose qu'il retiendra.
 //
 // Ce fichier ne DUPLIQUE rien de content/profil.ts : il l'importe. Identite,
-// intitules de poste, disponibilite, experiences et formation viennent de la
+// activite, ligne d'ouverture, experiences et formation viennent de la
 // source unique de profil. Ce qui vit ici, et seulement ici, ce sont les
 // AFFIRMATIONS du CV : les phrases qu'un lecteur pourrait vouloir verifier.
 //
@@ -20,13 +20,13 @@
 // =====================================================================
 
 import {
+  ACTIVITE,
   COMPETENCES,
-  DEMANDE,
-  DISPONIBILITE,
   EXPERIENCES,
   FORMATION,
   IDENTITE,
-  RECHERCHE,
+  OUVERTURE,
+  PORTES_ENTREE,
 } from "./profil";
 
 export type AffirmationCv = {
@@ -89,6 +89,13 @@ export const AFFIRMATIONS_CV: readonly AffirmationCv[] = [
     section: "projets",
   },
   {
+    id: "pharivo",
+    phrase:
+      "Pharivo, le logiciel de gestion d’officine, est en ligne et son interface publique répond.",
+    preuveId: "pharivo-en-ligne",
+    section: "projets",
+  },
+  {
     id: "registre-produits",
     phrase:
       "Le registre des produits du groupe vit en base de données, pas dans le code des pages.",
@@ -126,14 +133,14 @@ export const AFFIRMATIONS_CV: readonly AffirmationCv[] = [
 /**
  * Le CV, assemble depuis la source unique de profil.
  *
- * Aucune chaine d'identite, d'intitule ou de disponibilite n'est ecrite ici.
+ * Aucune chaine d'identite, d'activite ou d'ouverture n'est ecrite ici.
  * tests/cv.test.ts echoue si l'une d'elles reapparait en clair.
  */
 export const CV = {
   identite: IDENTITE,
-  recherche: RECHERCHE,
-  disponibilite: DISPONIBILITE,
-  demande: DEMANDE,
+  activite: ACTIVITE,
+  ouverture: OUVERTURE,
+  portes: PORTES_ENTREE,
   competences: COMPETENCES,
   experiences: EXPERIENCES,
   formation: FORMATION,

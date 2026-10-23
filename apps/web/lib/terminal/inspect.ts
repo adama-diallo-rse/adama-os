@@ -17,7 +17,7 @@
 
 import { divisionName } from "../../components/brand-signature";
 import type { CarteProjet } from "../../content/projets";
-import { DISPONIBILITE, IDENTITE, RECHERCHE } from "../../content/profil";
+import { IDENTITE, OUVERTURE, PORTES_ENTREE } from "../../content/profil";
 import type {
   EcosystemProductRow,
   GatewayStatusRow,
@@ -133,16 +133,17 @@ export function commandesInspection(
     },
     {
       value: "whoami",
-      hint: "profil, recherche, disponibilité",
+      hint: "profil, maisons, ouverture",
       run: () =>
         sortie([
           { text: IDENTITE.nom, tone: "ok" },
+          { text: IDENTITE.situation, tone: "info" },
           { text: IDENTITE.capacite, tone: "info" },
-          { text: DISPONIBILITE, tone: "info" },
-          {
-            text: `postes visés : ${RECHERCHE.postes.join(" · ")}`,
-            tone: "info",
-          },
+          { text: OUVERTURE, tone: "info" },
+          ...PORTES_ENTREE.filter((p) => p.lien).map((p) => ({
+            text: `${p.public} · ${p.libelleLien}`,
+            tone: "info" as const,
+          })),
         ]),
     },
     {
@@ -289,7 +290,7 @@ export function commandesInspection(
     },
     {
       value: "recruiter",
-      hint: "bascule en parcours recruteur",
+      hint: "ouvre le profil professionnel",
       run: () => sortie([], { ouvrir: "/recruteur" }),
     },
   ];

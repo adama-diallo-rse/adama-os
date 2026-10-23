@@ -22,6 +22,8 @@
 export const ROLES_DIVISION: Record<string, string> = {
   STRATA:
     "La conformité et la donnée de durabilité : collecte, contrôle, restitution réglementaire. C’est la division qui porte le métier.",
+  Pharivo:
+    "La gestion de l’officine au Sénégal : comptoir, stock par lot, péremptions et prix administrés, même sans réseau.",
   IROKO:
     "L’outillage d’exploitation d’une petite structure : gestion, suivi, automatisation du quotidien.",
   Afrique:
@@ -46,6 +48,7 @@ export const ROLES_DIVISION: Record<string, string> = {
  */
 export const LIBELLE_DIVISION: Record<string, string> = {
   STRATA: "STRATA ESG",
+  Pharivo: "Pharivo",
   IROKO: "IROKO",
   Afrique: "Afrique",
   Cockpit: "Socle personnel",

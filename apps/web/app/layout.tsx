@@ -6,14 +6,13 @@ import {
   GITHUB_PROFILE_URL,
   GITHUB_REPO_URL,
 } from "../components/types";
-import { SITE_URL, absoluteUrl } from "../lib/site";
+import { SITE_URL } from "../lib/site";
 import {
-  DEMANDE,
-  DISPONIBILITE,
-  EXPERIENCE_ACTUELLE,
+  ACTIVITE,
+  FORMATION,
   IDENTITE,
+  ORGANISATIONS_ACTUELLES,
   POSTE_ACTUEL,
-  RECHERCHE,
   TITRE_COURT,
 } from "../content/profil";
 import { ADAMA_OS } from "../content/adama-os";
@@ -83,27 +82,27 @@ const courierPrime = Courier_Prime({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "ADAMA OS | Construire l’ESG numérique",
+    default: "ADAMA OS | Rendre l’économie réelle mesurable",
     template: "%s · ADAMA OS",
   },
   // La description est ce qu'un moteur affiche sous le titre : au-dela
   // d'environ 160 caracteres, il coupe et choisit lui-meme la suite. Elle
-  // porte donc la capacite et la disponibilite, les deux seules choses
-  // qu'un lecteur de resultat de recherche a besoin de savoir. La demande
-  // complete reste dans le JSON-LD et sur /recruteur, ou elle a la place.
-  description: `${ADAMA_OS.proposition} ${ADAMA_OS.sousTitre}`,
-  // Les intitulés recherchés viennent de la source unique de profil : un
-  // mot-clé qui ne figure pas sur la page est un mot-clé qui ment.
+  // porte donc la capacite et la situation, les deux seules choses qu'un
+  // lecteur de resultat de recherche a besoin de savoir.
+  description: `${IDENTITE.capacite} ${IDENTITE.situation}`,
+  // Les maisons viennent de la source unique de profil : un mot-cle qui ne
+  // figure pas sur la page est un mot-cle qui ment.
   keywords: [
     IDENTITE.nom,
+    ...ACTIVITE.maisons,
     "RSE",
     "ESG",
     "CSRD",
     "ESRS",
     "VSME",
-    ...RECHERCHE.postes,
     "reporting durabilité",
-    "STRATA ESG",
+    "gestion d’officine",
+    "Sénégal",
   ],
   alternates: { canonical: "/" },
   // Favicon, apple-icon et manifeste sont servis par les conventions de
@@ -120,7 +119,7 @@ export const metadata: Metadata = {
     google: "9MNunaSiGbPwx8_DDYpwGqI7gAocN2nHoB57B7UQF8w",
   },
   openGraph: {
-    title: "ADAMA OS | Construire l’ESG numérique",
+    title: "ADAMA OS | Rendre l’économie réelle mesurable",
     description: ADAMA_OS.sousTitre,
     url: "/",
     siteName: "ADAMA OS",
@@ -129,7 +128,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ADAMA OS | Construire l’ESG numérique",
+    title: "ADAMA OS | Rendre l’économie réelle mesurable",
     description: ADAMA_OS.sousTitre,
   },
 };
@@ -154,13 +153,26 @@ const personJsonLd = {
   // recherche montre deux personnes differentes.
   jobTitle: POSTE_ACTUEL,
   description: `${IDENTITE.capacite} ${IDENTITE.situation}`,
-  // L'employeur actuel se lit dans la source du profil. Recopie ici, il
-  // divergerait le jour ou la source change, et le resultat de recherche
-  // montrerait une personne que la page ne decrit pas.
-  worksFor: [
-    { "@type": "Organization", name: EXPERIENCE_ACTUELLE.organisation },
-    { "@type": "Organization", name: "STRATA ESG" },
-  ],
+  // Les organisations actuelles se lisent dans la source du profil.
+  // Recopiees ici, elles divergeraient le jour ou la source change, et le
+  // resultat de recherche montrerait une personne que la page ne decrit pas.
+  worksFor: ORGANISATIONS_ACTUELLES.map((o) => ({
+    "@type": "Organization",
+    name: o.organisation,
+    ...(o.precision
+      ? {
+          location: { "@type": "Place", name: o.precision },
+        }
+      : {}),
+  })),
+  alumniOf: FORMATION.map((f) => ({
+    "@type": "CollegeOrUniversity",
+    name: f.precision,
+  })),
+  homeLocation: ACTIVITE.villes.map((ville) => ({
+    "@type": "Place",
+    name: ville,
+  })),
   url: SITE_URL,
   email: `mailto:${CONTACT_EMAIL}`,
   sameAs: [GITHUB_PROFILE_URL, GITHUB_REPO_URL],
@@ -171,16 +183,11 @@ const personJsonLd = {
     "ESRS",
     "VSME",
     "Reporting de durabilité",
+    "Gestion d’officine",
     "Next.js",
     "Supabase",
     "Python",
   ],
-  seeks: {
-    "@type": "Demand",
-    name: DEMANDE,
-    availabilityStarts: RECHERCHE.disponibleLe,
-    areaServed: RECHERCHE.zone,
-  },
 };
 
 const siteJsonLd = {
@@ -195,34 +202,13 @@ const siteJsonLd = {
   author: { "@id": `${SITE_URL}#adama-diallo` },
 };
 
-// C13-T5, la recherche d'emploi, lisible par une machine.
-//
-// L'objectif n'est PAS le trafic : c'est qu'une recherche sur le nom d'Adama
-// trouve un ensemble coherent. Un agent qui prefiltre une candidature lit ce
-// noeud, la page d'accueil, /llms.txt et le document machine : les quatre
-// disent la meme chose parce qu'ils lisent la meme source.
-//
-// Le type retenu est JobSeeker et non JobPosting : Adama cherche un poste, il
-// n'en publie pas un. Annoncer une offre d'emploi serait faux, et un agent
-// qui indexerait ce site comme un employeur produirait exactement la
-// confusion que cette couche existe pour eviter.
-const rechercheJsonLd = {
-  "@type": "Person",
-  "@id": `${SITE_URL}#recherche`,
-  name: IDENTITE.nom,
-  mainEntityOfPage: absoluteUrl("/recruteur"),
-  seeks: RECHERCHE.postes.map((poste) => ({
-    "@type": "Demand",
-    name: poste,
-    availabilityStarts: RECHERCHE.disponibleLe,
-    areaServed: { "@type": "AdministrativeArea", name: RECHERCHE.zone },
-    eligibleCustomerType: RECHERCHE.contrats.join(" / "),
-  })),
-};
-
+// C13-T5 retire le 23 octobre 2026. Un troisieme noeud declarait la
+// recherche de poste (type Demand, un par intitule vise). La recherche est
+// close depuis le 10 octobre 2026 : un moteur ou un agent qui lirait encore
+// ce noeud presenterait Adama comme candidat, ce que la page ne dit plus.
 const jsonLd = {
   "@context": "https://schema.org",
-  "@graph": [personJsonLd, siteJsonLd, rechercheJsonLd],
+  "@graph": [personJsonLd, siteJsonLd],
 };
 
 export default function RootLayout({

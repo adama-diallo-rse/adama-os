@@ -115,6 +115,8 @@ export const adrScope = pgEnum("adr_scope", [
   "esg-optimizer",
   "strata-scope",
   "groupe",
+  // 0009, 23 octobre 2026 : Pharivo, seconde maison nommee publiquement.
+  "pharivo",
 ]);
 
 export const adrImpact = pgEnum("adr_impact", [

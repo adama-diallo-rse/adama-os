@@ -19,9 +19,9 @@ echouer `--check` a chaque seconde.
 | Modules `lib` | 54 |
 | Tables Drizzle | 11 |
 | Types enumeres | 14 |
-| Migrations SQL | 10 |
-| Fichiers de test | 60 |
-| Cas de test | 593 |
+| Migrations SQL | 11 |
+| Fichiers de test | 61 |
+| Cas de test | 597 |
 | Dependances directes declarees | 53 |
 
 ## Routes
@@ -44,7 +44,7 @@ echouer `--check` a chaque seconde.
 | `/decisions/[adr]` | `apps/web/app/decisions/[adr]/page.tsx` | 305 |
 | `/decisions` | `apps/web/app/decisions/page.tsx` | 148 |
 | `/diagnostic` | `apps/web/app/diagnostic/page.tsx` | 215 |
-| `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 178 |
+| `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 186 |
 | `/ecriture` | `apps/web/app/ecriture/page.tsx` | 155 |
 | `/en/articles/proof-method` | `apps/web/app/en/articles/proof-method/page.tsx` | 53 |
 | `/en/articles/seven-constraints-west-african-esg-data` | `apps/web/app/en/articles/seven-constraints-west-african-esg-data/page.tsx` | 53 |
@@ -63,8 +63,8 @@ echouer `--check` a chaque seconde.
 | `/` | `apps/web/app/page.tsx` | 225 |
 | `/preuves` | `apps/web/app/preuves/page.tsx` | 142 |
 | `/principes` | `apps/web/app/principes/page.tsx` | 146 |
-| `/projets/[slug]` | `apps/web/app/projets/[slug]/page.tsx` | 163 |
-| `/recruteur` | `apps/web/app/recruteur/page.tsx` | 324 |
+| `/projets/[slug]` | `apps/web/app/projets/[slug]/page.tsx` | 172 |
+| `/recruteur` | `apps/web/app/recruteur/page.tsx` | 340 |
 | `/revirements` | `apps/web/app/revirements/page.tsx` | 178 |
 | `/revue-architecture` | `apps/web/app/revue-architecture/page.tsx` | 164 |
 | `/systeme` | `apps/web/app/systeme/page.tsx` | 148 |
@@ -104,6 +104,7 @@ Migrations :
 - `packages/db/migrations/0006_revirements.sql`
 - `packages/db/migrations/0007_graphe.sql`
 - `packages/db/migrations/0008_depots_prives.sql`
+- `packages/db/migrations/0009_pharivo_et_registre.sql`
 - `packages/db/migrations/seed_ecosystem_products.sql`
 
 ## Composants et modules
@@ -112,7 +113,7 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 | Fichier | Lignes |
 | --- | --- |
-| `apps/web/components/dashboard.tsx` | 615 |
+| `apps/web/components/dashboard.tsx` | 617 |
 | `apps/web/components/terminal.tsx` | 563 |
 | `apps/web/components/vsme-simulator.tsx` | 550 |
 | `apps/web/lib/health/criteria.ts` | 459 |
@@ -135,7 +136,7 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 Hotes distincts appeles ou lies depuis le code :
 
-`${vercel_host}`, `adamesg-os.fr`, `adamesg-os.fr${a.href}`, `adamesg-os.fr${chemin}`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `esg-optimizer.fr`, `eu.i.posthog.com`, `eur-lex.europa.eu`, `ghgprotocol.org`, `github.com`, `schema.org`, `scope.esg-optimizer.fr`, `uptime.betterstack.com`, `www.efrag.org`, `www.ifrs.org`, `www.notion.so`, `www.strata-esg.fr`
+`${vercel_host}`, `academy.esg-optimizer.fr`, `adamesg-os.fr`, `adamesg-os.fr${a.href}`, `adamesg-os.fr${chemin}`, `africa.esg-optimizer.fr`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `esg-optimizer.fr`, `eu.i.posthog.com`, `eur-lex.europa.eu`, `foundation.esg-optimizer.fr`, `ghgprotocol.org`, `github.com`, `officine.pharivo.com`, `pharivo.com`, `schema.org`, `scope.esg-optimizer.fr`, `uptime.betterstack.com`, `watch.esg-optimizer.fr`, `www.efrag.org`, `www.ifrs.org`, `www.notion.so`, `www.strata-esg.fr`
 
 ### URL absolues du site ecrites en dur
 
@@ -312,15 +313,15 @@ Severite actuelle : `error` (avertissement en vague V0, erreur a partir de V2).
 | N1 | Lignes de texte dans l'accroche de la home | 3 | 3 | tenu |
 | N1 | Actions proposees dans l'accroche de la home | 3 | 3 | tenu |
 | N1 | Cartes de competence sous l'accroche | 3 | 3 | tenu |
-| N2 | Fiches projet mises en avant sur la home | 3 | 3 | tenu |
+| N2 | Fiches projet mises en avant sur la home | 4 | 4 | tenu |
 | N2 | Preuves sociales affichees d'un bloc dans la Couche D | 1 | 4 | tenu |
-| N2 | Experiences citees dans le bandeau de la home | 4 | 4 | tenu |
-| N2 | Marques d'organisation affichees sur le site | 4 | 5 | tenu |
+| N2 | Experiences citees dans le bandeau de la home | 6 | 6 | tenu |
+| N2 | Marques d'organisation affichees sur le site | 6 | 6 | tenu |
 | surface | Routes de page | 44 | 46 | tenu |
 | surface | Routes d'API | 11 | 11 | tenu |
 | surface | Composants | 54 | 54 | tenu |
 | surface | Modules lib | 54 | 54 | tenu |
-| surface | Lignes du plus gros composant | 615 | 700 | tenu |
+| surface | Lignes du plus gros composant | 617 | 700 | tenu |
 | surface | Lignes du plus gros module lib | 459 | 460 | tenu |
 
 Aucun depassement.

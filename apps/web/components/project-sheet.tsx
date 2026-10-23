@@ -59,7 +59,7 @@ export function ProjectSheet({
           ))}
         </ol>
         <p className="case-toc-note">
-          Même gabarit sur les trois fiches. Elles se comparent.
+          Même gabarit sur toutes les fiches. Elles se comparent.
         </p>
       </nav>
 

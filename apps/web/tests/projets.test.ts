@@ -69,9 +69,13 @@ function textesDe(fiche: FicheProjet): string[] {
   ];
 }
 
-describe("C5, les trois fiches", () => {
-  it("en publie trois, pas quatre", () => {
-    expect(FICHES).toHaveLength(3);
+describe("C5, les fiches", () => {
+  // Quatre depuis le 23 octobre 2026 : Pharivo, seconde maison nommee
+  // publiquement, rejoint les trois fiches d'origine. Le plafond est fige
+  // a quatre, comme docs/budget.json (n2_projets_home).
+  it("en publie quatre, pas cinq, dont Pharivo", () => {
+    expect(FICHES).toHaveLength(4);
+    expect(ficheParSlug("pharivo")?.division).toBe("Pharivo");
   });
 
   it("porte des identifiants uniques et citables dans une URL", () => {

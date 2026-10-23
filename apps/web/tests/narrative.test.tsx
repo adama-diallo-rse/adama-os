@@ -5,10 +5,10 @@ import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { SkillCards } from "../components/skill-cards";
 import {
+  ACTIVITE,
   COMPETENCES,
-  DISPONIBILITE,
+  IDENTITE,
   POSITIONNEMENT,
-  RECHERCHE,
 } from "../content/profil";
 import { ADAMA_OS } from "../content/adama-os";
 
@@ -68,19 +68,24 @@ describe("C9-T6, le premier ecran dit ce qu'on lui demande", () => {
     expect(ecran).toContain('className="hero-availability"');
   });
 
-  it("annonce le mois et l'annee de prise de fonction", () => {
-    expect(DISPONIBILITE).toContain("novembre");
-    expect(DISPONIBILITE).toContain(RECHERCHE.annee);
-    expect(RECHERCHE.annee).toBe("2026");
+  // 23 octobre 2026 : la ligne de disponibilite a quitte le premier ecran
+  // avec la recherche de poste, close le 10 octobre. La situation dit
+  // desormais les deux maisons et les deux villes.
+  it("nomme les deux maisons dans la situation", () => {
+    expect(ecran).toContain("IDENTITE.situation");
+    for (const maison of ACTIVITE.maisons) {
+      expect(IDENTITE.situation).toContain(maison);
+    }
   });
 
-  it("annonce la zone geographique, accents portes", () => {
-    expect(DISPONIBILITE).toContain("Île-de-France");
+  it("annonce les deux villes, accents portes", () => {
+    expect(IDENTITE.situation).toContain("Paris");
+    expect(IDENTITE.situation).toContain("Dakar");
   });
 
-  it("range la proposition avant le sous-titre, puis la signature avant les actions", () => {
+  it("range la proposition avant la situation, puis la signature avant les actions", () => {
     const capacite = ecran.indexOf("POSITIONNEMENT.fr");
-    const situation = ecran.indexOf("ADAMA_OS.sousTitre");
+    const situation = ecran.indexOf("IDENTITE.situation");
     const signature = ecran.indexOf("<Signature");
     const actions = ecran.indexOf('className="hero-actions"');
     expect(capacite).toBeGreaterThan(-1);

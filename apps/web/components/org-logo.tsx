@@ -1,4 +1,6 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
+import { BrandSignature } from "./brand-signature";
 
 // =====================================================================
 // Les marques des organisations citees sur le site.
@@ -50,7 +52,7 @@ const MARQUES: Record<string, MarqueOrg> = {
 };
 
 /** La marque d'une organisation, ou null si aucune n'a ete fournie. */
-export function marqueDe(id: string): MarqueOrg | null {
+function marqueDe(id: string): MarqueOrg | null {
   return MARQUES[id] ?? null;
 }
 
@@ -66,7 +68,7 @@ export function marqueDe(id: string): MarqueOrg | null {
  * `couleurAuSurvol` a false n'emet que la version encre. C'est le reglage du
  * mode recruteur et de l'impression, ou une image de plus n'apporte rien.
  */
-export function OrgLogo({
+function OrgLogo({
   id,
   nom,
   decoratif = false,
@@ -109,6 +111,79 @@ export function OrgLogo({
           height={hauteur}
         />
       )}
+    </span>
+  );
+}
+
+// =====================================================================
+// Les deux maisons, 23 octobre 2026.
+//
+// STRATA ESG et Pharivo entrent dans les experiences comme des activites,
+// pas comme des employeurs. Leur marque n'est pas un fichier fourni et
+// retouche comme les quatre logos ci-dessus : c'est le mot-symbole que
+// chaque maison sert elle-meme, trace en ligne et peint a la couleur du
+// texte. Il suit donc la meme regle d'etat sans fichier de plus : encre au
+// repos, couleur de la maison au survol, encre seule en impression.
+// =====================================================================
+
+const MAISONS: Record<string, "strata" | "pharivo"> = {
+  strata: "strata",
+  pharivo: "pharivo",
+};
+
+/** La maison d'une experience, ou null quand ce n'en est pas une. */
+function maisonDe(id: string): "strata" | "pharivo" | null {
+  return MAISONS[id] ?? null;
+}
+
+/** Vrai quand l'organisation se montre par une marque plutot que par son nom. */
+export function aUneMarque(id: string): boolean {
+  return marqueDe(id) !== null || maisonDe(id) !== null;
+}
+
+/**
+ * La marque d'une organisation, qu'elle soit un fichier fourni ou le
+ * mot-symbole d'une maison. Meme contrat que OrgLogo : `nom` nomme la
+ * marque quand rien d'autre ne l'ecrit, `decoratif` la sort de l'arbre
+ * d'accessibilite quand le nom figure deja a cote.
+ */
+export function OrgMark({
+  id,
+  nom,
+  decoratif = false,
+  couleurAuSurvol = true,
+  hauteur,
+  className = "",
+}: {
+  id: string;
+  nom: string;
+  decoratif?: boolean;
+  couleurAuSurvol?: boolean;
+  hauteur?: number;
+  className?: string;
+}) {
+  const maison = maisonDe(id);
+  if (!maison) {
+    return (
+      <OrgLogo
+        id={id}
+        nom={nom}
+        decoratif={decoratif}
+        couleurAuSurvol={couleurAuSurvol}
+        hauteur={hauteur}
+        className={className}
+      />
+    );
+  }
+  return (
+    <span
+      className={`org-maison org-maison--${maison} ${
+        couleurAuSurvol ? "" : "org-maison--encre"
+      } ${className}`.trim()}
+      style={{ "--maison-hauteur": `${hauteur ?? 30}px` } as CSSProperties}
+      aria-hidden={decoratif || undefined}
+    >
+      <BrandSignature brand={maison} />
     </span>
   );
 }

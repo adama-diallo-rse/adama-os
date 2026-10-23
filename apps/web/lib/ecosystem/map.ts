@@ -65,7 +65,7 @@ const STATUT_PRODUIT: Record<EcosystemStatus, string> = {
 };
 
 /** Ordre d'affichage des divisions. Une inconnue passe apres, par ordre. */
-const ORDRE = ["STRATA", "IROKO", "Afrique", "Cockpit"];
+const ORDRE = ["STRATA", "Pharivo", "IROKO", "Afrique", "Cockpit"];
 
 function rang(division: string): number {
   const i = ORDRE.indexOf(division);

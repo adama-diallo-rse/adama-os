@@ -13,12 +13,12 @@ import { ROLES_DIVISION } from "../../content/divisions";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Écosystème, STRATA ESG et IROKO Software Group",
+  title: "Écosystème, STRATA ESG et Pharivo",
   description:
-    "Les projets d’Adama Diallo : reporting de durabilité avec STRATA ESG, gestion d’entreprise avec IROKO Software Group. Produits, liens et avancement.",
+    "Les logiciels d’Adama Diallo : la donnée de durabilité avec STRATA ESG, la gestion d’officine au Sénégal avec Pharivo. Produits, liens et avancement.",
   alternates: { canonical: "/ecosysteme" },
   openGraph: {
-    title: "STRATA ESG & IROKO Software Group",
+    title: "STRATA ESG et Pharivo",
     description: "Les produits, leurs liens et leur avancement.",
     url: "/ecosysteme",
     siteName: "ADAMA OS",
@@ -90,15 +90,22 @@ export default async function EcosystemePage() {
         "@type": "Organization",
         "@id": SITE_URL + "#organisation",
         name: "STRATA ESG",
-        description: "Logiciels de reporting de durabilité.",
-        url: absoluteUrl("/ecosysteme#strata"),
+        description:
+          "Logiciels et accompagnement pour la donnée de durabilité.",
+        url: "https://www.strata-esg.fr",
         founder: { "@type": "Person", name: "Adama Diallo" },
       },
       {
         "@type": "Organization",
-        "@id": SITE_URL + "#iroko",
-        name: "IROKO Software Group",
-        url: absoluteUrl("/ecosysteme#iroko"),
+        "@id": SITE_URL + "#pharivo",
+        name: "Pharivo",
+        description: "Logiciel de gestion d’officine conçu pour le Sénégal.",
+        url: "https://pharivo.com",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Dakar",
+          addressCountry: "SN",
+        },
         founder: { "@type": "Person", name: "Adama Diallo" },
       },
       ...enLigne.map((p) => ({
@@ -110,7 +117,8 @@ export default async function EcosystemePage() {
         description: p.description ?? p.pillar ?? undefined,
         publisher: {
           "@id":
-            SITE_URL + (p.division === "IROKO" ? "#iroko" : "#organisation"),
+            SITE_URL +
+            (p.division === "Pharivo" ? "#pharivo" : "#organisation"),
         },
       })),
     ],
@@ -132,7 +140,7 @@ export default async function EcosystemePage() {
             <span className="serif">des usages précis.</span>
           </>
         }
-        description="Je développe STRATA ESG pour le reporting de durabilité et IROKO Software Group pour la gestion d’entreprise en Afrique de l’Ouest. Retrouvez ici les produits et leur avancement."
+        description="Je co-fonde et je développe STRATA ESG, pour la donnée de durabilité des entreprises, et Pharivo, pour la gestion des officines au Sénégal. Retrouvez ici les produits et leur avancement."
         aside={
           <div className="intro-note">
             <span className="intro-note-label">DANS LE REGISTRE</span>

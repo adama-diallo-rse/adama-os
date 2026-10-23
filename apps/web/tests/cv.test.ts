@@ -2,7 +2,14 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { AFFIRMATIONS_CV, CV } from "../content/cv";
-import { COMPETENCES, IDENTITE, RECHERCHE } from "../content/profil";
+import {
+  ACTIVITE,
+  COMPETENCES,
+  IDENTITE,
+  OUVERTURE,
+  PORTES_ENTREE,
+  POSTE_ACTUEL,
+} from "../content/profil";
 
 // =====================================================================
 // C12-T8, la coherence du CV.
@@ -53,21 +60,18 @@ describe("C12-T8, chaque affirmation du CV a sa preuve", () => {
 });
 
 describe("C12-T8, le CV ne duplique pas la source de profil", () => {
-  it("lit l'identite et la recherche depuis la source unique", () => {
+  it("lit l'identite, l'activite et l'ouverture depuis la source unique", () => {
     expect(CV.identite).toBe(IDENTITE);
-    expect(CV.recherche).toBe(RECHERCHE);
+    expect(CV.activite).toBe(ACTIVITE);
+    expect(CV.ouverture).toBe(OUVERTURE);
+    expect(CV.portes).toBe(PORTES_ENTREE);
   });
 
-  it("ne recopie aucun intitule de poste en clair", () => {
+  it("ne recopie ni le titre, ni la capacite, ni l'ouverture en clair", () => {
     const source = readFileSync(join(process.cwd(), "content/cv.ts"), "utf8");
-    for (const poste of RECHERCHE.postes) {
-      expect(
-        source,
-        `« ${poste} » doit venir de content/profil.ts, pas etre recopie`,
-      ).not.toContain(poste);
-    }
-    expect(source).not.toContain(RECHERCHE.zone);
+    expect(source).not.toContain(POSTE_ACTUEL);
     expect(source).not.toContain(IDENTITE.capacite);
+    expect(source).not.toContain(OUVERTURE);
   });
 
   it("couvre les quatre experiences et la formation sans les reecrire", () => {

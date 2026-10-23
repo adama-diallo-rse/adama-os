@@ -8,8 +8,8 @@
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 28,
-        "longueur": 4487,
+        "titres": 35,
+        "longueur": 6806,
         "evitementFixe": false
       },
       "panneaux": {
@@ -17,10 +17,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 640,
-        "document_pret_ms": 223,
-        "poids_ko": 925,
-        "noeuds": 786
+        "premier_rendu_ms": 872,
+        "document_pret_ms": 640,
+        "poids_ko": 975,
+        "noeuds": 997
       },
       "statut": 200,
       "mesuree": true
@@ -32,18 +32,18 @@
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 10,
-        "longueur": 3163,
+        "titres": 11,
+        "longueur": 3955,
         "evitementFixe": false
       },
       "panneaux": {
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 340,
-        "document_pret_ms": 126,
-        "poids_ko": 714,
-        "noeuds": 293
+        "premier_rendu_ms": 272,
+        "document_pret_ms": 248,
+        "poids_ko": 738,
+        "noeuds": 352
       },
       "statut": 200,
       "mesuree": true
@@ -56,7 +56,7 @@
       "impression": {
         "debordement": 0,
         "titres": 14,
-        "longueur": 13222,
+        "longueur": 13442,
         "evitementFixe": false
       },
       "panneaux": {
@@ -64,10 +64,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 312,
-        "document_pret_ms": 111,
-        "poids_ko": 644,
-        "noeuds": 588
+        "premier_rendu_ms": 336,
+        "document_pret_ms": 302,
+        "poids_ko": 675,
+        "noeuds": 624
       },
       "statut": 200,
       "mesuree": true
@@ -80,7 +80,7 @@
       "impression": {
         "debordement": 0,
         "titres": 18,
-        "longueur": 9530,
+        "longueur": 10261,
         "evitementFixe": false
       },
       "panneaux": {
@@ -88,10 +88,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 300,
-        "document_pret_ms": 101,
-        "poids_ko": 652,
-        "noeuds": 377
+        "premier_rendu_ms": 316,
+        "document_pret_ms": 302,
+        "poids_ko": 681,
+        "noeuds": 419
       },
       "statut": 200,
       "mesuree": true
@@ -112,10 +112,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 336,
-        "document_pret_ms": 211,
-        "poids_ko": 658,
-        "noeuds": 321
+        "premier_rendu_ms": 376,
+        "document_pret_ms": 230,
+        "poids_ko": 689,
+        "noeuds": 351
       },
       "statut": 200,
       "mesuree": true
@@ -136,10 +136,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 268,
-        "document_pret_ms": 90,
-        "poids_ko": 644,
-        "noeuds": 292
+        "premier_rendu_ms": 232,
+        "document_pret_ms": 149,
+        "poids_ko": 676,
+        "noeuds": 321
       },
       "statut": 200,
       "mesuree": true
@@ -151,8 +151,8 @@
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 26,
-        "longueur": 11782,
+        "titres": 25,
+        "longueur": 11636,
         "evitementFixe": false
       },
       "panneaux": {
@@ -160,10 +160,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 448,
-        "document_pret_ms": 301,
-        "poids_ko": 646,
-        "noeuds": 629
+        "premier_rendu_ms": 328,
+        "document_pret_ms": 207,
+        "poids_ko": 676,
+        "noeuds": 656
       },
       "statut": 200,
       "mesuree": true
@@ -176,7 +176,7 @@
       "impression": {
         "debordement": 0,
         "titres": 6,
-        "longueur": 1781,
+        "longueur": 1832,
         "evitementFixe": false
       },
       "panneaux": {
@@ -184,10 +184,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 288,
-        "document_pret_ms": 124,
-        "poids_ko": 661,
-        "noeuds": 167
+        "premier_rendu_ms": 340,
+        "document_pret_ms": 289,
+        "poids_ko": 687,
+        "noeuds": 206
       },
       "statut": 200,
       "mesuree": true
@@ -208,10 +208,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 260,
-        "document_pret_ms": 119,
-        "poids_ko": 646,
-        "noeuds": 158
+        "premier_rendu_ms": 268,
+        "document_pret_ms": 81,
+        "poids_ko": 681,
+        "noeuds": 186
       },
       "statut": 200,
       "mesuree": true
@@ -232,10 +232,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 272,
-        "document_pret_ms": 100,
-        "poids_ko": 650,
-        "noeuds": 141
+        "premier_rendu_ms": 284,
+        "document_pret_ms": 135,
+        "poids_ko": 681,
+        "noeuds": 169
       },
       "statut": 200,
       "mesuree": true
@@ -247,8 +247,8 @@
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 7,
-        "longueur": 4529,
+        "titres": 8,
+        "longueur": 5292,
         "evitementFixe": false
       },
       "panneaux": {
@@ -256,10 +256,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 320,
-        "document_pret_ms": 116,
-        "poids_ko": 646,
-        "noeuds": 240
+        "premier_rendu_ms": 300,
+        "document_pret_ms": 136,
+        "poids_ko": 676,
+        "noeuds": 292
       },
       "statut": 200,
       "mesuree": true
@@ -280,10 +280,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 264,
-        "document_pret_ms": 104,
-        "poids_ko": 646,
-        "noeuds": 123
+        "premier_rendu_ms": 268,
+        "document_pret_ms": 122,
+        "poids_ko": 676,
+        "noeuds": 150
       },
       "statut": 200,
       "mesuree": true
@@ -304,25 +304,145 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 272,
-        "document_pret_ms": 108,
-        "poids_ko": 647,
-        "noeuds": 151
+        "premier_rendu_ms": 260,
+        "document_pret_ms": 290,
+        "poids_ko": 683,
+        "noeuds": 179
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/lettre",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 15,
+        "longueur": 5473,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 224,
+        "document_pret_ms": 195,
+        "poids_ko": 677,
+        "noeuds": 273
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/erreurs",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 9,
+        "longueur": 9220,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 280,
+        "document_pret_ms": 122,
+        "poids_ko": 674,
+        "noeuds": 451
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/methodes",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 12,
+        "longueur": 4177,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 244,
+        "document_pret_ms": 119,
+        "poids_ko": 676,
+        "noeuds": 395
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/methodes/m-001",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 5,
+        "longueur": 9022,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 276,
+        "document_pret_ms": 89,
+        "poids_ko": 689,
+        "noeuds": 475
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/ecriture",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 5,
+        "longueur": 3936,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 236,
+        "document_pret_ms": 77,
+        "poids_ko": 674,
+        "noeuds": 241
       },
       "statut": 200,
       "mesuree": true
     }
   ],
-  "executed_at": "2026-09-02T21:32:23.200Z",
+  "executed_at": "2026-10-23T01:32:10.617Z",
   "anomalies": 0,
   "non_mesurees": 0,
   "resume": {
-    "pages": 13,
-    "pages_mesurees": 13,
+    "pages": 18,
+    "pages_mesurees": 18,
     "anomalies": 0,
     "non_mesurees": 0,
-    "premier_rendu_max_ms": 640,
-    "poids_max_ko": 925,
-    "noeuds_max": 786
+    "premier_rendu_max_ms": 872,
+    "poids_max_ko": 975,
+    "noeuds_max": 997
   }
 }

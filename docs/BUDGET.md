@@ -53,11 +53,11 @@ pas au motif que la nouvelle action est importante.
 
 Ce qu'un lecteur interesse parcourt : les projets, les preuves, le parcours.
 
-| Plafond            | Max | Mesure                                               |
-| ------------------ | --- | ---------------------------------------------------- |
-| Trois fiches       | 3   | entrees de `FICHES` dans `apps/web/content/projets/` |
-| Quatre preuves     | 4   | composants `ProofTile` de la Couche D                |
-| Quatre experiences | 4   | entrees du bandeau `experience-name` de la home      |
+| Plafond         | Max | Mesure                                               |
+| --------------- | --- | ---------------------------------------------------- |
+| Quatre fiches   | 4   | entrees de `FICHES` dans `apps/web/content/projets/` |
+| Quatre preuves  | 4   | composants `ProofTile` de la Couche D                |
+| Six experiences | 6   | entrees de `EXPERIENCES` dans `content/profil.ts`    |
 
 Le plafond des preuves est a quatre et non a trois, contrairement a la doctrine
 initiale. Raison ecrite : les quatre preuves sociales affichees (AG2R LA
@@ -121,8 +121,11 @@ plafond factice pour donner l'illusion de l'etre.
 | ---------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `n2_preuves_cockpit`   | 4      | Ouverture C0. Quatre preuves reelles de natures differentes, voir la section N2. Fige a quatre.                                                                                                                                                                                                                                                                                                                                                            |
 | `surface_pages`        | 20     | Vague V2. Les couches C5, C6, C7, C9 et C14 ajoutent huit routes : `/recruteur`, `/projets/[slug]`, `/decisions`, `/decisions/[adr]`, `/revirements`, `/principes`, `/systeme` et `/admin/relecture`. Aucune n'est une variante d'une autre : chacune repond a une question qu'aucune page existante ne traitait. Le depot en compte 18, le plafond est pose a 20, soit deux de marge et non un tiers : la surface de pages est ce qui dilue le plus vite. |
-| `surface_pages`        | 40     | Constaté le 27 septembre 2026 : le plafond valait déjà 40 dans `docs/budget.json` sans ligne à ce journal. Le relèvement de 20 à 40 est antérieur à la vague 1 des strates et n'a pas été écrit ; il est consigné ici tel qu'il a été trouvé, sans raison inventée.                                                                                                                                                                                     |
-| `surface_pages`        | 46     | Vague 1 des strates, 27 septembre 2026. Quatre routes, chacune exigée par un critère de sortie : `/methodes` (EM1, sept méthodes nommées et datées), `/methodes/[code]` (EM2, dossier de M-001 publié avec sa mesure), `/ecriture` (ET0 et XDEC-28, une position dite une fois, donc à un seul endroit) et `/admin/tenue` (ES0, instrument privé). Le dépôt en compte 44, le plafond est posé à 46, deux de marge comme en V2.                           |
+| `surface_pages`        | 40     | Constaté le 27 septembre 2026 : le plafond valait déjà 40 dans `docs/budget.json` sans ligne à ce journal. Le relèvement de 20 à 40 est antérieur à la vague 1 des strates et n'a pas été écrit ; il est consigné ici tel qu'il a été trouvé, sans raison inventée.                                                                                                                                                                                        |
+| `surface_pages`        | 46     | Vague 1 des strates, 27 septembre 2026. Quatre routes, chacune exigée par un critère de sortie : `/methodes` (EM1, sept méthodes nommées et datées), `/methodes/[code]` (EM2, dossier de M-001 publié avec sa mesure), `/ecriture` (ET0 et XDEC-28, une position dite une fois, donc à un seul endroit) et `/admin/tenue` (ES0, instrument privé). Le dépôt en compte 44, le plafond est posé à 46, deux de marge comme en V2.                             |
+| `n2_projets_home`      | 4      | 23 octobre 2026. Pharivo, seconde maison nommee publiquement. Voir la section dediee plus bas.                                                                                                                                                                                                                                                                                                                                                             |
+| `n2_experiences_home`  | 6      | 23 octobre 2026. Les deux maisons en tete du parcours, ordre du profil public du 22 octobre. Voir la section dediee plus bas.                                                                                                                                                                                                                                                                                                                              |
+| `n2_marques_home`      | 6      | 23 octobre 2026. Deux mots-symboles traces en ligne, comptes avec les quatre logos fournis. Voir la section dediee plus bas.                                                                                                                                                                                                                                                                                                                               |
 | `n1_cartes_competence` | 3      | Vague V2, C9-T2. Trois cartes, pas dix competences : un recruteur des ressources humaines doit pouvoir classer le profil sans comprendre l'architecture. Une quatrieme carte affaiblirait les quatre.                                                                                                                                                                                                                                                      |
 | `severity`             | error  | Vague V2, C9-T7. Le budget cesse d'avertir et fait echouer. La regle etait annoncee depuis l'ouverture C0 ; elle prend effet ici.                                                                                                                                                                                                                                                                                                                          |
 | Tous les autres        | ouv.   | Ouverture C0, valeurs posees a l'etat mesure du depot plus une marge de croissance d'environ un tiers.                                                                                                                                                                                                                                                                                                                                                     |
@@ -159,6 +162,30 @@ ajoutee.
   largeur d'une ligne entiere sur telephone. Cinq, c'est les quatre
   experiences plus la formation. La sixieme se discute, elle ne se glisse
   pas.
+
+## Trois plafonds releves le 23 octobre 2026, fin de la recherche de poste
+
+Le 10 octobre 2026, Adama a clos sa recherche de CDI et de CDD et garde la
+voie de fondateur a plein temps. Le 22 octobre, il a valide son
+positionnement public : co-fondateur de STRATA ESG et de Pharivo, avec une
+regle d'apparition (un projet n'est nomme qu'avec un produit en ligne ou un
+client). Pharivo passe cette regle : application en production depuis le
+6 octobre, site public depuis le 17 octobre. Trois plafonds bougent, chacun
+d'exactement ce que ce changement consomme.
+
+- **`n2_projets_home`, de 3 a 4.** Pharivo devient une fiche. Ce n'est pas
+  une quatrieme variation du meme sujet : c'est la seconde maison, et la
+  taire rendrait le profil faux. Le plafond est fige a quatre.
+- **`n2_experiences_home`, de 4 a 6.** Les deux maisons entrent dans les
+  experiences, en tete, dans l'ordre retenu sur LinkedIn le 22 octobre
+  2026 : Pharivo, STRATA ESG, puis le parcours. Aucune experience n'est
+  retiree, toutes sont reelles.
+- **`n2_marques_home`, de 5 a 6, mesure elargie.** Les deux maisons se
+  montrent par leur mot-symbole, trace en ligne dans `org-logo.tsx` (table
+  `MAISONS`) et non par un fichier. La mesure ne comptait que la table des
+  logos fournis ; compter l'une sans l'autre aurait laisse deux marques
+  entrer sans etre vues. Elle compte desormais les deux tables : quatre
+  logos, deux mots-symboles.
 
 ## Quatre plafonds releves le 2 septembre 2026, vagues V4 a V8
 

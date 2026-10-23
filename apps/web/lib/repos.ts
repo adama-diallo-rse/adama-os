@@ -20,7 +20,7 @@ export type TrackedRepo = {
   fullName: string;
   /** Nom lisible affiché en badge à côté du commit. */
   product: string;
-  /** Division du groupe (STRATA, IROKO, Cockpit). Vide si non renseignée. */
+  /** Division du groupe (STRATA, Pharivo, Cockpit). Vide si non renseignée. */
   division: string;
 };
 
@@ -72,7 +72,20 @@ type ProductRow = {
   name: string | null;
   division: string | null;
   repo_full_name: string | null;
+  is_public: boolean | null;
 };
+
+/**
+ * Un produit retire de la vitrine publique ne doit pas reapparaitre par son
+ * journal de commits. Regle posee le 23 octobre 2026, avec le positionnement
+ * public d'Adama : un projet n'est nomme publiquement qu'avec un produit en
+ * ligne ou un client. Seule exception, le cockpit lui-meme, marque non
+ * public parce qu'il n'est pas un produit de la grille, et dont le depot
+ * est public.
+ */
+export function suiviPublic(row: Pick<ProductRow, "is_public" | "division">) {
+  return row.is_public === true || row.division === "Cockpit";
+}
 
 /** Source primaire : le registre produits. Tableau vide si la table n'existe
  *  pas encore, si Supabase est injoignable, ou si aucun produit ne porte de
@@ -85,7 +98,7 @@ async function fromEcosystemProducts(): Promise<TrackedRepo[]> {
 
   const { data, error } = await supabase
     .from("ecosystem_products")
-    .select("name, division, repo_full_name")
+    .select("name, division, repo_full_name, is_public")
     .not("repo_full_name", "is", null)
     .order("position", { ascending: true });
 
@@ -97,6 +110,7 @@ async function fromEcosystemProducts(): Promise<TrackedRepo[]> {
   }
 
   return ((data as ProductRow[]) ?? [])
+    .filter(suiviPublic)
     .map((row) => {
       const fullName = row.repo_full_name?.trim() ?? "";
       if (!FULL_NAME_RE.test(fullName)) {

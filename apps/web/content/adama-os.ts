@@ -7,7 +7,8 @@ export const ADAMA_OS = {
   nom: "ADAMA OS",
   territoire: TITRE_COURT.affiche,
   proposition: POSITIONNEMENT.fr,
-  sousTitre: "Méthodes, systèmes et outils pour construire l’ESG numérique.",
+  sousTitre:
+    "Logiciels, méthodes et preuves pour rendre l’économie réelle mesurable, de Paris à Dakar.",
   signature: SIGNATURE_TEXTE,
 } as const;
 
