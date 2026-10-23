@@ -29,7 +29,7 @@ export const PHARIVO: FicheProjet = {
     "Une officine sénégalaise suit des milliers de lots au cahier ou au tableur, et découvre ses ruptures et ses péremptions quand elles ont déjà coûté.",
   roleEnUnMot: "Co-fondateur",
   ordre: 15,
-  reluParAdama: false,
+  reluParAdama: true,
   preuveVedette: "pharivo-en-ligne",
   sujetsPreuve: ["pharivo"],
   adrIds: ["DEC-012", "DEC-013", "DEC-014"],
@@ -57,7 +57,7 @@ export const PHARIVO: FicheProjet = {
       "J’ai mené la mise en production de l’application et du site public, puis le parcours d’accompagnement des officines pilotes, de la convention au bilan de fin de pilote.",
       "Je construis le produit avec un associé qui apporte l’accès au terrain et au réseau des officines, et je porte le code, l’architecture et la mise en ligne.",
     ],
-    aValider: true,
+    aValider: false,
     questions: [
       "Le niveau « contributeur » sur le commercial reflète-t-il bien le partage avec l’associé, ou faut-il passer à « responsable » ?",
       "L’associé peut-il être nommé sur cette fiche publique, et sous quelle forme ?",
