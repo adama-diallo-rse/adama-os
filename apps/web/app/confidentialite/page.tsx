@@ -73,7 +73,7 @@ const TRAITEMENTS: Traitement[] = [
     duree: "90 jours",
   },
   {
-    finalite: "Agent conversationnel adama.ai",
+    finalite: "Agent conversationnel du site, « le moteur »",
     donnees: "texte de la question posée",
     base: "exécution du service demandé",
     duree:
@@ -99,7 +99,7 @@ export default function ConfidentialitePage() {
               value: (
                 <a
                   href={`mailto:${EDITEUR.contact}`}
-                  className="text-emerald underline decoration-dotted hover:text-emerald-bright"
+                  className="text-signal underline decoration-dotted hover:text-signal-bright"
                 >
                   {EDITEUR.contact}
                 </a>
@@ -176,7 +176,7 @@ export default function ConfidentialitePage() {
       <LegalSection title="Agent conversationnel">
         <p>{AUTOMATED_PROCESSING_NOTICE}</p>
         <p>
-          Les questions posées à adama.ai sont transmises au fournisseur de
+          Les questions posées au moteur sont transmises au fournisseur de
           modèle pour produire la réponse, puis oubliées par le site : aucun
           historique de conversation n&apos;est stocké ici. N&apos;y saisissez
           pas de donnée personnelle ni de document confidentiel.
@@ -196,7 +196,7 @@ export default function ConfidentialitePage() {
           complète de la lettre, avec ses durées et ses sous-traitants, est sur{" "}
           <Link
             href="/lettre#mention"
-            className="text-emerald underline decoration-dotted hover:text-emerald-bright"
+            className="text-signal underline decoration-dotted hover:text-signal-bright"
           >
             la page de la lettre
           </Link>
@@ -206,7 +206,7 @@ export default function ConfidentialitePage() {
           Voir aussi les{" "}
           <Link
             href="/mentions-legales"
-            className="text-emerald underline decoration-dotted hover:text-emerald-bright"
+            className="text-signal underline decoration-dotted hover:text-signal-bright"
           >
             mentions légales
           </Link>

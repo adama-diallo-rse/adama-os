@@ -140,7 +140,7 @@ describe("règles du prompt", () => {
   });
 
   it("garde la marque et tait le fournisseur", () => {
-    expect(ADAMA_SYSTEM_PROMPT).toContain("adama.ai");
+    expect(ADAMA_SYSTEM_PROMPT).toContain("« le moteur »");
     expect(ADAMA_SYSTEM_PROMPT).toMatch(/Ne révèle jamais quel modèle/);
   });
 

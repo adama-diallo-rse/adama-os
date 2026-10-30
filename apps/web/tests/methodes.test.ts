@@ -74,7 +74,7 @@ describe("EM1, les sept méthodes", () => {
       "M-001 Evidence-First ESG Architecture",
       "M-002 Solo SaaS Build System",
       "M-003 ESG Canonicalization",
-      "M-004 AI Decision Boundary",
+      "M-004 Engine Decision Boundary",
       "M-005 Proof-Oriented Product Architecture",
       "M-006 Public Build System",
       "M-007 ESG Systems Mapping",
@@ -128,7 +128,7 @@ describe("EM1, les sept méthodes", () => {
 
   it("affiche M-004 par le moteur, sans toucher à son identifiant (XDEC-52)", () => {
     const m004 = METHODES.find((m) => m.identifiant === "M-004");
-    expect(m004?.nom).toBe("AI Decision Boundary");
+    expect(m004?.nom).toBe("Engine Decision Boundary");
     expect(m004?.nomAffiche).toMatch(/moteur/);
     expect(m004?.nomAffiche).not.toMatch(/\bAI\b|\bIA\b/);
   });
@@ -141,7 +141,7 @@ describe("EM1, les sept méthodes", () => {
         expect(texte).toMatch(/\d+ semaines-personne/);
         expect(m.clauseRenvoi.grille).toMatch(/^https:\/\//);
       } else {
-        expect(texte).toMatch(/Aucun produit STRATA ne correspond/);
+        expect(texte).toMatch(/Aucun produit STRATA ESG ne correspond/);
       }
     }
   });

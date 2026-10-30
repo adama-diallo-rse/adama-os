@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { IllustrationPorte } from "../../components/kit/illustrations-portes";
 import { PageIntro, PageShell } from "../../components/page-shell";
 import {
   CAPACITE,
@@ -34,12 +35,12 @@ import { FormulaireDemande } from "./formulaire";
 export const metadata: Metadata = {
   title: "Travailler ensemble",
   description:
-    "Quatre portes pour faire relire un système de donnée, de preuve ou d’intelligence artificielle appliqué à l’ESG. Un formulaire commun, une règle d’acceptation écrite, une réponse à chaque demande.",
+    "Quatre portes pour faire relire un système de donnée, de preuve ou de traitement par un moteur, appliqué à l’ESG. Un formulaire commun, une règle d’acceptation écrite, une réponse à chaque demande.",
   alternates: { canonical: "/travaillez-avec-moi" },
   openGraph: {
     title: "Travailler ensemble, quatre portes",
     description:
-      "Construire, donnée, intelligence artificielle, système. Le visiteur se range lui-même, la règle d’acceptation est publique.",
+      "Construire, donnée, moteur, système. Le visiteur se range lui-même, la règle d’acceptation est publique.",
     url: "/travaillez-avec-moi",
     siteName: "ADAMA OS",
     locale: "fr_FR",
@@ -98,7 +99,8 @@ export default async function TravaillezAvecMoiPage({ searchParams }: Props) {
         <ol>
           {PORTES.map((porte) => (
             <li key={porte.code} id={`porte-${porte.code}`}>
-              <article className="conseil-porte">
+              <article className="conseil-porte porte-illustree">
+                <IllustrationPorte code={porte.code} />
                 <header>
                   <span className="conseil-porte-numero">{porte.numero}</span>
                   <h3>{porte.titre}</h3>

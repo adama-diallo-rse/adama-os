@@ -1,16 +1,16 @@
 import type { ComponentProps } from "react";
 import { cn } from "../lib/cn";
 
-type BadgeVariant = "default" | "emerald" | "warning" | "danger" | "outline";
+type BadgeVariant = "default" | "signal" | "warning" | "danger" | "outline";
 
 const badgeVariants: Record<BadgeVariant, string> = {
   default: "border-border bg-surface-raised text-muted",
-  emerald:
-    "border-transparent bg-[color-mix(in_oklch,var(--color-emerald)_18%,transparent)] text-emerald-bright",
+  signal:
+    "border-transparent bg-[color-mix(in_srgb,var(--color-signal)_18%,transparent)] text-signal-bright",
   warning:
-    "border-transparent bg-[color-mix(in_oklch,var(--color-warning)_18%,transparent)] text-warning",
+    "border-transparent bg-[color-mix(in_srgb,var(--color-warning)_18%,transparent)] text-warning",
   danger:
-    "border-transparent bg-[color-mix(in_oklch,var(--color-danger)_18%,transparent)] text-danger",
+    "border-transparent bg-[color-mix(in_srgb,var(--color-danger)_18%,transparent)] text-danger",
   outline: "border-border-strong bg-transparent text-foreground",
 };
 

@@ -33,7 +33,7 @@ export const ETATS_METHODE = [
   "PROUVÉ",
   "ARCHIVÉ",
 ] as const;
-type EtatMethode = (typeof ETATS_METHODE)[number];
+export type EtatMethode = (typeof ETATS_METHODE)[number];
 
 export const NIVEAUX_VISIBILITE = {
   NV0: "Public",
@@ -204,7 +204,7 @@ export const CHAMPS_FICHE = [
     vide: "Refusée.",
   },
   {
-    champ: "Clause de renvoi STRATA",
+    champ: "Clause de renvoi STRATA ESG",
     source: "Page EM et XDEC-08 ; texte type EA4",
     valeur: "Texte type chiffré, ou « aucun produit » motivé",
     vide: "Refusée : le champ dit l'absence, il ne disparaît pas.",
@@ -359,7 +359,7 @@ export const METHODES: readonly FicheMethode[] = [
     clauseRenvoi: {
       produit: null,
       motif:
-        "Aucun produit STRATA ne correspond : la méthode porte sur l'organisation d'un bâtisseur seul, que STRATA ne vend pas.",
+        "Aucun produit STRATA ESG ne correspond : la méthode porte sur l'organisation d'un bâtisseur seul, que STRATA ESG ne vend pas.",
     },
     pourMonter: "Un usage par quelqu'un d'autre qu'Adama, daté.",
     preuveEtat: PREUVE_ETATS,
@@ -411,7 +411,7 @@ export const METHODES: readonly FicheMethode[] = [
   {
     identifiant: "M-004",
     codeAxp: "AXP-195",
-    nom: "AI Decision Boundary",
+    nom: "Engine Decision Boundary",
     nomAffiche: "Frontière de décision du moteur",
     version: "1.0",
     etat: "TESTÉ",
@@ -444,7 +444,7 @@ export const METHODES: readonly FicheMethode[] = [
     clauseRenvoi: {
       produit: null,
       motif:
-        "Aucun produit STRATA ne correspond : la méthode décrit une frontière de décision, pas un résultat ESG qu'un logiciel produirait.",
+        "Aucun produit STRATA ESG ne correspond : la méthode décrit une frontière de décision, pas un résultat ESG qu'un logiciel produirait.",
     },
     pourMonter: "Une mesure publiée du taux de refus de la chaîne.",
     preuveEtat: PREUVE_ETATS,
@@ -486,7 +486,7 @@ export const METHODES: readonly FicheMethode[] = [
     clauseRenvoi: {
       produit: null,
       motif:
-        "Aucun produit STRATA ne correspond : la méthode porte sur la conception de tout produit, pas sur un résultat ESG.",
+        "Aucun produit STRATA ESG ne correspond : la méthode porte sur la conception de tout produit, pas sur un résultat ESG.",
     },
     pourMonter: "Un second produit.",
     preuveEtat: PREUVE_ETATS,
@@ -533,7 +533,7 @@ export const METHODES: readonly FicheMethode[] = [
     clauseRenvoi: {
       produit: null,
       motif:
-        "Aucun produit STRATA ne correspond : la méthode porte sur la manière de publier un travail, que STRATA ne vend pas.",
+        "Aucun produit STRATA ESG ne correspond : la méthode porte sur la manière de publier un travail, que STRATA ESG ne vend pas.",
     },
     pourMonter: "Un second praticien qui l'applique et le publie.",
     preuveEtat: PREUVE_ETATS,
@@ -625,7 +625,7 @@ export function controlerFiche(fiche: FicheMethode): Manque[] {
     bloque("Niveau de visibilité", "Valeur hors liste.");
   if (fiche.clauseRenvoi.produit === null && !fiche.clauseRenvoi.motif.trim()) {
     bloque(
-      "Clause de renvoi STRATA",
+      "Clause de renvoi STRATA ESG",
       "L'absence de produit doit être motivée.",
     );
   }

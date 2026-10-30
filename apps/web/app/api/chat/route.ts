@@ -143,7 +143,7 @@ export async function POST(req: Request) {
         sources = prepare.sources;
       }
     } catch (error) {
-      console.error("[adama.ai] retrieval indisponible :", error);
+      console.error("[moteur] retrieval indisponible :", error);
       return erreur(
         error instanceof RechercheTropLente
           ? "La recherche documentaire a mis trop de temps à répondre. Réessaie dans un instant."
@@ -172,7 +172,7 @@ export async function POST(req: Request) {
       writer.merge(resultat.toUIMessageStream());
     },
     onError(error) {
-      console.error("[adama.ai]", error);
+      console.error("[moteur]", error);
       return "La réponse n’a pas pu être produite. Réessaie dans un instant.";
     },
   });

@@ -122,5 +122,5 @@ export const TRANSPARENCE_IA = {
     "Aucune donnée de contact, aucune donnée client d’un produit, aucun contenu de base autre que le corpus documentaire.",
   neDecidePas:
     "Rien. Il propose une formulation à partir de sources qu’il a reçues. Le choix des sources est fait avant lui, par une recherche vectorielle, et le refus de répondre est décidé par le code, pas par le modèle.",
-  principe: "L’IA propose, le système décide.",
+  principe: "Le moteur propose, le système décide.",
 } as const;

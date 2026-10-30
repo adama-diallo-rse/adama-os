@@ -182,6 +182,103 @@ const CLAIMS: ClaimSeed[] = [
       },
     ],
   },
+  // 30 octobre 2026 : la fiche STRATA ESG présente ses cinq produits. Les
+  // trois qui n'avaient pas encore d'affirmation en reçoivent une, de même
+  // forme que celle de Pharivo : l'adresse publique répond, rien de plus.
+  // Le premier parcours de STRATA Academy n'est pas publié, l'affirmation
+  // ne dit donc que la plateforme. Conhama suit, avec son démonstrateur.
+  {
+    id: "strata-foundation-en-ligne",
+    statement:
+      "STRATA Foundation, la porte d'entrée gratuite de STRATA ESG, répond en production sur son domaine.",
+    subjectType: "produit",
+    subjectRef: "strata-foundation",
+    dataClass: "real",
+    maxAgeSeconds: DEUX_JOURS,
+    visibility: "public",
+    position: 16,
+    evidence: [
+      {
+        kind: "api",
+        source: "Site public de STRATA Foundation",
+        locator: "https://foundation.esg-optimizer.fr/",
+        method:
+          "Appel GET sur l'adresse publique depuis le cockpit, code de retour conservé tel quel.",
+        verifiableBy: "visiteur",
+        refreshKind: "http_status",
+        position: 10,
+      },
+    ],
+  },
+  {
+    id: "strata-watch-en-ligne",
+    statement:
+      "STRATA Watch, la veille réglementaire de STRATA ESG, répond en production sur son domaine.",
+    subjectType: "produit",
+    subjectRef: "strata-watch",
+    dataClass: "real",
+    maxAgeSeconds: DEUX_JOURS,
+    visibility: "public",
+    position: 17,
+    evidence: [
+      {
+        kind: "api",
+        source: "Site public de STRATA Watch",
+        locator: "https://watch.esg-optimizer.fr/",
+        method:
+          "Appel GET sur l'adresse publique depuis le cockpit, code de retour conservé tel quel.",
+        verifiableBy: "visiteur",
+        refreshKind: "http_status",
+        position: 10,
+      },
+    ],
+  },
+  {
+    id: "strata-academy-en-ligne",
+    statement:
+      "La plateforme de STRATA Academy répond sur son domaine ; son premier parcours n'est pas encore publié.",
+    subjectType: "produit",
+    subjectRef: "strata-academy",
+    dataClass: "real",
+    maxAgeSeconds: DEUX_JOURS,
+    visibility: "public",
+    position: 18,
+    evidence: [
+      {
+        kind: "api",
+        source: "Site public de STRATA Academy",
+        locator: "https://academy.esg-optimizer.fr/",
+        method:
+          "Appel GET sur l'adresse publique depuis le cockpit, code de retour conservé tel quel.",
+        verifiableBy: "visiteur",
+        refreshKind: "http_status",
+        position: 10,
+      },
+    ],
+  },
+  {
+    id: "conhama-en-ligne",
+    statement:
+      "Conhama, la carte vivante de l'économie durable, répond en production sur son adresse publique.",
+    subjectType: "produit",
+    subjectRef: "conhama",
+    dataClass: "real",
+    maxAgeSeconds: DEUX_JOURS,
+    visibility: "public",
+    position: 25,
+    evidence: [
+      {
+        kind: "api",
+        source: "Site public de Conhama",
+        locator: "https://conhama.com/fr",
+        method:
+          "Appel GET sur l'adresse publique depuis le cockpit, code de retour conservé tel quel.",
+        verifiableBy: "visiteur",
+        refreshKind: "http_status",
+        position: 10,
+      },
+    ],
+  },
   {
     id: "esg-optimizer-depot-suivi",
     statement:
@@ -436,7 +533,7 @@ const CLAIMS: ClaimSeed[] = [
   {
     id: "stage-ag2r-data-esg",
     statement:
-      "Adama Diallo effectue un stage Data ESG et solutions IA à la direction RSE d'AG2R LA MONDIALE.",
+      "Adama Diallo effectue un stage Data ESG à la direction RSE d'AG2R LA MONDIALE.",
     subjectType: "experience",
     subjectRef: "AG2R LA MONDIALE",
     dataClass: "real",

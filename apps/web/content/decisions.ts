@@ -126,7 +126,7 @@ export const REGISTRE_ADR: readonly EntreeRegistre[] = [
     adrId: "DEC-104",
     titre: "Générer une réponse sans contexte plutôt qu’échouer",
     statut: "remplace",
-    regle: "L’IA propose, le système décide.",
+    regle: "Le moteur propose, le système décide.",
   },
   {
     adrId: "DEC-105",

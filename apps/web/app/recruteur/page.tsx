@@ -122,7 +122,7 @@ export default async function RecruteurPage() {
   };
 
   return (
-    <PageShell tools={false} className="hire-page">
+    <PageShell tools={false} className="hire-page" sobre>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -1,0 +1,38 @@
+# Ce qu'un déploiement par la CLI Vercel n'envoie pas. Calqué sur
+# .gitignore : un déploiement depuis le disque contient exactement ce
+# qu'un déploiement depuis Git contiendrait, et aucun secret local.
+
+# Dépendances et sorties de build
+node_modules/
+.pnpm-store/
+.next/
+out/
+dist/
+build/
+.turbo/
+*.tsbuildinfo
+
+# Secrets
+.env
+.env.*
+!.env.example
+.sentryclirc
+.env.sentry-build-plugin
+
+# Liens locaux et outils
+.vercel/
+.claude/
+.idea/
+.vscode/
+
+# Jamais versionnés
+backups/
+snapshots/
+corpus/*
+!corpus/README.md
+Claude outputs/
+
+# Journaux et fichiers système
+*.log
+.DS_Store
+Thumbs.db

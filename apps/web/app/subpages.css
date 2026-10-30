@@ -1,32 +1,27 @@
-/* Shared editorial layout. Palette from the supplied STRATA ESG brand kit. */
+/* Mise en page éditoriale commune. Les rôles viennent d'identite.css. */
 .subpage {
-  --color-background: var(--paper);
-  --color-surface: #faf7f1;
-  --color-surface-raised: #e9e3d8;
-  --color-border: #d4d1c9;
-  --color-border-strong: #8a97a6;
-  --color-foreground: var(--ink);
-  --color-muted: var(--secondary);
-  --color-faint: #536878;
-  --color-emerald: #806332;
-  --color-emerald-bright: #614b25;
-  --color-emerald-foreground: #fff;
-  --color-emerald-dim: #e5d7bd;
-  --color-warning: #806332;
-  --color-danger: #a53e36;
+  --color-background: var(--fond);
+  --color-surface: var(--fond-carte);
+  --color-surface-raised: var(--fond-creux);
+  --color-border: var(--filet);
+  --color-border-strong: var(--filet-fort);
+  --color-foreground: var(--texte);
+  --color-muted: var(--texte-2);
+  --color-faint: var(--texte-2);
+  --color-signal: var(--accent-texte);
+  --color-signal-bright: var(--accent-texte);
+  --color-signal-foreground: var(--fond-carte);
+  --color-signal-dim: var(--fond-creux);
+  --color-warning: var(--accent-texte);
+  --color-danger: var(--alerte);
   min-height: 100dvh;
 }
 .subpage-main {
   min-height: 60vh;
   padding-bottom: 80px;
 }
-[data-theme="gold"] .subpage {
-  --color-emerald: #806332;
-  --color-emerald-bright: #614b25;
-  --color-emerald-foreground: #ffffff;
-}
 .desktop-nav [aria-current="page"] {
-  color: var(--accent-text);
+  color: var(--accent-texte);
   text-decoration: underline;
   text-underline-offset: 9px;
 }
@@ -41,33 +36,33 @@
   grid-template-columns: minmax(0, 1fr);
 }
 .page-intro h1 {
-  font-family: var(--font-display);
+  font-family: var(--font-grotesk);
   max-width: 920px;
   margin: 24px 0;
   font-size: clamp(48px, 5.9vw, 82px);
-  font-weight: 300;
+  font-weight: 560;
   line-height: 1.07;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.035em;
   text-wrap: balance;
 }
 .page-intro h1 .serif {
-  color: var(--accent-text);
+  color: var(--accent-texte);
 }
 .page-description {
   max-width: 660px;
   font-size: 16px;
   line-height: 1.85;
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .intro-note {
-  border-top: 1px solid var(--strata-gold);
+  border-top: 1px solid var(--accent);
   padding-top: 22px;
   margin-bottom: 5px;
 }
 .intro-note-label {
-  font: 10px var(--font-mono);
+  font: 10px var(--font-code);
   letter-spacing: 0.12em;
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .intro-note strong {
   display: block;
@@ -81,7 +76,7 @@
   margin-block: 14px;
   font-size: 14px;
   line-height: 1.7;
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .intro-note a {
   display: inline-block;
@@ -93,7 +88,7 @@
 .division-nav {
   display: flex;
   flex-wrap: wrap;
-  border-block: 1px solid var(--line);
+  border-block: 1px solid var(--filet);
 }
 .division-nav a {
   flex: 1;
@@ -106,10 +101,10 @@
   font-size: 13px;
 }
 .division-nav a + a {
-  border-left: 1px solid var(--line);
+  border-left: 1px solid var(--filet);
 }
 .division-nav a:hover {
-  background: #e9e3d8;
+  background: var(--fond-creux);
 }
 .catalog-filters {
   display: flex;
@@ -125,26 +120,26 @@
   flex-wrap: wrap;
 }
 .catalog-filters button {
-  border: 1px solid var(--line);
+  border: 1px solid var(--filet);
   border-radius: 30px;
   padding: 11px 17px;
   font-size: 12px;
 }
 .catalog-filters button[aria-pressed="true"] {
-  background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
+  background: var(--feuille);
+  color: var(--sur-feuille);
+  border-color: var(--texte);
 }
 .catalog-filters > span {
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 12px;
 }
 .catalog-unavailable {
   margin-top: 30px;
   max-width: 840px;
-  border-left: 2px solid var(--strata-gold);
+  border-left: 2px solid var(--accent);
   padding: 6px 0 6px 18px;
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 14px;
   line-height: 1.7;
 }
@@ -153,7 +148,7 @@
   grid-template-columns: 300px minmax(0, 1fr);
   gap: 64px;
   padding-block: 56px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--filet);
   scroll-margin-top: 120px;
 }
 .division-identity .portfolio-label {
@@ -170,7 +165,7 @@
   margin-block: 14px;
 }
 .division-identity > p:last-child {
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 14px;
   line-height: 1.8;
 }
@@ -183,19 +178,17 @@
   overflow: hidden;
 }
 .logo-strata {
-  background: var(--strata-slate);
-  color: var(--paper);
+  background: var(--feuille);
+  color: var(--sur-feuille);
 }
 .brand-strata {
-  font:
-    700 18px var(--font-syne),
-    sans-serif;
-  letter-spacing: 0.5em;
-  padding-left: 0.5em;
-  white-space: nowrap;
+  display: block;
+  width: min(100%, 260px);
+  height: auto;
+  color: currentColor;
 }
 .logo-iroko {
-  background: #e5e5e5;
+  background: var(--fond-creux);
 }
 .brand-iroko {
   display: block;
@@ -208,14 +201,14 @@
   height: 142px;
 }
 .logo-adama {
-  background: #e2e6e9;
+  background: var(--fond-creux);
 }
 /* Pharivo : le mot-symbole de sa charte, en creme sur le bleu Atlantique,
    avec le faisceau du phare en quart de cercle, comme sur pharivo.com. */
 .logo-pharivo {
   position: relative;
   background: var(--pharivo-atlantique);
-  color: var(--paper);
+  color: var(--sur-feuille);
 }
 .logo-pharivo::before {
   content: "";
@@ -238,25 +231,15 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  color: var(--ink);
+  color: var(--texte);
 }
 .brand-adama svg {
   width: 88px;
   height: 88px;
   overflow: visible;
 }
-.brand-adama path {
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2.5;
-}
-.brand-adama circle {
-  fill: var(--accent-text);
-}
 .brand-adama > span {
-  font: 600 15px var(--font-ui);
+  font: 600 15px var(--font-grotesk);
   letter-spacing: -0.3px;
 }
 .division-products {
@@ -266,8 +249,8 @@
   align-content: start;
 }
 .product-tile {
-  border: 1px solid var(--line);
-  background: #f8f5ef;
+  border: 1px solid var(--filet);
+  background: var(--fond-carte);
   border-radius: 6px;
   padding: 25px;
   display: flex;
@@ -287,7 +270,7 @@
 }
 .product-tile-top > span:last-child {
   font-size: 22px;
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 /* La marque du produit ouvre la tuile, l'etat la suit, la fleche ferme a
    droite. Sans cette poussee, la repartition automatique centrerait l'etat
@@ -296,41 +279,41 @@
   margin-right: auto;
 }
 .product-tile .product-mark {
-  color: var(--accent-text);
+  color: var(--accent-texte);
 }
 .product-tile:hover .product-mark {
-  color: var(--ink);
+  color: var(--texte);
 }
 .portfolio-label .product-mark {
-  color: var(--accent-text);
+  color: var(--accent-texte);
 }
 .product-status {
   display: inline-flex;
   align-items: center;
   gap: 7px;
   font-size: 11px;
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .product-status i {
   width: 6px;
   height: 6px;
   border-radius: 100%;
-  background: var(--strata-gold);
+  background: var(--accent);
 }
 .product-status.status-live {
-  color: #236655;
+  color: var(--etat);
 }
 .product-status.status-live i {
-  background: #287c69;
+  background: var(--etat);
 }
 .product-status.status-planned i {
-  background: #8a97a6;
+  background: var(--filet);
 }
 .product-pillar {
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--secondary);
+  color: var(--texte-2);
   line-height: 1.6;
   margin-bottom: 8px;
 }
@@ -342,7 +325,7 @@
 }
 .product-description {
   margin-top: 12px;
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 13px;
   line-height: 1.8;
 }
@@ -353,22 +336,22 @@
   margin-top: auto;
   padding-top: 26px;
   font-size: 12px;
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .product-tile-link .product-tile-action {
-  color: var(--ink);
+  color: var(--texte);
 }
 .product-tile-link:hover {
-  background: #fffdf8;
-  border-color: var(--strata-gold);
+  background: var(--fond-carte);
+  border-color: var(--accent);
   transform: translateY(-3px);
 }
 .catalog-empty {
   grid-column: 1 / -1;
-  border-block: 1px solid var(--line);
+  border-block: 1px solid var(--filet);
   align-self: start;
   padding: 38px 10px;
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 14px;
   line-height: 1.8;
 }
@@ -387,7 +370,7 @@
 }
 .page-next p:not(.portfolio-label) {
   max-width: 520px;
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 14px;
   line-height: 1.8;
 }
@@ -402,23 +385,23 @@
   align-items: center;
 }
 .project-strata .project-art {
-  background: var(--strata-slate);
-  color: var(--paper);
+  background: var(--feuille);
+  color: var(--sur-feuille);
 }
 .project-strata .project-art-label,
 .project-strata .project-art-name > span {
-  color: #c1cad1;
+  color: var(--sur-feuille-2);
 }
 .brand-art-strata .brand-strata {
   font-size: clamp(14px, 1.6vw, 21px);
 }
 .brand-art-iroko {
-  background: #e5e5e5;
+  background: var(--fond-creux);
   padding: 38px 12px;
 }
 .project-pharivo .project-art-label,
 .project-pharivo .project-art-name > span {
-  color: #c9d9f2;
+  color: var(--sur-feuille-2);
 }
 .project-pharivo .project-art-name {
   font-size: 12px;
@@ -458,12 +441,12 @@
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
+  border-top: 1px solid var(--filet);
+  border-left: 1px solid var(--filet);
 }
 .metric-tile {
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--filet);
+  border-bottom: 1px solid var(--filet);
   padding: 30px;
 }
 .metric-value {
@@ -476,20 +459,20 @@
 }
 .metric-period {
   font-size: 13px;
-  color: var(--secondary);
+  color: var(--texte-2);
   margin-top: 10px;
 }
 .metric-provenance {
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--filet);
   padding-top: 15px;
   margin-top: 26px;
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 11px;
   line-height: 1.9;
   overflow-wrap: anywhere;
 }
 .metrics-empty {
-  border-block: 1px solid var(--line);
+  border-block: 1px solid var(--filet);
   padding: 52px 0;
 }
 .metrics-empty h2 {
@@ -498,7 +481,7 @@
   letter-spacing: -0.035em;
 }
 .metrics-empty > p:not(.portfolio-label) {
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 15px;
   line-height: 1.85;
   max-width: 650px;
@@ -514,7 +497,7 @@
 }
 .metrics-history .section-heading > span {
   font-size: 12px;
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .data-table-scroll {
   max-width: 100%;
@@ -528,25 +511,25 @@
 }
 .data-table :is(td, th) {
   padding: 18px 20px 18px 0;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--filet);
   line-height: 1.5;
 }
 .data-table thead th {
   font-weight: 400;
   font-size: 11px;
   text-transform: uppercase;
-  color: var(--secondary);
+  color: var(--texte-2);
   letter-spacing: 0.06em;
 }
 .data-table tbody th {
   font-weight: 500;
 }
 .data-table td {
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .data-table .table-value {
   font-variant-numeric: tabular-nums;
-  color: var(--ink);
+  color: var(--texte);
   white-space: nowrap;
 }
 .data-table time {
@@ -554,7 +537,7 @@
 }
 .metrics-reading {
   padding-block: 50px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--filet);
 }
 .metrics-reading > div {
   display: grid;
@@ -563,8 +546,8 @@
   margin-top: 28px;
 }
 .metrics-reading article > span {
-  font: 11px var(--font-mono);
-  color: var(--accent-text);
+  font: 11px var(--font-code);
+  color: var(--accent-texte);
 }
 .metrics-reading h2 {
   font-size: 22px;
@@ -573,7 +556,7 @@
   letter-spacing: -0.025em;
 }
 .metrics-reading article p {
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 14px;
   line-height: 1.8;
 }
@@ -581,7 +564,7 @@
   display: grid;
   grid-template-columns: 240px minmax(0, 740px);
   gap: 80px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--filet);
   padding-top: 38px;
 }
 .legal-sidebar {
@@ -597,21 +580,21 @@
   font-size: 13px;
 }
 .legal-sidebar [aria-current] {
-  color: var(--accent-text);
+  color: var(--accent-texte);
 }
 .legal-sidebar > p:last-child {
   font-size: 12px;
   line-height: 1.9;
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .legal-sidebar strong {
   font-weight: 400;
-  color: var(--ink);
+  color: var(--texte);
 }
 .legal-section {
   margin-bottom: 38px;
   padding-bottom: 36px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--filet);
 }
 .legal-section h2 {
   margin-bottom: 18px;
@@ -622,19 +605,19 @@
 .legal-section > div {
   font-size: 14px;
   line-height: 1.9;
-  color: var(--secondary);
+  color: var(--texte-2);
   overflow-wrap: anywhere;
 }
 .legal-section > div > * + * {
   margin-top: 18px;
 }
 .legal-section a {
-  color: var(--accent-text);
+  color: var(--accent-texte);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 .legal-section :is(.font-mono, th, td) {
-  font-family: var(--font-sans);
+  font-family: var(--font-grotesk);
 }
 .legal-definitions {
   display: grid;
@@ -647,10 +630,10 @@
 }
 .legal-definitions dt {
   font-size: 12px;
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .legal-definitions dd {
-  color: var(--ink);
+  color: var(--texte);
 }
 .auth-layout {
   display: grid;
@@ -667,15 +650,15 @@
 }
 .auth-copy > p:last-child {
   font-size: 15px;
-  color: var(--secondary);
+  color: var(--texte-2);
   line-height: 1.8;
   max-width: 420px;
 }
 .auth-form {
-  border: 1px solid var(--line);
+  border: 1px solid var(--filet);
   border-radius: 8px;
   padding: 32px;
-  background: #faf7f1;
+  background: var(--fond-carte);
   display: grid;
   gap: 13px;
 }
@@ -688,25 +671,25 @@
   min-width: 0;
   width: 100%;
   padding: 13px 14px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--filet);
   border-radius: 4px;
-  background: var(--paper);
-  color: var(--ink);
-  font: 16px var(--font-sans);
+  background: var(--fond);
+  color: var(--texte);
+  font: 16px var(--font-grotesk);
 }
 .auth-form button {
   margin-top: 12px;
 }
 .form-error {
-  color: #a53e36;
+  color: var(--alerte);
   font-size: 13px;
   line-height: 1.7;
 }
-/* Note d'accompagnement des formulaires d'authentification. Le secondaire
-   #536878 sur le fond #faf7f1 des cartes mesure au-dessus du seuil AA, la
-   même valeur que celle employée partout ailleurs sur crème. */
+/* Note d'accompagnement des formulaires d'authentification. Le texte
+   secondaire sur le fond des cartes passe le seuil AA, contrôlé par
+   scripts/contraste.mjs. */
 .auth-note {
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 13px;
   line-height: 1.7;
   margin: 0;
@@ -730,7 +713,7 @@
    composant du meme nom : ?for=recruiter redirige desormais vers /recruteur,
    qui a ses propres regles dans narrative.css. Du CSS qui ne s'applique plus
    a rien est du code mort comme un autre. */
-/* Le panneau d'Adama AI est une surface claire posee sur des pages qui ne le
+/* Le panneau du moteur est une surface claire posee sur des pages qui ne le
    sont pas toutes. Il ne se contente donc pas d'heriter : il declare sa
    couleur d'encre et son schema, sur le panneau lui-meme et pas seulement
    sur son conteneur. La nuance a coute un defaut, le 2 septembre 2026 : sur
@@ -739,9 +722,8 @@
    la creme sur de la creme. Une couleur posee sur un conteneur ne protege
    pas ses descendants ; une couleur posee sur l'element, si. */
 .adama-assistant {
-  color: var(--ink);
-  font-family: var(--font-sans);
-  color-scheme: light;
+  color: var(--texte);
+  font-family: var(--font-grotesk);
 }
 .assistant-launcher {
   position: fixed;
@@ -751,13 +733,14 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  border: 1px solid #536878;
+  border: 1px solid var(--filet-fort);
   border-radius: 50px;
-  background: var(--strata-slate);
-  color: var(--paper);
+  background: var(--feuille);
+  color: var(--sur-feuille);
   padding: 9px 16px 9px 10px;
   font-size: 13px;
-  box-shadow: 0 6px 20px #0d1b2a18;
+  box-shadow: 0 6px 20px
+    color-mix(in srgb, var(--filet-feuille) 9%, transparent);
 }
 .assistant-monogram {
   display: inline-flex;
@@ -765,9 +748,9 @@
   justify-content: center;
   width: 34px;
   height: 34px;
-  border: 1px solid #c9a96e66;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
   border-radius: 50%;
-  color: var(--strata-gold);
+  color: var(--accent-feuille);
   font-size: 25px;
   font-weight: 500;
   letter-spacing: -0.09em;
@@ -779,16 +762,16 @@
   left: 20px;
   bottom: 88px;
   z-index: 50;
-  color: var(--ink);
-  color-scheme: light;
+  color: var(--texte);
   display: flex;
   flex-direction: column;
   width: min(420px, calc(100vw - 40px));
   max-height: min(700px, calc(100dvh - 115px));
-  background: var(--paper);
-  border: 1px solid #a9b0b1;
+  background: var(--fond);
+  border: 1px solid var(--filet-fort);
   border-radius: 12px;
-  box-shadow: 0 16px 60px #0d1b2a26;
+  box-shadow: 0 16px 60px
+    color-mix(in srgb, var(--filet-feuille) 15%, transparent);
   overflow: hidden;
 }
 .assistant-header {
@@ -796,8 +779,8 @@
   gap: 12px;
   align-items: center;
   padding: 19px 22px;
-  background: var(--strata-slate);
-  color: var(--paper);
+  background: var(--feuille);
+  color: var(--sur-feuille);
 }
 .assistant-header h2 {
   font-size: 16px;
@@ -807,7 +790,7 @@
 .assistant-header p {
   margin-top: 4px;
   font-size: 10px;
-  color: #c4cdd4;
+  color: var(--sur-feuille-2);
 }
 .assistant-close {
   margin-left: auto;
@@ -817,7 +800,7 @@
   border-radius: 50%;
 }
 .assistant-close:hover {
-  background: #ffffff12;
+  background: color-mix(in srgb, var(--fond-carte) 7%, transparent);
 }
 .assistant-messages {
   overflow-y: auto;
@@ -827,8 +810,8 @@
   padding: 25px 24px 15px;
 }
 .assistant-eyebrow {
-  font: 9px var(--font-mono);
-  color: var(--accent-text);
+  font: 9px var(--font-code);
+  color: var(--accent-texte);
   letter-spacing: 0.12em;
 }
 .assistant-welcome h3 {
@@ -839,12 +822,12 @@
   margin-block: 16px;
 }
 .assistant-welcome h3 .serif {
-  color: var(--accent-text);
+  color: var(--accent-texte);
 }
 .assistant-welcome > p:not(.assistant-eyebrow) {
   font-size: 13px;
   line-height: 1.75;
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .assistant-suggestions {
   display: grid;
@@ -860,21 +843,21 @@
   gap: 12px;
   min-height: 45px;
   padding: 12px 14px;
-  border: 1px solid #d4d1c9;
+  border: 1px solid var(--filet);
   border-radius: 5px;
 }
 .assistant-suggestions button:hover {
-  background: #e9e3d8;
-  border-color: var(--strata-gold);
+  background: var(--fond-creux);
+  border-color: var(--accent);
 }
 .assistant-welcome [data-testid="automation-notice"] {
-  font: 10px/1.65 var(--font-sans);
+  font: 10px/1.65 var(--font-grotesk);
   border: 0;
-  border-top: 1px solid #d4d1c9;
+  border-top: 1px solid var(--filet);
   border-radius: 0;
   padding: 14px 0 0;
   background: transparent;
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .assistant-message {
   font-size: 14px;
@@ -883,7 +866,7 @@
   margin-bottom: 20px;
 }
 .message-user {
-  background: #e5dfd3;
+  background: var(--fond-creux);
   padding: 14px 16px;
   border-radius: 8px 8px 2px 8px;
   margin-left: 20px;
@@ -894,10 +877,10 @@
 .message-author {
   font-size: 10px;
   font-weight: 500;
-  /* Mesure du 2 septembre 2026 : var(--secondary) donnait 4.37:1 sur la
-     bulle utilisateur #e5dfd3, sous le seuil AA. Meme teinte, assombrie
+  /* Mesure du 2 septembre 2026: var(--filet-fort) donnait 4.37:1 sur la
+     bulle utilisateur var(--filet), sous le seuil AA. Meme teinte, assombrie
      jusqu'a 5.43:1 sur la bulle et 6.18:1 sur le fond du panneau. */
-  color: #48596a;
+  color: var(--filet-feuille);
   margin-bottom: 5px;
 }
 /* Les documents consultes, sous la reponse. Volontairement discrets : ils
@@ -906,13 +889,13 @@
 .assistant-sources {
   margin-top: 14px;
   padding-top: 11px;
-  border-top: 1px solid #d4d1c9;
+  border-top: 1px solid var(--filet);
 }
 .assistant-sources > p {
-  font: 9px var(--font-mono);
+  font: 9px var(--font-code);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #48596a;
+  color: var(--texte-doux);
 }
 .assistant-sources ol {
   margin-top: 8px;
@@ -925,11 +908,11 @@
   gap: 9px;
   font-size: 11px;
   line-height: 1.6;
-  color: #48596a;
+  color: var(--texte-doux);
 }
 .assistant-sources li > span:first-child {
-  font-family: var(--font-mono);
-  color: var(--accent-text);
+  font-family: var(--font-code);
+  color: var(--accent-texte);
   flex-shrink: 0;
 }
 .assistant-progress,
@@ -939,22 +922,22 @@
   margin-block: 12px;
 }
 .assistant-progress {
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .assistant-error {
-  color: #a53e36;
+  color: var(--alerte);
 }
 .assistant-composer {
   display: flex;
   gap: 8px;
   margin: 8px 18px 0;
   padding: 7px;
-  border: 1px solid #8a97a6;
+  border: 1px solid var(--filet-fort);
   border-radius: 7px;
-  background: #fcf9f3;
+  background: var(--fond-carte);
 }
 .assistant-composer:focus-within {
-  outline: 2px solid var(--accent-text);
+  outline: 2px solid var(--accent-texte);
   outline-offset: 2px;
 }
 .assistant-composer input {
@@ -964,21 +947,21 @@
   padding: 6px;
   font-size: 16px;
   background: transparent;
-  color: var(--ink);
+  color: var(--texte);
 }
 .assistant-composer input:focus-visible {
   outline: none;
 }
 .assistant-composer input::placeholder {
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 13px;
 }
 .assistant-composer button {
   width: 40px;
   min-height: 40px;
   border-radius: 5px;
-  background: var(--strata-slate);
-  color: var(--paper);
+  background: var(--feuille);
+  color: var(--sur-feuille);
   font-size: 21px;
 }
 .assistant-composer button:disabled {
@@ -987,13 +970,13 @@
 }
 .assistant-footnote {
   padding: 11px 20px 14px;
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 9px;
   line-height: 1.6;
   text-align: center;
 }
 .assistant-header button:focus-visible {
-  outline-color: var(--strata-gold);
+  outline-color: var(--accent);
 }
 @media (prefers-reduced-motion: no-preference) {
   .page-intro > div {
@@ -1138,7 +1121,7 @@
   }
   .division-nav a + a {
     border-left: 0;
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--filet);
   }
   .division-products,
   .metric-grid {
@@ -1153,7 +1136,7 @@
     gap: 26px;
   }
   .metrics-reading article {
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--filet);
     padding-top: 20px;
   }
   .legal-definitions > div {
@@ -1204,7 +1187,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--filet);
 }
 .method-chain li {
   display: grid;
@@ -1212,26 +1195,26 @@
   gap: 24px;
   align-items: start;
   padding-block: 30px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--filet);
 }
 .method-chain li > span,
 .method-chain code {
-  font: 11px var(--font-mono);
+  font: 11px var(--font-code);
   letter-spacing: 0.12em;
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 .method-chain code {
-  color: var(--accent-text);
+  color: var(--accent-texte);
 }
 .method-chain h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-grotesk);
   margin: 0 0 7px;
   font-size: 28px;
-  font-weight: 400;
+  font-weight: 560;
   letter-spacing: -0.025em;
 }
 .method-chain p {
-  color: var(--secondary);
+  color: var(--texte-2);
   line-height: 1.7;
 }
 .method-rules,
@@ -1242,7 +1225,7 @@
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
   gap: 80px;
-  border-block: 1px solid var(--line);
+  border-block: 1px solid var(--filet);
 }
 .method-rules h2,
 .review-fit h2,
@@ -1253,18 +1236,18 @@
 .method-rules h2,
 .review-fit h2,
 .review-boundary h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-grotesk);
   max-width: 590px;
   font-size: clamp(34px, 4vw, 54px);
   line-height: 1.07;
-  letter-spacing: -0.045em;
-  font-weight: 300;
+  letter-spacing: -0.035em;
+  font-weight: 560;
 }
 .method-rule-list p,
 .review-fit li {
   padding: 18px 0;
-  border-bottom: 1px solid var(--line);
-  color: var(--secondary);
+  border-bottom: 1px solid var(--filet);
+  color: var(--texte-2);
   line-height: 1.65;
 }
 .method-states {
@@ -1278,14 +1261,14 @@
 }
 .method-states span {
   padding: 10px 14px;
-  border: 1px solid var(--line);
-  font: 11px var(--font-mono);
+  border: 1px solid var(--filet);
+  font: 11px var(--font-code);
   letter-spacing: 0.09em;
 }
 .method-signature {
   margin-top: 74px;
-  color: var(--secondary);
-  font: 12px var(--font-mono);
+  color: var(--texte-2);
+  font: 12px var(--font-code);
   letter-spacing: 0.08em;
 }
 .review-fit ul {
@@ -1301,31 +1284,31 @@
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  border: 1px solid var(--line);
+  border: 1px solid var(--filet);
 }
 .review-output li {
   min-height: 230px;
   padding: 30px;
 }
 .review-output li:nth-child(odd) {
-  border-right: 1px solid var(--line);
+  border-right: 1px solid var(--filet);
 }
 .review-output li:nth-child(n + 3) {
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--filet);
 }
 .review-output li span {
-  color: var(--accent-text);
-  font: 11px var(--font-mono);
+  color: var(--accent-texte);
+  font: 11px var(--font-code);
 }
 .review-output li p {
-  font-family: var(--font-display);
+  font-family: var(--font-grotesk);
   margin-top: 68px;
   max-width: 420px;
   font-size: 22px;
   line-height: 1.35;
 }
 .review-boundary > p {
-  color: var(--secondary);
+  color: var(--texte-2);
   line-height: 1.75;
 }
 .review-boundary > a {
@@ -1354,7 +1337,7 @@
     border-right: 0;
   }
   .review-output li + li {
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--filet);
   }
   .review-boundary > a {
     grid-column: auto;
@@ -1377,4 +1360,61 @@
     margin-top: 45px;
     font-size: 20px;
   }
+}
+
+/* Conhama, la quatrieme maison (30 octobre 2026). Sa marque garde les
+   couleurs de sa charte sur ses noeuds ; le triangle de liens et le nom
+   prennent la couleur du texte de la feuille, comme sur fond sombre dans
+   le fichier d'origine. */
+.project-conhama .project-art {
+  background: var(--feuille);
+  color: var(--sur-feuille);
+}
+.project-conhama .project-art-label,
+.project-conhama .project-art-name > span {
+  color: var(--sur-feuille-2);
+}
+.project-conhama .project-art-name {
+  font-size: 12px;
+}
+.brand-conhama {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(16px, 1.8vw, 22px);
+  letter-spacing: 0.18em;
+}
+.brand-conhama svg {
+  width: 1.9em;
+  height: 1.9em;
+  flex: none;
+}
+
+/* Les produits d'une maison, sous le resume de sa carte : des liens
+   sortants, lisibles comme une liste et pas comme des boutons. */
+.project-produits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  font: 12px/1.6 var(--font-code);
+}
+.project-produits a {
+  color: var(--lien);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.project-produits a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* La carte ADAMA OS porte son nom au meme corps que les trois autres :
+   en grand, il chevauchait la legende de la sculpture. */
+.project-adama .project-art-name {
+  font-size: 12px;
 }

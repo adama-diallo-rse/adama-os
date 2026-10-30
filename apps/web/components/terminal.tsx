@@ -39,6 +39,7 @@ import {
   type CommandeInspection,
 } from "../lib/terminal/inspect";
 import { captureEvent } from "../lib/analytics";
+import { THEME_KEY, applyTheme } from "../lib/theme";
 import {
   LEGACY_OUTBOUND_EVENT,
   OUTBOUND_EVENT,
@@ -47,42 +48,29 @@ import {
   withUtm,
 } from "../lib/outbound";
 
-const THEME_KEY = "adama-theme";
-
 type LogLine = { id: number; text: string; tone: "ok" | "info" };
 
-function applyTheme(theme: string | null) {
-  if (theme === "gold") {
-    document.documentElement.dataset.theme = "gold";
-  } else {
-    delete document.documentElement.dataset.theme;
-  }
-}
+// Le thème vit dans lib/theme.ts ; ré-exporté ici pour les appels existants.
+export { useThemeBoot } from "../lib/theme";
 
-/** Restaure le thème choisi au montage (persisté en localStorage). */
-export function useThemeBoot() {
-  useEffect(() => {
-    try {
-      applyTheme(localStorage.getItem(THEME_KEY));
-    } catch {
-      // stockage indisponible : thème par défaut
-    }
-  }, []);
-}
-
-const NAV_TARGETS: { id: string; label: string }[] = [
-  { id: "top", label: "Haut de page" },
-  { id: "projets", label: "Projets" },
-  { id: "approche", label: "Approche" },
-  { id: "parcours", label: "Parcours" },
-  { id: "atelier", label: "Atelier" },
-  { id: "contact", label: "Contact" },
-  { id: "couche-a", label: "Couche A, System Status" },
-  { id: "couche-b", label: "Couche B, Decisions Log" },
-  { id: "couche-c", label: "Couche C, Trajectory" },
-  { id: "couche-d", label: "Couche D, Écosystème" },
-  { id: "simulateur", label: "Simulateur VSME" },
-  { id: "shipped", label: "Shipped · Proof of Work" },
+// Refonte du 30 octobre 2026 : chaque cible dit sur quelle page elle vit.
+// L'accueil porte les cinq actes et ses sections numérotées ; le cockpit,
+// ses couches et le simulateur vivent sur /os. Une cible absente de la page
+// courante y mène, au lieu de ne rien faire.
+const NAV_TARGETS: { id: string; label: string; page: "/" | "/os" }[] = [
+  { id: "top", label: "Haut de page", page: "/" },
+  { id: "actes", label: "Le parcours, cinq actes", page: "/" },
+  { id: "moteur", label: "La démonstration du moteur", page: "/" },
+  { id: "preuves-citables", label: "Preuves citables", page: "/" },
+  { id: "projets", label: "Projets", page: "/" },
+  { id: "regimes", label: "Régimes", page: "/" },
+  { id: "contact", label: "Contact", page: "/" },
+  { id: "couche-a", label: "Couche A, System Status", page: "/os" },
+  { id: "couche-b", label: "Couche B, Decisions Log", page: "/os" },
+  { id: "couche-c", label: "Couche C, Trajectory", page: "/os" },
+  { id: "couche-d", label: "Couche D, Écosystème", page: "/os" },
+  { id: "simulateur", label: "Simulateur VSME", page: "/os" },
+  { id: "shipped", label: "Shipped · Proof of Work", page: "/os" },
 ];
 
 // Pages internes du site. Les produits s'ajoutent à cette liste au rendu,
@@ -229,13 +217,18 @@ export function Terminal({
         return;
       }
       const target = document.getElementById(id);
-      const disclosure = target?.closest("details");
+      if (!target) {
+        const page = NAV_TARGETS.find((t) => t.id === id)?.page ?? "/";
+        window.location.href = `${page}#${id}`;
+        return;
+      }
+      const disclosure = target.closest("details");
       if (disclosure) disclosure.open = true;
       const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
         .matches
         ? "instant"
         : "smooth";
-      target?.scrollIntoView({ behavior });
+      target.scrollIntoView({ behavior });
     },
     [close],
   );
@@ -337,7 +330,7 @@ export function Terminal({
 
   const toggleTheme = useCallback(() => {
     const next =
-      document.documentElement.dataset.theme === "gold" ? null : "gold";
+      document.documentElement.dataset.theme === "indigo" ? null : "indigo";
     applyTheme(next);
     try {
       if (next) {
@@ -348,7 +341,7 @@ export function Terminal({
     } catch {
       // stockage indisponible : le thème reste appliqué pour la session
     }
-    pushLog(`theme → ${next ?? "teal"}`, "ok");
+    pushLog(`theme → ${next ?? "latérite"}`, "ok");
   }, [pushLog]);
 
   return (
@@ -373,7 +366,7 @@ export function Terminal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? undefined : { opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="w-full max-w-lg overflow-hidden rounded-[var(--radius)] border border-border-strong bg-surface shadow-[0_24px_64px_-24px_rgba(0,0,0,0.9)] glow-emerald"
+            className="w-full max-w-lg overflow-hidden rounded-[var(--radius)] border border-border-strong bg-surface shadow-[0_24px_64px_-24px_rgba(0,0,0,0.9)] glow-signal"
           >
             <Command
               label="Terminal Adama OS"
@@ -382,7 +375,7 @@ export function Terminal({
             >
               {/* Barre de saisie façon prompt */}
               <div className="flex items-center gap-2 border-b border-border px-4 py-3">
-                <span aria-hidden className="font-mono text-sm text-emerald">
+                <span aria-hidden className="font-mono text-sm text-signal">
                   $
                 </span>
                 <Command.Input
@@ -437,7 +430,7 @@ export function Terminal({
                   />
                   <TerminalItem
                     value="theme"
-                    hint="bascule teal / gold"
+                    hint="bascule latérite / indigo"
                     onSelect={toggleTheme}
                   />
                   {onRecruit ? (
@@ -517,9 +510,7 @@ export function Terminal({
                     <p
                       key={line.id}
                       className={`font-mono text-xs ${
-                        line.tone === "ok"
-                          ? "text-emerald-bright"
-                          : "text-muted"
+                        line.tone === "ok" ? "text-signal-bright" : "text-muted"
                       }`}
                     >
                       {line.tone === "ok" ? "✓ " : "› "}
@@ -553,7 +544,7 @@ function TerminalItem({
       value={value}
       keywords={keywords}
       onSelect={onSelect}
-      className="flex cursor-pointer items-center justify-between gap-3 rounded-[calc(var(--radius)_-_0.25rem)] px-3 py-2 font-mono text-sm text-muted data-[selected=true]:bg-surface-raised data-[selected=true]:text-emerald-bright"
+      className="flex cursor-pointer items-center justify-between gap-3 rounded-[calc(var(--radius)_-_0.25rem)] px-3 py-2 font-mono text-sm text-muted data-[selected=true]:bg-surface-raised data-[selected=true]:text-signal-bright"
     >
       <span>{value}</span>
       <span className="text-[0.65rem] text-faint">{hint}</span>

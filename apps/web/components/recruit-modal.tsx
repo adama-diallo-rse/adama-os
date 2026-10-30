@@ -214,7 +214,7 @@ export function RecruitModal({
                 <h2 className="font-sans text-2xl font-medium tracking-tight text-foreground">
                   Faisons connaissance.
                 </h2>
-                <Badge variant="emerald" dot>
+                <Badge variant="signal" dot>
                   {ACTIVITE.titre.toLowerCase()}
                 </Badge>
               </div>
@@ -241,7 +241,7 @@ export function RecruitModal({
                       key={v.title}
                       className="rounded-[calc(var(--radius)_-_0.25rem)] border border-border bg-surface-raised px-3 py-3"
                     >
-                      <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-emerald">
+                      <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-signal">
                         {v.title}
                       </p>
                       <p className="mt-1.5 text-xs leading-relaxed text-muted">
@@ -267,7 +267,7 @@ export function RecruitModal({
                 </Button>
                 <Link
                   href="/?for=recruiter"
-                  className="font-mono text-xs text-faint underline-offset-4 transition-colors hover:text-emerald-bright hover:underline"
+                  className="font-mono text-xs text-faint underline-offset-4 transition-colors hover:text-signal-bright hover:underline"
                 >
                   version lecture / imprimable →
                 </Link>
@@ -293,7 +293,7 @@ export function RecruitModal({
                 {state === "done" ? (
                   <p
                     role="status"
-                    className="font-mono text-sm text-emerald-bright"
+                    className="font-mono text-sm text-signal-bright"
                   >
                     ✓ Bien reçu. Je vous répondrai par email.
                   </p>
@@ -310,7 +310,7 @@ export function RecruitModal({
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="email pro"
                         aria-label="Email professionnel"
-                        className="h-11 min-w-0 flex-1 rounded-[calc(var(--radius)_-_0.25rem)] border border-border bg-surface px-3 font-sans text-base text-foreground outline-none placeholder:text-faint focus:border-emerald"
+                        className="h-11 min-w-0 flex-1 rounded-[calc(var(--radius)_-_0.25rem)] border border-border bg-surface px-3 font-sans text-base text-foreground outline-none placeholder:text-faint focus:border-signal"
                       />
                       <input
                         type="text"
@@ -318,7 +318,7 @@ export function RecruitModal({
                         onChange={(e) => setCompany(e.target.value)}
                         placeholder="entreprise (optionnel)"
                         aria-label="Entreprise"
-                        className="h-11 min-w-0 flex-1 rounded-[calc(var(--radius)_-_0.25rem)] border border-border bg-surface px-3 font-sans text-base text-foreground outline-none placeholder:text-faint focus:border-emerald"
+                        className="h-11 min-w-0 flex-1 rounded-[calc(var(--radius)_-_0.25rem)] border border-border bg-surface px-3 font-sans text-base text-foreground outline-none placeholder:text-faint focus:border-signal"
                       />
                       <Button
                         type="submit"

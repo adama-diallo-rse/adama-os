@@ -32,15 +32,13 @@ const COLUMNS: { status: TrajectoryStatus; label: string }[] = [
   { status: "later", label: "Later" },
 ];
 
-const STATUS_BADGE: Record<
-  TrajectoryStatus,
-  "emerald" | "warning" | "default"
-> = {
-  now: "emerald",
-  next: "warning",
-  later: "default",
-  done: "default",
-};
+const STATUS_BADGE: Record<TrajectoryStatus, "signal" | "warning" | "default"> =
+  {
+    now: "signal",
+    next: "warning",
+    later: "default",
+    done: "default",
+  };
 
 function TrajectoryItem({ item }: { item: TrajectoryView }) {
   const isRisk = item.type === "risk";
@@ -54,9 +52,9 @@ function TrajectoryItem({ item }: { item: TrajectoryView }) {
       className={cn(
         "rounded-[calc(var(--radius)_-_0.125rem)] border px-3 py-2.5",
         isRisk
-          ? "border-[color-mix(in_oklch,var(--color-danger)_45%,transparent)] bg-[color-mix(in_oklch,var(--color-danger)_8%,transparent)]"
+          ? "border-[color-mix(in_srgb,var(--color-danger)_45%,transparent)] bg-[color-mix(in_srgb,var(--color-danger)_8%,transparent)]"
           : item.overdue
-            ? "border-[color-mix(in_oklch,var(--color-warning)_55%,transparent)] bg-[color-mix(in_oklch,var(--color-warning)_8%,transparent)]"
+            ? "border-[color-mix(in_srgb,var(--color-warning)_55%,transparent)] bg-[color-mix(in_srgb,var(--color-warning)_8%,transparent)]"
             : "border-border bg-surface-raised",
       )}
     >
@@ -79,8 +77,8 @@ function TrajectoryItem({ item }: { item: TrajectoryView }) {
         </p>
       ) : null}
       {isRisk && item.notes ? (
-        <p className="mt-1.5 border-l-2 border-emerald-dim pl-2 text-xs leading-relaxed text-muted">
-          <span className="font-mono text-emerald">→ solution :</span>{" "}
+        <p className="mt-1.5 border-l-2 border-signal-dim pl-2 text-xs leading-relaxed text-muted">
+          <span className="font-mono text-signal">→ solution :</span>{" "}
           {item.notes}
         </p>
       ) : null}
@@ -176,7 +174,7 @@ export function LayerC({ trajectory }: { trajectory: TrajectoryRow[] }) {
           Cette colonne dit où je vais.{" "}
           <Link
             href="/journal#frise"
-            className="text-emerald transition-colors hover:text-emerald-bright"
+            className="text-signal underline underline-offset-2 transition-colors hover:text-signal-bright"
           >
             La frise d&apos;ingénierie
           </Link>{" "}

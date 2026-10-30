@@ -17,7 +17,7 @@ export default function RecruteurOpengraphImage() {
     <OgTemplate
       eyebrow="ADAMA OS / PROFIL"
       title="ADAMA DIALLO"
-      subtitle={`${POSTE_ACTUEL}.`}
+      subtitle={`${POSTE_ACTUEL.replace(", co-", ",\nco-")}.`}
       tagline={ACTIVITE.villes.join(" · ").toUpperCase()}
     />,
     { ...size },

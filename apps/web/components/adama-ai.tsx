@@ -165,13 +165,13 @@ export function AdamaAi({
         onClick={() => onOpenChange(!open)}
         aria-expanded={open}
         aria-controls="adama-ai-panel"
-        aria-label={open ? "Fermer Adama AI" : "Ouvrir Adama AI"}
+        aria-label={open ? "Fermer le moteur" : "Interroger le moteur"}
         className="assistant-launcher"
       >
         <span className="assistant-monogram" aria-hidden="true">
           a.
         </span>
-        <span>Adama AI</span>
+        <span>Le moteur</span>
         <span aria-hidden="true">{open ? "×" : "↗"}</span>
       </button>
       <AnimatePresence>
@@ -192,7 +192,7 @@ export function AdamaAi({
                 a.
               </span>
               <div>
-                <h2 id="assistant-title">Adama AI</h2>
+                <h2 id="assistant-title">Le moteur</h2>
                 <p>{AUTOMATED_PROCESSING_SHORT} · ESG & parcours</p>
               </div>
               <button
@@ -259,7 +259,7 @@ export function AdamaAi({
                       }
                     >
                       <p className="message-author">
-                        {message.role === "user" ? "Vous" : "Adama AI"}
+                        {message.role === "user" ? "Vous" : "Le moteur"}
                       </p>
                       <MessageText parts={message.parts} />
                       <Sources
@@ -284,7 +284,7 @@ export function AdamaAi({
             </div>
             <form onSubmit={submit} className="assistant-composer">
               <label htmlFor="assistant-question" className="sr-only">
-                Votre question pour Adama AI
+                Votre question pour le moteur
               </label>
               <input
                 id="assistant-question"

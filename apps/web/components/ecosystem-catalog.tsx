@@ -25,6 +25,15 @@ const divisions = [
     label: "SANTÉ / SÉNÉGAL",
   },
   {
+    key: "Conhama",
+    id: "conhama",
+    brand: "conhama",
+    title: "La carte vivante de l’économie durable.",
+    description:
+      "Entreprises, cabinets, financeurs, collectivités et chercheurs de l’économie durable, cartographiés et reliés sur une plateforme neutre. Démonstrateur ouvert en Île-de-France.",
+    label: "ÉCOSYSTÈME / FRANCE",
+  },
+  {
     key: "Cockpit",
     id: "cockpit",
     brand: "adama",
@@ -55,7 +64,8 @@ export function EcosystemCatalog({
         : p.status !== "live"),
   );
   const extra = [...new Set(products.map((p) => p.division))].filter(
-    (d) => !["STRATA", "STRATA ESG", "Pharivo", "Cockpit"].includes(d),
+    (d) =>
+      !["STRATA", "STRATA ESG", "Pharivo", "Conhama", "Cockpit"].includes(d),
   );
   return (
     <>

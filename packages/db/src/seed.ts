@@ -323,6 +323,18 @@ async function seed() {
       position: 80,
     },
     {
+      slug: "conhama",
+      name: "Conhama",
+      division: "Conhama",
+      pillar: "Carte de l'économie durable",
+      description:
+        "La carte vivante de l'économie durable : ses acteurs cartographiés, reliés et départagés par aucune préférence. Démonstrateur en Île-de-France.",
+      status: "live" as const,
+      url: "https://conhama.com/fr",
+      repoFullName: null,
+      position: 90,
+    },
+    {
       slug: "adama-os",
       name: "Adama OS",
       division: "Cockpit",

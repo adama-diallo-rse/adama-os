@@ -4,7 +4,9 @@
 
 ADAMA OS parle comme un constructeur qui tient un carnet daté en public. La voix est directe, technique, factuelle et sobre. Elle explique ce qui a été fait, pourquoi une décision a été prise, où se trouve la preuve et ce qui reste incertain.
 
-La typographie soutient cette voix : Cormorant Garamond formule l'idée, DM Sans l'explique, Syne l'organise et Courier Prime l'attache à une preuve.
+La typographie soutient cette voix : Schibsted Grotesk dit et organise, un seul mot en Newsreader italique porte l'idée, et IBM Plex Mono attache chaque date, mesure ou identifiant à sa preuve.
+
+Le traitement automatique s'appelle « le moteur », sur toutes les surfaces publiques. Aucune page ne parle d'intelligence artificielle, ni en texte ni en image.
 
 ## Nous sommes, nous ne sommes pas
 

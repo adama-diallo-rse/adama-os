@@ -49,7 +49,7 @@ export default async function CheckinPage({
     return (
       <PageShell tools={false}>
         <div className="private-content" style={pageStyle}>
-          <p style={{ color: "#a53e36" }}>
+          <p style={{ color: "var(--alerte)" }}>
             Configuration Supabase indisponible (clés manquantes dans
             .env.local).
           </p>
@@ -104,12 +104,12 @@ export default async function CheckinPage({
           </p>
         ) : null}
         {params.error ? (
-          <p style={{ color: "#a53e36", fontSize: "0.85rem" }}>
+          <p style={{ color: "var(--alerte)", fontSize: "0.85rem" }}>
             {params.error}
           </p>
         ) : null}
         {error ? (
-          <p style={{ color: "#a53e36", fontSize: "0.85rem" }}>
+          <p style={{ color: "var(--alerte)", fontSize: "0.85rem" }}>
             Lecture impossible : {error.message}
           </p>
         ) : null}
@@ -251,8 +251,8 @@ const pageStyle: CSSProperties = {
   padding: "40px 0",
   maxWidth: "860px",
   margin: "0",
-  background: "var(--paper)",
-  color: "var(--ink)",
+  background: "var(--fond)",
+  color: "var(--texte)",
   fontFamily: "var(--font-sans)",
 };
 const headerStyle: CSSProperties = {
@@ -279,8 +279,8 @@ const inputStyle: CSSProperties = {
   padding: "0.55rem",
   borderRadius: "8px",
   border: "1px solid var(--line)",
-  background: "var(--paper)",
-  color: "var(--ink)",
+  background: "var(--fond)",
+  color: "var(--texte)",
   fontFamily: "inherit",
 };
 const rowForm: CSSProperties = {
@@ -292,8 +292,8 @@ const chip: CSSProperties = {
   padding: "0.4rem 0.7rem",
   borderRadius: "999px",
   border: "1px solid var(--line)",
-  background: "#faf7f1",
-  color: "var(--ink)",
+  background: "var(--fond-carte)",
+  color: "var(--texte)",
   cursor: "pointer",
   fontFamily: "inherit",
   fontSize: "0.8rem",
@@ -301,15 +301,15 @@ const chip: CSSProperties = {
 const chipActive: CSSProperties = {
   ...chip,
   border: "1px solid var(--accent-text)",
-  background: "#e5d7bd",
-  color: "var(--ink)",
+  background: "var(--fond-creux)",
+  color: "var(--texte)",
 };
 const btnPrimary: CSSProperties = {
   padding: "0.55rem 0.9rem",
   borderRadius: "8px",
   border: "1px solid var(--accent-text)",
   background: "var(--accent-text)",
-  color: "#ffffff",
+  color: "var(--sur-feuille)",
   fontWeight: 600,
   cursor: "pointer",
   fontFamily: "inherit",
@@ -318,8 +318,8 @@ const btnGhost: CSSProperties = {
   padding: "0.5rem 0.9rem",
   borderRadius: "8px",
   border: "1px solid var(--line)",
-  background: "#faf7f1",
-  color: "var(--ink)",
+  background: "var(--fond-carte)",
+  color: "var(--texte)",
   cursor: "pointer",
   fontFamily: "inherit",
 };

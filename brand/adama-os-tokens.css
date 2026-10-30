@@ -1,22 +1,48 @@
+/* ADAMA OS, jetons de marque, révision du 30 octobre 2026.
+   Source réutilisable hors du site (documents, Figma, supports).
+   Les valeurs brutes sont identiques à apps/web/app/identite.css :
+   scripts/contraste.mjs échoue si les deux fichiers divergent. */
 :root {
-  --adama-slate: #0d1b2a;
-  --adama-slate-mid: #1a2d42;
-  --adama-stone: #536878;
-  --adama-cream: #f2ede4;
-  --adama-gold: #c9a96e;
-  --adama-gold-text: #806332;
-  --adama-signal: #2affd6;
-  --adama-white: #ffffff;
+  /* Palette brute, OKLCH */
+  --adama-ivoire: oklch(0.966 0.013 84);
+  --adama-papier: oklch(0.988 0.006 84);
+  --adama-creux: oklch(0.932 0.018 82);
+  --adama-sable: oklch(0.86 0.02 80);
+  --adama-encre: oklch(0.2 0.03 268);
+  --adama-encre-douce: oklch(0.33 0.035 268);
+  --adama-pierre: oklch(0.47 0.03 268);
+  --adama-nuit: oklch(0.26 0.04 268);
+  --adama-brume: oklch(0.8 0.02 268);
+  --adama-indigo: oklch(0.36 0.12 272);
+  --adama-indigo-profond: oklch(0.27 0.09 272);
+  --adama-indigo-clair: oklch(0.8 0.07 272);
+  --adama-laterite: oklch(0.6 0.15 40);
+  --adama-laterite-texte: oklch(0.49 0.145 38);
+  --adama-ocre: oklch(0.79 0.12 62);
+  --adama-signal: oklch(0.88 0.19 128);
+  --adama-signal-texte: oklch(0.47 0.12 145);
 
-  --adama-font-display: "Cormorant Garamond", serif;
-  --adama-font-ui: "Syne", sans-serif;
-  --adama-font-body: "DM Sans", sans-serif;
-  --adama-font-data: "Courier Prime", monospace;
+  /* Équivalents hexadécimaux, pour les outils qui ne lisent pas OKLCH */
+  --adama-ivoire-hex: #f8f3ea;
+  --adama-encre-hex: #101524;
+  --adama-indigo-hex: #29347b;
+  --adama-indigo-profond-hex: #182052;
+  --adama-laterite-hex: #c85b32;
+  --adama-laterite-texte-hex: #a13a16;
+  --adama-ocre-hex: #f2a866;
+  --adama-signal-hex: #b3ee55;
 
-  --adama-radius-card: 14px;
-  --adama-radius-frame: 28px;
-  --adama-radius-pill: 9999px;
+  /* Typographie */
+  --adama-font-grotesk: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --adama-font-serif: "Newsreader", "Times New Roman", serif;
+  --adama-font-code: "IBM Plex Mono", ui-monospace, monospace;
 
+  /* Rayons */
+  --adama-rayon: 6px;
+  --adama-rayon-carte: 12px;
+  --adama-rayon-pilule: 9999px;
+
+  /* Espacements, base 4 px */
   --adama-space-1: 4px;
   --adama-space-2: 8px;
   --adama-space-3: 12px;

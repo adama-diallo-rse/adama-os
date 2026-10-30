@@ -98,7 +98,7 @@ export default async function FicheProjetPage({
   };
 
   return (
-    <PageShell className="case-page">
+    <PageShell className="case-page" sommaire={false}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

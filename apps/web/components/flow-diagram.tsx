@@ -73,7 +73,11 @@ export function FlowDiagram() {
   const interdit = FLUX.find((f) => f.sens === "interdit");
 
   return (
-    <figure className="trust-figure">
+    <figure
+      className="trust-figure"
+      tabIndex={0}
+      aria-label="Schéma des flux de données, défilable"
+    >
       <svg
         className="trust-schema"
         viewBox={`0 0 ${W} ${H}`}

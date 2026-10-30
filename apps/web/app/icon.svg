@@ -1,10 +1,9 @@
-<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-  <rect width="64" height="64" rx="14" fill="#F2EDE4" />
-  <g fill="none" stroke="#0D1B2A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M32 8 51 27" />
-    <path d="M56 32 32 56 8 32 32 8" />
-    <path d="M32 19 44 31" />
-    <path d="M45 35 32 48 16 32 32 16" />
-  </g>
-  <circle cx="53" cy="29" r="3.5" fill="#C9A96E" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <title>ADAMA OS</title>
+  <!-- Le Tissage, version d'icône : cotes calées sur la grille de pixels
+       à 16 et 32 px (bandes 12, coutures 4, motifs 4), pour que les
+       coutures et le sceau restent nets dans un onglet. -->
+  <rect width="64" height="64" rx="13.33" fill="#f8f3ea"/>
+  <path fill="#101524" fill-rule="evenodd" d="M8 12h12v32h-12zM12 32v4h4v-4zM24 16h12v32h-12zM28 24v4h4v-4zM40 12h12v32h-12zM44 16v4h4v-4z"/>
+  <path fill="#c85b32" d="M44 16h4v4h-4z"/>
 </svg>

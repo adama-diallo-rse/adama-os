@@ -99,6 +99,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    // Refonte du 30 octobre 2026 : le cockpit sur /os, le catalogue et ses
+    // surfaces, la racine anglaise.
+    {
+      url: absoluteUrl("/os"),
+      lastModified: maintenant,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    ...[
+      "/catalogue",
+      "/outils",
+      "/bibliotheque",
+      "/playbooks",
+      "/parcours",
+    ].map((chemin) => ({
+      url: absoluteUrl(chemin),
+      lastModified: maintenant,
+      changeFrequency: "weekly" as const,
+      priority: chemin === "/catalogue" ? 0.8 : 0.6,
+    })),
+    {
+      url: absoluteUrl("/en"),
+      lastModified: maintenant,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: {
+        languages: { fr: absoluteUrl("/"), en: absoluteUrl("/en") },
+      },
+    },
     // EC4 et EG0 a EG2 : le temps Apprendre et les pages de conseil.
     ...[
       "/articles",

@@ -19,6 +19,7 @@
 
 import Link from "next/link";
 import { Proof } from "./proof/proof";
+import { ProductMark } from "./product-mark";
 import {
   BLOCS,
   DOMAINES_ROLE,
@@ -72,6 +73,41 @@ export function ProjectSheet({
           {fiche.probleme.map((paragraphe) => (
             <p key={paragraphe.slice(0, 40)}>{paragraphe}</p>
           ))}
+          {/* Une maison à plusieurs produits les présente ici, chacun avec
+              son adresse publique et son état relevé. L'ancre de chaque
+              produit reçoit les anciennes adresses de fiche (next.config). */}
+          {fiche.produits?.length ? (
+            <ul className="case-produits">
+              {fiche.produits.map((produit) => (
+                <li key={produit.slug} id={produit.slug}>
+                  <span className="case-produit-tete">
+                    <ProductMark slug={produit.slug} taille={28} />
+                    <span>
+                      <strong>{produit.nom}</strong>
+                      <small>{produit.role}</small>
+                    </span>
+                  </span>
+                  <p>{produit.resume}</p>
+                  <p className="case-produit-etat" data-etat={produit.etat}>
+                    {ETAT_LABEL[produit.etat]}
+                    {produit.precision ? `, ${produit.precision}` : ""}
+                  </p>
+                  <a
+                    href={produit.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="case-produit-lien"
+                  >
+                    {produit.url
+                      .replace(/^https:\/\/(www\.)?/, "")
+                      .replace(/\/$/, "")}
+                    <span aria-hidden="true"> ↗</span>
+                    <span className="sr-only"> (nouvel onglet)</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </section>
 
         {/* 02 Mon role ------------------------------------------------ */}
@@ -171,7 +207,9 @@ export function ProjectSheet({
           <h2>
             <span>04</span> Décisions
           </h2>
-          {decisions.length === 0 ? (
+          {decisions.length === 0 && fiche.registreDecisions ? (
+            <p className="case-vide">{fiche.registreDecisions}</p>
+          ) : decisions.length === 0 ? (
             <p className="case-vide">
               Le journal d’architecture ne sert aucune décision pour ce projet
               aujourd’hui. Rien n’est écrit ici à la place : les décisions

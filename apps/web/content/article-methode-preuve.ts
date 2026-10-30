@@ -104,9 +104,9 @@ export const ARTICLE_PREUVE_FR: ArticleMethodePreuve = {
       repere: "02 / FRONTIÈRE DE DÉCISION",
       titre: "Un modèle propose, la chaîne de preuve dispose",
       paragraphes: [
-        "Un autre angle de EH2 affirme que l’IA n’a pas le droit de décider. Dans le système, cette phrase ne signifie pas que le modèle serait inutile. Elle signifie que sa sortie ne devient pas vraie simplement parce qu’elle a été formulée avec assurance. Le modèle peut chercher, rapprocher, résumer ou proposer. La chaîne doit encore retrouver une source, vérifier la pertinence, exposer la limite et refuser lorsque le matériau ne suffit pas.",
-        "Cette frontière possède déjà des éléments mesurés. Le plancher de récupération est fixé à 0,15. La vérification publique considère l’échec sous 0,45 et la réussite à partir de 0,50. Ces nombres n’établissent pas une qualité générale de l’IA. Ils décrivent des portes précises dans une chaîne précise. Leur utilité vient de cette modestie : ils indiquent quand continuer, quand signaler une faiblesse et quand ne pas répondre.",
-        "La passe a montré qu’une règle de refus peut elle-même être surévaluée. Dire que la chaîne échoue plutôt que d’inventer décrit un comportement de conception. Pour faire passer la méthode AI Decision Boundary de TESTE à PROUVE, il faut publier une mesure du taux de refus observé. Sans cette mesure, la frontière existe dans le code et dans les tests, mais son résultat réel n’est pas encore établi.",
+        "Un autre angle de EH2 affirme que le moteur n’a pas le droit de décider. Dans le système, cette phrase ne signifie pas que le modèle serait inutile. Elle signifie que sa sortie ne devient pas vraie simplement parce qu’elle a été formulée avec assurance. Le modèle peut chercher, rapprocher, résumer ou proposer. La chaîne doit encore retrouver une source, vérifier la pertinence, exposer la limite et refuser lorsque le matériau ne suffit pas.",
+        "Cette frontière possède déjà des éléments mesurés. Le plancher de récupération est fixé à 0,15. La vérification publique considère l’échec sous 0,45 et la réussite à partir de 0,50. Ces nombres n’établissent pas une qualité générale du moteur. Ils décrivent des portes précises dans une chaîne précise. Leur utilité vient de cette modestie : ils indiquent quand continuer, quand signaler une faiblesse et quand ne pas répondre.",
+        "La passe a montré qu’une règle de refus peut elle-même être surévaluée. Dire que la chaîne échoue plutôt que d’inventer décrit un comportement de conception. Pour faire passer la méthode de frontière de décision du moteur de TESTE à PROUVE, il faut publier une mesure du taux de refus observé. Sans cette mesure, la frontière existe dans le code et dans les tests, mais son résultat réel n’est pas encore établi.",
         "Le même principe vaut pour l’article que vous lisez. Aucun nombre n’est ajouté pour rendre le récit plus impressionnant. Les comptes cités viennent de la passe. Lorsqu’un ordre de grandeur n’a pas été mesuré, il n’entre pas dans le texte. Une histoire moins spectaculaire mais remontable vaut davantage qu’une précision fabriquée.",
       ],
     },
@@ -146,7 +146,7 @@ export const ARTICLE_PREUVE_FR: ArticleMethodePreuve = {
     {
       titre: "Quatre méthodes pouvaient rester à l’état PROUVE",
       croyance:
-        "Leur utilisation dans le cockpit, STRATA ou le journal public semblait établir une maturité suffisante. Les objets existaient, fonctionnaient et laissaient des traces consultables.",
+        "Leur utilisation dans le cockpit, STRATA ESG ou le journal public semblait établir une maturité suffisante. Les objets existaient, fonctionnaient et laissaient des traces consultables.",
       rupture:
         "XINV-39 exige un usage réel daté avec un résultat mesurable publié. Les justifications décrivaient des usages internes, pas les résultats demandés par la règle.",
       suite:
@@ -221,7 +221,7 @@ export const ARTICLE_PREUVE_FR: ArticleMethodePreuve = {
     },
     {
       code: "M-004",
-      methode: "AI Decision Boundary",
+      methode: "Frontière de décision du moteur",
       retenu:
         "La chaîne de recherche augmentée possédait des seuils et refusait de répondre lorsque le matériau récupéré ne suffisait pas.",
       rupture:
@@ -352,9 +352,9 @@ export const ARTICLE_PREUVE_EN: ArticleMethodePreuve = {
       repere: "02 / DECISION BOUNDARY",
       titre: "A model proposes, the evidence chain decides",
       paragraphes: [
-        "The second EH2 angle states that AI is not allowed to decide. In this system, the sentence does not make the model useless. It means that an output does not become true merely because it was expressed confidently. The model may search, connect, summarise, or propose. The chain must still recover a source, test relevance, expose the limit, and refuse when the material is insufficient.",
-        "This boundary already has measured elements. The retrieval floor is 0.15. Public verification records failure below 0.45 and success from 0.50. These numbers do not establish the general quality of AI. They describe particular gates in a particular chain. Their value comes from that modest scope: they say when to continue, when to flag weakness, and when not to answer.",
-        "The review showed that a refusal rule can itself be overstated. Saying that the chain fails rather than inventing describes a design behaviour. To move AI Decision Boundary from TESTED to PROVEN, a measured refusal rate must be published. Without that measure, the boundary exists in code and tests, but its real result has not yet been established.",
+        "The second EH2 angle states that the engine is not allowed to decide. In this system, the sentence does not make the model useless. It means that an output does not become true merely because it was expressed confidently. The model may search, connect, summarise, or propose. The chain must still recover a source, test relevance, expose the limit, and refuse when the material is insufficient.",
+        "This boundary already has measured elements. The retrieval floor is 0.15. Public verification records failure below 0.45 and success from 0.50. These numbers do not establish the general quality of the engine. They describe particular gates in a particular chain. Their value comes from that modest scope: they say when to continue, when to flag weakness, and when not to answer.",
+        "The review showed that a refusal rule can itself be overstated. Saying that the chain fails rather than inventing describes a design behaviour. To move the engine decision boundary method from TESTED to PROVEN, a measured refusal rate must be published. Without that measure, the boundary exists in code and tests, but its real result has not yet been established.",
         "The same principle governs this article. No figure is added to make the story sound more impressive. The counts come from the review. Where no measurement exists, no numerical estimate appears. A quieter account that can be traced is worth more than fabricated precision.",
       ],
     },
@@ -394,7 +394,7 @@ export const ARTICLE_PREUVE_EN: ArticleMethodePreuve = {
     {
       titre: "Four methods could remain PROVEN",
       croyance:
-        "Their use in the cockpit, STRATA, or the public build log seemed to establish sufficient maturity. The objects existed, worked, and left readable traces.",
+        "Their use in the cockpit, STRATA ESG, or the public build log seemed to establish sufficient maturity. The objects existed, worked, and left readable traces.",
       rupture:
         "XINV-39 requires real, dated use with a published, measurable result. The arguments described internal use rather than the results required by the rule.",
       suite:
@@ -469,7 +469,7 @@ export const ARTICLE_PREUVE_EN: ArticleMethodePreuve = {
     },
     {
       code: "M-004",
-      methode: "AI Decision Boundary",
+      methode: "Frontière de décision du moteur",
       retenu:
         "The retrieval chain had thresholds and refused to answer when the retrieved material was insufficient.",
       rupture:

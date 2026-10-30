@@ -221,7 +221,9 @@ export function BuildLog({
         <div>
           <dt>Contributions</dt>
           <dd>{m.commits}</dd>
-          <p>Journal public des dépôts, filtrage du bruit appliqué.</p>
+          <dd className="log-metrics-aide">
+            Journal public des dépôts, filtrage du bruit appliqué.
+          </dd>
         </div>
         <div>
           <dt>Dépôts actifs</dt>
@@ -231,7 +233,9 @@ export function BuildLog({
               / {repos.length} {repos.length > 1 ? "suivis" : "suivi"}
             </span>
           </dd>
-          <p>Dépôts ayant au moins une contribution sur la période lue.</p>
+          <dd className="log-metrics-aide">
+            Dépôts ayant au moins une contribution sur la période lue.
+          </dd>
         </div>
         <div>
           <dt>Régularité</dt>
@@ -241,9 +245,9 @@ export function BuildLog({
               / {m.joursDeLaPeriode} {m.joursDeLaPeriode > 1 ? "jours" : "jour"}
             </span>
           </dd>
-          <p>
+          <dd className="log-metrics-aide">
             Jours portant au moins une contribution, sur l’étendue observée.
-          </p>
+          </dd>
         </div>
       </dl>
       <p className="log-metrics-note">

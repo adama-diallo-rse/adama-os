@@ -4,77 +4,58 @@
 @source "../../../packages/ui/src/**/*.{ts,tsx}";
 
 /* ------------------------------------------------------------------ */
-/*  Design tokens Adama OS, aligné sur la charte STRATA ESG           */
-/*  Navy ardoise, crème, accent or + signal teal. Ressenti terminal.  */
-/*  (Les noms de tokens restent identiques : la valeur "emerald"       */
-/*   porte désormais le signal teal STRATA ESG #2AFFD6.)               */
+/*  Jetons Tailwind d'ADAMA OS, révision du 30 octobre 2026.          */
+/*  Ils ne portent aucune valeur : ils pointent sur les rôles         */
+/*  d'identite.css (indigo, latérite, ivoire, encre, un signal).      */
+/*  Le cockpit (couches A à D, terminal) se lit sur feuille sombre.   */
 /* ------------------------------------------------------------------ */
 @theme {
-  /* Fonds, du plus profond au plus surélevé (navy STRATA ESG) */
-  --color-background: #0d1b2a;
-  --color-surface: #16273b;
-  --color-surface-raised: #1a2d42;
+  /* Fonds, du plus profond au plus surélevé : les feuilles sombres. */
+  --color-background: var(--feuille);
+  --color-surface: var(--feuille-2);
+  --color-surface-raised: var(--feuille-2);
 
   /* Bordures et séparateurs */
-  --color-border: #24384f;
-  --color-border-strong: #35506b;
+  --color-border: var(--filet-feuille);
+  --color-border-strong: var(--sur-feuille-2);
 
-  /* Texte (crème STRATA ESG) */
-  --color-foreground: #f2ede4;
-  --color-muted: #9db0c0;
-  /* L8-T10, audit de contraste du 31 aout 2026. L'ancienne valeur #6b8296
-     donnait 3.51:1 sur --color-surface-raised, sous le seuil WCAG AA de
-     4.5:1 exige pour du texte normal, et ce token porte surtout du petit
-     texte. Meme teinte (208 deg) et meme saturation, simplement eclaircie :
-     4.53:1 sur surface-raised, 4.89:1 sur surface, 5.62:1 sur le fond. */
-  --color-faint: #8195a6;
+  /* Texte sur feuille sombre. Les rapports de contraste sont calculés
+     par scripts/contraste.mjs, en mode clair comme en mode sombre. */
+  --color-foreground: var(--sur-feuille);
+  --color-muted: var(--sur-feuille-2);
+  --color-faint: var(--sur-feuille-2);
 
-  /* Accent principal : signal teal STRATA ESG (data / CTA / online) */
-  --color-emerald: #2affd6;
-  --color-emerald-bright: #6bffe4;
-  /* Fond et etat actif uniquement : 3.52:1 sur surface-raised, insuffisant
-     pour du texte. Ne pas utiliser en couleur de texte. */
-  --color-emerald-dim: #1f8f7c;
-  --color-emerald-foreground: #06201a;
+  /* Signal : réservé aux états techniques (en ligne, réussi, actif). */
+  --color-signal: var(--etat-feuille);
+  --color-signal-bright: var(--etat-feuille);
+  --color-signal-dim: color-mix(
+    in srgb,
+    var(--etat-feuille) 35%,
+    var(--feuille)
+  );
+  --color-signal-foreground: var(--feuille);
 
-  /* États système (or STRATA ESG en secondaire) */
-  --color-online: #2affd6;
-  --color-warning: #c9a96e;
-  --color-danger: #e5675c;
+  /* États système */
+  --color-online: var(--etat-feuille);
+  --color-warning: var(--accent-feuille);
+  --color-danger: var(--alerte-feuille);
 
-  /* Système typographique STRATA ESG, chargé dans layout.tsx. */
-  --font-display: var(--font-cormorant), "Times New Roman", serif;
-  --font-ui: var(--font-syne), ui-sans-serif, sans-serif;
-  --font-sans:
-    var(--font-dm-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    sans-serif;
-  --font-mono:
-    var(--font-courier-prime), ui-monospace, "SFMono-Regular", "Menlo",
-    "Consolas", monospace;
+  /* Système typographique ADAMA OS, chargé dans layout.tsx. */
+  --font-display: var(--font-grotesk);
+  --font-ui: var(--font-grotesk);
+  --font-sans: var(--font-grotesk);
+  --font-mono: var(--font-code);
 
   /* Rayon de base */
-  --radius: 0.5rem;
+  --radius: 0.375rem;
 }
 
 /* ------------------------------------------------------------------ */
-/*  Thème alternatif "gold" (commande `theme` du terminal Ctrl+K)     */
-/*  Bascule l'accent signal teal vers l'or STRATA ESG.                */
-/* ------------------------------------------------------------------ */
-[data-theme="gold"] {
-  --color-emerald: #c9a96e;
-  --color-emerald-bright: #e3c890;
-  --color-emerald-dim: #8a6f3e;
-  --color-emerald-foreground: #201703;
-  --color-online: #c9a96e;
-  --color-warning: #2affd6;
-}
-
-/* ------------------------------------------------------------------ */
-/*  Base globale, dark mode intégral                                  */
+/*  Base globale                                                      */
 /* ------------------------------------------------------------------ */
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light dark;
   }
 
   * {
@@ -85,33 +66,33 @@
     -webkit-text-size-adjust: 100%;
   }
 
-  /* Défilement doux pour la navigation par ancres (terminal `navigate`) */
+  /* Défilement doux pour la navigation par ancres (terminal `navigate`).
+     Lenis le remplace dès qu'il est chargé ; sans lui, le navigateur s'en
+     charge, et jamais sous réduction de mouvement. */
   @media (prefers-reduced-motion: no-preference) {
-    html {
+    html:not(.lenis) {
       scroll-behavior: smooth;
     }
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: var(--font-sans);
+    background-color: var(--fond);
+    color: var(--texte);
+    font-family: var(--font-grotesk);
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
     min-height: 100dvh;
   }
 
-  /* Sélection émeraude */
   ::selection {
-    background-color: var(--color-emerald-dim);
-    color: var(--color-foreground);
+    background-color: color-mix(in srgb, var(--accent) 28%, var(--fond));
+    color: var(--texte);
   }
 
-  /* Scrollbar discrète, ton terminal */
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-border-strong) transparent;
+    scrollbar-color: var(--filet-fort) transparent;
   }
 }
 
@@ -119,43 +100,37 @@
 /*  Utilitaires maison                                                */
 /* ------------------------------------------------------------------ */
 @layer utilities {
-  /* Grille de fond façon blueprint / monitoring */
+  /* Grille millimétrée, façon plan de travail */
   .bg-grid {
     background-image:
       linear-gradient(
         to right,
-        color-mix(in oklch, var(--color-border) 45%, transparent) 1px,
+        color-mix(in srgb, var(--color-border) 45%, transparent) 1px,
         transparent 1px
       ),
       linear-gradient(
         to bottom,
-        color-mix(in oklch, var(--color-border) 45%, transparent) 1px,
+        color-mix(in srgb, var(--color-border) 45%, transparent) 1px,
         transparent 1px
       );
     background-size: 40px 40px;
   }
 
-  /* Halo émeraude pour les éléments actifs */
-  .glow-emerald {
+  /* Halo du signal pour les éléments actifs */
+  .glow-signal {
     box-shadow:
-      0 0 0 1px color-mix(in oklch, var(--color-emerald) 35%, transparent),
-      0 0 24px -6px color-mix(in oklch, var(--color-emerald) 50%, transparent);
+      0 0 0 1px color-mix(in srgb, var(--color-signal) 35%, transparent),
+      0 0 24px -6px color-mix(in srgb, var(--color-signal) 50%, transparent);
   }
 }
 
 /* ------------------------------------------------------------------ */
 /*  L6-T4, Impression (mode lecture recruteur ?for=recruiter)        */
-/*  Palette claire forcée : encre noire sur papier blanc.             */
+/*  Palette claire forcée : encre sur papier.                         */
 /* ------------------------------------------------------------------ */
 @media print {
   :root {
     color-scheme: light;
-  }
-
-  html,
-  body {
-    background: #ffffff !important;
-    color: #111111 !important;
   }
 
   body {
@@ -166,12 +141,12 @@
     background-image: none !important;
   }
 
-  .glow-emerald {
+  .glow-signal {
     box-shadow: none !important;
   }
 
   a {
-    color: #111111;
+    color: inherit;
     text-decoration: none;
   }
 }

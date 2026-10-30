@@ -31,7 +31,11 @@ export function ArchitectureDiagram() {
   const frontiereX = PRODUITS_X - 42;
 
   return (
-    <figure className="tech-figure">
+    <figure
+      className="tech-figure"
+      tabIndex={0}
+      aria-label="Schéma d’architecture, défilable"
+    >
       <svg
         className="tech-schema"
         viewBox={`0 0 ${W} ${hauteur}`}

@@ -35,9 +35,10 @@ Portfolio et cockpit personnel d'Adama Diallo, en français.
 ## Ce qu'est ce site
 
 Un portfolio éditorial doublé d'un cockpit. Il présente le parcours d'Adama
-Diallo, les deux maisons de logiciels qu'il co-fonde, STRATA ESG pour la
-donnée de durabilité et Pharivo pour la gestion des officines au Sénégal,
-et son journal de développement.
+Diallo, les maisons de logiciels qu'il a fondées, STRATA ESG pour la
+donnée de durabilité et Conhama, la carte vivante de l'économie durable,
+Pharivo, qu'il co-fonde, pour la gestion des officines au Sénégal, et son
+journal de développement.
 
 ## La règle qui gouverne ce site
 
@@ -88,6 +89,10 @@ une autre version ailleurs, c'est celle-ci qui fait foi.
 - Lettre SIGNAL, consentement et mention d'information : ${absoluteUrl("/lettre")}
 - Notes de fond, en français et en anglais : ${absoluteUrl("/articles")}
 - Travailler ensemble, quatre portes et règle d'acceptation : ${absoluteUrl("/travaillez-avec-moi")}
+- L’état du système, le cockpit lu à chaque visite : ${absoluteUrl("/os")}
+- Le catalogue, sept rubriques et quatre régimes : ${absoluteUrl("/catalogue")}
+- Les outils publics, en usage : ${absoluteUrl("/outils")}
+- La racine anglaise : ${absoluteUrl("/en")}
 
 ## État du registre
 

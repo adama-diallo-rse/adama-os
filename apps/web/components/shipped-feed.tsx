@@ -61,11 +61,11 @@ function CommitLine({ commit }: { commit: CommitRow }) {
       rel="noreferrer"
       className="group flex items-baseline gap-3 rounded-[calc(var(--radius)_-_0.125rem)] border border-border bg-surface-raised px-3 py-2 transition-colors duration-150 hover:border-border-strong"
     >
-      <span className="shrink-0 font-mono text-[0.65rem] tabular-nums text-emerald">
+      <span className="shrink-0 font-mono text-[0.65rem] tabular-nums text-signal">
         {commit.sha}
       </span>
       <span className="min-w-0 flex-1 truncate font-mono text-sm text-muted transition-colors duration-150 group-hover:text-foreground">
-        {prefix ? <span className="text-emerald-bright">{prefix} </span> : null}
+        {prefix ? <span className="text-signal-bright">{prefix} </span> : null}
         {rest}
       </span>
       <span
@@ -92,7 +92,7 @@ export function ShippedFeed({ commits }: { commits: CommitRow[] }) {
         <CardTitle>Contributions</CardTitle>
         <div className="flex items-center gap-2">
           <Badge
-            variant={commits.length > 0 ? "emerald" : "default"}
+            variant={commits.length > 0 ? "signal" : "default"}
             dot={commits.length > 0}
           >
             {commits.length > 0 ? "Synchronisé" : "En attente"}
@@ -102,7 +102,7 @@ export function ShippedFeed({ commits }: { commits: CommitRow[] }) {
       </CardHeader>
       <CardContent>
         <p className="mb-3 font-mono text-xs text-muted">
-          <span className="text-emerald">$</span> git log --oneline
+          <span className="text-signal">$</span> git log --oneline
           <span className="text-faint">
             {" "}
             · les dernières contributions du groupe

@@ -1,3 +1,6 @@
+import { BlocCitation } from "../../../components/accueil/bloc-citation";
+import { citer } from "../../../lib/accueil";
+import { SITE_URL } from "../../../lib/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -124,6 +127,29 @@ export default async function VerifierPage({ params }: Params) {
           </p>
         </div>
       </header>
+
+      {/* Refonte du 30 octobre 2026 : le bloc de citation, façon
+          publication de recherche. Résumé, source, empreinte, citation
+          copiable, calculés sur ce que le registre sert à ce rendu. */}
+      <section className="citation-page" aria-label="Citer cette affirmation">
+        <BlocCitation
+          c={{
+            ...citer(
+              {
+                id: row.id,
+                statement: row.statement,
+                subject: SUBJECT_LABEL[row.subject_type],
+                subjectRef: row.subject_ref,
+                state,
+                source: claim.source,
+                fetchedAt: claim.fetchedAt,
+              },
+              SITE_URL,
+            ),
+            href: "#preuves-titre",
+          }}
+        />
+      </section>
 
       <div className="proof-page">
         <div className="proof-page-main">

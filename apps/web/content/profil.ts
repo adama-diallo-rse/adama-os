@@ -24,27 +24,34 @@
 // relayait partout : JSON-LD de type Demand, mode recruteur, modale « open
 // to work », document machine, llms.txt. Adama a clos cette recherche ce
 // jour-la et garde la voie de fondateur a plein temps. Le positionnement
-// public a ete arrete le 22 octobre 2026 : co-fondateur de STRATA ESG et de
-// Pharivo, une these commune, et une regle d'apparition (un projet n'est
-// nomme publiquement qu'avec un produit en ligne ou un client).
+// public a ete arrete le 22 octobre 2026 (une these commune, et une regle
+// d'apparition : un projet n'est nomme publiquement qu'avec un produit en
+// ligne ou un client), puis precise par Adama le 30 octobre 2026 : fondateur
+// de STRATA ESG et de Conhama, co-fondateur de Pharivo.
 //
 // La recherche n'est donc plus une donnee du profil. A sa place, l'activite
-// et les portes d'entree : a qui ces deux maisons s'adressent. Les memes
+// et les portes d'entree : a qui ces maisons s'adressent. Les memes
 // surfaces les lisent, toujours depuis ce seul fichier.
 // =====================================================================
 
 /** L'activite, au niveau ou elle reste vraie. */
 export const ACTIVITE = {
-  titre: "Co-fondateur",
-  /** Les deux maisons nommees publiquement, dans l'ordre du titre. */
-  maisons: ["STRATA ESG", "Pharivo"] as const,
+  titre: "Fondateur",
+  /** Les maisons nommees publiquement, dans l'ordre du titre. */
+  maisons: ["STRATA ESG", "Conhama", "Pharivo"] as const,
+  /** Le role d'Adama dans chaque maison, valide le 30 octobre 2026. */
+  roles: {
+    "STRATA ESG": "Fondateur",
+    Conhama: "Fondateur",
+    Pharivo: "Co-fondateur",
+  },
   villes: ["Paris", "Dakar"] as const,
 } as const;
 
-/** Titre de poste actuel, pour le JSON-LD. Decrit le present. */
-export const POSTE_ACTUEL = `${ACTIVITE.titre} de ${ACTIVITE.maisons.join(
-  " et de ",
-)}`;
+/** Titre de poste actuel, pour le JSON-LD. Decrit le present, et range
+ *  les maisons par role : celles qu'il a fondees, puis celle qu'il
+ *  co-fonde. */
+export const POSTE_ACTUEL = `${ACTIVITE.titre} de STRATA ESG et de Conhama, co-fondateur de Pharivo`;
 
 /** Etat civil et positionnement, au niveau ou cela reste vrai des mois. */
 export const IDENTITE = {
@@ -54,7 +61,7 @@ export const IDENTITE = {
   /** Les trois domaines, dans l'ordre ou ils se lisent partout. */
   domaines: ["RSE", "Data", "Systèmes"] as const,
   /** Ce que je sais faire. Vend une capacite, pas une situation. La these
-   *  commune des deux maisons, validee par Adama le 22 octobre 2026. */
+   *  commune des maisons, validee par Adama le 22 octobre 2026. */
   capacite:
     "Je construis des logiciels qui rendent l’économie réelle mesurable et vérifiable, de la donnée de durabilité d’une entreprise au stock d’une officine.",
   /** Ou j'en suis. Vient apres la capacite, jamais avant. Composee depuis
@@ -67,7 +74,7 @@ export const IDENTITE = {
  * la ligne de disponibilite : elle dit a qui parler, pas quand embaucher.
  */
 export const OUVERTURE =
-  "Ouvert aux échanges avec les entreprises, les cabinets et les officines, comme avec les partenaires et les financeurs de ces deux maisons.";
+  "Ouvert aux échanges avec les entreprises, les cabinets et les officines, comme avec les partenaires et les financeurs de ces maisons.";
 
 /**
  * Les portes d'entree. Trois publics, chacun avec ce qu'il trouve et
@@ -142,7 +149,7 @@ export const COMPETENCES: readonly DomaineCompetence[] = [
   },
   {
     id: "donnee",
-    titre: "Donnée et IA",
+    titre: "Donnée et moteur",
     matieres: ["récupération documentaire", "pipelines", "agents", "API"],
     fait: "J’ai construit la chaîne de récupération documentaire de ce site, son agent conversationnel et les passerelles qui interrogent les produits du groupe.",
     preuveId: "metriques-portent-leur-provenance",
@@ -185,15 +192,23 @@ export const EXPERIENCES: readonly Experience[] = [
     id: "strata",
     organisation: "STRATA ESG",
     precision: "Paris",
-    role: "Co-fondateur, logiciels et accompagnement de durabilité",
+    role: "Fondateur, logiciels et accompagnement de durabilité",
     categorie: "DURABILITÉ × LOGICIEL",
+    actuelle: true,
+  },
+  {
+    id: "conhama",
+    organisation: "Conhama",
+    precision: "Île-de-France",
+    role: "Fondateur, carte vivante de l’économie durable",
+    categorie: "DURABILITÉ × PLATEFORME",
     actuelle: true,
   },
   {
     id: "ag2r",
     organisation: "AG2R LA MONDIALE",
     precision: "Stage",
-    role: "Data ESG et solutions IA, direction RSE",
+    role: "Data ESG, direction RSE",
     categorie: "RSE × DATA",
     actuelle: false,
   },

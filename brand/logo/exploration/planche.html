@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recherche du symbole</title>
+<style>
+  @font-face {
+    font-family: "Schibsted Grotesk";
+    src: url("../../../apps/web/app/fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2"),
+         url("../../polices/schibsted-grotesk-latin-wght-normal.woff2") format("woff2");
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  :root {
+    --ivoire: #f8f3ea; --encre: #101524; --indigo: #29347b; --indigo-profond: #182052;
+    --laterite: #c85b32; --laterite-texte: #a13a16; --ocre: #f2a866;
+    --pierre: #535b6c; --brume: #b8becb; --sombre: #0b0f1a;
+    --texte: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --code: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--ivoire); color: var(--encre);
+    font-family: var(--texte); font-size: 17px; line-height: 1.55;
+    font-kerning: normal;
+  }
+  main { max-width: 1120px; margin: 0 auto; padding: 72px 24px 96px; }
+  .surtitre, .numero, figcaption, .legende, .pied {
+    font-family: var(--code); font-size: 12px; letter-spacing: 0.04em; color: var(--pierre);
+  }
+  h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.02; letter-spacing: -0.02em; font-weight: 700; margin: 12px 0 20px; max-width: 14ch; }
+  .chapeau { max-width: 62ch; color: var(--pierre); margin: 0 0 64px; }
+  .directions { display: grid; gap: 24px; }
+  .direction { border-top: 1px solid var(--brume); padding: 32px 0 8px; }
+  .direction-tete { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  h2 { font-size: 28px; line-height: 1.1; letter-spacing: -0.01em; font-weight: 700; margin: 0; }
+  .statut {
+    margin-left: auto; font-family: var(--code); font-size: 12px; letter-spacing: 0.06em;
+    padding: 3px 10px; border-radius: 9999px; border: 1px solid currentColor;
+  }
+  .statut--retenue { color: var(--ivoire); background: var(--laterite-texte); border-color: var(--laterite-texte); }
+  .statut--ecartee { color: var(--pierre); }
+  .idee { max-width: 64ch; margin: 12px 0 24px; }
+  .echelles { display: flex; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+  .echelle { margin: 0; display: grid; justify-items: center; gap: 10px; }
+  .echelle svg { display: block; }
+  .echelle--256 svg { width: min(256px, 100%); height: auto; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--brume); }
+  .verdict { max-width: 72ch; margin: 24px 0 0; }
+  .verdict strong { font-weight: 700; }
+  .direction--retenue .verdict strong { color: var(--laterite-texte); }
+  .declinaisons { margin-top: 96px; border-top: 2px solid var(--encre); padding-top: 32px; }
+  .declinaisons h2 { margin-bottom: 8px; }
+  .tuiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 32px; }
+  .tuile { margin: 0; border-radius: 12px; padding: 32px; display: grid; gap: 20px; box-shadow: inset 0 0 0 1px var(--brume); }
+  .tuile svg { width: 100%; max-width: 200px; height: auto; justify-self: center; display: block; }
+  .tuile--sombre { background: var(--sombre); color: var(--ivoire); box-shadow: none; }
+  .tuile--sombre .legende { color: var(--brume); }
+  .tuile--epure { color: var(--encre); }
+  .signature { margin-top: 16px; border-radius: 12px; padding: 40px 32px; box-shadow: inset 0 0 0 1px var(--brume); }
+  .signature svg { width: 100%; max-width: 640px; height: auto; display: block; }
+  .pied { margin-top: 64px; }
+  @media (max-width: 560px) {
+    main { padding: 48px 16px 72px; }
+    .statut { margin-left: 0; }
+    .echelles { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="surtitre">ADAMA OS · planche du 30 octobre 2026 · grille de 48 unités</p>
+  <h1>Recherche du symbole</h1>
+  <p class="chapeau">Cinq directions dessinées sur la même grille, comparées aux trois tailles qui décident :
+  16 px pour l'onglet, 32 px pour l'avatar, 256 px pour l'affiche. Une seule est retenue, les quatre autres
+  restent ici avec la raison de leur abandon.</p>
+
+  <section class="directions" aria-label="Directions explorées">
+    <article class="direction">
+      <header class="direction-tete">
+        <span class="numero">01</span>
+        <h2>Le Poinçon</h2>
+        <span class="statut statut--ecartee">écartée</span>
+      </header>
+      <p class="idee">Le poinçon de maître de l'orfèvre : un cartouche aux angles entaillés qui enferme deux barres, la marque qui authentifie un objet sans le signer d'une initiale.</p>
+      <div class="echelles">
+        <figure class="echelle echelle--256"><svg viewBox="0 0 48 48" width="256" height="256" role="img" aria-label="Le Poinçon, 256 px"><path fill="#101524" fill-rule="evenodd" d="M9 8H39V13H44V35H39V40H9V35H4V13H9ZM12 11V16H7V32H12V37H36V32H41V16H36V11Z"/><path fill="#101524" d="M15 17h6v14h-6z"/><path fill="#c85b32" d="M27 17h6v14h-6z"/></svg><figcaption>256 px</figcaption></figure>
+        <figure class="echelle"><svg viewBox="0 0 48 48" width="32" height="32" role="img" aria-label="Le Poinçon, 32 px"><path fill="#101524" fill-rule="evenodd" d="M9 8H39V13H44V35H39V40H9V35H4V13H9ZM12 11V16H7V32H12V37H36V32H41V16H36V11Z"/><path fill="#101524" d="M15 17h6v14h-6z"/><path fill="#c85b32" d="M27 17h6v14h-6z"/></svg><figcaption>32 px</figcaption></figure>
+        <figure class="echelle"><svg viewBox="0 0 48 48" width="16" height="16" role="img" aria-label="Le Poinçon, 16 px"><path fill="#101524" fill-rule="evenodd" d="M9 8H39V13H44V35H39V40H9V35H4V13H9ZM12 11V16H7V32H12V37H36V32H41V16H36V11Z"/><path fill="#101524" d="M15 17h6v14h-6z"/><path fill="#c85b32" d="M27 17h6v14h-6z"/></svg><figcaption>16 px</figcaption></figure>
+      </div>
+      <p class="verdict"><strong>Écartée.</strong> Juste sur l'authentification, mais le cartouche fermé contredit un laboratoire ouvert et se confond, à 16 px, avec un bouton ou une pile.</p>
+    </article>
+    <article class="direction direction--retenue">
+      <header class="direction-tete">
+        <span class="numero">02</span>
+        <h2>Le Tissage</h2>
+        <span class="statut statut--retenue">retenue</span>
+      </header>
+      <p class="idee">Trois bandes de pagne tissé cousues bord à bord, celle du milieu décalée comme à la main ; un motif monte de la source jusqu'au sceau latérite, la preuve.</p>
+      <div class="echelles">
+        <figure class="echelle echelle--256"><svg viewBox="0 0 48 48" width="256" height="256" role="img" aria-label="Le Tissage, 256 px"><path fill="#101524" fill-rule="evenodd" d="M4 6h12v32h-12zM7 26v6h6v-6zM18 10h12v32h-12zM21 19v6h6v-6zM32 6h12v32h-12zM35 12v6h6v-6z"/><path fill="#c85b32" d="M35 12h6v6h-6z"/></svg><figcaption>256 px</figcaption></figure>
+        <figure class="echelle"><svg viewBox="0 0 48 48" width="32" height="32" role="img" aria-label="Le Tissage, 32 px"><path fill="#101524" fill-rule="evenodd" d="M4 6h12v32h-12zM7 26v6h6v-6zM18 10h12v32h-12zM21 19v6h6v-6zM32 6h12v32h-12zM35 12v6h6v-6z"/><path fill="#c85b32" d="M35 12h6v6h-6z"/></svg><figcaption>32 px</figcaption></figure>
+        <figure class="echelle"><svg viewBox="0 0 48 48" width="16" height="16" role="img" aria-label="Le Tissage, 16 px"><path fill="#101524" fill-rule="evenodd" d="M4 6h12v32h-12zM7 26v6h6v-6zM18 10h12v32h-12zM21 19v6h6v-6zM32 6h12v32h-12zM35 12v6h6v-6z"/><path fill="#c85b32" d="M35 12h6v6h-6z"/></svg><figcaption>16 px</figcaption></figure>
+      </div>
+      <p class="verdict"><strong>Retenue.</strong> Une histoire qui n'appartient qu'à la marque (assembler des jeux de données sans les fondre), une silhouette qui tient à 16 px et une construction cotée qui se dessine en épure.</p>
+    </article>
+    <article class="direction">
+      <header class="direction-tete">
+        <span class="numero">03</span>
+        <h2>Le Glyphe sur cotes</h2>
+        <span class="statut statut--ecartee">écartée</span>
+      </header>
+      <p class="idee">Un glyphe abstrait fait de deux quarts de disque et d'un carré, posé sur une grille cotée : il dit la construction sans emprunter aucune lettre.</p>
+      <div class="echelles">
+        <figure class="echelle echelle--256"><svg viewBox="0 0 48 48" width="256" height="256" role="img" aria-label="Le Glyphe sur cotes, 256 px"><g fill="none" stroke="#535b6c" stroke-width="0.35"><path d="M8 3.5H40M8 2.3v2.4M24 2.3v2.4M40 2.3v2.4M3.5 8V40M2.3 8h2.4M2.3 24h2.4M2.3 40h2.4"/><path d="M24 6V42M6 24H42" stroke-dasharray="0.8 1.2"/></g><path fill="#101524" d="M24 24V8A16 16 0 0 0 8 24ZM8 24H24V40H8ZM24 24H40A16 16 0 0 1 24 40Z"/><path fill="#c85b32" d="M29 13h6v6h-6z"/></svg><figcaption>256 px</figcaption></figure>
+        <figure class="echelle"><svg viewBox="0 0 48 48" width="32" height="32" role="img" aria-label="Le Glyphe sur cotes, 32 px"><g fill="none" stroke="#535b6c" stroke-width="0.35"><path d="M8 3.5H40M8 2.3v2.4M24 2.3v2.4M40 2.3v2.4M3.5 8V40M2.3 8h2.4M2.3 24h2.4M2.3 40h2.4"/><path d="M24 6V42M6 24H42" stroke-dasharray="0.8 1.2"/></g><path fill="#101524" d="M24 24V8A16 16 0 0 0 8 24ZM8 24H24V40H8ZM24 24H40A16 16 0 0 1 24 40Z"/><path fill="#c85b32" d="M29 13h6v6h-6z"/></svg><figcaption>32 px</figcaption></figure>
+        <figure class="echelle"><svg viewBox="0 0 48 48" width="16" height="16" role="img" aria-label="Le Glyphe sur cotes, 16 px"><g fill="none" stroke="#535b6c" stroke-width="0.35"><path d="M8 3.5H40M8 2.3v2.4M24 2.3v2.4M40 2.3v2.4M3.5 8V40M2.3 8h2.4M2.3 24h2.4M2.3 40h2.4"/><path d="M24 6V42M6 24H42" stroke-dasharray="0.8 1.2"/></g><path fill="#101524" d="M24 24V8A16 16 0 0 0 8 24ZM8 24H24V40H8ZM24 24H40A16 16 0 0 1 24 40Z"/><path fill="#c85b32" d="M29 13h6v6h-6z"/></svg><figcaption>16 px</figcaption></figure>
+      </div>
+      <p class="verdict"><strong>Écartée.</strong> Élégant à 256 px, mais muet : rien dans la forme ne raconte la donnée ni la preuve, et les cotes qui le justifient disparaissent sous 32 px.</p>
+    </article>
+    <article class="direction">
+      <header class="direction-tete">
+        <span class="numero">04</span>
+        <h2>Le Monogramme en épure</h2>
+        <span class="statut statut--ecartee">écartée</span>
+      </header>
+      <p class="idee">Un A et un D tracés comme un dessin d'ingénieur, avec ligne de base, hauteur de capitale et cercle de construction.</p>
+      <div class="echelles">
+        <figure class="echelle echelle--256"><svg viewBox="0 0 48 48" width="256" height="256" role="img" aria-label="Le Monogramme en épure, 256 px"><g fill="none" stroke="#535b6c" stroke-width="0.35"><path d="M2 40H46M2 8H46"/><path d="M16 4V44M28 4V44" stroke-dasharray="0.8 1.2"/><circle cx="30" cy="24" r="14.5" stroke-dasharray="0.6 0.9"/></g><path fill="none" stroke="#101524" stroke-width="3" stroke-linejoin="bevel" d="M6 40L16 8L26 40M9.9 27.5H22.1M28 8V40M28 9.5H30A14.5 14.5 0 0 1 30 38.5H28"/></svg><figcaption>256 px</figcaption></figure>
+        <figure class="echelle"><svg viewBox="0 0 48 48" width="32" height="32" role="img" aria-label="Le Monogramme en épure, 32 px"><g fill="none" stroke="#535b6c" stroke-width="0.35"><path d="M2 40H46M2 8H46"/><path d="M16 4V44M28 4V44" stroke-dasharray="0.8 1.2"/><circle cx="30" cy="24" r="14.5" stroke-dasharray="0.6 0.9"/></g><path fill="none" stroke="#101524" stroke-width="3" stroke-linejoin="bevel" d="M6 40L16 8L26 40M9.9 27.5H22.1M28 8V40M28 9.5H30A14.5 14.5 0 0 1 30 38.5H28"/></svg><figcaption>32 px</figcaption></figure>
+        <figure class="echelle"><svg viewBox="0 0 48 48" width="16" height="16" role="img" aria-label="Le Monogramme en épure, 16 px"><g fill="none" stroke="#535b6c" stroke-width="0.35"><path d="M2 40H46M2 8H46"/><path d="M16 4V44M28 4V44" stroke-dasharray="0.8 1.2"/><circle cx="30" cy="24" r="14.5" stroke-dasharray="0.6 0.9"/></g><path fill="none" stroke="#101524" stroke-width="3" stroke-linejoin="bevel" d="M6 40L16 8L26 40M9.9 27.5H22.1M28 8V40M28 9.5H30A14.5 14.5 0 0 1 30 38.5H28"/></svg><figcaption>16 px</figcaption></figure>
+      </div>
+      <p class="verdict"><strong>Écartée.</strong> Un A en symbole est générique, déjà porté par des centaines de marques, et le monogramme se bouche à 16 px.</p>
+    </article>
+    <article class="direction">
+      <header class="direction-tete">
+        <span class="numero">05</span>
+        <h2>Le Méridien</h2>
+        <span class="statut statut--ecartee">écartée</span>
+      </header>
+      <p class="idee">Dakar (17° O) et Paris (2° E) reliés par un arc mesuré sur un graticule : le trajet du fondateur comme ligne de provenance.</p>
+      <div class="echelles">
+        <figure class="echelle echelle--256"><svg viewBox="0 0 48 48" width="256" height="256" role="img" aria-label="Le Méridien, 256 px"><g fill="none" stroke="#535b6c" stroke-width="0.35"><path d="M4 6H44V44H4Z"/><path d="M6 6V44M16 6V44M26 6V44M36 6V44M4 10H44M4 18H44M4 26H44M4 34H44M4 42H44" stroke-dasharray="0.8 1.2"/></g><path fill="none" stroke="#c85b32" stroke-width="1.4" d="M8.6 38.2Q34 34 28.35 10.9"/><path fill="none" stroke="#101524" stroke-width="2.6" stroke-dasharray="0.35 2.6" d="M8.6 38.2Q34 34 28.35 10.9"/><circle cx="8.6" cy="38.2" r="2.4" fill="#101524"/><circle cx="28.35" cy="10.9" r="2.4" fill="#101524"/></svg><figcaption>256 px</figcaption></figure>
+        <figure class="echelle"><svg viewBox="0 0 48 48" width="32" height="32" role="img" aria-label="Le Méridien, 32 px"><g fill="none" stroke="#535b6c" stroke-width="0.35"><path d="M4 6H44V44H4Z"/><path d="M6 6V44M16 6V44M26 6V44M36 6V44M4 10H44M4 18H44M4 26H44M4 34H44M4 42H44" stroke-dasharray="0.8 1.2"/></g><path fill="none" stroke="#c85b32" stroke-width="1.4" d="M8.6 38.2Q34 34 28.35 10.9"/><path fill="none" stroke="#101524" stroke-width="2.6" stroke-dasharray="0.35 2.6" d="M8.6 38.2Q34 34 28.35 10.9"/><circle cx="8.6" cy="38.2" r="2.4" fill="#101524"/><circle cx="28.35" cy="10.9" r="2.4" fill="#101524"/></svg><figcaption>32 px</figcaption></figure>
+        <figure class="echelle"><svg viewBox="0 0 48 48" width="16" height="16" role="img" aria-label="Le Méridien, 16 px"><g fill="none" stroke="#535b6c" stroke-width="0.35"><path d="M4 6H44V44H4Z"/><path d="M6 6V44M16 6V44M26 6V44M36 6V44M4 10H44M4 18H44M4 26H44M4 34H44M4 42H44" stroke-dasharray="0.8 1.2"/></g><path fill="none" stroke="#c85b32" stroke-width="1.4" d="M8.6 38.2Q34 34 28.35 10.9"/><path fill="none" stroke="#101524" stroke-width="2.6" stroke-dasharray="0.35 2.6" d="M8.6 38.2Q34 34 28.35 10.9"/><circle cx="8.6" cy="38.2" r="2.4" fill="#101524"/><circle cx="28.35" cy="10.9" r="2.4" fill="#101524"/></svg><figcaption>16 px</figcaption></figure>
+      </div>
+      <p class="verdict"><strong>Écartée.</strong> Se lit comme une carte ou un globe, donc comme une marque de voyage ou de logistique, pas comme un système de données.</p>
+    </article>
+  </section>
+
+  <section class="declinaisons" aria-labelledby="declinaisons-titre">
+    <p class="surtitre">Direction retenue</p>
+    <h2 id="declinaisons-titre">Le Tissage, déclinaisons</h2>
+    <div class="tuiles">
+      <figure class="tuile"><svg viewBox="0 0 48 48" width="200" height="200" role="img" aria-label="Le Tissage, couleur, 200 px"><path fill="#101524" fill-rule="evenodd" d="M4 6h12v32h-12zM7 26v6h6v-6zM18 10h12v32h-12zM21 19v6h6v-6zM32 6h12v32h-12zM35 12v6h6v-6z"/><path fill="#c85b32" d="M35 12h6v6h-6z"/></svg><figcaption class="legende">Couleur · bandes encre, sceau latérite</figcaption></figure>
+      <figure class="tuile tuile--sombre"><svg viewBox="0 0 48 48" width="200" height="200" role="img" aria-label="Le Tissage, sombre, 200 px"><path fill="#f8f3ea" fill-rule="evenodd" d="M4 6h12v32h-12zM7 26v6h6v-6zM18 10h12v32h-12zM21 19v6h6v-6zM32 6h12v32h-12zM35 12v6h6v-6z"/><path fill="#c85b32" d="M35 12h6v6h-6z"/></svg><figcaption class="legende">Sombre · bandes ivoire, sceau latérite</figcaption></figure>
+      <figure class="tuile"><svg viewBox="0 0 48 48" width="200" height="200" role="img" aria-label="Le Tissage, monochrome, 200 px"><path fill="#101524" fill-rule="evenodd" d="M4 6h12v32h-12zM7 26v6h6v-6zM18 10h12v32h-12zM21 19v6h6v-6zM32 6h12v32h-12zM35 12v6h6v-6z"/></svg><figcaption class="legende">Monochrome · le sceau devient un jour</figcaption></figure>
+      <figure class="tuile tuile--epure"><svg viewBox="0 0 48 48" width="200" height="200" role="img" aria-label="Le Tissage, épure, 200 px"><g fill="none" stroke="currentColor" stroke-width="0.35" opacity="0.7"><path d="M4 2.5h40M4 1.2v2.6M44 1.2v2.6M16 1.8v1.4M18 1.8v1.4M30 1.8v1.4M32 1.8v1.4"/><path d="M46 10v32M44.8 10h2.4M44.8 42h2.4M44.8 38h2.4"/><path d="M10 4v40M24 4v40M38 4v40" stroke-dasharray="0.8 1.2"/><circle cx="38" cy="15" r="6" stroke-dasharray="0.6 0.9"/><path d="M10 29L38 15"/></g><path fill="none" stroke="currentColor" stroke-width="0.6" fill-rule="evenodd" d="M4 6h12v32h-12zM7 26v6h6v-6zM18 10h12v32h-12zM21 19v6h6v-6zM32 6h12v32h-12zM35 12v6h6v-6z"/><path fill="none" stroke="#c85b32" stroke-width="0.8" d="M35 12h6v6h-6z"/></svg><figcaption class="legende">Épure · cotes, axes, cercle du sceau, provenance</figcaption></figure>
+    </div>
+    <figure class="signature" style="margin-left:0;margin-right:0">
+      <svg viewBox="0 0 315.28 48" role="img" aria-label="Signature horizontale ADAMA OS">
+        <path fill="#101524" fill-rule="evenodd" d="M4 6h12v32h-12zM7 26v6h6v-6zM18 10h12v32h-12zM21 19v6h6v-6zM32 6h12v32h-12zM35 12v6h6v-6z"/><path fill="#c85b32" d="M35 12h6v6h-6z"/><path fill="#101524" d="M56 38 68.27 6H77L89.22 38H81.84L72.61 10.99L63.38 38ZM64.03 29.25V23.75H81.14V29.25ZM93.47 38V6H105.68Q111.44 6 115.09 7.88Q118.74 9.76 120.48 13.32Q122.22 16.87 122.22 21.9Q122.22 27.21 120.35 30.8Q118.47 34.38 114.76 36.19Q111.05 38 105.55 38ZM100.34 32.2H104.83Q115.02 32.2 115.02 22Q115.02 18.77 113.94 16.49Q112.87 14.22 110.65 13.01Q108.43 11.8 104.96 11.8H100.34ZM124.02 38 136.29 6H145.02L157.24 38H149.86L140.63 10.99L131.4 38ZM132.05 29.25V23.75H149.16V29.25ZM160.76 38 162.54 6H173.68L180.16 33.37H179.36L185.86 6H197.02L198.79 38H192.11L190.68 10.89H190.75L183.98 38H175.59L168.8 10.89H168.87L167.44 38ZM202.33 38 214.6 6H223.33L235.55 38H228.17L218.94 10.99L209.71 38ZM210.36 29.25V23.75H227.47V29.25ZM264.59 38.58Q259.67 38.58 256.09 36.57Q252.5 34.56 250.57 30.84Q248.63 27.11 248.63 22.01Q248.63 16.88 250.57 13.16Q252.5 9.45 256.09 7.43Q259.67 5.42 264.59 5.42Q269.51 5.42 273.09 7.43Q276.67 9.45 278.6 13.16Q280.53 16.87 280.53 22Q280.53 27.11 278.6 30.84Q276.67 34.56 273.09 36.57Q269.51 38.58 264.59 38.58ZM264.58 32.78Q267.33 32.78 269.29 31.49Q271.25 30.21 272.29 27.79Q273.33 25.37 273.33 22Q273.33 18.61 272.29 16.2Q271.25 13.79 269.29 12.51Q267.33 11.22 264.58 11.22Q261.85 11.22 259.89 12.51Q257.93 13.79 256.89 16.2Q255.84 18.61 255.84 22Q255.84 25.37 256.89 27.79Q257.93 30.21 259.89 31.49Q261.85 32.78 264.58 32.78ZM298.39 38.58Q294.8 38.58 291.78 37.49Q288.77 36.39 286.78 34.15Q284.8 31.9 284.24 28.48L291.4 27.03Q291.58 30.04 293.3 31.52Q295.02 33 298.21 33Q300.34 33 301.59 32.45Q302.85 31.89 303.41 30.97Q303.96 30.04 303.96 28.94Q303.96 27.16 302.64 26.21Q301.31 25.26 299.18 24.85L295.95 24.22Q294.28 23.91 292.51 23.37Q290.73 22.82 289.21 21.81Q287.68 20.81 286.74 19.17Q285.8 17.54 285.8 15.08Q285.8 11.93 287.4 9.78Q289.01 7.63 291.79 6.52Q294.56 5.42 298.06 5.42Q301.48 5.42 304.21 6.46Q306.93 7.5 308.71 9.49Q310.5 11.48 311.06 14.34L304.04 15.81Q303.84 14.32 303.23 13.25Q302.62 12.17 301.44 11.58Q300.26 11 298.31 11Q296.58 11 295.39 11.46Q294.2 11.93 293.59 12.74Q292.98 13.56 292.98 14.65Q292.98 16.23 294.5 17.08Q296.01 17.92 298.69 18.45L302 19.12Q304.31 19.55 306.44 20.59Q308.57 21.62 309.93 23.53Q311.28 25.44 311.28 28.52Q311.28 31.79 309.64 34.03Q308 36.28 305.1 37.43Q302.19 38.58 298.39 38.58Z"/>
+      </svg>
+      <figcaption class="legende" style="margin-top:20px">Signature horizontale · capitales calées sur la hauteur des bandes extérieures, Schibsted Grotesk 700 vectorisée</figcaption>
+    </figure>
+  </section>
+
+  <p class="pied">Fichiers de référence : brand/logo/adama-os-symbole.svg, adama-os-horizontal.svg, adama-os-anime.svg</p>
+</main>
+</body>
+</html>

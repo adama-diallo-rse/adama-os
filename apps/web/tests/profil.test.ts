@@ -177,7 +177,7 @@ describe("C9-T8, une seule source pour le profil", () => {
     }
   });
 
-  it("declare comme actuelles exactement les deux maisons", () => {
+  it("declare comme actuelles exactement les maisons", () => {
     // Le JSON-LD lit worksFor dans cette projection : une maison absente
     // d'ici disparaitrait des resultats de recherche sans que la page change.
     expect(ORGANISATIONS_ACTUELLES.map((o) => o.organisation).sort()).toEqual(
@@ -224,7 +224,7 @@ describe("C9, la matiere du profil", () => {
   // categorie ne soit recopie ailleurs.
   it("projette les experiences depuis la source, sans recopier role ni categorie", () => {
     const experiences: readonly Experience[] = EXPERIENCES;
-    expect(experiences).toHaveLength(6);
+    expect(experiences).toHaveLength(7); // Conhama entre le 30 octobre 2026
     const dashboard = fichiers.find(
       (f) => f.relatif === "components/dashboard.tsx",
     );

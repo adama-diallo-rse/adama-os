@@ -20,8 +20,9 @@ import { BrandSignature } from "./brand-signature";
 //
 // Les fichiers de public/logos sont derives des originaux fournis par Adama.
 // Le fond blanc a ete retire en calculant la couverture d'encre de chaque
-// pixel, la version encre reprend cette couverture avec la seule couleur
-// #0D1B2A. Aucun trace n'a ete redessine, aucune proportion modifiee.
+// pixel, la version encre reprend cette couverture avec la seule couleur de
+// l'encre de la palette (#101524, recoloree le 30 octobre 2026 depuis la
+// meme couverture). Aucun trace n'a ete redessine, aucune proportion modifiee.
 // =====================================================================
 
 type MarqueOrg = {
@@ -116,9 +117,9 @@ function OrgLogo({
 }
 
 // =====================================================================
-// Les deux maisons, 23 octobre 2026.
+// Les maisons, 23 octobre 2026, puis Conhama le 30 octobre 2026.
 //
-// STRATA ESG et Pharivo entrent dans les experiences comme des activites,
+// STRATA ESG, Pharivo et Conhama entrent dans les experiences comme des activites,
 // pas comme des employeurs. Leur marque n'est pas un fichier fourni et
 // retouche comme les quatre logos ci-dessus : c'est le mot-symbole que
 // chaque maison sert elle-meme, trace en ligne et peint a la couleur du
@@ -126,13 +127,14 @@ function OrgLogo({
 // repos, couleur de la maison au survol, encre seule en impression.
 // =====================================================================
 
-const MAISONS: Record<string, "strata" | "pharivo"> = {
+const MAISONS: Record<string, "strata" | "pharivo" | "conhama"> = {
   strata: "strata",
   pharivo: "pharivo",
+  conhama: "conhama",
 };
 
 /** La maison d'une experience, ou null quand ce n'en est pas une. */
-function maisonDe(id: string): "strata" | "pharivo" | null {
+function maisonDe(id: string): "strata" | "pharivo" | "conhama" | null {
   return MAISONS[id] ?? null;
 }
 

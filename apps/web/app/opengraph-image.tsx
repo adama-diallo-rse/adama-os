@@ -12,7 +12,7 @@ export default function OpengraphImage() {
   return new ImageResponse(
     <OgTemplate
       title={IDENTITE.nom}
-      subtitle={`${POSTE_ACTUEL}, de ${ACTIVITE.villes.join(" à ")}.`}
+      subtitle={`${POSTE_ACTUEL.replace(", co-", ",\nco-")}, de ${ACTIVITE.villes.join(" à ")}.`}
       tagline={[...ACTIVITE.maisons, "ADAMA OS"].join(" · ").toUpperCase()}
     />,
     { ...size },

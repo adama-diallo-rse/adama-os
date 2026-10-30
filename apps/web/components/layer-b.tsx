@@ -39,9 +39,9 @@ function FilterChip({
       className={cn(
         "rounded-full border px-2.5 py-0.5 font-mono text-[0.65rem] uppercase tracking-[0.14em]",
         "cursor-pointer transition-colors duration-150 outline-none",
-        "focus-visible:ring-2 focus-visible:ring-emerald",
+        "focus-visible:ring-2 focus-visible:ring-signal",
         active
-          ? "border-transparent bg-[color-mix(in_oklch,var(--color-emerald)_18%,transparent)] text-emerald-bright"
+          ? "border-transparent bg-[color-mix(in_srgb,var(--color-signal)_18%,transparent)] text-signal-bright"
           : "border-border bg-transparent text-muted hover:border-border-strong hover:text-foreground",
       )}
     >
@@ -108,7 +108,7 @@ export function LayerB({ decisions }: { decisions: DecisionRow[] }) {
                   {/* Point de la timeline */}
                   <span
                     aria-hidden
-                    className="absolute -left-[1.45rem] top-1.5 size-2 rounded-full bg-emerald shadow-[0_0_8px_0_var(--color-emerald)]"
+                    className="absolute -left-[1.45rem] top-1.5 size-2 rounded-full bg-signal shadow-[0_0_8px_0_var(--color-signal)]"
                   />
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                     <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-faint">

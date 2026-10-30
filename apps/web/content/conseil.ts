@@ -74,9 +74,9 @@ export const PORTES: readonly Porte[] = [
   {
     code: "ia",
     numero: "03",
-    titre: "Intelligence artificielle",
+    titre: "Moteur et automatisation",
     probleme:
-      "Nous voulons mettre de l’IA dans nos processus ESG sans dire de bêtises.",
+      "Nous voulons confier une partie de nos traitements ESG à un moteur, sans dire de bêtises.",
     premierPas:
       "Un atelier d’une journée, puis une architecture de validation.",
     livre: [
@@ -326,7 +326,7 @@ export const DIAGNOSTIC = {
     {
       prix: 450,
       quand:
-        "Un système qui mêle donnée, preuve et intelligence artificielle, ou plus de deux décisions liées.",
+        "Un système qui mêle donnée, preuve et traitement par un moteur, ou plus de deux décisions liées.",
     },
   ],
   filtre: [

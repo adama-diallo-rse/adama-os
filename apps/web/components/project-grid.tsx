@@ -31,10 +31,10 @@ const ART_PROJET: Record<
   string,
   { brand: Exclude<MarqueSignature, "adama"> | null; legende: string }
 > = {
-  "esg-optimizer": { brand: "strata", legende: "AUDIT ET CONFORMITÉ" },
+  "strata-esg": { brand: "strata", legende: "CINQ PRODUITS" },
   pharivo: { brand: "pharivo", legende: "GESTION D’OFFICINE" },
-  "strata-scope": { brand: "strata", legende: "EMPREINTE CARBONE" },
-  "adama-os": { brand: null, legende: "COCKPIT ET PREUVE" },
+  "adama-os": { brand: null, legende: "LABORATOIRE ET PREUVE" },
+  conhama: { brand: "conhama", legende: "CARTE DE L’ÉCONOMIE DURABLE" },
 };
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
@@ -129,12 +129,10 @@ export function ProjectGrid({
                     <ProjectArt kind="adama" />
                   )}
                   {/* Le nom du produit figure dans l'illustration de toutes
-                      les cartes, et pas seulement de celle du cockpit : sans
-                      lui, les deux fiches STRATA ESG sont deux cartes jumelles
-                      que seul un libelle de six pixels distingue. La charte
-                      le prevoyait deja, la regle
-                      .project-strata .project-art-name existe depuis la
-                      refonte du 31 aout et n'etait appliquee a rien. */}
+                      les cartes, au meme corps sur les quatre (subpages.css,
+                      .project-*.project-art-name) : la carte reste lisible
+                      d'un coup d'oeil, meme quand deux marques se
+                      ressemblent. */}
                   <span className="project-art-name">
                     {projet.titre}
                     <span>{art?.legende}</span>
@@ -146,6 +144,22 @@ export function ProjectGrid({
               </Link>
               <h3>{projet.titre}</h3>
               <p>{projet.resume}</p>
+              {projet.produits.length ? (
+                <ul
+                  className="project-produits"
+                  aria-label={`Les produits de ${projet.titre}`}
+                >
+                  {projet.produits.map((p) => (
+                    <li key={p.slug}>
+                      <a href={p.url} target="_blank" rel="noopener noreferrer">
+                        {p.nom}
+                        <span aria-hidden="true"> ↗</span>
+                        <span className="sr-only"> (nouvel onglet)</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
               <dl className="project-facts">
                 <div>
                   <dt>Mon rôle</dt>

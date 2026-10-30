@@ -3,8 +3,8 @@
 //
 // Le kit de marque fourni ne contient aucun fichier de logo produit, et ce
 // n'est pas un oubli : la marque STRATA ESG y est definie comme un
-// mot-symbole typographique, Syne 700 en capitales largement interlettrees,
-// et son seul ornement autorise est l'arc concentrique dore. Un logo produit
+// mot-symbole typographique (components/marque/stratemark.tsx), et son seul
+// ornement autorise est l'arc concentrique dore. Un logo produit
 // telecharge ailleurs, ou dessine dans un autre vocabulaire, aurait donc ete
 // un corps etranger dans la charte.
 //
@@ -104,6 +104,17 @@ const TRACES: Record<string, React.ReactNode> = {
       <path d="M5 27h22" />
       <path d="M9 27V5h3.6v22" />
       <path d="M15.4 5a11.6 11.6 0 0 1 11.6 11.6H15.4Z" />
+    </>
+  ),
+  // Un triangle de liens et ses trois noeuds : la marque de Conhama
+  // (le fichier icon.svg de la plateforme Conhama), au trait et dans la couleur
+  // heritee, comme les autres marques de cette famille.
+  conhama: (
+    <>
+      <path d="M9 22 16 9l8 11Z" />
+      <circle cx="9" cy="22" r="3.4" />
+      <circle cx="16" cy="9" r="2.8" />
+      <circle cx="24" cy="20" r="2.8" />
     </>
   ),
   // Une orbite, un horizon, un point : le cockpit.

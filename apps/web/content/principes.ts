@@ -62,7 +62,7 @@ export const PRINCIPES: readonly Principe[] = [
   },
   {
     numero: "03",
-    phrase: "L’IA propose, le système décide.",
+    phrase: "Le moteur propose, le système décide.",
     produit:
       "L’assistant du site générait une réponse même quand la récupération documentaire ne renvoyait aucun passage. La réponse était fluide, plausible et fondée sur rien. Depuis le 31 août 2026, il échoue explicitement.",
     cout: "Un assistant qui paraît fragile, parce qu’il refuse de répondre là où un autre aurait dit quelque chose. Ce refus est visible publiquement, et il faut l’expliquer à chaque fois.",

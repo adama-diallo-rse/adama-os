@@ -146,9 +146,10 @@ describe("EC3, la signature verifiable", () => {
     expect(lire("components/page-shell.tsx")).toContain(
       '<Signature className="footer-signature-verifiable"',
     );
-    expect(lire("components/dashboard.tsx")).toContain(
-      '<Signature className="footer-signature-verifiable"',
-    );
+    // Refonte du 30 octobre 2026 : un seul pied pour toutes les surfaces,
+    // déclaré dans page-shell.tsx et posé par l'accueil comme par le kit.
+    expect(lire("components/dashboard.tsx")).toContain("<PiedDePage");
+    expect(lire("components/page-shell.tsx")).toContain("<PiedDePage");
   });
 
   it("passe le vocabulaire ferme", () => {

@@ -1,15 +1,22 @@
 import Image from "next/image";
-import { OpenStrataSymbol } from "./open-strata-symbol";
+import { Symbole } from "./marque/symbole";
+import { Stratemark } from "./marque/stratemark";
 
 export function divisionName(division: string) {
   if (division === "STRATA" || division === "STRATA ESG") return "STRATA ESG";
   if (division === "IROKO") return "IROKO Software Group";
   if (division === "Pharivo") return "Pharivo";
-  if (division === "Cockpit") return "Adama OS";
+  if (division === "Cockpit") return "ADAMA OS";
+  if (division === "Conhama") return "Conhama";
   return division;
 }
 
-export type MarqueSignature = "strata" | "pharivo" | "iroko" | "adama";
+export type MarqueSignature =
+  | "strata"
+  | "pharivo"
+  | "iroko"
+  | "adama"
+  | "conhama";
 
 /**
  * Wordmark specified in the supplied STRATA ESG kit; Pharivo wordmark as
@@ -36,8 +43,13 @@ export function BrandSignature({
       />
     );
   }
+  if (brand === "conhama") {
+    return <ConhamaSignature className={`brand-conhama ${className}`} />;
+  }
   if (brand === "strata") {
-    return <span className={`brand-strata ${className}`}>STRATA ESG</span>;
+    // Le Stratemark réel du kit STRATA ESG, vectorisé : barres or, mot en
+    // Cormorant. Aucune police à charger.
+    return <Stratemark className={`brand-strata ${className}`} />;
   }
   return (
     <span
@@ -45,7 +57,7 @@ export function BrandSignature({
       role="img"
       aria-label="ADAMA OS"
     >
-      <OpenStrataSymbol />
+      <Symbole />
       <span aria-hidden="true">ADAMA OS</span>
     </span>
   );
@@ -100,5 +112,33 @@ function PharivoWordmark({
         <path key={rang} d={d} />
       ))}
     </svg>
+  );
+}
+
+// =====================================================================
+// La marque Conhama, telle que la plateforme la sert
+// (C:\Dev\CONHAMA\src\app\icon.svg, charte 2.0, RDX-23) : un triangle de
+// liens, deux nœuds émeraude et le nœud de départ ambre, puis le nom en
+// capitales. Tracés repris à l'identique, couleurs de sa charte : c'est la
+// marque d'un produit, elle reste intacte. Sur fond sombre, ses liens
+// passent en blanc, comme dans le fichier d'origine.
+// =====================================================================
+function ConhamaSignature({ className = "" }: { className?: string }) {
+  return (
+    <span className={className} role="img" aria-label="Conhama">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path
+          d="M9 22 L16 9 L24 20 Z"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <circle cx="9" cy="22" r="4" fill="#F5A524" />
+        <circle cx="16" cy="9" r="3.4" fill="#2FD08A" />
+        <circle cx="24" cy="20" r="3.4" fill="#2FD08A" />
+      </svg>
+      <span aria-hidden="true">CONHAMA</span>
+    </span>
   );
 }

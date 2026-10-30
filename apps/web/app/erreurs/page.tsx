@@ -163,6 +163,30 @@ export default function ErreursPage() {
                   </p>
                 </header>
 
+                {/* Refonte du 30 octobre 2026 : la carte d'essai, façon
+                    banc de test. Où l'erreur a eu lieu, quand, et le dommage
+                    constaté, en une ligne ; le détail suit en cinq blocs. */}
+                <dl className="carte-essai">
+                  <div>
+                    <dt>Conditions</dt>
+                    <dd>
+                      {erreur.objet
+                        ? `${erreur.objet.nature}, ${erreur.objet.reference}`
+                        : erreur.categorie}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Date</dt>
+                    <dd>
+                      <time dateTime={erreur.date}>{erreur.date}</time>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Dommage</dt>
+                    <dd>{erreur.faits.split(". ")[0]}.</dd>
+                  </div>
+                </dl>
+
                 <dl className="error-five-blocks">
                   {BLOCS.map(([label, champ], index) => (
                     <div key={champ}>

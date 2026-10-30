@@ -17,14 +17,14 @@ describe("EC4, le parcours visiteur en cinq temps", () => {
       "Apprendre",
       "Construire",
       "Travailler ensemble",
-      "Utiliser STRATA",
+      "Utiliser STRATA ESG",
     ]);
     expect(PARCOURS_VISITEUR.map((t) => t.libelleEn)).toEqual([
       "Explore",
       "Learn",
       "Build",
       "Work with me",
-      "Use STRATA",
+      "Use STRATA ESG",
     ]);
   });
 

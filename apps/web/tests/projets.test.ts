@@ -156,8 +156,12 @@ describe.each(FICHES.map((f) => [f.slug, f] as const))(
       }
     });
 
-    it("declare au moins un ADR et un sujet de preuve", () => {
-      expect(fiche.adrIds.length).toBeGreaterThanOrEqual(1);
+    it("declare un ADR, ou dit ou vivent ses decisions, et un sujet de preuve", () => {
+      // Une fiche dont les decisions vivent dans un autre registre le dit
+      // en toutes lettres plutot que d'emprunter un ADR qui n'en traite pas.
+      if (fiche.adrIds.length === 0) {
+        expect(fiche.registreDecisions?.length ?? 0).toBeGreaterThan(40);
+      }
       for (const id of fiche.adrIds) {
         expect(id).toMatch(/^DEC-[0-9]{3}$/);
       }
@@ -257,5 +261,31 @@ describe("C5, le rendu du bloc 02", () => {
     const niveaux: DomaineRole[] = [...DOMAINES_ROLE];
     expect(niveaux).toHaveLength(7);
     expect(SHEET).toContain("data-niveau=");
+  });
+});
+
+describe("les maisons a plusieurs produits", () => {
+  it("presente STRATA ESG avec ses cinq produits, chacun sur son domaine", () => {
+    const strata = FICHES.find((f) => f.slug === "strata-esg");
+    expect(strata?.produits?.map((p) => p.url)).toEqual([
+      "https://www.esg-optimizer.fr/",
+      "https://scope.esg-optimizer.fr/",
+      "https://foundation.esg-optimizer.fr/",
+      "https://watch.esg-optimizer.fr/",
+      "https://academy.esg-optimizer.fr/",
+    ]);
+    for (const produit of strata?.produits ?? []) {
+      expect(strata?.sujetsPreuve).toContain(produit.slug);
+      expect(produit.resume.length).toBeGreaterThan(40);
+    }
+  });
+
+  it("garde les quatre maisons dans l'ordre de la page", () => {
+    expect(FICHES.map((f) => f.slug)).toEqual([
+      "strata-esg",
+      "pharivo",
+      "adama-os",
+      "conhama",
+    ]);
   });
 });

@@ -18,3 +18,7 @@ Cockpit personnel du fondateur d'IROKO SOFTWARE GROUP : statut système, journal
 ## Périmètre
 
 Tu ne travailles que dans ce dossier. Aucune écriture dans un autre projet de C:\Dev, même pour « harmoniser ».
+
+## Coûts
+
+Les garde-fous de coûts et de jetons de `~/.gemini/GEMINI.md` (section 7) s'appliquent ici : recherche ciblée avant lecture, sorties courtes, une session par chantier, Flash par défaut.

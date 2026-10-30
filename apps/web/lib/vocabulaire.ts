@@ -280,7 +280,7 @@ const REGLES: readonly Regle[] = [
   // --- Interdits propres a la branche -----------------------------------
   {
     niveau: "interdit",
-    motif: /[–—]/g,
+    motif: /[\u2013\u2014]/g,
     regle: "Règle de rédaction : aucun tiret long.",
   },
   {

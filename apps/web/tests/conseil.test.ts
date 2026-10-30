@@ -63,7 +63,7 @@ describe("EG0, les quatre portes", () => {
     expect(PORTES.map((p) => p.titre)).toEqual([
       "Construire",
       "Donnée",
-      "Intelligence artificielle",
+      "Moteur et automatisation",
       "Système",
     ]);
     expect(PORTES.map((p) => p.code)).toEqual([...CODES_PORTE]);

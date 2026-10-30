@@ -13,12 +13,12 @@ import { ROLES_DIVISION } from "../../content/divisions";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Écosystème, STRATA ESG et Pharivo",
+  title: "Écosystème, STRATA ESG, Pharivo et Conhama",
   description:
-    "Les logiciels d’Adama Diallo : la donnée de durabilité avec STRATA ESG, la gestion d’officine au Sénégal avec Pharivo. Produits, liens et avancement.",
+    "Les logiciels d’Adama Diallo : la donnée de durabilité avec STRATA ESG, la gestion d’officine au Sénégal avec Pharivo, la carte de l’économie durable avec Conhama. Produits, liens et avancement.",
   alternates: { canonical: "/ecosysteme" },
   openGraph: {
-    title: "STRATA ESG et Pharivo",
+    title: "STRATA ESG, Pharivo et Conhama",
     description: "Les produits, leurs liens et leur avancement.",
     url: "/ecosysteme",
     siteName: "ADAMA OS",
@@ -108,6 +108,14 @@ export default async function EcosystemePage() {
         },
         founder: { "@type": "Person", name: "Adama Diallo" },
       },
+      {
+        "@type": "Organization",
+        "@id": SITE_URL + "#conhama",
+        name: "Conhama",
+        description: "La carte vivante de l’économie durable.",
+        url: "https://conhama.com/fr",
+        founder: { "@type": "Person", name: "Adama Diallo" },
+      },
       ...enLigne.map((p) => ({
         "@type": "SoftwareApplication",
         name: p.name,
@@ -118,7 +126,11 @@ export default async function EcosystemePage() {
         publisher: {
           "@id":
             SITE_URL +
-            (p.division === "Pharivo" ? "#pharivo" : "#organisation"),
+            (p.division === "Pharivo"
+              ? "#pharivo"
+              : p.division === "Conhama"
+                ? "#conhama"
+                : "#organisation"),
         },
       })),
     ],
@@ -140,7 +152,7 @@ export default async function EcosystemePage() {
             <span className="serif">des usages précis.</span>
           </>
         }
-        description="Je co-fonde et je développe STRATA ESG, pour la donnée de durabilité des entreprises, et Pharivo, pour la gestion des officines au Sénégal. Retrouvez ici les produits et leur avancement."
+        description="J’ai fondé STRATA ESG, pour la donnée de durabilité des entreprises, et Conhama, la carte vivante de l’économie durable. Je co-fonde Pharivo, pour la gestion des officines au Sénégal. Retrouvez ici les produits et leur avancement."
         aside={
           <div className="intro-note">
             <span className="intro-note-label">DANS LE REGISTRE</span>

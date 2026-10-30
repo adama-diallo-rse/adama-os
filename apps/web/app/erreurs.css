@@ -11,7 +11,7 @@
   grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.75fr);
   gap: clamp(44px, 8vw, 110px);
   padding-block: 64px 82px;
-  border-block: 1px solid var(--line);
+  border-block: 1px solid var(--filet);
 }
 
 .error-doctrine > .portfolio-label {
@@ -21,23 +21,23 @@
 .error-doctrine h2,
 .error-taxonomy h2,
 .error-register-heading h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-grotesk);
   font-size: clamp(38px, 4.8vw, 66px);
-  font-weight: 300;
-  letter-spacing: -0.05em;
+  font-weight: 560;
+  letter-spacing: -0.035em;
   line-height: 1.05;
   text-wrap: balance;
 }
 
 .error-doctrine h2 .serif {
-  color: var(--accent-text);
+  color: var(--accent-texte);
 }
 
 .error-doctrine > div {
   display: grid;
   align-content: end;
   gap: 18px;
-  color: var(--secondary);
+  color: var(--texte-2);
   font-size: 15px;
   line-height: 1.8;
 }
@@ -60,7 +60,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--filet);
   list-style: none;
 }
 
@@ -70,14 +70,14 @@
   gap: 12px;
   align-items: center;
   min-height: 58px;
-  border-bottom: 1px solid var(--line);
-  color: #314653;
+  border-bottom: 1px solid var(--filet);
+  color: var(--texte-doux);
   font-size: 13px;
 }
 
 .error-taxonomy li:nth-child(odd) {
   padding-right: 22px;
-  border-right: 1px solid var(--line);
+  border-right: 1px solid var(--filet);
 }
 
 .error-taxonomy li:nth-child(even) {
@@ -85,8 +85,8 @@
 }
 
 .error-taxonomy li > span {
-  color: var(--accent-text);
-  font: 11px var(--font-mono);
+  color: var(--accent-texte);
+  font: 11px var(--font-code);
 }
 
 .error-register {
@@ -104,7 +104,7 @@
 }
 
 .error-entries > article {
-  border: 1px solid var(--line);
+  border: 1px solid var(--filet);
   scroll-margin-top: 90px;
 }
 
@@ -114,8 +114,8 @@
   gap: 28px;
   align-items: end;
   padding: 30px;
-  border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--paper-deep) 52%, transparent);
+  border-bottom: 1px solid var(--filet);
+  background: color-mix(in srgb, var(--fond-creux) 52%, transparent);
 }
 
 .error-entries > article > header > div {
@@ -126,23 +126,23 @@
 .error-entries code,
 .error-entries time,
 .error-entries > article > header > p span {
-  font: 11px var(--font-mono);
+  font: 11px var(--font-code);
   letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
 .error-entries code {
-  color: var(--accent-text);
+  color: var(--accent-texte);
 }
 
 .error-entries time {
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 
 .error-entries h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-grotesk);
   font-size: clamp(28px, 3.2vw, 44px);
-  font-weight: 300;
+  font-weight: 560;
   letter-spacing: -0.04em;
   line-height: 1.08;
 }
@@ -154,11 +154,11 @@
 }
 
 .error-entries > article > header > p span {
-  color: var(--secondary);
+  color: var(--texte-2);
 }
 
 .error-entries > article > header > p [data-status="convertie"] {
-  color: #2f6c57;
+  color: var(--etat);
 }
 
 .error-entries > article > header > p [data-status="ouverte"] {
@@ -173,7 +173,7 @@
 .error-five-blocks > div {
   min-width: 0;
   padding: 28px;
-  border-right: 1px solid var(--line);
+  border-right: 1px solid var(--filet);
 }
 
 .error-five-blocks > div:last-child {
@@ -182,7 +182,7 @@
 
 .error-five-blocks dt {
   min-height: 58px;
-  color: var(--ink);
+  color: var(--texte);
   font-size: 13px;
   font-weight: 500;
   line-height: 1.35;
@@ -191,13 +191,13 @@
 .error-five-blocks dt span {
   display: block;
   margin-bottom: 10px;
-  color: var(--accent-text);
-  font: 11px var(--font-mono);
+  color: var(--accent-texte);
+  font: 11px var(--font-code);
 }
 
 .error-five-blocks dd {
   margin-top: 20px;
-  color: #314653;
+  color: var(--texte-doux);
   font-size: 13px;
   line-height: 1.72;
 }
@@ -205,22 +205,22 @@
 .error-method {
   margin: 0 28px 28px;
   padding: 26px;
-  border-left: 3px solid var(--strata-gold);
-  background: color-mix(in srgb, var(--paper-deep) 62%, transparent);
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--fond-creux) 62%, transparent);
 }
 
 .error-method h4 {
   margin-top: 12px;
-  font-family: var(--font-display);
+  font-family: var(--font-grotesk);
   font-size: 28px;
-  font-weight: 400;
+  font-weight: 560;
   letter-spacing: -0.035em;
 }
 
 .error-method > p:last-child {
   max-width: 850px;
   margin-top: 9px;
-  color: #314653;
+  color: var(--texte-doux);
   font-size: 14px;
   line-height: 1.7;
 }
@@ -230,8 +230,8 @@
   grid-template-columns: 180px minmax(0, 1fr);
   gap: 24px;
   padding: 22px 28px;
-  border-top: 1px solid var(--line);
-  color: var(--secondary);
+  border-top: 1px solid var(--filet);
+  color: var(--texte-2);
   font-size: 12px;
 }
 
@@ -242,7 +242,7 @@
 }
 
 .error-entries > article > footer a {
-  color: var(--ink);
+  color: var(--texte);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -253,7 +253,7 @@
   }
 
   .error-five-blocks > div {
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--filet);
   }
 
   .error-five-blocks > div:nth-child(even) {
@@ -318,7 +318,7 @@
     grid-column: auto;
     padding: 24px 22px;
     border-right: 0;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--filet);
   }
 
   .error-five-blocks > div:last-child {

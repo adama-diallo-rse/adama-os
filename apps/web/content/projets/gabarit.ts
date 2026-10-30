@@ -40,7 +40,7 @@ export const DOMAINE_LABEL: Record<DomaineRole, string> = {
   produit: "Produit",
   backend: "Backend",
   donnees: "Données",
-  ia: "IA",
+  ia: "Moteur",
   frontend: "Frontend",
   commercial: "Commercial",
 };
@@ -89,6 +89,23 @@ export type BlocRole = {
   questions: readonly string[];
 };
 
+/**
+ * Un produit d'une maison qui en compte plusieurs (STRATA ESG). Il porte
+ * son adresse publique et son état relevé, jamais une promesse.
+ */
+export type ProduitFiche = {
+  /** Identifiant du registre produits, et ancre dans la fiche. */
+  slug: string;
+  nom: string;
+  url: string;
+  /** Sa place dans la maison, en trois mots. */
+  role: string;
+  resume: string;
+  etat: EtatProjet;
+  /** Une précision sur l'état quand le libellé seul tromperait. */
+  precision?: string;
+};
+
 export type FicheProjet = {
   slug: string;
   titre: string;
@@ -110,6 +127,11 @@ export type FicheProjet = {
   sujetsPreuve: readonly string[];
   /** Identifiants d'ADR du bloc 04, lus dans decisions_log. */
   adrIds: readonly string[];
+  /** Quand les décisions du projet vivent dans un autre registre que le
+   *  journal de ce site, la fiche le dit au lieu d'emprunter un ADR. */
+  registreDecisions?: string;
+  /** Les produits d'une maison qui en compte plusieurs. */
+  produits?: readonly ProduitFiche[];
   /** Affirmation mise en avant sur la carte d'accueil. Le lien de
    *  verification n'apparait que si le registre la sert reellement. */
   preuveVedette: string;

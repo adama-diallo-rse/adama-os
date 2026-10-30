@@ -45,7 +45,7 @@ export function LegalPage({
   children: ReactNode;
 }) {
   return (
-    <PageShell className="legal-page">
+    <PageShell className="legal-page" sommaire={false}>
       <PageIntro
         eyebrow="INFORMATIONS / ADAMA OS"
         title={title}

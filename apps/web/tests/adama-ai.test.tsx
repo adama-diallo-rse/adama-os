@@ -36,7 +36,9 @@ function Harness() {
 describe("assistant du portfolio", () => {
   it("rend le focus au déclencheur après Échap", async () => {
     render(<Harness />);
-    const launcher = screen.getByRole("button", { name: "Ouvrir Adama AI" });
+    const launcher = screen.getByRole("button", {
+      name: "Interroger le moteur",
+    });
     launcher.focus();
     fireEvent.click(launcher);
     await waitFor(() =>
@@ -169,7 +171,9 @@ describe("panneau clair sur page sombre", () => {
     const sous = css("subpages.css");
     const bloc = sous.slice(sous.indexOf(".assistant-panel {"));
     const regle = bloc.slice(0, bloc.indexOf("}"));
-    expect(regle).toContain("color: var(--ink)");
-    expect(regle).toContain("color-scheme: light");
+    // Refonte du 30 octobre 2026 : le panneau lit les rôles de la palette,
+    // texte et fond déclarés ensemble, en mode clair comme en mode sombre.
+    expect(regle).toContain("color: var(--texte)");
+    expect(regle).toContain("background: var(--fond)");
   });
 });

@@ -21,11 +21,11 @@ import { controlerTexte, type Constat } from "../vocabulaire";
 
 type Contenu = { objet: string; texte: string; html: string };
 
-const ENCRE = "#0D1B2A";
-const CREME = "#F2EDE4";
-const PIERRE = "#536878";
-const OR_SOURCE = "#C9A96E";
-const OR_TEXTE = "#806332";
+const ENCRE = "#101524";
+const IVOIRE = "#F8F3EA";
+const PIERRE = "#535B6C";
+const LATERITE = "#C85B32";
+const LATERITE_TEXTE = "#A13A16";
 const BLANC = "#FFFFFF";
 
 const SERIF = "Georgia, 'Times New Roman', serif";
@@ -52,7 +52,7 @@ function lierSite(texteEchappe: string, site: string): string {
   return texteEchappe.replace(
     motif,
     (url) =>
-      `<a href="${url}" style="color:${OR_TEXTE};text-decoration:underline;">${url.replace(/^https?:\/\//, "")}</a>`,
+      `<a href="${url}" style="color:${LATERITE_TEXTE};text-decoration:underline;">${url.replace(/^https?:\/\//, "")}</a>`,
   );
 }
 
@@ -61,11 +61,11 @@ function paragraphe(html: string): string {
 }
 
 function etiquette(texte: string): string {
-  return `<p style="margin:0 0 10px;font-family:${MONO};font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:${OR_TEXTE};">${echapper(texte)}</p>`;
+  return `<p style="margin:0 0 10px;font-family:${MONO};font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:${LATERITE_TEXTE};">${echapper(texte)}</p>`;
 }
 
 function bouton(url: string, libelle: string): string {
-  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 26px;"><tr><td style="background:${ENCRE};border-radius:4px;"><a href="${echapper(url)}" style="display:inline-block;padding:15px 22px;font-family:${SANS};font-size:13px;font-weight:bold;letter-spacing:0.08em;text-transform:uppercase;color:${CREME};text-decoration:none;">${echapper(libelle)}</a></td></tr></table>`;
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 26px;"><tr><td style="background:${ENCRE};border-radius:4px;"><a href="${echapper(url)}" style="display:inline-block;padding:15px 22px;font-family:${SANS};font-size:13px;font-weight:bold;letter-spacing:0.08em;text-transform:uppercase;color:${IVOIRE};text-decoration:none;">${echapper(libelle)}</a></td></tr></table>`;
 }
 
 type Gabarit = {
@@ -86,7 +86,7 @@ function enveloppe({
   site,
 }: Gabarit): string {
   const pied = desinscription
-    ? `Vous recevez ce message parce que vous avez confirmé votre inscription à SIGNAL. <a href="${echapper(desinscription)}" style="color:${OR_TEXTE};text-decoration:underline;">Se désinscrire en un clic</a>.`
+    ? `Vous recevez ce message parce que vous avez confirmé votre inscription à SIGNAL. <a href="${echapper(desinscription)}" style="color:${LATERITE_TEXTE};text-decoration:underline;">Se désinscrire en un clic</a>.`
     : "Vous recevez ce message parce qu’une inscription à SIGNAL a été demandée avec cette adresse. Sans confirmation, rien d’autre ne partira.";
   return `<!doctype html>
 <html lang="fr">
@@ -96,21 +96,21 @@ function enveloppe({
 <meta name="color-scheme" content="light">
 <title>${echapper(titre)}</title>
 </head>
-<body style="margin:0;padding:0;background:${CREME};">
+<body style="margin:0;padding:0;background:${IVOIRE};">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;">${echapper(preentete)}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${CREME};">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${IVOIRE};">
 <tr><td align="center" style="padding:32px 16px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
-<tr><td style="padding:0 4px 18px;font-family:${MONO};font-size:12px;letter-spacing:0.16em;color:${ENCRE};">ADAMA OS <span style="color:${OR_SOURCE};">&#9679;</span> SIGNAL</td></tr>
-<tr><td style="background:${BLANC};border:1px solid #D4D1C9;border-top:3px solid ${OR_SOURCE};border-radius:6px;padding:36px 34px 20px;">
+<tr><td style="padding:0 4px 18px;font-family:${MONO};font-size:12px;letter-spacing:0.16em;color:${ENCRE};">ADAMA OS <span style="color:${LATERITE};">&#9679;</span> SIGNAL</td></tr>
+<tr><td style="background:${BLANC};border:1px solid #D8D0C3;border-top:3px solid ${LATERITE};border-radius:6px;padding:36px 34px 20px;">
 ${etiquette(surtitre)}
 <h1 style="margin:0 0 24px;font-family:${SERIF};font-size:30px;line-height:1.15;font-weight:normal;color:${ENCRE};">${echapper(titre)}</h1>
 ${corps}
-<p style="margin:26px 0 0;padding-top:18px;border-top:1px solid #E6E1D7;font-family:${SANS};font-size:15px;line-height:1.6;color:${ENCRE};">Adama Diallo<br><span style="font-family:${MONO};font-size:12px;color:${PIERRE};">ADAMA OS, ${echapper(site.replace(/^https?:\/\//, ""))}</span></p>
+<p style="margin:26px 0 0;padding-top:18px;border-top:1px solid #E7E0D3;font-family:${SANS};font-size:15px;line-height:1.6;color:${ENCRE};">Adama Diallo<br><span style="font-family:${MONO};font-size:12px;color:${PIERRE};">ADAMA OS, ${echapper(site.replace(/^https?:\/\//, ""))}</span></p>
 </td></tr>
 <tr><td style="padding:20px 6px 0;font-family:${SANS};font-size:12px;line-height:1.65;color:${PIERRE};">
 ${pied}<br>
-Responsable de traitement : ${echapper(`${RESPONSABLE_LETTRE.nom}, ${RESPONSABLE_LETTRE.statut}, SIREN ${RESPONSABLE_LETTRE.siren}`)}. Aucune mesure d’ouverture ni de clic. <a href="${echapper(`${site}/lettre#mention`)}" style="color:${OR_TEXTE};text-decoration:underline;">Mention complète et droits</a>.
+Responsable de traitement : ${echapper(`${RESPONSABLE_LETTRE.nom}, ${RESPONSABLE_LETTRE.statut}, SIREN ${RESPONSABLE_LETTRE.siren}`)}. Aucune mesure d’ouverture ni de clic. <a href="${echapper(`${site}/lettre#mention`)}" style="color:${LATERITE_TEXTE};text-decoration:underline;">Mention complète et droits</a>.
 </td></tr>
 </table>
 </td></tr>
@@ -224,7 +224,7 @@ export function messageBienvenue({
   const listeHtml = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 22px;width:100%;">${liens
     .map(
       ([libelle, url]) =>
-        `<tr><td style="padding:11px 0;border-top:1px solid #E6E1D7;font-family:${SANS};font-size:15px;"><a href="${echapper(url)}" style="color:${ENCRE};text-decoration:none;">${echapper(libelle)} <span style="color:${OR_TEXTE};">&#8594;</span></a></td></tr>`,
+        `<tr><td style="padding:11px 0;border-top:1px solid #E7E0D3;font-family:${SANS};font-size:15px;"><a href="${echapper(url)}" style="color:${ENCRE};text-decoration:none;">${echapper(libelle)} <span style="color:${LATERITE_TEXTE};">&#8594;</span></a></td></tr>`,
     )
     .join("")}</table>`;
   const corps = [

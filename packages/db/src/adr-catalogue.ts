@@ -1306,7 +1306,7 @@ const DEC_104: Adr = {
     fait: "Le 31 août 2026, au commit 3d10bef, j’ai fait échouer la route de l’assistant quand la récupération ne renvoie rien : service indisponible, message explicite, aucun appel au modèle.",
     cout: "Soixante-six lignes reprises dans la route, et un assistant qui paraît fragile chaque fois que le corpus ne répond pas. Cette fragilité est visible sur la page publique, y compris pour un recruteur.",
     coutEstime: true,
-    regle: "L’IA propose, le système décide.",
+    regle: "Le moteur propose, le système décide.",
   },
 };
 

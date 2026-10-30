@@ -13,6 +13,8 @@ import { RELEVES_M001, totauxDe } from "../../../content/mesures";
 import {
   METHODES,
   NIVEAUX_VISIBILITE,
+  CHAMPS_FICHE,
+  controlerFiche,
   methodeDe,
   texteClauseRenvoi,
   type FicheMethode,
@@ -154,7 +156,7 @@ function lignesFiche(m: FicheMethode): [string, ReactNode][] {
       `${m.visibilite}, ${NIVEAUX_VISIBILITE[m.visibilite].toLowerCase()}`,
     ],
     [
-      "Clause de renvoi STRATA",
+      "Clause de renvoi STRATA ESG",
       <>
         {texteClauseRenvoi(m.clauseRenvoi)}
         {m.clauseRenvoi.produit !== null && (
@@ -416,6 +418,7 @@ export default async function MethodePage({
   const { code } = await params;
   const methode = methodeDe(code);
   if (!methode) notFound();
+  const manques = controlerFiche(methode);
 
   return (
     <PageShell className="methode-fiche-page strates-page">
@@ -452,6 +455,54 @@ export default async function MethodePage({
       </section>
 
       {methode.identifiant === "M-001" && <DossierM001 />}
+
+      {/* Refonte du 30 octobre 2026 : la fiche se contrôle elle-même,
+          champ par champ, avec la même fonction que le test. */}
+      <section className="fiche-controle" aria-labelledby="titre-controle">
+        <p className="portfolio-label">CONTRÔLE DE LA FICHE</p>
+        <h2 id="titre-controle">Chaque champ, coché ou non.</h2>
+        <div
+          className="regimes-defile regimes-clair"
+          role="region"
+          aria-label="Contrôle des champs de la fiche, défilable"
+          tabIndex={0}
+        >
+          <table className="regimes comparatif">
+            <caption className="sr-only">
+              Les champs obligatoires de la fiche {methode.identifiant}
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Champ</th>
+                <th scope="col">État</th>
+                <th scope="col">Si le champ manque</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CHAMPS_FICHE.map((c) => {
+                const manque = manques.find((m) => m.champ === c.champ);
+                return (
+                  <tr key={c.champ}>
+                    <th scope="row">{c.champ}</th>
+                    <td>
+                      {manque ? (
+                        <span className="regime-non">
+                          <span aria-hidden="true">·</span> {manque.texte}
+                        </span>
+                      ) : (
+                        <span className="regime-oui">
+                          <span aria-hidden="true">✓</span> Renseigné
+                        </span>
+                      )}
+                    </td>
+                    <td>{c.vide}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       <section className="page-next">
         <div>

@@ -5,25 +5,25 @@
 // synchronise pas depuis une base : une fiche projet n'est pas une donnee,
 // c'est un texte dont quelqu'un repond.
 //
-// Quatre fiches depuis le 23 octobre 2026, une par produit nomme
-// publiquement plus ce cockpit. La regle d'origine tenait a trois : une
-// quatrieme diluait. Pharivo n'est pas une quatrieme fiche de plus sur le
-// meme sujet, c'est la seconde maison, et la taire rendrait le profil faux.
-// Le plafond reste ferme a quatre : le lecteur qui en compare quatre les
-// lit toutes, celui qui en voit huit n'en lit aucune.
+// Quatre fiches depuis le 30 octobre 2026, une par maison : STRATA ESG et
+// ses cinq produits, Pharivo, ADAMA OS et Conhama. Les deux anciennes
+// fiches ESG Optimizer et STRATA Scope sont réunies dans celle de STRATA
+// ESG ; leurs adresses redirigent vers l'ancre du produit. Le plafond reste
+// fermé à quatre : le lecteur qui en compare quatre les lit toutes, celui
+// qui en voit huit n'en lit aucune.
 // =====================================================================
 
 import { ADAMA_OS } from "./adama-os";
-import { ESG_OPTIMIZER } from "./esg-optimizer";
+import { CONHAMA } from "./conhama";
 import { PHARIVO } from "./pharivo";
-import { STRATA_SCOPE } from "./strata-scope";
+import { STRATA_ESG } from "./strata-esg";
 import { ETAT_LABEL, type EtatProjet, type FicheProjet } from "./gabarit";
 
 export const FICHES: readonly FicheProjet[] = [
-  ESG_OPTIMIZER,
+  STRATA_ESG,
   PHARIVO,
-  STRATA_SCOPE,
   ADAMA_OS,
+  CONHAMA,
 ].sort((a, b) => a.ordre - b.ordre);
 
 export function ficheParSlug(slug: string): FicheProjet | undefined {
@@ -52,6 +52,8 @@ export type CarteProjet = {
   etat: EtatProjet;
   etatLabel: string;
   preuveVedette: string;
+  /** Les produits d'une maison, réduits à leur nom et leur adresse. */
+  produits: { slug: string; nom: string; url: string }[];
 };
 
 export function cartesProjet(): CarteProjet[] {
@@ -65,6 +67,11 @@ export function cartesProjet(): CarteProjet[] {
     etat: f.etat.valeur,
     etatLabel: ETAT_LABEL[f.etat.valeur],
     preuveVedette: f.preuveVedette,
+    produits: (f.produits ?? []).map((p) => ({
+      slug: p.slug,
+      nom: p.nom,
+      url: p.url,
+    })),
   }));
 }
 

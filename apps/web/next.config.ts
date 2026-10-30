@@ -14,6 +14,19 @@ const nextConfig: NextConfig = {
         destination: "/ecosysteme#strata",
         permanent: true,
       },
+      // 30 octobre 2026 : les fiches ESG Optimizer et STRATA Scope sont
+      // réunies dans la fiche STRATA ESG. Leurs adresses ont été partagées :
+      // elles mènent à l'ancre du produit, de façon permanente.
+      {
+        source: "/projets/esg-optimizer",
+        destination: "/projets/strata-esg#esg-optimizer",
+        permanent: true,
+      },
+      {
+        source: "/projets/strata-scope",
+        destination: "/projets/strata-esg#strata-scope",
+        permanent: true,
+      },
     ];
   },
 };

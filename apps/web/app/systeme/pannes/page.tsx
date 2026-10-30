@@ -1,3 +1,4 @@
+import exercice from "../../../../../docs/failure-drill.json";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro, PageShell } from "../../../components/page-shell";
@@ -6,6 +7,16 @@ import { KnownLimits } from "../../../components/known-limits";
 import { fetchHealthMatrix } from "../../../lib/health/collect";
 import { DOCTRINE_PANNE, MODES_PANNE } from "../../../content/pannes";
 import { LIMITES } from "../../../content/limites";
+
+// Le dernier exercice des modes de panne, tel que le script l'a écrit
+// (importé au build, comme docs/integrity.json). Un mode absent du rapport
+// laisse son résultat vide, jamais un résultat inventé.
+const EXERCICE = {
+  date: exercice.executed_at ? exercice.executed_at.slice(0, 10) : null,
+  resultats: new Map<string, boolean>(
+    exercice.scenarios.map((sc) => [sc.id, sc.ok]),
+  ),
+};
 
 // =====================================================================
 // C3-T1, C3-T4 et C3-T6, la page de sante et de modes de panne.
@@ -98,6 +109,32 @@ export default async function PannesPage() {
                 </span>
                 <h3>{mode.titre}</h3>
               </div>
+              {/* Refonte du 30 octobre 2026 : la carte d'essai, conditions
+                  du test, date du dernier exercice, dommage observé. Lue
+                  dans docs/failure-drill.json, écrit par le script. */}
+              <dl className="carte-essai">
+                <div>
+                  <dt>Conditions du test</dt>
+                  <dd>
+                    <code>{mode.simulation}</code>
+                  </dd>
+                </div>
+                <div>
+                  <dt>Dernier exercice</dt>
+                  <dd>
+                    {EXERCICE.date ?? "jamais rejoué"}
+                    {EXERCICE.resultats.get(mode.simulation) === undefined
+                      ? ""
+                      : EXERCICE.resultats.get(mode.simulation)
+                        ? ", conforme"
+                        : ", écart constaté"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Dommage</dt>
+                  <dd>{mode.visible}</dd>
+                </div>
+              </dl>
               <dl className="panne-grid">
                 <div>
                   <dt>Ce qui se passe</dt>

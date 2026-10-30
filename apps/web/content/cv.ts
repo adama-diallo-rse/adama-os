@@ -96,6 +96,13 @@ export const AFFIRMATIONS_CV: readonly AffirmationCv[] = [
     section: "projets",
   },
   {
+    id: "conhama",
+    phrase:
+      "Conhama, la carte vivante de l’économie durable, est en ligne et son adresse publique répond.",
+    preuveId: "conhama-en-ligne",
+    section: "projets",
+  },
+  {
     id: "registre-produits",
     phrase:
       "Le registre des produits du groupe vit en base de données, pas dans le code des pages.",

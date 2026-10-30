@@ -70,8 +70,8 @@ describe("C9-T6, le premier ecran dit ce qu'on lui demande", () => {
 
   // 23 octobre 2026 : la ligne de disponibilite a quitte le premier ecran
   // avec la recherche de poste, close le 10 octobre. La situation dit
-  // desormais les deux maisons et les deux villes.
-  it("nomme les deux maisons dans la situation", () => {
+  // desormais les maisons et les deux villes.
+  it("nomme les maisons dans la situation", () => {
     expect(ecran).toContain("IDENTITE.situation");
     for (const maison of ACTIVITE.maisons) {
       expect(IDENTITE.situation).toContain(maison);

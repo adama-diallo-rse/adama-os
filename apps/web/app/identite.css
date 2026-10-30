@@ -1,0 +1,174 @@
+/* ==================================================================== */
+/*  IDENTITÉ ADAMA OS 2026, révision du 30 octobre 2026                 */
+/*                                                                      */
+/*  Indigo de teinture, latérite, ivoire chaud, noir encre, et un seul  */
+/*  signal vif réservé aux états techniques. Palette écrite en OKLCH,   */
+/*  propre à ADAMA OS : plus aucune valeur de la charte STRATA ESG.     */
+/*                                                                      */
+/*  Deux couches :                                                      */
+/*   1. la palette brute (--indigo, --laterite, --ivoire...) ;          */
+/*   2. les rôles (--fond, --texte, --feuille...) que lisent toutes     */
+/*      les feuilles du site. Le mode sombre ne redéfinit que les rôles.*/
+/*                                                                      */
+/*  Chaque paire texte et fond déclarée ici est vérifiée par            */
+/*  scripts/contraste.mjs, qui échoue sous 4,5:1 (3:1 grands titres).   */
+/*  La source de marque est brand/adama-os-tokens.css : les deux        */
+/*  fichiers portent les mêmes valeurs, le script le contrôle.          */
+/* ==================================================================== */
+
+:root {
+  /* --- Palette brute -------------------------------------------------- */
+  --ivoire: oklch(0.966 0.013 84);
+  --papier: oklch(0.988 0.006 84);
+  --creux: oklch(0.932 0.018 82);
+  --sable: oklch(0.86 0.02 80);
+  --encre: oklch(0.2 0.03 268);
+  --encre-douce: oklch(0.33 0.035 268);
+  --pierre: oklch(0.47 0.03 268);
+  --gris-cote: oklch(0.6 0.022 268);
+  --nuit: oklch(0.26 0.04 268);
+  --brume: oklch(0.8 0.02 268);
+  --filet-nuit: oklch(0.37 0.035 268);
+  --indigo: oklch(0.36 0.12 272);
+  --indigo-profond: oklch(0.27 0.09 272);
+  --indigo-clair: oklch(0.8 0.07 272);
+  --laterite: oklch(0.6 0.15 40);
+  --laterite-texte: oklch(0.49 0.145 38);
+  --ocre: oklch(0.79 0.12 62);
+  --signal: oklch(0.88 0.19 128);
+  --signal-texte: oklch(0.47 0.12 145);
+  --alerte-sombre: oklch(0.52 0.18 27);
+  --alerte-claire: oklch(0.76 0.13 27);
+
+  /* --- Rôles, mode clair ---------------------------------------------- */
+  --fond: var(--ivoire);
+  --fond-carte: var(--papier);
+  --fond-creux: var(--creux);
+  --texte: var(--encre);
+  --texte-doux: var(--encre-douce);
+  --texte-2: var(--pierre);
+  --filet: var(--sable);
+  --filet-fort: var(--gris-cote);
+  --accent: var(--laterite);
+  --accent-texte: var(--laterite-texte);
+  --lien: var(--indigo);
+  --etat: var(--signal-texte);
+  --alerte: var(--alerte-sombre);
+
+  /* Feuilles sombres : les sections encre et indigo qui alternent. */
+  --feuille: var(--encre);
+  --feuille-2: var(--nuit);
+  --feuille-indigo: var(--indigo-profond);
+  --sur-feuille: var(--ivoire);
+  --sur-feuille-2: var(--brume);
+  --filet-feuille: var(--filet-nuit);
+  --accent-feuille: var(--ocre);
+  --etat-feuille: var(--signal);
+  --alerte-feuille: var(--alerte-claire);
+  --lien-feuille: var(--indigo-clair);
+
+  /* --- Typographie ------------------------------------------------------ */
+  --font-grotesk:
+    var(--font-schibsted), "Helvetica Neue", Arial, ui-sans-serif, sans-serif;
+  --font-serif: var(--font-newsreader), "Times New Roman", serif;
+  --font-code:
+    var(--font-plex-mono), ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    monospace;
+
+  --t-display: clamp(2.75rem, 1.55rem + 4.9vw, 6rem);
+  --t-h1: clamp(2.25rem, 1.45rem + 3.1vw, 4.25rem);
+  --t-h2: clamp(1.85rem, 1.3rem + 2.2vw, 3.25rem);
+  --t-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.55rem);
+  --t-corps: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --t-petit: 0.875rem;
+  --t-meta: 0.75rem;
+
+  /* --- Mouvement -------------------------------------------------------- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --t-signature: 900ms;
+  --t-reveal: 640ms;
+
+  /* --- Échelle des plans ------------------------------------------------ */
+  --z-toile: 1;
+  --z-contenu: 2;
+  --z-collant: 30;
+  --z-entete: 45;
+  --z-modale: 80;
+  --z-rideau: 120;
+
+  --rayon: 6px;
+  --rayon-carte: 12px;
+}
+
+/* --- Rôles, mode sombre ------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode="clair"]) {
+    --fond: oklch(0.17 0.025 268);
+    --fond-carte: oklch(0.21 0.03 268);
+    --fond-creux: oklch(0.14 0.022 268);
+    --texte: var(--ivoire);
+    --texte-doux: oklch(0.87 0.015 84);
+    --texte-2: oklch(0.77 0.02 268);
+    --filet: oklch(0.32 0.03 268);
+    --filet-fort: oklch(0.5 0.03 268);
+    --accent: oklch(0.68 0.14 45);
+    --accent-texte: oklch(0.77 0.12 58);
+    --lien: var(--indigo-clair);
+    --etat: var(--signal);
+    --alerte: var(--alerte-claire);
+    --feuille: oklch(0.25 0.075 272);
+    --feuille-2: oklch(0.3 0.08 272);
+    --feuille-indigo: oklch(0.21 0.06 272);
+    --sur-feuille: var(--ivoire);
+    --sur-feuille-2: oklch(0.84 0.03 272);
+    --filet-feuille: oklch(0.41 0.07 272);
+    color-scheme: dark;
+  }
+}
+:root[data-mode="sombre"] {
+  --fond: oklch(0.17 0.025 268);
+  --fond-carte: oklch(0.21 0.03 268);
+  --fond-creux: oklch(0.14 0.022 268);
+  --texte: var(--ivoire);
+  --texte-doux: oklch(0.87 0.015 84);
+  --texte-2: oklch(0.77 0.02 268);
+  --filet: oklch(0.32 0.03 268);
+  --filet-fort: oklch(0.5 0.03 268);
+  --accent: oklch(0.68 0.14 45);
+  --accent-texte: oklch(0.77 0.12 58);
+  --lien: var(--indigo-clair);
+  --etat: var(--signal);
+  --alerte: var(--alerte-claire);
+  --feuille: oklch(0.25 0.075 272);
+  --feuille-2: oklch(0.3 0.08 272);
+  --feuille-indigo: oklch(0.21 0.06 272);
+  --sur-feuille: var(--ivoire);
+  --sur-feuille-2: oklch(0.84 0.03 272);
+  --filet-feuille: oklch(0.41 0.07 272);
+  color-scheme: dark;
+}
+
+/* --- Thème alternatif du terminal (commande `theme`) --------------------- */
+/* L'accent latérite cède la place à l'indigo de teinture, et le signal     */
+/* technique des feuilles passe à l'ocre : même palette, autre lecture,     */
+/* contrastes vérifiés par scripts/contraste.mjs.                           */
+:root[data-theme="indigo"] {
+  --accent: var(--indigo);
+  --accent-texte: var(--indigo);
+  --accent-feuille: var(--indigo-clair);
+  --etat-feuille: var(--ocre);
+}
+
+@media print {
+  :root {
+    --fond: #fdfcf9;
+    --fond-carte: #fdfcf9;
+    --texte: #14161f;
+    --texte-2: #3a3f52;
+    --feuille: #fdfcf9;
+    --sur-feuille: #14161f;
+    --sur-feuille-2: #3a3f52;
+  }
+}

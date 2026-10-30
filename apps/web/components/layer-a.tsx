@@ -66,7 +66,7 @@ function pad(n: number): string {
 function CountdownCell({ value, label }: { value: string; label: string }) {
   return (
     <div className="flex flex-col items-center rounded-[calc(var(--radius)_-_0.125rem)] border border-border bg-surface-raised px-2 py-2 sm:px-3">
-      <span className="font-mono text-xl font-semibold tabular-nums text-emerald-bright sm:text-2xl">
+      <span className="font-mono text-xl font-semibold tabular-nums text-signal-bright sm:text-2xl">
         {value}
       </span>
       <span className="mt-0.5 font-mono text-[0.55rem] uppercase tracking-[0.2em] text-faint">
@@ -123,7 +123,7 @@ export function LayerA({ metrics }: { metrics: MetricRow[] }) {
     <Card id="couche-a" className="h-full scroll-mt-24">
       <CardHeader>
         <CardTitle>Couche A, System Status</CardTitle>
-        <Badge variant={online ? "emerald" : "default"} dot>
+        <Badge variant={online ? "signal" : "default"} dot>
           {buildLabel}
         </Badge>
       </CardHeader>
@@ -137,7 +137,7 @@ export function LayerA({ metrics }: { metrics: MetricRow[] }) {
             {txt("current_focus", "n/a")}
           </p>
           <p className="mt-1 font-mono text-xs text-muted">
-            <span className="text-emerald">$</span> status --live
+            <span className="text-signal">$</span> status --live
           </p>
         </div>
 
@@ -172,7 +172,7 @@ export function LayerA({ metrics }: { metrics: MetricRow[] }) {
             <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-faint">
               Lean Bulk
             </p>
-            <p className="font-mono text-xs text-emerald-bright">
+            <p className="font-mono text-xs text-signal-bright">
               {weightLabel}
             </p>
           </div>
@@ -185,7 +185,7 @@ export function LayerA({ metrics }: { metrics: MetricRow[] }) {
             className="h-2.5 overflow-hidden rounded-full border border-border bg-surface-raised"
           >
             <motion.div
-              className="h-full rounded-full bg-emerald"
+              className="h-full rounded-full bg-signal"
               initial={{ width: 0 }}
               whileInView={{ width: `${progress}%` }}
               viewport={{ once: true, amount: 0.4 }}

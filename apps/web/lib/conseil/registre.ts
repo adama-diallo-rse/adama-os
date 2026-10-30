@@ -215,16 +215,16 @@ export function messageNotification(
     "Avant toute réponse : vérifier que l’organisation n’est ni cliente ni prospect de STRATA ESG, et que la condition 4 tient.",
     `Console : ${lienConsole}`,
   ].join("\n");
-  const html = `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;color:#0d1b2a">
+  const html = `<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;color:#101524">
 <p>Une demande recevable vient d’arriver par /travaillez-avec-moi.</p>
 <table style="border-collapse:collapse">${lignes
     .map(
       ([l, v]) =>
-        `<tr><td style="padding:2px 16px 2px 0;color:#536878">${echapper(l)}</td><td>${echapper(v)}</td></tr>`,
+        `<tr><td style="padding:2px 16px 2px 0;color:#535b6c">${echapper(l)}</td><td>${echapper(v)}</td></tr>`,
     )
     .join("")}</table>
-<p style="margin-top:16px;color:#536878">Le problème, tel qu’écrit :</p>
-<p style="white-space:pre-wrap;border-left:2px solid #c9a96e;padding-left:12px">${echapper(demande.probleme)}</p>
+<p style="margin-top:16px;color:#535b6c">Le problème, tel qu’écrit :</p>
+<p style="white-space:pre-wrap;border-left:2px solid #c85b32;padding-left:12px">${echapper(demande.probleme)}</p>
 <p>Avant toute réponse : vérifier que l’organisation n’est ni cliente ni prospect de STRATA ESG, et que la condition 4 tient.</p>
 <p><a href="${echapper(lienConsole)}">Ouvrir la console des demandes</a></p>
 </div>`;

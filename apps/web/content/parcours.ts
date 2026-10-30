@@ -1,7 +1,7 @@
 // =====================================================================
 // EC4, AXP-158, le parcours visiteur en cinq temps.
 //
-// Explore, Learn, Build, Work with me, Use STRATA : l'ordre est celui de la
+// Explore, Learn, Build, Work with me, Use STRATA ESG : l'ordre est celui de la
 // branche EC, et il ne se reorganise pas par page. Chaque temps nomme la
 // page ou il mene, la question du visiteur a laquelle il repond, et le
 // signal qui dirait qu'il ne sert a rien. Ce signal est une regle de
@@ -82,8 +82,8 @@ export const PARCOURS_VISITEUR: readonly TempsParcours[] = [
   },
   {
     code: "strata",
-    libelle: "Utiliser STRATA",
-    libelleEn: "Use STRATA",
+    libelle: "Utiliser STRATA ESG",
+    libelleEn: "Use STRATA ESG",
     href: URL_STRATA,
     actifSur: [],
     question: "Mon besoin exige-t-il un logiciel opérationnel ?",

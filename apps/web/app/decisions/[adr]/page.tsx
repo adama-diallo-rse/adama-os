@@ -1,3 +1,7 @@
+import { BlocCitation } from "../../../components/accueil/bloc-citation";
+import { citerDecision } from "../../../lib/accueil";
+import { GITHUB_REPO_URL } from "../../../components/types";
+import { SITE_URL } from "../../../lib/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -119,6 +123,16 @@ export default async function DecisionPage({
           <span aria-hidden="true">/</span> {decision.adr_id}
         </p>
         <h1>{decision.title}</h1>
+        <div className="citation-page">
+          <BlocCitation
+            c={{
+              ...citerDecision(decision, SITE_URL),
+              etiquette: STATUT_LABEL[decision.status],
+              href: `${GITHUB_REPO_URL}/blob/main/packages/db/src/adr-catalogue.ts`,
+              lienLibelle: "Lire la source versionnée",
+            }}
+          />
+        </div>
         <dl className="adr-meta" data-statut={decision.status}>
           <div>
             <dt>Statut</dt>

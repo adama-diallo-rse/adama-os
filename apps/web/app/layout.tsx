@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Courier_Prime, DM_Sans } from "next/font/google";
 import { ConsentBanner } from "../components/consent-banner";
+import { IleDefilement } from "../components/mouvement/ile-defilement";
 import {
   CONTACT_EMAIL,
   GITHUB_PROFILE_URL,
@@ -16,6 +16,9 @@ import {
   TITRE_COURT,
 } from "../content/profil";
 import { ADAMA_OS } from "../content/adama-os";
+// Les rôles de couleur et l'échelle typographique d'ADAMA OS (révision du
+// 30 octobre 2026), chargés avant toute autre feuille.
+import "./identite.css";
 import "./globals.css";
 import "./portfolio.css";
 import "./subpages.css";
@@ -46,36 +49,46 @@ import "./conseil.css";
 // Vague 1 des strates : méthodes, mesure de M-001, écriture avec assistance,
 // tenue privée et corrections d’objets publiés.
 import "./strates.css";
+// Refonte du 30 octobre 2026 : le kit de page intérieure commun, l'accueil
+// en cinq actes et les surfaces du catalogue. Chargée en dernier, elle a le
+// dernier mot sur les feuilles historiques.
+import "./refonte.css";
 import localFont from "next/font/local";
 
-const syne = localFont({
-  src: "../public/fonts/syne-variable.ttf",
-  variable: "--font-syne",
+// Trois familles autohébergées, licence SIL Open Font License 1.1, notées
+// dans CREDITS.md : une grotesque variable pour tout le texte, une serif
+// italique pour le seul mot accentué d'un titre, une monospace pour les
+// identifiants de preuve, les dates et les mesures.
+const schibsted = localFont({
+  src: "./fonts/schibsted-grotesk-latin-wght-normal.woff2",
+  variable: "--font-schibsted",
   display: "swap",
-  weight: "400 800",
+  weight: "400 900",
 });
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  variable: "--font-cormorant",
+const newsreader = localFont({
+  src: "./fonts/newsreader-latin-wght-italic.woff2",
+  variable: "--font-newsreader",
   display: "swap",
-  weight: ["300", "400"],
-  style: ["normal", "italic"],
+  style: "italic",
+  weight: "200 800",
+  preload: false,
 });
 
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
+const plexMono = localFont({
+  src: [
+    { path: "./fonts/ibm-plex-mono-latin-400-normal.woff2", weight: "400" },
+    { path: "./fonts/ibm-plex-mono-latin-500-normal.woff2", weight: "500" },
+  ],
+  variable: "--font-plex-mono",
   display: "swap",
-  weight: ["300", "400", "500"],
+  preload: false,
 });
 
-const courierPrime = Courier_Prime({
-  subsets: ["latin"],
-  variable: "--font-courier-prime",
-  display: "swap",
-  weight: ["400", "700"],
-});
+// Le rideau d'épure de l'accueil : posé AVANT la première peinture, et
+// seulement à la première visite, hors réduction de mouvement. Sans script,
+// il n'existe pas : le titre et le contenu sont visibles d'emblée.
+const SCRIPT_RIDEAU = `try{var d=document.documentElement;if(location.pathname==="/"&&!localStorage.getItem("adama-rideau")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-rideau","");localStorage.setItem("adama-rideau","1")}}catch(e){}`;
 
 // L8-T5, Métadonnées home. L'image OG est générée au build par
 // app/opengraph-image.tsx (statique : aucune donnée dynamique).
@@ -133,9 +146,12 @@ export const metadata: Metadata = {
   },
 };
 
-// Barre du navigateur mobile : la creme du fond, comme le symbole.
+// Barre du navigateur mobile : l'ivoire du fond en clair, l'encre en sombre.
 export const viewport: Viewport = {
-  themeColor: "#F2EDE4",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8f3ea" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0f1a" },
+  ],
 };
 
 // L8-T5 puis L8-T9, JSON-LD : identité machine-lisible pour Google et les
@@ -218,8 +234,11 @@ export default function RootLayout({
     <html
       lang="fr"
       suppressHydrationWarning
-      className={`${syne.variable} ${cormorant.variable} ${dmSans.variable} ${courierPrime.variable}`}
+      className={`${schibsted.variable} ${newsreader.variable} ${plexMono.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_RIDEAU }} />
+      </head>
       <body className="antialiased">
         <script
           type="application/ld+json"
@@ -227,6 +246,7 @@ export default function RootLayout({
         />
         {children}
         <ConsentBanner />
+        <IleDefilement />
       </body>
     </html>
   );

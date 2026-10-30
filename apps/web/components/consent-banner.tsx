@@ -51,7 +51,7 @@ export function ConsentBanner() {
     >
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="font-mono text-xs leading-relaxed text-muted">
-          <span className="text-emerald">$</span> analytics : mesure
+          <span className="text-signal">$</span> analytics : mesure
           d&apos;audience anonyme via PostHog (UE), aucune pub, aucun tracking
           tiers.{" "}
           <span className="text-faint">Refuser ne change rien au site.</span>

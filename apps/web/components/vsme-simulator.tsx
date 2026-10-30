@@ -180,9 +180,9 @@ const MODEL: PillarSpec[] = [
 ];
 
 const PILLAR_ACCENT: Record<Pillar, string> = {
-  E: "text-emerald-bright",
-  S: "text-emerald-bright",
-  G: "text-emerald-bright",
+  E: "text-signal-bright",
+  S: "text-signal-bright",
+  G: "text-signal-bright",
 };
 
 // Valeurs par défaut : point de départ crédible d'une PME qui débute.
@@ -225,7 +225,7 @@ function pillarScore(spec: PillarSpec, values: Record<string, number>): number {
   return weights > 0 ? (total / weights) * 100 : 0;
 }
 
-type Rating = { label: string; variant: "default" | "emerald" | "warning" };
+type Rating = { label: string; variant: "default" | "signal" | "warning" };
 
 // C1-T6, restitution. Les seuils n'ont pas bougé, les libellés si. « Exemplaire »
 // est un jugement de valeur, et ce prototype n'est pas en position d'en porter
@@ -233,8 +233,8 @@ type Rating = { label: string; variant: "default" | "emerald" | "warning" };
 // d'autre.
 function rating(score: number): Rating {
   if (score >= 80)
-    return { label: "Déclaration très complète", variant: "emerald" };
-  if (score >= 60) return { label: "Déclaration avancée", variant: "emerald" };
+    return { label: "Déclaration très complète", variant: "signal" };
+  if (score >= 60) return { label: "Déclaration avancée", variant: "signal" };
   if (score >= 40)
     return { label: "Déclaration partielle", variant: "warning" };
   return { label: "Déclaration au démarrage", variant: "default" };
@@ -281,7 +281,7 @@ function Gauge({ score }: { score: number }) {
           cy="60"
           r={r}
           fill="none"
-          stroke="var(--color-emerald)"
+          stroke="var(--color-signal)"
           strokeWidth="10"
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -289,12 +289,12 @@ function Gauge({ score }: { score: number }) {
           className="transition-[stroke-dashoffset] duration-500 ease-out"
           style={{
             filter:
-              "drop-shadow(0 0 6px color-mix(in oklch, var(--color-emerald) 55%, transparent))",
+              "drop-shadow(0 0 6px color-mix(in srgb, var(--color-signal) 55%, transparent))",
           }}
         />
       </svg>
       <div className="absolute flex flex-col items-center">
-        <span className="font-mono text-3xl font-semibold tabular-nums text-emerald-bright">
+        <span className="font-mono text-3xl font-semibold tabular-nums text-signal-bright">
           {Math.round(score)}
         </span>
         <span className="font-mono text-[0.55rem] uppercase tracking-[0.2em] text-faint">
@@ -326,7 +326,7 @@ function PillarBar({
       </div>
       <div className="h-2 overflow-hidden rounded-full border border-border bg-surface-raised">
         <div
-          className="h-full rounded-full bg-emerald transition-[width] duration-500 ease-out"
+          className="h-full rounded-full bg-signal transition-[width] duration-500 ease-out"
           style={{ width: `${Math.max(0, Math.min(100, score))}%` }}
         />
       </div>
@@ -350,7 +350,7 @@ function ToggleField({
       aria-pressed={active}
       className={`flex items-center justify-between gap-3 rounded-[calc(var(--radius)_-_0.125rem)] border px-3 py-2 text-left font-mono text-xs transition-colors ${
         active
-          ? "border-emerald bg-[color-mix(in_oklch,var(--color-emerald)_12%,transparent)] text-emerald-bright"
+          ? "border-signal bg-[color-mix(in_srgb,var(--color-signal)_12%,transparent)] text-signal-bright"
           : "border-border bg-surface-raised text-muted hover:border-border-strong"
       }`}
     >
@@ -358,7 +358,7 @@ function ToggleField({
       <span
         aria-hidden
         className={`shrink-0 rounded px-1.5 py-0.5 text-[0.6rem] uppercase tracking-[0.14em] ${
-          active ? "bg-emerald/20 text-emerald-bright" : "text-faint"
+          active ? "bg-signal/20 text-signal-bright" : "text-faint"
         }`}
       >
         {active ? "oui" : "non"}
@@ -382,7 +382,7 @@ function SliderField({
     <label className="block rounded-[calc(var(--radius)_-_0.125rem)] border border-border bg-surface-raised px-3 py-2">
       <span className="flex items-baseline justify-between gap-3">
         <span className="font-mono text-xs text-muted">{label}</span>
-        <span className="font-mono text-xs tabular-nums text-emerald-bright">
+        <span className="font-mono text-xs tabular-nums text-signal-bright">
           {value}
           {suffix}
         </span>
@@ -394,7 +394,7 @@ function SliderField({
         step={5}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="mt-2 w-full accent-emerald"
+        className="mt-2 w-full accent-signal"
       />
     </label>
   );
@@ -426,7 +426,7 @@ export function VsmeSimulator() {
           Prototype VSME, traitement d&apos;un questionnaire
         </CardTitle>
         <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="emerald">Prototype interactif</Badge>
+          <Badge variant="signal">Prototype interactif</Badge>
           <Badge variant="default">Module de Base</Badge>
           <Badge variant="warning">Ni évaluation, ni certification</Badge>
         </div>
@@ -525,7 +525,7 @@ export function VsmeSimulator() {
               key={regle.etape}
               className="rounded-[calc(var(--radius)_-_0.125rem)] border border-border bg-surface-raised px-3 py-3"
             >
-              <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-emerald">
+              <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-signal">
                 {`0${i + 1}`} · {regle.etape}
               </p>
               <p className="mt-1.5 text-xs leading-relaxed text-muted">
@@ -538,7 +538,7 @@ export function VsmeSimulator() {
 
       <CardFooter>
         <p className="font-mono text-[0.65rem] leading-relaxed text-faint">
-          <span className="text-emerald">$</span> sortie d&apos;un prototype de
+          <span className="text-signal">$</span> sortie d&apos;un prototype de
           traitement, calculée dans votre navigateur à partir de vos seules
           déclarations. Sans valeur d&apos;évaluation, de notation ni
           d&apos;audit.

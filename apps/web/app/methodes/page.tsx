@@ -71,7 +71,7 @@ export default function MethodesPage() {
             <span className="serif"> rien ne monte sans preuve.</span>
           </h2>
         </div>
-        <ol>
+        <ol tabIndex={0} aria-label="Les cinq états, défilables">
           {parEtat.map(({ etat, nombre }, index) => (
             <li key={etat} data-etat={etat} data-vide={nombre === 0}>
               <span>{String(index + 1).padStart(2, "0")}</span>

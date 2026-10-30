@@ -8,17 +8,32 @@ function read(relativePath: string) {
   return readFileSync(join(WEB_ROOT, relativePath), "utf8");
 }
 
-describe("charte typographique STRATA ESG", () => {
-  it("charge uniquement les quatre familles prévues par la charte", () => {
+describe("charte typographique ADAMA OS (révision du 30 octobre 2026)", () => {
+  it("charge uniquement les trois familles autohébergées de la charte", () => {
     const layout = read("app/layout.tsx");
     const globals = read("app/globals.css");
 
     expect(layout).not.toContain("geist/font");
-    expect(layout).toContain("--font-syne");
-    expect(layout).toContain("--font-cormorant");
-    expect(layout).toContain("--font-dm-sans");
-    expect(layout).toContain("--font-courier-prime");
+    expect(layout).not.toContain("next/font/google");
+    expect(layout).toContain("--font-schibsted");
+    expect(layout).toContain("--font-newsreader");
+    expect(layout).toContain("--font-plex-mono");
+    for (const ancienne of ["syne", "cormorant", "dm-sans", "courier-prime"]) {
+      expect(layout).not.toContain(`--font-${ancienne}`);
+    }
     expect(globals).not.toContain("font-geist");
+  });
+
+  it("note la licence de chaque police autohébergée", () => {
+    const credits = readFileSync(join(WEB_ROOT, "CREDITS.md"), "utf8");
+    for (const famille of [
+      "Schibsted Grotesk",
+      "Newsreader",
+      "IBM Plex Mono",
+    ]) {
+      expect(credits).toContain(famille);
+    }
+    expect(credits).toContain("SIL Open Font License");
   });
 
   it("ne laisse aucune ancienne police éditoriale dans les feuilles publiques", () => {
@@ -29,6 +44,8 @@ describe("charte typographique STRATA ESG", () => {
       "app/narrative.css",
       "app/systeme.css",
       "app/expansion.css",
+      "app/identite.css",
+      "app/refonte.css",
     ]
       .map(read)
       .join("\n");

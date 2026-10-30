@@ -37,7 +37,7 @@ export default function MentionsLegalesPage() {
               value: (
                 <a
                   href={`mailto:${EDITEUR.contact}`}
-                  className="text-emerald underline decoration-dotted hover:text-emerald-bright"
+                  className="text-signal underline decoration-dotted hover:text-signal-bright"
                 >
                   {EDITEUR.contact}
                 </a>

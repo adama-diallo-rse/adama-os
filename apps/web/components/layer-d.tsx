@@ -48,9 +48,9 @@ import { EXPERIENCES } from "../content/profil";
 
 const STATUT: Record<
   EcosystemStatus,
-  { label: string; variant: "emerald" | "warning" | "default"; dot: boolean }
+  { label: string; variant: "signal" | "warning" | "default"; dot: boolean }
 > = {
-  live: { label: "En ligne", variant: "emerald", dot: true },
+  live: { label: "En ligne", variant: "signal", dot: true },
   building: { label: "En construction", variant: "warning", dot: false },
   planned: { label: "En réflexion", variant: "default", dot: false },
 };
@@ -109,7 +109,7 @@ function MetricTile({ row }: { row: AnalyticsRow }) {
       <ClaimNumber
         claim={claim}
         tone="dark"
-        className="font-mono text-lg font-semibold tabular-nums text-emerald-bright"
+        className="font-mono text-lg font-semibold tabular-nums text-signal-bright"
       />
       <p className="mt-0.5 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-faint">
         {metricLabel(row.metric)}
@@ -165,7 +165,7 @@ function ProductTile({
   const statut = STATUT[product.status] ?? STATUT.building;
 
   const contenu = (
-    <div className="flex h-full flex-col rounded-[calc(var(--radius)_-_0.125rem)] border border-border bg-surface-raised px-3 py-3 transition-colors duration-150 group-hover:border-emerald/60 hover:border-border-strong">
+    <div className="flex h-full flex-col rounded-[calc(var(--radius)_-_0.125rem)] border border-border bg-surface-raised px-3 py-3 transition-colors duration-150 group-hover:border-signal/60 hover:border-border-strong">
       <div className="flex items-start justify-between gap-2">
         <p className="font-mono text-sm font-semibold text-foreground">
           {product.name}
@@ -175,14 +175,14 @@ function ProductTile({
         </Badge>
       </div>
       {product.pillar ? (
-        <p className="mt-1 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-emerald">
+        <p className="mt-1 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-signal">
           {product.pillar}
         </p>
       ) : null}
       <div className="mt-2 flex flex-1 items-end justify-between gap-2">
         <span className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-faint">
           {product.url ? (
-            <span className="text-emerald transition-colors group-hover:text-emerald-bright">
+            <span className="text-signal transition-colors group-hover:text-signal-bright">
               ouvrir →
             </span>
           ) : (
@@ -253,9 +253,8 @@ export function LayerD({
           </p>
           {/* C9-T8 : les quatre organisations et leurs rôles sont PROJETÉS
               depuis content/profil.ts, jamais recopiés. Le 2 septembre 2026
-              ce bloc portait encore quatre rôles reformulés, dont « Stage
-              Data ESG & Solutions IA » là où la source dit « Data ESG et
-              solutions IA, direction RSE ». Deux parcours pour une seule
+              ce bloc portait encore quatre rôles reformulés, l'un d'eux
+              différent de l'intitulé de la source. Deux parcours pour une seule
               personne, sur la même page d'accueil que la source. */}
           <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             {EXPERIENCES.map((exp) => (
@@ -269,7 +268,7 @@ export function LayerD({
             ))}
           </div>
           <p className="mt-3 font-mono text-xs text-muted">
-            <span className="text-emerald">$</span> status --ecosysteme
+            <span className="text-signal">$</span> status --ecosysteme
             <span className="text-faint">
               {" "}
               · {products.length} produit{products.length > 1 ? "s" : ""} suivi
@@ -286,7 +285,7 @@ export function LayerD({
             </p>
             <Link
               href="/metrics"
-              className="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-emerald transition-colors hover:text-emerald-bright"
+              className="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-signal transition-colors hover:text-signal-bright"
             >
               tout voir →
             </Link>

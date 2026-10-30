@@ -146,7 +146,7 @@ export default function ConfiancePage() {
         </ul>
       </section>
 
-      {/* 3. TRANSPARENCE SUR L'IA */}
+      {/* 3. TRANSPARENCE SUR LE MOTEUR */}
       <section className="trust-section" id="ia">
         <h2>Où un modèle intervient</h2>
         <dl className="trust-ia">

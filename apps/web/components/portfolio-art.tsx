@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { OpenStrataSymbol } from "./open-strata-symbol";
+import { Symbole } from "./marque/symbole";
 
 /** Original illustrations, not product screenshots or measurements. */
 export function ArchitectureArt() {
@@ -24,8 +24,8 @@ export function ArchitectureArt() {
           y2="410"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#536878" />
-          <stop offset="1" stopColor="#14263a" />
+          <stop stopColor="var(--texte-2)" />
+          <stop offset="1" stopColor="var(--feuille-2)" />
         </linearGradient>
         <linearGradient
           id="slab-side"
@@ -35,13 +35,13 @@ export function ArchitectureArt() {
           y2="0"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#14263a" />
-          <stop offset="1" stopColor="#0d1b2a" />
+          <stop stopColor="var(--feuille-2)" />
+          <stop offset="1" stopColor="var(--feuille)" />
         </linearGradient>
         <radialGradient id="sphere" cx=".3" cy=".25" r=".8">
-          <stop stopColor="#f2dfb8" />
-          <stop offset=".55" stopColor="#c9a96e" />
-          <stop offset="1" stopColor="#806332" />
+          <stop stopColor="var(--ocre)" />
+          <stop offset=".55" stopColor="var(--accent)" />
+          <stop offset="1" stopColor="var(--accent-texte)" />
         </radialGradient>
         <filter id="floor-shadow" x="-50%" y="-100%" width="200%" height="300%">
           <feGaussianBlur stdDeviation="17" />
@@ -52,7 +52,7 @@ export function ArchitectureArt() {
           height="48"
           patternUnits="userSpaceOnUse"
         >
-          <path d="M48 0H0V48" stroke="#536878" strokeOpacity=".09" />
+          <path d="M48 0H0V48" stroke="var(--texte-2)" strokeOpacity=".09" />
         </pattern>
       </defs>
       <path fill="url(#art-grid)" d="M0 0h600v570H0z" />
@@ -60,7 +60,7 @@ export function ArchitectureArt() {
         cx="305"
         cy="268"
         r="213"
-        stroke="#8a97a6"
+        stroke="var(--filet-fort)"
         strokeOpacity=".24"
         strokeDasharray="2 7"
       />
@@ -69,13 +69,13 @@ export function ArchitectureArt() {
         cy="480"
         rx="153"
         ry="32"
-        fill="#0d1b2a"
+        fill="var(--feuille)"
         opacity=".22"
         filter="url(#floor-shadow)"
       />
       <path
         d="M72 453 510 201M84 240l436 252M300 32v474"
-        stroke="#536878"
+        stroke="var(--texte-2)"
         strokeOpacity=".23"
         strokeWidth=".8"
       />
@@ -83,16 +83,16 @@ export function ArchitectureArt() {
         {[0, 1, 2, 3, 4].map((i) => (
           <g key={i} transform={`translate(0 ${-i * 57})`}>
             <path d="m132 360 168-97 170 98-169 98z" fill="url(#slab-top)" />
-            <path d="m132 360 169 98v23l-169-98z" fill="#35506b" />
+            <path d="m132 360 169 98v23l-169-98z" fill="var(--feuille-2)" />
             <path d="m301 458 169-97v23l-169 97z" fill="url(#slab-side)" />
             <path
               d="m133 360 168 97 168-96"
-              stroke="#9db0c0"
+              stroke="var(--sur-feuille-2)"
               strokeOpacity=".4"
             />
-            <path d="m210 360 90-52 91 53-90 52z" fill="#c9d2db" />
-            <path d="m210 360 90-52v25l-68 39z" fill="#0d1b2a" />
-            <path d="m300 308 91 53-21 12-70-40z" fill="#24384f" />
+            <path d="m210 360 90-52 91 53-90 52z" fill="var(--fond-creux)" />
+            <path d="m210 360 90-52v25l-68 39z" fill="var(--feuille)" />
+            <path d="m300 308 91 53-21 12-70-40z" fill="var(--filet-feuille)" />
           </g>
         ))}
       </g>
@@ -105,29 +105,33 @@ export function ArchitectureArt() {
       />
       <path
         d="M73 120h74M110 83v74M450 73h45M473 51v44"
-        stroke="#536878"
+        stroke="var(--texte-2)"
         strokeOpacity=".5"
         strokeWidth=".8"
       />
-      <circle cx="301" cy="51" r="4" fill="#806332" />
-      <path d="m301 51 66 0 22-22" stroke="#8a97a6" strokeWidth=".8" />
+      <circle cx="301" cy="51" r="4" fill="var(--accent-texte)" />
+      <path
+        d="m301 51 66 0 22-22"
+        stroke="var(--filet-fort)"
+        strokeWidth=".8"
+      />
       <text
         x="396"
         y="33"
         fontSize="9"
         letterSpacing="2"
-        fill="#536878"
+        fill="var(--texte-2)"
         fontFamily="monospace"
       >
         STRATE 05
       </text>
-      <path d="M132 421H67v53" stroke="#8a97a6" strokeWidth=".8" />
+      <path d="M132 421H67v53" stroke="var(--filet-fort)" strokeWidth=".8" />
       <text
         x="49"
         y="494"
         fontSize="9"
         letterSpacing="2"
-        fill="#536878"
+        fill="var(--texte-2)"
         fontFamily="monospace"
       >
         STRATE 01
@@ -159,10 +163,10 @@ export function ProjectArt({ kind }: { kind: "strata" | "iroko" | "adama" }) {
       <span className="os-orbit" />
       <span className="os-orbit orbit-two" />
       <span className="os-core">
-        <OpenStrataSymbol />
+        <Symbole />
       </span>
       <i />
-      <span className="os-coordinate">PERSONAL OPERATING SYSTEM</span>
+      <span className="os-coordinate">SYSTÈME PERSONNEL</span>
     </div>
   );
 }
