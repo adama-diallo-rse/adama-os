@@ -77,6 +77,19 @@ describe("le mouvement reste hors du chemin critique", () => {
     expect(gsapHorloge).toContain('on("scroll", ScrollTrigger.update)');
   });
 
+  // 7 novembre 2026 : un clic dans le pied de page ouvrait la page suivante
+  // tout en bas, et le retour du navigateur rendait une position fausse.
+  it("tient la position page par page quand Lenis est là", () => {
+    const defilement = lire("components/mouvement/defilement.tsx");
+    expect(defilement).toContain('scrollRestoration = "manual"');
+    expect(defilement).toContain("usePathname()");
+    expect(defilement).toContain('addEventListener("popstate", surRetour');
+    expect(defilement).toContain("immediate: true, force: true");
+    // La décision retour ou lien se prend à la première image : le routeur
+    // de Next rend parfois la page avant notre écouteur de popstate.
+    expect(defilement).toContain("image = requestAnimationFrame(boucle)");
+  });
+
   it("sépare bureau, téléphone et pointeur fin dans les scènes", () => {
     const scenes = lire("components/mouvement/scenes.tsx");
     expect(scenes).toContain("gsap.matchMedia()");
