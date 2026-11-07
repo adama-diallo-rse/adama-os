@@ -2060,8 +2060,18 @@
   border: 1px solid var(--filet-feuille);
   border-radius: 12px;
 }
+/* 7 novembre 2026 : quatre colonnes étroites, et « L’approvisionnement »
+   sortait de sa carte. Le titre suit la largeur de l'écran, se coupe au
+   besoin, et ne déborde jamais. */
+.sante-axe {
+  min-width: 0;
+}
 .sante-axe h3 {
   color: var(--sur-feuille);
+  font-size: clamp(20px, 1.55vw, var(--t-h3));
+  line-height: 1.15;
+  hyphens: auto;
+  overflow-wrap: anywhere;
 }
 .sante-axe h3 span {
   margin-right: 6px;
@@ -2260,4 +2270,100 @@
    Chromium de compter sa largeur (760 px) dans celle de la page. */
 .regimes-defile {
   contain: paint;
+}
+
+/* --- 22. L'en-tête, une ligne à toutes les tailles (7 novembre 2026) ---
+   Chaque libellé tient sur UNE ligne, jamais deux. Quand la place manque,
+   la barre retire des éléments dans cet ordre, sans rien rétrécir au point
+   de casser les proportions : la sortie STRATA ESG (elle reste dans le
+   grand menu), puis les cinq temps du parcours (le grand menu les porte),
+   puis le rendez-vous (le premier écran et le grand menu le portent). La
+   devise de la marque passe en Inter Tight, plus de machine à écrire. */
+.portfolio .entete {
+  flex-wrap: nowrap;
+  gap: clamp(16px, 2vw, 32px);
+  min-height: 72px;
+}
+.portfolio .entete .portfolio-brand {
+  flex: 0 0 auto;
+  gap: 12px;
+  white-space: nowrap;
+}
+.portfolio .entete .portfolio-brand > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font: 700 15px / 1 var(--font-grotesk);
+  letter-spacing: 0.04em;
+}
+.portfolio .entete .brand-caption {
+  margin: 0;
+  font: 600 9.5px / 1 var(--font-grotesk);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--texte-2);
+}
+.portfolio .entete .desktop-nav {
+  flex: 0 1 auto;
+  min-width: 0;
+  gap: clamp(18px, 1.9vw, 30px);
+  margin-inline: auto;
+  font: 560 14px / 1 var(--font-grotesk);
+}
+.portfolio .entete .desktop-nav a {
+  white-space: nowrap;
+  padding-block: 10px;
+}
+.portfolio .entete .desktop-nav .nav-sortie {
+  padding-left: clamp(16px, 1.6vw, 24px);
+}
+.portfolio .entete .header-actions {
+  flex: 0 0 auto;
+  gap: 10px;
+}
+.portfolio .entete .entete-commande {
+  height: 42px;
+  min-height: 42px;
+  padding: 0 16px;
+  font: 600 14px / 1 var(--font-grotesk);
+  white-space: nowrap;
+}
+@media (max-width: 1360px) {
+  .portfolio .entete .desktop-nav .nav-sortie {
+    display: none;
+  }
+}
+@media (max-width: 1180px) {
+  .portfolio .entete .desktop-nav {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .portfolio .entete {
+    min-height: 64px;
+  }
+  .portfolio .entete .portfolio-brand > span:last-child {
+    font-size: 14px;
+  }
+  .portfolio .entete .brand-caption {
+    font-size: 8.5px;
+    letter-spacing: 0.16em;
+  }
+  .portfolio .entete .entete-commande {
+    height: 40px;
+    min-height: 40px;
+    padding: 0 12px;
+  }
+}
+
+/* --- 23. Les libellés sans machine à écrire (7 novembre 2026) ----------
+   --font-code vaut désormais Inter Tight. Les chiffres restent alignés,
+   et les vrais blocs de code gardent une chasse fixe. */
+.portfolio {
+  font-variant-numeric: tabular-nums;
+}
+.portfolio :where(pre, code, kbd, samp),
+.portfolio .mini-code {
+  font-family: var(--font-chasse-fixe);
 }

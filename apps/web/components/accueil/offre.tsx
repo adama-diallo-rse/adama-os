@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { CAL_LINK, CONTACT_EMAIL } from "../types";
+import { CAL_LINK, CAL_URL, CONTACT_EMAIL } from "../types";
 import {
   IconeSituation,
   IllustrationFormule,
@@ -31,7 +31,7 @@ import {
  * bouton ne mène nulle part.
  */
 function lienRendezVous(): { href: string; externe: boolean } {
-  if (CAL_LINK) return { href: `https://cal.com/${CAL_LINK}`, externe: true };
+  if (CAL_LINK) return { href: CAL_URL, externe: true };
   return {
     href: `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
       "Premier échange avec ADAMA OS",

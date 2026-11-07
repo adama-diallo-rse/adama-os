@@ -484,9 +484,12 @@ export function VsmeSimulator() {
         {/* Résultat instantané */}
         <div className="order-1 lg:order-2">
           <div className="rounded-[var(--radius)] border border-border bg-surface-raised p-4">
-            <div className="flex items-center gap-4">
+            {/* 7 novembre 2026 : le badge ne se coupe pas. Quand la carte
+                est trop étroite pour la jauge et le texte côte à côte, le
+                texte passe dessous au lieu de sortir de la carte. */}
+            <div className="flex flex-wrap items-center gap-4">
               <Gauge score={overall} />
-              <div className="min-w-0 space-y-1.5">
+              <div className="min-w-[11.5rem] flex-1 space-y-1.5">
                 <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-faint">
                   Sortie du traitement
                 </p>

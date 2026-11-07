@@ -82,8 +82,15 @@
   --font-serif:
     var(--font-host-grotesk-italique), var(--font-inter-tight-italique),
     "Helvetica Neue", Arial, sans-serif;
+  /* 7 novembre 2026, au soir : Courier Prime quitte le site, à la demande
+     d'Adama. Les libellés, dates et mesures passent en Inter Tight, chiffres
+     à chasse fixe. Les vrais blocs de code gardent une chasse fixe, celle
+     du système (--font-chasse-fixe). */
   --font-code:
-    var(--font-courier-prime), ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    var(--font-inter-tight), "Helvetica Neue", Arial, ui-sans-serif,
+    sans-serif;
+  --font-chasse-fixe:
+    ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas,
     monospace;
 
   --t-display: clamp(2.75rem, 1.55rem + 4.9vw, 6rem);

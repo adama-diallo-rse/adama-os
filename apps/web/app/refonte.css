@@ -1719,14 +1719,19 @@ html[data-symbole3d="actif"]
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 14px;
 }
+/* 7 novembre 2026 : la carte est le lien principal seulement. Le lien vers
+   l'autre langue (bibliothèque) prenait aussi le style de carte et la
+   hauteur pleine, et débordait sur la section suivante. */
 .objet {
-  height: 100%;
-}
-.objet a {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   height: 100%;
+}
+.objet a:not(.objet-autre-langue) {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 10px;
   padding: 20px;
   border: 1px solid var(--filet);
   border-radius: var(--rayon-carte);
@@ -1735,7 +1740,7 @@ html[data-symbole3d="actif"]
     border-color 0.2s var(--ease-out-quart),
     transform 0.2s var(--ease-out-quart);
 }
-.objet a:hover {
+.objet a:not(.objet-autre-langue):hover {
   border-color: var(--texte);
 }
 .objet-tete {
@@ -2270,7 +2275,9 @@ html[data-symbole3d="actif"]
 .objet-autre-langue {
   display: block;
   margin-top: 8px;
+  padding: 0 4px;
   font-size: 13px;
+  line-height: 1.45;
   color: var(--texte-2);
   text-decoration: underline;
 }

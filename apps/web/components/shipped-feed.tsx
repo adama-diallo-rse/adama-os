@@ -88,9 +88,11 @@ function CommitLine({ commit }: { commit: CommitRow }) {
 export function ShippedFeed({ commits }: { commits: CommitRow[] }) {
   return (
     <Card id="shipped" className="scroll-mt-24">
-      <CardHeader>
+      {/* 7 novembre 2026 : en mobile, le badge GitHub sortait de la carte.
+          Les badges passent à la ligne au lieu de déborder. */}
+      <CardHeader className="flex-wrap">
         <CardTitle>Contributions</CardTitle>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Badge
             variant={commits.length > 0 ? "signal" : "default"}
             dot={commits.length > 0}

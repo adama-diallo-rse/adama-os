@@ -22,7 +22,9 @@ describe("charte typographique ADAMA OS (révision du 7 novembre 2026)", () => {
     expect(layout).toContain("--font-host-grotesk");
     expect(layout).toContain("--font-inter-tight");
     expect(layout).toContain("--font-dm-sans");
-    expect(layout).toContain("--font-courier-prime");
+    // 7 novembre 2026, au soir : Courier Prime quitte le site, à la demande
+    // d'Adama. Les libellés passent en Inter Tight.
+    expect(layout).not.toContain("--font-courier-prime");
     for (const ancienne of ["syne", "cormorant", "schibsted", "newsreader"]) {
       expect(layout).not.toContain(`--font-${ancienne}`);
     }
@@ -35,7 +37,6 @@ describe("charte typographique ADAMA OS (révision du 7 novembre 2026)", () => {
       "Host Grotesk",
       "Inter Tight",
       "DM Sans",
-      "Courier Prime",
     ]) {
       expect(credits).toContain(famille);
     }

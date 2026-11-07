@@ -27,7 +27,14 @@ import {
   EVENT_RECRUITER_MODAL,
 } from "../lib/analytics-events";
 import { createClient } from "../lib/supabase/client";
-import { CAL_LINK, CONTACT_EMAIL, CV_DOWNLOAD_NAME, CV_PATH } from "./types";
+import { createPortal } from "react-dom";
+import {
+  CAL_LINK,
+  CAL_URL,
+  CONTACT_EMAIL,
+  CV_DOWNLOAD_NAME,
+  CV_PATH,
+} from "./types";
 import { ACTIVITE, IDENTITE, OUVERTURE } from "../content/profil";
 
 type SubmitState = "idle" | "sending" | "done" | "error";
@@ -182,7 +189,12 @@ export function RecruitModal({
     [email, company, state],
   );
 
-  return (
+  // 7 novembre 2026 : la fenêtre part dans document.body. Montée dans un
+  // bloc animé (transform), une position fixed se calait sur ce bloc et la
+  // fenêtre s'affichait rognée dans quelques pixels de hauteur (/a-propos).
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <AnimatePresence>
       {open ? (
         <motion.div
@@ -279,7 +291,7 @@ export function RecruitModal({
               {showCal && CAL_LINK ? (
                 <div className="overflow-hidden rounded-[calc(var(--radius)_-_0.25rem)] border border-border">
                   <iframe
-                    src={`https://cal.com/${CAL_LINK}?theme=dark&layout=month_view`}
+                    src={`${CAL_URL}?embed=true&theme=dark&layout=month_view`}
                     title="Prendre rendez-vous (Cal.com)"
                     className="h-[420px] w-full bg-surface-raised"
                     loading="lazy"
@@ -347,6 +359,7 @@ export function RecruitModal({
           </motion.div>
         </motion.div>
       ) : null}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

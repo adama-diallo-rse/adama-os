@@ -62,8 +62,8 @@ import localFont from "next/font/local";
 // strata-esg.fr, pour que les maisons parlent d'une même voix. Trois
 // familles autohébergées, licence SIL Open Font License 1.1, notées dans
 // CREDITS.md : Inter Tight pour les titres et l'interface (le mot accentué
-// en italique), DM Sans pour le texte courant, Courier Prime pour les
-// identifiants de preuve, les dates et les mesures.
+// en italique), DM Sans pour le texte courant. Courier Prime a quitté le
+// site le 7 novembre au soir : les libellés passent en Inter Tight.
 const interTight = localFont({
   src: "./fonts/inter-tight-latin-wght-normal.woff2",
   variable: "--font-inter-tight",
@@ -104,16 +104,6 @@ const dmSans = localFont({
   variable: "--font-dm-sans",
   display: "swap",
   weight: "100 1000",
-});
-
-const courierPrime = localFont({
-  src: [
-    { path: "./fonts/courier-prime-latin-400-normal.woff2", weight: "400" },
-    { path: "./fonts/courier-prime-latin-700-normal.woff2", weight: "700" },
-  ],
-  variable: "--font-courier-prime",
-  display: "swap",
-  preload: false,
 });
 
 // Le rideau d'épure de l'accueil : posé AVANT la première peinture, et
@@ -265,7 +255,7 @@ export default function RootLayout({
     <html
       lang="fr"
       suppressHydrationWarning
-      className={`${hostGrotesk.variable} ${hostGroteskItalique.variable} ${interTight.variable} ${interTightItalique.variable} ${dmSans.variable} ${courierPrime.variable}`}
+      className={`${hostGrotesk.variable} ${hostGroteskItalique.variable} ${interTight.variable} ${interTightItalique.variable} ${dmSans.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: SCRIPT_RIDEAU }} />
