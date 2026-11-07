@@ -431,3 +431,45 @@ EK). Une demande que la règle d'acceptation refuse n'est jamais enregistrée.
 
 Tant que l'étape 2 n'est pas faite, le formulaire qualifie la demande puis
 propose un courriel pré-rempli : rien n'est enregistré.
+
+## 12. Les numéros de SIGNAL, EH4, même projet dédié
+
+Jusqu'au 7 novembre 2026, la console n'envoyait que la note trimestrielle.
+La migration `packages/db/migrations-lettre/0003_editions.sql` ajoute le
+numéro de SIGNAL lui-même : un numéro à vie, cinq blocs dans un ordre fixe,
+une version française et une version anglaise, une source primaire par
+langue.
+
+**Mise en service, une seule fois.** Dans le projet Supabase dédié à la
+lettre, SQL Editor, coller le fichier entier et l'exécuter, après 0001 et
+0002. La migration est idempotente. Ses trois contrôles de fin de fichier
+doivent rendre : 3 tables à `rls = true` et `politiques = 0` ; 0 fonction
+exécutable par `anon` ; 1 ligne `lettre_evenements_type_check`.
+
+**Envoyer un numéro.**
+
+1. `/admin/lettre#editions`, bouton « Importer le stock » : les dix numéros
+   rédigés (`apps/web/content/signal-stock.ts`) entrent en brouillons non
+   relus. L'import ne touche jamais un numéro déjà présent.
+2. « Modifier » sur le numéro, relire les deux langues dans l'aperçu,
+   cocher la relecture, enregistrer.
+3. « M'envoyer les deux essais » : un message en français, un en anglais,
+   vers le compte connecté seulement.
+4. « Envoyer le lot du jour » : chaque abonné reçoit le numéro dans la
+   langue choisie à l'inscription. Au-delà du plafond du jour, réserve des
+   confirmations comprise, le reste part le lendemain par le même bouton,
+   sans doublon. Le numéro passe « Paru » quand plus personne ne l'attend.
+5. Le numéro a alors sa page publique, `/lettre/001` et `/lettre/001?langue=en`,
+   listée sur `/lettre` et dans le sitemap.
+
+**Ce que la base refuse.** Un numéro ne part pas sans relecture, ni avant
+les numéros plus petits, ni pendant l'envoi d'un autre numéro ou d'une note.
+Un numéro parti ne se supprime pas et son texte ne change que par
+« Corriger » : un motif de 10 à 400 caractères, publié sous le numéro avec le
+texte d'avant, et la version monte d'un cran. Aucune mention
+d'intelligence artificielle n'entre en base (`lettre_editions_sans_ia`),
+le contrôle de la console le dit avant.
+
+**Ce qui change pour le lecteur.** Dès le premier numéro paru, la page
+`/lettre` montre le dernier numéro et l'archive, et le message de bienvenue
+cesse de dire que la lettre n'a pas commencé : il pointe le dernier numéro.

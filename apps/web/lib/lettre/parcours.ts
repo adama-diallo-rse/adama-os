@@ -34,6 +34,7 @@ import {
   messageNote,
   type Note,
 } from "./messages";
+import { editionsParues } from "./registre-editions";
 import {
   type BilanPurge,
   type Destinataire,
@@ -63,7 +64,7 @@ function lienConfirmation(jeton: string, site = SITE_URL): string {
   return `${site}${CHEMIN_ROUTE}?confirmation=${encodeURIComponent(jeton)}`;
 }
 
-function lienDesinscription(
+export function lienDesinscription(
   config: ConfigLettre,
   abonneId: string,
   site = SITE_URL,
@@ -136,13 +137,33 @@ export async function verifierLien(
   return etatJeton(config, empreinte);
 }
 
+/**
+ * Le dernier numero paru, pour la bienvenue. Une base ou 0003_editions
+ * n'est pas encore jouee repond par une erreur : la bienvenue part alors
+ * dans sa forme d'attente plutot que de ne pas partir.
+ */
+async function dernierNumero(
+  config: ConfigLettre,
+): Promise<{ numero: number; titre: string } | null> {
+  try {
+    const [dernier] = await editionsParues(config);
+    return dernier
+      ? { numero: dernier.contenu.numero, titre: dernier.contenu.fr.titre }
+      : null;
+  } catch {
+    return null;
+  }
+}
+
 async function accueillir(
   config: ConfigLettre,
   destinataire: Destinataire,
+  parue?: { numero: number; titre: string } | null,
 ): Promise<boolean> {
   const contenu = messageBienvenue({
     desinscription: lienDesinscription(config, destinataire.abonneId),
     site: SITE_URL,
+    parue: parue === undefined ? await dernierNumero(config) : parue,
   });
   const envoi = await envoyer(
     config,
@@ -213,10 +234,11 @@ export async function entretenir(config: ConfigLettre): Promise<{
     Math.min(20, config.plafondJour - RESERVE_CONFIRMATIONS - deja),
   );
   const attente = await bienvenuesEnAttente(config, disponible);
+  const parue = attente.length > 0 ? await dernierNumero(config) : null;
   let envoyees = 0;
   let enEchec = 0;
   for (const destinataire of attente) {
-    if (await accueillir(config, destinataire)) envoyees += 1;
+    if (await accueillir(config, destinataire, parue)) envoyees += 1;
     else enEchec += 1;
   }
   return { purge, bienvenues: { envoyees, en_echec: enEchec } };
@@ -224,7 +246,7 @@ export async function entretenir(config: ConfigLettre): Promise<{
 
 // --- 5. Note trimestrielle --------------------------------------------------
 
-type BilanLot =
+export type BilanLot =
   | { etat: "refus"; raison: string }
   | {
       etat: "lot_envoye";

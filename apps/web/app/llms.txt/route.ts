@@ -99,7 +99,7 @@ une autre version ailleurs, c'est celle-ci qui fait foi.
 - Mesure de résultat de M-001, rejouable sans compte : ${absoluteUrl("/methodes/m-001#mesure")}
 - Ce qui est écrit avec assistance et ce qui ne l’est pas : ${absoluteUrl("/ecriture")}
 - Journal de construction, lisible et brut : ${absoluteUrl("/journal")}
-- Lettre SIGNAL, consentement et mention d'information : ${absoluteUrl("/lettre")}
+- Lettre SIGNAL, numéros parus, consentement et mention d'information : ${absoluteUrl("/lettre")}
 - Notes de fond, en français et en anglais : ${absoluteUrl("/articles")}
 - Les réalisations, quatre maisons et leurs terrains : ${absoluteUrl("/projets")}
 - Comment je travaille, étapes, règles et vérifications : ${absoluteUrl("/comment-je-travaille")}

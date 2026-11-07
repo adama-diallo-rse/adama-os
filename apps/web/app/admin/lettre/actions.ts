@@ -27,14 +27,34 @@ import {
   empreinteAdresse,
   normaliserAdresse,
 } from "../../../lib/lettre/jetons";
+import {
+  CLES_BLOCS,
+  differences,
+  examinerEdition,
+  numeroAffiche,
+  type ContenuEdition,
+  type VersionEdition,
+} from "../../../lib/lettre/editions";
 import { examinerNote, type Note } from "../../../lib/lettre/messages";
 import { envoyerLotNote, envoyerTest } from "../../../lib/lettre/parcours";
+import {
+  envoyerLotEdition,
+  envoyerTestEdition,
+} from "../../../lib/lettre/parcours-editions";
 import {
   desinscrireParEmpreinte,
   enregistrerNote as ecrireNote,
   exporter,
   listerNotes,
 } from "../../../lib/lettre/registre";
+import {
+  corrigerEdition,
+  enregistrerEdition as ecrireEdition,
+  importerEditions,
+  listerEditions,
+  supprimerBrouillon,
+} from "../../../lib/lettre/registre-editions";
+import { STOCK_SIGNAL } from "../../../content/signal-stock";
 import { createClient } from "../../../lib/supabase/server";
 
 export type EtatConsole = {
@@ -42,6 +62,7 @@ export type EtatConsole = {
   message?: string;
   details?: string[];
   noteId?: string;
+  editionId?: string;
   export?: string;
 };
 
@@ -258,4 +279,227 @@ export async function exercerDroit(
   } catch (erreur) {
     return { statut: "erreur", message: message(erreur) };
   }
+}
+
+// =====================================================================
+// EH4, les editions SIGNAL.
+//
+// Un brouillon s'ecrit librement. Un numero parti ne se reecrit que par
+// une correction motivee, que la base trace (lettre_edition_corriger). Le
+// meme examen que dans le navigateur tourne ici avant toute ecriture.
+// =====================================================================
+
+function lireVersion(donnees: FormData, langue: "fr" | "en"): VersionEdition {
+  const champ = (nom: string) =>
+    String(donnees.get(`${nom}_${langue}`) ?? "")
+      .replace(/\s*\n+\s*/g, " ")
+      .trim();
+  const version = {
+    titre: champ("titre"),
+    source: champ("source"),
+  } as VersionEdition;
+  for (const cle of CLES_BLOCS) version[cle] = champ(cle);
+  return version;
+}
+
+function lireEdition(donnees: FormData): ContenuEdition {
+  return {
+    numero: Number.parseInt(String(donnees.get("numero") ?? ""), 10),
+    fr: lireVersion(donnees, "fr"),
+    en: lireVersion(donnees, "en"),
+  };
+}
+
+function retour(issue: Record<string, string>): never {
+  revalidatePath("/admin/lettre");
+  revalidatePath("/lettre");
+  redirect(`/admin/lettre?${new URLSearchParams(issue).toString()}#editions`);
+}
+
+export async function enregistrerEdition(
+  _precedent: EtatConsole,
+  donnees: FormData,
+): Promise<EtatConsole> {
+  const garde = await garder();
+  if (!garde.ok) return garde.etat;
+
+  const edition = lireEdition(donnees);
+  const verdict = examinerEdition(edition);
+  if (verdict.bloquants.length > 0) {
+    return {
+      statut: "erreur",
+      message: "Le numéro n’est pas enregistré.",
+      details: verdict.bloquants,
+    };
+  }
+  const relue = donnees.get("relue") === "oui";
+  const idBrut = String(donnees.get("id") ?? "");
+  const n = numeroAffiche(edition.numero);
+  try {
+    const editions = await listerEditions(garde.config);
+    const existante = editions.find((e) => e.id === idBrut) ?? null;
+
+    if (existante && existante.statut !== "brouillon") {
+      const motif = String(donnees.get("motif") ?? "").trim();
+      if (motif.length < 10 || motif.length > 400) {
+        return {
+          statut: "erreur",
+          message:
+            "Ce numéro est parti : une correction demande un motif de 10 à 400 caractères, publié avec elle.",
+        };
+      }
+      if (edition.numero !== existante.contenu.numero) {
+        return { statut: "erreur", message: "Un numéro est attribué à vie." };
+      }
+      const champs = differences(existante.contenu, edition);
+      if (Object.keys(champs).length === 0) {
+        return { statut: "erreur", message: "La correction ne change rien." };
+      }
+      const version = await corrigerEdition(
+        garde.config,
+        existante.id,
+        champs,
+        motif,
+      );
+      revalidatePath("/admin/lettre");
+      revalidatePath("/lettre");
+      revalidatePath(`/lettre/${n}`);
+      return {
+        statut: "ok",
+        message: `SIGNAL #${n} corrigé, version ${version}. La correction et son motif sont publiés sur la page du numéro.`,
+        editionId: existante.id,
+      };
+    }
+
+    const doublon = editions.find(
+      (e) => e.contenu.numero === edition.numero && e.id !== existante?.id,
+    );
+    if (doublon) {
+      return {
+        statut: "erreur",
+        message: `Le numéro ${n} existe déjà. Un numéro ne se réutilise jamais.`,
+      };
+    }
+    if (existante && existante.contenu.numero !== edition.numero) {
+      return { statut: "erreur", message: "Un numéro est attribué à vie." };
+    }
+    const id = await ecrireEdition(garde.config, {
+      id: existante?.id ?? null,
+      contenu: edition,
+      relue,
+    });
+    revalidatePath("/admin/lettre");
+    return {
+      statut: "ok",
+      message: relue
+        ? `SIGNAL #${n} enregistré et marqué relu. Il peut partir.`
+        : `SIGNAL #${n} enregistré en brouillon. Cochez la relecture avant l’envoi.`,
+      editionId: id,
+    };
+  } catch (erreur) {
+    return { statut: "erreur", message: message(erreur) };
+  }
+}
+
+export async function envoyerEssaiEdition(
+  _precedent: EtatConsole,
+  donnees: FormData,
+): Promise<EtatConsole> {
+  const garde = await garder();
+  if (!garde.ok) return garde.etat;
+  const edition = lireEdition(donnees);
+  const verdict = examinerEdition(edition);
+  if (verdict.bloquants.length > 0) {
+    return {
+      statut: "erreur",
+      message: "L’essai ne part pas tant que le numéro a des points bloquants.",
+      details: verdict.bloquants,
+    };
+  }
+  try {
+    const r = await envoyerTestEdition(garde.config, edition, garde.email);
+    return r.ok
+      ? {
+          statut: "ok",
+          message: `Deux essais envoyés à ${garde.email}, en français et en anglais.`,
+        }
+      : { statut: "erreur", message: r.raison ?? "Essai non envoyé." };
+  } catch (erreur) {
+    return { statut: "erreur", message: message(erreur) };
+  }
+}
+
+export async function envoyerLotEditionDuJour(
+  donnees: FormData,
+): Promise<void> {
+  const garde = await garder();
+  const issue = await (async (): Promise<Record<string, string>> => {
+    if (!garde.ok) return { erreur: garde.etat.message ?? "Refus." };
+    const id = String(donnees.get("id") ?? "");
+    try {
+      const edition = (await listerEditions(garde.config)).find(
+        (e) => e.id === id,
+      );
+      if (!edition) return { erreur: "Numéro introuvable." };
+      const verdict = examinerEdition(edition.contenu);
+      if (verdict.bloquants.length > 0) {
+        return { erreur: verdict.bloquants.join(" ") };
+      }
+      const bilan = await envoyerLotEdition(garde.config, edition);
+      if (bilan.etat === "refus") return { erreur: bilan.raison };
+      const n = numeroAffiche(edition.contenu.numero);
+      const pluriel = bilan.envoyes > 1 ? "s" : "";
+      const suite = bilan.reste
+        ? "Des abonnés restent : relancer le lot demain."
+        : `SIGNAL #${n} est parti à toute la liste et sa page publique est en ligne.`;
+      return {
+        ok: `${bilan.envoyes} message${pluriel} parti${pluriel}, ${bilan.en_echec} en échec. ${suite}`,
+      };
+    } catch (erreur) {
+      return { erreur: message(erreur) };
+    }
+  })();
+  retour(issue);
+}
+
+export async function importerStockSignal(): Promise<void> {
+  const garde = await garder();
+  const issue = await (async (): Promise<Record<string, string>> => {
+    if (!garde.ok) return { erreur: garde.etat.message ?? "Refus." };
+    try {
+      const presents = new Set(
+        (await listerEditions(garde.config)).map((e) => e.contenu.numero),
+      );
+      const manquants = STOCK_SIGNAL.filter((e) => !presents.has(e.numero));
+      const crees = await importerEditions(garde.config, manquants);
+      return {
+        ok:
+          crees > 0
+            ? `${crees} numéro${crees > 1 ? "s" : ""} du stock importé${crees > 1 ? "s" : ""} en brouillon, à relire un par un avant l’envoi.`
+            : "Tout le stock est déjà dans la base. Rien n’a été importé.",
+      };
+    } catch (erreur) {
+      return { erreur: message(erreur) };
+    }
+  })();
+  retour(issue);
+}
+
+export async function supprimerBrouillonEdition(
+  donnees: FormData,
+): Promise<void> {
+  const garde = await garder();
+  const issue = await (async (): Promise<Record<string, string>> => {
+    if (!garde.ok) return { erreur: garde.etat.message ?? "Refus." };
+    if (donnees.get("confirme") !== "oui") {
+      return { erreur: "Suppression non confirmée." };
+    }
+    try {
+      await supprimerBrouillon(garde.config, String(donnees.get("id") ?? ""));
+      return { ok: "Brouillon supprimé. Son numéro redevient libre." };
+    } catch (erreur) {
+      return { erreur: message(erreur) };
+    }
+  })();
+  retour(issue);
 }

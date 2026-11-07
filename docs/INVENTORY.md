@@ -13,15 +13,15 @@ echouer `--check` a chaque seconde.
 
 | Mesure | Valeur |
 | --- | --- |
-| Routes de page | 53 |
+| Routes de page | 54 |
 | Routes d'API | 11 |
-| Composants | 81 |
-| Modules `lib` | 56 |
+| Composants | 82 |
+| Modules `lib` | 61 |
 | Tables Drizzle | 11 |
 | Types enumeres | 14 |
 | Migrations SQL | 12 |
-| Fichiers de test | 67 |
-| Cas de test | 652 |
+| Fichiers de test | 68 |
+| Cas de test | 679 |
 | Dependances directes declarees | 57 |
 
 ## Routes
@@ -30,7 +30,7 @@ echouer `--check` a chaque seconde.
 | --- | --- | --- |
 | `/a-propos` | `apps/web/app/a-propos/page.tsx` | 358 |
 | `/admin/demandes` | `apps/web/app/admin/demandes/page.tsx` | 176 |
-| `/admin/lettre` | `apps/web/app/admin/lettre/page.tsx` | 299 |
+| `/admin/lettre` | `apps/web/app/admin/lettre/page.tsx` | 514 |
 | `/admin` | `apps/web/app/admin/page.tsx` | 98 |
 | `/admin/relecture` | `apps/web/app/admin/relecture/page.tsx` | 227 |
 | `/admin/tenue` | `apps/web/app/admin/tenue/page.tsx` | 183 |
@@ -57,7 +57,8 @@ echouer `--check` a chaque seconde.
 | `/erreurs` | `apps/web/app/erreurs/page.tsx` | 345 |
 | `/expansion` | `apps/web/app/expansion/page.tsx` | 207 |
 | `/journal` | `apps/web/app/journal/page.tsx` | 123 |
-| `/lettre` | `apps/web/app/lettre/page.tsx` | 259 |
+| `/lettre/[numero]` | `apps/web/app/lettre/[numero]/page.tsx` | 341 |
+| `/lettre` | `apps/web/app/lettre/page.tsx` | 342 |
 | `/login` | `apps/web/app/login/page.tsx` | 84 |
 | `/mentions-legales` | `apps/web/app/mentions-legales/page.tsx` | 118 |
 | `/methode` | `apps/web/app/methode/page.tsx` | 127 |
@@ -130,9 +131,9 @@ Les dix plus gros fichiers, toutes categories confondues :
 | `apps/web/components/dashboard.tsx` | 499 |
 | `apps/web/components/kit/illustrations-maison.tsx` | 481 |
 | `apps/web/lib/health/criteria.ts` | 459 |
+| `apps/web/lib/lettre/messages.ts` | 454 |
 | `apps/web/components/ecosystem-map.tsx` | 443 |
 | `apps/web/lib/vocabulaire.ts` | 425 |
-| `apps/web/components/layer-d.tsx` | 394 |
 
 ## Variables d'environnement lues dans le code
 
@@ -146,7 +147,7 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 Hotes distincts appeles ou lies depuis le code :
 
-`${vercel_host}`, `academy.esg-optimizer.fr`, `adamesg-os.fr`, `adamesg-os.fr${a.href}`, `adamesg-os.fr${chemin}`, `africa.esg-optimizer.fr`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `conhama.com`, `esg-optimizer.fr`, `eu.i.posthog.com`, `eur-lex.europa.eu`, `foundation.esg-optimizer.fr`, `ghgprotocol.org`, `github.com`, `officine.pharivo.com`, `pharivo.com`, `schema.org`, `scope.esg-optimizer.fr`, `uptime.betterstack.com`, `watch.esg-optimizer.fr`, `www.efrag.org`, `www.esg-optimizer.fr`, `www.ifrs.org`, `www.notion.so`, `www.strata-esg.fr`
+`${vercel_host}`, `academy.esg-optimizer.fr`, `adamesg-os.fr`, `adamesg-os.fr${a.href}`, `adamesg-os.fr${chemin}`, `africa.esg-optimizer.fr`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `cheatsheetseries.owasp.org`, `conhama.com`, `csrc.nist.gov`, `esg-optimizer.fr`, `eu.i.posthog.com`, `eur-lex.europa.eu`, `foundation.esg-optimizer.fr`, `ghgprotocol.org`, `github.com`, `officine.pharivo.com`, `pharivo.com`, `resend.com`, `schema.org`, `scope.esg-optimizer.fr`, `supabase.com`, `uptime.betterstack.com`, `vercel.com`, `watch.esg-optimizer.fr`, `www.cnil.fr`, `www.cognitect.com`, `www.edpb.europa.eu`, `www.efrag.org`, `www.esg-optimizer.fr`, `www.ifrs.org`, `www.notion.so`, `www.strata-esg.fr`
 
 ### URL absolues du site ecrites en dur
 
@@ -341,10 +342,10 @@ Severite actuelle : `error` (avertissement en vague V0, erreur a partir de V2).
 | N2 | Preuves sociales affichees d'un bloc dans la Couche D | 1 | 4 | tenu |
 | N2 | Experiences citees dans le bandeau de la home | 7 | 6 | **depasse** |
 | N2 | Marques d'organisation affichees sur le site | 8 | 8 | tenu |
-| surface | Routes de page | 53 | 46 | **depasse** |
+| surface | Routes de page | 54 | 46 | **depasse** |
 | surface | Routes d'API | 11 | 11 | tenu |
-| surface | Composants | 81 | 54 | **depasse** |
-| surface | Modules lib | 56 | 54 | **depasse** |
+| surface | Composants | 82 | 54 | **depasse** |
+| surface | Modules lib | 61 | 54 | **depasse** |
 | surface | Lignes du plus gros composant | 719 | 700 | **depasse** |
 | surface | Lignes du plus gros module lib | 459 | 460 | tenu |
 

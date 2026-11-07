@@ -6,24 +6,36 @@ import {
   estAdministrateur,
   lireConfigLettre,
 } from "../../../lib/lettre/config";
+import { editionVide, numeroAffiche } from "../../../lib/lettre/editions";
 import {
   type EtatListe,
   type LigneNote,
   etatListe,
   listerNotes,
 } from "../../../lib/lettre/registre";
+import {
+  type LigneEdition,
+  listerEditions,
+} from "../../../lib/lettre/registre-editions";
 import { createClient } from "../../../lib/supabase/server";
-import { envoyerLotDuJour } from "./actions";
+import { STOCK_SIGNAL } from "../../../content/signal-stock";
+import {
+  envoyerLotDuJour,
+  envoyerLotEditionDuJour,
+  importerStockSignal,
+  supprimerBrouillonEdition,
+} from "./actions";
 import { LexiqueAnglaisEH1 } from "./lexique-anglais";
 import { ExerciceDroits, RedactionNote } from "./redaction";
+import { RedactionEdition } from "./redaction-edition";
 
 // =====================================================================
 // EH0, la console privee de la lettre.
 //
 // Ce qui se lit ici ne sort jamais : aucun compteur d'inscrits n'est publie
 // (XINV-21). La console dit si la plomberie est complete, ce que la liste
-// contient, et porte les deux gestes recurrents : la note du trimestre et
-// les demandes de personnes, acces ou effacement.
+// contient, et porte les gestes recurrents : le numero de SIGNAL (EH4), la
+// note du trimestre et les demandes de personnes, acces ou effacement.
 // =====================================================================
 
 export const dynamic = "force-dynamic";
@@ -52,6 +64,12 @@ const LIBELLES_STATUT = {
   envoyee: "Envoyée",
 } as const;
 
+const LIBELLES_STATUT_EDITION = {
+  brouillon: "Brouillon",
+  envoi_en_cours: "Envoi en cours",
+  envoyee: "Paru",
+} as const;
+
 export default async function ConsoleLettrePage({ searchParams }: Props) {
   const params = await searchParams;
   const supabase = await createClient();
@@ -68,7 +86,9 @@ export default async function ConsoleLettrePage({ searchParams }: Props) {
 
   let etat: EtatListe | null = null;
   let notes: LigneNote[] = [];
+  let editions: LigneEdition[] = [];
   let erreurBase: string | null = null;
+  let erreurEditions: string | null = null;
   if (lecture.ok && administrateur) {
     try {
       [etat, notes] = await Promise.all([
@@ -81,7 +101,25 @@ export default async function ConsoleLettrePage({ searchParams }: Props) {
           ? erreur.message
           : "Base de la lettre illisible.";
     }
+    if (!erreurBase) {
+      try {
+        editions = await listerEditions(lecture.config);
+      } catch (erreur) {
+        erreurEditions =
+          erreur instanceof Error ? erreur.message : "Éditions illisibles.";
+      }
+    }
   }
+
+  const editionChoisie =
+    typeof params.edition === "string"
+      ? (editions.find((e) => e.id === params.edition) ?? null)
+      : null;
+  const prochainNumero =
+    editions.reduce((max, e) => Math.max(max, e.contenu.numero), 0) + 1;
+  const stockManquant = STOCK_SIGNAL.filter(
+    (s) => !editions.some((e) => e.contenu.numero === s.numero),
+  ).length;
 
   const noteChoisie =
     typeof params.note === "string"
@@ -191,6 +229,20 @@ export default async function ConsoleLettrePage({ searchParams }: Props) {
                 <dt>Envois du jour</dt>
                 <dd>{etat.envois_du_jour}</dd>
               </div>
+              {typeof etat.editions_parues === "number" ? (
+                <div>
+                  <dt>Numéros parus</dt>
+                  <dd>{etat.editions_parues}</dd>
+                </div>
+              ) : null}
+              {typeof etat.confirmes_en === "number" ? (
+                <div>
+                  <dt>Lecteurs FR / EN</dt>
+                  <dd>
+                    {etat.confirmes_fr ?? 0} / {etat.confirmes_en}
+                  </dd>
+                </div>
+              ) : null}
             </dl>
             <p className="auth-note" style={{ marginTop: 12 }}>
               Dernière purge de rétention : {dateHeure(etat.derniere_purge)}.
@@ -211,8 +263,171 @@ export default async function ConsoleLettrePage({ searchParams }: Props) {
               <LexiqueAnglaisEH1 />
             </section>
 
+            <section
+              id="editions"
+              className="edition-console"
+              aria-labelledby="editions-titre"
+            >
+              <p className="portfolio-label">4. SIGNAL, LES NUMÉROS</p>
+              <h2 id="editions-titre">
+                {editionChoisie
+                  ? editionChoisie.statut === "brouillon"
+                    ? `Modifier SIGNAL #${numeroAffiche(editionChoisie.contenu.numero)}`
+                    : `Corriger SIGNAL #${numeroAffiche(editionChoisie.contenu.numero)}`
+                  : "Rédiger un numéro"}
+              </h2>
+              <p className="auth-note">
+                Cinq blocs, deux langues, un numéro à vie. Chaque abonné reçoit
+                le numéro dans sa langue. Les numéros partent dans l’ordre, par
+                lots, dans la limite du plafond du jour ; une fois parti, un
+                numéro a sa page publique et ne change plus que par une
+                correction motivée.
+              </p>
+              {erreurEditions ? (
+                <p className="lettre-console-alerte" role="alert">
+                  Les éditions ne sont pas lisibles : {erreurEditions}. Jouer la
+                  migration 0003_editions dans le projet dédié.
+                </p>
+              ) : (
+                <>
+                  {stockManquant > 0 ? (
+                    <form
+                      action={importerStockSignal}
+                      className="edition-stock"
+                    >
+                      <p>
+                        <strong>Stock EX1.</strong> {stockManquant} numéro
+                        {stockManquant > 1 ? "s" : ""} rédigé
+                        {stockManquant > 1 ? "s" : ""} et pas encore dans la
+                        base. L’import les crée en brouillons non relus.
+                      </p>
+                      <button type="submit" className="portfolio-button ghost">
+                        Importer le stock
+                      </button>
+                    </form>
+                  ) : null}
+                  {editions.length ? (
+                    <ol className="edition-liste">
+                      {editions.map((e) => (
+                        <li key={e.id} data-statut={e.statut}>
+                          <div className="edition-liste-tete">
+                            <code>#{numeroAffiche(e.contenu.numero)}</code>
+                            <span
+                              className="edition-statut"
+                              data-statut={e.statut}
+                            >
+                              {LIBELLES_STATUT_EDITION[e.statut]}
+                            </span>
+                            {e.version > 1 ? (
+                              <span className="edition-version">
+                                v{e.version}
+                              </span>
+                            ) : null}
+                          </div>
+                          <div>
+                            <strong>{e.contenu.fr.titre}</strong>
+                            <p className="auth-note">
+                              {e.contenu.en.titre}. {e.envois} envoi
+                              {e.envois > 1 ? "s" : ""}.{" "}
+                              {e.statut === "brouillon"
+                                ? e.relue
+                                  ? "Relu, prêt à partir."
+                                  : "Relecture à cocher."
+                                : e.envoi_termine_le
+                                  ? `Paru le ${dateHeure(e.envoi_termine_le)}.`
+                                  : `Envoi commencé le ${dateHeure(e.envoi_commence_le)}.`}
+                            </p>
+                          </div>
+                          <div className="lettre-actions">
+                            <Link
+                              href={`/admin/lettre?edition=${e.id}#editions`}
+                              className="portfolio-button ghost"
+                            >
+                              {e.statut === "brouillon"
+                                ? "Modifier"
+                                : "Corriger"}
+                            </Link>
+                            {e.statut !== "envoyee" ? (
+                              <form action={envoyerLotEditionDuJour}>
+                                <input type="hidden" name="id" value={e.id} />
+                                <button
+                                  type="submit"
+                                  className="portfolio-button primary"
+                                  disabled={!e.relue}
+                                  title={
+                                    e.relue
+                                      ? undefined
+                                      : "Relecture à cocher avant l’envoi"
+                                  }
+                                >
+                                  {e.statut === "envoi_en_cours"
+                                    ? "Envoyer le lot suivant"
+                                    : "Envoyer le lot du jour"}
+                                </button>
+                              </form>
+                            ) : (
+                              <Link
+                                href={`/lettre/${numeroAffiche(e.contenu.numero)}`}
+                                className="portfolio-button ghost"
+                              >
+                                Voir en ligne ↗
+                              </Link>
+                            )}
+                            {e.statut === "brouillon" ? (
+                              <form
+                                action={supprimerBrouillonEdition}
+                                className="edition-suppression"
+                              >
+                                <input type="hidden" name="id" value={e.id} />
+                                <label className="lettre-coche">
+                                  <input
+                                    type="checkbox"
+                                    name="confirme"
+                                    value="oui"
+                                    required
+                                  />
+                                  Confirmer
+                                </label>
+                                <button
+                                  type="submit"
+                                  className="portfolio-button ghost"
+                                >
+                                  Supprimer
+                                </button>
+                              </form>
+                            ) : null}
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                  ) : null}
+                  <RedactionEdition
+                    key={editionChoisie?.id ?? `nouveau-${prochainNumero}`}
+                    initiale={
+                      editionChoisie?.contenu ?? editionVide(prochainNumero)
+                    }
+                    id={editionChoisie?.id ?? null}
+                    parti={
+                      editionChoisie
+                        ? editionChoisie.statut !== "brouillon"
+                        : false
+                    }
+                    relueInitiale={editionChoisie?.relue ?? false}
+                    version={editionChoisie?.version ?? 1}
+                  />
+                  {editionChoisie ? (
+                    <p className="auth-note">
+                      <Link href="/admin/lettre#editions">
+                        Abandonner et rédiger un nouveau numéro
+                      </Link>
+                    </p>
+                  ) : null}
+                </>
+              )}
+            </section>
+
             <section aria-labelledby="notes-titre">
-              <p className="portfolio-label">4. NOTE DU TRIMESTRE</p>
+              <p className="portfolio-label">5. NOTE DU TRIMESTRE</p>
               <h2 id="notes-titre">
                 {noteChoisie
                   ? `Modifier ${noteChoisie.code}`
@@ -282,7 +497,7 @@ export default async function ConsoleLettrePage({ searchParams }: Props) {
             </section>
 
             <section aria-labelledby="droits-titre">
-              <p className="portfolio-label">5. DEMANDES DE PERSONNES</p>
+              <p className="portfolio-label">6. DEMANDES DE PERSONNES</p>
               <h2 id="droits-titre">Accès et effacement</h2>
               <p className="auth-note">
                 Une demande reçue par écrit se traite ici, puis la réponse part

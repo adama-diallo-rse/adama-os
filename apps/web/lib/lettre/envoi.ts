@@ -32,7 +32,7 @@ const DELAI_MS = 10_000;
 /** Plafond d'un appel groupe chez Resend. */
 export const TAILLE_LOT = 100;
 
-type Categorie = "confirmation" | "bienvenue" | "note" | "test";
+type Categorie = "confirmation" | "bienvenue" | "note" | "edition" | "test";
 
 export type Envoi = {
   destinataire: string;

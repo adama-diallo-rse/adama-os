@@ -12,7 +12,9 @@ import {
 } from "../../content/lettre";
 import { EDITEUR } from "../../lib/legal";
 import { lireConfigLettre } from "../../lib/lettre/config";
+import { numeroAffiche } from "../../lib/lettre/editions";
 import { COOKIE_CONFIRMATION } from "../../lib/lettre/parcours";
+import { lireArchive } from "../../lib/lettre/public";
 import { confirmer } from "./actions";
 import { BoutonConfirmer, FormulaireLettre } from "./formulaire";
 
@@ -25,8 +27,9 @@ import { BoutonConfirmer, FormulaireLettre } from "./formulaire";
 // page ni derriere un lien : elle est sur la page ou l'adresse se donne.
 //
 // La page ne publie aucun compteur d'inscrits (XINV-21). Elle ne promet
-// aucune date de parution : la lettre n'a pas commence a paraitre, et c'est
-// la premiere chose qu'elle dit.
+// aucune date de parution. Tant qu'aucun numero n'est parti, c'est la
+// premiere chose qu'elle dit ; des le premier envoi (EH4), elle montre le
+// dernier numero et l'archive de tous ceux qui sont parus, lue en base.
 //
 // Rendu a la demande : l'etat d'ouverture de la collecte et la presence du
 // cookie de confirmation se lisent a chaque requete.
@@ -63,6 +66,9 @@ export default async function LettrePage({ searchParams }: Props) {
   );
   const lecture = lireConfigLettre();
   const ouverte = lecture.ok && lecture.config.collecteOuverte;
+  const archive = await lireArchive();
+  const parus = archive.etat === "ok" ? archive.editions : [];
+  const dernier = parus[0] ?? null;
 
   const etatAffiche =
     etapeConfirmer && !jetonPresent
@@ -85,14 +91,29 @@ export default async function LettrePage({ searchParams }: Props) {
         }
         description="Une lettre sur la construction de systèmes qui rendent la donnée de durabilité exploitable et vérifiable : un fait extérieur, ce qu’il change dans un système, la décision prise, ce qui a été construit, et une idée encore fermée."
         aside={
-          <div className="intro-note lettre-parution">
-            <span className="intro-note-label">PARUTION</span>
-            <strong>Pas encore.</strong>
-            <p>
-              La lettre n’a pas commencé à paraître. Elle ouvrira quand son
-              rythme pourra être tenu. D’ici là, une note courte par trimestre.
-            </p>
-          </div>
+          dernier ? (
+            <div className="intro-note lettre-parution">
+              <span className="intro-note-label">DERNIER NUMÉRO</span>
+              <strong>#{numeroAffiche(dernier.contenu.numero)}</strong>
+              <p>
+                <Link href={`/lettre/${numeroAffiche(dernier.contenu.numero)}`}>
+                  {dernier.contenu.fr.titre}
+                </Link>
+                . Un numéro toutes les deux semaines, quand il est prêt, et
+                jamais un numéro rempli pour tenir le calendrier.
+              </p>
+            </div>
+          ) : (
+            <div className="intro-note lettre-parution">
+              <span className="intro-note-label">PARUTION</span>
+              <strong>Pas encore.</strong>
+              <p>
+                La lettre n’a pas commencé à paraître. Elle ouvrira quand son
+                rythme pourra être tenu. D’ici là, une note courte par
+                trimestre.
+              </p>
+            </div>
+          )
         }
       />
 
@@ -159,12 +180,21 @@ export default async function LettrePage({ searchParams }: Props) {
               </li>
             ))}
           </ol>
-          <p className="lettre-attente">
-            <span>EN ATTENDANT</span>
-            Une note courte par trimestre, en trois paragraphes : ce qui a été
-            décidé, ce qui a échoué, et où en est la préparation de la lettre.
-            Rien d’autre ne part vers votre adresse.
-          </p>
+          {dernier ? (
+            <p className="lettre-attente">
+              <span>DEUX LANGUES, UN NUMÉRO</span>
+              Chaque numéro paraît en français et en anglais, et vous le recevez
+              dans la langue choisie à l’inscription. Rien d’autre ne part vers
+              votre adresse.
+            </p>
+          ) : (
+            <p className="lettre-attente">
+              <span>EN ATTENDANT</span>
+              Une note courte par trimestre, en trois paragraphes : ce qui a été
+              décidé, ce qui a échoué, et où en est la préparation de la lettre.
+              Rien d’autre ne part vers votre adresse.
+            </p>
+          )}
         </div>
 
         <FormulaireLettre
@@ -174,6 +204,56 @@ export default async function LettrePage({ searchParams }: Props) {
           texteMention={CONSENTEMENT.texteMention}
         />
       </section>
+
+      {parus.length > 0 ? (
+        <section
+          className="lettre-numeros"
+          id="numeros"
+          aria-labelledby="numeros-titre"
+        >
+          <div className="lettre-engagements-tete">
+            <p className="portfolio-label">LES NUMÉROS PARUS</p>
+            <h2 id="numeros-titre">
+              Tout ce qui est paru{" "}
+              <span className="serif">reste en ligne.</span>
+            </h2>
+            <p>
+              Chaque numéro garde sa source, sa version et l’historique de ses
+              corrections, en français et en anglais.
+            </p>
+          </div>
+          <ol className="lettre-numeros-liste" data-cartes>
+            {parus.map((e) => {
+              const n = numeroAffiche(e.contenu.numero);
+              return (
+                <li key={e.id}>
+                  <Link href={`/lettre/${n}`}>
+                    <span className="lettre-numeros-code">#{n}</span>
+                    <span className="lettre-numeros-titre">
+                      {e.contenu.fr.titre}
+                    </span>
+                    <span className="lettre-numeros-en" lang="en">
+                      {e.contenu.en.titre}
+                    </span>
+                    <span className="lettre-numeros-date">
+                      {e.envoi_termine_le
+                        ? new Intl.DateTimeFormat("fr-FR", {
+                            dateStyle: "long",
+                            timeZone: "Europe/Paris",
+                          }).format(new Date(e.envoi_termine_le))
+                        : ""}
+                      {e.version > 1 ? ` · version ${e.version}` : ""}
+                    </span>
+                    <span className="lettre-numeros-fleche" aria-hidden="true">
+                      →
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      ) : null}
 
       <section
         className="lettre-engagements"
@@ -240,9 +320,12 @@ export default async function LettrePage({ searchParams }: Props) {
 
       <section className="page-next">
         <div>
-          <p className="portfolio-label">EN ATTENDANT LA LETTRE</p>
+          <p className="portfolio-label">
+            {dernier ? "ENTRE DEUX NUMÉROS" : "EN ATTENDANT LA LETTRE"}
+          </p>
           <h2>
-            Le travail se publie <span className="serif">déjà.</span>
+            Le travail se publie{" "}
+            <span className="serif">{dernier ? "en continu." : "déjà."}</span>
           </h2>
           <p>
             Le journal de construction agrège les contributions réelles des

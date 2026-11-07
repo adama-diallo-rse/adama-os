@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
   "surface": {
-    "pages": 53,
+    "pages": 54,
     "api_routes": 11,
-    "components": 81,
-    "lib_modules": 56,
+    "components": 82,
+    "lib_modules": 61,
     "tables": 11,
     "enums": 14,
     "migrations": 12,
     "policies": 21,
-    "test_files": 67,
-    "test_cases": 652,
+    "test_files": 68,
+    "test_cases": 679,
     "dependencies": 57
   },
   "pages": [
@@ -27,7 +27,7 @@
     {
       "file": "apps/web/app/admin/lettre/page.tsx",
       "route": "/admin/lettre",
-      "lines": 299
+      "lines": 514
     },
     {
       "file": "apps/web/app/admin/page.tsx",
@@ -160,9 +160,14 @@
       "lines": 123
     },
     {
+      "file": "apps/web/app/lettre/[numero]/page.tsx",
+      "route": "/lettre/[numero]",
+      "lines": 341
+    },
+    {
       "file": "apps/web/app/lettre/page.tsx",
       "route": "/lettre",
-      "lines": 259
+      "lines": 342
     },
     {
       "file": "apps/web/app/login/page.tsx",
@@ -531,6 +536,10 @@
       "lines": 87
     },
     {
+      "file": "apps/web/components/lettre/edition-lue.tsx",
+      "lines": 105
+    },
+    {
       "file": "apps/web/components/marque/stratemark.tsx",
       "lines": 60
     },
@@ -777,6 +786,10 @@
       "lines": 207
     },
     {
+      "file": "apps/web/lib/lettre/editions.ts",
+      "lines": 290
+    },
+    {
       "file": "apps/web/lib/lettre/envoi.ts",
       "lines": 187
     },
@@ -785,16 +798,32 @@
       "lines": 152
     },
     {
+      "file": "apps/web/lib/lettre/message-edition.ts",
+      "lines": 109
+    },
+    {
       "file": "apps/web/lib/lettre/messages.ts",
-      "lines": 390
+      "lines": 454
+    },
+    {
+      "file": "apps/web/lib/lettre/parcours-editions.ts",
+      "lines": 153
     },
     {
       "file": "apps/web/lib/lettre/parcours.ts",
-      "lines": 337
+      "lines": 359
+    },
+    {
+      "file": "apps/web/lib/lettre/public.ts",
+      "lines": 41
+    },
+    {
+      "file": "apps/web/lib/lettre/registre-editions.ts",
+      "lines": 253
     },
     {
       "file": "apps/web/lib/lettre/registre.ts",
-      "lines": 381
+      "lines": 385
     },
     {
       "file": "apps/web/lib/metrics.ts",
@@ -1044,6 +1073,7 @@
       "apps/web/tests/journal.test.ts",
       "apps/web/tests/layer-d.test.tsx",
       "apps/web/tests/legal.test.tsx",
+      "apps/web/tests/lettre-editions.test.ts",
       "apps/web/tests/lettre-page.test.tsx",
       "apps/web/tests/lettre-parcours.test.ts",
       "apps/web/tests/lettre-sql.test.ts",
@@ -1077,15 +1107,15 @@
       "apps/web/tests/trajectory.test.ts",
       "apps/web/tests/vocabulaire.test.ts"
     ],
-    "cases": 652
+    "cases": 679
   },
   "rendu": {
     "pages": 46,
     "pages_mesurees": 46,
     "anomalies": 0,
     "non_mesurees": 0,
-    "poids_max_ko": 891,
-    "noeuds_max": 1842
+    "poids_max_ko": 1038,
+    "noeuds_max": 1859
   },
   "dependencies": [
     {
@@ -1490,7 +1520,9 @@
     "api.openai.com",
     "api.resend.com",
     "cal.com",
+    "cheatsheetseries.owasp.org",
     "conhama.com",
+    "csrc.nist.gov",
     "esg-optimizer.fr",
     "eu.i.posthog.com",
     "eur-lex.europa.eu",
@@ -1499,10 +1531,16 @@
     "github.com",
     "officine.pharivo.com",
     "pharivo.com",
+    "resend.com",
     "schema.org",
     "scope.esg-optimizer.fr",
+    "supabase.com",
     "uptime.betterstack.com",
+    "vercel.com",
     "watch.esg-optimizer.fr",
+    "www.cnil.fr",
+    "www.cognitect.com",
+    "www.edpb.europa.eu",
     "www.efrag.org",
     "www.esg-optimizer.fr",
     "www.ifrs.org",
@@ -2204,7 +2242,7 @@
       "level": "surface",
       "label": "Routes de page",
       "max": 46,
-      "value": 53,
+      "value": 54,
       "broken": false,
       "over": true
     },
@@ -2222,7 +2260,7 @@
       "level": "surface",
       "label": "Composants",
       "max": 54,
-      "value": 81,
+      "value": 82,
       "broken": false,
       "over": true
     },
@@ -2231,7 +2269,7 @@
       "level": "surface",
       "label": "Modules lib",
       "max": 54,
-      "value": 56,
+      "value": 61,
       "broken": false,
       "over": true
     },

@@ -18,21 +18,22 @@
 
 import { RESPONSABLE_LETTRE } from "../../content/lettre";
 import { controlerTexte, type Constat } from "../vocabulaire";
+import { numeroAffiche, objetEdition, type Langue } from "./editions";
 
-type Contenu = { objet: string; texte: string; html: string };
+export type Contenu = { objet: string; texte: string; html: string };
 
 const ENCRE = "#101524";
 const IVOIRE = "#F8F3EA";
-const PIERRE = "#535B6C";
+export const PIERRE = "#535B6C";
 const LATERITE = "#C85B32";
-const LATERITE_TEXTE = "#A13A16";
+export const LATERITE_TEXTE = "#A13A16";
 const BLANC = "#FFFFFF";
 
 const SERIF = "Georgia, 'Times New Roman', serif";
 const SANS = "'Helvetica Neue', Helvetica, Arial, sans-serif";
-const MONO = "'Courier New', Courier, monospace";
+export const MONO = "'Courier New', Courier, monospace";
 
-function echapper(texte: string): string {
+export function echapper(texte: string): string {
   return texte
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -46,25 +47,31 @@ function echapper(texte: string): string {
  * echappe. Un lien vers ailleurs reste du texte : la note ne pointe que
  * vers des preuves publiques d'ADAMA OS.
  */
-function lierSite(texteEchappe: string, site: string): string {
-  const base = site.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const motif = new RegExp(`${base}(?:/[A-Za-z0-9/_#-]*)?`, "g");
-  return texteEchappe.replace(
-    motif,
-    (url) =>
-      `<a href="${url}" style="color:${LATERITE_TEXTE};text-decoration:underline;">${url.replace(/^https?:\/\//, "")}</a>`,
+export function lierSite(texteEchappe: string, site: string): string {
+  const protocole = /^http:\/\//.test(site) ? "http://" : "https://";
+  const hote = site.replace(/^https?:\/\//, "").replace(/\/+$/, "");
+  const base = hote.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  // L'adresse complete ou nue (adamesg-os.fr/decisions), jamais un
+  // sous-domaine : lettre.adamesg-os.fr reste du texte.
+  const motif = new RegExp(
+    `(?<![\\w.-])(?:https?:\\/\\/)?${base}(?:\\/[A-Za-z0-9/_#-]*[A-Za-z0-9/_#-])?`,
+    "g",
   );
+  return texteEchappe.replace(motif, (trouve) => {
+    const chemin = trouve.replace(/^https?:\/\//, "").slice(hote.length);
+    return `<a href="${protocole}${hote}${chemin}" style="color:${LATERITE_TEXTE};text-decoration:underline;">${hote}${chemin}</a>`;
+  });
 }
 
-function paragraphe(html: string): string {
+export function paragraphe(html: string): string {
   return `<p style="margin:0 0 18px;font-family:${SANS};font-size:16px;line-height:1.7;color:${ENCRE};">${html}</p>`;
 }
 
-function etiquette(texte: string): string {
+export function etiquette(texte: string): string {
   return `<p style="margin:0 0 10px;font-family:${MONO};font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:${LATERITE_TEXTE};">${echapper(texte)}</p>`;
 }
 
-function bouton(url: string, libelle: string): string {
+export function bouton(url: string, libelle: string): string {
   return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 26px;"><tr><td style="background:${ENCRE};border-radius:4px;"><a href="${echapper(url)}" style="display:inline-block;padding:15px 22px;font-family:${SANS};font-size:13px;font-weight:bold;letter-spacing:0.08em;text-transform:uppercase;color:${IVOIRE};text-decoration:none;">${echapper(libelle)}</a></td></tr></table>`;
 }
 
@@ -75,21 +82,48 @@ type Gabarit = {
   corps: string;
   desinscription?: string;
   site: string;
+  langue?: Langue;
 };
 
-function enveloppe({
+/** Les mentions du pied, dans la langue de l'abonne. */
+const PIED = {
+  fr: {
+    inscrit:
+      "Vous recevez ce message parce que vous avez confirmé votre inscription à SIGNAL.",
+    sortir: "Se désinscrire en un clic",
+    demande:
+      "Vous recevez ce message parce qu’une inscription à SIGNAL a été demandée avec cette adresse. Sans confirmation, rien d’autre ne partira.",
+    responsable: "Responsable de traitement",
+    mesure: "Aucune mesure d’ouverture ni de clic.",
+    mention: "Mention complète et droits",
+  },
+  en: {
+    inscrit:
+      "You are receiving this message because you confirmed your subscription to SIGNAL.",
+    sortir: "Unsubscribe in one click",
+    demande:
+      "You are receiving this message because a subscription to SIGNAL was requested with this address. Without confirmation, nothing else will be sent.",
+    responsable: "Data controller",
+    mesure: "No open or click tracking.",
+    mention: "Full notice and rights",
+  },
+} as const;
+
+export function enveloppe({
   preentete,
   surtitre,
   titre,
   corps,
   desinscription,
   site,
+  langue = "fr",
 }: Gabarit): string {
+  const m = PIED[langue];
   const pied = desinscription
-    ? `Vous recevez ce message parce que vous avez confirmé votre inscription à SIGNAL. <a href="${echapper(desinscription)}" style="color:${LATERITE_TEXTE};text-decoration:underline;">Se désinscrire en un clic</a>.`
-    : "Vous recevez ce message parce qu’une inscription à SIGNAL a été demandée avec cette adresse. Sans confirmation, rien d’autre ne partira.";
+    ? `${m.inscrit} <a href="${echapper(desinscription)}" style="color:${LATERITE_TEXTE};text-decoration:underline;">${m.sortir}</a>.`
+    : m.demande;
   return `<!doctype html>
-<html lang="fr">
+<html lang="${langue}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -110,7 +144,7 @@ ${corps}
 </td></tr>
 <tr><td style="padding:20px 6px 0;font-family:${SANS};font-size:12px;line-height:1.65;color:${PIERRE};">
 ${pied}<br>
-Responsable de traitement : ${echapper(`${RESPONSABLE_LETTRE.nom}, ${RESPONSABLE_LETTRE.statut}, SIREN ${RESPONSABLE_LETTRE.siren}`)}. Aucune mesure d’ouverture ni de clic. <a href="${echapper(`${site}/lettre#mention`)}" style="color:${LATERITE_TEXTE};text-decoration:underline;">Mention complète et droits</a>.
+${m.responsable} : ${echapper(`${RESPONSABLE_LETTRE.nom}, ${RESPONSABLE_LETTRE.statut}, SIREN ${RESPONSABLE_LETTRE.siren}`)}. ${m.mesure} <a href="${echapper(`${site}/lettre#mention`)}" style="color:${LATERITE_TEXTE};text-decoration:underline;">${m.mention}</a>.
 </td></tr>
 </table>
 </td></tr>
@@ -119,7 +153,12 @@ Responsable de traitement : ${echapper(`${RESPONSABLE_LETTRE.nom}, ${RESPONSABLE
 </html>`;
 }
 
-function piedTexte(site: string, desinscription?: string): string {
+export function piedTexte(
+  site: string,
+  desinscription?: string,
+  langue: Langue = "fr",
+): string {
+  const m = PIED[langue];
   const lignes = [
     "",
     "Adama Diallo",
@@ -128,19 +167,18 @@ function piedTexte(site: string, desinscription?: string): string {
     "---",
   ];
   if (desinscription) {
-    lignes.push(
-      "Vous recevez ce message parce que vous avez confirmé votre inscription à SIGNAL.",
-      `Se désinscrire en un clic : ${desinscription}`,
-    );
+    lignes.push(m.inscrit, `${m.sortir} : ${desinscription}`);
   } else {
     lignes.push(
-      "Une inscription à SIGNAL a été demandée avec cette adresse. Sans confirmation, rien d’autre ne partira.",
+      langue === "fr"
+        ? "Une inscription à SIGNAL a été demandée avec cette adresse. Sans confirmation, rien d’autre ne partira."
+        : m.demande,
     );
   }
   lignes.push(
-    `Responsable de traitement : ${RESPONSABLE_LETTRE.nom}, ${RESPONSABLE_LETTRE.statut}, SIREN ${RESPONSABLE_LETTRE.siren}.`,
-    "Aucune mesure d’ouverture ni de clic.",
-    `Mention complète et droits : ${site}/lettre#mention`,
+    `${m.responsable} : ${RESPONSABLE_LETTRE.nom}, ${RESPONSABLE_LETTRE.statut}, SIREN ${RESPONSABLE_LETTRE.siren}.`,
+    m.mesure,
+    `${m.mention} : ${site}/lettre#mention`,
   );
   return lignes.join("\n");
 }
@@ -207,20 +245,45 @@ export const PARAGRAPHES_BIENVENUE = [
   "Vous pouvez partir à tout moment, en un clic, par le lien placé en bas de chaque message.",
 ] as const;
 
+/**
+ * La bienvenue une fois SIGNAL paru : le paragraphe d'attente cede la place
+ * au rythme reel et au lien vers le dernier numero. Toujours sans date.
+ */
+export const PARAGRAPHES_BIENVENUE_PARUE = [
+  "Votre inscription à SIGNAL est confirmée. Merci d’avoir pris ce temps.",
+  "SIGNAL paraît désormais. Chaque numéro tient en cinq blocs : un fait extérieur daté, ce qu’il change dans un système, la décision prise, ce qui a été construit, et une idée encore fermée.",
+  "Les numéros arrivent ici dès leur parution, et tous ceux déjà parus restent en ligne, avec leurs sources et l’historique de leurs corrections. Le plus récent est juste en dessous.",
+  "Le travail, lui, se publie aussi en continu. Le journal de construction, les décisions d’architecture et les revirements sont en ligne, avec leurs preuves.",
+  "Vous pouvez partir à tout moment, en un clic, par le lien placé en bas de chaque message.",
+] as const;
+
 export function messageBienvenue({
   desinscription,
   site,
+  parue = null,
 }: {
   desinscription: string;
   site: string;
+  /** Le dernier numero paru, s'il y en a un. */
+  parue?: { numero: number; titre: string } | null;
 }): Contenu {
   const objet = "SIGNAL, votre inscription est confirmée";
-  const [a, b, c, d, e] = PARAGRAPHES_BIENVENUE;
-  const liens = [
+  const [a, b, c, d, e] = parue
+    ? PARAGRAPHES_BIENVENUE_PARUE
+    : PARAGRAPHES_BIENVENUE;
+  const liens: (readonly [string, string])[] = [
+    ...(parue
+      ? [
+          [
+            objetEdition(parue.numero, parue.titre),
+            `${site}/lettre/${numeroAffiche(parue.numero)}`,
+          ] as const,
+        ]
+      : []),
     ["Le journal de construction", `${site}/journal`],
     ["Les décisions d’architecture", `${site}/decisions`],
     ["Ce sur quoi je suis revenu", `${site}/revirements`],
-  ] as const;
+  ];
   const listeHtml = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 22px;width:100%;">${liens
     .map(
       ([libelle, url]) =>
@@ -238,8 +301,9 @@ export function messageBienvenue({
   return {
     objet,
     html: enveloppe({
-      preentete:
-        "La lettre n’a pas encore commencé à paraître, et voici ce qui arrive d’ici là.",
+      preentete: parue
+        ? "SIGNAL paraît, et le dernier numéro vous attend."
+        : "La lettre n’a pas encore commencé à paraître, et voici ce qui arrive d’ici là.",
       surtitre: "Bienvenue",
       titre: "Votre inscription est confirmée.",
       corps,

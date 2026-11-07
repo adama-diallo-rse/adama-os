@@ -29,7 +29,7 @@ import {
 
 const REPOS: EtatConsole = { statut: "repos" };
 
-function Retour({ etat }: { etat: EtatConsole }) {
+export function Retour({ etat }: { etat: EtatConsole }) {
   return (
     <AnimatePresence initial={false}>
       {etat.statut !== "repos" ? (
@@ -58,7 +58,7 @@ function Retour({ etat }: { etat: EtatConsole }) {
   );
 }
 
-function Bouton({
+export function Bouton({
   children,
   variante = "primary",
   formAction,

@@ -4,6 +4,8 @@ import { SITE_URL, absoluteUrl } from "../lib/site";
 import { listClaims } from "../lib/proof/claims";
 import { listAdr } from "../lib/adr";
 import { FICHES } from "../content/projets";
+import { numeroAffiche } from "../lib/lettre/editions";
+import { lireArchive } from "../lib/lettre/public";
 
 // L8-T9, sitemap.
 //
@@ -54,6 +56,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })),
     )
     .catch(() => []);
+  // EH4 : un numero de SIGNAL par adresse, des qu'il est paru. Une base de
+  // la lettre muette retire ces lignes, elle ne fait pas echouer le sitemap.
+  const archive = await lireArchive();
+  const numeros =
+    archive.etat === "ok"
+      ? archive.editions.map((e) => ({
+          url: absoluteUrl(`/lettre/${numeroAffiche(e.contenu.numero)}`),
+          lastModified: new Date(e.modifie_le),
+          changeFrequency: "yearly" as const,
+          priority: 0.6,
+        }))
+      : [];
 
   return [
     {
@@ -111,6 +125,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    ...numeros,
     // Refonte du 30 octobre 2026 : le cockpit sur /os, le catalogue et ses
     // surfaces, la racine anglaise.
     {

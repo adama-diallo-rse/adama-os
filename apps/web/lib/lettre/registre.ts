@@ -19,7 +19,7 @@ import type { ConfigLettre } from "./config";
 
 let cache: { url: string; client: SupabaseClient } | null = null;
 
-function client(config: ConfigLettre): SupabaseClient {
+export function client(config: ConfigLettre): SupabaseClient {
   if (cache?.url === config.supabaseUrl) return cache.client;
   const nouveau = createClient(config.supabaseUrl, config.supabaseCle, {
     auth: { persistSession: false, autoRefreshToken: false },
@@ -29,14 +29,14 @@ function client(config: ConfigLettre): SupabaseClient {
   return nouveau;
 }
 
-class ErreurRegistre extends Error {
+export class ErreurRegistre extends Error {
   constructor(operation: string, message: string) {
     super(`Registre de la lettre, ${operation} : ${message}`);
     this.name = "ErreurRegistre";
   }
 }
 
-async function appel<T>(
+export async function appel<T>(
   config: ConfigLettre,
   fonction: string,
   parametres: Record<string, unknown> = {},
@@ -246,6 +246,10 @@ export function envoisDuJour(config: ConfigLettre): Promise<number> {
 export type EtatListe = {
   en_attente: number;
   confirmes: number;
+  /** Absents tant que 0003_editions n'est pas jouee. */
+  confirmes_fr?: number;
+  confirmes_en?: number;
+  editions_parues?: number;
   desinscrits: number;
   expires: number;
   bienvenues_en_attente: number;
