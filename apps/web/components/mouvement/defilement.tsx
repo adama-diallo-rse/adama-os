@@ -29,7 +29,7 @@
  *    page atteigne sa hauteur, et cède dès que la personne fait défiler.
  */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Lenis from "lenis";
 import { lenisCourante, poseLenis } from "./lenis-partage";
@@ -69,6 +69,9 @@ export default function Defilement() {
   const suivie = useRef<string>("");
   const enTransition = useRef(false);
   const premier = useRef(true);
+  // Un clic sur un lien interne annonce le changement de page : le calage
+  // peut alors partir avant la première peinture de la nouvelle page.
+  const parLien = useRef(false);
 
   useEffect(() => {
     const lenis = new Lenis({ anchors: true, allowNestedScroll: true });
@@ -116,13 +119,12 @@ export default function Defilement() {
         return;
       }
       const vers = new URL(lien.href, window.location.href);
-      if (
-        vers.origin === window.location.origin &&
-        vers.pathname + vers.search === adresse() &&
-        !vers.hash
-      ) {
-        lenis.scrollTo(0);
+      if (vers.origin !== window.location.origin) return;
+      if (vers.pathname + vers.search === adresse()) {
+        if (!vers.hash) lenis.scrollTo(0);
+        return;
       }
+      parLien.current = true;
     };
     document.addEventListener("click", surClic, true);
 
@@ -134,6 +136,7 @@ export default function Defilement() {
       // laissée ici et lue une image plus tard par le calage.
       ecrireMemoire(memoire.current);
       window.history.scrollRestoration = "manual";
+      parLien.current = false;
       aRendre.current = { adresse: adresse(), y: memoire.current[adresse()] ?? 0 };
     };
     window.addEventListener("popstate", surRetour, { capture: true });
@@ -163,7 +166,10 @@ export default function Defilement() {
     };
   }, []);
 
-  useEffect(() => {
+  // Avant la peinture : sinon la nouvelle page s'affiche un instant à la
+  // position de l'ancienne, le temps que les effets de la page quittée se
+  // défassent.
+  useLayoutEffect(() => {
     // Le premier rendu n'est pas un changement de page : Lenis arrive après
     // l'hydratation, la personne a peut-être déjà fait défiler.
     if (premier.current) {
@@ -178,7 +184,11 @@ export default function Defilement() {
     suivie.current = adresse();
     // Décidé à la première image, une fois tous les écouteurs de popstate
     // passés : retour (position gardée) ou lien (haut de page, ou ancre).
-    let parRetour: number | null | undefined;
+    let parRetour: number | null | undefined = parLien.current
+      ? null
+      : undefined;
+    if (parLien.current) aRendre.current = null;
+    parLien.current = false;
 
     const cible = (): number | HTMLElement => {
       if (parRetour === undefined) {
@@ -236,6 +246,7 @@ export default function Defilement() {
         terminer();
       }
     };
+    if (parRetour === null) caler();
     image = requestAnimationFrame(boucle);
 
     return terminer;
