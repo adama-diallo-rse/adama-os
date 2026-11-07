@@ -34,6 +34,9 @@ import { ADAMA_OS } from "../content/adama-os";
 
 afterEach(cleanup);
 
+const lire = (relatif: string) =>
+  readFileSync(join(process.cwd(), relatif), "utf8");
+
 // Chemin depuis la racine de vitest, apps/web : dans l'environnement jsdom,
 // import.meta.url n'est pas une URL de fichier et fileURLToPath echoue.
 const DASHBOARD = readFileSync(
@@ -53,19 +56,17 @@ function premierEcran(): string {
 describe("C9-T6, le premier ecran dit ce qu'on lui demande", () => {
   const ecran = premierEcran();
 
+  // 7 novembre 2026, seconde passe : le premier écran est allégé. Un
+  // titre, la phrase de positionnement et la situation, deux actions. La
+  // signature de preuve vit dans le pied de chaque page.
   it("porte la proposition de valeur ADAMA OS", () => {
-    // EC2 : la phrase se lit dans sa source unique, jamais recopiee.
     expect(ecran).toContain("POSITIONNEMENT.fr");
     expect(ADAMA_OS.proposition).toBe(POSITIONNEMENT.fr);
-    expect(POSITIONNEMENT.fr.length).toBeGreaterThan(60);
-    // Une capacite se dit a la premiere personne et avec des verbes d'action.
     expect(POSITIONNEMENT.fr).toMatch(/^Je /);
   });
 
-  it("porte la signature de preuve comme une affirmation autonome", () => {
-    // EC3 : la signature est rendue par son composant, avec ses preuves.
-    expect(ecran).toContain("<Signature");
-    expect(ecran).toContain('className="hero-availability"');
+  it("garde la signature de preuve au pied de chaque page", () => {
+    expect(lire("components/page-shell.tsx")).toContain("<Signature");
   });
 
   // 23 octobre 2026 : la ligne de disponibilite a quitte le premier ecran
@@ -83,22 +84,20 @@ describe("C9-T6, le premier ecran dit ce qu'on lui demande", () => {
     expect(IDENTITE.situation).toContain("Dakar");
   });
 
-  it("range la proposition avant la situation, puis la signature avant les actions", () => {
+  it("range la proposition avant la situation, puis la situation avant les actions", () => {
     const capacite = ecran.indexOf("POSITIONNEMENT.fr");
     const situation = ecran.indexOf("IDENTITE.situation");
-    const signature = ecran.indexOf("<Signature");
     const actions = ecran.indexOf('className="hero-actions"');
     expect(capacite).toBeGreaterThan(-1);
     expect(situation).toBeGreaterThan(capacite);
-    expect(signature).toBeGreaterThan(situation);
-    expect(actions).toBeGreaterThan(signature);
+    expect(actions).toBeGreaterThan(situation);
   });
 
-  it("ne propose que trois actions, jamais quatre", () => {
-    const debut = ecran.indexOf('className="hero-actions"');
-    const zone = ecran.slice(debut);
-    const actions = zone.match(/portfolio-button|portfolio-text-link/g) ?? [];
-    expect(actions).toHaveLength(3);
+  it("ne propose que deux actions dans un premier écran allégé", () => {
+    const zone = ecran.slice(ecran.indexOf('className="hero-actions"'));
+    expect(
+      zone.match(/portfolio-button|portfolio-text-link/g) ?? [],
+    ).toHaveLength(2);
   });
 
   it("n'affiche aucune metrique produit dans l'accroche", () => {

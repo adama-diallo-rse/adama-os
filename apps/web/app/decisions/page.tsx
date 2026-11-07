@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NOMBRE_PRINCIPES } from "../../content/principes";
 import Link from "next/link";
 import { PageIntro, PageShell } from "../../components/page-shell";
 import { AdrList } from "../../components/adr-list";
@@ -43,7 +44,7 @@ export default async function DecisionsPage() {
   return (
     <PageShell>
       <PageIntro
-        eyebrow="DÉCISIONS / JOURNAL D’ARCHITECTURE"
+        eyebrow="RESSOURCES / JOURNAL DES DÉCISIONS"
         title={
           <>
             Ce que j’ai tranché,
@@ -134,8 +135,8 @@ export default async function DecisionsPage() {
             Des principes, <span className="serif">pas un manifeste.</span>
           </h2>
           <p>
-            Cinq règles, chacune dérivée d’une décision ou d’une erreur réelle,
-            et chacune avec le prix qu’elle fait payer.
+            {NOMBRE_PRINCIPES} règles, chacune dérivée d’une décision ou d’une
+            erreur réelle, et chacune avec le prix qu’elle fait payer.
           </p>
         </div>
         <Link href="/principes" className="portfolio-button primary">

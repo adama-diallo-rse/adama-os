@@ -1,146 +1,149 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { useThemeBoot } from "../lib/theme";
 import { IlotOutils } from "./outils-differes-ilot";
 import { SiteHeader } from "./site-header";
 import { ProjectGrid } from "./project-grid";
-import { SkillCards } from "./skill-cards";
 import { SignalSignup } from "./signal-signup";
-import { Signature } from "./signature";
-import { OutboundLink } from "./outbound-link";
-import { OrgMark, aUneMarque } from "./org-logo";
 import { PiedDePage } from "./page-shell";
-import { Symbole } from "./marque/symbole";
-import { SceneIsometrique } from "./kit/scene-isometrique";
 import { Accent, Fleche, SurTitre, TraitMain } from "./kit/elements";
 import { Rideau } from "./accueil/rideau";
-import { DemonstrationMoteur } from "./accueil/demonstration-moteur";
-import { BlocCitation } from "./accueil/bloc-citation";
-import { TableauRegimes } from "./accueil/tableau-regimes";
-import { Defile } from "./accueil/defile";
 import { NavigationAncres, type Ancre } from "./accueil/navigation-ancres";
+import { LogosConfiance } from "./accueil/logos-confiance";
+import { Ancrage } from "./accueil/ancrage";
+import { Piliers } from "./accueil/piliers";
+import { BandeMethodes, Branches } from "./accueil/branches";
+import { VoletAccompagnement } from "./accueil/volet-accompagnement";
+import { PhotoCadre } from "./accueil/offre";
+import { SceneMaillons } from "./kit/illustrations-maison";
 import { IleMouvement } from "./mouvement/ile-mouvement";
 import { IleSymbole3D } from "./mouvement/ile-symbole-3d";
 import { CONTACT_EMAIL, type DashboardData } from "./types";
-import type { CitationPreuve } from "../lib/accueil";
+import { IDENTITE, POSITIONNEMENT, TITRE_COURT } from "../content/profil";
+import { PHOTOS } from "../content/accompagnement";
 import {
-  EXPERIENCES,
-  FORMATION,
-  IDENTITE,
-  POSITIONNEMENT,
-  TITRE_COURT,
-} from "../content/profil";
-import { PARCOURS_VISITEUR, URL_STRATA } from "../content/parcours";
-import { CHAINE_PREUVE } from "../content/adama-os";
+  CONVICTION,
+  MAILLONS,
+  QUESTIONS_ACCUEIL,
+  TITRE_HERO,
+} from "../content/accueil";
+import { HeroStrates } from "./accueil/hero-art";
+import { METHODES } from "../content/methodes";
 import type { CarteProjet } from "../content/projets";
 
-/** Ce que l'accueil lit des registres, réduit au rendu serveur. */
-export type ResumeAccueil = {
-  articles: { href: string; code: string; titre: string }[];
-  methodes: { total: number; essayees: number };
-  portes: { code: string; titre: string }[];
-};
-
 // =====================================================================
-// L'accueil d'ADAMA OS, refonte du 30 octobre 2026.
+// L'accueil d'ADAMA OS, seconde passe du 7 novembre 2026.
 //
-// Un premier écran, puis cinq actes calés sur le parcours visiteur
-// (Explorer, Apprendre, Construire, Travailler ensemble, Utiliser STRATA ESG),
-// pendant lesquels le symbole traverse la page dans sa scène collante.
-// Viennent ensuite le manifeste, la démonstration du moteur, les preuves
-// citables, ce qui a été construit, les régimes, les organisations et les
-// livraisons, la lettre et l'appel final.
+// ADAMA OS est le système de travail d'Adama rendu public : des logiciels
+// en service, des méthodes qui en sortent, des formats pour travailler
+// ensemble, et la preuve de chaque affirmation. L'accompagnement de projets
+// est un format parmi d'autres, pas le centre. L'ordre de la page suit les
+// questions d'un visiteur qui ne connaît rien du vocabulaire :
 //
-// Le cockpit (couches A à D, intégrité, passerelles, livraisons, terminal)
-// n'est pas supprimé : il devient la page /os, avec toutes ses données. Le
-// terminal Ctrl+K reste ouvert depuis toutes les sections de l'accueil.
+//   00 qui, et ce qu'il fait, en une phrase ; un seul appel ;
+//      les structures qui accompagnent, les organisations passées ;
+//   01 ce que je fais : construire, publier, accompagner ;
+//   02 les réalisations, les quatre maisons ;
+//   03 la méthode, de l'idée à l'actif, illustrée étape par étape dans la
+//      scène collante ;
+//   04 la conviction ;
+//   05 les six branches et la bibliothèque des méthodes ;
+//   06 l'accompagnement, un des formats ;
+//   07 Paris et Dakar ;
+//   08 les questions ;
+//   09 le rendez-vous.
 //
-// Aucun nombre n'est écrit ici : chaque compteur lit une ligne servie au
-// rendu, et une donnée absente n'affiche rien plutôt qu'un zéro inventé.
+// Aucun prix n'est publié. La carte et la scène isométrique sont rendues
+// par la page serveur et passées en propriétés : leurs tracés n'entrent pas
+// dans le paquet JavaScript de l'accueil.
 // =====================================================================
 
 const ANCRES: readonly Ancre[] = [
-  { id: "top", numero: "00", libelle: "Ouverture" },
-  { id: "actes", numero: "01", libelle: "Le parcours" },
-  { id: "manifeste", numero: "02", libelle: "Manifeste" },
-  { id: "moteur", numero: "03", libelle: "Le moteur" },
-  { id: "preuves-citables", numero: "04", libelle: "Preuves" },
-  { id: "projets", numero: "05", libelle: "Construit" },
-  { id: "regimes", numero: "06", libelle: "Régimes" },
-  { id: "organisations", numero: "07", libelle: "Organisations" },
-  { id: "contact", numero: "08", libelle: "Échanger" },
+  { id: "top", numero: "00", libelle: "Accueil" },
+  { id: "ce-que-je-fais", numero: "01", libelle: "Ce que je fais" },
+  { id: "realisations", numero: "02", libelle: "Réalisations" },
+  { id: "methode", numero: "03", libelle: "La méthode" },
+  { id: "conviction", numero: "04", libelle: "Conviction" },
+  { id: "branches", numero: "05", libelle: "Les branches" },
+  { id: "accompagnement", numero: "06", libelle: "Accompagnement" },
+  { id: "ancrage", numero: "07", libelle: "Paris et Dakar" },
+  { id: "questions", numero: "08", libelle: "Questions" },
+  { id: "contact", numero: "09", libelle: "Rendez-vous" },
 ];
 
-/** Le manifeste, lu mot par mot au défilement. */
-const MANIFESTE =
-  "ADAMA OS est un carnet de construction tenu en public. Chaque décision y porte sa date, chaque affirmation sa source, chaque erreur sa correction. Ce qui se vérifie se montre, ce qui ne se vérifie pas se dit.";
+/** Les anciennes ancres de l'accueil, et où elles mènent désormais. */
+const ANCIENNES_ANCRES: Record<string, string> = {
+  atelier: "/os",
+  approche: "#methode",
+  pensee: "#methode",
+  actes: "#methode",
+  parcours: "#confiance",
+  organisations: "#confiance",
+  manifeste: "#conviction",
+  moteur: "/os#moteur",
+  "preuves-citables": "/os#preuves-citables",
+  projets: "#realisations",
+  regimes: "/catalogue#regimes",
+  "pour-qui": "#accompagnement",
+  formules: "/travaillez-avec-moi#formules",
+};
 
 export function Dashboard({
   data,
   cartes,
   categories,
-  citations,
-  resume,
+  carte,
+  scene,
 }: {
   data: DashboardData;
   cartes: CarteProjet[];
   categories: string[];
-  citations: CitationPreuve[];
-  resume: ResumeAccueil;
+  /** La carte de Dakar à Paris, rendue côté serveur. */
+  carte: ReactNode;
+  /** La scène isométrique, des idées au système, rendue côté serveur. */
+  scene: ReactNode;
 }) {
   useThemeBoot();
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [recruitOpen, setRecruitOpen] = useState(false);
   const [adamaOpen, setAdamaOpen] = useState(false);
 
-  // Les ancres de l'ancien accueil ne meurent pas : un lien envoyé avant
-  // le 30 octobre 2026 vers /#atelier mène au cockpit, désormais sur /os,
-  // et les autres à la section qui les remplace.
+  // Un lien envoyé avant la refonte ne meurt pas : il mène à la section
+  // qui remplace la sienne, ou à la page où elle vit désormais.
   useEffect(() => {
-    const anciennes: Record<string, string> = {
-      atelier: "/os",
-      approche: "#actes",
-      pensee: "#actes",
-      parcours: "#organisations",
-    };
-    const cible = anciennes[window.location.hash.slice(1)];
+    const cible = ANCIENNES_ANCRES[window.location.hash.slice(1)];
     if (!cible) return;
     if (cible.startsWith("/")) window.location.replace(cible);
     else document.getElementById(cible.slice(1))?.scrollIntoView();
   }, []);
 
-  const integrite = data.integrity;
-  // Les compteurs de fin de page : seulement des nombres servis à ce rendu,
-  // et rien du tout quand la source manque.
-  const compteurs = [
-    {
-      libelle: "Affirmations servies par le registre",
-      valeur: data.proofs.length,
-    },
-    {
-      libelle: "Produits au registre de l’écosystème",
-      valeur: data.products.length,
-    },
-    { libelle: "Livraisons lues dans les dépôts", valeur: data.commits.length },
-  ].filter((c) => c.valeur > 0);
+  const rendezVous = () => setRecruitOpen(true);
   const derniereDecision = data.decisions[0];
-  const derniereLivraison = data.commits[0];
-  const temps = (code: string) =>
-    PARCOURS_VISITEUR.find((t) => t.code === code);
+  const prouvees = METHODES.filter((m) => m.etat === "PROUVÉ").length;
+  // Le relevé de chaque étape : seulement ce qui est servi à ce rendu.
+  const releve: Record<string, string | null> = {
+    decision: derniereDecision
+      ? `Dernière décision publiée : ${derniereDecision.title}, ${derniereDecision.date}.`
+      : null,
+    methode: `${METHODES.length} méthodes à ce jour, dont ${prouvees} prouvée${prouvees > 1 ? "s" : ""}.`,
+    actif: data.proofs.length
+      ? `${data.proofs.length} affirmations vérifiables servies par le registre.`
+      : null,
+  };
 
   return (
     <>
       <div id="top" className="portfolio accueil">
         <Rideau />
-        <SiteHeader home onContact={() => setRecruitOpen(true)} />
+        <SiteHeader home onContact={rendezVous} />
         <NavigationAncres ancres={ANCRES} />
         <main id="contenu">
           {/* ------------------------------------------------------------
               00. Le premier écran. L'ordre de ce bloc est mesuré par
               docs/budget.json (ancres hero-copy, hero-copy-lines,
-              hero-actions et hero-art) : un titre, trois lignes, trois
+              hero-actions et hero-art) : un titre, deux lignes, deux
               actions. Le titre est du vrai texte, visible sans script.
               ------------------------------------------------------------ */}
           <section
@@ -154,542 +157,317 @@ export function Dashboard({
             <div className="portfolio-wrap accueil-hero-grille">
               <div className="hero-copy">
                 <SurTitre numero="00">{TITRE_COURT.affiche}</SurTitre>
-                <h1 id="hero-title">
-                  L’économie réelle, rendue{" "}
-                  <TraitMain>
-                    <Accent>mesurable.</Accent>
-                  </TraitMain>
+                <h1 id="hero-title" className="hero-trois-verbes">
+                  {TITRE_HERO.map((verbe, i) => (
+                    <span key={verbe} style={{ ["--i" as string]: i }}>
+                      {verbe}
+                      <b aria-hidden="true">.</b>
+                      {i < TITRE_HERO.length - 1 ? " " : null}
+                    </span>
+                  ))}
                 </h1>
                 <div className="hero-copy-lines">
                   <p className="hero-description">{POSITIONNEMENT.fr}</p>
                   <p className="hero-situation">{IDENTITE.situation}</p>
-                  <p className="hero-availability">
-                    <span className="note-line" aria-hidden="true" />
-                    <strong>
-                      <Signature as="span" />
-                    </strong>
-                  </p>
                 </div>
                 <div className="hero-actions">
                   <button
                     type="button"
                     className="portfolio-button primary bouton-magnetique"
-                    onClick={() => setRecruitOpen(true)}
+                    onClick={rendezVous}
                   >
-                    Échanger <Fleche />
+                    Parlons de votre projet <Fleche />
                   </button>
-                  <Link
-                    href="/catalogue"
-                    className="portfolio-button ghost bouton-magnetique"
-                  >
-                    Explorer le catalogue <Fleche />
-                  </Link>
-                  <Link href="/os" className="portfolio-text-link">
-                    L’état du système <Fleche diagonale />
+                  <Link href="#methode" className="portfolio-button ghost">
+                    Voir comment ça marche <Fleche />
                   </Link>
                 </div>
               </div>
-              <div className="hero-art" data-emplacement-3d="hero">
-                <div className="plan-travail" aria-hidden="true">
-                  <span className="plan-cote plan-cote-h">48</span>
-                  <span className="plan-cote plan-cote-v">32</span>
-                  <Symbole className="hero-symbole" />
-                </div>
-                <p className="hero-legende">
-                  <span>Fig. 1</span> Le symbole, trois bandes cousues et un
-                  sceau : la donnée assemblée, puis prouvée.
-                </p>
+              <div className="hero-art">
+                <HeroStrates />
               </div>
             </div>
           </section>
 
-          {/* ------------------------------------------------------------
-              01. Les cinq actes. La scène collante de droite porte le
-              symbole ; chaque acte le transforme.
-              ------------------------------------------------------------ */}
+          {/* La bande de confiance, immobile et lisible dans les deux modes. */}
+          <LogosConfiance />
+
+          {/* 01. Ce que je fais. */}
           <section
-            id="actes"
-            className="actes"
-            data-actes
-            aria-labelledby="actes-titre"
+            id="ce-que-je-fais"
+            className="ce-que-je-fais"
+            aria-labelledby="ce-que-je-fais-titre"
           >
-            <div className="portfolio-wrap actes-grille">
-              <div className="actes-texte">
-                <header className="actes-tete">
-                  <SurTitre numero="01">Le parcours</SurTitre>
-                  <h2 id="actes-titre">
-                    Cinq façons <Accent>d’entrer.</Accent>
-                  </h2>
-                  <p>
-                    Chacune répond à une question, et mène à une page qui existe
-                    aujourd’hui.
-                  </p>
-                </header>
-
-                <article className="acte" data-acte="0" id="explorer">
-                  <p className="acte-numero">Acte 1</p>
-                  <h3>Explorer</h3>
-                  <p className="acte-question">{temps("explorer")?.question}</p>
-                  <dl className="acte-releve">
-                    <div>
-                      <dt>Contrôles d’intégrité réussis</dt>
-                      <dd>
-                        {integrite ? (
-                          <>
-                            <span data-compteur={integrite.reussis}>
-                              {integrite.reussis}
-                            </span>
-                            <small>
-                              {" "}
-                              sur{" "}
-                              {integrite.reussis +
-                                integrite.echoues +
-                                integrite.nonExecutes}
-                              , calcul du {integrite.executedAt.slice(0, 10)}
-                            </small>
-                          </>
-                        ) : (
-                          <small>rapport absent</small>
-                        )}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt>Dernière décision publiée</dt>
-                      <dd>
-                        {derniereDecision ? (
-                          <small>
-                            {derniereDecision.title}, {derniereDecision.date}
-                          </small>
-                        ) : (
-                          <small>journal injoignable à ce rendu</small>
-                        )}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt>Dernière livraison</dt>
-                      <dd>
-                        {derniereLivraison ? (
-                          <small>{derniereLivraison.message}</small>
-                        ) : (
-                          <small>dépôt injoignable à ce rendu</small>
-                        )}
-                      </dd>
-                    </div>
-                  </dl>
-                  <div className="acte-liens">
-                    <Link href="/os" className="acte-lien">
-                      Ouvrir le cockpit <Fleche />
-                    </Link>
-                    <Link href="/decisions" className="acte-lien-discret">
-                      Les décisions
-                    </Link>
-                    <button
-                      type="button"
-                      className="acte-lien-discret"
-                      onClick={() => setTerminalOpen(true)}
-                    >
-                      Le terminal <kbd>Ctrl K</kbd>
-                    </button>
-                  </div>
-                </article>
-
-                <article className="acte" data-acte="1" id="apprendre">
-                  <p className="acte-numero">Acte 2</p>
-                  <h3>Apprendre</h3>
-                  <p className="acte-question">
-                    {temps("apprendre")?.question}
-                  </p>
-                  <ul className="acte-liste">
-                    {resume.articles.map((a) => (
-                      <li key={a.href}>
-                        <Link href={a.href}>
-                          <span className="acte-liste-code">{a.code}</span>
-                          {a.titre}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href="/articles" className="acte-lien">
-                    Toutes les notes de fond <Fleche />
-                  </Link>
-                </article>
-
-                <article className="acte" data-acte="2" id="construire">
-                  <p className="acte-numero">Acte 3</p>
-                  <h3>Construire</h3>
-                  <p className="acte-question">
-                    {temps("construire")?.question}
-                  </p>
-                  <ol className="route" data-route>
-                    <span className="route-rail" aria-hidden="true">
-                      <span className="route-rempli" data-route-rempli />
-                    </span>
-                    {CHAINE_PREUVE.map((maillon) => (
-                      <li key={maillon.code} data-route-etape>
-                        <span className="route-code">{maillon.code}</span>
-                        <span className="route-libelle">{maillon.libelle}</span>
-                        <span className="route-question">
-                          {maillon.question}
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
-                  <p className="acte-note">
-                    {resume.methodes.essayees} méthodes sur{" "}
-                    {resume.methodes.total} ont été essayées en vrai, et chacune
-                    affiche son état.
-                  </p>
-                  <Link href="/methode" className="acte-lien">
-                    Utiliser la méthode <Fleche />
-                  </Link>
-                </article>
-
-                <article className="acte" data-acte="3" id="ensemble">
-                  <p className="acte-numero">Acte 4</p>
-                  <h3>Travailler ensemble</h3>
-                  <p className="acte-question">{temps("ensemble")?.question}</p>
-                  <ul className="acte-portes">
-                    {resume.portes.map((p) => (
-                      <li key={p.code}>{p.titre}</li>
-                    ))}
-                  </ul>
-                  <Link href="/travaillez-avec-moi" className="acte-lien">
-                    Choisir une porte <Fleche />
-                  </Link>
-                </article>
-
-                <article className="acte" data-acte="4" id="utiliser-strata">
-                  <p className="acte-numero">Acte 5</p>
-                  <h3>Utiliser STRATA ESG</h3>
-                  <p className="acte-question">{temps("strata")?.question}</p>
-                  <p>
-                    ADAMA OS montre comment construire. STRATA ESG livre le
-                    logiciel, et c’est la seule sortie de ce site.
-                  </p>
-                  <OutboundLink
-                    href={URL_STRATA}
-                    product="strata-esg"
-                    division="STRATA"
-                    source="accueil-acte"
-                    className="acte-lien"
-                  >
-                    Ouvrir STRATA ESG <Fleche diagonale />
-                    <span className="sr-only"> (nouvel onglet)</span>
-                  </OutboundLink>
-                </article>
-              </div>
-
-              <div className="actes-scene" aria-hidden="true">
-                <div
-                  className="actes-scene-cadre"
-                  data-scene-acte
-                  data-acte-actif="0"
-                  data-emplacement-3d="scene"
-                >
-                  <span className="plan-cote plan-cote-h">ÉCH. 1:1</span>
-                  <Symbole className="scene-symbole" />
-                  <ol className="actes-scene-legendes">
-                    {PARCOURS_VISITEUR.map((t, i) => (
-                      <li key={t.code} data-legende={i}>
-                        <span>{String(i + 1).padStart(2, "0")}</span>
-                        {t.libelle}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* 02. Le manifeste, sur feuille encre. */}
-          <section
-            id="manifeste"
-            className="feuille feuille-encre manifeste"
-            data-pile
-            aria-labelledby="manifeste-titre"
-          >
-            <div className="portfolio-wrap">
-              <SurTitre numero="02">
-                <span id="manifeste-titre">Manifeste</span>
-              </SurTitre>
-              <p className="manifeste-texte" data-mots>
-                {MANIFESTE}
-              </p>
-            </div>
-          </section>
-
-          {/* 03. La démonstration du moteur. */}
-          <section
-            id="moteur"
-            className="feuille feuille-ivoire accueil-section"
-            data-pile
-            aria-labelledby="moteur-titre"
-          >
-            <div className="portfolio-wrap">
-              <div className="section-tete">
-                <SurTitre numero="03">Le moteur</SurTitre>
-                <h2 id="moteur-titre">
-                  Une pièce entre, une preuve <Accent>sort.</Accent>
+            <div className="portfolio-wrap ce-que-je-fais-grille">
+              <div className="ce-que-je-fais-tete">
+                <SurTitre numero="01">Ce que je fais</SurTitre>
+                <h2 id="ce-que-je-fais-titre">
+                  Trois métiers, <Accent>une seule méthode.</Accent>
                 </h2>
                 <p>
-                  Le moteur classe, rattache et scelle chaque pièce avant qu’une
-                  affirmation ait le droit de s’afficher. Ce qui suit se déroule
-                  sur une affirmation réellement servie.
+                  Je construis des logiciels, j’en tire des méthodes, et je les
+                  applique à d’autres projets que les miens. Chaque métier
+                  nourrit le suivant.
                 </p>
+                <PhotoCadre
+                  photo={PHOTOS.equipe}
+                  sizes="(max-width: 1023px) 100vw, 38vw"
+                  className="ce-que-je-fais-photo"
+                />
               </div>
-              <div data-revele-media>
-                <DemonstrationMoteur citation={citations[0] ?? null} />
-              </div>
+              <Piliers />
             </div>
           </section>
 
-          {/* 04. Les preuves citables. */}
+          {/* 02. Les réalisations. */}
           <section
-            id="preuves-citables"
+            id="realisations"
             className="feuille feuille-creux accueil-section"
-            aria-labelledby="preuves-titre"
+            aria-labelledby="realisations-titre"
           >
             <div className="portfolio-wrap">
               <div className="section-tete">
-                <SurTitre numero="04">Preuves citables</SurTitre>
-                <h2 id="preuves-titre">
-                  Chaque affirmation se <Accent>cite.</Accent>
+                <SurTitre numero="02">Réalisations</SurTitre>
+                <h2 id="realisations-titre">
+                  Quatre maisons, <Accent>en service.</Accent>
                 </h2>
                 <p>
-                  Résumé, source, date de lecture et empreinte : de quoi
-                  reprendre une affirmation ailleurs sans la déformer.
+                  Des produits en ligne, construits avec la même méthode : une
+                  idée, des priorités écrites, des décisions datées, puis une
+                  mise en service. Chaque fiche dit ce que j’y ai fait.
                 </p>
               </div>
-              {citations.length ? (
-                <div className="citations" data-cartes>
-                  {citations.map((c) => (
-                    <BlocCitation
-                      key={c.id}
-                      c={{ ...c, href: `/verifier/${c.id}` }}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <p className="etat-vide">
-                  Le registre de preuve ne répond pas à ce rendu : aucune
-                  citation n’est affichée plutôt qu’une citation inventée.{" "}
-                  <Link href="/preuves">Ouvrir le registre</Link>.
-                </p>
-              )}
-            </div>
-          </section>
-
-          {/* 05. Ce qui a été construit. */}
-          <section
-            id="projets"
-            className="feuille feuille-ivoire accueil-section"
-            aria-labelledby="projects-title"
-          >
-            <div className="portfolio-wrap">
-              <div className="section-tete">
-                <SurTitre numero="05">Fiches projet</SurTitre>
-                <h2 id="projects-title">
-                  Ce que j’ai <Accent>construit.</Accent>
-                </h2>
-                <p>
-                  Le même gabarit pour chaque fiche, dont un bloc entier sur ce
-                  que j’ai personnellement conçu, arbitré et livré.
-                </p>
-              </div>
-              <SkillCards proofStates={data.proofStates} />
               <ProjectGrid
                 cartes={cartes}
                 categories={categories}
                 proofStates={data.proofStates}
               />
+              <div className="realisations-pied">
+                <Link href="/ecosysteme" className="portfolio-text-link">
+                  Le registre de l’écosystème <Fleche />
+                </Link>
+                <Link href="/preuves" className="portfolio-text-link-discret">
+                  Chaque affirmation de ce site se vérifie <Fleche />
+                </Link>
+                <Link href="/changelog" className="portfolio-text-link-discret">
+                  Journal des versions <Fleche />
+                </Link>
+              </div>
             </div>
           </section>
 
-          {/* 06. Les régimes, en colonnes comparées. */}
+          {/* ------------------------------------------------------------
+              03. La méthode, de l'idée à l'actif. La scène collante de
+              droite montre, à chaque étape, ce que l'étape fait.
+              ------------------------------------------------------------ */}
           <section
-            id="regimes"
-            className="feuille feuille-indigo accueil-section"
+            id="methode"
+            className="actes actes--maillons"
+            data-actes
+            aria-labelledby="methode-titre"
+          >
+            <div className="portfolio-wrap actes-grille">
+              <div className="actes-texte">
+                <header className="actes-tete">
+                  <SurTitre numero="03">La méthode</SurTitre>
+                  <h2 id="methode-titre">
+                    De l’idée à l’actif, <Accent>cinq étapes.</Accent>
+                  </h2>
+                  <p>
+                    Tout ce que je construis passe par la même chaîne, et chaque
+                    étape laisse une trace publique. C’est elle qui rend une
+                    méthode transmissible.
+                  </p>
+                </header>
+
+                {MAILLONS.map((m, i) => (
+                  <article
+                    key={m.code}
+                    className="acte acte--maillon"
+                    data-acte={String(i)}
+                    id={`etape-${m.code}`}
+                  >
+                    <p className="acte-numero">Étape {i + 1}</p>
+                    <h3>{m.libelle}</h3>
+                    <p className="acte-question">{m.question}</p>
+                    <p className="acte-texte">{m.texte}</p>
+                    {releve[m.code] ? (
+                      <p className="acte-releve-ligne">
+                        <span aria-hidden="true" />
+                        {releve[m.code]}
+                      </p>
+                    ) : null}
+                    <Link href={m.lien.href} className="acte-lien">
+                      {m.lien.libelle} <Fleche />
+                    </Link>
+                  </article>
+                ))}
+              </div>
+
+              <div className="actes-scene" aria-hidden="true">
+                <div
+                  className="actes-scene-cadre actes-scene-cadre--maillons"
+                  data-scene-acte
+                  data-acte-actif="0"
+                >
+                  <SceneMaillons codes={MAILLONS.map((m) => m.code)} />
+                  <ol className="actes-scene-legendes">
+                    {MAILLONS.map((m, i) => (
+                      <li key={m.code} data-legende={i}>
+                        <span>{String(i + 1).padStart(2, "0")}</span>
+                        {m.libelle}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 04. La conviction, sur feuille encre. */}
+          <section
+            id="conviction"
+            className="feuille feuille-encre manifeste"
             data-pile
-            aria-labelledby="regimes-titre"
+            aria-labelledby="conviction-titre"
+          >
+            <div className="portfolio-wrap conviction-grille">
+              <div>
+                <SurTitre numero="04">
+                  <span id="conviction-titre">Conviction</span>
+                </SurTitre>
+                <p className="manifeste-texte" data-mots>
+                  {CONVICTION}
+                </p>
+              </div>
+              <div className="conviction-scene">{scene}</div>
+            </div>
+          </section>
+
+          {/* 05. Les six branches et la bibliothèque des méthodes. */}
+          <section
+            id="branches"
+            className="feuille feuille-ivoire accueil-section"
+            aria-labelledby="branches-titre"
           >
             <div className="portfolio-wrap">
               <div className="section-tete">
-                <SurTitre numero="06">Régimes</SurTitre>
-                <h2 id="regimes-titre">
-                  Le gratuit ne recule <Accent>jamais.</Accent>
+                <SurTitre numero="05">Les branches</SurTitre>
+                <h2 id="branches-titre">
+                  Ce qui sort de la méthode,{" "}
+                  <Accent>branche par branche.</Accent>
                 </h2>
                 <p>
-                  Quatre régimes, la même règle : une preuve reste vérifiable
-                  sans payer. Un régime fermé le dit, sans date promise.
+                  Six façons de s’en servir, du laboratoire gratuit à
+                  l’accompagnement. Chaque branche dit où elle en est, et rien
+                  n’est annoncé avant d’être en ligne.
                 </p>
               </div>
-              <TableauRegimes />
+              <Branches />
+              <div className="branches-methodes">
+                <PhotoCadre
+                  photo={PHOTOS.atelier}
+                  sizes="(max-width: 1023px) 100vw, 44vw"
+                  className="branches-photo"
+                />
+                <BandeMethodes />
+              </div>
             </div>
           </section>
 
-          {/* 07. Les organisations réelles, puis les livraisons réelles. */}
+          {/* 06. L'accompagnement, un des formats de CONSEIL. */}
+          <VoletAccompagnement
+            numero="06"
+            action={
+              <button
+                type="button"
+                className="bouton bouton-plein bouton-magnetique"
+                onClick={rendezVous}
+              >
+                Réserver un premier échange <Fleche />
+              </button>
+            }
+          />
+
+          {/* 07. L'ancrage, de Dakar à Paris. */}
+          <Ancrage carte={carte} numero="07" />
+
+          {/* 08. Les questions. */}
           <section
-            id="organisations"
-            className="feuille feuille-ivoire organisations"
-            aria-labelledby="organisations-titre"
+            id="questions"
+            className="feuille feuille-ivoire accueil-section"
+            aria-labelledby="questions-titre"
           >
-            <div className="portfolio-wrap">
-              <SurTitre numero="07">
-                <span id="organisations-titre">
-                  Organisations, engagement associatif et formation
-                </span>
-              </SurTitre>
-            </div>
-            <Defile libelle="organisations">
-              <ul className="defile-liste">
-                {EXPERIENCES.map((exp) => (
-                  <li key={exp.id}>
-                    {aUneMarque(exp.id) ? (
-                      <OrgMark id={exp.id} nom={exp.organisation} />
-                    ) : (
-                      <span className={`experience-name ${exp.id}`}>
-                        {exp.organisation}
-                        {exp.precision && <small>{exp.precision}</small>}
-                      </span>
-                    )}
-                  </li>
+            <div className="portfolio-wrap questions-grille">
+              <div className="section-tete section-tete--colonne">
+                <SurTitre numero="08">Questions</SurTitre>
+                <h2 id="questions-titre">
+                  Avant de nous <Accent>parler.</Accent>
+                </h2>
+                <p>
+                  Une question qui n’est pas ici ? Écrivez-moi à{" "}
+                  <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+                </p>
+              </div>
+              <div className="faq questions">
+                {QUESTIONS_ACCUEIL.map((q) => (
+                  <details key={q.q}>
+                    <summary>{q.q}</summary>
+                    <div>
+                      <p>{q.r}</p>
+                    </div>
+                  </details>
                 ))}
-                {FORMATION.map((f) => (
-                  <li className="experience-formation" key={f.id}>
-                    {aUneMarque(f.id) ? (
-                      <OrgMark id={f.id} nom={f.precision} />
-                    ) : (
-                      <span className={`experience-name ${f.id}`}>
-                        {f.organisation}
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-              <ul className="defile-liste" aria-hidden="true">
-                {EXPERIENCES.map((exp) => (
-                  <li key={exp.id}>
-                    {aUneMarque(exp.id) ? (
-                      <OrgMark id={exp.id} nom={exp.organisation} decoratif />
-                    ) : (
-                      <span className={`experience-name ${exp.id}`}>
-                        {exp.organisation}
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </Defile>
-            {data.proofs.length ? (
-              <Defile libelle="preuves vérifiables" vitesse={80}>
-                <ul className="defile-liste defile-livraisons">
-                  {data.proofs.slice(0, 8).map((p) => (
-                    <li key={p.id}>
-                      <span className="defile-date">{p.id}</span>
-                      {p.statement}
-                    </li>
-                  ))}
-                </ul>
-                <ul
-                  className="defile-liste defile-livraisons"
-                  aria-hidden="true"
-                >
-                  {data.proofs.slice(0, 8).map((p) => (
-                    <li key={p.id}>
-                      <span className="defile-date">{p.id}</span>
-                      {p.statement}
-                    </li>
-                  ))}
-                </ul>
-              </Defile>
-            ) : null}
-            {data.commits.length ? (
-              <Defile libelle="livraisons" vitesse={70}>
-                <ul className="defile-liste defile-livraisons">
-                  {data.commits.slice(0, 8).map((c) => (
-                    <li key={c.sha}>
-                      <span className="defile-date">{c.date.slice(0, 10)}</span>
-                      {c.message}
-                    </li>
-                  ))}
-                </ul>
-                <ul
-                  className="defile-liste defile-livraisons"
-                  aria-hidden="true"
-                >
-                  {data.commits.slice(0, 8).map((c) => (
-                    <li key={c.sha}>
-                      <span className="defile-date">{c.date.slice(0, 10)}</span>
-                      {c.message}
-                    </li>
-                  ))}
-                </ul>
-              </Defile>
-            ) : null}
-            {compteurs.length ? (
-              <dl className="portfolio-wrap compteurs compteurs-accueil">
-                {compteurs.map((c) => (
-                  <div key={c.libelle}>
-                    <dt>{c.libelle}</dt>
-                    <dd data-compteur={c.valeur}>{c.valeur}</dd>
-                  </div>
-                ))}
-              </dl>
-            ) : null}
-            <div className="portfolio-wrap organisations-pied">
-              <Link href="/recruteur" className="portfolio-text-link-discret">
-                Voir mon profil professionnel <Fleche diagonale />
-              </Link>
-              <Link href="/changelog" className="portfolio-text-link-discret">
-                Journal des versions <Fleche />
-              </Link>
+              </div>
             </div>
           </section>
 
-          {/* 08. La lettre, puis l'appel final. */}
+          {/* 09. Le rendez-vous, puis la lettre. */}
           <section
             id="contact"
             className="feuille feuille-encre appel-final"
             aria-labelledby="contact-title"
           >
-            <div className="portfolio-wrap appel-final-grille">
-              <div
-                className="appel-final-scene"
-                data-parallaxe
-                aria-hidden="true"
-              >
-                <SceneIsometrique titre="Strates de données, registre, sceau, et la ligne de provenance entre Dakar et Paris" />
+            <div className="portfolio-wrap appel-final-grille appel-final-grille--photo">
+              <div className="appel-final-corps">
+                <SurTitre numero="09">Rendez-vous</SurTitre>
+                <h2 id="contact-title">
+                  Parlons de votre{" "}
+                  <TraitMain>
+                    <Accent>projet.</Accent>
+                  </TraitMain>
+                </h2>
+                <p className="appel-final-texte">
+                  Un logiciel, une méthode, une revue ou un accompagnement :
+                  dites-moi où vous en êtes. Trente minutes, gratuites et sans
+                  engagement, pour savoir honnêtement ce qui peut vous aider.
+                </p>
+                <div className="appel-final-actions">
+                  <button
+                    type="button"
+                    className="bouton bouton-plein bouton-magnetique"
+                    onClick={rendezVous}
+                  >
+                    Réserver un échange <Fleche />
+                  </button>
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+                      "Premier échange avec ADAMA OS",
+                    )}`}
+                    className="bouton bouton-contour bouton-magnetique"
+                  >
+                    Écrire un e-mail <Fleche />
+                  </a>
+                </div>
               </div>
-              <SurTitre numero="08">Échanger</SurTitre>
-              <h2 id="contact-title">
-                On en <Accent>parle ?</Accent>
-              </h2>
-              <p className="appel-final-texte">
-                Pour un projet avec STRATA ESG, une officine Pharivo, une place
-                sur la carte Conhama, un partenariat ou une question sur ces
-                travaux.
-              </p>
-              <div className="appel-final-actions">
-                <button
-                  type="button"
-                  className="bouton bouton-plein bouton-magnetique"
-                  onClick={() => setRecruitOpen(true)}
-                >
-                  Échanger <Fleche />
-                </button>
-                <Link
-                  href="/catalogue"
-                  className="bouton bouton-contour bouton-magnetique"
-                >
-                  Explorer le catalogue <Fleche />
-                </Link>
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="appel-final-mail"
-                >
-                  {CONTACT_EMAIL}
-                </a>
+              <div className="appel-final-photo" data-parallaxe>
+                <PhotoCadre
+                  photo={PHOTOS.dakar}
+                  sizes="(max-width: 1023px) 100vw, 40vw"
+                />
               </div>
+            </div>
+            <div className="portfolio-wrap">
               <div className="appel-final-lettre">
                 <SignalSignup />
               </div>

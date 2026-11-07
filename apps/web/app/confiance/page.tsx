@@ -54,7 +54,7 @@ export default function ConfiancePage() {
   return (
     <PageShell className="confiance-page">
       <PageIntro
-        eyebrow="FRONTIÈRES / CONFIANCE"
+        eyebrow="RESSOURCES / FRONTIÈRES DE DONNÉES"
         title={
           <>
             Ce qui entre, ce qui sort,

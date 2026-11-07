@@ -43,7 +43,7 @@ export const PRINCIPES: readonly Principe[] = [
     phrase: "La source précède l’affirmation.",
     produit:
       "J’affichais des valeurs de repli sur deux surfaces publiques quand les sources ne répondaient pas. Elles y sont restées après l’arrivée des vraies sources, et rien à l’écran ne les distinguait d’un relevé. Je les ai retirées le 12 août 2026.",
-    cout: "Des cases vides sur le tableau de bord les jours où une source ne répond pas, y compris devant un recruteur. Personne ne peut les remplir pour faire joli : deux tests l’interdisent.",
+    cout: "Des cases vides sur le tableau de bord les jours où une source ne répond pas, y compris devant un client. Personne ne peut les remplir pour faire joli : deux tests l’interdisent.",
     origines: [
       { adrId: "DEC-005", role: "decision" },
       { adrId: "DEC-102", role: "revirement" },
@@ -106,6 +106,22 @@ export const PRINCIPES: readonly Principe[] = [
 ] as const;
 
 /** Tous les identifiants cites par les principes, sans doublon. */
+/** Le nombre de principes en toutes lettres, avec sa capitale : les titres
+ *  le lisent ici, pour ne plus annoncer « cinq » quand il y en a six. */
+export const NOMBRE_PRINCIPES = ([
+  "Aucune",
+  "Une",
+  "Deux",
+  "Trois",
+  "Quatre",
+  "Cinq",
+  "Six",
+  "Sept",
+  "Huit",
+  "Neuf",
+  "Dix",
+][PRINCIPES.length] ?? String(PRINCIPES.length)) as string;
+
 export function adrCitesParLesPrincipes(): string[] {
   return Array.from(
     new Set(PRINCIPES.flatMap((p) => p.origines.map((o) => o.adrId))),

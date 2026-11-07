@@ -56,7 +56,7 @@ describe("EC1, le titre court", () => {
       "components/site-header.tsx",
       "components/dashboard.tsx",
       "app/layout.tsx",
-      "app/recruteur/page.tsx",
+      "app/a-propos/page.tsx",
     ]) {
       expect(lire(surface), surface).toContain("TITRE_COURT");
     }
@@ -162,14 +162,14 @@ describe("EC3, la signature verifiable", () => {
 });
 
 describe("EC0, la surface recruteur reste sobre", () => {
-  const recruteur = lire("app/recruteur/page.tsx");
+  const recruteur = lire("app/a-propos/page.tsx");
 
-  it("ne renvoie vers aucune offre", () => {
-    for (const offre of [
-      "/travaillez-avec-moi",
-      "/diagnostic",
-      "/revue-architecture",
-    ]) {
+  // 7 novembre 2026 : la recherche de poste est close depuis le 10 octobre,
+  // et le profil est devenu la page « À propos ». Il renvoie à
+  // l'accompagnement, l'offre vendue sous ce nom, mais toujours à aucune
+  // revue et sans aucun prix.
+  it("ne renvoie vers aucune revue", () => {
+    for (const offre of ["/diagnostic", "/revue-architecture"]) {
       expect(recruteur, offre).not.toContain(offre);
     }
   });

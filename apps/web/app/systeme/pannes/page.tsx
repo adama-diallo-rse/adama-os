@@ -59,7 +59,7 @@ export default async function PannesPage() {
   return (
     <PageShell className="systeme-page">
       <PageIntro
-        eyebrow="SYSTÈME / SANTÉ ET PANNES"
+        eyebrow="RESSOURCES / SANTÉ ET PANNES"
         title={
           <>
             Ce qui tombe,

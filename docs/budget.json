@@ -102,12 +102,12 @@
       "id": "n2_marques_home",
       "level": "N2",
       "label": "Marques d'organisation affichees sur le site",
-      "max": 6,
+      "max": 8,
       "measure": {
         "kind": "count_in_region",
         "file": "apps/web/components/org-logo.tsx",
         "from": "const MARQUES",
-        "to": "export function aUneMarque",
+        "to": "export function OrgMark",
         "pattern": "^  [a-z0-9-]+: (\\{|\")"
       }
     },

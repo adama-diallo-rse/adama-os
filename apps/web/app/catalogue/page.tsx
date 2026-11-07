@@ -61,7 +61,7 @@ export default function PageCatalogue() {
     <PageShell className="page-catalogue">
       <PageIntro
         numero="CAT"
-        eyebrow="OPEN / le catalogue"
+        eyebrow="RESSOURCES / OPEN, LE CATALOGUE"
         title={
           <>
             Tout ce qui est ouvert, rangé par <Accent>question.</Accent>

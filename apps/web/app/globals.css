@@ -78,7 +78,7 @@
   body {
     background-color: var(--fond);
     color: var(--texte);
-    font-family: var(--font-grotesk);
+    font-family: var(--font-texte);
     font-feature-settings:
       "rlig" 1,
       "calt" 1;

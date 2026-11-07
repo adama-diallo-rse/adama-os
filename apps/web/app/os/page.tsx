@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageIntro, PageShell } from "../../components/page-shell";
 import { Cockpit } from "../../components/cockpit";
 import { IntegrityPanel } from "../../components/integrity-panel";
 import { cartesProjet } from "../../content/projets";
-import { chargerDonnees } from "../../lib/accueil";
+import { chargerDonnees, preuvesCitables } from "../../lib/accueil";
+import { SITE_URL } from "../../lib/site";
+import { DemonstrationMoteur } from "../../components/accueil/demonstration-moteur";
+import { BlocCitation } from "../../components/accueil/bloc-citation";
 import { lireIntegrite } from "../../lib/integrity";
 
 // AXP-09 : l'état du système public, en une seule vue. Le cockpit qui
@@ -31,6 +35,7 @@ export default async function PageOs() {
     total: data.gateways.length,
   };
   const integrite = data.integrity;
+  const citations = preuvesCitables(data.proofs, SITE_URL);
   const livraison = data.commits[0];
   const etatPasserelle = (s: string) =>
     s === "ok" ? "en ligne" : s === "disabled" ? "désactivée" : "injoignable";
@@ -38,7 +43,7 @@ export default async function PageOs() {
     <PageShell className="page-os" sommaire={false}>
       <PageIntro
         numero="OS"
-        eyebrow="Explorer / l’état du système"
+        eyebrow="RESSOURCES / L’ÉTAT DU SYSTÈME"
         title="Le cockpit, tel qu’il tourne."
         description="Décisions, trajectoire, produits, passerelles, intégrité et livraisons : chaque bloc lit sa source au moment de votre visite. Une source qui ne répond pas laisse un état vide, jamais une valeur inventée."
       />
@@ -46,9 +51,14 @@ export default async function PageOs() {
           en usage, avec ses vraies valeurs à ce rendu. */}
       <section
         className="tuiles os-tuiles"
-        aria-label="Les outils du cockpit"
+        aria-labelledby="os-outils-titre"
         data-cartes
       >
+        {/* Le titre de la section existe pour la hiérarchie : sans lui, les
+            tuiles sautaient de h1 à h3 (audit du 7 novembre 2026). */}
+        <h2 id="os-outils-titre" className="sr-only">
+          Les outils du cockpit
+        </h2>
         <article className="tuile" data-taille="large">
           <div className="tuile-apercu" aria-hidden="true" data-revele-media>
             <div className="mini">
@@ -125,7 +135,9 @@ export default async function PageOs() {
               <div className="mini-ligne">
                 <span>Dernière livraison</span>
                 <span>
-                  {livraison ? livraison.date.slice(0, 10) : "dépôt injoignable"}
+                  {livraison
+                    ? livraison.date.slice(0, 10)
+                    : "dépôt injoignable"}
                 </span>
               </div>
               {livraison ? (
@@ -138,6 +150,53 @@ export default async function PageOs() {
             <p>Le journal public des dépôts, filtré du bruit.</p>
           </div>
         </article>
+      </section>
+
+      {/* 7 novembre 2026 : le moteur et les preuves citables quittent
+          l'accueil, devenu commercial, et rejoignent le cockpit, qui est
+          la page de celui qui veut vérifier. */}
+      <section
+        id="moteur"
+        className="os-moteur"
+        aria-labelledby="os-moteur-titre"
+      >
+        <h2 id="os-moteur-titre">Une pièce entre, une preuve sort.</h2>
+        <p>
+          Le moteur classe, rattache et scelle chaque pièce avant qu’une
+          affirmation ait le droit de s’afficher. Ce qui suit se déroule sur une
+          affirmation réellement servie.
+        </p>
+        <div data-revele-media>
+          <DemonstrationMoteur citation={citations[0] ?? null} />
+        </div>
+      </section>
+
+      <section
+        id="preuves-citables"
+        className="os-citations"
+        aria-labelledby="os-citations-titre"
+      >
+        <h2 id="os-citations-titre">Chaque affirmation se cite.</h2>
+        <p>
+          Résumé, source, date de lecture et empreinte : de quoi reprendre une
+          affirmation ailleurs sans la déformer.
+        </p>
+        {citations.length ? (
+          <div className="citations" data-cartes>
+            {citations.map((c) => (
+              <BlocCitation
+                key={c.id}
+                c={{ ...c, href: `/verifier/${c.id}` }}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="etat-vide">
+            Le registre de preuve ne répond pas à ce rendu : aucune citation
+            n’est affichée plutôt qu’une citation inventée.{" "}
+            <Link href="/preuves">Ouvrir le registre</Link>.
+          </p>
+        )}
       </section>
 
       <section className="cockpit-integrite" aria-label="Intégrité du système">

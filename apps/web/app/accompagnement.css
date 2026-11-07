@@ -1,0 +1,2263 @@
+/* =====================================================================
+   Refonte du 7 novembre 2026, seconde passe le même jour.
+
+   0. La typographie de STRATA ESG : titres légers en Inter Tight, texte
+      en DM Sans, mot accentué en italique d'Inter Tight.
+
+   L'en-tête à commandes de même hauteur, la bande de confiance, les
+   photographies, l'offre d'accompagnement (pour qui, six semaines,
+   formules, questions) et le rendez-vous. Tout passe par les rôles de la
+   charte 2.0 (identite.css) : aucune couleur en dur, sauf la plaque des
+   logos, qui doit rester claire dans les deux modes pour qu'un logo
+   d'organisation se montre dans ses vraies couleurs.
+   ===================================================================== */
+
+/* --- 0. Typographie, alignée sur STRATA ESG ---------------------------- */
+.portfolio :is(h1, h2, h3, h4) {
+  font-family: var(--font-grotesk);
+  font-weight: 460;
+  letter-spacing: -0.034em;
+}
+/* Les grands titres en Host Grotesk : un dessin plus plein, plus franc
+   aux grands corps, comme une enseigne. */
+.portfolio :is(h1, h2) {
+  font-family: var(--font-titre);
+  font-weight: 500;
+  letter-spacing: -0.032em;
+}
+.portfolio h3 {
+  font-weight: 540;
+  letter-spacing: -0.02em;
+}
+.portfolio :is(.serif, .hero-serif, .accent) {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 420;
+  letter-spacing: -0.03em;
+}
+/* Le texte courant hérite de DM Sans (globals.css) ; les commandes gardent
+   la voix des titres, comme sur STRATA ESG. */
+.portfolio :where(button, .bouton, .portfolio-button) {
+  font-family: var(--font-grotesk);
+}
+
+/* --- 1. L'en-tête : deux commandes, une seule hauteur ------------------ */
+.portfolio .header-actions {
+  gap: 10px;
+}
+.portfolio .entete-commande {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--filet-fort);
+  border-radius: var(--rayon);
+  background: transparent;
+  color: var(--texte);
+  font: 600 14px / 1 var(--font-grotesk);
+  white-space: nowrap;
+  transition:
+    background-color 0.2s var(--ease-out-quart),
+    border-color 0.2s var(--ease-out-quart),
+    color 0.2s var(--ease-out-quart);
+}
+.portfolio .entete-commande:hover {
+  border-color: var(--texte);
+}
+.portfolio .entete-commande-pleine {
+  background: var(--feuille);
+  border-color: var(--feuille);
+  color: var(--sur-feuille);
+}
+.portfolio .entete-commande-pleine:hover {
+  background: var(--accent-texte);
+  border-color: var(--accent-texte);
+  color: var(--fond);
+}
+.portfolio .desktop-nav .nav-sortie {
+  color: var(--texte-2);
+}
+@media (max-width: 1100px) {
+  .portfolio .entete-commande {
+    padding: 0 14px;
+  }
+}
+/* Sur téléphone, la marque garde sa place : le rendez-vous passe dans le
+   grand menu et dans le premier écran, qui le portent déjà. */
+@media (max-width: 640px) {
+  .portfolio .header-contact.entete-commande {
+    display: none;
+  }
+}
+.grand-menu-rendez-vous {
+  margin-top: 14px;
+  justify-content: space-between;
+}
+
+/* --- 2. La bande de confiance ----------------------------------------- */
+.confiance {
+  position: relative;
+  z-index: var(--z-contenu);
+  padding-block: clamp(36px, 5vw, 64px);
+  border-top: 1px solid var(--filet);
+  background: var(--fond);
+}
+.confiance-grille {
+  display: grid;
+  gap: 18px;
+}
+.confiance-groupe {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.28fr) minmax(0, 1fr);
+  gap: 12px 32px;
+  align-items: center;
+}
+.portfolio .confiance .confiance-titre {
+  margin: 0;
+  font: 500 var(--t-meta) / 1.4 var(--font-code);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texte-2);
+}
+.confiance-plaques {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* La plaque reste claire dans les deux modes : c'est elle qui rend un
+   logo noir ou gris lisible sur la feuille sombre. */
+.plaque {
+  display: grid;
+  place-items: center;
+  height: 92px;
+  padding: 14px 22px;
+  border: 1px solid color-mix(in srgb, var(--encre) 10%, transparent);
+  border-radius: var(--rayon-carte);
+  background: #fdfcf8;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--encre) 6%, transparent);
+  transition:
+    transform 0.35s var(--ease-out-quart),
+    box-shadow 0.35s var(--ease-out-quart);
+}
+.plaque:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -18px
+    color-mix(in srgb, var(--encre) 45%, transparent);
+}
+.plaque img {
+  display: block;
+  max-width: 100%;
+  object-fit: contain;
+}
+.confiance--compacte {
+  padding-block: 0;
+  border-top: 0;
+  background: transparent;
+}
+.confiance--compacte .portfolio-wrap {
+  width: 100%;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode="clair"]) .plaque {
+    border-color: transparent;
+    background: oklch(0.95 0.012 84);
+  }
+}
+:root[data-mode="sombre"] .plaque {
+  border-color: transparent;
+  background: oklch(0.95 0.012 84);
+}
+@media (max-width: 860px) {
+  .confiance-groupe {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .confiance-plaques {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .confiance-plaques > :last-child:nth-child(odd) {
+    grid-column: span 2;
+  }
+  .plaque {
+    height: 76px;
+    padding: 12px 14px;
+  }
+  .plaque img {
+    max-height: 40px;
+    width: auto !important;
+  }
+}
+
+/* --- 3. Les logos encre d'une liste lisibles en mode sombre ------------ */
+/* L'encre #101524 sur la feuille sombre donnait un logo invisible (relevé
+   par Adama le 7 novembre 2026 sur /recruteur). En mode sombre, la même
+   couverture est inversée vers l'ivoire, sans second fichier. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode="clair"]) .org-logo-encre {
+    filter: invert(1) brightness(1.08);
+    opacity: 0.9;
+  }
+}
+:root[data-mode="sombre"] .org-logo-encre {
+  filter: invert(1) brightness(1.08);
+  opacity: 0.9;
+}
+
+/* --- 4. Les photographies --------------------------------------------- */
+.photo-cadre {
+  margin: 0;
+}
+.photo-cadre-image {
+  overflow: hidden;
+  border-radius: var(--rayon-carte);
+  background: var(--fond-creux);
+}
+.photo-cadre-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo-cadre figcaption {
+  margin-top: 10px;
+  font: 400 11px / 1.4 var(--font-code);
+  letter-spacing: 0.04em;
+  color: var(--texte-2);
+}
+:is(.feuille-encre, .feuille-indigo) .photo-cadre figcaption {
+  color: var(--sur-feuille-2);
+}
+
+/* --- 5. Les situations (page Travailler ensemble) ------------------- */
+.situations {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--filet);
+}
+.situation {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 6px 14px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--filet);
+}
+.situation-numero {
+  grid-row: span 2;
+  font: 500 12px / 1.9 var(--font-code);
+  color: var(--accent-texte);
+}
+.situation h3 {
+  margin: 0;
+  font: 640 clamp(18px, 1.5vw, 21px) / 1.3 var(--font-grotesk);
+  letter-spacing: -0.015em;
+}
+.situation p {
+  margin: 0;
+  color: var(--texte-2);
+  line-height: 1.55;
+}
+
+/* --- 6. Les résultats de l'accompagnement ----------------------------- */
+.resultats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.resultats li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-weight: 560;
+  line-height: 1.4;
+}
+.resultats-coche {
+  flex: none;
+  width: 14px;
+  height: 8px;
+  border-left: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: translateY(-3px) rotate(-45deg);
+}
+@media (max-width: 700px) {
+  .resultats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* La même route en six étapes, pour la page de l'offre. */
+.route--semaines {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+}
+.route-livrable {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--filet-fort);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--texte-doux);
+}
+@media (max-width: 1100px) {
+  .route--semaines {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 28px;
+  }
+  .route--semaines .route-rail {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  .route--semaines {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- 7. Les formules ---------------------------------------------------- */
+.formules {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+.formule {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: clamp(22px, 2.4vw, 30px);
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon-carte);
+  background: var(--fond-carte);
+}
+.formule header {
+  display: grid;
+  gap: 10px;
+}
+.formule h3 {
+  margin: 0;
+  font: 640 clamp(19px, 1.6vw, 23px) / 1.2 var(--font-grotesk);
+  letter-spacing: -0.02em;
+}
+.formule-pourquoi {
+  margin: 0;
+  color: var(--texte-2);
+  line-height: 1.5;
+}
+.formule-badge {
+  justify-self: start;
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent-texte);
+  font: 500 11px / 1 var(--font-code);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.formule-badge--discret {
+  background: transparent;
+  border: 1px solid var(--filet-fort);
+  color: var(--texte-2);
+}
+.formule ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.formule li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.formule li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 2px;
+  background: var(--accent);
+}
+.formule-chiffres {
+  display: grid;
+  gap: 10px;
+  margin: auto 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--filet);
+}
+.formule-chiffres div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.formule-chiffres dt {
+  font: 500 12px / 1.4 var(--font-code);
+  color: var(--texte-2);
+}
+.formule-chiffres dd {
+  margin: 0;
+  white-space: nowrap;
+  font: 640 16px / 1.2 var(--font-grotesk);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+/* La formule principale : la feuille encre de la charte, plus grande. */
+.formule--principale {
+  background: var(--feuille);
+  border-color: var(--feuille);
+  color: var(--sur-feuille);
+}
+.formule--principale .formule-pourquoi,
+.formule--principale .formule-chiffres dt {
+  color: var(--sur-feuille-2);
+}
+.formule--principale .formule-chiffres {
+  border-top-color: var(--filet-feuille);
+}
+.formule--principale .formule-chiffres dd {
+  font-size: clamp(20px, 2vw, 26px);
+}
+.formule--principale .formule-badge {
+  background: color-mix(in srgb, var(--signal) 18%, transparent);
+  color: var(--sur-feuille);
+}
+.formule--principale .formule-badge::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--signal);
+  vertical-align: 1px;
+}
+.formule--principale li::before {
+  background: var(--accent-feuille, var(--accent));
+}
+.formule-action .bouton {
+  width: 100%;
+  justify-content: space-between;
+}
+.portfolio .formule--principale .bouton-plein {
+  background: var(--sur-feuille);
+  color: var(--feuille);
+  border-color: var(--sur-feuille);
+}
+.portfolio .formule--principale .bouton-plein:hover {
+  background: var(--accent-feuille, var(--accent));
+  border-color: var(--accent-feuille, var(--accent));
+  color: var(--feuille);
+}
+.formules-note {
+  margin: 20px 0 0;
+  max-width: 80ch;
+  font-size: 14px;
+  color: var(--texte-2);
+}
+.formules-renvoi {
+  margin: 28px 0 0;
+  padding: 18px 20px;
+  border: 1px dashed var(--filet-fort);
+  border-radius: var(--rayon-carte);
+  color: var(--texte-2);
+  line-height: 1.6;
+}
+.formules-renvoi a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 640;
+  color: var(--lien);
+  text-decoration: underline;
+}
+@media (max-width: 1180px) {
+  .formules {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .formule--principale {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 760px) {
+  .formules {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- 8. Réalisations, questions, rendez-vous ------------------------- */
+.realisations-pied {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  margin-top: 32px;
+}
+.questions-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: start;
+}
+.section-tete--colonne {
+  grid-template-columns: 1fr;
+  margin-bottom: 0;
+}
+.section-tete--colonne a {
+  color: var(--lien);
+  text-decoration: underline;
+}
+.questions summary {
+  cursor: pointer;
+}
+@media (max-width: 960px) {
+  .questions-grille {
+    grid-template-columns: 1fr;
+  }
+}
+.appel-final-grille--photo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: start;
+}
+.appel-final-grille--photo h2 {
+  font-size: clamp(48px, 7vw, 104px);
+}
+.appel-final-photo .photo-cadre-image {
+  aspect-ratio: 4 / 5;
+}
+@media (max-width: 1023px) {
+  .appel-final-grille--photo {
+    grid-template-columns: 1fr;
+  }
+  .appel-final-photo {
+    order: -1;
+    max-width: 520px;
+  }
+  .appel-final-photo .photo-cadre-image {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+/* --- 10. Le moteur et les citations, désormais sur /os ----------------- */
+.os-moteur,
+.os-citations {
+  margin-top: clamp(56px, 7vw, 96px);
+}
+.os-moteur > h2,
+.os-citations > h2 {
+  margin: 0 0 10px;
+}
+.os-moteur > p,
+.os-citations > p {
+  margin: 0 0 28px;
+  max-width: 60ch;
+  color: var(--texte-2);
+}
+
+/* --- 11. La page de l'offre ------------------------------------------- */
+.offre-page .offre-bloc {
+  margin-top: clamp(56px, 7vw, 104px);
+}
+.offre-bloc-tete {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 16px 56px;
+  align-items: end;
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+.offre-bloc-tete h2 {
+  margin: 0;
+}
+.offre-bloc-tete p {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--texte-2);
+}
+.offre-intro-photo .photo-cadre-image {
+  aspect-ratio: 4 / 5;
+}
+.offre-pour-qui {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+}
+.offre-rendez-vous {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 24px 56px;
+  align-items: center;
+  padding: clamp(28px, 4vw, 48px);
+  border-radius: var(--rayon-carte);
+  background: var(--feuille);
+  color: var(--sur-feuille);
+}
+.offre-rendez-vous h2 {
+  margin: 0 0 12px;
+  color: var(--sur-feuille);
+}
+.offre-rendez-vous p {
+  margin: 0;
+  color: var(--sur-feuille-2);
+}
+.offre-rendez-vous-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+}
+.portfolio .offre-rendez-vous .bouton-plein {
+  background: var(--sur-feuille);
+  color: var(--feuille);
+  border-color: var(--sur-feuille);
+}
+.portfolio .offre-rendez-vous .bouton-contour {
+  color: var(--sur-feuille);
+  border-color: var(--sur-feuille-2);
+}
+.offre-esg {
+  margin-top: clamp(72px, 9vw, 128px);
+  padding-top: clamp(40px, 5vw, 64px);
+  border-top: 1px solid var(--filet);
+}
+.offre-esg-tete {
+  max-width: 70ch;
+  margin-bottom: 32px;
+}
+.offre-esg-tete h2 {
+  margin: 8px 0 12px;
+}
+.offre-esg-tete p {
+  margin: 0;
+  color: var(--texte-2);
+}
+@media (max-width: 960px) {
+  .offre-bloc-tete,
+  .offre-pour-qui,
+  .offre-rendez-vous {
+    grid-template-columns: 1fr;
+  }
+  .offre-rendez-vous-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media print {
+  .confiance,
+  .photo-cadre,
+  .offre-rendez-vous-actions {
+    break-inside: avoid;
+  }
+  .plaque {
+    box-shadow: none;
+  }
+}
+
+/* --- 12. Le pied de page, quatre colonnes ------------------------------ */
+.pied-colonnes {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+@media (max-width: 760px) {
+  .pied-colonnes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 32px;
+  }
+}
+
+/* --- 13. Le profil : les partenaires sous les expériences -------------- */
+.hire-partenaires {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--filet);
+}
+.hire-partenaires .portfolio-label {
+  margin: 0 0 14px;
+}
+.hire-partenaires .confiance-plaques {
+  max-width: 640px;
+}
+
+/* --- 14. La page de l'offre, compléments -------------------------------- */
+.offre-actions-intro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 8px 0 clamp(40px, 5vw, 64px);
+}
+.offre-page .confiance--compacte {
+  margin-bottom: 8px;
+}
+.offre-pour-qui h2 {
+  margin: 0 0 24px;
+}
+.offre-resultats {
+  padding: clamp(22px, 3vw, 32px);
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon-carte);
+  background: var(--fond-carte);
+}
+.offre-resultats .portfolio-label {
+  margin: 0 0 16px;
+}
+.offre-resultats .resultats {
+  grid-template-columns: 1fr;
+}
+.offre-hors-perimetre {
+  margin: 22px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--filet);
+  font-size: 14px;
+  color: var(--texte-2);
+}
+.offre-page .page-intro-aside .photo-cadre {
+  max-width: 420px;
+}
+
+/* =====================================================================
+   15. Les illustrations de l'offre (kit/illustrations-offre.tsx)
+   ===================================================================== */
+
+/* --- Vignettes : semaines, formules, situations ------------------------ */
+.vignette.porte-dessin {
+  margin: 0;
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon);
+  background: var(--fond-creux);
+}
+.vignette-texte {
+  font: 500 7px var(--font-code);
+  letter-spacing: 0.12em;
+  fill: var(--texte-2);
+}
+.vignette-attenue {
+  opacity: 0.55;
+}
+.vignette-boucle {
+  stroke-dasharray: 104 36;
+}
+.vignette-loupe {
+  stroke: var(--texte);
+  stroke-width: 2;
+}
+.vignette-manche {
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.route--semaines .vignette {
+  margin-bottom: 8px;
+}
+.route--semaines li {
+  padding-top: 30px;
+}
+.vignette-formule {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: -4px 0 2px;
+  border-radius: var(--rayon);
+  background: var(--fond-creux);
+}
+.formule--principale .vignette-formule {
+  background: color-mix(in srgb, var(--sur-feuille) 8%, transparent);
+}
+.formule--principale .vignette-formule .porte-bande {
+  fill: var(--sur-feuille);
+}
+.formule--principale .vignette-formule .porte-ligne {
+  stroke: var(--sur-feuille-2);
+}
+.formule--principale .vignette-formule .porte-contour {
+  stroke: var(--sur-feuille);
+}
+.situation {
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 6px 18px;
+}
+.situation-icone {
+  grid-row: span 2;
+  display: grid;
+  gap: 4px;
+  align-content: start;
+}
+.icone-situation {
+  width: 64px;
+  height: auto;
+  padding: 6px;
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon);
+  background: var(--fond-carte);
+}
+.situation-icone .situation-numero {
+  grid-row: auto;
+  line-height: 1;
+}
+
+/* --- La scène isométrique sur la feuille encre ------------------------- */
+.conviction-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+}
+.conviction-grille .manifeste-texte {
+  margin-bottom: 0;
+}
+.conviction-scene {
+  min-width: 0;
+}
+.scene-iso .iso-ligne-pointillee {
+  stroke-dasharray: 3 3;
+}
+:is(.feuille-encre, .feuille-indigo) .scene-iso {
+  color: var(--sur-feuille);
+}
+:is(.feuille-encre, .feuille-indigo) .scene-iso .iso-face-claire {
+  fill: var(--feuille-2);
+}
+:is(.feuille-encre, .feuille-indigo) .scene-iso .iso-face-creuse {
+  fill: var(--feuille-indigo);
+}
+:is(.feuille-encre, .feuille-indigo) .scene-iso .iso-face-sombre {
+  fill: color-mix(in oklch, var(--sur-feuille) 20%, var(--feuille));
+}
+:is(.feuille-encre, .feuille-indigo) .scene-iso .iso-texte {
+  fill: var(--sur-feuille-2);
+}
+.scene-iso .scene-idees .iso-ligne-pointillee {
+  fill-opacity: 0.25;
+}
+.scene-chemin {
+  stroke-width: 1.8;
+}
+.scene-etape {
+  fill: var(--accent);
+  stroke: var(--feuille);
+  stroke-width: 2;
+}
+.scene-etape-numero {
+  font: 600 10px var(--font-code);
+  fill: var(--ivoire);
+}
+.scene-tableau {
+  stroke: var(--accent) !important;
+  stroke-width: 2 !important;
+  opacity: 0.9;
+}
+.baobab {
+  --baobab: color-mix(in oklch, var(--sur-feuille) 78%, var(--feuille));
+}
+.baobab-tronc {
+  fill: var(--baobab);
+}
+.baobab-bras {
+  fill: none;
+  stroke: var(--baobab);
+  stroke-linecap: round;
+}
+.baobab-ecorce {
+  fill: none;
+  stroke: var(--feuille);
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: 0.35;
+}
+.baobab-feuillage {
+  fill: color-mix(in oklch, var(--signal) 55%, var(--feuille));
+  opacity: 0.92;
+}
+.baobab-ombre {
+  fill: color-mix(in srgb, var(--encre) 45%, transparent);
+}
+@media (max-width: 960px) {
+  .conviction-grille {
+    grid-template-columns: 1fr;
+  }
+  .conviction-scene {
+    max-width: 560px;
+  }
+}
+
+/* --- La carte, de Dakar à Paris ---------------------------------------- */
+.ancrage-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: center;
+}
+.ancrage-texte h2 {
+  margin: 14px 0 18px;
+}
+.ancrage-intro {
+  margin: 0 0 32px;
+  max-width: 52ch;
+  font-size: clamp(17px, 1.2vw, 19px);
+  line-height: 1.6;
+}
+.ancrage-villes {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid var(--filet-feuille);
+}
+.ancrage-villes div {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--filet-feuille);
+}
+.ancrage-villes dt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 600 15px var(--font-grotesk);
+  color: var(--sur-feuille);
+}
+.ancrage-villes dd {
+  margin: 0;
+  color: var(--sur-feuille-2);
+  line-height: 1.55;
+}
+.ancrage-pastille {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+.ancrage-pastille--dakar {
+  background: var(--accent);
+}
+.ancrage-pastille--paris {
+  background: color-mix(in srgb, var(--sur-feuille) 55%, transparent);
+  border: 1px solid var(--sur-feuille);
+}
+.ancrage-carte {
+  position: relative;
+  padding: clamp(14px, 2vw, 24px);
+  border: 1px solid var(--filet-feuille);
+  border-radius: var(--rayon-carte);
+  background-color: color-mix(in srgb, var(--feuille) 55%, transparent);
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--filet-feuille) 55%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--filet-feuille) 55%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
+}
+.carte {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 72vh;
+  overflow: hidden;
+}
+.carte-voisins path {
+  fill: color-mix(in srgb, var(--sur-feuille) 10%, transparent);
+  stroke: color-mix(in srgb, var(--sur-feuille) 18%, transparent);
+  stroke-width: 0.5;
+}
+.carte-afrique path {
+  fill: color-mix(in oklch, var(--sur-feuille) 90%, var(--feuille));
+  stroke: var(--feuille);
+  stroke-width: 0.6;
+  stroke-linejoin: round;
+}
+.carte-france {
+  fill: color-mix(in srgb, var(--sur-feuille) 38%, transparent);
+  stroke: var(--sur-feuille);
+  stroke-width: 0.9;
+}
+.carte-senegal {
+  fill: var(--accent);
+  stroke: var(--feuille);
+  stroke-width: 0.8;
+}
+.carte-trame-point {
+  fill: color-mix(in srgb, var(--ivoire) 40%, transparent);
+}
+.carte-arc {
+  fill: none;
+  stroke: color-mix(in srgb, var(--sur-feuille) 30%, transparent);
+  stroke-width: 1.2;
+}
+.carte-arc-flux {
+  fill: none;
+  stroke: var(--accent-feuille, var(--accent));
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 2 9;
+  animation: carte-flux 2.4s linear infinite;
+}
+.carte-point {
+  fill: var(--sur-feuille);
+  stroke: var(--accent);
+  stroke-width: 2.5;
+}
+.carte-point--paris {
+  stroke: var(--feuille);
+}
+.carte-onde {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: carte-onde 2.6s var(--ease-out-quart) infinite;
+}
+.carte-filet {
+  fill: none;
+  stroke: var(--sur-feuille-2);
+  stroke-width: 0.8;
+}
+.carte-cartouche {
+  fill: var(--feuille);
+  stroke: var(--filet-feuille);
+  stroke-width: 0.8;
+}
+.carte-etiquette text {
+  font: 600 11px var(--font-code);
+  letter-spacing: 0.14em;
+  fill: var(--sur-feuille);
+}
+.carte-etiquette .carte-sous {
+  font: 400 8px var(--font-code);
+  letter-spacing: 0.1em;
+  fill: var(--sur-feuille-2);
+}
+.carte-distance {
+  font: 500 9px var(--font-code);
+  letter-spacing: 0.18em;
+  fill: var(--accent-feuille, var(--accent));
+}
+@keyframes carte-flux {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+@keyframes carte-onde {
+  0% {
+    transform: scale(0.4);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carte-arc-flux,
+  .carte-onde {
+    animation: none;
+  }
+  .carte-onde {
+    opacity: 0.5;
+  }
+}
+@media (max-width: 960px) {
+  .ancrage-grille {
+    grid-template-columns: 1fr;
+  }
+  .ancrage-carte {
+    max-width: 560px;
+  }
+}
+@media (max-width: 520px) {
+  .ancrage-villes div {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+/* --- La scène et la carte sur la page de l'offre ----------------------- */
+.offre-scene {
+  margin: 0 0 clamp(28px, 4vw, 44px);
+  padding: clamp(16px, 3vw, 36px) clamp(16px, 4vw, 56px);
+  border-radius: var(--rayon-carte);
+}
+.offre-scene .scene-iso {
+  display: block;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.offre-ancrage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 24px 56px;
+  align-items: center;
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: var(--rayon-carte);
+}
+.offre-ancrage h2 {
+  margin: 10px 0 14px;
+  color: var(--sur-feuille);
+}
+.offre-ancrage .portfolio-label {
+  color: var(--sur-feuille-2);
+}
+@media (max-width: 960px) {
+  .offre-ancrage {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- 16. Contrastes relevés par l'audit du 7 novembre 2026 ------------- */
+/* Le mot accentué d'un titre posé sur une carte sombre prend l'accent des
+   feuilles (ocre), pas la latérite pensée pour la crème : 2,7 pour 1
+   relevé sur « sans engagement ». */
+:is(.offre-rendez-vous, .offre-ancrage, .formule--principale) .serif,
+:is(.offre-rendez-vous, .offre-ancrage, .formule--principale) .accent {
+  color: var(--accent-feuille, var(--sur-feuille));
+}
+/* La lettre : 4,33 pour 1 relevé sur le bouton et sur le lien de la
+   mention. La latérite foncée porte l'ivoire au-delà de 4,5 ; le lien de la
+   mention, sur feuille sombre, prend l'accent des feuilles. */
+.lettre-bouton {
+  background: var(--accent-texte);
+  color: var(--ivoire);
+}
+.lettre-bouton:hover:not(:disabled) {
+  background: color-mix(in oklch, var(--accent-texte) 82%, var(--encre));
+}
+.lettre-mention-courte a,
+.lettre-lien {
+  color: var(--accent-feuille, var(--sur-feuille));
+}
+
+/* =====================================================================
+   17. L'accueil d'ADAMA OS, seconde passe du 7 novembre 2026
+   ===================================================================== */
+
+/* --- Dessins : pièces communes ---------------------------------------- */
+.vignette-fond {
+  fill: var(--fond-carte);
+  stroke: var(--texte);
+  stroke-width: 1.2;
+}
+.vignette-pointille {
+  stroke-dasharray: 4 5;
+}
+.vignette-epais {
+  fill: none;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* --- 01. Ce que je fais ------------------------------------------------- */
+.ce-que-je-fais {
+  position: relative;
+  z-index: var(--z-contenu);
+  padding-block: clamp(72px, 9vw, 128px);
+  background: var(--fond);
+  border-top: 1px solid var(--filet);
+}
+.ce-que-je-fais-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: start;
+}
+.ce-que-je-fais-tete {
+  position: sticky;
+  top: 110px;
+}
+.ce-que-je-fais-tete h2 {
+  margin: 14px 0 16px;
+}
+.ce-que-je-fais-tete > p {
+  margin: 0 0 28px;
+  max-width: 44ch;
+  font-size: clamp(17px, 1.2vw, 19px);
+  line-height: 1.6;
+  color: var(--texte-doux);
+}
+.ce-que-je-fais-photo .photo-cadre-image {
+  aspect-ratio: 4 / 5;
+  max-height: 520px;
+}
+.piliers {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pilier {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.42fr) minmax(0, 1fr);
+  grid-template-areas:
+    "dessin verbe"
+    "dessin titre"
+    "dessin texte"
+    "dessin lien";
+  gap: 6px 26px;
+  align-items: start;
+  padding: clamp(18px, 2vw, 24px);
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon-carte);
+  background: var(--fond-carte);
+  transition:
+    border-color 0.3s var(--ease-out-quart),
+    transform 0.3s var(--ease-out-quart);
+}
+.pilier:hover {
+  border-color: var(--filet-fort);
+  transform: translateY(-2px);
+}
+.pilier-dessin {
+  grid-area: dessin;
+  overflow: hidden;
+  border-radius: var(--rayon);
+}
+.pilier-verbe {
+  grid-area: verbe;
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  font: 500 var(--t-meta) / 1.4 var(--font-code);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-texte);
+}
+.pilier-verbe span {
+  color: var(--texte-2);
+}
+.pilier h3 {
+  grid-area: titre;
+  margin: 2px 0 4px;
+  font-size: clamp(21px, 1.8vw, 26px);
+}
+.pilier-texte {
+  grid-area: texte;
+  margin: 0;
+  color: var(--texte-2);
+  line-height: 1.6;
+}
+.pilier-lien {
+  grid-area: lien;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font: 600 15px var(--font-grotesk);
+  color: var(--lien);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+@media (max-width: 1023px) {
+  .ce-que-je-fais-grille {
+    grid-template-columns: 1fr;
+  }
+  .ce-que-je-fais-tete {
+    position: static;
+  }
+  .ce-que-je-fais-photo .photo-cadre-image {
+    aspect-ratio: 3 / 2;
+  }
+}
+@media (max-width: 560px) {
+  .pilier {
+    grid-template-columns: 1fr;
+    grid-template-areas: "dessin" "verbe" "titre" "texte" "lien";
+  }
+}
+
+/* --- 03. La chaîne, de l'idée à l'actif -------------------------------- */
+@media (min-width: 1024px) {
+  .actes--maillons .acte--maillon {
+    min-height: 56vh;
+  }
+}
+.acte-texte {
+  max-width: 50ch;
+  margin: 0 0 16px;
+  color: var(--texte-doux);
+  line-height: 1.65;
+}
+.acte-releve-ligne {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 56ch;
+  margin: 0 0 10px;
+  font: 400 13px / 1.5 var(--font-code);
+  color: var(--texte-2);
+}
+.acte-releve-ligne span {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--etat, var(--accent));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+.actes-scene-cadre--maillons {
+  aspect-ratio: 5 / 4;
+  padding: clamp(18px, 2.4vw, 32px) clamp(18px, 2.4vw, 32px) 64px;
+  place-items: stretch;
+}
+.scene-maillons {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.scene-maillon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  transition:
+    opacity 0.55s var(--ease-out-quart),
+    transform 0.7s var(--ease-out-expo);
+}
+.scene-maillon .vignette {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  border: 0;
+  background: transparent;
+}
+/* Sans script, le premier maillon reste affiché. */
+[data-acte-actif="0"] [data-scene-maillon="0"],
+[data-acte-actif="1"] [data-scene-maillon="1"],
+[data-acte-actif="2"] [data-scene-maillon="2"],
+[data-acte-actif="3"] [data-scene-maillon="3"],
+[data-acte-actif="4"] [data-scene-maillon="4"] {
+  opacity: 1;
+  transform: none;
+}
+[data-acte-actif] .scene-maillon .porte-trait {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  transition: stroke-dashoffset 1.1s var(--ease-out-expo) 0.15s;
+}
+[data-acte-actif="0"] [data-scene-maillon="0"] .porte-trait,
+[data-acte-actif="1"] [data-scene-maillon="1"] .porte-trait,
+[data-acte-actif="2"] [data-scene-maillon="2"] .porte-trait,
+[data-acte-actif="3"] [data-scene-maillon="3"] .porte-trait,
+[data-acte-actif="4"] [data-scene-maillon="4"] .porte-trait {
+  stroke-dashoffset: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-maillon,
+  [data-acte-actif] .scene-maillon .porte-trait {
+    transition: none;
+  }
+}
+
+/* --- 05. Les branches et la bibliothèque des méthodes ------------------- */
+.branches {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.branche {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  height: 100%;
+  padding: clamp(18px, 2vw, 24px);
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon-carte);
+  background: var(--fond-carte);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color 0.3s var(--ease-out-quart),
+    transform 0.3s var(--ease-out-quart),
+    box-shadow 0.3s var(--ease-out-quart);
+}
+.branche:hover {
+  border-color: var(--filet-fort);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -28px
+    color-mix(in srgb, var(--encre) 55%, transparent);
+}
+.branche-tete {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.icone-branche {
+  width: 64px;
+  height: auto;
+}
+.branche-etat {
+  padding: 5px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--filet-fort);
+  font: 500 11px / 1 var(--font-code);
+  letter-spacing: 0.06em;
+  color: var(--texte-2);
+  white-space: nowrap;
+}
+.branche-etat[data-ouverte="oui"] {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent-texte);
+}
+.branche-nom {
+  font: 500 var(--t-meta) / 1.4 var(--font-code);
+  letter-spacing: 0.16em;
+  color: var(--accent-texte);
+}
+.branche-libelle {
+  font: 500 clamp(20px, 1.6vw, 24px) / 1.2 var(--font-grotesk);
+  letter-spacing: -0.02em;
+}
+.branche-texte {
+  color: var(--texte-2);
+  line-height: 1.55;
+  padding-right: 22px;
+}
+.branche-fleche {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  color: var(--texte-2);
+  transition: transform 0.3s var(--ease-out-quart);
+}
+.branche:hover .branche-fleche {
+  transform: translateX(4px);
+  color: var(--accent-texte);
+}
+.branches-methodes {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  margin-top: clamp(40px, 5vw, 64px);
+}
+.branches-photo .photo-cadre-image {
+  aspect-ratio: 3 / 2;
+}
+.bande-methodes-tete p {
+  margin: 0 0 14px;
+  max-width: 56ch;
+  color: var(--texte-2);
+}
+.portfolio .bande-methodes-titre {
+  margin: 0 0 8px;
+  font: 500 clamp(22px, 2vw, 28px) / 1.2 var(--font-grotesk);
+  letter-spacing: -0.02em;
+  color: var(--texte);
+}
+.bande-methodes-liste {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--filet);
+}
+.bande-methodes-liste a {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--filet);
+  color: inherit;
+  text-decoration: none;
+}
+.bande-methodes-liste a:hover .bande-methodes-nom {
+  color: var(--accent-texte);
+}
+.bande-methodes-code {
+  font: 400 13px var(--font-code);
+  color: var(--texte-2);
+}
+.bande-methodes-nom {
+  font: 500 16px / 1.3 var(--font-grotesk);
+}
+.bande-methodes-etat {
+  font: 400 11px var(--font-code);
+  letter-spacing: 0.08em;
+  color: var(--texte-2);
+}
+.bande-methodes-etat[data-etat="prouve"] {
+  color: var(--accent-texte);
+}
+@media (max-width: 1023px) {
+  .branches {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .branches-methodes {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 620px) {
+  .branches {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- 06. Le volet accompagnement ---------------------------------------- */
+.volet-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: center;
+}
+.volet-photo .photo-cadre-image {
+  aspect-ratio: 4 / 5;
+}
+.volet-texte h2 {
+  margin: 14px 0 16px;
+}
+.volet-intro {
+  margin: 0 0 24px;
+  max-width: 52ch;
+  font-size: clamp(17px, 1.2vw, 19px);
+  line-height: 1.6;
+  color: var(--texte-doux);
+}
+.volet-verbes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--filet);
+  border-left: 1px solid var(--filet);
+}
+.volet-verbes li {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border-right: 1px solid var(--filet);
+  border-bottom: 1px solid var(--filet);
+  font: 500 17px / 1.2 var(--font-grotesk);
+}
+.volet-verbes span {
+  font: 400 12px var(--font-code);
+  color: var(--accent-texte);
+}
+.volet-etat {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  max-width: 56ch;
+  margin: 0 0 24px;
+  color: var(--texte-2);
+  line-height: 1.55;
+}
+.volet-etat-point {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+.volet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  align-items: center;
+}
+@media (max-width: 1023px) {
+  .volet-grille {
+    grid-template-columns: 1fr;
+  }
+  .volet-photo .photo-cadre-image {
+    aspect-ratio: 3 / 2;
+  }
+}
+@media (max-width: 520px) {
+  .volet-verbes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* --- 18. Pied : la signature se lit d'un seul tenant ------------------ */
+/* Sur téléphone, les liens du pied prennent 44 px de haut pour le doigt ;
+   la signature, elle, est une phrase : ses liens restent dans la ligne
+   pour que la virgule ne tombe pas seule en tête de ligne. */
+@media (max-width: 600px) {
+  .footer-bottom .signature-verifiable a {
+    display: inline;
+    min-height: 0;
+    padding-block: 6px;
+  }
+  .footer-bottom .footer-signature-verifiable {
+    max-width: none;
+  }
+}
+
+/* --- 19. Le premier écran : trois verbes, quatre strates -------------- */
+.accueil .hero-copy h1.hero-trois-verbes {
+  margin: 0 0 30px;
+  font-family: var(--font-titre);
+  font-size: clamp(3.1rem, 1.6rem + 5.2vw, 6.6rem);
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  color: var(--texte);
+}
+.hero-trois-verbes > span {
+  display: block;
+}
+.hero-trois-verbes b {
+  font-weight: inherit;
+  color: var(--accent-texte);
+}
+.accueil .hero-description {
+  font-size: clamp(17px, 1.25vw, 20px);
+  line-height: 1.5;
+  color: var(--texte-doux);
+}
+.accueil-hero .hero-actions .portfolio-button {
+  min-height: 50px;
+  gap: 14px;
+  padding: 13px 22px;
+  border-radius: 3px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-transform: none;
+}
+.accueil-hero-grille:has(.hero-strates) {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+.hero-art:has(.hero-strates) {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+}
+.accueil-hero:has(.hero-strates) .mot-symbole {
+  display: none;
+}
+.hero-strates {
+  --strate-indigo: color-mix(in oklch, var(--indigo) 72%, var(--texte));
+  --strate-vert: oklch(0.62 0.12 150);
+  margin: 0;
+}
+.hero-strates-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Le cadre et les plaques. */
+.strate-cadre :is(polyline, line) {
+  fill: none;
+  stroke: color-mix(in oklch, var(--strate-indigo) 55%, transparent);
+  stroke-width: 1;
+}
+.strate-dessus {
+  fill: color-mix(in srgb, var(--fond) 62%, transparent);
+}
+.strate-flanc {
+  fill: var(--fond-creux);
+}
+.hero-strates .iso-ligne {
+  stroke: color-mix(in srgb, var(--texte) 34%, transparent);
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+}
+.hero-strates .iso-ligne-pointillee {
+  stroke-dasharray: 3 3;
+}
+
+/* Les points de chaque strate, une couleur par étage. */
+.strate-point--logiciels {
+  fill: var(--texte-2);
+}
+.strate-point--decisions {
+  fill: var(--strate-indigo);
+}
+.strate-point--preuves {
+  fill: var(--strate-vert);
+}
+.strate-point--methodes {
+  fill: var(--accent);
+}
+
+/* Les trois maisons, en volume. */
+.maison-dessus--strata {
+  fill: var(--texte);
+}
+.maison-flanc--strata {
+  fill: color-mix(in oklch, var(--texte) 70%, var(--fond));
+}
+.maison-dessus--pharivo {
+  fill: var(--pharivo-atlantique);
+}
+.maison-flanc--pharivo {
+  fill: color-mix(in oklch, var(--pharivo-atlantique) 75%, black);
+}
+.maison-dessus--conhama {
+  fill: var(--accent);
+}
+.maison-flanc--conhama {
+  fill: color-mix(in oklch, var(--accent) 72%, black);
+}
+
+/* Le journal des décisions et ses revirements. */
+.strate-journal {
+  fill: none;
+  stroke: var(--strate-indigo);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+.strate-decision {
+  fill: var(--strate-indigo);
+}
+.strate-decision--revirement {
+  fill: var(--fond);
+  stroke: var(--strate-indigo);
+  stroke-width: 1.2;
+}
+
+/* Les preuves et leurs fils. */
+.strate-sceau {
+  fill: var(--strate-vert);
+}
+.strate-sceau--halo {
+  fill: color-mix(in oklch, var(--strate-vert) 22%, transparent);
+}
+.strate-fils line {
+  stroke: var(--strate-vert);
+  stroke-width: 1.2;
+  stroke-dasharray: 2 5;
+  stroke-linecap: round;
+}
+
+/* Les méthodes : pleine quand prouvée, teintée quand testée. */
+.methode-tuile--prouvee {
+  fill: var(--accent);
+}
+.methode-flanc--prouvee {
+  fill: color-mix(in oklch, var(--accent) 72%, black);
+}
+.methode-tuile--testee {
+  fill: color-mix(in srgb, var(--accent) 34%, transparent);
+}
+.methode-flanc--testee {
+  fill: color-mix(in srgb, var(--accent) 52%, transparent);
+}
+.methode-tuile--recherche,
+.methode-flanc--recherche {
+  fill: var(--fond);
+}
+
+/* Étiquettes et échelle du temps. */
+.strate-etiquettes line,
+.strate-echelle line {
+  stroke: color-mix(in srgb, var(--texte) 30%, transparent);
+  stroke-width: 1;
+}
+.strate-etiquette-nom {
+  text-anchor: end;
+  font: 500 14px var(--font-titre);
+  letter-spacing: -0.01em;
+  fill: var(--texte);
+}
+.strate-etiquette-numero {
+  font: 500 10px var(--font-code);
+  letter-spacing: 0.1em;
+  fill: var(--accent-texte);
+}
+.strate-etiquette-detail {
+  text-anchor: end;
+  font: 400 10px var(--font-code);
+  fill: var(--texte-2);
+}
+.strate-echelle-curseur {
+  fill: var(--strate-indigo);
+}
+.strate-echelle-etiquette {
+  fill: color-mix(in oklch, var(--strate-indigo) 18%, var(--fond));
+}
+.strate-echelle-texte {
+  font: 500 9px var(--font-code);
+  letter-spacing: 0.12em;
+  fill: var(--texte-2);
+}
+.strate-echelle-texte--vif {
+  text-anchor: middle;
+  fill: var(--strate-indigo);
+}
+.hero-strates .hero-legende {
+  margin-top: 6px;
+}
+
+/* La mise en mouvement : les strates s'ouvrent, les preuves circulent. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-trois-verbes > span {
+    animation: verbe-monte 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(0.12s + var(--i) * 0.12s);
+  }
+  .strate {
+    animation: strate-ouvre 1.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .strate--1 {
+    --de: 70px;
+    animation-delay: 0.15s;
+  }
+  .strate--2 {
+    --de: 140px;
+    animation-delay: 0.25s;
+  }
+  .strate--3 {
+    --de: 210px;
+    animation-delay: 0.35s;
+  }
+  .strate-point--vif {
+    animation: point-respire 2.8s ease-in-out infinite alternate;
+  }
+  .strate-fils line {
+    animation: fil-circule 1.6s linear infinite;
+  }
+  .strate-journal {
+    stroke-dasharray: 400;
+    animation: journal-trace 2.4s 0.8s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+  .strate-echelle-curseur {
+    animation: point-respire 1.4s ease-in-out infinite alternate;
+  }
+}
+@keyframes verbe-monte {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
+}
+@keyframes strate-ouvre {
+  from {
+    opacity: 0;
+    transform: translateY(var(--de, 0px));
+  }
+  30% {
+    opacity: 1;
+  }
+}
+@keyframes point-respire {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fil-circule {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+@keyframes journal-trace {
+  from {
+    stroke-dashoffset: 400;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Sur téléphone, la figure garde ses strates et laisse ses légendes : à
+   cette taille, une étiquette ne se lirait plus. */
+@media (max-width: 600px) {
+  .strate-etiquettes,
+  .strate-echelle {
+    display: none;
+  }
+  .hero-strates {
+    overflow: hidden;
+  }
+  .hero-strates-svg {
+    width: 158%;
+    margin-left: -37%;
+  }
+}
+/* Sur tablette et téléphone, la figure passe sous le texte. */
+@media (max-width: 900px) {
+  .accueil-hero-grille:has(.hero-strates) {
+    grid-template-columns: 1fr;
+  }
+  .hero-art:has(.hero-strates) {
+    max-width: 640px;
+    width: 100%;
+  }
+}
+
+/* --- 20. Réalisations et « Comment je travaille », 7 novembre 2026 ----- */
+/* Les chiffres d'en-tête des réalisations. */
+.realisations-chiffres {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid var(--filet-fort);
+}
+.realisations-chiffres > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--filet);
+}
+.realisations-chiffres dt {
+  font: 500 11px / 1.4 var(--font-code);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texte-2);
+}
+.realisations-chiffres dd {
+  margin: 0;
+  font: 500 clamp(2rem, 1.4rem + 1.6vw, 2.8rem) / 1 var(--font-titre);
+  letter-spacing: -0.04em;
+  color: var(--texte);
+}
+
+/* Les terrains : quatre colonnes, filet en tête. */
+.terrains,
+.etapes-travail,
+.regles,
+.sante-axes,
+.verifier-liens {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(16px, 2vw, 24px);
+}
+.terrains,
+.etapes-travail,
+.sante-axes {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.terrain,
+.etape-travail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--filet-fort);
+}
+.terrain h3,
+.etape-travail h3,
+.regle h3,
+.sante-axe h3 {
+  margin: 0;
+  font-size: var(--t-h3);
+}
+.terrain p,
+.etape-travail p,
+.regle p,
+.sante-axe p {
+  margin: 0;
+  line-height: 1.55;
+  color: var(--texte-doux);
+}
+.terrain-tete,
+.etape-travail-tete {
+  font: 500 11px / 1.4 var(--font-code);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texte-2) !important;
+}
+.terrain-tete span,
+.etape-travail-tete span {
+  margin-right: 8px;
+  color: var(--accent-texte);
+}
+.terrain-lien {
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--texte);
+  text-decoration: underline;
+  text-decoration-color: var(--filet-fort);
+  text-underline-offset: 4px;
+}
+.terrain-lien:hover {
+  color: var(--accent-texte);
+}
+
+/* La grille des fiches, hors de l'accueil. */
+.realisations-grille .project-grid {
+  margin-top: 0;
+}
+
+/* La santé : une feuille indigo, l'Afrique de l'Ouest à droite. */
+.sante {
+  padding: clamp(24px, 4vw, 56px);
+  border-radius: var(--rayon-carte);
+}
+.sante-tete {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: 24px 56px;
+  align-items: center;
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+.sante h2 {
+  margin: 10px 0 16px;
+  color: var(--sur-feuille);
+}
+.sante .serif {
+  color: var(--accent-feuille, var(--sur-feuille));
+}
+.sante .portfolio-label,
+.sante-axe-pour,
+.sante-axe h3 span {
+  color: var(--sur-feuille-2) !important;
+}
+.sante-tete p,
+.sante-axe p {
+  color: color-mix(in srgb, var(--sur-feuille) 82%, transparent);
+}
+.sante-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+  margin-top: 26px;
+}
+.sante-externe {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--sur-feuille);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.sante-axe {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid var(--filet-feuille);
+  border-radius: 12px;
+}
+.sante-axe h3 {
+  color: var(--sur-feuille);
+}
+.sante-axe h3 span {
+  margin-right: 6px;
+  font: 500 11px var(--font-code);
+}
+.sante-axe-pour {
+  font: 500 11px / 1.4 var(--font-code);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sante-axe-etat {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 10px / 1 var(--font-code);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sur-feuille-2);
+}
+.sante-axe-etat i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid var(--sur-feuille-2);
+}
+.sante-axe--ouvert {
+  border-color: color-mix(in srgb, var(--sur-feuille) 40%, transparent);
+  background: color-mix(in srgb, var(--sur-feuille) 7%, transparent);
+}
+.sante-axe--ouvert .sante-axe-etat i {
+  border: 0;
+  background: oklch(0.78 0.16 150);
+  box-shadow: 0 0 0 4px
+    color-mix(in srgb, oklch(0.78 0.16 150) 22%, transparent);
+}
+.realisations-lien {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 24px 56px;
+  align-items: center;
+}
+.realisations-lien h2 {
+  margin: 10px 0 16px;
+}
+.realisations-lien p {
+  color: var(--texte-doux);
+  line-height: 1.6;
+}
+
+/* Comment je travaille : vignettes, règles et vérifications. */
+.etape-travail-vignette {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 6px;
+  border: 1px solid var(--filet);
+  border-radius: 12px;
+  background: var(--fond-carte);
+}
+.etape-travail-vignette svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.regles-bloc {
+  padding: clamp(24px, 4vw, 56px);
+  border-radius: var(--rayon-carte);
+}
+.regles-bloc h2 {
+  color: var(--sur-feuille);
+}
+.regles-bloc .serif {
+  color: var(--accent-feuille, var(--sur-feuille));
+}
+.regles-bloc .portfolio-label,
+.regles-bloc .offre-bloc-tete p {
+  color: var(--sur-feuille-2);
+}
+.regles {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.regle {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--filet-feuille);
+}
+.regle h3 {
+  color: var(--sur-feuille);
+}
+.regle p {
+  color: color-mix(in srgb, var(--sur-feuille) 78%, transparent);
+}
+.regle-numero {
+  font: 500 11px var(--font-code);
+  letter-spacing: 0.12em;
+  color: var(--accent-feuille, var(--sur-feuille-2));
+}
+.verifier-liens {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.verifier-liens a {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  height: 100%;
+  padding: 20px 52px 20px 20px;
+  border: 1px solid var(--filet);
+  border-radius: 12px;
+  background: var(--fond-carte);
+  color: var(--texte);
+  transition:
+    border-color 0.25s,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.verifier-liens a:hover,
+.verifier-liens a:focus-visible {
+  border-color: var(--texte);
+  transform: translateY(-3px);
+}
+.verifier-liens strong {
+  font: 500 18px / 1.25 var(--font-titre);
+  letter-spacing: -0.02em;
+}
+.verifier-liens span {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--texte-doux);
+}
+.verifier-liens .verifier-fleche {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: var(--accent-texte);
+  transition: transform 0.3s;
+}
+.verifier-liens a:hover .verifier-fleche {
+  transform: translateX(4px);
+}
+
+@media (max-width: 1080px) {
+  .terrains,
+  .etapes-travail,
+  .sante-axes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .regles,
+  .verifier-liens {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 960px) {
+  .sante-tete,
+  .realisations-lien {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .terrains,
+  .etapes-travail,
+  .sante-axes,
+  .regles,
+  .verifier-liens {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- 21. Alignement des pages intérieures ----------------------------- */
+/* Une seule marge gauche sur tout le site : celle de .portfolio-wrap
+   (80 px à 1440). Les pages à sommaire partaient à 32 px, les autres à
+   80 : le texte sautait d'une page à l'autre. Le sommaire garde sa
+   colonne à droite, dans la même largeur. */
+@media (min-width: 1360px) {
+  .page-kit-corps:has(.sommaire) {
+    width: min(1280px, calc(100% - 112px));
+  }
+}
+/* Un seul poids de grand titre, celui du premier écran. */
+.page-kit .page-intro h1 {
+  font-family: var(--font-titre);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+/* Le sommaire horizontal du catalogue défile dans sa propre bande, sans
+   élargir la page sur téléphone (315 px de trop relevés à 390 px). */
+.catalogue-index {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+.catalogue-index ol {
+  min-width: 0;
+  max-width: 100%;
+}
+/* Le tableau des régimes défile dans son cadre ; contain: paint empêche
+   Chromium de compter sa largeur (760 px) dans celle de la page. */
+.regimes-defile {
+  contain: paint;
+}

@@ -75,7 +75,7 @@ export default async function LettrePage({ searchParams }: Props) {
   return (
     <PageShell className="lettre-page">
       <PageIntro
-        eyebrow="SIGNAL / LA LETTRE D’ADAMA OS"
+        eyebrow="RESSOURCES / SIGNAL, LA LETTRE"
         title={
           <>
             Suivre le travail,

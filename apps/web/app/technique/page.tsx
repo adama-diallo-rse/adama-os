@@ -128,7 +128,7 @@ export default function TechniquePage() {
     <PageShell className="technique-page">
       <TrackView event={EVENT_TECHNIQUE_OPENED} />
       <PageIntro
-        eyebrow="INSPECTION / VUE TECHNIQUE"
+        eyebrow="RESSOURCES / VUE TECHNIQUE"
         title={
           <>
             Tout est ouvert,
@@ -145,7 +145,7 @@ export default function TechniquePage() {
               cas de test répartis sur {s.test_files} fichiers, pour {s.pages}{" "}
               routes de page et {s.components} composants.
             </p>
-            <Link href="/recruteur">Passer au profil professionnel ↗</Link>
+            <Link href="/a-propos">Passer à la page À propos ↗</Link>
           </div>
         }
       />
@@ -483,8 +483,8 @@ export default function TechniquePage() {
             j’ai construit, et à qui s’adresser.
           </p>
         </div>
-        <Link href="/recruteur" className="portfolio-button primary">
-          Ouvrir le profil professionnel <span aria-hidden="true">→</span>
+        <Link href="/a-propos" className="portfolio-button primary">
+          Ouvrir la page À propos <span aria-hidden="true">→</span>
         </Link>
       </section>
     </PageShell>

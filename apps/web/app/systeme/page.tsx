@@ -38,7 +38,7 @@ export default function SystemePage() {
   return (
     <PageShell className="dna-page">
       <PageIntro
-        eyebrow="SYSTÈME / AUTORÉFÉRENCE"
+        eyebrow="RESSOURCES / LE SYSTÈME"
         title={
           <>
             Comment ce site

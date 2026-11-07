@@ -41,7 +41,7 @@ export default function EcriturePage() {
   return (
     <PageShell className="ecriture-page strates-page">
       <PageIntro
-        eyebrow="ET0 / POSITION PUBLIQUE"
+        eyebrow="RESSOURCES / ÉCRITURE ET ASSISTANCE"
         title={
           <>
             Écrit avec assistance,

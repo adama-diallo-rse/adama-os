@@ -74,7 +74,7 @@ export default async function MetricsPage() {
   return (
     <PageShell>
       <PageIntro
-        eyebrow="SUIVI / MÉTRIQUES PUBLIQUES"
+        eyebrow="RESSOURCES / MÉTRIQUES PUBLIQUES"
         title={
           <>
             Les projets,

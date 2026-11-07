@@ -21,7 +21,7 @@ export default function ExpansionPage() {
   return (
     <PageShell className="expansion-page" tools={false}>
       <PageIntro
-        eyebrow="ADAMA OS / EXPANSION"
+        eyebrow="RESSOURCES / LE PROGRAMME EXPANSION"
         title={
           <>
             Le savoir devient

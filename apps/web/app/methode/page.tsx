@@ -19,7 +19,7 @@ export default function MethodePage() {
   return (
     <PageShell className="method-page">
       <PageIntro
-        eyebrow="M-001 / MÉTHODE OUVERTE"
+        eyebrow="MÉTHODES / DE L’IDÉE À L’ACTIF"
         title={
           <>
             De l’idée à l’actif,

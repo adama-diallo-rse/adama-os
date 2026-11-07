@@ -133,7 +133,7 @@ export const ADAMA_OS: FicheProjet = {
       refuse: "Aucun repli chiffré quand une source ne répond pas.",
       raison:
         "Un chiffre de remplacement se comporte comme un vrai. Une case vide dit la vérité, un nombre inventé la remplace définitivement.",
-      cout: "Un tableau de bord troué les jours où une source est indisponible, y compris devant un recruteur.",
+      cout: "Un tableau de bord troué les jours où une source est indisponible, y compris devant un client.",
     },
     {
       refuse: "Aucun calcul métier dans ce cockpit.",

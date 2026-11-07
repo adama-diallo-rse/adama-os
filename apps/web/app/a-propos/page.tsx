@@ -5,6 +5,8 @@ import { SkillCards } from "../../components/skill-cards";
 import { HireActions } from "../../components/hire-actions";
 import { OrgMark } from "../../components/org-logo";
 import { OutboundLink } from "../../components/outbound-link";
+import { Plaques } from "../../components/accueil/logos-confiance";
+import { PARTENAIRES } from "../../content/accompagnement";
 import { DataClassMark } from "../../components/proof/data-class";
 import { CONTACT_EMAIL } from "../../components/types";
 import {
@@ -28,9 +30,9 @@ import { absoluteUrl } from "../../lib/site";
 // Un parcours autonome et complet, pour une personne qui a quatre-vingt-dix
 // secondes et n'est pas ingenieur : un client, un partenaire, un financeur,
 // un jury. Jusqu'au 23 octobre 2026, cette page servait une recherche de
-// poste, close le 10 octobre. L'adresse /recruteur est conservee, parce que
-// des liens partages y menent ; la section 06 dit desormais a qui
-// s'adresser, plus ce que je cherche.
+// poste, close le 10 octobre. Depuis le 7 novembre 2026, elle vit a
+// l'adresse /a-propos ; /recruteur y redirige de facon permanente
+// (next.config.ts), parce que des liens partages y menent.
 //
 // Regle de la couche, tenue ici : cette page NE DUPLIQUE AUCUN CONTENU.
 // Elle compose les memes sources que le reste du site, les fiches projet de
@@ -57,13 +59,13 @@ const PRODUIT_DE_PORTE: Record<string, string> = {
 const PREUVES_EN_TETE = 3;
 
 export const metadata: Metadata = {
-  title: "Profil professionnel",
+  title: "À propos",
   description: `${IDENTITE.situation} ${IDENTITE.capacite}`,
-  alternates: { canonical: "/recruteur" },
+  alternates: { canonical: "/a-propos" },
   openGraph: {
-    title: "Adama Diallo, profil professionnel",
+    title: "Adama Diallo, à propos",
     description: IDENTITE.situation,
-    url: "/recruteur",
+    url: "/a-propos",
     siteName: "ADAMA OS",
     locale: "fr_FR",
     type: "profile",
@@ -94,7 +96,7 @@ function Section({
   );
 }
 
-export default async function RecruteurPage() {
+export default async function AProposPage() {
   const maintenant = new Date();
   const claims = await listClaims({ visibility: ["public"], now: maintenant });
   const preuves = claims.slice(0, PREUVES_EN_TETE);
@@ -107,7 +109,7 @@ export default async function RecruteurPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    url: absoluteUrl("/recruteur"),
+    url: absoluteUrl("/a-propos"),
     inLanguage: "fr-FR",
     mainEntity: {
       "@type": "Person",
@@ -150,7 +152,7 @@ export default async function RecruteurPage() {
           <span className="note-line" aria-hidden="true" />
           <strong>{OUVERTURE}</strong>
         </p>
-        <HireActions source="recruteur" />
+        <HireActions source="a-propos" />
       </header>
 
       {/* 02. Ce que je sais faire. */}
@@ -253,6 +255,12 @@ export default async function RecruteurPage() {
             </li>
           ))}
         </ul>
+        {/* 7 novembre 2026 : les structures qui accompagnent les projets,
+            dans leurs vraies couleurs, sur plaque claire. */}
+        <div className="hire-partenaires">
+          <p className="portfolio-label">ILS ACCOMPAGNENT MES PROJETS</p>
+          <Plaques logos={PARTENAIRES} label="Structures d’accompagnement" />
+        </div>
       </Section>
 
       {/* 06. Travailler ensemble. Trois publics, chacun avec l'adresse de la
@@ -260,6 +268,16 @@ export default async function RecruteurPage() {
           conditions vivent sur le site de chaque maison. */}
       <Section numero="06" titre="TRAVAILLER ENSEMBLE" duree="10 secondes">
         <dl className="hire-recherche hire-portes">
+          <div>
+            <dt>Porteurs de projets</dt>
+            <dd>
+              Six semaines pour structurer un projet, prioriser les actions et
+              installer un système de travail qui tient.{" "}
+              <Link href="/travaillez-avec-moi">
+                Voir l’accompagnement <span aria-hidden="true">→</span>
+              </Link>
+            </dd>
+          </div>
           {PORTES_ENTREE.map((porte) => (
             <div key={porte.id}>
               <dt>{porte.public}</dt>
@@ -294,7 +312,7 @@ export default async function RecruteurPage() {
           <a className="hire-mail" href={`mailto:${CONTACT_EMAIL}`}>
             {CONTACT_EMAIL} <span aria-hidden="true">↗</span>
           </a>
-          <HireActions source="recruteur-bas" />
+          <HireActions source="a-propos-bas" />
         </div>
       </Section>
 

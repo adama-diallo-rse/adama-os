@@ -54,25 +54,53 @@ const BASE = arg("base", "http://localhost:3000").replace(/\/+$/, "");
 
 /** Les pages auditees. Toute page publique ajoutee doit figurer ici. */
 const PAGES = [
+  // 7 novembre 2026 : toutes les pages publiques, et plus seulement vingt.
   "/",
-  "/recruteur",
-  "/technique",
-  "/confiance",
-  "/journal",
-  "/systeme",
-  "/systeme/pannes",
-  "/ecosysteme",
-  "/preuves",
-  "/decisions",
-  "/principes",
-  "/revirements",
-  "/metrics",
-  "/lettre",
-  // Vague 1 des strates.
-  "/erreurs",
+  "/projets",
+  "/comment-je-travaille",
+  "/travaillez-avec-moi",
+  "/a-propos",
+  "/methode",
   "/methodes",
   "/methodes/m-001",
+  "/catalogue",
+  "/bibliotheque",
+  "/outils",
+  "/parcours",
+  "/playbooks",
+  "/articles",
+  "/articles/methode-de-preuve",
+  "/articles/architecture-donnee-esg-afrique-ouest",
+  "/articles/sept-contraintes-donnee-esg-afrique-ouest",
+  "/en",
+  "/en/articles/proof-method",
+  "/en/articles/seven-constraints-west-african-esg-data",
+  "/en/articles/west-african-esg-data-architecture",
+  "/decisions",
+  "/preuves",
+  "/erreurs",
+  "/revirements",
+  "/principes",
+  "/journal",
+  "/changelog",
+  "/systeme",
+  "/systeme/pannes",
+  "/os",
+  "/technique",
+  "/confiance",
+  "/ecosysteme",
+  "/expansion",
   "/ecriture",
+  "/lettre",
+  "/metrics",
+  "/diagnostic",
+  "/revue-architecture",
+  "/projets/strata-esg",
+  "/projets/pharivo",
+  "/projets/conhama",
+  "/projets/adama-os",
+  "/mentions-legales",
+  "/confidentialite",
 ];
 
 const LARGEURS = [320, 390, 768, 1100, 1440];
@@ -99,11 +127,35 @@ const MESURE_CONTRASTE = `(() => {
     });
     return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2];
   };
+  // 7 novembre 2026 : les Chromium récents rendent les couleurs calculées
+  // en lab() ou oklch() dès qu'une couleur passe par color-mix. L'ancienne
+  // lecture, limitée à rgb(), les prenait pour absentes, remontait jusqu'au
+  // fond blanc par défaut et signalait du blanc sur blanc là où il y avait
+  // du blanc sur encre. Toute couleur passe désormais par un pixel de canevas,
+  // lu en sRGB : c'est le navigateur qui convertit, pas une expression.
+  const toile = document.createElement("canvas");
+  toile.width = 1;
+  toile.height = 1;
+  const pinceau = toile.getContext("2d", { willReadFrequently: true });
+  const cache = new Map();
   const parse = (c) => {
-    const m = c.match(/rgba?\\(([^)]+)\\)/);
-    if (!m) return null;
-    const p = m[1].split(",").map((x) => parseFloat(x));
-    return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+    if (!c || c === "transparent") return null;
+    if (cache.has(c)) return cache.get(c);
+    const m = c.match(/^rgba?\\(([^)]+)\\)$/);
+    let res = null;
+    if (m) {
+      const p = m[1].split(/[ ,/]+/).filter(Boolean).map((x) => parseFloat(x));
+      res = { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+    } else if (pinceau) {
+      pinceau.clearRect(0, 0, 1, 1);
+      pinceau.fillStyle = "#000";
+      pinceau.fillStyle = c;
+      pinceau.fillRect(0, 0, 1, 1);
+      const [r, g, b, a] = pinceau.getImageData(0, 0, 1, 1).data;
+      res = { r, g, b, a: a / 255 };
+    }
+    cache.set(c, res);
+    return res;
   };
   const fondEffectif = (el) => {
     let n = el;
@@ -305,7 +357,11 @@ try {
         ".assistant-launcher, [data-open-assistant]",
       );
       if (lanceur) {
-        await lanceur.click();
+        // Un bouton flottant peut recouvrir le lanceur à l'endroit où il
+        // défile : le clic programmatique ouvre le même panneau.
+        await lanceur
+          .click({ timeout: 4000 })
+          .catch(() => lanceur.evaluate((el) => el.click()));
         await page.waitForTimeout(400);
         entree.panneaux.assistant = await page.evaluate(MESURE_CONTRASTE);
       }

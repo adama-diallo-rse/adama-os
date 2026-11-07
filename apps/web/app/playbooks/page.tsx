@@ -24,7 +24,7 @@ export default function PagePlaybooks() {
     <PageShell className="page-playbooks">
       <PageIntro
         numero="PRESS"
-        eyebrow="Playbooks / fiches vivantes"
+        eyebrow="RESSOURCES / FICHES VIVANTES"
         title={
           <>
             Des fiches qui gardent leur <Accent>journal.</Accent>

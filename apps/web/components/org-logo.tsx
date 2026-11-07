@@ -50,6 +50,15 @@ const MARQUES: Record<string, MarqueOrg> = {
   },
   afev: { fichier: "afev", largeur: 361, hauteur: 140, affichage: 38 },
   upec: { fichier: "upec", largeur: 171, hauteur: 140, affichage: 44 },
+  // 7 novembre 2026 : logo officiel du Ministère de l'Économie, des Finances
+  // et du Plan du Sénégal, fourni par Adama. Avant, l'organisation restait en
+  // typographie, faute de fichier : jamais de marque fabriquée.
+  ministere: {
+    fichier: "mefp-senegal",
+    largeur: 464,
+    hauteur: 200,
+    affichage: 46,
+  },
 };
 
 /** La marque d'une organisation, ou null si aucune n'a ete fournie. */
@@ -136,11 +145,6 @@ const MAISONS: Record<string, "strata" | "pharivo" | "conhama"> = {
 /** La maison d'une experience, ou null quand ce n'en est pas une. */
 function maisonDe(id: string): "strata" | "pharivo" | "conhama" | null {
   return MAISONS[id] ?? null;
-}
-
-/** Vrai quand l'organisation se montre par une marque plutot que par son nom. */
-export function aUneMarque(id: string): boolean {
-  return marqueDe(id) !== null || maisonDe(id) !== null;
 }
 
 /**

@@ -68,11 +68,22 @@
   --lien-feuille: var(--indigo-clair);
 
   /* --- Typographie ------------------------------------------------------ */
+  /* 7 novembre 2026 : la typographie de STRATA ESG. Inter Tight pour les
+     titres et l'interface, DM Sans pour le texte courant, l'italique
+     d'Inter Tight pour le mot accentué, Courier Prime pour le code. */
   --font-grotesk:
-    var(--font-schibsted), "Helvetica Neue", Arial, ui-sans-serif, sans-serif;
-  --font-serif: var(--font-newsreader), "Times New Roman", serif;
+    var(--font-inter-tight), "Helvetica Neue", Arial, ui-sans-serif, sans-serif;
+  --font-texte:
+    var(--font-dm-sans), var(--font-inter-tight), "Helvetica Neue", Arial,
+    ui-sans-serif, sans-serif;
+  --font-titre:
+    var(--font-host-grotesk), var(--font-inter-tight), "Helvetica Neue", Arial,
+    ui-sans-serif, sans-serif;
+  --font-serif:
+    var(--font-host-grotesk-italique), var(--font-inter-tight-italique),
+    "Helvetica Neue", Arial, sans-serif;
   --font-code:
-    var(--font-plex-mono), ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    var(--font-courier-prime), ui-monospace, "SFMono-Regular", Menlo, Consolas,
     monospace;
 
   --t-display: clamp(2.75rem, 1.55rem + 4.9vw, 6rem);

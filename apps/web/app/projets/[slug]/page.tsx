@@ -109,7 +109,7 @@ export default async function FicheProjetPage({
         eyebrow={
           <>
             <ProductMark slug={fiche.slug} taille={20} />
-            {`FICHE PROJET / ${divisionName(fiche.division).toUpperCase()}`}
+            {`RÉALISATIONS / ${divisionName(fiche.division).toUpperCase()}`}
           </>
         }
         title={

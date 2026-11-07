@@ -8,8 +8,8 @@
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 35,
-        "longueur": 6806,
+        "titres": 24,
+        "longueur": 7156,
         "evitementFixe": false
       },
       "panneaux": {
@@ -17,94 +17,23 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 872,
-        "document_pret_ms": 640,
-        "poids_ko": 975,
-        "noeuds": 997
+        "premier_rendu_ms": 592,
+        "document_pret_ms": 566,
+        "poids_ko": 891,
+        "noeuds": 1842
       },
       "statut": 200,
       "mesuree": true
     },
     {
-      "page": "/recruteur",
-      "contraste": [],
-      "debordement": [],
-      "structure": [],
-      "impression": {
-        "debordement": 0,
-        "titres": 11,
-        "longueur": 3955,
-        "evitementFixe": false
-      },
-      "panneaux": {
-        "depliants": []
-      },
-      "performance": {
-        "premier_rendu_ms": 272,
-        "document_pret_ms": 248,
-        "poids_ko": 738,
-        "noeuds": 352
-      },
-      "statut": 200,
-      "mesuree": true
-    },
-    {
-      "page": "/technique",
-      "contraste": [],
-      "debordement": [],
-      "structure": [],
-      "impression": {
-        "debordement": 0,
-        "titres": 14,
-        "longueur": 13442,
-        "evitementFixe": false
-      },
-      "panneaux": {
-        "assistant": [],
-        "depliants": []
-      },
-      "performance": {
-        "premier_rendu_ms": 336,
-        "document_pret_ms": 302,
-        "poids_ko": 675,
-        "noeuds": 624
-      },
-      "statut": 200,
-      "mesuree": true
-    },
-    {
-      "page": "/confiance",
-      "contraste": [],
-      "debordement": [],
-      "structure": [],
-      "impression": {
-        "debordement": 0,
-        "titres": 18,
-        "longueur": 10261,
-        "evitementFixe": false
-      },
-      "panneaux": {
-        "assistant": [],
-        "depliants": []
-      },
-      "performance": {
-        "premier_rendu_ms": 316,
-        "document_pret_ms": 302,
-        "poids_ko": 681,
-        "noeuds": 419
-      },
-      "statut": 200,
-      "mesuree": true
-    },
-    {
-      "page": "/journal",
+      "page": "/projets",
       "contraste": [],
       "debordement": [],
       "structure": [],
       "impression": {
         "debordement": 0,
         "titres": 17,
-        "longueur": 5914,
+        "longueur": 4605,
         "evitementFixe": false
       },
       "panneaux": {
@@ -112,23 +41,118 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 376,
-        "document_pret_ms": 230,
-        "poids_ko": 689,
-        "noeuds": 351
+        "premier_rendu_ms": 264,
+        "document_pret_ms": 117,
+        "poids_ko": 751,
+        "noeuds": 944
       },
       "statut": 200,
       "mesuree": true
     },
     {
-      "page": "/systeme",
+      "page": "/comment-je-travaille",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 15,
+        "longueur": 2882,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 208,
+        "document_pret_ms": 197,
+        "poids_ko": 846,
+        "noeuds": 671
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/travaillez-avec-moi",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 28,
+        "longueur": 10638,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 368,
+        "document_pret_ms": 366,
+        "poids_ko": 863,
+        "noeuds": 1596
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/a-propos",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 11,
+        "longueur": 4389,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 240,
+        "document_pret_ms": 195,
+        "poids_ko": 607,
+        "noeuds": 465
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/methode",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 10,
+        "longueur": 1702,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 184,
+        "document_pret_ms": 62,
+        "poids_ko": 720,
+        "noeuds": 379
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/methodes",
       "contraste": [],
       "debordement": [],
       "structure": [],
       "impression": {
         "debordement": 0,
         "titres": 12,
-        "longueur": 4354,
+        "longueur": 4166,
         "evitementFixe": false
       },
       "panneaux": {
@@ -136,47 +160,23 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 232,
-        "document_pret_ms": 149,
-        "poids_ko": 676,
-        "noeuds": 321
+        "premier_rendu_ms": 172,
+        "document_pret_ms": 54,
+        "poids_ko": 722,
+        "noeuds": 528
       },
       "statut": 200,
       "mesuree": true
     },
     {
-      "page": "/systeme/pannes",
-      "contraste": [],
-      "debordement": [],
-      "structure": [],
-      "impression": {
-        "debordement": 0,
-        "titres": 25,
-        "longueur": 11636,
-        "evitementFixe": false
-      },
-      "panneaux": {
-        "assistant": [],
-        "depliants": []
-      },
-      "performance": {
-        "premier_rendu_ms": 328,
-        "document_pret_ms": 207,
-        "poids_ko": 676,
-        "noeuds": 656
-      },
-      "statut": 200,
-      "mesuree": true
-    },
-    {
-      "page": "/ecosysteme",
+      "page": "/methodes/m-001",
       "contraste": [],
       "debordement": [],
       "structure": [],
       "impression": {
         "debordement": 0,
         "titres": 6,
-        "longueur": 1832,
+        "longueur": 10191,
         "evitementFixe": false
       },
       "panneaux": {
@@ -184,23 +184,23 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 340,
-        "document_pret_ms": 289,
-        "poids_ko": 687,
-        "noeuds": 206
+        "premier_rendu_ms": 196,
+        "document_pret_ms": 173,
+        "poids_ko": 739,
+        "noeuds": 737
       },
       "statut": 200,
       "mesuree": true
     },
     {
-      "page": "/preuves",
+      "page": "/catalogue",
       "contraste": [],
       "debordement": [],
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 3,
-        "longueur": 1323,
+        "titres": 38,
+        "longueur": 3416,
         "evitementFixe": false
       },
       "panneaux": {
@@ -208,10 +208,298 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 268,
-        "document_pret_ms": 81,
-        "poids_ko": 681,
-        "noeuds": 186
+        "premier_rendu_ms": 176,
+        "document_pret_ms": 154,
+        "poids_ko": 763,
+        "noeuds": 898
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/bibliotheque",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 6,
+        "longueur": 2070,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 164,
+        "document_pret_ms": 132,
+        "poids_ko": 803,
+        "noeuds": 327
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/outils",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 14,
+        "longueur": 1814,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 176,
+        "document_pret_ms": 146,
+        "poids_ko": 723,
+        "noeuds": 453
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/parcours",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 8,
+        "longueur": 1384,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 168,
+        "document_pret_ms": 149,
+        "poids_ko": 720,
+        "noeuds": 329
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/playbooks",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 10,
+        "longueur": 1220,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 196,
+        "document_pret_ms": 61,
+        "poids_ko": 775,
+        "noeuds": 364
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/articles",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 5,
+        "longueur": 1587,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 160,
+        "document_pret_ms": 55,
+        "poids_ko": 764,
+        "noeuds": 324
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/articles/methode-de-preuve",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 23,
+        "longueur": 20790,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 144,
+        "document_pret_ms": 120,
+        "poids_ko": 714,
+        "noeuds": 622
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/articles/architecture-donnee-esg-afrique-ouest",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 34,
+        "longueur": 15355,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 160,
+        "document_pret_ms": 53,
+        "poids_ko": 712,
+        "noeuds": 682
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/articles/sept-contraintes-donnee-esg-afrique-ouest",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 30,
+        "longueur": 17385,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 156,
+        "document_pret_ms": 139,
+        "poids_ko": 713,
+        "noeuds": 662
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/en",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 10,
+        "longueur": 752,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 180,
+        "document_pret_ms": 143,
+        "poids_ko": 699,
+        "noeuds": 715
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/en/articles/proof-method",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 23,
+        "longueur": 18916,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 144,
+        "document_pret_ms": 117,
+        "poids_ko": 714,
+        "noeuds": 610
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/en/articles/seven-constraints-west-african-esg-data",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 37,
+        "longueur": 16983,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 200,
+        "document_pret_ms": 184,
+        "poids_ko": 712,
+        "noeuds": 695
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/en/articles/west-african-esg-data-architecture",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 39,
+        "longueur": 15101,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 160,
+        "document_pret_ms": 55,
+        "poids_ko": 712,
+        "noeuds": 710
       },
       "statut": 200,
       "mesuree": true
@@ -224,7 +512,7 @@
       "impression": {
         "debordement": 0,
         "titres": 3,
-        "longueur": 1582,
+        "longueur": 1581,
         "evitementFixe": false
       },
       "panneaux": {
@@ -232,23 +520,23 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 284,
-        "document_pret_ms": 135,
-        "poids_ko": 681,
-        "noeuds": 169
+        "premier_rendu_ms": 180,
+        "document_pret_ms": 75,
+        "poids_ko": 728,
+        "noeuds": 281
       },
       "statut": 200,
       "mesuree": true
     },
     {
-      "page": "/principes",
+      "page": "/preuves",
       "contraste": [],
       "debordement": [],
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 8,
-        "longueur": 5292,
+        "titres": 3,
+        "longueur": 1330,
         "evitementFixe": false
       },
       "panneaux": {
@@ -256,10 +544,34 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 300,
-        "document_pret_ms": 136,
-        "poids_ko": 676,
-        "noeuds": 292
+        "premier_rendu_ms": 208,
+        "document_pret_ms": 82,
+        "poids_ko": 728,
+        "noeuds": 300
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/erreurs",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 9,
+        "longueur": 9930,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 164,
+        "document_pret_ms": 138,
+        "poids_ko": 720,
+        "noeuds": 628
       },
       "statut": 200,
       "mesuree": true
@@ -280,23 +592,23 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 268,
-        "document_pret_ms": 122,
-        "poids_ko": 676,
-        "noeuds": 150
+        "premier_rendu_ms": 160,
+        "document_pret_ms": 138,
+        "poids_ko": 725,
+        "noeuds": 260
       },
       "statut": 200,
       "mesuree": true
     },
     {
-      "page": "/metrics",
+      "page": "/principes",
       "contraste": [],
       "debordement": [],
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 6,
-        "longueur": 1433,
+        "titres": 8,
+        "longueur": 5280,
         "evitementFixe": false
       },
       "panneaux": {
@@ -304,23 +616,23 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 260,
-        "document_pret_ms": 290,
-        "poids_ko": 683,
-        "noeuds": 179
+        "premier_rendu_ms": 176,
+        "document_pret_ms": 161,
+        "poids_ko": 723,
+        "noeuds": 450
       },
       "statut": 200,
       "mesuree": true
     },
     {
-      "page": "/lettre",
+      "page": "/journal",
       "contraste": [],
       "debordement": [],
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 15,
-        "longueur": 5473,
+        "titres": 17,
+        "longueur": 5910,
         "evitementFixe": false
       },
       "panneaux": {
@@ -328,23 +640,23 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 224,
-        "document_pret_ms": 195,
-        "poids_ko": 677,
-        "noeuds": 273
+        "premier_rendu_ms": 284,
+        "document_pret_ms": 264,
+        "poids_ko": 733,
+        "noeuds": 477
       },
       "statut": 200,
       "mesuree": true
     },
     {
-      "page": "/erreurs",
+      "page": "/changelog",
       "contraste": [],
       "debordement": [],
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 9,
-        "longueur": 9220,
+        "titres": 3,
+        "longueur": 1040,
         "evitementFixe": false
       },
       "panneaux": {
@@ -352,23 +664,23 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 280,
-        "document_pret_ms": 122,
-        "poids_ko": 674,
-        "noeuds": 451
+        "premier_rendu_ms": 168,
+        "document_pret_ms": 161,
+        "poids_ko": 731,
+        "noeuds": 276
       },
       "statut": 200,
       "mesuree": true
     },
     {
-      "page": "/methodes",
+      "page": "/systeme",
       "contraste": [],
       "debordement": [],
       "structure": [],
       "impression": {
         "debordement": 0,
         "titres": 12,
-        "longueur": 4177,
+        "longueur": 4350,
         "evitementFixe": false
       },
       "panneaux": {
@@ -376,23 +688,23 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 244,
-        "document_pret_ms": 119,
-        "poids_ko": 676,
-        "noeuds": 395
+        "premier_rendu_ms": 156,
+        "document_pret_ms": 129,
+        "poids_ko": 723,
+        "noeuds": 453
       },
       "statut": 200,
       "mesuree": true
     },
     {
-      "page": "/methodes/m-001",
+      "page": "/systeme/pannes",
       "contraste": [],
       "debordement": [],
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 5,
-        "longueur": 9022,
+        "titres": 25,
+        "longueur": 13283,
         "evitementFixe": false
       },
       "panneaux": {
@@ -400,10 +712,129 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 276,
-        "document_pret_ms": 89,
-        "poids_ko": 689,
-        "noeuds": 475
+        "premier_rendu_ms": 264,
+        "document_pret_ms": 239,
+        "poids_ko": 723,
+        "noeuds": 882
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/os",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 17,
+        "longueur": 4376,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 312,
+        "document_pret_ms": 144,
+        "poids_ko": 759,
+        "noeuds": 765
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/technique",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 14,
+        "longueur": 13671,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 200,
+        "document_pret_ms": 85,
+        "poids_ko": 721,
+        "noeuds": 776
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/confiance",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 18,
+        "longueur": 10278,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 188,
+        "document_pret_ms": 85,
+        "poids_ko": 728,
+        "noeuds": 564
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/ecosysteme",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 7,
+        "longueur": 2204,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 240,
+        "document_pret_ms": 212,
+        "poids_ko": 726,
+        "noeuds": 383
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/expansion",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 19,
+        "longueur": 3877,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 184,
+        "document_pret_ms": 62,
+        "poids_ko": 486,
+        "noeuds": 664
       },
       "statut": 200,
       "mesuree": true
@@ -416,7 +847,7 @@
       "impression": {
         "debordement": 0,
         "titres": 5,
-        "longueur": 3936,
+        "longueur": 3948,
         "evitementFixe": false
       },
       "panneaux": {
@@ -424,25 +855,265 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 236,
-        "document_pret_ms": 77,
-        "poids_ko": 674,
-        "noeuds": 241
+        "premier_rendu_ms": 152,
+        "document_pret_ms": 49,
+        "poids_ko": 720,
+        "noeuds": 372
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/lettre",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 15,
+        "longueur": 5474,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 232,
+        "document_pret_ms": 187,
+        "poids_ko": 723,
+        "noeuds": 414
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/metrics",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 6,
+        "longueur": 1438,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 188,
+        "document_pret_ms": 154,
+        "poids_ko": 729,
+        "noeuds": 315
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/diagnostic",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 13,
+        "longueur": 3099,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 172,
+        "document_pret_ms": 59,
+        "poids_ko": 720,
+        "noeuds": 388
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/revue-architecture",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 16,
+        "longueur": 3088,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 168,
+        "document_pret_ms": 136,
+        "poids_ko": 720,
+        "noeuds": 377
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/projets/strata-esg",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 10,
+        "longueur": 7400,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 200,
+        "document_pret_ms": 163,
+        "poids_ko": 723,
+        "noeuds": 549
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/projets/pharivo",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 10,
+        "longueur": 6141,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 196,
+        "document_pret_ms": 80,
+        "poids_ko": 723,
+        "noeuds": 466
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/projets/conhama",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 10,
+        "longueur": 5210,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 228,
+        "document_pret_ms": 65,
+        "poids_ko": 723,
+        "noeuds": 473
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/projets/adama-os",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 10,
+        "longueur": 6287,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 224,
+        "document_pret_ms": 211,
+        "poids_ko": 723,
+        "noeuds": 502
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/mentions-legales",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 6,
+        "longueur": 2001,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 152,
+        "document_pret_ms": 154,
+        "poids_ko": 712,
+        "noeuds": 317
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/confidentialite",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 7,
+        "longueur": 5183,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 168,
+        "document_pret_ms": 139,
+        "poids_ko": 712,
+        "noeuds": 384
       },
       "statut": 200,
       "mesuree": true
     }
   ],
-  "executed_at": "2026-10-23T01:32:10.617Z",
+  "executed_at": "2026-11-07T15:58:20.516Z",
   "anomalies": 0,
   "non_mesurees": 0,
   "resume": {
-    "pages": 18,
-    "pages_mesurees": 18,
+    "pages": 46,
+    "pages_mesurees": 46,
     "anomalies": 0,
     "non_mesurees": 0,
-    "premier_rendu_max_ms": 872,
-    "poids_max_ko": 975,
-    "noeuds_max": 997
+    "premier_rendu_max_ms": 592,
+    "poids_max_ko": 891,
+    "noeuds_max": 1842
   }
 }

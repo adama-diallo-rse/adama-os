@@ -6,10 +6,10 @@ import { DIAGNOSTIC, VERROUS, periodeCourante } from "../../content/conseil";
 // =====================================================================
 // EG1, AXP-63, le diagnostic court payant.
 //
-// 90 minutes, une note d'une page, 250 a 450 euros. Le prix est affiche ici
-// parce qu'il fait partie du filtre : il convertit une conversation en
-// client et renvoie les curieux ailleurs. Il ne s'affiche pas sur la page
-// des quatre portes (EG0).
+// 90 minutes, une note d'une page. Le prix n'est plus affiche depuis le
+// 7 novembre 2026, decision d'Adama : la grille reste interne et le montant
+// est annonce par ecrit avant la seance. Il ne s'affiche pas non plus sur
+// la page des quatre portes (EG0).
 //
 // Tant que EK3 n'est pas franchi, aucune reservation n'est ouverte et rien
 // ne s'encaisse : la page le dit, et son seul appel mene au formulaire
@@ -23,7 +23,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Diagnostic court",
   description:
-    "Quatre-vingt-dix minutes pour lire un système de donnée ESG avant d’y ajouter un outil, et une note d’une page. Déroulé, contenu de la note et règle de prix publiés.",
+    "Quatre-vingt-dix minutes pour lire un système de donnée ESG avant d’y ajouter un outil, et une note d’une page. Déroulé et contenu de la note publiés.",
   alternates: { canonical: "/diagnostic" },
 };
 
@@ -31,12 +31,6 @@ function minutes(debut: number): string {
   const fin = debut + 15;
   return `${String(debut).padStart(2, "0")} à ${fin} min`;
 }
-
-const euros = new Intl.NumberFormat("fr-FR", {
-  style: "currency",
-  currency: "EUR",
-  maximumFractionDigits: 0,
-});
 
 export default function DiagnosticPage() {
   const vente = VERROUS.vente;
@@ -55,12 +49,9 @@ export default function DiagnosticPage() {
         description="Une séance pour lire votre système tel qu’il existe ou tel qu’il est imaginé, et une note d’une page qui dit ce qu’il faut trancher d’abord. La conclusion peut être de ne rien acheter, ni ici ni ailleurs."
         aside={
           <div className="intro-note conseil-prix-note">
-            <span className="intro-note-label">PRIX</span>
-            <strong>
-              {euros.format(DIAGNOSTIC.prix.min)} à{" "}
-              {euros.format(DIAGNOSTIC.prix.max)}
-            </strong>
-            <p>Selon le système lu. La règle est publiée plus bas.</p>
+            <span className="intro-note-label">FORMAT</span>
+            <strong>{DIAGNOSTIC.duree}, puis une note d’une page</strong>
+            <p>Le montant vous est annoncé par écrit avant la séance.</p>
           </div>
         }
       />
@@ -135,28 +126,6 @@ export default function DiagnosticPage() {
             ))}
           </ul>
         </div>
-      </section>
-
-      <section className="diagnostic-prix" aria-labelledby="prix-titre">
-        <div>
-          <p className="portfolio-label">LA RÈGLE DE PRIX</p>
-          <h2 id="prix-titre">
-            Le prix suit le système lu,{" "}
-            <span className="serif">pas la personne qui demande.</span>
-          </h2>
-          <p>
-            Il est annoncé par écrit avant la séance, et il ne change pas
-            pendant.
-          </p>
-        </div>
-        <ol>
-          {DIAGNOSTIC.prixRegle.map((r) => (
-            <li key={r.prix}>
-              <strong>{euros.format(r.prix)}</strong>
-              <p>{r.quand}</p>
-            </li>
-          ))}
-        </ol>
       </section>
 
       <section className="diagnostic-filtre" aria-labelledby="filtre-titre">

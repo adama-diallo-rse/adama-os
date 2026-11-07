@@ -53,34 +53,65 @@ import "./strates.css";
 // en cinq actes et les surfaces du catalogue. Chargée en dernier, elle a le
 // dernier mot sur les feuilles historiques.
 import "./refonte.css";
+// Refonte commerciale du 7 novembre 2026 : en-tête à commandes de même
+// hauteur, bande de confiance, photographies et offre d'accompagnement.
+import "./accompagnement.css";
 import localFont from "next/font/local";
 
-// Trois familles autohébergées, licence SIL Open Font License 1.1, notées
-// dans CREDITS.md : une grotesque variable pour tout le texte, une serif
-// italique pour le seul mot accentué d'un titre, une monospace pour les
+// 7 novembre 2026 : la typographie de STRATA ESG, relevée sur
+// strata-esg.fr, pour que les maisons parlent d'une même voix. Trois
+// familles autohébergées, licence SIL Open Font License 1.1, notées dans
+// CREDITS.md : Inter Tight pour les titres et l'interface (le mot accentué
+// en italique), DM Sans pour le texte courant, Courier Prime pour les
 // identifiants de preuve, les dates et les mesures.
-const schibsted = localFont({
-  src: "./fonts/schibsted-grotesk-latin-wght-normal.woff2",
-  variable: "--font-schibsted",
+const interTight = localFont({
+  src: "./fonts/inter-tight-latin-wght-normal.woff2",
+  variable: "--font-inter-tight",
   display: "swap",
-  weight: "400 900",
+  weight: "100 900",
 });
 
-const newsreader = localFont({
-  src: "./fonts/newsreader-latin-wght-italic.woff2",
-  variable: "--font-newsreader",
+const interTightItalique = localFont({
+  src: "./fonts/inter-tight-latin-wght-italic.woff2",
+  variable: "--font-inter-tight-italique",
   display: "swap",
   style: "italic",
-  weight: "200 800",
+  weight: "100 900",
   preload: false,
 });
 
-const plexMono = localFont({
+// Seconde passe, même jour : Host Grotesk porte les grands titres, le
+// premier écran compris, et son italique le mot accentué. Inter Tight
+// garde l'interface et les intertitres.
+const hostGrotesk = localFont({
+  src: "./fonts/host-grotesk-latin-wght-normal.woff2",
+  variable: "--font-host-grotesk",
+  display: "swap",
+  weight: "300 800",
+});
+
+const hostGroteskItalique = localFont({
+  src: "./fonts/host-grotesk-latin-wght-italic.woff2",
+  variable: "--font-host-grotesk-italique",
+  display: "swap",
+  style: "italic",
+  weight: "300 800",
+  preload: false,
+});
+
+const dmSans = localFont({
+  src: "./fonts/dm-sans-latin-wght-normal.woff2",
+  variable: "--font-dm-sans",
+  display: "swap",
+  weight: "100 1000",
+});
+
+const courierPrime = localFont({
   src: [
-    { path: "./fonts/ibm-plex-mono-latin-400-normal.woff2", weight: "400" },
-    { path: "./fonts/ibm-plex-mono-latin-500-normal.woff2", weight: "500" },
+    { path: "./fonts/courier-prime-latin-400-normal.woff2", weight: "400" },
+    { path: "./fonts/courier-prime-latin-700-normal.woff2", weight: "700" },
   ],
-  variable: "--font-plex-mono",
+  variable: "--font-courier-prime",
   display: "swap",
   preload: false,
 });
@@ -234,7 +265,7 @@ export default function RootLayout({
     <html
       lang="fr"
       suppressHydrationWarning
-      className={`${schibsted.variable} ${newsreader.variable} ${plexMono.variable}`}
+      className={`${hostGrotesk.variable} ${hostGroteskItalique.variable} ${interTight.variable} ${interTightItalique.variable} ${dmSans.variable} ${courierPrime.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: SCRIPT_RIDEAU }} />

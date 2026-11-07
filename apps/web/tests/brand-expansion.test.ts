@@ -8,17 +8,22 @@ function read(relativePath: string) {
   return readFileSync(join(WEB_ROOT, relativePath), "utf8");
 }
 
-describe("charte typographique ADAMA OS (révision du 30 octobre 2026)", () => {
-  it("charge uniquement les trois familles autohébergées de la charte", () => {
+// 7 novembre 2026 : la typographie de STRATA ESG, relevée sur strata-esg.fr
+// (Inter Tight, DM Sans, Courier Prime), pour que les maisons parlent d'une
+// même voix. Seconde passe, même jour : Host Grotesk pour les grands
+// titres et le premier écran.
+describe("charte typographique ADAMA OS (révision du 7 novembre 2026)", () => {
+  it("charge uniquement les familles autohébergées de STRATA ESG", () => {
     const layout = read("app/layout.tsx");
     const globals = read("app/globals.css");
 
     expect(layout).not.toContain("geist/font");
     expect(layout).not.toContain("next/font/google");
-    expect(layout).toContain("--font-schibsted");
-    expect(layout).toContain("--font-newsreader");
-    expect(layout).toContain("--font-plex-mono");
-    for (const ancienne of ["syne", "cormorant", "dm-sans", "courier-prime"]) {
+    expect(layout).toContain("--font-host-grotesk");
+    expect(layout).toContain("--font-inter-tight");
+    expect(layout).toContain("--font-dm-sans");
+    expect(layout).toContain("--font-courier-prime");
+    for (const ancienne of ["syne", "cormorant", "schibsted", "newsreader"]) {
       expect(layout).not.toContain(`--font-${ancienne}`);
     }
     expect(globals).not.toContain("font-geist");
@@ -27,9 +32,10 @@ describe("charte typographique ADAMA OS (révision du 30 octobre 2026)", () => {
   it("note la licence de chaque police autohébergée", () => {
     const credits = readFileSync(join(WEB_ROOT, "CREDITS.md"), "utf8");
     for (const famille of [
-      "Schibsted Grotesk",
-      "Newsreader",
-      "IBM Plex Mono",
+      "Host Grotesk",
+      "Inter Tight",
+      "DM Sans",
+      "Courier Prime",
     ]) {
       expect(credits).toContain(famille);
     }

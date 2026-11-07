@@ -32,7 +32,7 @@ const ART_PROJET: Record<
   { brand: Exclude<MarqueSignature, "adama"> | null; legende: string }
 > = {
   "strata-esg": { brand: "strata", legende: "CINQ PRODUITS" },
-  pharivo: { brand: "pharivo", legende: "GESTION D’OFFICINE" },
+  pharivo: { brand: "pharivo", legende: "SANTÉ, AFRIQUE DE L’OUEST" },
   "adama-os": { brand: null, legende: "LABORATOIRE ET PREUVE" },
   conhama: { brand: "conhama", legende: "CARTE DE L’ÉCONOMIE DURABLE" },
 };

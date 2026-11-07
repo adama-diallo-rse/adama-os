@@ -40,7 +40,7 @@ export default function MethodesPage() {
   return (
     <PageShell className="methodes-page strates-page">
       <PageIntro
-        eyebrow="M-001 À M-007 / BIBLIOTHÈQUE DES MÉTHODES"
+        eyebrow="MÉTHODES / LA BIBLIOTHÈQUE"
         title={
           <>
             Sept méthodes,

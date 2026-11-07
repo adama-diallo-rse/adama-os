@@ -59,7 +59,7 @@ export default async function PreuvesPage() {
   return (
     <PageShell>
       <PageIntro
-        eyebrow="PREUVES / INDEX COMPLET"
+        eyebrow="RESSOURCES / INDEX DES PREUVES"
         title={
           <>
             Ne me croyez pas,

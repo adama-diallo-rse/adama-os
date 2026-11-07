@@ -68,7 +68,18 @@ export function PiedDePage({ retour = "#top" }: { retour?: string }) {
           </Link>
           <nav className="pied-colonnes" aria-label="Pied de page">
             <div>
-              <p>Explorer</p>
+              <p>Découvrir</p>
+              <Link href="/projets">Réalisations</Link>
+              <Link href="/comment-je-travaille">Comment je travaille</Link>
+              <Link href="/travaillez-avec-moi">Accompagnement et revues</Link>
+              <Link href="/travaillez-avec-moi#formules">Les formats</Link>
+              <Link href="/travaillez-avec-moi#rendez-vous">
+                Prendre rendez-vous
+              </Link>
+              <Link href="/a-propos">À propos</Link>
+            </div>
+            <div>
+              <p>Vérifier</p>
               <Link href="/os">L’état du système</Link>
               <Link href="/preuves">Les preuves</Link>
               <Link href="/decisions">Les décisions</Link>

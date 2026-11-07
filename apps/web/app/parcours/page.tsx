@@ -46,7 +46,7 @@ export default function PageParcours() {
     <PageShell className="page-parcours">
       <PageIntro
         numero="ATELIER"
-        eyebrow="Parcours / transmission"
+        eyebrow="RESSOURCES / ATELIER, PARCOURS"
         title={
           <>
             Apprendre à construire, sur un projet <Accent>rendu.</Accent>

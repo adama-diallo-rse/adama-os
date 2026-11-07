@@ -23,7 +23,7 @@ export default function PageBibliotheque() {
     <PageShell className="page-bibliotheque">
       <PageIntro
         numero="PRESS"
-        eyebrow="Bibliothèque / notes de fond"
+        eyebrow="RESSOURCES / PRESS, NOTES DE FOND"
         title={
           <>
             Des écrits longs, sourcés, <Accent>datés.</Accent>

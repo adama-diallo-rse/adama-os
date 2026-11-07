@@ -175,64 +175,6 @@
 }
 
 /* ------------------------------------------------------------------
-   C9-T4, l'acces permanent au parcours recruteur
-   ------------------------------------------------------------------ */
-.recruiter-entry {
-  font-family: var(--font-grotesk);
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 14px;
-  border: 1px solid var(--filet);
-  border-radius: 4px;
-  font-size: 12px;
-  line-height: 1.25;
-  color: var(--texte);
-  background: color-mix(in srgb, var(--fond-carte) 45%, transparent);
-  transition:
-    border-color 0.2s,
-    background 0.2s;
-}
-.recruiter-entry:hover {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--fond-carte) 80%, transparent);
-}
-.recruiter-entry-dot {
-  width: 6px;
-  height: 6px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--accent-texte);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
-}
-.recruiter-entry-caption {
-  display: block;
-  margin-top: 3px;
-  font: 8px var(--font-code);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--texte-2);
-}
-.recruiter-entry--mobile {
-  width: 100%;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  padding: 16px;
-  font-size: 15px;
-}
-@media (max-width: 1240px) {
-  .recruiter-entry--header .recruiter-entry-caption {
-    display: none;
-  }
-}
-@media (max-width: 800px) {
-  .recruiter-entry--header {
-    display: none;
-  }
-}
-
-/* ------------------------------------------------------------------
    C9-T3, le parcours recruteur
    Objectif chronometre : quatre-vingt-dix secondes pour restituer le
    profil, trois preuves et l'echeance. La mise en page sert ce
@@ -1969,7 +1911,6 @@
   .case-toc,
   .case-autres,
   .hire-actions,
-  .recruiter-entry,
   .relecture-entry form {
     display: none !important;
   }

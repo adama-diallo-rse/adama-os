@@ -14,7 +14,7 @@ import { FICHES } from "../content/projets";
 // contenu de /ecosysteme, pas la liste des adresses.
 //
 // La home en mode recruteur (?for=recruiter) est une variante de la meme page,
-// pas une URL canonique : elle n'est pas listee. /recruteur, en revanche, est
+// pas une URL canonique : elle n'est pas listee. /a-propos, en revanche, est
 // une page a part entiere, citable et partageable, donc listee.
 //
 // C6 : les pages de decision sont listees une par une, lues en base. Une
@@ -63,7 +63,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: absoluteUrl("/recruteur"),
+      url: absoluteUrl("/projets"),
+      lastModified: maintenant,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/comment-je-travaille"),
+      lastModified: maintenant,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/a-propos"),
       lastModified: maintenant,
       changeFrequency: "weekly",
       priority: 0.9,

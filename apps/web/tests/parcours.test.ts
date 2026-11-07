@@ -5,33 +5,38 @@ import { PARCOURS_VISITEUR, URL_STRATA } from "../content/parcours";
 import { controlerTexte } from "../lib/vocabulaire";
 
 // =====================================================================
-// EC4, AXP-158, la navigation suit les cinq temps du visiteur.
+// EC4, AXP-158, la navigation suit les cinq temps du visiteur, dans les
+// mots d'un acheteur depuis le 7 novembre 2026.
 // =====================================================================
 
 const RACINE = join(__dirname, "..");
 
 describe("EC4, le parcours visiteur en cinq temps", () => {
-  it("suit explorer, apprendre, construire, travailler ensemble, utiliser STRATA", () => {
+  it("suit réalisations, méthodes, ressources, travailler ensemble, à propos, puis STRATA ESG", () => {
     expect(PARCOURS_VISITEUR.map((t) => t.libelle)).toEqual([
-      "Explorer",
-      "Apprendre",
-      "Construire",
+      "Réalisations",
+      "Méthodes",
+      "Ressources",
       "Travailler ensemble",
-      "Utiliser STRATA ESG",
+      "À propos",
+      "STRATA ESG",
     ]);
     expect(PARCOURS_VISITEUR.map((t) => t.libelleEn)).toEqual([
-      "Explore",
-      "Learn",
-      "Build",
+      "Work",
+      "Methods",
+      "Resources",
       "Work with me",
-      "Use STRATA ESG",
+      "About",
+      "STRATA ESG",
     ]);
   });
 
   it("mene chaque temps interne a une page qui existe aujourd'hui", () => {
     for (const t of PARCOURS_VISITEUR.filter((t) => !t.sortie)) {
+      // Une ancre de l'accueil mène à la page d'accueil elle-même.
+      const chemin = t.href.split("#")[0] ?? "/";
       expect(
-        existsSync(join(RACINE, "app", t.href, "page.tsx")),
+        existsSync(join(RACINE, "app", chemin, "page.tsx")),
         `${t.libelle} vers ${t.href}`,
       ).toBe(true);
     }

@@ -423,7 +423,7 @@ export default async function MethodePage({
   return (
     <PageShell className="methode-fiche-page strates-page">
       <PageIntro
-        eyebrow={`${methode.identifiant} / ${methode.codeAxp} / VERSION ${methode.version}`}
+        eyebrow={`MÉTHODES / ${methode.identifiant} / VERSION ${methode.version}`}
         title={methode.nomAffiche}
         description={`Fiche de méthode au format à dix-sept champs. ${methode.composants.join(" ")}`}
         aside={

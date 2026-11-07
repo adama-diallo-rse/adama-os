@@ -519,7 +519,12 @@ html[data-rideau] .rideau {
   justify-content: space-between;
   margin: 0;
   /* Police système : la légende se peint sans attendre de fichier. */
-  font: 500 10px / 1 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font:
+    500 10px / 1 ui-monospace,
+    "SFMono-Regular",
+    Menlo,
+    Consolas,
+    monospace;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--sur-feuille-2);
@@ -1447,109 +1452,9 @@ html[data-symbole3d="actif"]
   border-bottom: 0;
 }
 
-/* --- 13. Les défilés ---------------------------------------------------- */
-.organisations {
-  padding-block: clamp(64px, 8vw, 110px);
-}
-.defile {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  overflow: hidden;
-  padding-block: 22px;
-  border-block: 1px solid var(--filet);
-  mask-image: linear-gradient(
-    90deg,
-    transparent,
-    #000 6%,
-    #000 94%,
-    transparent
-  );
-}
-.defile + .defile {
-  border-top: 0;
-}
-.defile-piste {
-  display: flex;
-  flex: none;
-  gap: 0;
-  animation: defile var(--defile-duree, 48s) linear infinite;
-}
-.defile[data-pause="oui"] .defile-piste {
-  animation-play-state: paused;
-}
-.defile-liste {
-  display: flex;
-  flex: none;
-  align-items: center;
-  gap: clamp(40px, 5vw, 72px);
-  margin: 0;
-  padding: 0 clamp(20px, 2.5vw, 36px);
-  list-style: none;
-}
-.defile-liste li {
-  flex: none;
-  display: flex;
-  align-items: center;
-}
-.defile-liste .experience-name {
-  font: 640 18px / 1.1 var(--font-grotesk);
-}
-.defile-liste .experience-name small {
-  display: block;
-  margin-top: 4px;
-  font: 400 11px var(--font-code);
-  color: var(--texte-2);
-}
-.defile-livraisons li {
-  gap: 10px;
-  font-size: 15px;
-  color: var(--texte-doux);
-  white-space: nowrap;
-}
-.defile-date {
-  font: 500 12px var(--font-code);
-  color: var(--accent-texte);
-}
-.defile-pause {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  min-height: 34px;
-  padding: 0 12px;
-  font: 600 12px var(--font-grotesk);
-  border: 1px solid var(--filet-fort);
-  border-radius: 999px;
-  background: var(--fond);
-  color: var(--texte);
-  z-index: 1;
-}
-.organisations-pied {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 28px;
-  margin-top: 28px;
-}
-@keyframes defile {
-  to {
-    transform: translateX(-50%);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .defile-piste {
-    animation: none;
-  }
-  .defile {
-    overflow-x: auto;
-    mask-image: none;
-  }
-  .defile-piste > [aria-hidden="true"],
-  .defile-pause {
-    display: none;
-  }
-}
+/* --- 13. Les défilés --------------------------------------------------- */
+/* Retirés le 7 novembre 2026 : la bande de confiance (accompagnement.css)
+   remplace le défilé des organisations, et les livraisons vivent sur /os. */
 
 /* --- 14. L'appel final -------------------------------------------------- */
 .appel-final h2 {
@@ -2497,11 +2402,6 @@ html[data-symbole3d="actif"]
 .conseil-porte.porte-illustree {
   overflow: hidden;
 }
-/* Le défilé s'arrête sous le pointeur et au clavier. */
-.defile:hover .defile-piste,
-.defile:focus-within .defile-piste {
-  animation-play-state: paused;
-}
 
 /* --- 21. Compléments de la seconde passe ------------------------------ */
 .engagements {
@@ -2532,37 +2432,8 @@ html[data-symbole3d="actif"]
   color: var(--texte-2);
   font-size: 15px;
 }
-.compteurs-accueil {
-  margin-top: 40px;
-}
 .appel-final-grille {
   position: relative;
-}
-.appel-final-scene {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: min(440px, 40%);
-  opacity: 0.95;
-}
-.appel-final-scene .scene-iso {
-  color: var(--sur-feuille);
-}
-.appel-final-scene .iso-face-claire {
-  fill: var(--feuille-2);
-}
-.appel-final-scene .iso-face-creuse {
-  fill: var(--feuille-indigo);
-}
-.appel-final-scene .iso-texte {
-  fill: var(--sur-feuille-2);
-}
-@media (max-width: 1023px) {
-  .appel-final-scene {
-    position: static;
-    width: min(360px, 100%);
-    margin-bottom: 24px;
-  }
 }
 .fiche-controle {
   margin-top: clamp(48px, 6vw, 80px);

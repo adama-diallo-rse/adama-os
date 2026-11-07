@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NOMBRE_PRINCIPES } from "../../content/principes";
 import Link from "next/link";
 import { PageIntro, PageShell } from "../../components/page-shell";
 import { adresseDePreuve } from "../../components/adr-chain";
@@ -45,7 +46,7 @@ export default async function RevirementsPage() {
   return (
     <PageShell className="turn-page">
       <PageIntro
-        eyebrow="MÉTHODE / CORRECTIONS TRACÉES"
+        eyebrow="MÉTHODES / CORRECTIONS TRACÉES"
         title={
           <>
             Ce sur quoi
@@ -160,7 +161,8 @@ export default async function RevirementsPage() {
         <div>
           <p className="portfolio-label">CE QUI EN SORT</p>
           <h2>
-            Cinq règles, <span className="serif">payées comptant.</span>
+            {NOMBRE_PRINCIPES} règles,{" "}
+            <span className="serif">payées comptant.</span>
           </h2>
           <p>
             Chaque correction produit une règle générale. Ces règles ne sont pas

@@ -74,7 +74,7 @@ export default async function PageOutils() {
     <PageShell className="page-outils">
       <PageIntro
         numero="FORGE"
-        eyebrow="Outils / en usage"
+        eyebrow="RESSOURCES / FORGE, OUTILS EN USAGE"
         title={
           <>
             Des outils qu’on peut ouvrir <Accent>maintenant.</Accent>
@@ -83,7 +83,10 @@ export default async function PageOutils() {
         description="Gratuits, sans compte. Chaque tuile reproduit l’outil tel qu’il répond à cet instant, avec ses vraies valeurs."
       />
 
-      <section className="tuiles" aria-label="Les outils" data-cartes>
+      <section className="tuiles" aria-labelledby="outils-titre" data-cartes>
+        <h2 id="outils-titre" className="sr-only">
+          Les outils
+        </h2>
         <article className="tuile" data-taille="large">
           <div className="tuile-apercu" aria-hidden="true" data-revele-media>
             <div className="mini">

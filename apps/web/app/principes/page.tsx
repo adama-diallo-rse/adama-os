@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro, PageShell } from "../../components/page-shell";
-import { PRINCIPES } from "../../content/principes";
+import { PRINCIPES, NOMBRE_PRINCIPES } from "../../content/principes";
 import { entreeRegistre } from "../../content/decisions";
 import { SIGNATURE } from "../../content/systeme";
 import { titresAdr } from "../../lib/adr";
@@ -46,10 +46,10 @@ export default async function PrincipesPage() {
   return (
     <PageShell className="dna-page">
       <PageIntro
-        eyebrow="PRINCIPES / DÉRIVÉS, NON DÉCLARÉS"
+        eyebrow="MÉTHODES / PRINCIPES"
         title={
           <>
-            Cinq règles,
+            {NOMBRE_PRINCIPES} règles,
             <br />
             <span className="serif">et leur prix.</span>
           </>

@@ -1,10 +1,11 @@
 // =====================================================================
-// EC4, AXP-158, le parcours visiteur en cinq temps.
+// EC4, AXP-158, puis refonte commerciale du 7 novembre 2026 : la barre du
+// visiteur en six temps.
 //
-// Explore, Learn, Build, Work with me, Use STRATA ESG : l'ordre est celui de la
-// branche EC, et il ne se reorganise pas par page. Chaque temps nomme la
-// page ou il mene, la question du visiteur a laquelle il repond, et le
-// signal qui dirait qu'il ne sert a rien. Ce signal est une regle de
+// Réalisations, Méthodes, Ressources, Travailler ensemble, À propos, puis
+// la seule sortie vers STRATA ESG. L'ordre ne se reorganise pas par page. Chaque temps
+// nomme la page ou il mene, la question du visiteur a laquelle il repond,
+// et le signal qui dirait qu'il ne sert a rien. Ce signal est une regle de
 // retrait : un temps qui ne mene nulle part sort de la barre, il ne s'y
 // maintient pas par habitude.
 //
@@ -16,7 +17,13 @@
 export const URL_STRATA = "https://www.strata-esg.fr/";
 
 export type TempsParcours = {
-  code: "explorer" | "apprendre" | "construire" | "ensemble" | "strata";
+  code:
+    | "realisations"
+    | "methodes"
+    | "ressources"
+    | "ensemble"
+    | "profil"
+    | "strata";
   libelle: string;
   libelleEn: string;
   href: string;
@@ -29,13 +36,48 @@ export type TempsParcours = {
   sortie: boolean;
 };
 
+// 7 novembre 2026, seconde passe : ADAMA OS n'est pas une offre de
+// conseil, c'est un systeme de travail rendu public. La barre suit les
+// questions d'un visiteur qui decouvre : qu'avez-vous construit, comment
+// travaillez-vous, que puis-je utiliser, pouvons-nous travailler ensemble,
+// qui etes-vous. La sortie vers STRATA ESG reste la derniere et la seule.
 export const PARCOURS_VISITEUR: readonly TempsParcours[] = [
   {
-    code: "explorer",
-    libelle: "Explorer",
-    libelleEn: "Explore",
-    href: "/decisions",
+    code: "realisations",
+    libelle: "Réalisations",
+    libelleEn: "Work",
+    href: "/projets",
+    actifSur: ["/projets", "/ecosysteme"],
+    question: "Qu’avez-vous réellement construit, et est-ce en service ?",
+    signalInutile:
+      "Les réalisations sont affichées sans qu’aucune fiche projet ne soit ouverte.",
+    sortie: false,
+  },
+  {
+    code: "methodes",
+    libelle: "Méthodes",
+    libelleEn: "Methods",
+    href: "/methodes",
+    actifSur: ["/methodes", "/methode", "/principes", "/comment-je-travaille"],
+    question: "Comment travaillez-vous, et qu’est-ce qui a été prouvé ?",
+    signalInutile:
+      "La bibliothèque des méthodes est ouverte puis quittée sans qu’aucune fiche ne soit lue.",
+    sortie: false,
+  },
+  {
+    code: "ressources",
+    libelle: "Ressources",
+    libelleEn: "Resources",
+    href: "/catalogue",
     actifSur: [
+      "/catalogue",
+      "/articles",
+      "/en/articles",
+      "/bibliotheque",
+      "/outils",
+      "/playbooks",
+      "/parcours",
+      "/technique",
       "/decisions",
       "/preuves",
       "/revirements",
@@ -43,30 +85,12 @@ export const PARCOURS_VISITEUR: readonly TempsParcours[] = [
       "/erreurs",
       "/expansion",
       "/ecriture",
+      "/lettre",
+      "/os",
     ],
-    question: "Qu’est-ce qui a réellement été fait, et comment le vérifier ?",
+    question: "Qu’est-ce que je peux lire et utiliser ici sans rien acheter ?",
     signalInutile:
-      "Les visites du temps Explorer ne mènent à aucune ouverture de décision ni de preuve.",
-    sortie: false,
-  },
-  {
-    code: "apprendre",
-    libelle: "Apprendre",
-    libelleEn: "Learn",
-    href: "/articles",
-    actifSur: ["/articles", "/en/articles"],
-    question: "Qu’est-ce que je peux comprendre ici sans rien acheter ?",
-    signalInutile: "Aucune note de fond n’est lue jusqu’à sa dernière section.",
-    sortie: false,
-  },
-  {
-    code: "construire",
-    libelle: "Construire",
-    libelleEn: "Build",
-    href: "/methode",
-    actifSur: ["/methode", "/methodes", "/principes", "/technique"],
-    question: "Comment passer d’une idée à un actif vérifiable ?",
-    signalInutile: "La méthode est ouverte puis quittée sans lecture.",
+      "Aucune ressource gratuite n’est ouverte depuis le catalogue pendant un trimestre.",
     sortie: false,
   },
   {
@@ -75,18 +99,29 @@ export const PARCOURS_VISITEUR: readonly TempsParcours[] = [
     libelleEn: "Work with me",
     href: "/travaillez-avec-moi",
     actifSur: ["/travaillez-avec-moi", "/diagnostic", "/revue-architecture"],
-    question: "Mon problème relève-t-il d’une revue, et laquelle ?",
+    question: "Pouvez-vous m’aider sur mon projet, et sous quelle forme ?",
     signalInutile:
-      "Les demandes reçues ne remplissent jamais les quatre conditions d’acceptation.",
+      "Les visites de la page ne mènent à aucun premier échange ni à aucune demande écrite.",
+    sortie: false,
+  },
+  {
+    code: "profil",
+    libelle: "À propos",
+    libelleEn: "About",
+    href: "/a-propos",
+    actifSur: ["/a-propos"],
+    question: "Qui êtes-vous, et qui vous fait déjà confiance ?",
+    signalInutile:
+      "La page À propos est quittée avant la section des organisations.",
     sortie: false,
   },
   {
     code: "strata",
-    libelle: "Utiliser STRATA ESG",
-    libelleEn: "Use STRATA ESG",
+    libelle: "STRATA ESG",
+    libelleEn: "STRATA ESG",
     href: URL_STRATA,
     actifSur: [],
-    question: "Mon besoin exige-t-il un logiciel opérationnel ?",
+    question: "Mon besoin exige-t-il un logiciel de durabilité opérationnel ?",
     signalInutile:
       "La sortie est suivie d’un retour immédiat sur ce site, sans visite du logiciel.",
     sortie: true,

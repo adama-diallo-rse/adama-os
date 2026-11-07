@@ -88,9 +88,9 @@ export const CHAINE: readonly EtapeChaine[] = [
   {
     id: "lecteur",
     titre: "Lecteur",
-    quoi: "Un recruteur, un directeur technique, un partenaire, un collaborateur. Chacun doit pouvoir refaire la vérification lui-même.",
+    quoi: "Un client, un directeur technique, un partenaire, un collaborateur. Chacun doit pouvoir refaire la vérification lui-même.",
     implementation: [
-      "apps/web/app/recruteur/page.tsx",
+      "apps/web/app/a-propos/page.tsx",
       "apps/web/app/preuves/page.tsx",
       "apps/web/app/decisions/page.tsx",
     ],

@@ -5,25 +5,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Symbole } from "./marque/symbole";
 import { OutboundLink } from "./outbound-link";
-import { RecruiterEntry } from "./recruiter-entry";
 import { PARCOURS_VISITEUR, type TempsParcours } from "../content/parcours";
 import { TITRE_COURT } from "../content/profil";
 import { INDEX_RUBRIQUES } from "../content/catalogue-index";
-
-// Les six branches, telles que le visiteur les rencontre (AXP-90). Chaque
-// branche mène à la page qui la porte aujourd'hui.
-const BRANCHES = [
-  { code: "OPEN", libelle: "Le laboratoire public", href: "/catalogue" },
-  { code: "PRESS", libelle: "Notes de fond et titres", href: "/bibliotheque" },
-  { code: "FORGE", libelle: "Outils et systèmes", href: "/outils" },
-  { code: "ATELIER", libelle: "Parcours", href: "/parcours" },
-  {
-    code: "CONSEIL",
-    libelle: "Revues et second avis",
-    href: "/travaillez-avec-moi",
-  },
-  { code: "SIGNAL", libelle: "La lettre", href: "/lettre" },
-] as const;
+// Les six branches, lues dans la même source que l'accueil (AXP-90).
+import { BRANCHES } from "../content/accueil";
 
 export function SiteHeader({
   home = false,
@@ -39,9 +25,9 @@ export function SiteHeader({
   const [menuOpen, setMenuOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const panneau = useRef<HTMLDivElement>(null);
-  // EC4, AXP-158 : la barre suit les cinq temps du visiteur, dans cet
-  // ordre, sur toutes les pages. Explorer, apprendre, construire,
-  // travailler ensemble, puis la seule sortie du site, vers le logiciel.
+  // EC4, AXP-158 : la barre suit les temps du visiteur, dans cet ordre,
+  // sur toutes les pages : réalisations, méthodes, ressources, travailler
+  // ensemble, à propos, puis la seule sortie du site, vers STRATA ESG.
   // Cinq entrées au maximum : le catalogue complet vit dans le grand menu,
   // rangé par rubrique (AXP-106) et par branche (AXP-90).
   const liens = PARCOURS_VISITEUR;
@@ -91,21 +77,29 @@ export function SiteHeader({
           ))}
         </nav>
         <div className="header-actions">
-          {/* C9-T4 : présente sur chaque page, jamais enfouie dans un menu. */}
-          <RecruiterEntry />
+          {/* 7 novembre 2026 : deux commandes, et une seule hauteur. Le
+              profil est passé dans la barre (« À propos ») : une troisième
+              boîte à deux lignes cassait l'alignement de l'en-tête. */}
           {onContact ? (
-            <button className="header-contact" onClick={onContact}>
-              Échanger <span aria-hidden="true">↗</span>
+            <button
+              type="button"
+              className="header-contact entete-commande entete-commande-pleine"
+              onClick={onContact}
+            >
+              Prendre rendez-vous <span aria-hidden="true">→</span>
             </button>
           ) : (
-            <Link href="/#contact" className="header-contact">
-              Échanger <span aria-hidden="true">↗</span>
+            <Link
+              href="/travaillez-avec-moi#rendez-vous"
+              className="header-contact entete-commande entete-commande-pleine"
+            >
+              Prendre rendez-vous <span aria-hidden="true">→</span>
             </Link>
           )}
           <button
             ref={toggle}
             type="button"
-            className="menu-toggle entete-menu"
+            className="menu-toggle entete-menu entete-commande"
             aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={menuOpen}
             aria-controls="grand-menu"
@@ -126,11 +120,7 @@ export function SiteHeader({
         >
           <div className="grand-menu-grille">
             <nav className="grand-menu-temps" aria-label="Le parcours">
-              <p className="grand-menu-titre">Le parcours</p>
-              <RecruiterEntry
-                variant="mobile"
-                onNavigate={() => setMenuOpen(false)}
-              />
+              <p className="grand-menu-titre">L’essentiel</p>
               {liens.map((temps) => (
                 <LienParcours
                   key={temps.href}
@@ -143,6 +133,26 @@ export function SiteHeader({
               <Link href="/os" onClick={() => setMenuOpen(false)}>
                 L’état du système
               </Link>
+              {onContact ? (
+                <button
+                  type="button"
+                  className="bouton bouton-plein grand-menu-rendez-vous"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    onContact();
+                  }}
+                >
+                  Prendre rendez-vous <span aria-hidden="true">→</span>
+                </button>
+              ) : (
+                <Link
+                  href="/travaillez-avec-moi#rendez-vous"
+                  className="bouton bouton-plein grand-menu-rendez-vous"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Prendre rendez-vous <span aria-hidden="true">→</span>
+                </Link>
+              )}
             </nav>
             {sobre ? null : (
               <>
@@ -178,7 +188,7 @@ export function SiteHeader({
                     {BRANCHES.map((b) => (
                       <li key={b.code}>
                         <Link href={b.href} onClick={() => setMenuOpen(false)}>
-                          <span className="grand-menu-code">{b.code}</span>
+                          <span className="grand-menu-code">{b.nom}</span>
                           {b.libelle}
                         </Link>
                       </li>

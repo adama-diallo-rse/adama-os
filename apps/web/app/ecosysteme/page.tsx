@@ -144,7 +144,7 @@ export default async function EcosystemePage() {
         }}
       />
       <PageIntro
-        eyebrow="LES PROJETS / ÉCOSYSTÈME"
+        eyebrow="RÉALISATIONS / L’ÉCOSYSTÈME"
         title={
           <>
             Des logiciels,

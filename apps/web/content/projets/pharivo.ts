@@ -26,7 +26,7 @@ export const PHARIVO: FicheProjet = {
   division: "Pharivo",
   categorie: "Santé",
   resume:
-    "Une officine sénégalaise suit des milliers de lots au cahier ou au tableur, et découvre ses ruptures et ses péremptions quand elles ont déjà coûté.",
+    "La santé en Afrique de l’Ouest tourne sur des outils qui ne se parlent pas : l’officine, la clinique, le grossiste et l’assureur. Pharivo construit les logiciels qui les relient, en commençant par l’officine.",
   roleEnUnMot: "Co-fondateur",
   ordre: 15,
   reluParAdama: true,
@@ -35,6 +35,7 @@ export const PHARIVO: FicheProjet = {
   adrIds: ["DEC-012", "DEC-013", "DEC-014"],
 
   probleme: [
+    "Pharivo est une maison de logiciels de santé basée à Dakar. Son premier produit, Pharivo Officine, gère le comptoir et le stock des pharmacies ; la chaîne d’approvisionnement, les lieux de soins et l’échange entre systèmes viennent ensuite, chacun annoncé seulement quand il sert.",
     "Une officine gère des milliers de produits, chacun en plusieurs lots, chacun avec sa date de péremption. Au cahier, au tableur ou dans un logiciel conçu pour un autre marché, la perte se voit trop tard : une vente manquée faute de stock, une boîte périmée retrouvée au fond d’un tiroir, deux saisies qui ne disent plus la même chose.",
     "Au Sénégal, les prix d’une grande partie des médicaments sont administrés par l’État, les paiements passent par Wave et Orange Money, et le réseau coupe. Un logiciel générique ne contrôle pas le prix d’une vente, ne connaît pas le référentiel national et s’arrête quand la connexion tombe.",
     "Pharivo commence au comptoir, là où le stock change. Ventes, réceptions et comptages entrent dans un même journal, d’où se calculent le stock par lot, les péremptions, les alertes et les rapports, même sans réseau.",
@@ -151,11 +152,11 @@ export const PHARIVO: FicheProjet = {
   etat: {
     valeur: "production",
     precision:
-      "L’application d’officine est en production et le site public est en ligne. Le programme pilote cherche ses trois premières officines : aucune officine cliente n’est revendiquée ici.",
+      "Pharivo Officine, le premier produit, est en production et le site public est en ligne. Le programme pilote cherche ses trois premières officines : aucune officine cliente n’est revendiquée ici.",
   },
 
   suite: [
-    "Installer et accompagner les trois premières officines pilotes.",
+    "Installer les trois premières officines pilotes, puis ouvrir les produits suivants : l’approvisionnement avec les grossistes, puis les lieux de soins.",
     "Ouvrir les registres légaux une fois l’avis juridique rendu.",
     "Exposer une route publique de santé que ce cockpit pourra interroger.",
   ],

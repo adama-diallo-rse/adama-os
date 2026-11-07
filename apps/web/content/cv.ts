@@ -91,7 +91,7 @@ export const AFFIRMATIONS_CV: readonly AffirmationCv[] = [
   {
     id: "pharivo",
     phrase:
-      "Pharivo, le logiciel de gestion d’officine, est en ligne et son interface publique répond.",
+      "Pharivo Officine, le premier logiciel de santé de Pharivo, est en ligne et son interface publique répond.",
     preuveId: "pharivo-en-ligne",
     section: "projets",
   },

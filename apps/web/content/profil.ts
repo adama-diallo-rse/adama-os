@@ -63,7 +63,7 @@ export const IDENTITE = {
   /** Ce que je sais faire. Vend une capacite, pas une situation. La these
    *  commune des maisons, validee par Adama le 22 octobre 2026. */
   capacite:
-    "Je construis des logiciels qui rendent l’économie réelle mesurable et vérifiable, de la donnée de durabilité d’une entreprise au stock d’une officine.",
+    "Je construis des logiciels qui rendent l’économie réelle mesurable et vérifiable, de la donnée de durabilité d’une entreprise aux opérations de santé en Afrique de l’Ouest.",
   /** Ou j'en suis. Vient apres la capacite, jamais avant. Composee depuis
    *  l'activite, pour que le titre et les maisons ne s'ecrivent qu'une fois. */
   situation: `${POSTE_ACTUEL}, entre ${ACTIVITE.villes.join(" et ")}.`,
@@ -74,7 +74,7 @@ export const IDENTITE = {
  * la ligne de disponibilite : elle dit a qui parler, pas quand embaucher.
  */
 export const OUVERTURE =
-  "Ouvert aux échanges avec les entreprises, les cabinets et les officines, comme avec les partenaires et les financeurs de ces maisons.";
+  "Ouvert aux échanges avec les entreprises, les cabinets et les acteurs de santé, comme avec les partenaires et les financeurs de ces maisons.";
 
 /**
  * Les portes d'entree. Trois publics, chacun avec ce qu'il trouve et
@@ -101,9 +101,9 @@ export const PORTES_ENTREE: readonly PorteEntree[] = [
   },
   {
     id: "pharivo",
-    public: "Officines au Sénégal",
+    public: "Santé en Afrique de l’Ouest",
     objet:
-      "Pharivo, le logiciel de l’officine sénégalaise, et son programme d’officines pilotes.",
+      "Pharivo, la maison de logiciels de santé en Afrique de l’Ouest : Pharivo Officine en premier, puis la chaîne d’approvisionnement et les lieux de soins.",
     lien: "https://pharivo.com",
     libelleLien: "pharivo.com",
   },
@@ -184,7 +184,7 @@ export const EXPERIENCES: readonly Experience[] = [
     id: "pharivo",
     organisation: "Pharivo",
     precision: "Dakar",
-    role: "Co-fondateur, logiciel de gestion d’officine",
+    role: "Co-fondateur, logiciels de santé en Afrique de l’Ouest",
     categorie: "SANTÉ × LOGICIEL",
     actuelle: true,
   },
@@ -294,7 +294,7 @@ export const TITRE_COURT = {
  */
 export const POSITIONNEMENT = {
   fr: IDENTITE.capacite,
-  en: "I build software that makes the real economy measurable and verifiable, from a company’s sustainability data to a pharmacy’s stock.",
+  en: "I build software that makes the real economy measurable and verifiable, from a company’s sustainability data to health operations in West Africa.",
   /** Alternatives datees : elles ne s'affichent pas, elles se testent. */
   variantes: [
     {

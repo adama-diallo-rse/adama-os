@@ -67,7 +67,7 @@ export default function ErreursPage() {
       />
       <PageShell className="erreurs-page">
         <PageIntro
-          eyebrow="CORPUS / ERROR LOG"
+          eyebrow="RESSOURCES / REGISTRE DES ERREURS"
           title={
             <>
               Les erreurs qui deviennent

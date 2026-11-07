@@ -39,7 +39,7 @@ export default function ChangelogPage() {
   return (
     <PageShell className="systeme-page">
       <PageIntro
-        eyebrow="CONSTRUCTION / CHANGELOG"
+        eyebrow="RESSOURCES / JOURNAL DES VERSIONS"
         title={
           <>
             Ce qui a changé,

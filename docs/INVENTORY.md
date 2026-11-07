@@ -13,21 +13,22 @@ echouer `--check` a chaque seconde.
 
 | Mesure | Valeur |
 | --- | --- |
-| Routes de page | 44 |
+| Routes de page | 53 |
 | Routes d'API | 11 |
-| Composants | 54 |
-| Modules `lib` | 54 |
+| Composants | 81 |
+| Modules `lib` | 56 |
 | Tables Drizzle | 11 |
 | Types enumeres | 14 |
-| Migrations SQL | 11 |
-| Fichiers de test | 61 |
-| Cas de test | 597 |
-| Dependances directes declarees | 53 |
+| Migrations SQL | 12 |
+| Fichiers de test | 67 |
+| Cas de test | 652 |
+| Dependances directes declarees | 57 |
 
 ## Routes
 
 | Page | Fichier | Lignes |
 | --- | --- | --- |
+| `/a-propos` | `apps/web/app/a-propos/page.tsx` | 358 |
 | `/admin/demandes` | `apps/web/app/admin/demandes/page.tsx` | 176 |
 | `/admin/lettre` | `apps/web/app/admin/lettre/page.tsx` | 299 |
 | `/admin` | `apps/web/app/admin/page.tsx` | 98 |
@@ -37,41 +38,49 @@ echouer `--check` a chaque seconde.
 | `/articles/methode-de-preuve` | `apps/web/app/articles/methode-de-preuve/page.tsx` | 53 |
 | `/articles` | `apps/web/app/articles/page.tsx` | 94 |
 | `/articles/sept-contraintes-donnee-esg-afrique-ouest` | `apps/web/app/articles/sept-contraintes-donnee-esg-afrique-ouest/page.tsx` | 53 |
+| `/bibliotheque` | `apps/web/app/bibliotheque/page.tsx` | 95 |
+| `/catalogue` | `apps/web/app/catalogue/page.tsx` | 217 |
 | `/changelog` | `apps/web/app/changelog/page.tsx` | 81 |
 | `/checkin` | `apps/web/app/checkin/page.tsx` | 326 |
+| `/comment-je-travaille` | `apps/web/app/comment-je-travaille/page.tsx` | 185 |
 | `/confiance` | `apps/web/app/confiance/page.tsx` | 300 |
 | `/confidentialite` | `apps/web/app/confidentialite/page.tsx` | 219 |
-| `/decisions/[adr]` | `apps/web/app/decisions/[adr]/page.tsx` | 305 |
-| `/decisions` | `apps/web/app/decisions/page.tsx` | 148 |
-| `/diagnostic` | `apps/web/app/diagnostic/page.tsx` | 215 |
-| `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 186 |
+| `/decisions/[adr]` | `apps/web/app/decisions/[adr]/page.tsx` | 319 |
+| `/decisions` | `apps/web/app/decisions/page.tsx` | 149 |
+| `/diagnostic` | `apps/web/app/diagnostic/page.tsx` | 184 |
+| `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 198 |
 | `/ecriture` | `apps/web/app/ecriture/page.tsx` | 155 |
 | `/en/articles/proof-method` | `apps/web/app/en/articles/proof-method/page.tsx` | 53 |
 | `/en/articles/seven-constraints-west-african-esg-data` | `apps/web/app/en/articles/seven-constraints-west-african-esg-data/page.tsx` | 53 |
 | `/en/articles/west-african-esg-data-architecture` | `apps/web/app/en/articles/west-african-esg-data-architecture/page.tsx` | 53 |
-| `/erreurs` | `apps/web/app/erreurs/page.tsx` | 321 |
+| `/en` | `apps/web/app/en/page.tsx` | 142 |
+| `/erreurs` | `apps/web/app/erreurs/page.tsx` | 345 |
 | `/expansion` | `apps/web/app/expansion/page.tsx` | 207 |
 | `/journal` | `apps/web/app/journal/page.tsx` | 123 |
 | `/lettre` | `apps/web/app/lettre/page.tsx` | 259 |
 | `/login` | `apps/web/app/login/page.tsx` | 84 |
 | `/mentions-legales` | `apps/web/app/mentions-legales/page.tsx` | 118 |
 | `/methode` | `apps/web/app/methode/page.tsx` | 127 |
-| `/methodes/[code]` | `apps/web/app/methodes/[code]/page.tsx` | 471 |
+| `/methodes/[code]` | `apps/web/app/methodes/[code]/page.tsx` | 522 |
 | `/methodes` | `apps/web/app/methodes/page.tsx` | 172 |
 | `/metrics` | `apps/web/app/metrics/page.tsx` | 253 |
 | `/mot-de-passe` | `apps/web/app/mot-de-passe/page.tsx` | 38 |
-| `/` | `apps/web/app/page.tsx` | 225 |
+| `/os` | `apps/web/app/os/page.tsx` | 209 |
+| `/outils` | `apps/web/app/outils/page.tsx` | 326 |
+| `/` | `apps/web/app/page.tsx` | 92 |
+| `/parcours` | `apps/web/app/parcours/page.tsx` | 131 |
+| `/playbooks` | `apps/web/app/playbooks/page.tsx` | 95 |
 | `/preuves` | `apps/web/app/preuves/page.tsx` | 142 |
 | `/principes` | `apps/web/app/principes/page.tsx` | 146 |
 | `/projets/[slug]` | `apps/web/app/projets/[slug]/page.tsx` | 172 |
-| `/recruteur` | `apps/web/app/recruteur/page.tsx` | 340 |
-| `/revirements` | `apps/web/app/revirements/page.tsx` | 178 |
+| `/projets` | `apps/web/app/projets/page.tsx` | 236 |
+| `/revirements` | `apps/web/app/revirements/page.tsx` | 180 |
 | `/revue-architecture` | `apps/web/app/revue-architecture/page.tsx` | 164 |
 | `/systeme` | `apps/web/app/systeme/page.tsx` | 148 |
-| `/systeme/pannes` | `apps/web/app/systeme/pannes/page.tsx` | 148 |
+| `/systeme/pannes` | `apps/web/app/systeme/pannes/page.tsx` | 185 |
 | `/technique` | `apps/web/app/technique/page.tsx` | 535 |
-| `/travaillez-avec-moi` | `apps/web/app/travaillez-avec-moi/page.tsx` | 310 |
-| `/verifier/[id]` | `apps/web/app/verifier/[id]/page.tsx` | 316 |
+| `/travaillez-avec-moi` | `apps/web/app/travaillez-avec-moi/page.tsx` | 543 |
+| `/verifier/[id]` | `apps/web/app/verifier/[id]/page.tsx` | 342 |
 
 | API | Fichier | Lignes |
 | --- | --- | --- |
@@ -85,7 +94,7 @@ echouer `--check` a chaque seconde.
 | `/api/metrics` | `apps/web/app/api/metrics/route.ts` | 34 |
 | `/api/trajectory` | `apps/web/app/api/trajectory/route.ts` | 62 |
 | `/auth/callback` | `apps/web/app/auth/callback/route.ts` | 76 |
-| `/llms.txt` | `apps/web/app/llms.txt/route.ts` | 108 |
+| `/llms.txt` | `apps/web/app/llms.txt/route.ts` | 129 |
 
 ## Base de donnees
 
@@ -105,6 +114,7 @@ Migrations :
 - `packages/db/migrations/0007_graphe.sql`
 - `packages/db/migrations/0008_depots_prives.sql`
 - `packages/db/migrations/0009_pharivo_et_registre.sql`
+- `packages/db/migrations/0010_conhama.sql`
 - `packages/db/migrations/seed_ecosystem_products.sql`
 
 ## Composants et modules
@@ -113,16 +123,16 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 | Fichier | Lignes |
 | --- | --- |
-| `apps/web/components/dashboard.tsx` | 617 |
-| `apps/web/components/terminal.tsx` | 563 |
+| `apps/web/components/kit/illustrations-offre.tsx` | 719 |
+| `apps/web/components/terminal.tsx` | 554 |
 | `apps/web/components/vsme-simulator.tsx` | 550 |
+| `apps/web/components/mouvement/scenes.tsx` | 540 |
+| `apps/web/components/dashboard.tsx` | 499 |
+| `apps/web/components/kit/illustrations-maison.tsx` | 481 |
 | `apps/web/lib/health/criteria.ts` | 459 |
 | `apps/web/components/ecosystem-map.tsx` | 443 |
 | `apps/web/lib/vocabulaire.ts` | 425 |
-| `apps/web/components/layer-d.tsx` | 395 |
-| `apps/web/lib/lettre/messages.ts` | 390 |
-| `apps/web/lib/lettre/registre.ts` | 381 |
-| `apps/web/components/build-log.tsx` | 362 |
+| `apps/web/components/layer-d.tsx` | 394 |
 
 ## Variables d'environnement lues dans le code
 
@@ -136,7 +146,7 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 Hotes distincts appeles ou lies depuis le code :
 
-`${vercel_host}`, `academy.esg-optimizer.fr`, `adamesg-os.fr`, `adamesg-os.fr${a.href}`, `adamesg-os.fr${chemin}`, `africa.esg-optimizer.fr`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `esg-optimizer.fr`, `eu.i.posthog.com`, `eur-lex.europa.eu`, `foundation.esg-optimizer.fr`, `ghgprotocol.org`, `github.com`, `officine.pharivo.com`, `pharivo.com`, `schema.org`, `scope.esg-optimizer.fr`, `uptime.betterstack.com`, `watch.esg-optimizer.fr`, `www.efrag.org`, `www.ifrs.org`, `www.notion.so`, `www.strata-esg.fr`
+`${vercel_host}`, `academy.esg-optimizer.fr`, `adamesg-os.fr`, `adamesg-os.fr${a.href}`, `adamesg-os.fr${chemin}`, `africa.esg-optimizer.fr`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `conhama.com`, `esg-optimizer.fr`, `eu.i.posthog.com`, `eur-lex.europa.eu`, `foundation.esg-optimizer.fr`, `ghgprotocol.org`, `github.com`, `officine.pharivo.com`, `pharivo.com`, `schema.org`, `scope.esg-optimizer.fr`, `uptime.betterstack.com`, `watch.esg-optimizer.fr`, `www.efrag.org`, `www.esg-optimizer.fr`, `www.ifrs.org`, `www.notion.so`, `www.strata-esg.fr`
 
 ### URL absolues du site ecrites en dur
 
@@ -163,7 +173,7 @@ Doctrine du projet : aucun tiret long ni demi-cadratin, dans le code
 comme dans les textes produits. Mesure sur l'application, hors outillage
 et hors tests.
 
-- apps/web/lib/vocabulaire.ts : motif: /[–—]/g,
+Aucun. Le controle passe.
 
 ## Noms historiques
 
@@ -185,9 +195,20 @@ est un defaut ouvert.
 | --- | --- | --- |
 | export | `apps/web/app/api/chat/route.ts#questionDeRecherche` | Regle de construction de la question envoyee a la recherche documentaire, dans la route qui l'emploie. Exportee pour etre verifiee directement : c'est une regle de comportement, pas un detail d'implementation, et la tester a travers une requete HTTP complete demanderait une base et une cle d'API. Voir tests/adama-moteur.test.ts. |
 | export | `apps/web/app/methodes/[code]/page.tsx#dynamicParams` | Convention de Next.js : dynamicParams = false refuse toute fiche de méthode hors des sept que generateStaticParams déclare. Next la lit par son nom exporté, aucun module ne l'importe. |
+| export | `apps/web/components/accueil/bloc-citation.tsx#DonneesCitation` | **non justifiee** |
 | export | `apps/web/components/build-log.tsx#JournalFiltres` | Forme des filtres du journal, produite par lireFiltres et consommee par BuildLog dans le meme fichier. Exportee parce que la page /journal la transporte entre les deux : c'est le contrat de l'etat porte par l'URL. |
+| export | `apps/web/components/catalogue/objets.tsx#CarteObjet` | **non justifiee** |
+| export | `apps/web/components/expansion-dashboard.tsx#ExpansionPreview` | **non justifiee** |
+| component | `apps/web/components/expansion-dashboard.tsx#ExpansionPreview` | **non justifiee** |
 | export | `apps/web/components/health-matrix.tsx#HealthMark` | Le marqueur d'etat de sante, seul endroit qui decide de son rendu. Exporte au meme titre que DataClassMark pour C1 : le jour ou un etat de sante s'affiche ailleurs, il doit venir d'ici et non d'une seconde composition. |
+| export | `apps/web/components/marque/stratemark.tsx#OR_STRATA` | **non justifiee** |
+| export | `apps/web/components/marque/symbole.tsx#Bande` | **non justifiee** |
+| export | `apps/web/components/marque/symbole.tsx#Epure` | **non justifiee** |
+| export | `apps/web/components/mouvement/lenis-partage.ts#Horloge` | **non justifiee** |
+| export | `apps/web/components/mouvement/lenis-partage.ts#lenisCourante` | **non justifiee** |
 | export | `apps/web/components/types.ts#TrajectoryType` | Type du champ `type` de la table trajectory. Utilise dans ce meme fichier par TrajectoryRow, exporte pour rester citable par un composant a venir. Le retirer forcerait a reecrire l'union en clair a chaque usage. |
+| export | `apps/web/content/adama-os.ts#PARCOURS_PUBLICS` | **non justifiee** |
+| export | `apps/web/content/catalogue.ts#EtatObjet` | **non justifiee** |
 | export | `apps/web/content/cv.ts#AffirmationCv` | Forme d'une affirmation verifiable du CV. Contrat du contenu editorial, utilise par AFFIRMATIONS_CV dans ce meme fichier et par tests/cv.test.ts. |
 | export | `apps/web/content/divisions.ts#LIBELLE_DIVISION` | Table des libelles editoriaux de division, lue par libelleDivision dans ce meme fichier. Exportee parce que c'est le contenu relu : une division renommee se corrige ici, et un test ou une page qui voudrait verifier la table doit pouvoir la citer sans passer par la fonction. |
 | export | `apps/web/content/frontieres.ts#Flux` | Forme d'un flux de donnees entrant, sortant ou interdit. Contrat du contenu de la page /confiance. |
@@ -195,6 +216,7 @@ est un defaut ouvert.
 | export | `apps/web/content/frontieres.ts#SensFlux` | Union des trois sens d'un flux. Utilisee par Flux dans ce meme fichier et par la mise en page du tableau. |
 | export | `apps/web/content/pannes.ts#ModePanne` | Forme d'un mode de panne. Contrat du contenu de /systeme/pannes, relu par scripts/failure-drill.mjs qui refuse de tourner si un identifiant de simulation n'a pas de scenario. |
 | export | `apps/web/content/projets/gabarit.ts#BlocRole` | Forme du bloc 02 d'une fiche projet, le plus important du gabarit. Utilise par FicheProjet dans ce meme fichier, exporte pour qu'un composant ou un test puisse typer ce bloc sans reecrire sa forme. Contrat public du gabarit. |
+| export | `apps/web/content/projets/gabarit.ts#ProduitFiche` | **non justifiee** |
 | export | `apps/web/lib/adr.ts#AdrPreuveKind` | Union des natures de trace d'une decision. Utilisee par AdrPreuve et par la table PREUVE_KIND_LABEL du meme fichier. Contrat public du module, au meme titre que EvidenceKind pour lib/proof/claims.ts. |
 | export | `apps/web/lib/adr.ts#AdrReversibilite` | Union des trois niveaux de reversibilite. Miroir du type Postgres adr_reversibility, utilisee par AdrRow et par les deux tables de libelles du meme fichier. Contrat public du module. |
 | export | `apps/web/lib/adr.ts#AdrRow` | Forme brute d'une ligne du journal d'architecture, telle que la cle anonyme la lit. Le type Adr, servi aux pages, l'etend. Exporte comme contrat de lecture : un appelant qui interrogerait decisions_log autrement doit pouvoir typer sa reponse de la meme facon. |
@@ -285,8 +307,10 @@ est un defaut ouvert.
 | export | `packages/db/src/schema.ts#trajectoryType` | Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit. |
 | dependency | `packages/ui/package.json#@types/react` | Types React du paquet de composants, resolus implicitement par TypeScript. |
 | export | `packages/ui/src/index.ts#UI_PACKAGE` | Meme role que DB_PACKAGE pour @adama/ui. |
+| export | `scripts/contraste.mjs#hex` | **non justifiee** |
+| export | `scripts/contraste.mjs#oklchVersRgb` | **non justifiee** |
 
-Zero entree sans justification. Le controle passe.
+14 entree(s) sans justification.
 
 ## Avertissements ESLint
 
@@ -310,18 +334,18 @@ Severite actuelle : `error` (avertissement en vague V0, erreur a partir de V2).
 | Niveau | Plafond | Mesure | Max | Etat |
 | --- | --- | --- | --- | --- |
 | N1 | Titres dans l'accroche de la home | 1 | 1 | tenu |
-| N1 | Lignes de texte dans l'accroche de la home | 3 | 3 | tenu |
-| N1 | Actions proposees dans l'accroche de la home | 3 | 3 | tenu |
+| N1 | Lignes de texte dans l'accroche de la home | 2 | 3 | tenu |
+| N1 | Actions proposees dans l'accroche de la home | 2 | 3 | tenu |
 | N1 | Cartes de competence sous l'accroche | 3 | 3 | tenu |
 | N2 | Fiches projet mises en avant sur la home | 4 | 4 | tenu |
 | N2 | Preuves sociales affichees d'un bloc dans la Couche D | 1 | 4 | tenu |
-| N2 | Experiences citees dans le bandeau de la home | 6 | 6 | tenu |
-| N2 | Marques d'organisation affichees sur le site | 6 | 6 | tenu |
-| surface | Routes de page | 44 | 46 | tenu |
+| N2 | Experiences citees dans le bandeau de la home | 7 | 6 | **depasse** |
+| N2 | Marques d'organisation affichees sur le site | 8 | 8 | tenu |
+| surface | Routes de page | 53 | 46 | **depasse** |
 | surface | Routes d'API | 11 | 11 | tenu |
-| surface | Composants | 54 | 54 | tenu |
-| surface | Modules lib | 54 | 54 | tenu |
-| surface | Lignes du plus gros composant | 617 | 700 | tenu |
+| surface | Composants | 81 | 54 | **depasse** |
+| surface | Modules lib | 56 | 54 | **depasse** |
+| surface | Lignes du plus gros composant | 719 | 700 | **depasse** |
 | surface | Lignes du plus gros module lib | 459 | 460 | tenu |
 
-Aucun depassement.
+5 plafond(s) depasse(s).

@@ -32,18 +32,20 @@ import { ACTIVITE, IDENTITE, OUVERTURE } from "../content/profil";
 
 type SubmitState = "idle" | "sending" | "done" | "error";
 
+// 7 novembre 2026 : la fenêtre dit les trois métiers d'ADAMA OS, dans
+// l'ordre de l'accueil : construire, publier, travailler ensemble.
 const VALUE_PROPS: { title: string; body: string }[] = [
   {
-    title: "STRATA ESG",
-    body: "Logiciels et accompagnement pour la donnée de durabilité : CSRD, ESRS, VSME, empreinte carbone et veille réglementaire.",
+    title: "Logiciels",
+    body: "STRATA ESG pour la donnée de durabilité, Pharivo pour l’officine sénégalaise, Conhama pour l’économie durable.",
   },
   {
-    title: "Pharivo",
-    body: "Le logiciel de l’officine sénégalaise : comptoir, stock par lot, péremptions et prix administrés, même sans réseau.",
+    title: "Méthodes",
+    body: "Des méthodes nommées et datées, tirées de ce qui a tourné en production, avec leurs outils et leurs notes.",
   },
   {
-    title: "Développement",
-    body: "Next.js, TypeScript, Python, FastAPI et PostgreSQL, du schéma de données à la mise en production.",
+    title: "Travailler ensemble",
+    body: "Accompagnement de six semaines, revue d’architecture ou second avis, sur votre projet.",
   },
 ];
 
@@ -133,7 +135,7 @@ export function RecruitModal({
     }
     // Repli sans Cal.com configuré : email.
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-      "Prise de rendez-vous, Adama OS",
+      "Premier échange avec ADAMA OS",
     )}`;
   }, []);
 
@@ -212,7 +214,7 @@ export function RecruitModal({
             <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-4">
               <div className="flex min-w-0 flex-wrap items-center gap-3">
                 <h2 className="font-sans text-2xl font-medium tracking-tight text-foreground">
-                  Faisons connaissance.
+                  Parlons de votre projet.
                 </h2>
                 <Badge variant="signal" dot>
                   {ACTIVITE.titre.toLowerCase()}
@@ -254,22 +256,22 @@ export function RecruitModal({
 
               {/* Actions : CV + call */}
               <div className="flex flex-wrap items-center gap-3">
+                <Button variant="primary" size="sm" bracket onClick={openCal}>
+                  Réserver un premier échange
+                </Button>
                 <Button
-                  variant="primary"
+                  variant="outline"
                   size="sm"
                   bracket
                   onClick={downloadCv}
                 >
                   Télécharger le CV
                 </Button>
-                <Button variant="outline" size="sm" bracket onClick={openCal}>
-                  Planifier un appel
-                </Button>
                 <Link
-                  href="/?for=recruiter"
+                  href="/travaillez-avec-moi#formules"
                   className="font-mono text-xs text-faint underline-offset-4 transition-colors hover:text-signal-bright hover:underline"
                 >
-                  version lecture / imprimable →
+                  les formats de travail →
                 </Link>
               </div>
 
@@ -300,7 +302,7 @@ export function RecruitModal({
                 ) : (
                   <>
                     <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-faint">
-                      Ou laissez-moi vos coordonnées
+                      Ou laissez votre e-mail, je vous réponds par écrit
                     </p>
                     <div className="mt-3 flex flex-col gap-2.5 sm:flex-row">
                       <input
@@ -308,7 +310,7 @@ export function RecruitModal({
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="email pro"
+                        placeholder="votre e-mail"
                         aria-label="Email professionnel"
                         className="h-11 min-w-0 flex-1 rounded-[calc(var(--radius)_-_0.25rem)] border border-border bg-surface px-3 font-sans text-base text-foreground outline-none placeholder:text-faint focus:border-signal"
                       />
@@ -316,7 +318,7 @@ export function RecruitModal({
                         type="text"
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
-                        placeholder="entreprise (optionnel)"
+                        placeholder="projet ou entreprise (optionnel)"
                         aria-label="Entreprise"
                         className="h-11 min-w-0 flex-1 rounded-[calc(var(--radius)_-_0.25rem)] border border-border bg-surface px-3 font-sans text-base text-foreground outline-none placeholder:text-faint focus:border-signal"
                       />

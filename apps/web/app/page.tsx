@@ -1,32 +1,43 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Dashboard } from "../components/dashboard";
 import { cartesProjet, categoriesProjet } from "../content/projets";
-import { chargerDonnees, preuvesCitables } from "../lib/accueil";
-import { SITE_URL } from "../lib/site";
-import { ARTICLES } from "../content/articles";
-import { METHODES } from "../content/methodes";
-import { PORTES } from "../content/conseil";
-import type { ResumeAccueil } from "../components/dashboard";
+import { chargerDonnees } from "../lib/accueil";
+import { IDENTITE, POSITIONNEMENT } from "../content/profil";
+import {
+  CarteParisDakar,
+  SceneTransformation,
+} from "../components/kit/illustrations-offre";
 
-// Les registres lus au rendu serveur, réduits à ce que l'accueil affiche :
-// le composant client ne transporte jamais les textes entiers.
-const RESUME: ResumeAccueil = {
-  articles: ARTICLES.map((a) => ({
-    href: a.href,
-    code: a.code,
-    titre: a.titre,
-  })),
-  methodes: {
-    total: METHODES.length,
-    essayees: METHODES.filter((m) => m.etat === "TESTÉ" || m.etat === "PROUVÉ")
-      .length,
+// 7 novembre 2026, seconde passe : l'accueil se présente aux moteurs et aux
+// aperçus de lien par ce qu'est ADAMA OS, des logiciels en service, des
+// méthodes publiées et un accompagnement. L'accompagnement n'en est qu'un
+// volet ; il garde sa propre page et son propre titre.
+const TITRE_ACCUEIL =
+  "ADAMA OS | Construire ce qui marche, prouver ce qu’on affirme";
+
+export const metadata: Metadata = {
+  title: { absolute: TITRE_ACCUEIL },
+  description: `${POSITIONNEMENT.fr} ${IDENTITE.situation}`,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: TITRE_ACCUEIL,
+    description: POSITIONNEMENT.fr,
+    url: "/",
+    siteName: "ADAMA OS",
+    locale: "fr_FR",
+    type: "website",
   },
-  portes: PORTES.map((p) => ({ code: p.code, titre: p.titre })),
+  twitter: {
+    card: "summary_large_image",
+    title: TITRE_ACCUEIL,
+    description: POSITIONNEMENT.fr,
+  },
 };
 
 // Page serveur : charge les données publiques (RLS, clé anon) puis délègue
-// le rendu au composant Dashboard, l'accueil en cinq actes (refonte du
-// 30 octobre 2026). Le cockpit complet vit désormais sur /os.
+// le rendu au composant Dashboard, l'accueil commercial du 7 novembre 2026.
+// Le cockpit complet, le moteur et les preuves citables vivent sur /os.
 export const dynamic = "force-dynamic";
 
 export default async function Home({
@@ -44,12 +55,12 @@ export default async function Home({
   // fonctionner.
   //
   // C'est une REDIRECTION et non plus une seconde vue. La vue precedente
-  // rendait un parcours recruteur distinct de /recruteur : deux surfaces
+  // rendait un parcours recruteur distinct de /a-propos : deux surfaces
   // pour le meme lecteur, qui divergeaient deja au 2 septembre 2026, l'une
   // vendant une capacite et l'autre une situation. Un alias mene au meme
   // endroit, sinon ce n'est pas un alias, c'est un second site.
   if (params.for === "recruiter") {
-    redirect("/recruteur");
+    redirect("/a-propos");
   }
 
   // C10-T9, l'alias symetrique. ?mode=technical ouvre directement la lecture
@@ -69,8 +80,12 @@ export default async function Home({
       data={data}
       cartes={cartesProjet()}
       categories={categoriesProjet()}
-      citations={preuvesCitables(data.proofs, SITE_URL)}
-      resume={RESUME}
+      carte={
+        <CarteParisDakar titre="Carte de l’Afrique et de l’Europe de l’Ouest : le Sénégal en latérite, Dakar relié à Paris par une ligne pointillée de 4 200 kilomètres." />
+      }
+      scene={
+        <SceneTransformation titre="À gauche, des idées éparses, certaines en pointillé. Une ligne de six étapes les mène à droite vers un système posé : trois strates, un sceau, un tableau de pilotage et un baobab." />
+      }
     />
   );
 }

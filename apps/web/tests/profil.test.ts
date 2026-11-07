@@ -126,7 +126,7 @@ describe("C9-T8, une seule source pour le profil", () => {
     const attendus = [
       "components/dashboard.tsx",
       "app/layout.tsx",
-      "app/recruteur/page.tsx",
+      "app/a-propos/page.tsx",
     ];
     for (const attendu of attendus) {
       const fichier = fichiers.find((f) => f.relatif === attendu);
@@ -225,12 +225,15 @@ describe("C9, la matiere du profil", () => {
   it("projette les experiences depuis la source, sans recopier role ni categorie", () => {
     const experiences: readonly Experience[] = EXPERIENCES;
     expect(experiences).toHaveLength(7); // Conhama entre le 30 octobre 2026
-    const dashboard = fichiers.find(
-      (f) => f.relatif === "components/dashboard.tsx",
+    // 7 novembre 2026 : l'accueil ne liste plus le parcours en défilé, il
+    // montre les marques de la bande de confiance. Leurs noms sont projetés
+    // depuis la source, jamais recopiés.
+    const offre = fichiers.find(
+      (f) => f.relatif === "content/accompagnement.ts",
     );
-    expect(dashboard).toBeDefined();
-    const code = dashboard?.code ?? "";
-    expect(code.match(/EXPERIENCES\.map\(/g) ?? []).toHaveLength(2);
+    expect(offre).toBeDefined();
+    const code = offre?.code ?? "";
+    expect(code).toContain("EXPERIENCES.find(");
   });
 
   // Le 2 septembre 2026, la verification ci-dessus ne lisait QUE
@@ -299,9 +302,9 @@ describe("C9, la matiere du profil", () => {
       );
     }
     const code =
-      fichiers.find((f) => f.relatif === "components/dashboard.tsx")?.code ??
+      fichiers.find((f) => f.relatif === "content/accompagnement.ts")?.code ??
       "";
-    expect(code).toContain("FORMATION.map(");
+    expect(code).toContain("FORMATION.find(");
   });
 
   it("nomme la personne d'une seule facon", () => {

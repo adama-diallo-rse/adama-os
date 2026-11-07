@@ -23,7 +23,7 @@ export const ROLES_DIVISION: Record<string, string> = {
   STRATA:
     "La conformité et la donnée de durabilité : collecte, contrôle, restitution réglementaire. C’est la division qui porte le métier.",
   Pharivo:
-    "La gestion de l’officine au Sénégal : comptoir, stock par lot, péremptions et prix administrés, même sans réseau.",
+    "Les logiciels opérationnels de la santé en Afrique de l’Ouest, en commençant par l’officine : comptoir, stock par lot, péremptions et prix administrés, même sans réseau.",
   IROKO:
     "L’outillage d’exploitation d’une petite structure : gestion, suivi, automatisation du quotidien.",
   Afrique:

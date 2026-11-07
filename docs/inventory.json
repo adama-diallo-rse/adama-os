@@ -1,19 +1,24 @@
 {
   "schema_version": 1,
   "surface": {
-    "pages": 44,
+    "pages": 53,
     "api_routes": 11,
-    "components": 54,
-    "lib_modules": 54,
+    "components": 81,
+    "lib_modules": 56,
     "tables": 11,
     "enums": 14,
-    "migrations": 11,
+    "migrations": 12,
     "policies": 21,
-    "test_files": 61,
-    "test_cases": 597,
-    "dependencies": 53
+    "test_files": 67,
+    "test_cases": 652,
+    "dependencies": 57
   },
   "pages": [
+    {
+      "file": "apps/web/app/a-propos/page.tsx",
+      "route": "/a-propos",
+      "lines": 358
+    },
     {
       "file": "apps/web/app/admin/demandes/page.tsx",
       "route": "/admin/demandes",
@@ -60,6 +65,16 @@
       "lines": 53
     },
     {
+      "file": "apps/web/app/bibliotheque/page.tsx",
+      "route": "/bibliotheque",
+      "lines": 95
+    },
+    {
+      "file": "apps/web/app/catalogue/page.tsx",
+      "route": "/catalogue",
+      "lines": 217
+    },
+    {
       "file": "apps/web/app/changelog/page.tsx",
       "route": "/changelog",
       "lines": 81
@@ -68,6 +83,11 @@
       "file": "apps/web/app/checkin/page.tsx",
       "route": "/checkin",
       "lines": 326
+    },
+    {
+      "file": "apps/web/app/comment-je-travaille/page.tsx",
+      "route": "/comment-je-travaille",
+      "lines": 185
     },
     {
       "file": "apps/web/app/confiance/page.tsx",
@@ -82,22 +102,22 @@
     {
       "file": "apps/web/app/decisions/[adr]/page.tsx",
       "route": "/decisions/[adr]",
-      "lines": 305
+      "lines": 319
     },
     {
       "file": "apps/web/app/decisions/page.tsx",
       "route": "/decisions",
-      "lines": 148
+      "lines": 149
     },
     {
       "file": "apps/web/app/diagnostic/page.tsx",
       "route": "/diagnostic",
-      "lines": 215
+      "lines": 184
     },
     {
       "file": "apps/web/app/ecosysteme/page.tsx",
       "route": "/ecosysteme",
-      "lines": 186
+      "lines": 198
     },
     {
       "file": "apps/web/app/ecriture/page.tsx",
@@ -120,9 +140,14 @@
       "lines": 53
     },
     {
+      "file": "apps/web/app/en/page.tsx",
+      "route": "/en",
+      "lines": 142
+    },
+    {
       "file": "apps/web/app/erreurs/page.tsx",
       "route": "/erreurs",
-      "lines": 321
+      "lines": 345
     },
     {
       "file": "apps/web/app/expansion/page.tsx",
@@ -157,7 +182,7 @@
     {
       "file": "apps/web/app/methodes/[code]/page.tsx",
       "route": "/methodes/[code]",
-      "lines": 471
+      "lines": 522
     },
     {
       "file": "apps/web/app/methodes/page.tsx",
@@ -175,9 +200,29 @@
       "lines": 38
     },
     {
+      "file": "apps/web/app/os/page.tsx",
+      "route": "/os",
+      "lines": 209
+    },
+    {
+      "file": "apps/web/app/outils/page.tsx",
+      "route": "/outils",
+      "lines": 326
+    },
+    {
       "file": "apps/web/app/page.tsx",
       "route": "/",
-      "lines": 225
+      "lines": 92
+    },
+    {
+      "file": "apps/web/app/parcours/page.tsx",
+      "route": "/parcours",
+      "lines": 131
+    },
+    {
+      "file": "apps/web/app/playbooks/page.tsx",
+      "route": "/playbooks",
+      "lines": 95
     },
     {
       "file": "apps/web/app/preuves/page.tsx",
@@ -195,14 +240,14 @@
       "lines": 172
     },
     {
-      "file": "apps/web/app/recruteur/page.tsx",
-      "route": "/recruteur",
-      "lines": 340
+      "file": "apps/web/app/projets/page.tsx",
+      "route": "/projets",
+      "lines": 236
     },
     {
       "file": "apps/web/app/revirements/page.tsx",
       "route": "/revirements",
-      "lines": 178
+      "lines": 180
     },
     {
       "file": "apps/web/app/revue-architecture/page.tsx",
@@ -217,7 +262,7 @@
     {
       "file": "apps/web/app/systeme/pannes/page.tsx",
       "route": "/systeme/pannes",
-      "lines": 148
+      "lines": 185
     },
     {
       "file": "apps/web/app/technique/page.tsx",
@@ -227,12 +272,12 @@
     {
       "file": "apps/web/app/travaillez-avec-moi/page.tsx",
       "route": "/travaillez-avec-moi",
-      "lines": 310
+      "lines": 543
     },
     {
       "file": "apps/web/app/verifier/[id]/page.tsx",
       "route": "/verifier/[id]",
-      "lines": 316
+      "lines": 342
     }
   ],
   "api_routes": [
@@ -289,10 +334,58 @@
     {
       "file": "apps/web/app/llms.txt/route.ts",
       "route": "/llms.txt",
-      "lines": 108
+      "lines": 129
     }
   ],
   "components": [
+    {
+      "file": "apps/web/components/accueil/ancrage.tsx",
+      "lines": 65
+    },
+    {
+      "file": "apps/web/components/accueil/bloc-citation.tsx",
+      "lines": 113
+    },
+    {
+      "file": "apps/web/components/accueil/branches.tsx",
+      "lines": 80
+    },
+    {
+      "file": "apps/web/components/accueil/demonstration-moteur.tsx",
+      "lines": 250
+    },
+    {
+      "file": "apps/web/components/accueil/hero-art.tsx",
+      "lines": 376
+    },
+    {
+      "file": "apps/web/components/accueil/logos-confiance.tsx",
+      "lines": 90
+    },
+    {
+      "file": "apps/web/components/accueil/navigation-ancres.tsx",
+      "lines": 49
+    },
+    {
+      "file": "apps/web/components/accueil/offre.tsx",
+      "lines": 218
+    },
+    {
+      "file": "apps/web/components/accueil/piliers.tsx",
+      "lines": 35
+    },
+    {
+      "file": "apps/web/components/accueil/rideau.tsx",
+      "lines": 27
+    },
+    {
+      "file": "apps/web/components/accueil/tableau-regimes.tsx",
+      "lines": 83
+    },
+    {
+      "file": "apps/web/components/accueil/volet-accompagnement.tsx",
+      "lines": 67
+    },
     {
       "file": "apps/web/components/adama-ai.tsx",
       "lines": 325
@@ -315,7 +408,7 @@
     },
     {
       "file": "apps/web/components/architecture-diagram.tsx",
-      "lines": 142
+      "lines": 146
     },
     {
       "file": "apps/web/components/article-afrique.tsx",
@@ -331,11 +424,19 @@
     },
     {
       "file": "apps/web/components/brand-signature.tsx",
-      "lines": 105
+      "lines": 145
     },
     {
       "file": "apps/web/components/build-log.tsx",
-      "lines": 362
+      "lines": 366
+    },
+    {
+      "file": "apps/web/components/catalogue/objets.tsx",
+      "lines": 116
+    },
+    {
+      "file": "apps/web/components/cockpit.tsx",
+      "lines": 149
     },
     {
       "file": "apps/web/components/consent-banner.tsx",
@@ -343,11 +444,11 @@
     },
     {
       "file": "apps/web/components/dashboard.tsx",
-      "lines": 617
+      "lines": 499
     },
     {
       "file": "apps/web/components/ecosystem-catalog.tsx",
-      "lines": 186
+      "lines": 196
     },
     {
       "file": "apps/web/components/ecosystem-map.tsx",
@@ -363,7 +464,7 @@
     },
     {
       "file": "apps/web/components/flow-diagram.tsx",
-      "lines": 220
+      "lines": 224
     },
     {
       "file": "apps/web/components/health-matrix.tsx",
@@ -378,8 +479,32 @@
       "lines": 184
     },
     {
-      "file": "apps/web/components/journey-gateway.tsx",
-      "lines": 41
+      "file": "apps/web/components/kit/elements.tsx",
+      "lines": 98
+    },
+    {
+      "file": "apps/web/components/kit/illustrations-maison.tsx",
+      "lines": 481
+    },
+    {
+      "file": "apps/web/components/kit/illustrations-offre.tsx",
+      "lines": 719
+    },
+    {
+      "file": "apps/web/components/kit/illustrations-portes.tsx",
+      "lines": 119
+    },
+    {
+      "file": "apps/web/components/kit/isometrie.tsx",
+      "lines": 120
+    },
+    {
+      "file": "apps/web/components/kit/scene-isometrique.tsx",
+      "lines": 182
+    },
+    {
+      "file": "apps/web/components/kit/sommaire.tsx",
+      "lines": 101
     },
     {
       "file": "apps/web/components/known-limits.tsx",
@@ -395,51 +520,83 @@
     },
     {
       "file": "apps/web/components/layer-c.tsx",
-      "lines": 189
+      "lines": 187
     },
     {
       "file": "apps/web/components/layer-d.tsx",
-      "lines": 395
-    },
-    {
-      "file": "apps/web/components/legal-links.tsx",
-      "lines": 20
+      "lines": 394
     },
     {
       "file": "apps/web/components/legal-page.tsx",
       "lines": 87
     },
     {
-      "file": "apps/web/components/open-strata-symbol.tsx",
-      "lines": 28
+      "file": "apps/web/components/marque/stratemark.tsx",
+      "lines": 60
+    },
+    {
+      "file": "apps/web/components/marque/symbole.tsx",
+      "lines": 155
+    },
+    {
+      "file": "apps/web/components/mouvement/defilement.tsx",
+      "lines": 52
+    },
+    {
+      "file": "apps/web/components/mouvement/ile-defilement.tsx",
+      "lines": 25
+    },
+    {
+      "file": "apps/web/components/mouvement/ile-mouvement.tsx",
+      "lines": 27
+    },
+    {
+      "file": "apps/web/components/mouvement/ile-symbole-3d.tsx",
+      "lines": 37
+    },
+    {
+      "file": "apps/web/components/mouvement/scenes.tsx",
+      "lines": 540
+    },
+    {
+      "file": "apps/web/components/mouvement/symbole-3d.tsx",
+      "lines": 331
     },
     {
       "file": "apps/web/components/org-logo.tsx",
-      "lines": 190
+      "lines": 196
     },
     {
       "file": "apps/web/components/outbound-link.tsx",
       "lines": 56
     },
     {
+      "file": "apps/web/components/outils-differes-ilot.tsx",
+      "lines": 54
+    },
+    {
+      "file": "apps/web/components/outils-differes.tsx",
+      "lines": 56
+    },
+    {
       "file": "apps/web/components/page-shell.tsx",
-      "lines": 87
+      "lines": 165
     },
     {
       "file": "apps/web/components/portfolio-art.tsx",
-      "lines": 169
+      "lines": 173
     },
     {
       "file": "apps/web/components/product-mark.tsx",
-      "lines": 157
+      "lines": 168
     },
     {
       "file": "apps/web/components/project-grid.tsx",
-      "lines": 182
+      "lines": 196
     },
     {
       "file": "apps/web/components/project-sheet.tsx",
-      "lines": 270
+      "lines": 308
     },
     {
       "file": "apps/web/components/proof/claim-value.tsx",
@@ -463,11 +620,7 @@
     },
     {
       "file": "apps/web/components/recruit-modal.tsx",
-      "lines": 351
-    },
-    {
-      "file": "apps/web/components/recruiter-entry.tsx",
-      "lines": 46
+      "lines": 353
     },
     {
       "file": "apps/web/components/shipped-feed.tsx",
@@ -483,11 +636,11 @@
     },
     {
       "file": "apps/web/components/site-header.tsx",
-      "lines": 168
+      "lines": 257
     },
     {
       "file": "apps/web/components/site-tools.tsx",
-      "lines": 9
+      "lines": 26
     },
     {
       "file": "apps/web/components/skill-cards.tsx",
@@ -503,7 +656,7 @@
     },
     {
       "file": "apps/web/components/terminal.tsx",
-      "lines": 563
+      "lines": 554
     },
     {
       "file": "apps/web/components/vsme-simulator.tsx",
@@ -511,6 +664,10 @@
     }
   ],
   "lib_modules": [
+    {
+      "file": "apps/web/lib/accueil.ts",
+      "lines": 260
+    },
     {
       "file": "apps/web/lib/adr.ts",
       "lines": 226
@@ -645,7 +802,7 @@
     },
     {
       "file": "apps/web/lib/og.tsx",
-      "lines": 164
+      "lines": 196
     },
     {
       "file": "apps/web/lib/outbound.ts",
@@ -716,6 +873,10 @@
       "lines": 299
     },
     {
+      "file": "apps/web/lib/theme.ts",
+      "lines": 29
+    },
+    {
       "file": "apps/web/lib/trajectory.ts",
       "lines": 130
     },
@@ -769,6 +930,7 @@
       "packages/db/migrations/0007_graphe.sql",
       "packages/db/migrations/0008_depots_prives.sql",
       "packages/db/migrations/0009_pharivo_et_registre.sql",
+      "packages/db/migrations/0010_conhama.sql",
       "packages/db/migrations/seed_ecosystem_products.sql"
     ],
     "policies": [
@@ -847,6 +1009,7 @@
   },
   "tests": {
     "files": [
+      "apps/web/tests/accompagnement.test.ts",
       "apps/web/tests/adama-ai.test.tsx",
       "apps/web/tests/adama-moteur.test.ts",
       "apps/web/tests/aimants.test.ts",
@@ -859,6 +1022,8 @@
       "apps/web/tests/auth-recuperation.test.ts",
       "apps/web/tests/brand-expansion.test.ts",
       "apps/web/tests/budget.test.ts",
+      "apps/web/tests/catalogue.test.ts",
+      "apps/web/tests/commerce-frontiere.test.ts",
       "apps/web/tests/config-redirects.test.ts",
       "apps/web/tests/conseil-formulaire.test.tsx",
       "apps/web/tests/conseil.test.ts",
@@ -874,6 +1039,7 @@
       "apps/web/tests/github-auth.test.ts",
       "apps/web/tests/graphe-sql.test.ts",
       "apps/web/tests/health.test.tsx",
+      "apps/web/tests/identite.test.ts",
       "apps/web/tests/integrite.test.tsx",
       "apps/web/tests/journal.test.ts",
       "apps/web/tests/layer-d.test.tsx",
@@ -886,9 +1052,11 @@
       "apps/web/tests/lexique-anglais.test.tsx",
       "apps/web/tests/marque.test.ts",
       "apps/web/tests/methodes.test.ts",
+      "apps/web/tests/mouvement.test.ts",
       "apps/web/tests/narrative.test.tsx",
       "apps/web/tests/no-fabrication.test.ts",
       "apps/web/tests/outbound.test.ts",
+      "apps/web/tests/pages-ajoutees.test.ts",
       "apps/web/tests/parcours.test.ts",
       "apps/web/tests/position-assistance.test.ts",
       "apps/web/tests/principes.test.ts",
@@ -909,15 +1077,15 @@
       "apps/web/tests/trajectory.test.ts",
       "apps/web/tests/vocabulaire.test.ts"
     ],
-    "cases": 597
+    "cases": 652
   },
   "rendu": {
-    "pages": 18,
-    "pages_mesurees": 18,
+    "pages": 46,
+    "pages_mesurees": 46,
     "anomalies": 0,
     "non_mesurees": 0,
-    "poids_max_ko": 975,
-    "noeuds_max": 997
+    "poids_max_ko": 891,
+    "noeuds_max": 1842
   },
   "dependencies": [
     {
@@ -955,6 +1123,12 @@
       "name": "@electric-sql/pglite",
       "range": "0.3.16",
       "kind": "devDependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "@gsap/react",
+      "range": "2.1.2",
+      "kind": "dependencies"
     },
     {
       "workspace": "apps/web/package.json",
@@ -1054,14 +1228,32 @@
     },
     {
       "workspace": "apps/web/package.json",
+      "name": "gsap",
+      "range": "3.15.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
       "name": "jsdom",
       "range": "^25.0.1",
       "kind": "devDependencies"
     },
     {
       "workspace": "apps/web/package.json",
+      "name": "lenis",
+      "range": "1.3.26",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
       "name": "next",
       "range": "^16.0.0",
+      "kind": "dependencies"
+    },
+    {
+      "workspace": "apps/web/package.json",
+      "name": "ogl",
+      "range": "1.0.11",
       "kind": "dependencies"
     },
     {
@@ -1298,6 +1490,7 @@
     "api.openai.com",
     "api.resend.com",
     "cal.com",
+    "conhama.com",
     "esg-optimizer.fr",
     "eu.i.posthog.com",
     "eur-lex.europa.eu",
@@ -1311,6 +1504,7 @@
     "uptime.betterstack.com",
     "watch.esg-optimizer.fr",
     "www.efrag.org",
+    "www.esg-optimizer.fr",
     "www.ifrs.org",
     "www.notion.so",
     "www.strata-esg.fr"
@@ -1326,9 +1520,7 @@
     "apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/verifier/${id}"
   ],
   "markers": [],
-  "long_dashes": [
-    "apps/web/lib/vocabulaire.ts : motif: /[–—]/g,"
-  ],
+  "long_dashes": [],
   "legacy_names": [
     {
       "name": "strata_analytics",
@@ -1364,9 +1556,29 @@
       "declared_intentional": "Convention de Next.js : dynamicParams = false refuse toute fiche de méthode hors des sept que generateStaticParams déclare. Next la lit par son nom exporté, aucun module ne l'importe."
     },
     {
+      "id": "apps/web/components/accueil/bloc-citation.tsx#DonneesCitation",
+      "kind": "export",
+      "declared_intentional": null
+    },
+    {
       "id": "apps/web/components/build-log.tsx#JournalFiltres",
       "kind": "export",
       "declared_intentional": "Forme des filtres du journal, produite par lireFiltres et consommee par BuildLog dans le meme fichier. Exportee parce que la page /journal la transporte entre les deux : c'est le contrat de l'etat porte par l'URL."
+    },
+    {
+      "id": "apps/web/components/catalogue/objets.tsx#CarteObjet",
+      "kind": "export",
+      "declared_intentional": null
+    },
+    {
+      "id": "apps/web/components/expansion-dashboard.tsx#ExpansionPreview",
+      "kind": "export",
+      "declared_intentional": null
+    },
+    {
+      "id": "apps/web/components/expansion-dashboard.tsx#ExpansionPreview",
+      "kind": "component",
+      "declared_intentional": null
     },
     {
       "id": "apps/web/components/health-matrix.tsx#HealthMark",
@@ -1374,9 +1586,44 @@
       "declared_intentional": "Le marqueur d'etat de sante, seul endroit qui decide de son rendu. Exporte au meme titre que DataClassMark pour C1 : le jour ou un etat de sante s'affiche ailleurs, il doit venir d'ici et non d'une seconde composition."
     },
     {
+      "id": "apps/web/components/marque/stratemark.tsx#OR_STRATA",
+      "kind": "export",
+      "declared_intentional": null
+    },
+    {
+      "id": "apps/web/components/marque/symbole.tsx#Bande",
+      "kind": "export",
+      "declared_intentional": null
+    },
+    {
+      "id": "apps/web/components/marque/symbole.tsx#Epure",
+      "kind": "export",
+      "declared_intentional": null
+    },
+    {
+      "id": "apps/web/components/mouvement/lenis-partage.ts#Horloge",
+      "kind": "export",
+      "declared_intentional": null
+    },
+    {
+      "id": "apps/web/components/mouvement/lenis-partage.ts#lenisCourante",
+      "kind": "export",
+      "declared_intentional": null
+    },
+    {
       "id": "apps/web/components/types.ts#TrajectoryType",
       "kind": "export",
       "declared_intentional": "Type du champ `type` de la table trajectory. Utilise dans ce meme fichier par TrajectoryRow, exporte pour rester citable par un composant a venir. Le retirer forcerait a reecrire l'union en clair a chaque usage."
+    },
+    {
+      "id": "apps/web/content/adama-os.ts#PARCOURS_PUBLICS",
+      "kind": "export",
+      "declared_intentional": null
+    },
+    {
+      "id": "apps/web/content/catalogue.ts#EtatObjet",
+      "kind": "export",
+      "declared_intentional": null
     },
     {
       "id": "apps/web/content/cv.ts#AffirmationCv",
@@ -1412,6 +1659,11 @@
       "id": "apps/web/content/projets/gabarit.ts#BlocRole",
       "kind": "export",
       "declared_intentional": "Forme du bloc 02 d'une fiche projet, le plus important du gabarit. Utilise par FicheProjet dans ce meme fichier, exporte pour qu'un composant ou un test puisse typer ce bloc sans reecrire sa forme. Contrat public du gabarit."
+    },
+    {
+      "id": "apps/web/content/projets/gabarit.ts#ProduitFiche",
+      "kind": "export",
+      "declared_intentional": null
     },
     {
       "id": "apps/web/lib/adr.ts#AdrPreuveKind",
@@ -1862,6 +2114,16 @@
       "id": "packages/ui/src/index.ts#UI_PACKAGE",
       "kind": "export",
       "declared_intentional": "Meme role que DB_PACKAGE pour @adama/ui."
+    },
+    {
+      "id": "scripts/contraste.mjs#hex",
+      "kind": "export",
+      "declared_intentional": null
+    },
+    {
+      "id": "scripts/contraste.mjs#oklchVersRgb",
+      "kind": "export",
+      "declared_intentional": null
     }
   ],
   "budgets": [
@@ -1879,7 +2141,7 @@
       "level": "N1",
       "label": "Lignes de texte dans l'accroche de la home",
       "max": 3,
-      "value": 3,
+      "value": 2,
       "broken": false,
       "over": false
     },
@@ -1888,7 +2150,7 @@
       "level": "N1",
       "label": "Actions proposees dans l'accroche de la home",
       "max": 3,
-      "value": 3,
+      "value": 2,
       "broken": false,
       "over": false
     },
@@ -1924,16 +2186,16 @@
       "level": "N2",
       "label": "Experiences citees dans le bandeau de la home",
       "max": 6,
-      "value": 6,
+      "value": 7,
       "broken": false,
-      "over": false
+      "over": true
     },
     {
       "id": "n2_marques_home",
       "level": "N2",
       "label": "Marques d'organisation affichees sur le site",
-      "max": 6,
-      "value": 6,
+      "max": 8,
+      "value": 8,
       "broken": false,
       "over": false
     },
@@ -1942,9 +2204,9 @@
       "level": "surface",
       "label": "Routes de page",
       "max": 46,
-      "value": 44,
+      "value": 53,
       "broken": false,
-      "over": false
+      "over": true
     },
     {
       "id": "surface_api",
@@ -1960,27 +2222,27 @@
       "level": "surface",
       "label": "Composants",
       "max": 54,
-      "value": 54,
+      "value": 81,
       "broken": false,
-      "over": false
+      "over": true
     },
     {
       "id": "surface_lib",
       "level": "surface",
       "label": "Modules lib",
       "max": 54,
-      "value": 54,
+      "value": 56,
       "broken": false,
-      "over": false
+      "over": true
     },
     {
       "id": "taille_composant",
       "level": "surface",
       "label": "Lignes du plus gros composant",
       "max": 700,
-      "value": 617,
+      "value": 719,
       "broken": false,
-      "over": false
+      "over": true
     },
     {
       "id": "taille_lib",

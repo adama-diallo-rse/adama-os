@@ -54,7 +54,7 @@ const TRAITEMENTS: Traitement[] = [
       "12 mois après le dernier échange si aucune mission ne suit ; effacement immédiat sur simple demande",
   },
   {
-    finalite: "Prise de contact recruteur",
+    finalite: "Prise de contact",
     donnees: "adresse e-mail, contexte du clic (page, intention déclarée)",
     base: "consentement, formulaire volontaire",
     duree: "24 mois à compter du dernier échange",

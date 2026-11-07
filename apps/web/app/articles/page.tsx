@@ -24,7 +24,7 @@ export default function ArticlesPage() {
   return (
     <PageShell className="articles-index-page">
       <PageIntro
-        eyebrow="APPRENDRE / NOTES DE FOND"
+        eyebrow="RESSOURCES / NOTES DE FOND"
         title={
           <>
             Ce qui se comprend ici

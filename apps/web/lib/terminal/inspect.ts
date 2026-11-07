@@ -290,8 +290,8 @@ export function commandesInspection(
     },
     {
       value: "recruiter",
-      hint: "ouvre le profil professionnel",
-      run: () => sortie([], { ouvrir: "/recruteur" }),
+      hint: "ouvre la page À propos",
+      run: () => sortie([], { ouvrir: "/a-propos" }),
     },
   ];
   return commandes;

@@ -15,7 +15,7 @@ const LEGENDES: Record<Code, string> = {
   systeme: "Quatre blocs reliés, dont un seul porte le sceau",
 };
 
-function Grille() {
+export function Grille() {
   return (
     <g opacity={0.35}>
       {Array.from({ length: 11 }, (_, i) => (

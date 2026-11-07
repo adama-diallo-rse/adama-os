@@ -51,7 +51,7 @@ export default async function JournalPage({
   return (
     <PageShell className="systeme-page">
       <PageIntro
-        eyebrow="CONSTRUCTION / JOURNAL"
+        eyebrow="RESSOURCES / LE JOURNAL"
         title={
           <>
             Ce que j’ai construit,
