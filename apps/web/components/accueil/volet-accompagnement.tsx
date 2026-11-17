@@ -32,7 +32,7 @@ export function VoletAccompagnement({
         <div className="volet-texte">
           <SurTitre numero={numero}>Accompagnement de projets</SurTitre>
           <h2 id="volet-titre">
-            Six semaines pour passer de l’idée{" "}
+            Six semaines d’accompagnement pour passer de l’idée{" "}
             <Accent>au système qui tient.</Accent>
           </h2>
           <p className="volet-intro">

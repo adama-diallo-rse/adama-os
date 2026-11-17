@@ -18,9 +18,9 @@ import { REGISTRE_ADR } from "../../content/decisions";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Outils",
+  title: "Outils gratuits : simulateur VSME et vérification",
   description:
-    "Les outils publics d’ADAMA OS, en usage : vérifier une affirmation, lire la sortie machine, mesurer une déclaration VSME, consulter les registres.",
+    "Les outils gratuits d’ADAMA OS, sans compte : mesurer une déclaration VSME, vérifier une affirmation, lire la sortie machine, consulter les registres.",
   alternates: { canonical: "/outils" },
 };
 
@@ -74,10 +74,10 @@ export default async function PageOutils() {
     <PageShell className="page-outils">
       <PageIntro
         numero="FORGE"
-        eyebrow="RESSOURCES / FORGE, OUTILS EN USAGE"
+        eyebrow="RESSOURCES / FORGE, OUTILS GRATUITS"
         title={
           <>
-            Des outils qu’on peut ouvrir <Accent>maintenant.</Accent>
+            Des outils gratuits, à ouvrir <Accent>maintenant.</Accent>
           </>
         }
         description="Gratuits, sans compte. Chaque tuile reproduit l’outil tel qu’il répond à cet instant, avec ses vraies valeurs."

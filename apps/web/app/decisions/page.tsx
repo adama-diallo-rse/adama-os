@@ -21,9 +21,9 @@ import { listAdr } from "../../lib/adr";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Journal des décisions",
+  title: "Journal des décisions d’architecture (ADR)",
   description:
-    "Les décisions d’architecture d’Adama Diallo, au format ADR : le contexte, les options écartées, le compromis accepté, ce que la décision a changé dans le code, et sa réversibilité.",
+    "Les décisions d’architecture logicielle d’Adama Diallo, au format ADR : contexte, options écartées, compromis accepté, effet dans le code et réversibilité.",
   alternates: { canonical: "/decisions" },
   openGraph: {
     title: "Journal des décisions d’architecture",

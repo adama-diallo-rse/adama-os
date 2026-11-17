@@ -22,9 +22,9 @@ import {
 // =====================================================================
 
 export const metadata: Metadata = {
-  title: "Comment je travaille",
+  title: "Comment je travaille : étapes, règles, preuves",
   description:
-    "Du premier échange au bilan : les étapes d’une collaboration, les six règles que je tiens, et tout ce que vous pouvez vérifier vous-même avant de m’écrire.",
+    "Du premier échange au bilan : les étapes d’une collaboration, les six règles que je tiens, et ce que vous pouvez vérifier vous-même avant de m’écrire.",
   alternates: { canonical: "/comment-je-travaille" },
   openGraph: {
     title: "Comment je travaille",

@@ -87,6 +87,28 @@ export function ArticleAfriquePage({ article }: { article: ArticleAfrique }) {
           ))}
         </div>
 
+        {article.cadre ? (
+          <section className="evidence-article-feature" id="cadre">
+            <header>
+              <p className="portfolio-label">{article.cadre.repere}</p>
+              <h2>{article.cadre.titre}</h2>
+              {article.cadre.introduction.map((paragraphe) => (
+                <p key={paragraphe}>{paragraphe}</p>
+              ))}
+            </header>
+            <div className="africa-translation-grid africa-cadre">
+              {article.cadre.lignes.map((ligne) => (
+                <article key={`${ligne.quand}-${ligne.quoi}`}>
+                  <p>{ligne.quand}</p>
+                  <h3>{ligne.quoi}</h3>
+                  <span>{ligne.texte}</span>
+                  <small>{ligne.reference}</small>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         <section className="evidence-article-feature africa-index">
           <header>
             <p className="portfolio-label">
@@ -218,6 +240,32 @@ export function ArticleAfriquePage({ article }: { article: ArticleAfrique }) {
             ))}
           </div>
         </section>
+
+        {article.sources ? (
+          <section className="evidence-article-sources" id="sources">
+            <div>
+              <p className="portfolio-label">
+                {article.langue === "fr"
+                  ? "SOURCES PUBLIQUES"
+                  : "PUBLIC SOURCES"}
+              </p>
+              <h2>{article.sources.titre}</h2>
+              <p>{article.sources.introduction}</p>
+            </div>
+            <nav aria-label={article.sources.titre}>
+              {article.sources.liens.map((lien) => (
+                <a
+                  href={lien.href}
+                  key={lien.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {lien.libelle} <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </nav>
+          </section>
+        ) : null}
 
         <section className="page-next evidence-article-next">
           <div>

@@ -14,7 +14,7 @@ import {
 const CHEMIN = "/ecriture";
 
 export const metadata: Metadata = {
-  title: "Écriture et assistance",
+  title: "Écriture et assistance : ce qui est relu, par qui",
   description:
     "Ce qui est écrit avec assistance sur ce site, ce qui ne l'est jamais, qui relit et comment chaque objet le signale.",
   alternates: { canonical: CHEMIN },

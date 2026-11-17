@@ -21,7 +21,12 @@ import { SceneMaillons } from "./kit/illustrations-maison";
 import { IleMouvement } from "./mouvement/ile-mouvement";
 import { IleSymbole3D } from "./mouvement/ile-symbole-3d";
 import { CONTACT_EMAIL, type DashboardData } from "./types";
-import { IDENTITE, POSITIONNEMENT, TITRE_COURT } from "../content/profil";
+import {
+  IDENTITE,
+  METIER,
+  POSITIONNEMENT,
+  TITRE_COURT,
+} from "../content/profil";
 import { PHOTOS } from "../content/accompagnement";
 import {
   CONVICTION,
@@ -145,6 +150,9 @@ export function Dashboard({
               docs/budget.json (ancres hero-copy, hero-copy-lines,
               hero-actions et hero-art) : un titre, deux lignes, deux
               actions. Le titre est du vrai texte, visible sans script.
+              14 novembre 2026 : sa première ligne dit qui, quel métier
+              et où. Trois verbes seuls ne nomment ni la personne ni ce
+              qu'elle fait, et c'est le h1 qu'un moteur lit en premier.
               ------------------------------------------------------------ */}
           <section
             className="accueil-hero"
@@ -158,6 +166,12 @@ export function Dashboard({
               <div className="hero-copy">
                 <SurTitre numero="00">{TITRE_COURT.affiche}</SurTitre>
                 <h1 id="hero-title" className="hero-trois-verbes">
+                  <span
+                    className="hero-metier"
+                    style={{ ["--i" as string]: -1 }}
+                  >
+                    {METIER.fr}.
+                  </span>{" "}
                   {TITRE_HERO.map((verbe, i) => (
                     <span key={verbe} style={{ ["--i" as string]: i }}>
                       {verbe}
@@ -202,12 +216,14 @@ export function Dashboard({
               <div className="ce-que-je-fais-tete">
                 <SurTitre numero="01">Ce que je fais</SurTitre>
                 <h2 id="ce-que-je-fais-titre">
-                  Trois métiers, <Accent>une seule méthode.</Accent>
+                  Construire des logiciels, publier des méthodes,{" "}
+                  <Accent>accompagner des projets.</Accent>
                 </h2>
                 <p>
-                  Je construis des logiciels, j’en tire des méthodes, et je les
-                  applique à d’autres projets que les miens. Chaque métier
-                  nourrit le suivant.
+                  Trois métiers, une seule méthode. Je construis des logiciels
+                  ESG et santé, j’en tire des méthodes, et je les applique à
+                  d’autres projets que les miens. Chaque métier nourrit le
+                  suivant.
                 </p>
                 <PhotoCadre
                   photo={PHOTOS.equipe}
@@ -229,12 +245,14 @@ export function Dashboard({
               <div className="section-tete">
                 <SurTitre numero="02">Réalisations</SurTitre>
                 <h2 id="realisations-titre">
-                  Quatre maisons, <Accent>en service.</Accent>
+                  STRATA ESG, Pharivo, Conhama et Adama&nbsp;OS,{" "}
+                  <Accent>en service.</Accent>
                 </h2>
                 <p>
-                  Des produits en ligne, construits avec la même méthode : une
-                  idée, des priorités écrites, des décisions datées, puis une
-                  mise en service. Chaque fiche dit ce que j’y ai fait.
+                  Trois maisons de logiciels et le laboratoire qui les relie,
+                  construits avec la même méthode : une idée, des priorités
+                  écrites, des décisions datées, puis une mise en service.
+                  Chaque fiche dit ce que j’y ai fait.
                 </p>
               </div>
               <ProjectGrid
@@ -271,7 +289,8 @@ export function Dashboard({
                 <header className="actes-tete">
                   <SurTitre numero="03">La méthode</SurTitre>
                   <h2 id="methode-titre">
-                    De l’idée à l’actif, <Accent>cinq étapes.</Accent>
+                    Une méthode de travail, de l’idée à l’actif{" "}
+                    <Accent>en cinq étapes.</Accent>
                   </h2>
                   <p>
                     Tout ce que je construis passe par la même chaîne, et chaque
@@ -354,12 +373,12 @@ export function Dashboard({
               <div className="section-tete">
                 <SurTitre numero="05">Les branches</SurTitre>
                 <h2 id="branches-titre">
-                  Ce qui sort de la méthode,{" "}
+                  Outils gratuits, guides, parcours et conseil,{" "}
                   <Accent>branche par branche.</Accent>
                 </h2>
                 <p>
-                  Six façons de s’en servir, du laboratoire gratuit à
-                  l’accompagnement. Chaque branche dit où elle en est, et rien
+                  Six façons de se servir de la méthode, du laboratoire gratuit
+                  à l’accompagnement. Chaque branche dit où elle en est, et rien
                   n’est annoncé avant d’être en ligne.
                 </p>
               </div>
@@ -402,7 +421,7 @@ export function Dashboard({
               <div className="section-tete section-tete--colonne">
                 <SurTitre numero="08">Questions</SurTitre>
                 <h2 id="questions-titre">
-                  Avant de nous <Accent>parler.</Accent>
+                  Questions fréquentes, avant de nous <Accent>parler.</Accent>
                 </h2>
                 <p>
                   Une question qui n’est pas ici ? Écrivez-moi à{" "}

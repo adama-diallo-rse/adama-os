@@ -25,7 +25,7 @@ import { listRevirements } from "../../lib/adr";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Ce sur quoi je suis revenu",
+  title: "Revirements : ce sur quoi je suis revenu",
   description:
     "Cinq décisions prises, puis corrigées, avec la trace de la correction dans le code, ce qu’elle a coûté, et la règle générale qui en est sortie.",
   alternates: { canonical: "/revirements" },

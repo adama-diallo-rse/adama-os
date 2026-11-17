@@ -178,6 +178,10 @@ const articles = ARTICLES.map((a) =>
     langue: "fr+en",
     date_objet: a.dateIso,
     publie_le: a.dateIso,
+    // Un article publié après le jour de l'échantillon est revu au plus tôt
+    // le jour de sa publication : la base refuse une revue antérieure à
+    // l'objet (graphe_objets_revue_apres_date), et elle a raison.
+    date_derniere_revue: a.dateIso > JOUR ? a.dateIso : JOUR,
   }),
 );
 

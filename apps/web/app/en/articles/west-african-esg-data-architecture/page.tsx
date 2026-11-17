@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArticleAfriquePage } from "../../../../components/article-afrique";
 import { ARTICLE_ARCHITECTURE_EN } from "../../../../content/articles-afrique";
 import { absoluteUrl } from "../../../../lib/site";
+import { refPersonne } from "../../../../lib/entites";
 
 const PATH = "/en/articles/west-african-esg-data-architecture";
 const PATH_FR = "/articles/architecture-donnee-esg-afrique-ouest";
@@ -35,7 +36,7 @@ const articleJsonLd = {
   datePublished: ARTICLE_ARCHITECTURE_EN.dateIso,
   dateModified: ARTICLE_ARCHITECTURE_EN.dateIso,
   mainEntityOfPage: absoluteUrl(PATH),
-  author: { "@type": "Person", name: "Adama Diallo" },
+  author: refPersonne(),
   publisher: { "@type": "Organization", name: "ADAMA OS" },
 };
 

@@ -15,7 +15,7 @@ import { SITE_HOST } from "../../lib/site";
 export const metadata: Metadata = {
   title: "Mentions légales",
   description:
-    "Éditeur, hébergeur et conditions d'utilisation d'Adama OS, tableau de bord personnel d'Adama Diallo.",
+    "Éditeur, hébergeur et conditions d’utilisation d’ADAMA OS, site personnel et laboratoire public d’Adama Diallo.",
   alternates: { canonical: "/mentions-legales" },
   robots: { index: true, follow: true },
 };

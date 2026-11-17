@@ -26,7 +26,7 @@ import { titresAdr } from "../../lib/adr";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Les principes",
+  title: "Cinq principes d’ingénierie logicielle",
   description:
     "Cinq principes d’ingénierie, chacun dérivé d’une décision ou d’une erreur réelle, chacun avec son coût. Aucun n’est déclaré : tous sont tracés.",
   alternates: { canonical: "/principes" },

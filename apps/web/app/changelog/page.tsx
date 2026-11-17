@@ -3,9 +3,9 @@ import Link from "next/link";
 import { PageIntro, PageShell } from "../../components/page-shell";
 
 export const metadata: Metadata = {
-  title: "Changelog hebdomadaire",
+  title: "Journal des versions, semaine par semaine",
   description:
-    "Huit lignes par semaine sur ce qui a été fait, décidé et appris.",
+    "Le journal des versions d’ADAMA OS : huit lignes par semaine sur ce qui a été fait, décidé et appris.",
   alternates: { canonical: "/changelog" },
 };
 

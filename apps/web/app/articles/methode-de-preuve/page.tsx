@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArticleMethodePreuvePage } from "../../../components/article-methode-preuve";
 import { ARTICLE_PREUVE_FR } from "../../../content/article-methode-preuve";
 import { absoluteUrl } from "../../../lib/site";
+import { refPersonne } from "../../../lib/entites";
 
 const CHEMIN = "/articles/methode-de-preuve";
 const CHEMIN_EN = "/en/articles/proof-method";
@@ -35,7 +36,7 @@ const articleJsonLd = {
   datePublished: ARTICLE_PREUVE_FR.dateIso,
   dateModified: ARTICLE_PREUVE_FR.dateIso,
   mainEntityOfPage: absoluteUrl(CHEMIN),
-  author: { "@type": "Person", name: "Adama Diallo" },
+  author: refPersonne(),
   publisher: { "@type": "Organization", name: "ADAMA OS" },
 };
 

@@ -18,7 +18,7 @@ import {
 } from "../../components/kit/illustrations-offre";
 import { CONTACT_EMAIL } from "../../components/types";
 import { absoluteUrl } from "../../lib/site";
-import { IDENTITE } from "../../content/profil";
+import { LANGUES } from "../../content/profil";
 import {
   ETAT_OFFRE,
   FORMULES,
@@ -44,6 +44,7 @@ import { lireConfigLettre } from "../../lib/lettre/config";
 import { CODES_PORTE } from "../../lib/conseil/qualification";
 import { demandesOuvertes } from "../../lib/conseil/registre";
 import { FormulaireDemande } from "./formulaire";
+import { refPersonne } from "../../lib/entites";
 
 // =====================================================================
 // EG0, AXP-59, la page « travaillez avec moi ».
@@ -58,9 +59,9 @@ import { FormulaireDemande } from "./formulaire";
 // =====================================================================
 
 export const metadata: Metadata = {
-  title: "Travailler ensemble",
+  title: "Accompagnement de projet et revue d’architecture",
   description:
-    "La méthode d’ADAMA OS appliquée à votre projet : accompagnement de six semaines, revue d’architecture, second avis. Déroulé semaine par semaine, formats et premier échange gratuit.",
+    "La méthode d’ADAMA OS appliquée à votre projet, à Paris et à Dakar : accompagnement de six semaines, revue d’architecture, second avis. Premier échange gratuit.",
   alternates: { canonical: "/travaillez-avec-moi" },
   openGraph: {
     title: "Travailler ensemble, la méthode appliquée à votre projet",
@@ -99,16 +100,12 @@ export default async function TravaillezAvecMoiPage({ searchParams }: Props) {
     serviceType: "Accompagnement et structuration de projets",
     description: PROMESSE.phrase,
     url: absoluteUrl("/travaillez-avec-moi"),
-    provider: {
-      "@type": "Person",
-      name: IDENTITE.nom,
-      url: absoluteUrl("/a-propos"),
-    },
+    provider: refPersonne(),
     areaServed: [
       { "@type": "Country", name: "France" },
       { "@type": "Country", name: "Sénégal" },
     ],
-    availableLanguage: ["fr"],
+    availableLanguage: LANGUES.map((l) => l.code),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Formules",

@@ -5,7 +5,7 @@ import { EcosystemCatalog } from "../../components/ecosystem-catalog";
 import { EcosystemMapView } from "../../components/ecosystem-map";
 import type { EcosystemProductRow } from "../../components/types";
 import { createPublicClient } from "../../lib/supabase/public";
-import { SITE_URL, absoluteUrl } from "../../lib/site";
+import { ID_PERSONNE, idMaison } from "../../lib/entites";
 import { buildEcosystemMap } from "../../lib/ecosystem/map";
 import { fetchShippedFeed } from "../../lib/github";
 import { listClaims } from "../../lib/proof/claims";
@@ -13,9 +13,9 @@ import { ROLES_DIVISION } from "../../content/divisions";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Écosystème, STRATA ESG, Pharivo et Conhama",
+  title: "Écosystème : STRATA ESG, Pharivo et Conhama",
   description:
-    "Les logiciels d’Adama Diallo : la donnée de durabilité avec STRATA ESG, la gestion d’officine au Sénégal avec Pharivo, la carte de l’économie durable avec Conhama. Produits, liens et avancement.",
+    "Les logiciels d’Adama Diallo : donnée de durabilité avec STRATA ESG, santé en Afrique de l’Ouest avec Pharivo, économie durable avec Conhama.",
   alternates: { canonical: "/ecosysteme" },
   openGraph: {
     title: "STRATA ESG, Pharivo et Conhama",
@@ -86,36 +86,10 @@ export default async function EcosystemePage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
-      {
-        "@type": "Organization",
-        "@id": SITE_URL + "#organisation",
-        name: "STRATA ESG",
-        description:
-          "Logiciels et accompagnement pour la donnée de durabilité.",
-        url: "https://www.strata-esg.fr",
-        founder: { "@type": "Person", name: "Adama Diallo" },
-      },
-      {
-        "@type": "Organization",
-        "@id": SITE_URL + "#pharivo",
-        name: "Pharivo",
-        description: "Logiciel de gestion d’officine conçu pour le Sénégal.",
-        url: "https://pharivo.com",
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Dakar",
-          addressCountry: "SN",
-        },
-        founder: { "@type": "Person", name: "Adama Diallo" },
-      },
-      {
-        "@type": "Organization",
-        "@id": SITE_URL + "#conhama",
-        name: "Conhama",
-        description: "La carte vivante de l’économie durable.",
-        url: "https://conhama.com/fr",
-        founder: { "@type": "Person", name: "Adama Diallo" },
-      },
+      // Les trois maisons et leur fondateur sont déclarés une fois, dans le
+      // graphe du gabarit racine (lib/entites.ts). Cette page n'ajoute que
+      // les logiciels en ligne, lus dans le registre, et les rattache à leur
+      // maison par identifiant.
       ...enLigne.map((p) => ({
         "@type": "SoftwareApplication",
         name: p.name,
@@ -124,14 +98,15 @@ export default async function EcosystemePage() {
         url: p.url,
         description: p.description ?? p.pillar ?? undefined,
         publisher: {
-          "@id":
-            SITE_URL +
-            (p.division === "Pharivo"
-              ? "#pharivo"
+          "@id": idMaison(
+            p.division === "Pharivo"
+              ? "pharivo"
               : p.division === "Conhama"
-                ? "#conhama"
-                : "#organisation"),
+                ? "conhama"
+                : "organisation",
+          ),
         },
+        creator: { "@id": ID_PERSONNE },
       })),
     ],
   };

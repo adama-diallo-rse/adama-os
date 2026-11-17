@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArticleAfriquePage } from "../../../../components/article-afrique";
 import { ARTICLE_CONTRAINTES_EN } from "../../../../content/articles-afrique";
 import { absoluteUrl } from "../../../../lib/site";
+import { refPersonne } from "../../../../lib/entites";
 
 const PATH = "/en/articles/seven-constraints-west-african-esg-data";
 const PATH_FR = "/articles/sept-contraintes-donnee-esg-afrique-ouest";
@@ -35,7 +36,7 @@ const articleJsonLd = {
   datePublished: ARTICLE_CONTRAINTES_EN.dateIso,
   dateModified: ARTICLE_CONTRAINTES_EN.dateIso,
   mainEntityOfPage: absoluteUrl(PATH),
-  author: { "@type": "Person", name: "Adama Diallo" },
+  author: refPersonne(),
   publisher: { "@type": "Organization", name: "ADAMA OS" },
 };
 

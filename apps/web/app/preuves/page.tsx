@@ -24,9 +24,9 @@ import {
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Toutes les preuves",
+  title: "Preuves : chaque affirmation, vérifiable",
   description:
-    "Chaque affirmation publiée sur ce site porte sa provenance et possède une page de vérification. Voici la liste complète, avec son état de fraîcheur.",
+    "Chaque affirmation publiée sur ce site porte sa provenance et possède une page de vérification. La liste complète, avec son état de fraîcheur.",
   alternates: { canonical: "/preuves" },
 };
 

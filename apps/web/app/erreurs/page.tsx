@@ -20,7 +20,7 @@ const dateLongue = (date: string) =>
   }).format(new Date(`${date}T12:00:00+02:00`));
 
 export const metadata: Metadata = {
-  title: "Registre public des erreurs",
+  title: "Registre public des erreurs et méthodes obtenues",
   description:
     "Les erreurs constatées dans ADAMA OS, ce qu’elles ont changé et les méthodes vérifiables qui en sont sorties.",
   alternates: { canonical: CHEMIN },

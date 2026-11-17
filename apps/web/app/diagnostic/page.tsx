@@ -21,7 +21,7 @@ import { DIAGNOSTIC, VERROUS, periodeCourante } from "../../content/conseil";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Diagnostic court",
+  title: "Diagnostic d’un système de donnée ESG",
   description:
     "Quatre-vingt-dix minutes pour lire un système de donnée ESG avant d’y ajouter un outil, et une note d’une page. Déroulé et contenu de la note publiés.",
   alternates: { canonical: "/diagnostic" },

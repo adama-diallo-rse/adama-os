@@ -55,7 +55,9 @@ describe("EC1, le titre court", () => {
     for (const surface of [
       "components/site-header.tsx",
       "components/dashboard.tsx",
-      "app/layout.tsx",
+      // 14 novembre 2026 : le balisage JSON-LD du site a quitté le gabarit
+      // racine pour lib/entites.ts, qui porte tout le graphe d'entités.
+      "lib/entites.ts",
       "app/a-propos/page.tsx",
     ]) {
       expect(lire(surface), surface).toContain("TITRE_COURT");

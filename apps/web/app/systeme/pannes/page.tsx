@@ -35,9 +35,9 @@ const EXERCICE = {
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Santé et modes de panne",
+  title: "Santé du système et modes de panne",
   description:
-    "L’état réel de sept capacités, les huit façons dont ce site peut tomber, et ce qu’il ne fait jamais pour se rattraper. Aucun état global, aucun vert de synthèse.",
+    "L’état réel de sept capacités, les huit façons dont ce site peut tomber et ce qu’il ne fait jamais pour se rattraper. Aucun état global, aucun vert de synthèse.",
   alternates: { canonical: "/systeme/pannes" },
   openGraph: {
     title: "Santé et modes de panne",

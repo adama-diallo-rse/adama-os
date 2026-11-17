@@ -12,7 +12,7 @@ import {
 // construire, exploiter), la frontière avec STRATA Academy, et ce qu'un
 // parcours ne fera jamais. Le vocabulaire fermé d'ADEC-19 s'applique.
 export const metadata: Metadata = {
-  title: "Parcours",
+  title: "Parcours : concevoir un système de donnée ESG",
   description:
     "Les parcours ATELIER d’ADAMA OS : comprendre, concevoir, construire, exploiter un système de donnée de durabilité. Aucun parcours n’est encore ouvert.",
   alternates: { canonical: "/parcours" },
@@ -49,7 +49,8 @@ export default function PageParcours() {
         eyebrow="RESSOURCES / ATELIER, PARCOURS"
         title={
           <>
-            Apprendre à construire, sur un projet <Accent>rendu.</Accent>
+            Apprendre à construire un système de donnée, sur un projet{" "}
+            <Accent>rendu.</Accent>
           </>
         }
         description="Les parcours ATELIER enseigneront la conception de systèmes de donnée de durabilité. Aucun n’est encore ouvert ; voici leur structure, et leurs limites."

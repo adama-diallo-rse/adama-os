@@ -15,7 +15,15 @@
 //
 // Les six branches sont aussi lues par le grand menu de l'en-tête : une
 // seule liste, deux surfaces.
+//
+// 14 novembre 2026, passe de référencement : les libellés des branches
+// disent ce qu'on y trouve avec des mots courants (outils gratuits, guides,
+// lettre d'information), et deux questions s'ajoutent en tête, celles
+// qu'un lecteur ou un assistant de recherche pose en premier : qui est
+// Adama Diallo, et quel est le lien avec STRATA ESG.
 // =====================================================================
+
+import { IDENTITE } from "./profil";
 
 export type CodePilier = "construire" | "publier" | "accompagner";
 
@@ -34,7 +42,7 @@ export const PILIERS: readonly Pilier[] = [
     verbe: "Construire",
     titre: "Des logiciels en service",
     texte:
-      "STRATA ESG pour la donnée de durabilité, Pharivo pour la santé en Afrique de l’Ouest, Conhama pour l’économie durable. Des produits en ligne, utilisés, tenus.",
+      "STRATA ESG pour la donnée de durabilité, Pharivo pour la santé en Afrique de l’Ouest, Conhama pour l’économie durable. Des produits SaaS en ligne, utilisés, tenus.",
     lien: { libelle: "Voir les réalisations", href: "#realisations" },
   },
   {
@@ -94,7 +102,7 @@ export const BRANCHES: readonly Branche[] = [
   {
     code: "press",
     nom: "PRESS",
-    libelle: "Notes de fond et guides",
+    libelle: "Guides et notes de fond",
     texte:
       "Des notes longues et des guides, chaque affirmation reliée à sa source.",
     etat: "Premières notes en ligne",
@@ -104,7 +112,7 @@ export const BRANCHES: readonly Branche[] = [
   {
     code: "forge",
     nom: "FORGE",
-    libelle: "Outils et systèmes",
+    libelle: "Outils gratuits et gabarits",
     texte:
       "Des outils et des gabarits installables, proposés seulement après avoir servi en vrai.",
     etat: "Outils gratuits en ligne",
@@ -114,7 +122,7 @@ export const BRANCHES: readonly Branche[] = [
   {
     code: "atelier",
     nom: "ATELIER",
-    libelle: "Parcours",
+    libelle: "Parcours d’apprentissage",
     texte:
       "Des parcours pour apprendre à concevoir un système de donnée, du modèle à la preuve.",
     etat: "En préparation",
@@ -124,7 +132,7 @@ export const BRANCHES: readonly Branche[] = [
   {
     code: "conseil",
     nom: "CONSEIL",
-    libelle: "Revues et accompagnement",
+    libelle: "Accompagnement et revue d’architecture",
     texte:
       "Revue d’architecture, second avis, accompagnement de projets en six semaines.",
     etat: "Ouvert",
@@ -134,7 +142,7 @@ export const BRANCHES: readonly Branche[] = [
   {
     code: "signal",
     nom: "SIGNAL",
-    libelle: "La lettre",
+    libelle: "La lettre d’information",
     texte:
       "Ce qui change dans un système, la décision prise, ce qui a été appris. Une lettre courte, sans bruit.",
     etat: "Inscriptions ouvertes",
@@ -210,8 +218,16 @@ type Question = { q: string; r: string };
 
 export const QUESTIONS_ACCUEIL: readonly Question[] = [
   {
+    q: `Qui est ${IDENTITE.nom} ?`,
+    r: `${IDENTITE.nom} est ${IDENTITE.situation.charAt(0).toLowerCase()}${IDENTITE.situation.slice(1)} Il conçoit, met en service et exploite des logiciels pour la donnée de durabilité et pour la santé en Afrique de l’Ouest, puis publie les méthodes qui en sortent.`,
+  },
+  {
     q: "Qu’est-ce qu’ADAMA OS, en une phrase ?",
     r: "Le système de travail d’Adama Diallo, rendu public : les logiciels qu’il construit, les décisions qu’il prend, les preuves qui les appuient, et les méthodes qui en sortent pour servir à d’autres.",
+  },
+  {
+    q: "Quel est le lien entre ADAMA OS et STRATA ESG ?",
+    r: "STRATA ESG est l’entreprise : ses logiciels et son accompagnement pour le reporting de durabilité et l’empreinte carbone, présentés sur strata-esg.fr. ADAMA OS est le laboratoire public de son fondateur : les décisions, les preuves et les méthodes derrière ces logiciels.",
   },
   {
     q: "Faut-il travailler dans la durabilité pour faire appel à vous ?",

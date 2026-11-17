@@ -12,9 +12,9 @@ import { ARTICLES } from "../../content/articles";
 // de fond déjà publiées, bilingues, et dit en clair qu'aucun titre n'est
 // encore paru. Aucun titre à venir n'est annoncé, aucune date n'est promise.
 export const metadata: Metadata = {
-  title: "Bibliothèque",
+  title: "Guides et notes de fond sur la donnée ESG",
   description:
-    "Les notes de fond d’ADAMA OS, en français et en anglais, avec leur date et leur temps de lecture. Les titres de la branche PRESS ne sont pas encore parus.",
+    "Guides et notes de fond sur la donnée ESG et l’architecture logicielle, en français et en anglais, datés et sourcés. La branche PRESS d’ADAMA OS.",
   alternates: { canonical: "/bibliotheque" },
 };
 
@@ -23,10 +23,10 @@ export default function PageBibliotheque() {
     <PageShell className="page-bibliotheque">
       <PageIntro
         numero="PRESS"
-        eyebrow="RESSOURCES / PRESS, NOTES DE FOND"
+        eyebrow="RESSOURCES / PRESS, GUIDES ET NOTES DE FOND"
         title={
           <>
-            Des écrits longs, sourcés, <Accent>datés.</Accent>
+            Des guides et des notes de fond, sourcés et <Accent>datés.</Accent>
           </>
         }
         description="Chaque note porte sa date, ses sources et ses preuves cassées quand il y en a. Elles sont publiques, en français et en anglais."

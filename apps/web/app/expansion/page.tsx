@@ -11,9 +11,9 @@ import {
 } from "../../content/expansion";
 
 export const metadata: Metadata = {
-  title: "Plan d'expansion",
+  title: "Plan d’expansion d’ADAMA OS",
   description:
-    "Le cockpit public du plan d'expansion ADAMA OS, ses branches, ses niveaux de visibilité et ses états de maturité.",
+    "Le cockpit public du plan d’expansion d’ADAMA OS : ses branches, ses niveaux de visibilité et ses états de maturité.",
   alternates: { canonical: "/expansion" },
 };
 

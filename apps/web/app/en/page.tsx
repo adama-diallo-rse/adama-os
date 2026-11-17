@@ -7,7 +7,12 @@ import { Piliers } from "../../components/accueil/piliers";
 import { CONTACT_EMAIL } from "../../components/types";
 import { ARTICLES } from "../../content/articles";
 import { PILIERS_EN, TITRE_HERO_EN } from "../../content/accueil";
-import { POSITIONNEMENT, ACTIVITE } from "../../content/profil";
+import {
+  ACTIVITE,
+  METIER,
+  POSITIONNEMENT,
+  REFERENCEMENT,
+} from "../../content/profil";
 import { URL_STRATA } from "../../content/parcours";
 
 // La racine anglaise (AXP-91), réalignée le 7 novembre 2026 sur l'accueil
@@ -16,7 +21,7 @@ import { URL_STRATA } from "../../content/parcours";
 // et le cockpit restent en français ; la page le dit plutôt que de les
 // traduire à moitié.
 export const metadata: Metadata = {
-  title: "ADAMA OS in English",
+  title: { absolute: REFERENCEMENT.anglais.titre },
   description: POSITIONNEMENT.en,
   alternates: {
     canonical: "/en",
@@ -44,6 +49,9 @@ export default function PageEnglish() {
             <div className="hero-copy">
               <SurTitre numero="EN">ADAMA OS · Paris and Dakar</SurTitre>
               <h1 id="en-hero-titre" className="hero-trois-verbes" data-titre>
+                <span className="hero-metier" style={{ ["--i" as string]: -1 }}>
+                  {METIER.en}.
+                </span>{" "}
                 {TITRE_HERO_EN.map((verbe, i) => (
                   <span key={verbe} style={{ ["--i" as string]: i }}>
                     {verbe}

@@ -23,6 +23,14 @@ type SignalResonance = {
   exclut: string;
 };
 
+/** Une ligne du cadre réglementaire : quand, quoi, et la référence du texte. */
+type LigneCadre = {
+  quand: string;
+  quoi: string;
+  texte: string;
+  reference: string;
+};
+
 export type ArticleAfrique = {
   langue: LangueArticleAfrique;
   codeLangue: string;
@@ -35,6 +43,18 @@ export type ArticleAfrique = {
   autreLangue: { libelle: string; href: string; hreflang: string };
   autrePublication: { libelle: string; href: string };
   introduction: string[];
+  /**
+   * Le cadre daté d'une publication qui porte sur un texte réglementaire.
+   * Chaque ligne nomme l'article du texte qui la fonde, et la liste des
+   * sources ferme la publication : une date sans sa référence ne s'affiche
+   * pas. Absent des publications 1 et 2, qui ne citent aucun texte.
+   */
+  cadre?: {
+    repere: string;
+    titre: string;
+    introduction: string[];
+    lignes: LigneCadre[];
+  };
   titreContraintes: string;
   introductionContraintes: string[];
   libelles: {
@@ -74,6 +94,11 @@ export type ArticleAfrique = {
     repere: string;
     titre: string;
     paragraphes: string[];
+  };
+  sources?: {
+    titre: string;
+    introduction: string;
+    liens: { libelle: string; href: string }[];
   };
 };
 
@@ -1164,11 +1189,722 @@ export const ARTICLE_ARCHITECTURE_EN: ArticleAfrique = {
   },
 };
 
+export const ARTICLE_DEFORESTATION_FR: ArticleAfrique = {
+  langue: "fr",
+  codeLangue: "fr-FR",
+  code: "AXP-122 / PUBLICATION 3",
+  titre:
+    "Règlement déforestation : ce que les sept contraintes deviennent quand l’acheteur européen demande la parcelle",
+  sousTitre:
+    "Dès le 30 décembre 2026, le cacao, le café, le caoutchouc ou le bois vendus en Europe devront remonter à leur parcelle. Ce que cela change en amont.",
+  date: "14 novembre 2026",
+  dateIso: "2026-11-14",
+  lecture: "Lecture approfondie",
+  autreLangue: {
+    libelle: "Read in English",
+    href: "/en/articles/eudr-west-africa-origin-data",
+    hreflang: "en",
+  },
+  autrePublication: {
+    libelle: "Relire la publication sur les sept contraintes",
+    href: "/articles/sept-contraintes-donnee-esg-afrique-ouest",
+  },
+  introduction: [
+    "La demande ne porte plus seulement sur des émissions ou des politiques. Pour sept produits de base, un importateur européen devra bientôt prouver où le produit a été cultivé, que la terre n’a pas été déboisée après le 31 décembre 2020, et qu’il a été produit selon la législation du pays d’origine. Cette preuve se construit en Afrique de l’Ouest, chez le producteur, la coopérative et l’exportateur, bien avant qu’un navire ne quitte Abidjan, San-Pédro ou Tema.",
+    "Le règlement européen sur la déforestation, souvent abrégé RDUE, existe depuis juin 2023. Son application a été reportée deux fois. Les dates sont maintenant fixées : le 30 décembre 2026 pour les grandes et moyennes entreprises, le 30 juin 2027 pour les micro et petites entreprises. Ce délai est court pour une chaîne qui compte des centaines de milliers de petits producteurs, et il l’est encore davantage pour le système de données qui doit les relier à chaque lot.",
+    "Les deux publications précédentes décrivaient sept contraintes qui changent un système de données ESG dans la région, puis les décisions d’architecture qu’elles imposent. Cette troisième publication les reprend une à une, sous l’angle d’une seule question posée par l’acheteur européen : de quelle parcelle vient ce sac ? Chaque contrainte prend alors une forme plus précise, et parfois plus dure.",
+    "Le point de vue reste celui de l’entreprise qui doit répondre. Ce texte ne donne pas d’avis juridique. Il ne dit pas si un produit est autorisé sur le marché européen. Il décrit la donnée qu’il faut pouvoir produire, conserver et transmettre pour que l’opérateur européen puisse, lui, établir sa déclaration.",
+  ],
+  cadre: {
+    repere: "00 / CE QUE DIT LE TEXTE",
+    titre: "Le cadre, daté et relu dans ses sources",
+    introduction: [
+      "Chaque ligne ci-dessous a été relue dans le texte européen ou sur la page publique de l’administration qui l’applique, le 14 novembre 2026. La référence figure en pied de carte. Un texte qui change sera signalé par une nouvelle date de mise à jour, pas par une correction silencieuse.",
+    ],
+    lignes: [
+      {
+        quand: "Avant le 31 décembre 2020",
+        quoi: "La date limite de déforestation",
+        texte:
+          "Un produit est « zéro déforestation » s’il provient de terres qui n’ont pas fait l’objet de déforestation après le 31 décembre 2020. Pour le bois, la récolte ne doit pas avoir dégradé la forêt après cette date.",
+        reference: "Règlement (UE) 2023/1115, article 2, point 13",
+      },
+      {
+        quand: "Trois conditions cumulées",
+        quoi: "Ce qui ouvre le marché européen",
+        texte:
+          "Le produit est zéro déforestation, il a été produit selon la législation du pays de production, et il fait l’objet d’une déclaration de diligence raisonnée.",
+        reference: "Règlement (UE) 2023/1115, article 3",
+      },
+      {
+        quand: "Chaque parcelle",
+        quoi: "La géolocalisation",
+        texte:
+          "L’opérateur fournit la géolocalisation de toutes les parcelles qui ont produit le lot. Au-delà de quatre hectares, hors bovins, la parcelle se décrit par un polygone et non par un point.",
+        reference: "Règlement (UE) 2023/1115, article 9 et article 2, point 28",
+      },
+      {
+        quand: "30 décembre 2026",
+        quoi: "L’application",
+        texte:
+          "Les grandes et moyennes entreprises, les opérateurs en aval et les négociants appliquent le règlement. Le 30 juin 2027 pour les micro et petites entreprises, hors bois déjà couvert par l’ancien règlement sur le bois.",
+        reference:
+          "Règlement (UE) 2025/2650, présenté par la Commission européenne et la douane française",
+      },
+      {
+        quand: "Une seule déclaration",
+        quoi: "Qui déclare",
+        texte:
+          "La déclaration de diligence raisonnée incombe à l’opérateur qui met le produit sur le marché en premier. Les opérateurs en aval conservent son numéro de référence. Un micro ou petit opérateur primaire d’un pays à faible risque dépose une déclaration simplifiée.",
+        reference:
+          "Règlement (UE) 2025/2650, présenté par la Commission européenne",
+      },
+      {
+        quand: "Classement des pays",
+        quoi: "Le niveau de risque",
+        texte:
+          "La Côte d’Ivoire, le Sénégal, le Nigeria, la Guinée, le Liberia, la Sierra Leone et le Cameroun sont classés à risque standard. Le Ghana et le Togo sont classés à risque faible. Aucun pays de la région n’est classé à risque élevé.",
+        reference: "Liste de classification des pays, Commission européenne",
+      },
+      {
+        quand: "Au moins cinq ans",
+        quoi: "La conservation",
+        texte:
+          "Les opérateurs conservent pendant au moins cinq ans tous les documents relatifs à la diligence raisonnée. La déclaration se dépose dans un système d’information qui est un outil de la plateforme TRACES.",
+        reference:
+          "Règlement (UE) 2023/1115, article 12 ; page de la Commission européenne",
+      },
+      {
+        quand: "Sanctions",
+        quoi: "Ce que risque l’opérateur",
+        texte:
+          "Pour une personne morale, l’amende maximale atteint au moins 4 % du chiffre d’affaires annuel total réalisé dans l’Union. S’y ajoutent la confiscation des produits et l’exclusion temporaire, jusqu’à douze mois, des marchés publics.",
+        reference: "Règlement (UE) 2023/1115, article 25, paragraphe 2",
+      },
+      {
+        quand: "1er septembre 2026",
+        quoi: "En Côte d’Ivoire",
+        texte:
+          "Le Système national de traçabilité du café et du cacao est obligatoire, avec la carte électronique du producteur pour les achats et les ventes. Selon le Conseil du Café-Cacao, l’Europe reçoit 70 % des exportations de cacao du pays.",
+        reference: "Conseil du Café-Cacao, cité par Koaci et Fraternité Matin",
+      },
+    ],
+  },
+  titreContraintes: "Les sept contraintes, face à la parcelle",
+  introductionContraintes: [
+    "Chaque entrée reprend la contrainte et sa conséquence à l’identique, telles qu’elles sont arrêtées dans la branche EJ. La suite dit ce que le règlement déforestation ajoute : la donnée qu’il rend exigible, la décision de système qu’elle impose, et ce que le système ne doit pas prétendre.",
+  ],
+  libelles: {
+    source: "Reprise de la branche EJ",
+    voix: "Depuis l’entreprise",
+    decision: "Ce que le système doit préserver",
+    limite: "Ce qu’il ne doit pas prétendre",
+  },
+  contraintes: [
+    {
+      ...CONTRAINTES_FR[0],
+      voix: "Nous n’avons pas de carte nationale qui dise, parcelle par parcelle, si la forêt existait au 31 décembre 2020. Pour vérifier une parcelle, nous devrons choisir une référence extérieure, une carte ou une série d’images, et pouvoir dire laquelle, dans quelle version et pourquoi.",
+      titre: "La carte de référence devient un facteur comme un autre",
+      paragraphes: [
+        "La contrainte des facteurs d’émission se transpose presque mot pour mot. Dire qu’une parcelle n’a pas été déboisée suppose de la comparer à une référence de couverture forestière. Cette référence a un auteur, une date, une résolution et une version. Si elle change, le verdict sur une parcelle peut changer avec elle, sans que rien n’ait bougé sur le terrain.",
+        "Le système doit donc traiter la référence comme une donnée à part entière. Pour chaque contrôle, il conserve la référence employée, la date du contrôle, le résultat et la personne qui l’a lu. Un contrôle refait avec une autre carte crée une nouvelle ligne au lieu de réécrire l’ancienne. Sans cette trace, personne ne pourra répondre, deux ans plus tard, à la question d’un contrôleur sur ce qui était su au moment de la déclaration.",
+      ],
+      decision:
+        "Référence de couverture forestière, version, date de contrôle, résultat, lecteur, et historique des contrôles.",
+      limite:
+        "Ne pas présenter le résultat d’une carte comme un constat de terrain, ni un contrôle ancien comme un contrôle du jour.",
+    },
+    {
+      ...CONTRAINTES_FR[1],
+      voix: "Une partie de nos parcelles n’existe que dans un cahier de coopérative, avec un nom de village et une superficie déclarée. Certaines ont un point GPS pris il y a trois campagnes. Peu ont un polygone, alors que le texte en exige un au-delà de quatre hectares.",
+      titre:
+        "Un point n’est pas un polygone, et une superficie déclarée n’est pas une mesure",
+      paragraphes: [
+        "Le règlement fixe une exigence de forme : un point pour une petite parcelle, un polygone au-delà de quatre hectares, hors bovins. Le système doit donc savoir, pour chaque parcelle, quelle forme de géolocalisation il détient, et si cette forme suffit au regard de la superficie. Une parcelle déclarée à trois hectares et mesurée à six change de régime.",
+        "Les états d’absence décrits dans la publication 1 prennent ici leur sens complet. Une parcelle sans coordonnées, une parcelle avec un point quand il faudrait un polygone, une parcelle dont le relevé est trop ancien ou trop imprécis : ce sont trois situations différentes, avec trois actions différentes. Les ranger sous une même case vide ferait passer un lot pour prêt alors qu’il ne l’est pas.",
+      ],
+      decision:
+        "Forme de géolocalisation détenue, superficie déclarée et mesurée, date et précision du relevé, statut de suffisance au regard du texte.",
+      limite:
+        "Ne jamais compléter une géolocalisation manquante par une estimation, ni promouvoir un point en polygone.",
+    },
+    {
+      ...CONTRAINTES_FR[2],
+      voix: "Nos relevés se font avec des téléphones ou des terminaux qu’il faut recharger loin d’un réseau électrique stable. Une coupure au milieu d’un tracé de polygone n’est pas rare.",
+      titre: "Un relevé interrompu doit le dire",
+      paragraphes: [
+        "La contrainte électrique ne touche plus seulement les postes d’émission. Elle touche la collecte elle-même. Un polygone tracé en marchant le long d’une parcelle peut s’arrêter à mi-chemin quand l’appareil s’éteint. Le relevé partiel ressemble alors à une petite parcelle fermée, et rien dans la forme ne signale l’interruption.",
+        "Le système doit conserver la séquence du relevé : début, points, fin, et la raison d’une fin anticipée. Un polygone non refermé par l’agent n’est pas un polygone valide, même si le logiciel peut le fermer automatiquement. L’horodatage de l’appareil et celui de la synchronisation sont gardés séparément, parce qu’un appareil qui a perdu sa batterie peut aussi avoir perdu son heure.",
+      ],
+      decision:
+        "Séquence complète du relevé, fermeture explicite par l’agent, horodatage de l’appareil et de la synchronisation, état de la batterie si l’appareil le fournit.",
+      limite:
+        "Ne pas fermer automatiquement un polygone interrompu ni présenter un tracé partiel comme la limite de la parcelle.",
+    },
+    {
+      ...CONTRAINTES_FR[3],
+      voix: "Nos agents collectent dans des zones sans réseau, puis synchronisent au retour, parfois plusieurs jours après. Pendant ce temps, un lot peut déjà avoir été acheté et transporté.",
+      titre:
+        "La synchronisation tardive ne doit pas réécrire l’histoire du lot",
+      paragraphes: [
+        "Le système hors ligne décrit dans la publication 2 rencontre ici une contrainte de calendrier. L’acheteur européen raisonne par lot : quelles parcelles ont fourni ce lot, au moment où il a été constitué. Si une géolocalisation arrive après la constitution du lot, elle ne doit pas être rattachée rétroactivement comme si elle avait été connue au moment de l’achat.",
+        "Le modèle garde donc deux dates distinctes : celle où la donnée a été observée sur le terrain, et celle où elle est devenue disponible dans le système. La déclaration d’un lot s’appuie sur ce qui était disponible au moment où elle est établie. Un rattachement tardif est possible, mais il reste visible comme tel.",
+      ],
+      decision:
+        "Date d’observation, date de disponibilité, composition du lot à sa date de constitution, et rattachements ultérieurs signalés.",
+      limite:
+        "Ne pas reconstituer après coup un lot propre à partir de données arrivées après sa vente.",
+    },
+    {
+      ...CONTRAINTES_FR[4],
+      voix: "Une part de notre cacao passe par des intermédiaires qui achètent à plusieurs producteurs, regroupent les sacs et revendent à la coopérative ou à l’exportateur. À chaque regroupement, le lien avec la parcelle peut se perdre.",
+      titre: "Le mélange des sacs est l’endroit où la preuve se perd",
+      paragraphes: [
+        "Le règlement ne demande pas une moyenne de risque sur une zone. Il demande les parcelles du lot. Un lot qui mélange des sacs de producteurs identifiés et de producteurs inconnus ne peut pas être déclaré pour sa part connue seulement. La chaîne d’approvisionnement indirecte, celle qui passe par des intermédiaires sans comptabilité formelle, devient la question centrale.",
+        "La réponse ivoirienne passe par l’identification du producteur au moment de la vente : depuis le 1er septembre 2026, la carte électronique du producteur est obligatoire pour les achats et les ventes de café et de cacao dans le Système national de traçabilité. Pour un système de données, la leçon dépasse la Côte d’Ivoire. L’identifiant du producteur doit voyager avec le sac, et chaque regroupement doit conserver la liste de ce qu’il regroupe.",
+      ],
+      decision:
+        "Identifiant du producteur à chaque transaction, composition de chaque regroupement, et séparation des flux identifiés et non identifiés.",
+      limite:
+        "Ne pas déclarer un lot mélangé pour sa seule part identifiée, ni présenter une zone d’approvisionnement comme une liste de parcelles.",
+    },
+    {
+      ...CONTRAINTES_FR[5],
+      voix: "Nous payons une partie des producteurs par paiement mobile, en francs CFA, et l’exportateur facture en euros. Le paiement est souvent la trace la plus fiable qu’un achat a eu lieu.",
+      titre: "Le paiement devient une preuve d’origine",
+      paragraphes: [
+        "La contrainte des devises et du paiement mobile ne sert plus seulement à convertir des montants. Un paiement mobile horodaté, adressé à un producteur identifié, pour une quantité donnée, est une pièce qui relie un sac à une personne, et cette personne à ses parcelles. C’est souvent une preuve plus solide qu’un bordereau rempli à la main.",
+        "Le système doit donc rattacher chaque paiement à la transaction d’achat, et la transaction au producteur. La conversion vers l’euro reste tracée dans le lignage, comme dans la publication 2, mais l’enjeu est ailleurs : le paiement ne doit pas être agrégé au point de perdre le lien avec le producteur qui l’a reçu.",
+      ],
+      decision:
+        "Paiement, transaction d’achat, producteur et quantité reliés, avec la conversion et sa date conservées dans le lignage.",
+      limite:
+        "Ne pas présenter un paiement comme la preuve de la parcelle, seulement comme la preuve de la transaction avec un producteur identifié.",
+    },
+    {
+      ...CONTRAINTES_FR[6],
+      voix: "Nos producteurs parlent baoulé, dioula, bété, wolof ou pular selon les zones. Les questions sur le foncier, sur l’ancienneté de la plantation ou sur ce qu’il y avait avant se posent à l’oral, et la réponse est traduite au moment de la saisie.",
+      titre: "La légalité se recueille souvent à l’oral",
+      paragraphes: [
+        "La deuxième condition du règlement, la production selon la législation du pays d’origine, touche des sujets que le producteur ne documente pas toujours par écrit : le droit d’usage de la terre, la date de mise en culture, la façon dont la parcelle a été acquise. Ces informations se recueillent dans la langue du producteur, puis se saisissent dans une autre.",
+        "Le système doit garder la trace de ce passage. Qui a posé la question, dans quelle langue, qui a traduit, et ce qui a été saisi. Une réponse orale n’a pas la valeur d’un titre foncier, et le système ne doit pas le laisser croire. Mais elle a une valeur, à condition que son mode de recueil reste visible pour celui qui la lira plus tard.",
+      ],
+      decision:
+        "Langue de l’entretien, auteur de la question, auteur de la traduction, réponse saisie et pièce écrite lorsqu’elle existe.",
+      limite:
+        "Ne pas présenter une déclaration orale traduite comme un document de légalité, ni une absence de pièce comme une absence de droit.",
+    },
+  ],
+  methode: {
+    repere: "08 / UNE MÉTHODE AVANT UNE DÉCLARATION",
+    titre: "Préparer la donnée d’une déclaration sans la promettre",
+    introduction: [
+      "La déclaration de diligence raisonnée appartient à l’opérateur qui met le produit sur le marché européen. L’entreprise d’Afrique de l’Ouest ne la signe pas, mais elle produit l’essentiel de ce qu’elle contient. La séquence ci-dessous décrit cette préparation, sans préjuger de ce que l’opérateur conclura.",
+    ],
+    etapes: [
+      {
+        titre: "Nommer son rôle",
+        texte:
+          "Opérateur, opérateur en aval, négociant, ou micro ou petit opérateur primaire : le rôle décide de ce qui est à produire. Il se nomme par produit, et peut différer d’un produit à l’autre.",
+      },
+      {
+        titre: "Relier le lot à ses parcelles",
+        texte:
+          "Pour chaque lot, la liste des parcelles qui l’ont fourni, avec leur géolocalisation dans la forme que le texte exige selon la superficie.",
+      },
+      {
+        titre: "Conserver le contrôle",
+        texte:
+          "Pour chaque parcelle, le contrôle de déforestation, la référence employée, sa version et sa date. Un contrôle refait s’ajoute, il ne remplace pas.",
+      },
+      {
+        titre: "Documenter la légalité",
+        texte:
+          "Les pièces disponibles, leur langue et leur mode de recueil. Ce qui manque est écrit comme manquant, et l’opérateur le sait avant de déclarer.",
+      },
+      {
+        titre: "Garder et transmettre",
+        texte:
+          "Conserver au moins cinq ans, transmettre à l’acheteur ce qu’il demande, et garder le numéro de référence de la déclaration quand il revient.",
+      },
+    ],
+  },
+  resonance: {
+    repere: "09 / RÉSONANCE UTILE",
+    titre: "Mesurer une reconnaissance de problème, pas une audience",
+    introduction: [
+      "Cette publication cherche à savoir si les sept contraintes, lues sous l’angle du règlement déforestation, décrivent ce que vivent les coopératives, les exportateurs, les acheteurs et ceux qui construisent leurs outils. Les signaux sont relevés en privé, selon la même règle que les publications 1 et 2.",
+    ],
+    signaux: [
+      {
+        nom: "Reconnaissance située",
+        compte:
+          "Une réponse nomme une contrainte et décrit le lot ou la parcelle qu’elle bloque, sans donnée de dossier.",
+        exclut: "Une approbation générale ou un simple signe d’accord.",
+      },
+      {
+        nom: "Correction de terrain",
+        compte:
+          "Une personne signale une pratique de collecte, un usage local ou une limite que le texte ignore.",
+        exclut: "Une préférence de style sans effet sur la méthode.",
+      },
+      {
+        nom: "Question d’architecture",
+        compte:
+          "La publication déclenche une question sur le lot, la synchronisation, la géolocalisation ou le lignage.",
+        exclut:
+          "Une demande d’avis juridique sur un produit ou d’accès à un acheteur.",
+      },
+      {
+        nom: "Lecture croisée",
+        compte:
+          "Une personne relie cette publication aux deux précédentes et demande comment une contrainte devient une règle de système.",
+        exclut: "Un clic isolé sans question ni retour.",
+      },
+    ],
+    registre: [
+      "Publication et langue",
+      "Catégorie de lecteur, sans nom d’organisation",
+      "Numéro de contrainte",
+      "Produit de base concerné",
+      "Type de signal",
+      "Suite : répondre, corriger, approfondir ou ne rien produire",
+    ],
+    decision:
+      "La résonance existe si des lecteurs de rôles différents, coopérative, exportateur, acheteur, reviennent vers les mêmes contraintes avec des conséquences distinctes. Elle ne se déduit pas d’un volume public.",
+  },
+  clause: {
+    repere: "10 / FRONTIÈRE",
+    titre: "Ce texte porte sur la construction du système",
+    texte: CLAUSE_RENVOI_FR,
+    note: "La clause est reproduite à l’identique. Ce texte ne remplace ni la lecture du règlement, ni l’avis d’un juriste, ni la diligence raisonnée de l’opérateur européen.",
+  },
+  conclusion: {
+    repere: "11 / CONCLUSION",
+    titre: "Le règlement ne crée pas les contraintes, il les rend exigibles",
+    paragraphes: [
+      "Les sept contraintes existaient avant le règlement déforestation. Ce qui change, c’est qu’elles ont désormais une date, le 30 décembre 2026, et un interlocuteur précis, l’opérateur européen qui doit déclarer. Une absence mal qualifiée, un polygone interrompu ou un lot mélangé n’étaient jusqu’ici que des imprécisions. Ils deviennent des raisons de ne pas pouvoir vendre.",
+      "Le travail utile commence donc en amont, là où la donnée naît : au moment du relevé, de l’achat, du regroupement et du paiement. Un système qui garde ces gestes avec leur date, leur auteur et leur forme exacte ne fera pas la déclaration à la place de l’opérateur. Il lui donnera ce qu’il faut pour la faire, et pour la défendre.",
+    ],
+  },
+  sources: {
+    titre: "Les textes et les pages relus",
+    introduction:
+      "Chaque date et chaque règle de cette publication renvoient à l’une de ces pages, consultées le 14 novembre 2026.",
+    liens: [
+      {
+        libelle: "Règlement (UE) 2023/1115 sur la déforestation, EUR-Lex",
+        href: "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32023R1115",
+      },
+      {
+        libelle:
+          "Report au 30 décembre 2026, règlement (UE) 2025/2650, douane française",
+        href: "https://www.douane.gouv.fr/actualites/lutte-contre-la-deforestation-report-de-la-mise-en-application-du-reglement-ue-20231115",
+      },
+      {
+        libelle: "Nouvelles catégories d’opérateurs, Commission européenne",
+        href: "https://trade.ec.europa.eu/access-to-markets/fr/news/retard-jusquen-decembre-2026-et-autres-evolutions-dans-la-mise-en-oeuvre-du-reglement-eudr",
+      },
+      {
+        libelle: "Liste de classification des pays, Commission européenne",
+        href: "https://green-forum.ec.europa.eu/nature-and-biodiversity/deforestation-regulation-implementation/eudr-cooperation-and-partnerships/country-classification-list_en",
+      },
+      {
+        libelle:
+          "Le règlement, ses dates et le système d’information, Commission européenne",
+        href: "https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en",
+      },
+      {
+        libelle: "Carte du producteur obligatoire au 1er septembre 2026, Koaci",
+        href: "https://www.koaci.com/article/2026/08/27/cote-divoire/economie/cote-divoire-avant-la-campagne-cafe-cacao-le-taux-dexecution-des-cartes-du-producteur-atteint-pres-de-90_199907.html",
+      },
+      {
+        libelle:
+          "Le Conseil du Café-Cacao défend son dispositif, Fraternité Matin",
+        href: "https://www.fratmat.info/article/2644626/economie/tracabilite-du-cacao-le-conseil-du-cafe-cacao-defend-son-dispositif-face-aux-critiques",
+      },
+    ],
+  },
+};
+
+export const ARTICLE_DEFORESTATION_EN: ArticleAfrique = {
+  langue: "en",
+  codeLangue: "en-GB",
+  code: "AXP-122 / PUBLICATION 3",
+  titre:
+    "The EU deforestation regulation: what the seven constraints become when the European buyer asks for the plot",
+  sousTitre:
+    "From 30 December 2026, cocoa, coffee, rubber or timber sold in Europe must trace back to the plot it came from. What this changes for upstream data.",
+  date: "14 November 2026",
+  dateIso: "2026-11-14",
+  lecture: "Long read",
+  autreLangue: {
+    libelle: "Lire en français",
+    href: "/articles/reglement-deforestation-rdue-afrique-ouest",
+    hreflang: "fr",
+  },
+  autrePublication: {
+    libelle: "Read the publication on the seven constraints again",
+    href: "/en/articles/seven-constraints-west-african-esg-data",
+  },
+  introduction: [
+    "The request is no longer only about emissions or policies. For seven commodities, a European importer will soon have to prove where the product was grown, that the land was not deforested after 31 December 2020, and that it was produced in line with the law of the country of origin. That evidence is built in West Africa, by the farmer, the cooperative and the exporter, long before a ship leaves Abidjan, San-Pédro or Tema.",
+    "The EU deforestation regulation, often shortened to EUDR, has existed since June 2023. Its application has been postponed twice. The dates are now set: 30 December 2026 for large and medium-sized companies, 30 June 2027 for micro and small companies. That is little time for a supply chain with hundreds of thousands of smallholders, and even less for the data system that has to link them to every lot.",
+    "The two previous publications described seven constraints that change an ESG data system in the region, then the architecture decisions they impose. This third publication takes them one by one again, through a single question asked by the European buyer: which plot did this bag come from? Each constraint then takes a sharper, and sometimes harder, form.",
+    "The point of view remains that of the company expected to respond. This text gives no legal advice. It does not say whether a product may be placed on the European market. It describes the data that must be produced, kept and passed on so that the European operator can, in turn, file its own statement.",
+  ],
+  cadre: {
+    repere: "00 / WHAT THE TEXT SAYS",
+    titre: "The framework, dated and checked against its sources",
+    introduction: [
+      "Each line below was read in the European text or on the public page of the administration that applies it, on 14 November 2026. The reference sits at the foot of each card. A text that changes will be flagged by a new update date, not by a silent correction.",
+    ],
+    lignes: [
+      {
+        quand: "Before 31 December 2020",
+        quoi: "The deforestation cut-off date",
+        texte:
+          "A product is “deforestation-free” if it comes from land that has not been subject to deforestation after 31 December 2020. For timber, the harvest must not have degraded the forest after that date.",
+        reference: "Regulation (EU) 2023/1115, Article 2, point 13",
+      },
+      {
+        quand: "Three cumulative conditions",
+        quoi: "What opens the European market",
+        texte:
+          "The product is deforestation-free, it was produced in line with the law of the country of production, and it is covered by a due diligence statement.",
+        reference: "Regulation (EU) 2023/1115, Article 3",
+      },
+      {
+        quand: "Every plot",
+        quoi: "Geolocation",
+        texte:
+          "The operator provides the geolocation of all the plots that produced the lot. Above four hectares, cattle excepted, a plot is described by a polygon rather than a single point.",
+        reference:
+          "Regulation (EU) 2023/1115, Article 9 and Article 2, point 28",
+      },
+      {
+        quand: "30 December 2026",
+        quoi: "Application",
+        texte:
+          "Large and medium-sized companies, downstream operators and traders apply the regulation. 30 June 2027 for micro and small companies, except timber already covered by the former timber regulation.",
+        reference:
+          "Regulation (EU) 2025/2650, as presented by the European Commission and French customs",
+      },
+      {
+        quand: "A single statement",
+        quoi: "Who files",
+        texte:
+          "The due diligence statement falls to the operator that first places the product on the market. Downstream operators keep its reference number. A micro or small primary operator in a low-risk country files a simplified declaration.",
+        reference:
+          "Regulation (EU) 2025/2650, as presented by the European Commission",
+      },
+      {
+        quand: "Country classification",
+        quoi: "The risk level",
+        texte:
+          "Côte d’Ivoire, Senegal, Nigeria, Guinea, Liberia, Sierra Leone and Cameroon are classified as standard risk. Ghana and Togo are classified as low risk. No country in the region is classified as high risk.",
+        reference: "Country classification list, European Commission",
+      },
+      {
+        quand: "At least five years",
+        quoi: "Record keeping",
+        texte:
+          "Operators keep all documents relating to due diligence for at least five years. The statement is filed in an information system that is a tool of the TRACES platform.",
+        reference:
+          "Regulation (EU) 2023/1115, Article 12; European Commission page",
+      },
+      {
+        quand: "Penalties",
+        quoi: "What the operator risks",
+        texte:
+          "For a legal person, the maximum fine is at least 4% of total annual turnover in the Union. Confiscation of the products and temporary exclusion, for up to twelve months, from public procurement come on top.",
+        reference: "Regulation (EU) 2023/1115, Article 25(2)",
+      },
+      {
+        quand: "1 September 2026",
+        quoi: "In Côte d’Ivoire",
+        texte:
+          "The national coffee and cocoa traceability system is mandatory, with the farmer’s electronic card required for purchases and sales. According to the Coffee-Cocoa Council, Europe takes 70% of the country’s cocoa exports.",
+        reference:
+          "Coffee-Cocoa Council, as reported by Koaci and Fraternité Matin",
+      },
+    ],
+  },
+  titreContraintes: "The seven constraints, facing the plot",
+  introductionContraintes: [
+    "Each entry repeats the constraint and its consequence as set out in the EJ branch. What follows says what the deforestation regulation adds: the data it makes due, the system decision that data requires, and what the system must not claim.",
+  ],
+  libelles: {
+    source: "From the EJ branch",
+    voix: "From inside the company",
+    decision: "What the system must preserve",
+    limite: "What it must not claim",
+  },
+  contraintes: [
+    {
+      ...CONSTRAINTS_EN[0],
+      voix: "We have no national map that says, plot by plot, whether forest stood there on 31 December 2020. To check a plot, we will have to choose an outside reference, a map or a series of images, and be able to say which one, in which version and why.",
+      titre: "The reference map becomes a factor like any other",
+      paragraphes: [
+        "The emission-factor constraint carries over almost word for word. Saying that a plot was not deforested means comparing it with a forest-cover reference. That reference has an author, a date, a resolution and a version. If it changes, the verdict on a plot can change with it, while nothing has moved on the ground.",
+        "The system must therefore treat the reference as data in its own right. For every check, it keeps the reference used, the date of the check, the result and the person who read it. A check repeated with another map creates a new record instead of overwriting the old one. It is the only way to answer, two years later, an inspector’s question about what was known when the statement was filed.",
+      ],
+      decision:
+        "Forest-cover reference, version, check date, result, reader and history of checks.",
+      limite:
+        "Do not present a map result as a field observation, nor an old check as today’s.",
+    },
+    {
+      ...CONSTRAINTS_EN[1],
+      voix: "Some of our plots exist only in a cooperative ledger, with a village name and a declared area. Some have a GPS point taken three seasons ago. Few have a polygon, although the text requires one above four hectares.",
+      titre:
+        "A point is not a polygon, and a declared area is not a measurement",
+      paragraphes: [
+        "The regulation sets a requirement of form: a point for a small plot, a polygon above four hectares, cattle excepted. The system must therefore know, for every plot, which form of geolocation it holds, and whether that form is enough given the area. A plot declared at three hectares and measured at six changes regime.",
+        "The states of absence described in the first publication now take their full meaning. A plot without coordinates, a plot with a point where a polygon is needed, a plot whose survey is too old or too imprecise: these are three different situations, calling for three different actions. Filing them under the same empty cell would make a lot look ready when it is not.",
+      ],
+      decision:
+        "Form of geolocation held, declared and measured area, survey date and precision, and sufficiency status against the text.",
+      limite:
+        "Never fill a missing geolocation with an estimate, nor promote a point to a polygon.",
+    },
+    {
+      ...CONSTRAINTS_EN[2],
+      voix: "Our surveys are done with phones or handheld devices that must be charged far from a stable grid. A power cut halfway through tracing a polygon is not unusual.",
+      titre: "An interrupted survey must say so",
+      paragraphes: [
+        "The power constraint no longer affects emission sources only. It affects data collection itself. A polygon traced by walking along a plot can stop halfway when the device shuts down. The partial survey then looks like a small, closed plot, and nothing in its shape signals the interruption.",
+        "The system must keep the survey sequence: start, points, end, and the reason for an early end. A polygon not closed by the field agent is not a valid polygon, even if the software could close it automatically. The device timestamp and the synchronisation timestamp are kept apart, because a device that lost its battery may also have lost its clock.",
+      ],
+      decision:
+        "Full survey sequence, explicit closing by the agent, device and synchronisation timestamps, and battery state where the device reports it.",
+      limite:
+        "Do not close an interrupted polygon automatically, nor present a partial trace as the boundary of the plot.",
+    },
+    {
+      ...CONSTRAINTS_EN[3],
+      voix: "Our agents collect in areas without coverage, then synchronise on their return, sometimes several days later. Meanwhile, a lot may already have been bought and moved.",
+      titre: "Late synchronisation must not rewrite the history of a lot",
+      paragraphes: [
+        "The offline system described in the second publication meets a timing constraint here. The European buyer reasons by lot: which plots supplied this lot, at the time it was put together. If a geolocation arrives after the lot was formed, it must not be attached retroactively as though it had been known at the time of purchase.",
+        "The model therefore keeps two separate dates: when the data was observed in the field, and when it became available in the system. A lot’s statement relies on what was available when it is prepared. A late attachment is possible, but it stays visible as such.",
+      ],
+      decision:
+        "Observation date, availability date, composition of the lot on the date it was formed, and later attachments flagged.",
+      limite:
+        "Do not rebuild a clean lot after the fact from data that arrived after it was sold.",
+    },
+    {
+      ...CONSTRAINTS_EN[4],
+      voix: "Part of our cocoa goes through intermediaries who buy from several farmers, pool the bags and sell on to the cooperative or the exporter. At each pooling, the link with the plot can be lost.",
+      titre: "Mixing bags is where the evidence gets lost",
+      paragraphes: [
+        "The regulation does not ask for an average risk across an area. It asks for the plots of the lot. A lot that mixes bags from identified farmers and from unknown farmers cannot be declared for its known share alone. The indirect supply chain, the one running through intermediaries without formal accounts, becomes the central question.",
+        "The Ivorian answer is to identify the farmer at the point of sale: since 1 September 2026, the farmer’s electronic card has been mandatory for coffee and cocoa purchases and sales in the national traceability system. For a data system, the lesson goes beyond Côte d’Ivoire. The farmer identifier has to travel with the bag, and every pooling has to keep the list of what it pools.",
+      ],
+      decision:
+        "Farmer identifier at every transaction, composition of every pooling, and separation of identified and unidentified flows.",
+      limite:
+        "Do not declare a mixed lot for its identified share alone, nor present a sourcing area as a list of plots.",
+    },
+    {
+      ...CONSTRAINTS_EN[5],
+      voix: "We pay some farmers by mobile money, in CFA francs, and the exporter invoices in euros. The payment is often the most reliable trace that a purchase took place.",
+      titre: "The payment becomes evidence of origin",
+      paragraphes: [
+        "The currency and mobile-payment constraint is no longer just about converting amounts. A timestamped mobile payment, sent to an identified farmer, for a given quantity, is a record that links a bag to a person, and that person to their plots. It is often stronger evidence than a handwritten slip.",
+        "The system must therefore attach every payment to the purchase transaction, and the transaction to the farmer. The conversion into euros remains traced in the lineage, as in the second publication, but the stake lies elsewhere: the payment must not be aggregated to the point of losing the link with the farmer who received it.",
+      ],
+      decision:
+        "Payment, purchase transaction, farmer and quantity linked, with the conversion and its date kept in the lineage.",
+      limite:
+        "Do not present a payment as evidence of the plot, only as evidence of a transaction with an identified farmer.",
+    },
+    {
+      ...CONSTRAINTS_EN[6],
+      voix: "Our farmers speak Baoulé, Dioula, Bété, Wolof or Pular depending on the area. Questions about land, about how old the plantation is or about what stood there before are asked orally, and the answer is translated as it is entered.",
+      titre: "Legality is often gathered orally",
+      paragraphes: [
+        "The regulation’s second condition, production in line with the law of the country of origin, touches matters the farmer does not always document in writing: the right to use the land, the date it was first planted, how the plot was acquired. This information is gathered in the farmer’s language, then entered in another.",
+        "The system must keep a trace of that passage. Who asked the question, in which language, who translated, and what was entered. An oral answer does not carry the weight of a land title, and the system must not suggest that it does. But it carries some weight, provided the way it was gathered stays visible to whoever reads it later.",
+      ],
+      decision:
+        "Interview language, author of the question, author of the translation, recorded answer and written document where one exists.",
+      limite:
+        "Do not present a translated oral statement as a legality document, nor a missing document as a missing right.",
+    },
+  ],
+  methode: {
+    repere: "08 / A METHOD BEFORE A STATEMENT",
+    titre: "Preparing the data for a statement without promising it",
+    introduction: [
+      "The due diligence statement belongs to the operator that places the product on the European market. The West African company does not sign it, but it produces most of what it contains. The sequence below describes that preparation, without prejudging what the operator will conclude.",
+    ],
+    etapes: [
+      {
+        titre: "Name your role",
+        texte:
+          "Operator, downstream operator, trader, or micro or small primary operator: the role decides what has to be produced. It is named per product, and may differ from one product to another.",
+      },
+      {
+        titre: "Link the lot to its plots",
+        texte:
+          "For every lot, the list of plots that supplied it, with their geolocation in the form the text requires for their area.",
+      },
+      {
+        titre: "Keep the check",
+        texte:
+          "For every plot, the deforestation check, the reference used, its version and its date. A repeated check is added, it does not replace.",
+      },
+      {
+        titre: "Document legality",
+        texte:
+          "The documents available, their language and how they were gathered. What is missing is written down as missing, and the operator knows it before filing.",
+      },
+      {
+        titre: "Keep and pass on",
+        texte:
+          "Keep records for at least five years, pass on to the buyer what it asks for, and keep the statement’s reference number when it comes back.",
+      },
+    ],
+  },
+  traduction: {
+    repere: "TRANSLATION CHOICES",
+    titre: "Four terms whose weight changes between languages",
+    introduction:
+      "The French and English versions follow the European text in each language. Where a familiar word would shift the meaning, the term of the regulation was kept.",
+    choix: [
+      {
+        terme: "RDUE",
+        choix: "EUDR",
+        raison:
+          "The French acronym is not used in English. EUDR is the name buyers and European services use.",
+      },
+      {
+        terme: "Diligence raisonnée",
+        choix: "Due diligence",
+        raison:
+          "The English text of the regulation uses due diligence. The French text says raisonnée, not raisonnable.",
+      },
+      {
+        terme: "Opérateur en aval",
+        choix: "Downstream operator",
+        raison:
+          "A category created by Regulation (EU) 2025/2650. It does not file its own statement, it keeps the reference number.",
+      },
+      {
+        terme: "Parcelle",
+        choix: "Plot",
+        raison:
+          "The regulation says plot of land. Field or farm would blur the unit that is geolocated.",
+      },
+    ],
+  },
+  resonance: {
+    repere: "09 / USEFUL RESONANCE",
+    titre: "Measuring problem recognition, not audience",
+    introduction: [
+      "This publication seeks to learn whether the seven constraints, read through the deforestation regulation, describe what cooperatives, exporters, buyers and those who build their tools actually face. Signals are recorded privately, under the same rule as the first two publications.",
+    ],
+    signaux: [
+      {
+        nom: "Situated recognition",
+        compte:
+          "A reply names a constraint and describes the lot or plot it blocks, without case data.",
+        exclut: "General approval or a simple sign of agreement.",
+      },
+      {
+        nom: "Field correction",
+        compte:
+          "Someone points out a collection practice, a local usage or a limitation the text ignores.",
+        exclut: "A stylistic preference with no effect on the method.",
+      },
+      {
+        nom: "Architecture question",
+        compte:
+          "The publication prompts a question about the lot, synchronisation, geolocation or lineage.",
+        exclut:
+          "A request for legal advice on a product or for access to a buyer.",
+      },
+      {
+        nom: "Cross-reading",
+        compte:
+          "Someone connects this publication with the two before it and asks how a constraint becomes a system rule.",
+        exclut: "An isolated click with no question or feedback.",
+      },
+    ],
+    registre: [
+      "Publication and language",
+      "Reader category, without organisation name",
+      "Constraint number",
+      "Commodity concerned",
+      "Signal type",
+      "Next step: reply, correct, deepen or produce nothing",
+    ],
+    decision:
+      "Resonance exists if readers in different roles, cooperative, exporter, buyer, return to the same constraints with distinct consequences. It is not inferred from public volume.",
+  },
+  clause: {
+    repere: "10 / BOUNDARY",
+    titre: "This text is about building the system",
+    texte: CLAUSE_RENVOI_EN,
+    note: "The clause is reproduced word for word. This text replaces neither a reading of the regulation, nor a lawyer’s advice, nor the European operator’s own due diligence.",
+  },
+  conclusion: {
+    repere: "11 / CONCLUSION",
+    titre: "The regulation does not create the constraints, it makes them due",
+    paragraphes: [
+      "The seven constraints existed before the deforestation regulation. What changes is that they now have a date, 30 December 2026, and a specific counterpart, the European operator who must file. A poorly qualified absence, an interrupted polygon or a mixed lot were until now mere inaccuracies. They become reasons for being unable to sell.",
+      "Useful work therefore starts upstream, where the data is born: at the moment of the survey, the purchase, the pooling and the payment. A system that keeps these acts with their date, their author and their exact form will not file the statement in the operator’s place. It will give the operator what is needed to file it, and to defend it.",
+    ],
+  },
+  sources: {
+    titre: "The texts and pages read",
+    introduction:
+      "Every date and rule in this publication refers to one of these pages, consulted on 14 November 2026.",
+    liens: [
+      {
+        libelle: "Regulation (EU) 2023/1115 on deforestation, EUR-Lex",
+        href: "https://eur-lex.europa.eu/eli/reg/2023/1115/oj/eng",
+      },
+      {
+        libelle:
+          "European Commission news: delay until December 2026, Regulation (EU) 2025/2650",
+        href: "https://trade.ec.europa.eu/access-to-markets/en/news/delay-until-december-2026-and-other-developments-implementation-eudr-regulation",
+      },
+      {
+        libelle: "Postponement to 30 December 2026, French customs",
+        href: "https://www.douane.gouv.fr/actualites/lutte-contre-la-deforestation-report-de-la-mise-en-application-du-reglement-ue-20231115",
+      },
+      {
+        libelle: "Country classification list, European Commission",
+        href: "https://green-forum.ec.europa.eu/nature-and-biodiversity/deforestation-regulation-implementation/eudr-cooperation-and-partnerships/country-classification-list_en",
+      },
+      {
+        libelle:
+          "The regulation, its dates and the information system, European Commission",
+        href: "https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en",
+      },
+      {
+        libelle: "Farmer card mandatory from 1 September 2026, Koaci",
+        href: "https://www.koaci.com/article/2026/08/27/cote-divoire/economie/cote-divoire-avant-la-campagne-cafe-cacao-le-taux-dexecution-des-cartes-du-producteur-atteint-pres-de-90_199907.html",
+      },
+      {
+        libelle:
+          "The Coffee-Cocoa Council defends its system, Fraternité Matin",
+        href: "https://www.fratmat.info/article/2644626/economie/tracabilite-du-cacao-le-conseil-du-cafe-cacao-defend-son-dispositif-face-aux-critiques",
+      },
+    ],
+  },
+};
+
 export const ARTICLES_AFRIQUE = [
   ARTICLE_CONTRAINTES_FR,
   ARTICLE_CONTRAINTES_EN,
   ARTICLE_ARCHITECTURE_FR,
   ARTICLE_ARCHITECTURE_EN,
+  ARTICLE_DEFORESTATION_FR,
+  ARTICLE_DEFORESTATION_EN,
 ];
 
 export function texteArticleAfrique(article: ArticleAfrique): string {
@@ -1178,6 +1914,19 @@ export function texteArticleAfrique(article: ArticleAfrique): string {
     article.sousTitre,
     article.date,
     ...article.introduction,
+    ...(article.cadre
+      ? [
+          article.cadre.repere,
+          article.cadre.titre,
+          ...article.cadre.introduction,
+          ...article.cadre.lignes.flatMap((ligne) => [
+            ligne.quand,
+            ligne.quoi,
+            ligne.texte,
+            ligne.reference,
+          ]),
+        ]
+      : []),
     article.titreContraintes,
     ...article.introductionContraintes,
     ...article.contraintes.flatMap((contrainte) => [
@@ -1222,5 +1971,12 @@ export function texteArticleAfrique(article: ArticleAfrique): string {
     article.conclusion.repere,
     article.conclusion.titre,
     ...article.conclusion.paragraphes,
+    ...(article.sources
+      ? [
+          article.sources.titre,
+          article.sources.introduction,
+          ...article.sources.liens.map((lien) => lien.libelle),
+        ]
+      : []),
   ].join("\n");
 }

@@ -19,7 +19,7 @@ import { URL_STRATA } from "../../content/parcours";
 // =====================================================================
 
 export const metadata: Metadata = {
-  title: "Revue d’architecture",
+  title: "Revue d’architecture d’un système de donnée ESG",
   description:
     "Relecture structurée d’un système de donnée, de preuve, d’automatisation ou de traitement par un moteur, appliqué à l’ESG.",
   alternates: { canonical: "/revue-architecture" },

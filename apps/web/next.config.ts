@@ -19,6 +19,19 @@ const nextConfig: NextConfig = {
   // fragment amène directement sur la division STRATA ESG de la nouvelle page.
   async redirects() {
     return [
+      // 9 novembre 2026 : le domaine technique adama-os-web.vercel.app
+      // répondait en 200 avec les mêmes pages que adamesg-os.fr. Google l'a
+      // découvert comme source de plusieurs pages. Redirection permanente,
+      // limitée à cet hôte : les déploiements de prévisualisation ont un autre
+      // nom d'hôte et gardent leurs aperçus. /api/ est exclu pour que les
+      // tâches planifiées Vercel, qui ne suivent pas les redirections,
+      // continuent d'atteindre leurs routes.
+      {
+        source: "/:path((?!api/).*)",
+        has: [{ type: "host", value: "adama-os-web.vercel.app" }],
+        destination: "https://adamesg-os.fr/:path",
+        permanent: true,
+      },
       // 7 novembre 2026 : la page À propos quitte l'adresse /recruteur,
       // héritée de la recherche de poste close le 10 octobre.
       {

@@ -33,6 +33,15 @@ describe("redirections declarees dans next.config.ts", () => {
     expect(bloc).toContain("permanent: true");
   });
 
+  it("redirige le domaine technique vers adamesg-os.fr, hors /api/", () => {
+    const bloc = source.slice(source.indexOf("async redirects()"));
+    expect(bloc).toContain('value: "adama-os-web.vercel.app"');
+    expect(bloc).toContain('destination: "https://adamesg-os.fr/:path"');
+    // /api/ reste servi : les tâches planifiées Vercel ne suivent pas les
+    // redirections.
+    expect(bloc).toContain('source: "/:path((?!api/).*)"');
+  });
+
   it("ne redirige pas /ecosysteme, qui est la destination", () => {
     expect(source).not.toContain('source: "/ecosysteme"');
   });

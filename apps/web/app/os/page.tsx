@@ -16,7 +16,7 @@ import { lireIntegrite } from "../../lib/integrity";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "L’état du système",
+  title: "Cockpit public : l’état du système en direct",
   description:
     "Le cockpit public d’ADAMA OS : décisions, trajectoire, registre produits, passerelles, intégrité et livraisons, lus à chaque visite.",
   alternates: { canonical: "/os" },

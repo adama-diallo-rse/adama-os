@@ -98,6 +98,8 @@ const MOTIFS_DE_PROFIL: { motif: RegExp; quoi: string }[] = [
 const EXCEPTIONS: Record<string, string> = {
   "components/vsme-simulator.tsx":
     "Le sigle CDI y designe un indicateur social du referentiel VSME, la part de contrats stables dans l'effectif. Il ne parle pas du contrat recherche par Adama, et le confondre avec lui serait une erreur de lecture, pas une divergence de profil.",
+  "content/articles-afrique.ts":
+    "La date de parution de la publication 3 de la serie Afrique de l'Ouest, le 14 novembre 2026, y est ecrite en toutes lettres comme celle des publications precedentes. Elle date un article, elle ne dit rien de la disponibilite d'Adama.",
   "content/conseil.ts":
     "Les mois de 2026 y bornent les periodes du plafond de capacite EG9, ecrites dans la branche EG avant la premiere vente. Ils ne disent rien de la disponibilite recherchee par Adama, et les lire depuis le profil lierait deux regles qui changent pour des raisons differentes.",
 };

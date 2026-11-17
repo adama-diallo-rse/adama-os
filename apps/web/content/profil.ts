@@ -320,6 +320,71 @@ export const POSITIONNEMENT = {
   ],
 } as const;
 
+// =====================================================================
+// Référencement, 14 novembre 2026.
+//
+// Le défaut que ce bloc rend impossible : un titre de page écrit pour la
+// marque seule. « Construire. Prouver. Transmettre. » se retient, mais
+// personne ne le cherche. Search Console, relevée le 14 novembre 2026 :
+// 168 impressions en trois mois, aucune sur le nom d'Adama ni sur son
+// métier. Les moteurs et les assistants de recherche lisent d'abord le
+// titre, le h1 et la description : ces trois endroits disent donc qui,
+// quel métier et où, avec les mots qu'un lecteur tape.
+//
+// Tout se compose depuis l'identité et l'activité ci-dessus : le nom, le
+// titre et les villes ne s'écrivent toujours qu'une fois.
+// =====================================================================
+
+const VILLES_FR = ACTIVITE.villes.join(" et ");
+const VILLES_EN = ACTIVITE.villes.join(" and ");
+
+/**
+ * Le métier, en une ligne : le nom, ce qu'il fait, où. Première ligne du
+ * h1 de l'accueil et de la racine anglaise, au-dessus des trois verbes.
+ *
+ * Arbitrage du 14 novembre 2026. « Fondateur » est le titre validé le
+ * 22 octobre 2026, celui du profil LinkedIn et des données structurées :
+ * la ligne le garde, pour que les trois surfaces nomment la même personne
+ * de la même façon. « Architecte de logiciels » dit le métier exercé, celui
+ * que prouvent le journal des décisions et la revue d'architecture, et
+ * c'est le mot qu'un lecteur tape quand il cherche ce savoir-faire. Les
+ * deux domaines et les deux villes ferment la ligne.
+ */
+export const METIER = {
+  fr: `${IDENTITE.nom}, ${ACTIVITE.titre.toLowerCase()} et architecte de logiciels ESG et santé, ${VILLES_FR}`,
+  en: `${IDENTITE.nom}, founder and architect of ESG and health software, ${VILLES_EN}`,
+} as const;
+
+/**
+ * Les langues de travail, telles que la page d'accueil les annonce. Lues
+ * par les données structurées et par llms.txt.
+ */
+export const LANGUES = [
+  { code: "fr", nom: "français", niveau: "langue de travail" },
+  { code: "wo", nom: "wolof", niveau: "compris" },
+  { code: "ff", nom: "pular", niveau: "compris" },
+] as const;
+
+/**
+ * Titres et descriptions servis aux moteurs. Un titre tient en soixante
+ * caractères utiles (la marque en fin de ligne peut être coupée sans
+ * dommage), une description en cent soixante : tests/referencement.test.ts
+ * mesure les deux.
+ */
+export const REFERENCEMENT = {
+  accueil: {
+    titre: `${IDENTITE.nom}, logiciels ESG et SaaS entre ${VILLES_FR} | ADAMA OS`,
+    description: `${IDENTITE.nom}, ${POSTE_ACTUEL.charAt(0).toLowerCase()}${POSTE_ACTUEL.slice(1)}. Logiciels ESG et santé, méthodes et accompagnement de projets à ${VILLES_FR}.`,
+  },
+  aPropos: {
+    titre: `${IDENTITE.nom}, ${ACTIVITE.titre.toLowerCase()} de ${ACTIVITE.maisons[0]} : parcours et compétences`,
+    description: `${IDENTITE.nom}, ${POSTE_ACTUEL.charAt(0).toLowerCase()}${POSTE_ACTUEL.slice(1)}. Parcours, compétences, réalisations et preuves vérifiables, à ${VILLES_FR}.`,
+  },
+  anglais: {
+    titre: `${IDENTITE.nom}, ESG and health software, ${VILLES_EN} | ADAMA OS`,
+  },
+} as const;
+
 /**
  * EC3, AXP-113. La signature, en pied de chaque surface. Chaque groupe de
  * mots qui affirme quelque chose porte le lien qui le prouve : un mot sans

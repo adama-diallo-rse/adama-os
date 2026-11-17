@@ -14,9 +14,9 @@ import { ARTICLES } from "../../content/articles";
 // =====================================================================
 
 export const metadata: Metadata = {
-  title: "Apprendre, les notes de fond",
+  title: "Notes de fond : donnée ESG et Afrique de l’Ouest",
   description:
-    "Les notes de fond d’ADAMA OS sur la construction de systèmes pour la donnée de durabilité, publiées en français et en anglais, avec leurs décisions rejetées et leurs preuves cassées.",
+    "Notes de fond sur la construction de systèmes pour la donnée ESG, en français et en anglais, avec leurs décisions rejetées et leurs preuves cassées.",
   alternates: { canonical: "/articles" },
 };
 

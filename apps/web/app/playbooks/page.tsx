@@ -13,7 +13,7 @@ import { METHODES } from "../../content/methodes";
 // de méthode : versionnées, revues, avec leur journal. Elles sont rangées
 // ici telles qu'elles sont, avec leur état réel.
 export const metadata: Metadata = {
-  title: "Playbooks",
+  title: "Playbooks : fiches méthode versionnées",
   description:
     "Les fiches vivantes d’ADAMA OS : chaque méthode avec sa version, sa date de revue et son état. Les playbooks de la branche PRESS ne sont pas encore parus.",
   alternates: { canonical: "/playbooks" },
@@ -27,7 +27,7 @@ export default function PagePlaybooks() {
         eyebrow="RESSOURCES / FICHES VIVANTES"
         title={
           <>
-            Des fiches qui gardent leur <Accent>journal.</Accent>
+            Des fiches méthode qui gardent leur <Accent>journal.</Accent>
           </>
         }
         description="Un playbook vivant se met à jour sans effacer ce qu’il disait avant. Aucun n’est encore paru ; les fiches de méthode suivent déjà cette règle."

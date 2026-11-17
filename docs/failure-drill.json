@@ -4,7 +4,7 @@
     "Ecrit par `node scripts/failure-drill.mjs`, jamais a la main."
   ],
   "schema_version": 1,
-  "executed_at": "2026-09-27T21:18:06.914Z",
+  "executed_at": "2026-11-17T05:47:15.655Z",
   "reference_time": "2026-09-02T12:00:00.000Z",
   "scenarios": [
     {

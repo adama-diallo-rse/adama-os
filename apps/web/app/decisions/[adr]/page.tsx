@@ -21,6 +21,7 @@ import {
   listAdr,
 } from "../../../lib/adr";
 import { absoluteUrl } from "../../../lib/site";
+import { refPersonne } from "../../../lib/entites";
 
 // =====================================================================
 // C6-T4, une decision d'architecture.
@@ -100,7 +101,7 @@ export default async function DecisionPage({
     dateModified: decision.updated_at,
     url: absoluteUrl(`/decisions/${decision.adr_id}`),
     inLanguage: "fr-FR",
-    author: { "@type": "Person", name: "Adama Diallo" },
+    author: refPersonne(),
     abstract: decision.decision ?? undefined,
   };
 

@@ -140,6 +140,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "/bibliotheque",
       "/playbooks",
       "/parcours",
+      // 14 novembre 2026 : deux pages publiques manquaient à la liste, la
+      // méthode de provenance et le plan d'expansion. Un test compare
+      // désormais les pages du dossier app/ à ce fichier.
+      "/methode",
+      "/expansion",
     ].map((chemin) => ({
       url: absoluteUrl(chemin),
       lastModified: maintenant,
@@ -244,6 +249,34 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         languages: {
           fr: absoluteUrl("/articles/architecture-donnee-esg-afrique-ouest"),
           en: absoluteUrl("/en/articles/west-african-esg-data-architecture"),
+        },
+      },
+    },
+    {
+      url: absoluteUrl("/articles/reglement-deforestation-rdue-afrique-ouest"),
+      lastModified: new Date("2026-11-14"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          fr: absoluteUrl(
+            "/articles/reglement-deforestation-rdue-afrique-ouest",
+          ),
+          en: absoluteUrl("/en/articles/eudr-west-africa-origin-data"),
+        },
+      },
+    },
+    {
+      url: absoluteUrl("/en/articles/eudr-west-africa-origin-data"),
+      lastModified: new Date("2026-11-14"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          fr: absoluteUrl(
+            "/articles/reglement-deforestation-rdue-afrique-ouest",
+          ),
+          en: absoluteUrl("/en/articles/eudr-west-africa-origin-data"),
         },
       },
     },

@@ -12,7 +12,7 @@ import "server-only";
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { PORTES } from "../../content/conseil";
-import { EDITEUR } from "../legal";
+import { BOITE_RECEPTION } from "../legal";
 import type { ConfigLettre } from "../lettre/config";
 import { verifierExpediteur } from "../lettre/envoi";
 import { CHOIX_ECHEANCE, type Demande } from "./qualification";
@@ -229,7 +229,7 @@ export function messageNotification(
 <p><a href="${echapper(lienConsole)}">Ouvrir la console des demandes</a></p>
 </div>`;
   return {
-    to: [EDITEUR.contact],
+    to: [BOITE_RECEPTION],
     reply_to: demande.email,
     subject: `Demande de conseil, porte ${porte?.titre ?? demande.porte}, ${demande.organisation}`,
     text: texte,

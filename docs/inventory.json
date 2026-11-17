@@ -1,23 +1,23 @@
 {
   "schema_version": 1,
   "surface": {
-    "pages": 54,
+    "pages": 56,
     "api_routes": 11,
-    "components": 82,
-    "lib_modules": 61,
+    "components": 83,
+    "lib_modules": 63,
     "tables": 11,
     "enums": 14,
     "migrations": 12,
     "policies": 21,
-    "test_files": 68,
-    "test_cases": 679,
+    "test_files": 70,
+    "test_cases": 716,
     "dependencies": 57
   },
   "pages": [
     {
       "file": "apps/web/app/a-propos/page.tsx",
       "route": "/a-propos",
-      "lines": 358
+      "lines": 356
     },
     {
       "file": "apps/web/app/admin/demandes/page.tsx",
@@ -47,12 +47,12 @@
     {
       "file": "apps/web/app/articles/architecture-donnee-esg-afrique-ouest/page.tsx",
       "route": "/articles/architecture-donnee-esg-afrique-ouest",
-      "lines": 53
+      "lines": 54
     },
     {
       "file": "apps/web/app/articles/methode-de-preuve/page.tsx",
       "route": "/articles/methode-de-preuve",
-      "lines": 53
+      "lines": 54
     },
     {
       "file": "apps/web/app/articles/page.tsx",
@@ -60,9 +60,14 @@
       "lines": 94
     },
     {
+      "file": "apps/web/app/articles/reglement-deforestation-rdue-afrique-ouest/page.tsx",
+      "route": "/articles/reglement-deforestation-rdue-afrique-ouest",
+      "lines": 58
+    },
+    {
       "file": "apps/web/app/articles/sept-contraintes-donnee-esg-afrique-ouest/page.tsx",
       "route": "/articles/sept-contraintes-donnee-esg-afrique-ouest",
-      "lines": 53
+      "lines": 54
     },
     {
       "file": "apps/web/app/bibliotheque/page.tsx",
@@ -72,7 +77,7 @@
     {
       "file": "apps/web/app/catalogue/page.tsx",
       "route": "/catalogue",
-      "lines": 217
+      "lines": 218
     },
     {
       "file": "apps/web/app/changelog/page.tsx",
@@ -102,7 +107,7 @@
     {
       "file": "apps/web/app/decisions/[adr]/page.tsx",
       "route": "/decisions/[adr]",
-      "lines": 319
+      "lines": 320
     },
     {
       "file": "apps/web/app/decisions/page.tsx",
@@ -117,7 +122,7 @@
     {
       "file": "apps/web/app/ecosysteme/page.tsx",
       "route": "/ecosysteme",
-      "lines": 198
+      "lines": 173
     },
     {
       "file": "apps/web/app/ecriture/page.tsx",
@@ -125,24 +130,29 @@
       "lines": 155
     },
     {
+      "file": "apps/web/app/en/articles/eudr-west-africa-origin-data/page.tsx",
+      "route": "/en/articles/eudr-west-africa-origin-data",
+      "lines": 57
+    },
+    {
       "file": "apps/web/app/en/articles/proof-method/page.tsx",
       "route": "/en/articles/proof-method",
-      "lines": 53
+      "lines": 54
     },
     {
       "file": "apps/web/app/en/articles/seven-constraints-west-african-esg-data/page.tsx",
       "route": "/en/articles/seven-constraints-west-african-esg-data",
-      "lines": 53
+      "lines": 54
     },
     {
       "file": "apps/web/app/en/articles/west-african-esg-data-architecture/page.tsx",
       "route": "/en/articles/west-african-esg-data-architecture",
-      "lines": 53
+      "lines": 54
     },
     {
       "file": "apps/web/app/en/page.tsx",
       "route": "/en",
-      "lines": 142
+      "lines": 150
     },
     {
       "file": "apps/web/app/erreurs/page.tsx",
@@ -217,12 +227,12 @@
     {
       "file": "apps/web/app/page.tsx",
       "route": "/",
-      "lines": 92
+      "lines": 110
     },
     {
       "file": "apps/web/app/parcours/page.tsx",
       "route": "/parcours",
-      "lines": 131
+      "lines": 132
     },
     {
       "file": "apps/web/app/playbooks/page.tsx",
@@ -242,7 +252,7 @@
     {
       "file": "apps/web/app/projets/[slug]/page.tsx",
       "route": "/projets/[slug]",
-      "lines": 172
+      "lines": 173
     },
     {
       "file": "apps/web/app/projets/page.tsx",
@@ -277,7 +287,7 @@
     {
       "file": "apps/web/app/travaillez-avec-moi/page.tsx",
       "route": "/travaillez-avec-moi",
-      "lines": 543
+      "lines": 540
     },
     {
       "file": "apps/web/app/verifier/[id]/page.tsx",
@@ -339,7 +349,7 @@
     {
       "file": "apps/web/app/llms.txt/route.ts",
       "route": "/llms.txt",
-      "lines": 129
+      "lines": 210
     }
   ],
   "components": [
@@ -417,7 +427,7 @@
     },
     {
       "file": "apps/web/components/article-afrique.tsx",
-      "lines": 243
+      "lines": 291
     },
     {
       "file": "apps/web/components/article-methode-preuve.tsx",
@@ -449,7 +459,7 @@
     },
     {
       "file": "apps/web/components/dashboard.tsx",
-      "lines": 499
+      "lines": 518
     },
     {
       "file": "apps/web/components/ecosystem-catalog.tsx",
@@ -466,6 +476,10 @@
     {
       "file": "apps/web/components/expansion-dashboard.tsx",
       "lines": 236
+    },
+    {
+      "file": "apps/web/components/fil-ariane.tsx",
+      "lines": 24
     },
     {
       "file": "apps/web/components/flow-diagram.tsx",
@@ -549,7 +563,7 @@
     },
     {
       "file": "apps/web/components/mouvement/defilement.tsx",
-      "lines": 52
+      "lines": 257
     },
     {
       "file": "apps/web/components/mouvement/ile-defilement.tsx",
@@ -589,7 +603,7 @@
     },
     {
       "file": "apps/web/components/page-shell.tsx",
-      "lines": 165
+      "lines": 200
     },
     {
       "file": "apps/web/components/portfolio-art.tsx",
@@ -629,11 +643,11 @@
     },
     {
       "file": "apps/web/components/recruit-modal.tsx",
-      "lines": 353
+      "lines": 366
     },
     {
       "file": "apps/web/components/shipped-feed.tsx",
-      "lines": 137
+      "lines": 139
     },
     {
       "file": "apps/web/components/signal-signup.tsx",
@@ -669,7 +683,7 @@
     },
     {
       "file": "apps/web/components/vsme-simulator.tsx",
-      "lines": 550
+      "lines": 553
     }
   ],
   "lib_modules": [
@@ -746,6 +760,14 @@
       "lines": 66
     },
     {
+      "file": "apps/web/lib/entites.ts",
+      "lines": 216
+    },
+    {
+      "file": "apps/web/lib/fil-ariane.ts",
+      "lines": 144
+    },
+    {
       "file": "apps/web/lib/github-auth.ts",
       "lines": 24
     },
@@ -779,7 +801,7 @@
     },
     {
       "file": "apps/web/lib/legal.ts",
-      "lines": 137
+      "lines": 149
     },
     {
       "file": "apps/web/lib/lettre/config.ts",
@@ -1098,24 +1120,26 @@
       "apps/web/tests/proof-well-known.test.ts",
       "apps/web/tests/rate-limit.test.ts",
       "apps/web/tests/recruit-modal.test.tsx",
+      "apps/web/tests/referencement.test.ts",
       "apps/web/tests/repos-public.test.ts",
       "apps/web/tests/retrieval.integration.test.ts",
       "apps/web/tests/rls.integration.test.ts",
+      "apps/web/tests/robots.test.ts",
       "apps/web/tests/site.test.ts",
       "apps/web/tests/technique.test.tsx",
       "apps/web/tests/tenue.test.ts",
       "apps/web/tests/trajectory.test.ts",
       "apps/web/tests/vocabulaire.test.ts"
     ],
-    "cases": 679
+    "cases": 716
   },
   "rendu": {
-    "pages": 46,
-    "pages_mesurees": 46,
+    "pages": 48,
+    "pages_mesurees": 48,
     "anomalies": 0,
     "non_mesurees": 0,
-    "poids_max_ko": 1038,
-    "noeuds_max": 1859
+    "poids_max_ko": 862,
+    "noeuds_max": 1893
   },
   "dependencies": [
     {
@@ -1478,7 +1502,6 @@
     "GITHUB_TOKEN_ADAMA_DIALLO_RSE",
     "GITHUB_TOKEN_IROKO_SOFTWARE_GROUP",
     "GITHUB_TOKEN_STRATA_ESG",
-    "NEXT_PUBLIC_CAL_LINK",
     "NEXT_PUBLIC_POSTHOG_HOST",
     "NEXT_PUBLIC_POSTHOG_KEY",
     "NEXT_PUBLIC_SENTRY_DSN",
@@ -1523,31 +1546,39 @@
     "cheatsheetseries.owasp.org",
     "conhama.com",
     "csrc.nist.gov",
+    "environment.ec.europa.eu",
     "esg-optimizer.fr",
     "eu.i.posthog.com",
     "eur-lex.europa.eu",
     "foundation.esg-optimizer.fr",
     "ghgprotocol.org",
     "github.com",
+    "green-forum.ec.europa.eu",
     "officine.pharivo.com",
     "pharivo.com",
     "resend.com",
     "schema.org",
     "scope.esg-optimizer.fr",
     "supabase.com",
+    "trade.ec.europa.eu",
     "uptime.betterstack.com",
     "vercel.com",
     "watch.esg-optimizer.fr",
     "www.cnil.fr",
     "www.cognitect.com",
+    "www.douane.gouv.fr",
     "www.edpb.europa.eu",
     "www.efrag.org",
     "www.esg-optimizer.fr",
+    "www.fratmat.info",
     "www.ifrs.org",
+    "www.koaci.com",
+    "www.linkedin.com",
     "www.notion.so",
     "www.strata-esg.fr"
   ],
   "hardcoded_self_urls": [
+    "apps/web/next.config.ts : https://adamesg-os.fr/:path",
     "apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr${a.href}",
     "apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr${chemin}",
     "apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/decisions/${a.adrId}",
@@ -1572,7 +1603,9 @@
     },
     {
       "name": "adama-os-web.vercel.app",
-      "hits": []
+      "hits": [
+        "apps/web/next.config.ts"
+      ]
     },
     {
       "name": "FALLBACK",
@@ -1640,11 +1673,6 @@
     },
     {
       "id": "apps/web/components/mouvement/lenis-partage.ts#Horloge",
-      "kind": "export",
-      "declared_intentional": null
-    },
-    {
-      "id": "apps/web/components/mouvement/lenis-partage.ts#lenisCourante",
       "kind": "export",
       "declared_intentional": null
     },
@@ -2242,7 +2270,7 @@
       "level": "surface",
       "label": "Routes de page",
       "max": 46,
-      "value": 54,
+      "value": 56,
       "broken": false,
       "over": true
     },
@@ -2260,7 +2288,7 @@
       "level": "surface",
       "label": "Composants",
       "max": 54,
-      "value": 82,
+      "value": 83,
       "broken": false,
       "over": true
     },
@@ -2269,7 +2297,7 @@
       "level": "surface",
       "label": "Modules lib",
       "max": 54,
-      "value": 61,
+      "value": 63,
       "broken": false,
       "over": true
     },

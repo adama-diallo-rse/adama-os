@@ -26,9 +26,9 @@ import type { ClaimState } from "../../lib/proof/types";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Réalisations",
+  title: "Réalisations : STRATA ESG, Pharivo, Conhama",
   description:
-    "Quatre maisons en service : STRATA ESG pour la durabilité, Pharivo pour la santé en Afrique de l’Ouest, Conhama pour l’économie durable, et ADAMA OS, le laboratoire qui les relie.",
+    "Quatre maisons en service : STRATA ESG pour la durabilité, Pharivo pour la santé en Afrique de l’Ouest, Conhama pour l’économie durable, et Adama OS.",
   alternates: { canonical: "/projets" },
   openGraph: {
     title: "Réalisations, quatre maisons en service",

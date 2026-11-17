@@ -122,6 +122,24 @@ export const MARQUAGES: readonly Marquage[] = [
     part: "Écrit avec assistance, relu ligne à ligne",
     relecteur: "Adama Diallo",
     reluLe: "2026-09-18",
+  }, // 14 novembre 2026 : la ligne déclare une relecture ligne à ligne par
+  // Adama. Elle ne se pousse qu'une fois cette relecture faite, à la date
+  // où elle l'a été.
+  {
+    objet: "Article",
+    reference: "Règlement déforestation en Afrique de l’Ouest",
+    href: "/articles/reglement-deforestation-rdue-afrique-ouest",
+    part: "Écrit avec assistance, relu ligne à ligne",
+    relecteur: "Adama Diallo",
+    reluLe: "2026-11-14",
+  },
+  {
+    objet: "Article",
+    reference: "EUDR in West Africa",
+    href: "/en/articles/eudr-west-africa-origin-data",
+    part: "Écrit avec assistance, relu ligne à ligne",
+    relecteur: "Adama Diallo",
+    reluLe: "2026-11-14",
   },
 ];
 

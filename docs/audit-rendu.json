@@ -1,5 +1,5 @@
 {
-  "base": "http://localhost:3112",
+  "base": "http://localhost:3111",
   "pages": [
     {
       "page": "/",
@@ -9,7 +9,7 @@
       "impression": {
         "debordement": 0,
         "titres": 24,
-        "longueur": 7156,
+        "longueur": 7791,
         "evitementFixe": false
       },
       "panneaux": {
@@ -17,10 +17,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 592,
-        "document_pret_ms": 566,
-        "poids_ko": 891,
-        "noeuds": 1842
+        "premier_rendu_ms": 440,
+        "document_pret_ms": 132,
+        "poids_ko": 862,
+        "noeuds": 1893
       },
       "statut": 200,
       "mesuree": true
@@ -33,7 +33,7 @@
       "impression": {
         "debordement": 0,
         "titres": 17,
-        "longueur": 4605,
+        "longueur": 4621,
         "evitementFixe": false
       },
       "panneaux": {
@@ -41,10 +41,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 264,
-        "document_pret_ms": 117,
-        "poids_ko": 751,
-        "noeuds": 944
+        "premier_rendu_ms": 164,
+        "document_pret_ms": 48,
+        "poids_ko": 719,
+        "noeuds": 966
       },
       "statut": 200,
       "mesuree": true
@@ -57,7 +57,7 @@
       "impression": {
         "debordement": 0,
         "titres": 15,
-        "longueur": 2882,
+        "longueur": 2898,
         "evitementFixe": false
       },
       "panneaux": {
@@ -65,10 +65,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 208,
-        "document_pret_ms": 197,
-        "poids_ko": 846,
-        "noeuds": 671
+        "premier_rendu_ms": 144,
+        "document_pret_ms": 40,
+        "poids_ko": 815,
+        "noeuds": 695
       },
       "statut": 200,
       "mesuree": true
@@ -81,7 +81,7 @@
       "impression": {
         "debordement": 0,
         "titres": 28,
-        "longueur": 10638,
+        "longueur": 10672,
         "evitementFixe": false
       },
       "panneaux": {
@@ -89,10 +89,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 368,
-        "document_pret_ms": 366,
-        "poids_ko": 863,
-        "noeuds": 1596
+        "premier_rendu_ms": 168,
+        "document_pret_ms": 156,
+        "poids_ko": 832,
+        "noeuds": 1623
       },
       "statut": 200,
       "mesuree": true
@@ -105,17 +105,17 @@
       "impression": {
         "debordement": 0,
         "titres": 11,
-        "longueur": 4389,
+        "longueur": 4390,
         "evitementFixe": false
       },
       "panneaux": {
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 240,
-        "document_pret_ms": 195,
-        "poids_ko": 607,
-        "noeuds": 465
+        "premier_rendu_ms": 188,
+        "document_pret_ms": 55,
+        "poids_ko": 573,
+        "noeuds": 487
       },
       "statut": 200,
       "mesuree": true
@@ -136,10 +136,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 184,
-        "document_pret_ms": 62,
-        "poids_ko": 720,
-        "noeuds": 379
+        "premier_rendu_ms": 116,
+        "document_pret_ms": 28,
+        "poids_ko": 708,
+        "noeuds": 403
       },
       "statut": 200,
       "mesuree": true
@@ -160,10 +160,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 172,
-        "document_pret_ms": 54,
-        "poids_ko": 722,
-        "noeuds": 528
+        "premier_rendu_ms": 132,
+        "document_pret_ms": 29,
+        "poids_ko": 709,
+        "noeuds": 552
       },
       "statut": 200,
       "mesuree": true
@@ -184,10 +184,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 196,
-        "document_pret_ms": 173,
-        "poids_ko": 739,
-        "noeuds": 737
+        "premier_rendu_ms": 152,
+        "document_pret_ms": 30,
+        "poids_ko": 726,
+        "noeuds": 761
       },
       "statut": 200,
       "mesuree": true
@@ -199,8 +199,8 @@
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 38,
-        "longueur": 3416,
+        "titres": 39,
+        "longueur": 3446,
         "evitementFixe": false
       },
       "panneaux": {
@@ -208,10 +208,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 176,
-        "document_pret_ms": 154,
-        "poids_ko": 763,
-        "noeuds": 898
+        "premier_rendu_ms": 184,
+        "document_pret_ms": 41,
+        "poids_ko": 766,
+        "noeuds": 932
       },
       "statut": 200,
       "mesuree": true
@@ -223,8 +223,8 @@
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 6,
-        "longueur": 2070,
+        "titres": 7,
+        "longueur": 2097,
         "evitementFixe": false
       },
       "panneaux": {
@@ -232,10 +232,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 164,
-        "document_pret_ms": 132,
-        "poids_ko": 803,
-        "noeuds": 327
+        "premier_rendu_ms": 124,
+        "document_pret_ms": 29,
+        "poids_ko": 825,
+        "noeuds": 365
       },
       "statut": 200,
       "mesuree": true
@@ -248,7 +248,7 @@
       "impression": {
         "debordement": 0,
         "titres": 14,
-        "longueur": 1814,
+        "longueur": 1815,
         "evitementFixe": false
       },
       "panneaux": {
@@ -256,10 +256,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 176,
-        "document_pret_ms": 146,
-        "poids_ko": 723,
-        "noeuds": 453
+        "premier_rendu_ms": 152,
+        "document_pret_ms": 34,
+        "poids_ko": 710,
+        "noeuds": 475
       },
       "statut": 200,
       "mesuree": true
@@ -272,7 +272,7 @@
       "impression": {
         "debordement": 0,
         "titres": 8,
-        "longueur": 1384,
+        "longueur": 1405,
         "evitementFixe": false
       },
       "panneaux": {
@@ -280,10 +280,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 168,
-        "document_pret_ms": 149,
-        "poids_ko": 720,
-        "noeuds": 329
+        "premier_rendu_ms": 116,
+        "document_pret_ms": 28,
+        "poids_ko": 708,
+        "noeuds": 354
       },
       "statut": 200,
       "mesuree": true
@@ -296,7 +296,7 @@
       "impression": {
         "debordement": 0,
         "titres": 10,
-        "longueur": 1220,
+        "longueur": 1228,
         "evitementFixe": false
       },
       "panneaux": {
@@ -304,10 +304,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 196,
-        "document_pret_ms": 61,
-        "poids_ko": 775,
-        "noeuds": 364
+        "premier_rendu_ms": 136,
+        "document_pret_ms": 29,
+        "poids_ko": 765,
+        "noeuds": 389
       },
       "statut": 200,
       "mesuree": true
@@ -319,8 +319,8 @@
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 5,
-        "longueur": 1587,
+        "titres": 6,
+        "longueur": 1949,
         "evitementFixe": false
       },
       "panneaux": {
@@ -328,10 +328,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 160,
-        "document_pret_ms": 55,
-        "poids_ko": 764,
-        "noeuds": 324
+        "premier_rendu_ms": 124,
+        "document_pret_ms": 26,
+        "poids_ko": 753,
+        "noeuds": 366
       },
       "statut": 200,
       "mesuree": true
@@ -352,10 +352,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 144,
-        "document_pret_ms": 120,
-        "poids_ko": 714,
-        "noeuds": 622
+        "premier_rendu_ms": 152,
+        "document_pret_ms": 32,
+        "poids_ko": 701,
+        "noeuds": 646
       },
       "statut": 200,
       "mesuree": true
@@ -376,10 +376,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 160,
-        "document_pret_ms": 53,
-        "poids_ko": 712,
-        "noeuds": 682
+        "premier_rendu_ms": 152,
+        "document_pret_ms": 26,
+        "poids_ko": 700,
+        "noeuds": 705
       },
       "statut": 200,
       "mesuree": true
@@ -400,10 +400,34 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 156,
-        "document_pret_ms": 139,
-        "poids_ko": 713,
-        "noeuds": 662
+        "premier_rendu_ms": 140,
+        "document_pret_ms": 28,
+        "poids_ko": 701,
+        "noeuds": 686
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/articles/reglement-deforestation-rdue-afrique-ouest",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 41,
+        "longueur": 21433,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 160,
+        "document_pret_ms": 30,
+        "poids_ko": 703,
+        "noeuds": 767
       },
       "statut": 200,
       "mesuree": true
@@ -415,8 +439,8 @@
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 10,
-        "longueur": 752,
+        "titres": 11,
+        "longueur": 833,
         "evitementFixe": false
       },
       "panneaux": {
@@ -424,10 +448,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 180,
-        "document_pret_ms": 143,
-        "poids_ko": 699,
-        "noeuds": 715
+        "premier_rendu_ms": 132,
+        "document_pret_ms": 29,
+        "poids_ko": 686,
+        "noeuds": 748
       },
       "statut": 200,
       "mesuree": true
@@ -448,10 +472,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 144,
-        "document_pret_ms": 117,
-        "poids_ko": 714,
-        "noeuds": 610
+        "premier_rendu_ms": 128,
+        "document_pret_ms": 27,
+        "poids_ko": 702,
+        "noeuds": 633
       },
       "statut": 200,
       "mesuree": true
@@ -472,10 +496,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 200,
-        "document_pret_ms": 184,
-        "poids_ko": 712,
-        "noeuds": 695
+        "premier_rendu_ms": 128,
+        "document_pret_ms": 26,
+        "poids_ko": 700,
+        "noeuds": 720
       },
       "statut": 200,
       "mesuree": true
@@ -496,10 +520,34 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 160,
-        "document_pret_ms": 55,
-        "poids_ko": 712,
-        "noeuds": 710
+        "premier_rendu_ms": 132,
+        "document_pret_ms": 26,
+        "poids_ko": 699,
+        "noeuds": 733
+      },
+      "statut": 200,
+      "mesuree": true
+    },
+    {
+      "page": "/en/articles/eudr-west-africa-origin-data",
+      "contraste": [],
+      "debordement": [],
+      "structure": [],
+      "impression": {
+        "debordement": 0,
+        "titres": 46,
+        "longueur": 20345,
+        "evitementFixe": false
+      },
+      "panneaux": {
+        "assistant": [],
+        "depliants": []
+      },
+      "performance": {
+        "premier_rendu_ms": 132,
+        "document_pret_ms": 25,
+        "poids_ko": 702,
+        "noeuds": 795
       },
       "statut": 200,
       "mesuree": true
@@ -520,10 +568,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 180,
-        "document_pret_ms": 75,
-        "poids_ko": 728,
-        "noeuds": 281
+        "premier_rendu_ms": 132,
+        "document_pret_ms": 35,
+        "poids_ko": 716,
+        "noeuds": 303
       },
       "statut": 200,
       "mesuree": true
@@ -544,10 +592,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 208,
-        "document_pret_ms": 82,
-        "poids_ko": 728,
-        "noeuds": 300
+        "premier_rendu_ms": 124,
+        "document_pret_ms": 29,
+        "poids_ko": 716,
+        "noeuds": 322
       },
       "statut": 200,
       "mesuree": true
@@ -568,10 +616,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 164,
-        "document_pret_ms": 138,
-        "poids_ko": 720,
-        "noeuds": 628
+        "premier_rendu_ms": 136,
+        "document_pret_ms": 29,
+        "poids_ko": 708,
+        "noeuds": 652
       },
       "statut": 200,
       "mesuree": true
@@ -592,10 +640,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 160,
-        "document_pret_ms": 138,
-        "poids_ko": 725,
-        "noeuds": 260
+        "premier_rendu_ms": 120,
+        "document_pret_ms": 29,
+        "poids_ko": 712,
+        "noeuds": 283
       },
       "statut": 200,
       "mesuree": true
@@ -616,10 +664,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 176,
-        "document_pret_ms": 161,
-        "poids_ko": 723,
-        "noeuds": 450
+        "premier_rendu_ms": 128,
+        "document_pret_ms": 30,
+        "poids_ko": 710,
+        "noeuds": 472
       },
       "statut": 200,
       "mesuree": true
@@ -631,8 +679,8 @@
       "structure": [],
       "impression": {
         "debordement": 0,
-        "titres": 17,
-        "longueur": 5910,
+        "titres": 18,
+        "longueur": 6884,
         "evitementFixe": false
       },
       "panneaux": {
@@ -640,10 +688,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 284,
-        "document_pret_ms": 264,
-        "poids_ko": 733,
-        "noeuds": 477
+        "premier_rendu_ms": 384,
+        "document_pret_ms": 271,
+        "poids_ko": 723,
+        "noeuds": 535
       },
       "statut": 200,
       "mesuree": true
@@ -664,10 +712,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 168,
-        "document_pret_ms": 161,
-        "poids_ko": 731,
-        "noeuds": 276
+        "premier_rendu_ms": 120,
+        "document_pret_ms": 29,
+        "poids_ko": 718,
+        "noeuds": 300
       },
       "statut": 200,
       "mesuree": true
@@ -688,10 +736,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 156,
-        "document_pret_ms": 129,
-        "poids_ko": 723,
-        "noeuds": 453
+        "premier_rendu_ms": 136,
+        "document_pret_ms": 31,
+        "poids_ko": 710,
+        "noeuds": 477
       },
       "statut": 200,
       "mesuree": true
@@ -704,7 +752,7 @@
       "impression": {
         "debordement": 0,
         "titres": 25,
-        "longueur": 13283,
+        "longueur": 13307,
         "evitementFixe": false
       },
       "panneaux": {
@@ -712,10 +760,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 264,
-        "document_pret_ms": 239,
-        "poids_ko": 723,
-        "noeuds": 882
+        "premier_rendu_ms": 380,
+        "document_pret_ms": 282,
+        "poids_ko": 710,
+        "noeuds": 906
       },
       "statut": 200,
       "mesuree": true
@@ -728,7 +776,7 @@
       "impression": {
         "debordement": 0,
         "titres": 17,
-        "longueur": 4376,
+        "longueur": 4435,
         "evitementFixe": false
       },
       "panneaux": {
@@ -736,10 +784,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 312,
-        "document_pret_ms": 144,
-        "poids_ko": 759,
-        "noeuds": 765
+        "premier_rendu_ms": 420,
+        "document_pret_ms": 296,
+        "poids_ko": 727,
+        "noeuds": 829
       },
       "statut": 200,
       "mesuree": true
@@ -760,10 +808,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 200,
-        "document_pret_ms": 85,
-        "poids_ko": 721,
-        "noeuds": 776
+        "premier_rendu_ms": 184,
+        "document_pret_ms": 42,
+        "poids_ko": 709,
+        "noeuds": 799
       },
       "statut": 200,
       "mesuree": true
@@ -784,10 +832,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 188,
-        "document_pret_ms": 85,
-        "poids_ko": 728,
-        "noeuds": 564
+        "premier_rendu_ms": 140,
+        "document_pret_ms": 36,
+        "poids_ko": 716,
+        "noeuds": 587
       },
       "statut": 200,
       "mesuree": true
@@ -808,10 +856,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 240,
-        "document_pret_ms": 212,
-        "poids_ko": 726,
-        "noeuds": 383
+        "premier_rendu_ms": 384,
+        "document_pret_ms": 283,
+        "poids_ko": 713,
+        "noeuds": 404
       },
       "statut": 200,
       "mesuree": true
@@ -831,10 +879,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 184,
-        "document_pret_ms": 62,
-        "poids_ko": 486,
-        "noeuds": 664
+        "premier_rendu_ms": 180,
+        "document_pret_ms": 35,
+        "poids_ko": 454,
+        "noeuds": 688
       },
       "statut": 200,
       "mesuree": true
@@ -847,7 +895,7 @@
       "impression": {
         "debordement": 0,
         "titres": 5,
-        "longueur": 3948,
+        "longueur": 4174,
         "evitementFixe": false
       },
       "panneaux": {
@@ -855,10 +903,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 152,
-        "document_pret_ms": 49,
-        "poids_ko": 720,
-        "noeuds": 372
+        "premier_rendu_ms": 116,
+        "document_pret_ms": 25,
+        "poids_ko": 708,
+        "noeuds": 412
       },
       "statut": 200,
       "mesuree": true
@@ -871,7 +919,7 @@
       "impression": {
         "debordement": 0,
         "titres": 15,
-        "longueur": 5474,
+        "longueur": 5475,
         "evitementFixe": false
       },
       "panneaux": {
@@ -879,10 +927,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 232,
-        "document_pret_ms": 187,
-        "poids_ko": 723,
-        "noeuds": 414
+        "premier_rendu_ms": 176,
+        "document_pret_ms": 37,
+        "poids_ko": 711,
+        "noeuds": 436
       },
       "statut": 200,
       "mesuree": true
@@ -903,10 +951,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 188,
-        "document_pret_ms": 154,
-        "poids_ko": 729,
-        "noeuds": 315
+        "premier_rendu_ms": 156,
+        "document_pret_ms": 43,
+        "poids_ko": 717,
+        "noeuds": 337
       },
       "statut": 200,
       "mesuree": true
@@ -927,10 +975,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 172,
-        "document_pret_ms": 59,
-        "poids_ko": 720,
-        "noeuds": 388
+        "premier_rendu_ms": 120,
+        "document_pret_ms": 28,
+        "poids_ko": 708,
+        "noeuds": 412
       },
       "statut": 200,
       "mesuree": true
@@ -951,10 +999,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 168,
-        "document_pret_ms": 136,
-        "poids_ko": 720,
-        "noeuds": 377
+        "premier_rendu_ms": 136,
+        "document_pret_ms": 35,
+        "poids_ko": 708,
+        "noeuds": 402
       },
       "statut": 200,
       "mesuree": true
@@ -975,10 +1023,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 200,
-        "document_pret_ms": 163,
-        "poids_ko": 723,
-        "noeuds": 549
+        "premier_rendu_ms": 144,
+        "document_pret_ms": 33,
+        "poids_ko": 710,
+        "noeuds": 571
       },
       "statut": 200,
       "mesuree": true
@@ -999,10 +1047,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 196,
-        "document_pret_ms": 80,
-        "poids_ko": 723,
-        "noeuds": 466
+        "premier_rendu_ms": 136,
+        "document_pret_ms": 30,
+        "poids_ko": 710,
+        "noeuds": 488
       },
       "statut": 200,
       "mesuree": true
@@ -1023,10 +1071,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 228,
-        "document_pret_ms": 65,
-        "poids_ko": 723,
-        "noeuds": 473
+        "premier_rendu_ms": 148,
+        "document_pret_ms": 31,
+        "poids_ko": 710,
+        "noeuds": 495
       },
       "statut": 200,
       "mesuree": true
@@ -1047,10 +1095,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 224,
-        "document_pret_ms": 211,
-        "poids_ko": 723,
-        "noeuds": 502
+        "premier_rendu_ms": 140,
+        "document_pret_ms": 30,
+        "poids_ko": 710,
+        "noeuds": 525
       },
       "statut": 200,
       "mesuree": true
@@ -1063,7 +1111,7 @@
       "impression": {
         "debordement": 0,
         "titres": 6,
-        "longueur": 2001,
+        "longueur": 2004,
         "evitementFixe": false
       },
       "panneaux": {
@@ -1071,10 +1119,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 152,
-        "document_pret_ms": 154,
-        "poids_ko": 712,
-        "noeuds": 317
+        "premier_rendu_ms": 128,
+        "document_pret_ms": 30,
+        "poids_ko": 700,
+        "noeuds": 338
       },
       "statut": 200,
       "mesuree": true
@@ -1087,7 +1135,7 @@
       "impression": {
         "debordement": 0,
         "titres": 7,
-        "longueur": 5183,
+        "longueur": 5186,
         "evitementFixe": false
       },
       "panneaux": {
@@ -1095,25 +1143,25 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 168,
-        "document_pret_ms": 139,
-        "poids_ko": 712,
-        "noeuds": 384
+        "premier_rendu_ms": 120,
+        "document_pret_ms": 26,
+        "poids_ko": 700,
+        "noeuds": 407
       },
       "statut": 200,
       "mesuree": true
     }
   ],
-  "executed_at": "2026-11-07T15:58:20.516Z",
+  "executed_at": "2026-11-17T05:48:20.011Z",
   "anomalies": 0,
   "non_mesurees": 0,
   "resume": {
-    "pages": 46,
-    "pages_mesurees": 46,
+    "pages": 48,
+    "pages_mesurees": 48,
     "anomalies": 0,
     "non_mesurees": 0,
-    "premier_rendu_max_ms": 592,
-    "poids_max_ko": 891,
-    "noeuds_max": 1842
+    "premier_rendu_max_ms": 440,
+    "poids_max_ko": 862,
+    "noeuds_max": 1893
   }
 }

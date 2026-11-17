@@ -13,9 +13,9 @@ import { RUBRIQUES, tousLesObjets } from "../../content/catalogue";
 import { EXPANSION_MATURITY } from "../../content/expansion";
 
 export const metadata: Metadata = {
-  title: "Le catalogue",
+  title: "Ressources gratuites : méthodes, guides, outils",
   description:
-    "Tout ce qu’ADAMA OS publie, rangé en sept rubriques : articles, méthodes et leur état, registres, outils publics. Le gratuit ne recule jamais.",
+    "Tout ce qu’ADAMA OS publie en accès libre, en sept rubriques : notes de fond, méthodes et leur état, registres, outils publics. Le gratuit ne recule jamais.",
   alternates: { canonical: "/catalogue" },
   openGraph: {
     title: "Le catalogue d’ADAMA OS",
@@ -61,10 +61,11 @@ export default function PageCatalogue() {
     <PageShell className="page-catalogue">
       <PageIntro
         numero="CAT"
-        eyebrow="RESSOURCES / OPEN, LE CATALOGUE"
+        eyebrow="RESSOURCES GRATUITES / OPEN, LE CATALOGUE"
         title={
           <>
-            Tout ce qui est ouvert, rangé par <Accent>question.</Accent>
+            Méthodes, guides et outils en accès libre, rangés par{" "}
+            <Accent>question.</Accent>
           </>
         }
         description={`${nombre} objets publics, en sept rubriques. Chacun dit sa forme et son état de maturité, et mène à une page qui existe aujourd’hui.`}

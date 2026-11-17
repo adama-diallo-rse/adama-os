@@ -4,6 +4,8 @@ import {
   ARTICLE_ARCHITECTURE_FR,
   ARTICLE_CONTRAINTES_EN,
   ARTICLE_CONTRAINTES_FR,
+  ARTICLE_DEFORESTATION_EN,
+  ARTICLE_DEFORESTATION_FR,
 } from "./articles-afrique";
 
 // =====================================================================
@@ -67,6 +69,20 @@ export const ARTICLES: readonly EntreeArticle[] = [
     en: {
       href: ARTICLE_ARCHITECTURE_FR.autreLangue.href,
       titre: ARTICLE_ARCHITECTURE_EN.titre,
+    },
+  },
+  {
+    code: "AXP-122",
+    serie: "Afrique de l’Ouest, publication 3",
+    href: "/articles/reglement-deforestation-rdue-afrique-ouest",
+    titre: ARTICLE_DEFORESTATION_FR.titre,
+    sousTitre: ARTICLE_DEFORESTATION_FR.sousTitre,
+    date: ARTICLE_DEFORESTATION_FR.date,
+    dateIso: ARTICLE_DEFORESTATION_FR.dateIso,
+    lecture: ARTICLE_DEFORESTATION_FR.lecture,
+    en: {
+      href: ARTICLE_DEFORESTATION_FR.autreLangue.href,
+      titre: ARTICLE_DEFORESTATION_EN.titre,
     },
   },
 ] as const;

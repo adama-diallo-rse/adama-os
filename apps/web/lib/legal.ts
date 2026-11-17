@@ -9,6 +9,8 @@
 // Cette chaîne est verrouillée par un test (apps/web/tests/legal.test.tsx) :
 // un nettoyage de texte ne peut pas la faire disparaître sans faire rougir la
 // suite de tests.
+import { CONTACT_EMAIL } from "../components/types";
+
 export const AUTOMATED_PROCESSING_NOTICE =
   "Agent automatisé. Les réponses sont générées à partir de documents de référence et peuvent comporter des erreurs : vérifiez tout point réglementaire avant un usage engageant.";
 
@@ -33,8 +35,18 @@ export const EDITEUR = {
   statut: "personne physique",
   objet:
     "site personnel et laboratoire public ; il présente une activité de conseil, sans aucun paiement en ligne",
-  contact: "diadamflow@gmail.com",
+  contact: CONTACT_EMAIL,
 } as const;
+
+/**
+ * La boîte où arrivent les notifications internes (une demande déposée par
+ * le formulaire de conseil). Elle ne s'affiche sur aucune page et ne passe
+ * pas par la redirection du domaine : une notification envoyée depuis le
+ * domaine vers une redirection du même domaine peut être refusée par les
+ * contrôles d'authenticité du courrier, et une demande perdue coûte plus
+ * cher qu'une adresse en moins dans le code.
+ */
+export const BOITE_RECEPTION = "diadamflow@gmail.com";
 
 /**
  * EG0, XDEC-48 : l'activite de conseil presentee sur le site est portee par

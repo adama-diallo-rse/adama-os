@@ -68,6 +68,8 @@ describe("ET0, une position dite une fois, à un seul endroit", () => {
   });
 });
 
+const aujourdhui = new Date().toISOString().slice(0, 10);
+
 describe("ET0, la règle de marquage par objet", () => {
   it("marque chaque article publié, en français et en anglais", () => {
     const marques = new Set(MARQUAGES.map((m) => m.href));
@@ -82,9 +84,11 @@ describe("ET0, la règle de marquage par objet", () => {
       expect(PARTS_ASSISTEES).toContain(m.part);
       expect(m.relecteur).toBe("Adama Diallo");
       expect(m.reluLe).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      expect(
-        m.reluLe <= POSITION_DATEE.ecriteLe || m.href === "/ecriture",
-      ).toBe(true);
+      // 14 novembre 2026 : la date de relecture était comparée à la date
+      // d'écriture de la position, ce qui interdisait d'inscrire tout objet
+      // publié après le 27 septembre 2026. Une relecture valide est une
+      // relecture qui n'est pas datée dans le futur.
+      expect(m.reluLe <= aujourdhui, m.href).toBe(true);
     }
   });
 

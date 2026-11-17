@@ -32,6 +32,7 @@ import {
   messageNote,
 } from "../lib/lettre/messages";
 import { controlerTexte } from "../lib/vocabulaire";
+import { EDITEUR } from "../lib/legal";
 
 // =====================================================================
 // EH0, la plomberie de la lettre, sans reseau ni base.
@@ -348,7 +349,9 @@ describe("EH0, l’envoi par Resend", () => {
     expect(corps.headers["List-Unsubscribe-Post"]).toBe(
       "List-Unsubscribe=One-Click",
     );
-    expect(corps.reply_to).toBe("diadamflow@gmail.com");
+    // 14 novembre 2026 : sans LETTRE_REPONSE, la réponse va à l'adresse
+    // publique de l'éditeur, sur le domaine du site.
+    expect(corps.reply_to).toBe(EDITEUR.contact);
   });
 
   it("refuse d’envoyer un message de liste sans désinscription", () => {

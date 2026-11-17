@@ -16,9 +16,9 @@ const CHEMIN = "/methodes";
 const compte = methodesProuvees();
 
 export const metadata: Metadata = {
-  title: "Bibliothèque des méthodes",
+  title: "Bibliothèque des méthodes : logiciel et donnée ESG",
   description:
-    "Sept méthodes, leur état de maturité exact, la preuve qui le justifie et ce qu'il faut pour monter.",
+    "Sept méthodes d’architecture logicielle et de donnée ESG, avec leur état de maturité exact, la preuve qui le justifie et ce qu’il faut pour monter.",
   alternates: { canonical: CHEMIN },
   openGraph: {
     title: "Bibliothèque des méthodes",

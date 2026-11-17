@@ -13,16 +13,16 @@ import {
   EXPERIENCES,
   FORMATION,
   IDENTITE,
-  ORGANISATIONS_ACTUELLES,
   OUVERTURE,
   PORTES_ENTREE,
-  POSTE_ACTUEL,
+  REFERENCEMENT,
   TITRE_COURT,
 } from "../../content/profil";
 import { cartesProjet } from "../../content/projets";
 import { listClaims } from "../../lib/proof/claims";
 import type { ClaimState } from "../../lib/proof/types";
 import { absoluteUrl } from "../../lib/site";
+import { ID_PERSONNE, ID_SITE } from "../../lib/entites";
 
 // =====================================================================
 // C9-T3, le profil professionnel (ex parcours recruteur).
@@ -59,11 +59,13 @@ const PRODUIT_DE_PORTE: Record<string, string> = {
 const PREUVES_EN_TETE = 3;
 
 export const metadata: Metadata = {
-  title: "À propos",
-  description: `${IDENTITE.situation} ${IDENTITE.capacite}`,
+  // 14 novembre 2026 : « À propos » ne dit ni de qui ni de quoi. Le titre
+  // nomme la personne et sa première maison, la requête la plus probable.
+  title: { absolute: REFERENCEMENT.aPropos.titre },
+  description: REFERENCEMENT.aPropos.description,
   alternates: { canonical: "/a-propos" },
   openGraph: {
-    title: "Adama Diallo, à propos",
+    title: REFERENCEMENT.aPropos.titre,
     description: IDENTITE.situation,
     url: "/a-propos",
     siteName: "ADAMA OS",
@@ -111,16 +113,12 @@ export default async function AProposPage() {
     "@type": "ProfilePage",
     url: absoluteUrl("/a-propos"),
     inLanguage: "fr-FR",
-    mainEntity: {
-      "@type": "Person",
-      name: IDENTITE.nom,
-      jobTitle: POSTE_ACTUEL,
-      description: IDENTITE.capacite,
-      worksFor: ORGANISATIONS_ACTUELLES.map((o) => ({
-        "@type": "Organization",
-        name: o.organisation,
-      })),
-    },
+    name: REFERENCEMENT.aPropos.titre,
+    isPartOf: { "@id": ID_SITE },
+    // La personne est décrite une fois, dans le graphe du gabarit racine :
+    // cette page en est la page de profil, elle y renvoie par identifiant.
+    mainEntity: { "@id": ID_PERSONNE },
+    about: { "@id": ID_PERSONNE },
   };
 
   return (

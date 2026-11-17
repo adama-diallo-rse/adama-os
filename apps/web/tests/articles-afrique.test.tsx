@@ -6,6 +6,8 @@ import {
   ARTICLE_ARCHITECTURE_FR,
   ARTICLE_CONTRAINTES_EN,
   ARTICLE_CONTRAINTES_FR,
+  ARTICLE_DEFORESTATION_EN,
+  ARTICLE_DEFORESTATION_FR,
   ARTICLES_AFRIQUE,
   CLAUSE_RENVOI_EN,
   CLAUSE_RENVOI_FR,
@@ -107,6 +109,84 @@ describe("EJ0, deux publications bilingues sur les sept contraintes", () => {
     ).toBeGreaterThanOrEqual(6);
     expect(
       ARTICLE_ARCHITECTURE_EN.traduction?.choix.length,
+    ).toBeGreaterThanOrEqual(4);
+  });
+});
+
+describe("Publication 3, le règlement déforestation lu par les sept contraintes", () => {
+  it("reprend les sept contraintes de la branche EJ à l’identique", () => {
+    expect(
+      ARTICLE_DEFORESTATION_FR.contraintes.map((contrainte) => contrainte.nom),
+    ).toEqual(NOMS_SOURCE);
+    expect(
+      ARTICLE_DEFORESTATION_FR.contraintes.map(
+        (contrainte) => contrainte.consequence,
+      ),
+    ).toEqual(CONSEQUENCES_SOURCE);
+    expect(
+      ARTICLE_DEFORESTATION_EN.contraintes.map((contrainte) => contrainte.id),
+    ).toEqual(ARTICLE_CONTRAINTES_EN.contraintes.map((c) => c.id));
+  });
+
+  it("date chaque règle et nomme le texte qui la fonde", () => {
+    for (const article of [
+      ARTICLE_DEFORESTATION_FR,
+      ARTICLE_DEFORESTATION_EN,
+    ]) {
+      const lignes = article.cadre?.lignes ?? [];
+      expect(lignes.length).toBeGreaterThanOrEqual(8);
+      for (const ligne of lignes) {
+        expect(ligne.reference.length, ligne.quoi).toBeGreaterThan(10);
+      }
+      const textes = lignes.map((l) => `${l.quand} ${l.texte}`).join(" ");
+      expect(textes).toContain("2020");
+      expect(textes).toContain("2026");
+      expect(textes).toContain("2027");
+    }
+  });
+
+  it("ferme sur des sources publiques, toutes en https", () => {
+    for (const article of [
+      ARTICLE_DEFORESTATION_FR,
+      ARTICLE_DEFORESTATION_EN,
+    ]) {
+      const liens = article.sources?.liens ?? [];
+      expect(liens.length).toBeGreaterThanOrEqual(6);
+      for (const lien of liens) {
+        expect(lien.href).toMatch(/^https:\/\//);
+      }
+      expect(liens.some((l) => l.href.includes("eur-lex.europa.eu"))).toBe(
+        true,
+      );
+    }
+  });
+
+  it("place la clause de renvoi et sert deux routes reliées", () => {
+    expect(ARTICLE_DEFORESTATION_FR.clause.texte).toBe(CLAUSE_RENVOI_FR);
+    expect(ARTICLE_DEFORESTATION_EN.clause.texte).toBe(CLAUSE_RENVOI_EN);
+    expect(
+      existsSync(
+        join(
+          APP,
+          "articles",
+          "reglement-deforestation-rdue-afrique-ouest",
+          "page.tsx",
+        ),
+      ),
+    ).toBe(true);
+    expect(
+      existsSync(
+        join(APP, "en", "articles", "eudr-west-africa-origin-data", "page.tsx"),
+      ),
+    ).toBe(true);
+    expect(ARTICLE_DEFORESTATION_FR.autreLangue.href).toBe(
+      "/en/articles/eudr-west-africa-origin-data",
+    );
+    expect(ARTICLE_DEFORESTATION_EN.autreLangue.href).toBe(
+      "/articles/reglement-deforestation-rdue-afrique-ouest",
+    );
+    expect(
+      ARTICLE_DEFORESTATION_EN.traduction?.choix.length,
     ).toBeGreaterThanOrEqual(4);
   });
 });

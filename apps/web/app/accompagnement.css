@@ -680,6 +680,58 @@
   }
 }
 
+/* 14 novembre 2026 : les maisons, sous les colonnes. Même grille que le
+   haut du pied : le libellé sous la marque, les trois maisons sous les
+   colonnes de liens. */
+.pied-maisons {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
+  gap: 40px;
+  padding-block: 28px;
+  border-bottom: 1px solid var(--filet);
+}
+.pied-maisons > p {
+  margin: 0;
+  padding-top: 7px;
+  font: 500 var(--t-meta) / 1.4 var(--font-code);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texte-2);
+}
+.pied-maisons ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pied-maisons a {
+  font-size: 15px;
+  font-weight: 500;
+}
+.pied-maisons a:hover {
+  color: var(--accent-texte);
+}
+.pied-maison-detail {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--texte-2);
+}
+@media (max-width: 860px) {
+  .pied-maisons {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+@media (max-width: 600px) {
+  .pied-maisons ul {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* --- 13. Le profil : les partenaires sous les expériences -------------- */
 .hire-partenaires {
   margin-top: 32px;
@@ -1628,6 +1680,19 @@
 .hero-trois-verbes b {
   font-weight: inherit;
   color: var(--accent-texte);
+}
+/* 14 novembre 2026 : la première ligne du titre dit qui, quel métier et
+   où. Elle appartient au h1, pour un moteur comme pour un lecteur d'écran,
+   et se lit comme une ligne de présentation au-dessus des trois verbes. */
+.hero-trois-verbes > .hero-metier {
+  max-width: 36ch;
+  margin: 0 0 20px;
+  font-family: var(--font-code);
+  font-size: clamp(15px, 0.62rem + 0.5vw, 18px);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: var(--texte-doux);
 }
 .accueil .hero-description {
   font-size: clamp(17px, 1.25vw, 20px);

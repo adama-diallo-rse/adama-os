@@ -23,9 +23,9 @@ export function Ancrage({
     >
       <div className="portfolio-wrap ancrage-grille">
         <div className="ancrage-texte">
-          <SurTitre numero={numero}>Paris et Dakar</SurTitre>
+          <SurTitre numero={numero}>France et Afrique de l’Ouest</SurTitre>
           <h2 id="ancrage-titre">
-            Deux villes, <Accent>un même terrain.</Accent>
+            Entre Paris et Dakar, <Accent>un même terrain.</Accent>
           </h2>
           <p className="ancrage-intro">
             Sénégalais, installé entre Paris et Dakar, j’accompagne des porteurs

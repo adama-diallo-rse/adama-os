@@ -9,9 +9,9 @@ import {
 } from "../../content/adama-os";
 
 export const metadata: Metadata = {
-  title: "Méthode de provenance intellectuelle",
+  title: "Méthode de provenance : de l’idée à l’actif",
   description:
-    "Une méthode gratuite pour relier une idée, une expérience, une décision, une méthode et un actif vérifiable.",
+    "Une méthode gratuite pour relier une idée, une expérience, une décision, une méthode et un actif vérifiable, avec la preuve de chaque étape.",
   alternates: { canonical: "/methode" },
 };
 

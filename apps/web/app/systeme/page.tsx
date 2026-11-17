@@ -19,9 +19,9 @@ import { PARALLELE, SIGNATURE } from "../../content/systeme";
 // =====================================================================
 
 export const metadata: Metadata = {
-  title: "Comment ce site fonctionne",
+  title: "Comment ce site fonctionne : la chaîne de preuve",
   description:
-    "La chaîne complète, des sources au lecteur, avec pour chaque étape le fichier ou la table qui l’implémente. Et la même chaîne, appliquée à une donnée de durabilité puis à une affirmation professionnelle.",
+    "La chaîne complète du site, des sources au lecteur, avec pour chaque étape le fichier ou la table qui l’implémente, appliquée à une donnée de durabilité.",
   alternates: { canonical: "/systeme" },
   openGraph: {
     title: "Comment ce site fonctionne",

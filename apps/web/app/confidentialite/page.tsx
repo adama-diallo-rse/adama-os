@@ -17,7 +17,7 @@ import {
 export const metadata: Metadata = {
   title: "Confidentialité",
   description:
-    "Données traitées par Adama OS, sous-traitants, durées de conservation, cookies et exercice des droits.",
+    "Données traitées par ADAMA OS, sous-traitants, durées de conservation, cookies et exercice des droits.",
   alternates: { canonical: "/confidentialite" },
   robots: { index: true, follow: true },
 };

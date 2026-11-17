@@ -383,6 +383,20 @@
   line-height: 1.7;
 }
 
+/* 14 novembre 2026 : le cadre daté de la publication 3. Chaque ligne porte
+   la référence du texte qui la fonde, en pied de carte, dans l'écriture des
+   libellés. */
+.africa-cadre article > small {
+  display: block;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--filet);
+  color: var(--texte-2);
+  font: 11px/1.5 var(--font-code);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .africa-signal-list {
   border-top: 1px solid var(--filet);
 }

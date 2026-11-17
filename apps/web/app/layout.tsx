@@ -1,20 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { ConsentBanner } from "../components/consent-banner";
 import { IleDefilement } from "../components/mouvement/ile-defilement";
-import {
-  CONTACT_EMAIL,
-  GITHUB_PROFILE_URL,
-  GITHUB_REPO_URL,
-} from "../components/types";
 import { SITE_URL } from "../lib/site";
-import {
-  ACTIVITE,
-  FORMATION,
-  IDENTITE,
-  ORGANISATIONS_ACTUELLES,
-  POSTE_ACTUEL,
-  TITRE_COURT,
-} from "../content/profil";
+import { grapheRacine, serialiser } from "../lib/entites";
+import { ACTIVITE, IDENTITE, REFERENCEMENT } from "../content/profil";
 import { ADAMA_OS } from "../content/adama-os";
 // Les rôles de couleur et l'échelle typographique d'ADAMA OS (révision du
 // 30 octobre 2026), chargés avant toute autre feuille.
@@ -111,49 +100,72 @@ const dmSans = localFont({
 // il n'existe pas : le titre et le contenu sont visibles d'emblée.
 const SCRIPT_RIDEAU = `try{var d=document.documentElement;if(location.pathname==="/"&&!localStorage.getItem("adama-rideau")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-rideau","");localStorage.setItem("adama-rideau","1")}}catch(e){}`;
 
-// L8-T5, Métadonnées home. L'image OG est générée au build par
+// L8-T5, Métadonnées par défaut. L'image OG est générée au build par
 // app/opengraph-image.tsx (statique : aucune donnée dynamique).
+//
+// 14 novembre 2026 : le titre par défaut et la description disent qui, quel
+// métier et où, avec les mots qu'un lecteur tape dans un moteur. Ils se
+// lisent dans content/profil.ts (REFERENCEMENT), comme le h1 de l'accueil.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "ADAMA OS | Rendre l’économie réelle mesurable",
+    default: REFERENCEMENT.accueil.titre,
     template: "%s · ADAMA OS",
   },
-  // La description est ce qu'un moteur affiche sous le titre : au-dela
-  // d'environ 160 caracteres, il coupe et choisit lui-meme la suite. Elle
-  // porte donc la capacite et la situation, les deux seules choses qu'un
-  // lecteur de resultat de recherche a besoin de savoir.
-  description: `${IDENTITE.capacite} ${IDENTITE.situation}`,
-  // Les maisons viennent de la source unique de profil : un mot-cle qui ne
-  // figure pas sur la page est un mot-cle qui ment.
+  // La description est ce qu'un moteur affiche sous le titre : au-delà
+  // d'environ 160 caractères, il coupe et choisit lui-même la suite.
+  description: REFERENCEMENT.accueil.description,
+  // Les maisons viennent de la source unique de profil : un mot-clé qui ne
+  // figure pas sur la page est un mot-clé qui ment.
   keywords: [
     IDENTITE.nom,
+    ADAMA_OS.nom,
     ...ACTIVITE.maisons,
-    "RSE",
-    "ESG",
+    "architecture logicielle",
+    "logiciels ESG",
+    "SaaS",
+    "donnée de durabilité",
     "CSRD",
-    "ESRS",
     "VSME",
-    "reporting durabilité",
-    "gestion d’officine",
+    "bilan carbone",
+    "logiciels de santé",
+    "accompagnement de projets",
+    ...ACTIVITE.villes,
+    "Afrique de l’Ouest",
     "Sénégal",
   ],
+  authors: [{ name: IDENTITE.nom, url: `${SITE_URL}/a-propos` }],
+  creator: IDENTITE.nom,
+  publisher: IDENTITE.nom,
   alternates: { canonical: "/" },
   // Favicon, apple-icon et manifeste sont servis par les conventions de
   // fichiers (app/icon.svg, app/favicon.ico, app/apple-icon.png,
-  // app/manifest.ts). Seul le libelle d'ecran d'accueil iOS se declare ici.
+  // app/manifest.ts). Seul le libellé d'écran d'accueil iOS se déclare ici.
   appleWebApp: { title: "ADAMA OS" },
-  robots: { index: true, follow: true },
-  // Propriete Search Console https://adamesg-os.fr/, ouverte le 9 septembre
+  // Les aperçus longs sont autorisés explicitement : un extrait de texte
+  // sans limite et une grande image, pour les résultats enrichis comme pour
+  // les réponses rédigées par un assistant de recherche.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+  // Propriété Search Console https://adamesg-os.fr/, ouverte le 9 septembre
   // 2026. Le jeton est public par construction : il est servi dans le HTML
   // de chaque page. Il ne donne aucun droit, il prouve seulement que le
-  // proprietaire du compte controle ce domaine. Ne pas le retirer : Google
-  // revoque la propriete des qu'il ne le trouve plus.
+  // propriétaire du compte contrôle ce domaine. Ne pas le retirer : Google
+  // révoque la propriété dès qu'il ne le trouve plus.
   verification: {
     google: "9MNunaSiGbPwx8_DDYpwGqI7gAocN2nHoB57B7UQF8w",
   },
   openGraph: {
-    title: "ADAMA OS | Rendre l’économie réelle mesurable",
+    title: REFERENCEMENT.accueil.titre,
     description: ADAMA_OS.sousTitre,
     url: "/",
     siteName: "ADAMA OS",
@@ -162,7 +174,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ADAMA OS | Rendre l’économie réelle mesurable",
+    title: REFERENCEMENT.accueil.titre,
     description: ADAMA_OS.sousTitre,
   },
 };
@@ -175,78 +187,16 @@ export const viewport: Viewport = {
   ],
 };
 
-// L8-T5 puis L8-T9, JSON-LD : identité machine-lisible pour Google et les
-// moteurs IA. Deux nœuds ici, statiques et injectés côté serveur : la personne
-// et le site. L'organisation et les logiciels sont déclarés sur /ecosysteme,
-// où ils sont lus depuis le registre produits plutôt que recopiés.
-const personJsonLd = {
-  "@type": "Person",
-  "@id": `${SITE_URL}#adama-diallo`,
-  name: IDENTITE.nom,
-  // C9-T8 : ces valeurs ne s'ecrivent plus ici. Le hero, le JSON-LD, le mode
-  // recruteur et la modale lisent tous content/profil.ts, et
-  // tests/profil.test.ts verifie qu'aucun intitule de poste ne reapparait en
-  // dur ailleurs. Un profil qui se contredit entre la page et le resultat de
-  // recherche montre deux personnes differentes.
-  jobTitle: POSTE_ACTUEL,
-  description: `${IDENTITE.capacite} ${IDENTITE.situation}`,
-  // Les organisations actuelles se lisent dans la source du profil.
-  // Recopiees ici, elles divergeraient le jour ou la source change, et le
-  // resultat de recherche montrerait une personne que la page ne decrit pas.
-  worksFor: ORGANISATIONS_ACTUELLES.map((o) => ({
-    "@type": "Organization",
-    name: o.organisation,
-    ...(o.precision
-      ? {
-          location: { "@type": "Place", name: o.precision },
-        }
-      : {}),
-  })),
-  alumniOf: FORMATION.map((f) => ({
-    "@type": "CollegeOrUniversity",
-    name: f.precision,
-  })),
-  homeLocation: ACTIVITE.villes.map((ville) => ({
-    "@type": "Place",
-    name: ville,
-  })),
-  url: SITE_URL,
-  email: `mailto:${CONTACT_EMAIL}`,
-  sameAs: [GITHUB_PROFILE_URL, GITHUB_REPO_URL],
-  knowsAbout: [
-    "RSE",
-    "ESG",
-    "CSRD",
-    "ESRS",
-    "VSME",
-    "Reporting de durabilité",
-    "Gestion d’officine",
-    "Next.js",
-    "Supabase",
-    "Python",
-  ],
-};
-
-const siteJsonLd = {
-  "@type": "WebSite",
-  "@id": `${SITE_URL}#site`,
-  name: "ADAMA OS",
-  // EC1 : le titre court se lit dans la source du profil, comme partout.
-  alternateName: `ADAMA OS, ${TITRE_COURT.texte}`,
-  description: ADAMA_OS.sousTitre,
-  url: SITE_URL,
-  inLanguage: "fr-FR",
-  author: { "@id": `${SITE_URL}#adama-diallo` },
-};
-
-// C13-T5 retire le 23 octobre 2026. Un troisieme noeud declarait la
-// recherche de poste (type Demand, un par intitule vise). La recherche est
-// close depuis le 10 octobre 2026 : un moteur ou un agent qui lirait encore
-// ce noeud presenterait Adama comme candidat, ce que la page ne dit plus.
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [personJsonLd, siteJsonLd],
-};
+// L8-T5 puis L8-T9, JSON-LD : identité lisible par une machine, pour les
+// moteurs de recherche et les assistants. Depuis le 14 novembre 2026, le
+// graphe vit dans lib/entites.ts : la personne, le site et les trois
+// maisons, chacun avec son identifiant, servis sur toutes les pages. Les
+// logiciels restent déclarés sur /ecosysteme, lus depuis le registre
+// produits.
+//
+// C13-T5 retiré le 23 octobre 2026 : aucun nœud ne déclare plus de
+// recherche de poste, close depuis le 10 octobre 2026.
+const jsonLd = grapheRacine();
 
 export default function RootLayout({
   children,
@@ -263,7 +213,7 @@ export default function RootLayout({
       <body className="antialiased">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: serialiser(jsonLd) }}
         />
         {children}
         <ConsentBanner />

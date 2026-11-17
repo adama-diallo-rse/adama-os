@@ -22,9 +22,9 @@ import { fetchShippedFeed } from "../../lib/github";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Journal de construction",
+  title: "Journal de construction (build in public)",
   description:
-    "Les contributions réelles des dépôts du groupe, regroupées par chantier, avec les messages de commit bruts à un clic. Et la frise des décisions qui ont donné sa forme au système.",
+    "Le journal de construction d’ADAMA OS : les contributions réelles des dépôts, regroupées par chantier, les commits bruts à un clic et la frise des décisions.",
   alternates: { canonical: "/journal" },
   openGraph: {
     title: "Journal de construction",

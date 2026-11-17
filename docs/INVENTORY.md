@@ -13,47 +13,49 @@ echouer `--check` a chaque seconde.
 
 | Mesure | Valeur |
 | --- | --- |
-| Routes de page | 54 |
+| Routes de page | 56 |
 | Routes d'API | 11 |
-| Composants | 82 |
-| Modules `lib` | 61 |
+| Composants | 83 |
+| Modules `lib` | 63 |
 | Tables Drizzle | 11 |
 | Types enumeres | 14 |
 | Migrations SQL | 12 |
-| Fichiers de test | 68 |
-| Cas de test | 679 |
+| Fichiers de test | 70 |
+| Cas de test | 716 |
 | Dependances directes declarees | 57 |
 
 ## Routes
 
 | Page | Fichier | Lignes |
 | --- | --- | --- |
-| `/a-propos` | `apps/web/app/a-propos/page.tsx` | 358 |
+| `/a-propos` | `apps/web/app/a-propos/page.tsx` | 356 |
 | `/admin/demandes` | `apps/web/app/admin/demandes/page.tsx` | 176 |
 | `/admin/lettre` | `apps/web/app/admin/lettre/page.tsx` | 514 |
 | `/admin` | `apps/web/app/admin/page.tsx` | 98 |
 | `/admin/relecture` | `apps/web/app/admin/relecture/page.tsx` | 227 |
 | `/admin/tenue` | `apps/web/app/admin/tenue/page.tsx` | 183 |
-| `/articles/architecture-donnee-esg-afrique-ouest` | `apps/web/app/articles/architecture-donnee-esg-afrique-ouest/page.tsx` | 53 |
-| `/articles/methode-de-preuve` | `apps/web/app/articles/methode-de-preuve/page.tsx` | 53 |
+| `/articles/architecture-donnee-esg-afrique-ouest` | `apps/web/app/articles/architecture-donnee-esg-afrique-ouest/page.tsx` | 54 |
+| `/articles/methode-de-preuve` | `apps/web/app/articles/methode-de-preuve/page.tsx` | 54 |
 | `/articles` | `apps/web/app/articles/page.tsx` | 94 |
-| `/articles/sept-contraintes-donnee-esg-afrique-ouest` | `apps/web/app/articles/sept-contraintes-donnee-esg-afrique-ouest/page.tsx` | 53 |
+| `/articles/reglement-deforestation-rdue-afrique-ouest` | `apps/web/app/articles/reglement-deforestation-rdue-afrique-ouest/page.tsx` | 58 |
+| `/articles/sept-contraintes-donnee-esg-afrique-ouest` | `apps/web/app/articles/sept-contraintes-donnee-esg-afrique-ouest/page.tsx` | 54 |
 | `/bibliotheque` | `apps/web/app/bibliotheque/page.tsx` | 95 |
-| `/catalogue` | `apps/web/app/catalogue/page.tsx` | 217 |
+| `/catalogue` | `apps/web/app/catalogue/page.tsx` | 218 |
 | `/changelog` | `apps/web/app/changelog/page.tsx` | 81 |
 | `/checkin` | `apps/web/app/checkin/page.tsx` | 326 |
 | `/comment-je-travaille` | `apps/web/app/comment-je-travaille/page.tsx` | 185 |
 | `/confiance` | `apps/web/app/confiance/page.tsx` | 300 |
 | `/confidentialite` | `apps/web/app/confidentialite/page.tsx` | 219 |
-| `/decisions/[adr]` | `apps/web/app/decisions/[adr]/page.tsx` | 319 |
+| `/decisions/[adr]` | `apps/web/app/decisions/[adr]/page.tsx` | 320 |
 | `/decisions` | `apps/web/app/decisions/page.tsx` | 149 |
 | `/diagnostic` | `apps/web/app/diagnostic/page.tsx` | 184 |
-| `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 198 |
+| `/ecosysteme` | `apps/web/app/ecosysteme/page.tsx` | 173 |
 | `/ecriture` | `apps/web/app/ecriture/page.tsx` | 155 |
-| `/en/articles/proof-method` | `apps/web/app/en/articles/proof-method/page.tsx` | 53 |
-| `/en/articles/seven-constraints-west-african-esg-data` | `apps/web/app/en/articles/seven-constraints-west-african-esg-data/page.tsx` | 53 |
-| `/en/articles/west-african-esg-data-architecture` | `apps/web/app/en/articles/west-african-esg-data-architecture/page.tsx` | 53 |
-| `/en` | `apps/web/app/en/page.tsx` | 142 |
+| `/en/articles/eudr-west-africa-origin-data` | `apps/web/app/en/articles/eudr-west-africa-origin-data/page.tsx` | 57 |
+| `/en/articles/proof-method` | `apps/web/app/en/articles/proof-method/page.tsx` | 54 |
+| `/en/articles/seven-constraints-west-african-esg-data` | `apps/web/app/en/articles/seven-constraints-west-african-esg-data/page.tsx` | 54 |
+| `/en/articles/west-african-esg-data-architecture` | `apps/web/app/en/articles/west-african-esg-data-architecture/page.tsx` | 54 |
+| `/en` | `apps/web/app/en/page.tsx` | 150 |
 | `/erreurs` | `apps/web/app/erreurs/page.tsx` | 345 |
 | `/expansion` | `apps/web/app/expansion/page.tsx` | 207 |
 | `/journal` | `apps/web/app/journal/page.tsx` | 123 |
@@ -68,19 +70,19 @@ echouer `--check` a chaque seconde.
 | `/mot-de-passe` | `apps/web/app/mot-de-passe/page.tsx` | 38 |
 | `/os` | `apps/web/app/os/page.tsx` | 209 |
 | `/outils` | `apps/web/app/outils/page.tsx` | 326 |
-| `/` | `apps/web/app/page.tsx` | 92 |
-| `/parcours` | `apps/web/app/parcours/page.tsx` | 131 |
+| `/` | `apps/web/app/page.tsx` | 110 |
+| `/parcours` | `apps/web/app/parcours/page.tsx` | 132 |
 | `/playbooks` | `apps/web/app/playbooks/page.tsx` | 95 |
 | `/preuves` | `apps/web/app/preuves/page.tsx` | 142 |
 | `/principes` | `apps/web/app/principes/page.tsx` | 146 |
-| `/projets/[slug]` | `apps/web/app/projets/[slug]/page.tsx` | 172 |
+| `/projets/[slug]` | `apps/web/app/projets/[slug]/page.tsx` | 173 |
 | `/projets` | `apps/web/app/projets/page.tsx` | 236 |
 | `/revirements` | `apps/web/app/revirements/page.tsx` | 180 |
 | `/revue-architecture` | `apps/web/app/revue-architecture/page.tsx` | 164 |
 | `/systeme` | `apps/web/app/systeme/page.tsx` | 148 |
 | `/systeme/pannes` | `apps/web/app/systeme/pannes/page.tsx` | 185 |
 | `/technique` | `apps/web/app/technique/page.tsx` | 535 |
-| `/travaillez-avec-moi` | `apps/web/app/travaillez-avec-moi/page.tsx` | 543 |
+| `/travaillez-avec-moi` | `apps/web/app/travaillez-avec-moi/page.tsx` | 540 |
 | `/verifier/[id]` | `apps/web/app/verifier/[id]/page.tsx` | 342 |
 
 | API | Fichier | Lignes |
@@ -95,7 +97,7 @@ echouer `--check` a chaque seconde.
 | `/api/metrics` | `apps/web/app/api/metrics/route.ts` | 34 |
 | `/api/trajectory` | `apps/web/app/api/trajectory/route.ts` | 62 |
 | `/auth/callback` | `apps/web/app/auth/callback/route.ts` | 76 |
-| `/llms.txt` | `apps/web/app/llms.txt/route.ts` | 129 |
+| `/llms.txt` | `apps/web/app/llms.txt/route.ts` | 210 |
 
 ## Base de donnees
 
@@ -126,9 +128,9 @@ Les dix plus gros fichiers, toutes categories confondues :
 | --- | --- |
 | `apps/web/components/kit/illustrations-offre.tsx` | 719 |
 | `apps/web/components/terminal.tsx` | 554 |
-| `apps/web/components/vsme-simulator.tsx` | 550 |
+| `apps/web/components/vsme-simulator.tsx` | 553 |
 | `apps/web/components/mouvement/scenes.tsx` | 540 |
-| `apps/web/components/dashboard.tsx` | 499 |
+| `apps/web/components/dashboard.tsx` | 518 |
 | `apps/web/components/kit/illustrations-maison.tsx` | 481 |
 | `apps/web/lib/health/criteria.ts` | 459 |
 | `apps/web/lib/lettre/messages.ts` | 454 |
@@ -137,7 +139,7 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 ## Variables d'environnement lues dans le code
 
-`ADAMA_AI_MODEL`, `ADAMA_AI_RATE_LIMIT`, `ADAMA_AI_RATE_WINDOW_S`, `ADAMA_HIDE_DEMO`, `BETTERSTACK_API_TOKEN`, `BETTERSTACK_MONITOR_ID`, `CI`, `CRON_SECRET`, `DATABASE_URL`, `ECOSYSTEM_ESG_OPTIMIZER_API_URL`, `ECOSYSTEM_SCOPE_API_URL`, `GITHUB_REPOS`, `GITHUB_TOKEN`, `GITHUB_TOKEN_ADAMA_DIALLO_RSE`, `GITHUB_TOKEN_IROKO_SOFTWARE_GROUP`, `GITHUB_TOKEN_STRATA_ESG`, `NEXT_PUBLIC_CAL_LINK`, `NEXT_PUBLIC_POSTHOG_HOST`, `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_VERCEL_URL`, `NEXT_RUNTIME`, `NODE_ENV`, `OPENAI_API_KEY`, `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`, `SUPABASE_SERVICE_ROLE_KEY`, `VERCEL_URL`
+`ADAMA_AI_MODEL`, `ADAMA_AI_RATE_LIMIT`, `ADAMA_AI_RATE_WINDOW_S`, `ADAMA_HIDE_DEMO`, `BETTERSTACK_API_TOKEN`, `BETTERSTACK_MONITOR_ID`, `CI`, `CRON_SECRET`, `DATABASE_URL`, `ECOSYSTEM_ESG_OPTIMIZER_API_URL`, `ECOSYSTEM_SCOPE_API_URL`, `GITHUB_REPOS`, `GITHUB_TOKEN`, `GITHUB_TOKEN_ADAMA_DIALLO_RSE`, `GITHUB_TOKEN_IROKO_SOFTWARE_GROUP`, `GITHUB_TOKEN_STRATA_ESG`, `NEXT_PUBLIC_POSTHOG_HOST`, `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_VERCEL_URL`, `NEXT_RUNTIME`, `NODE_ENV`, `OPENAI_API_KEY`, `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`, `SUPABASE_SERVICE_ROLE_KEY`, `VERCEL_URL`
 
 ## Evenements analytiques emis
 
@@ -147,7 +149,7 @@ Les dix plus gros fichiers, toutes categories confondues :
 
 Hotes distincts appeles ou lies depuis le code :
 
-`${vercel_host}`, `academy.esg-optimizer.fr`, `adamesg-os.fr`, `adamesg-os.fr${a.href}`, `adamesg-os.fr${chemin}`, `africa.esg-optimizer.fr`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `cheatsheetseries.owasp.org`, `conhama.com`, `csrc.nist.gov`, `esg-optimizer.fr`, `eu.i.posthog.com`, `eur-lex.europa.eu`, `foundation.esg-optimizer.fr`, `ghgprotocol.org`, `github.com`, `officine.pharivo.com`, `pharivo.com`, `resend.com`, `schema.org`, `scope.esg-optimizer.fr`, `supabase.com`, `uptime.betterstack.com`, `vercel.com`, `watch.esg-optimizer.fr`, `www.cnil.fr`, `www.cognitect.com`, `www.edpb.europa.eu`, `www.efrag.org`, `www.esg-optimizer.fr`, `www.ifrs.org`, `www.notion.so`, `www.strata-esg.fr`
+`${vercel_host}`, `academy.esg-optimizer.fr`, `adamesg-os.fr`, `adamesg-os.fr${a.href}`, `adamesg-os.fr${chemin}`, `africa.esg-optimizer.fr`, `api.github.com`, `api.openai.com`, `api.resend.com`, `cal.com`, `cheatsheetseries.owasp.org`, `conhama.com`, `csrc.nist.gov`, `environment.ec.europa.eu`, `esg-optimizer.fr`, `eu.i.posthog.com`, `eur-lex.europa.eu`, `foundation.esg-optimizer.fr`, `ghgprotocol.org`, `github.com`, `green-forum.ec.europa.eu`, `officine.pharivo.com`, `pharivo.com`, `resend.com`, `schema.org`, `scope.esg-optimizer.fr`, `supabase.com`, `trade.ec.europa.eu`, `uptime.betterstack.com`, `vercel.com`, `watch.esg-optimizer.fr`, `www.cnil.fr`, `www.cognitect.com`, `www.douane.gouv.fr`, `www.edpb.europa.eu`, `www.efrag.org`, `www.esg-optimizer.fr`, `www.fratmat.info`, `www.ifrs.org`, `www.koaci.com`, `www.linkedin.com`, `www.notion.so`, `www.strata-esg.fr`
 
 ### URL absolues du site ecrites en dur
 
@@ -155,6 +157,7 @@ Regle : l'origine du site vit dans `apps/web/lib/site.ts` et nulle part
 ailleurs. Les origines d'API tierces ne sont pas concernees, elles n'ont
 pas d'autre endroit ou vivre.
 
+- apps/web/next.config.ts : https://adamesg-os.fr/:path
 - apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr${a.href}
 - apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr${chemin}
 - apps/web/tests/graphe/echantillon.ts : https://adamesg-os.fr/decisions/${a.adrId}
@@ -182,7 +185,7 @@ Aucun. Le controle passe.
 | --- | --- | --- |
 | `strata_analytics` | 0 | aucune |
 | `services/engine` | 1 | `packages/db/src/adr-catalogue.ts` |
-| `adama-os-web.vercel.app` | 0 | aucune |
+| `adama-os-web.vercel.app` | 1 | `apps/web/next.config.ts` |
 | `FALLBACK` | 2 | `apps/web/lib/repos.ts`, `apps/web/lib/site.ts` |
 
 ## Code mort
@@ -206,7 +209,6 @@ est un defaut ouvert.
 | export | `apps/web/components/marque/symbole.tsx#Bande` | **non justifiee** |
 | export | `apps/web/components/marque/symbole.tsx#Epure` | **non justifiee** |
 | export | `apps/web/components/mouvement/lenis-partage.ts#Horloge` | **non justifiee** |
-| export | `apps/web/components/mouvement/lenis-partage.ts#lenisCourante` | **non justifiee** |
 | export | `apps/web/components/types.ts#TrajectoryType` | Type du champ `type` de la table trajectory. Utilise dans ce meme fichier par TrajectoryRow, exporte pour rester citable par un composant a venir. Le retirer forcerait a reecrire l'union en clair a chaque usage. |
 | export | `apps/web/content/adama-os.ts#PARCOURS_PUBLICS` | **non justifiee** |
 | export | `apps/web/content/catalogue.ts#EtatObjet` | **non justifiee** |
@@ -311,7 +313,7 @@ est un defaut ouvert.
 | export | `scripts/contraste.mjs#hex` | **non justifiee** |
 | export | `scripts/contraste.mjs#oklchVersRgb` | **non justifiee** |
 
-14 entree(s) sans justification.
+13 entree(s) sans justification.
 
 ## Avertissements ESLint
 
@@ -342,10 +344,10 @@ Severite actuelle : `error` (avertissement en vague V0, erreur a partir de V2).
 | N2 | Preuves sociales affichees d'un bloc dans la Couche D | 1 | 4 | tenu |
 | N2 | Experiences citees dans le bandeau de la home | 7 | 6 | **depasse** |
 | N2 | Marques d'organisation affichees sur le site | 8 | 8 | tenu |
-| surface | Routes de page | 54 | 46 | **depasse** |
+| surface | Routes de page | 56 | 46 | **depasse** |
 | surface | Routes d'API | 11 | 11 | tenu |
-| surface | Composants | 82 | 54 | **depasse** |
-| surface | Modules lib | 61 | 54 | **depasse** |
+| surface | Composants | 83 | 54 | **depasse** |
+| surface | Modules lib | 63 | 54 | **depasse** |
 | surface | Lignes du plus gros composant | 719 | 700 | **depasse** |
 | surface | Lignes du plus gros module lib | 459 | 460 | tenu |
 

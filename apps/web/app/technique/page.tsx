@@ -61,9 +61,9 @@ import {
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Vue technique",
+  title: "Vue technique : inventaire, contrats, sécurité",
   description:
-    "L’inventaire généré du dépôt, les frontières de données, les contrats des interfaces publiques, les réglages de la recherche documentaire, et l’absence d’intégration continue assumée avec sa procédure de remplacement.",
+    "L’inventaire généré du dépôt, les frontières de données, les contrats des interfaces publiques, les réglages de la recherche documentaire et les tests.",
   alternates: { canonical: "/technique" },
   openGraph: {
     title: "Vue technique",

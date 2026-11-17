@@ -38,7 +38,7 @@ import { BoutonConfirmer, FormulaireLettre } from "./formulaire";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "SIGNAL, la lettre",
+  title: "SIGNAL, lettre d’information sur la donnée ESG",
   description:
     "La lettre d’ADAMA OS sur la construction de systèmes pour la donnée de durabilité. Double confirmation, désinscription en un clic, aucune mesure d’ouverture.",
   alternates: { canonical: "/lettre" },

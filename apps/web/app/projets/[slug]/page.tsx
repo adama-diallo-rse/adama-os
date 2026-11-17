@@ -17,6 +17,7 @@ const AUTRES_EN_LETTRES: Record<number, string> = {
 };
 import { listClaims } from "../../../lib/proof/claims";
 import { absoluteUrl } from "../../../lib/site";
+import { refPersonne } from "../../../lib/entites";
 
 // =====================================================================
 // C5-T4, la route d'une fiche projet.
@@ -93,7 +94,7 @@ export default async function FicheProjetPage({
     abstract: fiche.resume,
     url: absoluteUrl(`/projets/${fiche.slug}`),
     inLanguage: "fr-FR",
-    creator: { "@type": "Person", name: "Adama Diallo" },
+    creator: refPersonne(),
     creativeWorkStatus: ETAT_LABEL[fiche.etat.valeur],
   };
 

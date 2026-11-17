@@ -28,9 +28,9 @@ import { regionAnalytique } from "../../lib/health/collect";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Frontières de données",
+  title: "Frontières de données : ce qui n’entre jamais",
   description:
-    "Ce qui entre dans ce site, ce qui en sort, et surtout ce qui n’y entre jamais. Le schéma des flux, la liste des interdits avec les tests qui les verrouillent, et les sous-traitants un par un.",
+    "Ce qui entre dans ce site, ce qui en sort et ce qui n’y entre jamais : schéma des flux, interdits verrouillés par des tests, sous-traitants un par un.",
   alternates: { canonical: "/confiance" },
   openGraph: {
     title: "Frontières de données",

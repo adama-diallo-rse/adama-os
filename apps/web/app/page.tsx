@@ -3,7 +3,9 @@ import { redirect } from "next/navigation";
 import { Dashboard } from "../components/dashboard";
 import { cartesProjet, categoriesProjet } from "../content/projets";
 import { chargerDonnees } from "../lib/accueil";
-import { IDENTITE, POSITIONNEMENT } from "../content/profil";
+import { POSITIONNEMENT, REFERENCEMENT } from "../content/profil";
+import { QUESTIONS_ACCUEIL } from "../content/accueil";
+import { noeudQuestions, serialiser } from "../lib/entites";
 import {
   CarteParisDakar,
   SceneTransformation,
@@ -13,12 +15,22 @@ import {
 // aperçus de lien par ce qu'est ADAMA OS, des logiciels en service, des
 // méthodes publiées et un accompagnement. L'accompagnement n'en est qu'un
 // volet ; il garde sa propre page et son propre titre.
-const TITRE_ACCUEIL =
-  "ADAMA OS | Construire ce qui marche, prouver ce qu’on affirme";
+//
+// 14 novembre 2026 : le titre et la description portent le nom, le métier
+// et les deux villes, lus dans content/profil.ts. L'ancien titre, « ADAMA
+// OS | Construire ce qui marche, prouver ce qu’on affirme », ne contenait
+// aucun mot qu'un lecteur tape dans un moteur ; la formule reste dans le
+// premier écran, où elle fait son travail de signature.
+const TITRE_ACCUEIL = REFERENCEMENT.accueil.titre;
+
+// Les questions de l'accueil, déclarées aux moteurs et aux assistants de
+// recherche depuis la même liste que la page : une question retirée de
+// l'écran sort du balisage au même rendu.
+const QUESTIONS_JSON_LD = serialiser(noeudQuestions(QUESTIONS_ACCUEIL, "/"));
 
 export const metadata: Metadata = {
   title: { absolute: TITRE_ACCUEIL },
-  description: `${POSITIONNEMENT.fr} ${IDENTITE.situation}`,
+  description: REFERENCEMENT.accueil.description,
   alternates: { canonical: "/" },
   openGraph: {
     title: TITRE_ACCUEIL,
@@ -76,16 +88,22 @@ export default async function Home({
   const data = await chargerDonnees();
 
   return (
-    <Dashboard
-      data={data}
-      cartes={cartesProjet()}
-      categories={categoriesProjet()}
-      carte={
-        <CarteParisDakar titre="Carte de l’Afrique et de l’Europe de l’Ouest : le Sénégal en latérite, Dakar relié à Paris par une ligne pointillée de 4 200 kilomètres." />
-      }
-      scene={
-        <SceneTransformation titre="À gauche, des idées éparses, certaines en pointillé. Une ligne de six étapes les mène à droite vers un système posé : trois strates, un sceau, un tableau de pilotage et un baobab." />
-      }
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: QUESTIONS_JSON_LD }}
+      />
+      <Dashboard
+        data={data}
+        cartes={cartesProjet()}
+        categories={categoriesProjet()}
+        carte={
+          <CarteParisDakar titre="Carte de l’Afrique et de l’Europe de l’Ouest : le Sénégal en latérite, Dakar relié à Paris par une ligne pointillée de 4 200 kilomètres." />
+        }
+        scene={
+          <SceneTransformation titre="À gauche, des idées éparses, certaines en pointillé. Une ligne de six étapes les mène à droite vers un système posé : trois strates, un sceau, un tableau de pilotage et un baobab." />
+        }
+      />
+    </>
   );
 }

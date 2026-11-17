@@ -26,9 +26,9 @@ import { resolveClaimState } from "../../lib/proof/types";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Métriques publiques, écosystème",
+  title: "Métriques publiques de l’écosystème",
   description:
-    "Métriques produit du groupe en accès public : relevés d'usage et de disponibilité, avec leur classe de donnée, leur source et leur date.",
+    "Les métriques produit du groupe en accès public : relevés d’usage et de disponibilité, avec leur classe de donnée, leur source et leur date.",
   alternates: { canonical: "/metrics" },
 };
 

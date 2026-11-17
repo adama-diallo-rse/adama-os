@@ -7,8 +7,15 @@ import { Signature } from "./signature";
 import { Symbole } from "./marque/symbole";
 import { SurTitre } from "./kit/elements";
 import { Sommaire } from "./kit/sommaire";
+import { FilAriane } from "./fil-ariane";
+import { MAISONS } from "../lib/entites";
 import { IleMouvement } from "./mouvement/ile-mouvement";
-import { CV_PATH, CV_DOWNLOAD_NAME, GITHUB_PROFILE_URL } from "./types";
+import {
+  CV_PATH,
+  CV_DOWNLOAD_NAME,
+  GITHUB_PROFILE_URL,
+  LINKEDIN_PROFILE_URL,
+} from "./types";
 import { ACTIVITE } from "../content/profil";
 
 // =====================================================================
@@ -37,6 +44,7 @@ export function PageShell({
 }) {
   return (
     <div id="top" className={`portfolio subpage page-kit ${className}`}>
+      <FilAriane />
       <SiteHeader sobre={sobre} />
       <div className="page-kit-corps">
         <main id="contenu" className="portfolio-wrap subpage-main">
@@ -98,9 +106,16 @@ export function PiedDePage({ retour = "#top" }: { retour?: string }) {
               <Link href="/changelog">Journal des versions</Link>
               <Link href="/ecriture">Écriture et assistance</Link>
               <a
+                href={LINKEDIN_PROFILE_URL}
+                target="_blank"
+                rel="me noopener noreferrer"
+              >
+                LinkedIn <span aria-hidden="true">↗</span>
+              </a>
+              <a
                 href={GITHUB_PROFILE_URL}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
               >
                 GitHub <span aria-hidden="true">↗</span>
               </a>
@@ -110,6 +125,26 @@ export function PiedDePage({ retour = "#top" }: { retour?: string }) {
             </div>
           </nav>
         </div>
+        {/* 14 novembre 2026 : les maisons, en pied de chaque page. Un lien
+            qui nomme la maison et dit ce qu'elle fait, depuis toutes les
+            pages du site : c'est ce qui relie, pour un lecteur comme pour
+            un moteur, le laboratoire et les produits qui en sortent. */}
+        <nav className="pied-maisons" aria-label="Les maisons d’Adama Diallo">
+          <p>Les maisons</p>
+          <ul>
+            {MAISONS.map((m) => (
+              <li key={m.ancre}>
+                {/* Adresse nue et référent transmis : le lien pointe la page
+                    canonique de la maison, et sa mesure d'audience voit d'où
+                    vient la visite sans paramètre ajouté à l'adresse. */}
+                <a href={m.url} target="_blank" rel="noopener">
+                  {m.nom} <span aria-hidden="true">↗</span>
+                </a>
+                <span className="pied-maison-detail">{m.description}</span>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <div className="footer-bottom pied-bas">
           <Signature className="footer-signature-verifiable" />
           <div>

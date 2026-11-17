@@ -153,10 +153,23 @@ export type DashboardData = {
   integrity: TerminalIntegrity | null;
 };
 
-export const CONTACT_EMAIL = "diadamflow@gmail.com";
+// 14 novembre 2026 : l'adresse publique vit sur le domaine du site. Une
+// adresse de messagerie grand public, affichée en clair sur un site qui
+// présente une activité de conseil, coûte en crédibilité et attire le
+// courrier indésirable. Cette adresse est une redirection, créée chez
+// l'hébergeur du domaine (OVH, rubrique des e-mails du domaine) : elle doit
+// exister AVANT la mise en ligne, sinon chaque lien « Écrire un e-mail » du
+// site renvoie un message d'erreur à l'expéditeur.
+export const CONTACT_EMAIL = "contact@adamesg-os.fr";
 // Liens d'interface uniquement. La liste des depots suivis par le feed n'est
 // PAS ici, elle vit dans lib/repos.ts (L5-T2).
 export const GITHUB_PROFILE_URL = "https://github.com/adama-diallo-rse";
+// 14 novembre 2026 : le profil LinkedIn, déclaré aux moteurs comme un profil
+// de la même personne (sameAs) et relié depuis le pied de page. C'est le
+// profil que le site de STRATA ESG donne déjà pour son fondateur : les deux
+// sites désignent ainsi la même personne par la même adresse.
+export const LINKEDIN_PROFILE_URL =
+  "https://www.linkedin.com/in/adama-diallo-rse/";
 export const GITHUB_REPO_URL = "https://github.com/adama-diallo-rse/adama-os";
 export const CV_PATH = "/adama-diallo-cv.pdf";
 // L6-T2 : nom du fichier proposé au téléchargement (le fichier physique
