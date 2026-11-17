@@ -53,9 +53,19 @@ sur la boucle locale.
 
 ### 1. Une base avec le schéma du cockpit
 
+Les rôles de Supabase se créent **avant** les migrations : `0000_init.sql`
+pose des politiques `to anon, authenticated`, et une base nue s'arrête
+dessus (`role "anon" does not exist`). Constaté au lancement du
+17 novembre 2026, où les étapes 1 et 2 étaient dans l'ordre inverse.
+
 ```bash
 createdb adama_rls
-psql -d adama_rls -c "create extension if not exists vector; create extension if not exists pgcrypto;"
+psql -d adama_rls -c "
+  create role anon nologin;
+  create role authenticated nologin;
+  create role service_role nologin bypassrls;
+  create extension if not exists vector;
+  create extension if not exists pgcrypto;"
 for f in packages/db/migrations/00*.sql packages/db/migrations/seed_ecosystem_products.sql; do
   psql -d adama_rls -v ON_ERROR_STOP=1 -f "$f"
 done
@@ -69,9 +79,6 @@ est exactement le piège que ce document décrit.
 
 ```bash
 psql -d adama_rls -c "
-  create role anon nologin;
-  create role authenticated nologin;
-  create role service_role nologin bypassrls;
   grant usage on schema public to anon, authenticated, service_role;
   grant select on all tables in schema public to anon, authenticated;
   grant all on all tables in schema public to service_role;"
@@ -173,6 +180,15 @@ migrations rejouées depuis `0000`, la ligne de base Supabase posée puis
 Contre-épreuve exécutée le même jour : pointé sur un banc qui rend `404`, le
 fichier échoue désormais sur **sept cas sur sept**. Avant la correction, trois
 d'entre eux passaient.
+
+## Résultat du 17 novembre 2026
+
+Sept cas sur sept, contre PostgreSQL 16.15 (image `pgvector/pgvector:pg16`)
+et PostgREST 12.2.3, en conteneurs liés à la boucle locale, les migrations
+`0000` à `0010` rejouées puis la ligne de base Supabase et `0003` par-dessus.
+Même contre-épreuve, même verdict : pointé sur PostgREST sans le préfixe
+`/rest/v1`, le fichier échoue sur sept cas sur sept. `pnpm integrity` passe
+alors ses dix contrôles, la vérification RLS comprise.
 
 ## Ce que ce test ne prouve pas
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { CLAIM_STATE_LABEL } from "../../lib/proof/types";
 
-export type DonneesCitation = {
+type DonneesCitation = {
   id: string;
   enonce: string;
   sujet: string;

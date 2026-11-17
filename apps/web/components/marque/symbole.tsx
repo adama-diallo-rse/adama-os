@@ -16,7 +16,7 @@
 
 export const GRILLE = 48;
 
-export type Bande = {
+type Bande = {
   x: number;
   y: number;
   l: number;
@@ -129,7 +129,7 @@ export function Symbole({
 }
 
 /** Les traits de construction : cotes, axes et ligne de provenance. */
-export function Epure() {
+function Epure() {
   const { depart: a, arrivee: c } = LIGNE_PROVENANCE;
   return (
     <g

@@ -475,7 +475,7 @@
     },
     {
       "file": "apps/web/components/expansion-dashboard.tsx",
-      "lines": 236
+      "lines": 177
     },
     {
       "file": "apps/web/components/fil-ariane.tsx",
@@ -1627,29 +1627,9 @@
       "declared_intentional": "Convention de Next.js : dynamicParams = false refuse toute fiche de méthode hors des sept que generateStaticParams déclare. Next la lit par son nom exporté, aucun module ne l'importe."
     },
     {
-      "id": "apps/web/components/accueil/bloc-citation.tsx#DonneesCitation",
-      "kind": "export",
-      "declared_intentional": null
-    },
-    {
       "id": "apps/web/components/build-log.tsx#JournalFiltres",
       "kind": "export",
       "declared_intentional": "Forme des filtres du journal, produite par lireFiltres et consommee par BuildLog dans le meme fichier. Exportee parce que la page /journal la transporte entre les deux : c'est le contrat de l'etat porte par l'URL."
-    },
-    {
-      "id": "apps/web/components/catalogue/objets.tsx#CarteObjet",
-      "kind": "export",
-      "declared_intentional": null
-    },
-    {
-      "id": "apps/web/components/expansion-dashboard.tsx#ExpansionPreview",
-      "kind": "export",
-      "declared_intentional": null
-    },
-    {
-      "id": "apps/web/components/expansion-dashboard.tsx#ExpansionPreview",
-      "kind": "component",
-      "declared_intentional": null
     },
     {
       "id": "apps/web/components/health-matrix.tsx#HealthMark",
@@ -1657,39 +1637,9 @@
       "declared_intentional": "Le marqueur d'etat de sante, seul endroit qui decide de son rendu. Exporte au meme titre que DataClassMark pour C1 : le jour ou un etat de sante s'affiche ailleurs, il doit venir d'ici et non d'une seconde composition."
     },
     {
-      "id": "apps/web/components/marque/stratemark.tsx#OR_STRATA",
-      "kind": "export",
-      "declared_intentional": null
-    },
-    {
-      "id": "apps/web/components/marque/symbole.tsx#Bande",
-      "kind": "export",
-      "declared_intentional": null
-    },
-    {
-      "id": "apps/web/components/marque/symbole.tsx#Epure",
-      "kind": "export",
-      "declared_intentional": null
-    },
-    {
-      "id": "apps/web/components/mouvement/lenis-partage.ts#Horloge",
-      "kind": "export",
-      "declared_intentional": null
-    },
-    {
       "id": "apps/web/components/types.ts#TrajectoryType",
       "kind": "export",
       "declared_intentional": "Type du champ `type` de la table trajectory. Utilise dans ce meme fichier par TrajectoryRow, exporte pour rester citable par un composant a venir. Le retirer forcerait a reecrire l'union en clair a chaque usage."
-    },
-    {
-      "id": "apps/web/content/adama-os.ts#PARCOURS_PUBLICS",
-      "kind": "export",
-      "declared_intentional": null
-    },
-    {
-      "id": "apps/web/content/catalogue.ts#EtatObjet",
-      "kind": "export",
-      "declared_intentional": null
     },
     {
       "id": "apps/web/content/cv.ts#AffirmationCv",
@@ -1725,11 +1675,6 @@
       "id": "apps/web/content/projets/gabarit.ts#BlocRole",
       "kind": "export",
       "declared_intentional": "Forme du bloc 02 d'une fiche projet, le plus important du gabarit. Utilise par FicheProjet dans ce meme fichier, exporte pour qu'un composant ou un test puisse typer ce bloc sans reecrire sa forme. Contrat public du gabarit."
-    },
-    {
-      "id": "apps/web/content/projets/gabarit.ts#ProduitFiche",
-      "kind": "export",
-      "declared_intentional": null
     },
     {
       "id": "apps/web/lib/adr.ts#AdrPreuveKind",
@@ -2180,16 +2125,6 @@
       "id": "packages/ui/src/index.ts#UI_PACKAGE",
       "kind": "export",
       "declared_intentional": "Meme role que DB_PACKAGE pour @adama/ui."
-    },
-    {
-      "id": "scripts/contraste.mjs#hex",
-      "kind": "export",
-      "declared_intentional": null
-    },
-    {
-      "id": "scripts/contraste.mjs#oklchVersRgb",
-      "kind": "export",
-      "declared_intentional": null
     }
   ],
   "budgets": [

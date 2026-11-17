@@ -93,7 +93,7 @@ export type BlocRole = {
  * Un produit d'une maison qui en compte plusieurs (STRATA ESG). Il porte
  * son adresse publique et son état relevé, jamais une promesse.
  */
-export type ProduitFiche = {
+type ProduitFiche = {
   /** Identifiant du registre produits, et ancre dans la fiche. */
   slug: string;
   nom: string;

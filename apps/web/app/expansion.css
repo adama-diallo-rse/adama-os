@@ -369,35 +369,6 @@
   display: none;
 }
 
-.expansion-preview {
-  border-block: 1px solid var(--filet);
-  background: var(--fond-creux);
-}
-.expansion-preview-inner {
-  padding-block: 100px;
-  display: grid;
-  grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.35fr);
-  gap: 72px;
-  align-items: center;
-}
-.expansion-preview-copy h2 {
-  margin: 22px 0;
-  font: 560 clamp(45px, 5vw, 70px) / 1.02 var(--font-grotesk);
-  letter-spacing: -0.035em;
-}
-.expansion-preview-copy h2 .serif {
-  color: var(--accent-texte);
-}
-.expansion-preview-copy > p:not(.portfolio-label) {
-  max-width: 470px;
-  color: var(--texte-2);
-  font-size: 14px;
-  line-height: 1.8;
-}
-.expansion-preview-copy .portfolio-button {
-  margin-top: 30px;
-}
-
 .page-next-actions {
   display: flex;
   flex-wrap: wrap;
@@ -409,75 +380,6 @@
   .page-next-actions {
     justify-content: flex-start;
   }
-}
-.expansion-preview-map {
-  min-width: 0;
-  border: 1px solid var(--filet);
-  background: var(--fond);
-}
-.expansion-branch-cloud {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-.expansion-branch-cloud > span {
-  min-height: 92px;
-  padding: 17px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-right: 1px solid var(--filet);
-  border-bottom: 1px solid var(--filet);
-  font: 600 11px var(--font-grotesk);
-}
-.expansion-branch-cloud > span:nth-child(4n) {
-  border-right: 0;
-}
-.expansion-branch-cloud > span:nth-last-child(-n + 4) {
-  border-bottom: 0;
-}
-.expansion-branch-cloud > span.is-live {
-  background: var(--feuille);
-  color: var(--sur-feuille);
-}
-.expansion-branch-cloud i {
-  color: var(--texte-2);
-  font: normal 8px var(--font-code);
-}
-/* Sur une branche ouverte, fond ardoise, le numero passe au gris clair :
-   le gris secondaire n'y donnait que 3:1 (audit de rendu, 23 octobre 2026). */
-.expansion-branch-cloud > span.is-live i {
-  color: var(--sur-feuille-2);
-}
-/* Le fond de cet apercu est plus sombre que la creme : l'or de texte y
-   tombait a 4,39:1. Une nuance plus profonde du meme or tient 5,21:1. */
-.expansion-preview .portfolio-label > span:first-child:not(.status-dot) {
-  color: var(--accent-texte);
-}
-.expansion-boundary {
-  padding: 22px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 18px;
-  border-top: 1px solid var(--filet);
-  background: var(--fond-carte);
-}
-.expansion-boundary > div {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.expansion-boundary span {
-  color: var(--accent-texte);
-  font: 9px var(--font-code);
-}
-.expansion-boundary strong {
-  font-size: 12px;
-  font-weight: 500;
-}
-.expansion-boundary > b {
-  color: var(--accent-texte);
-  font-weight: 400;
 }
 
 .expansion-page .page-intro {
@@ -711,9 +613,6 @@
   .expansion-dashboard-compact .dashboard-proof-card {
     grid-column: 1 / -1;
   }
-  .expansion-preview-inner {
-    grid-template-columns: minmax(0, 1fr);
-  }
   .expansion-branch-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -754,9 +653,6 @@
   }
   .expansion-dashboard-compact {
     min-height: 0;
-  }
-  .expansion-preview-inner {
-    padding-block: 76px;
   }
   .expansion-source-system {
     grid-template-columns: 1fr;
@@ -828,28 +724,6 @@
   }
   .dashboard-bottom-row {
     grid-template-columns: 1fr;
-  }
-  .expansion-branch-cloud {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .expansion-branch-cloud > span:nth-child(4n) {
-    border-right: 1px solid var(--filet);
-  }
-  .expansion-branch-cloud > span:nth-child(2n) {
-    border-right: 0;
-  }
-  .expansion-branch-cloud > span:nth-last-child(-n + 4) {
-    border-bottom: 1px solid var(--filet);
-  }
-  .expansion-branch-cloud > span:nth-last-child(-n + 2) {
-    border-bottom: 0;
-  }
-  .expansion-boundary {
-    grid-template-columns: 1fr;
-  }
-  .expansion-boundary > b {
-    transform: rotate(90deg);
-    justify-self: start;
   }
   .expansion-totals {
     grid-template-columns: repeat(2, minmax(0, 1fr));

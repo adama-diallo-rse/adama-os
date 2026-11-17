@@ -17,7 +17,7 @@
 import { ARTICLES } from "./articles";
 import { METHODES, type EtatMethode } from "./methodes";
 
-export type EtatObjet = EtatMethode | "OUVERT";
+type EtatObjet = EtatMethode | "OUVERT";
 
 export type ObjetCatalogue = {
   titre: string;

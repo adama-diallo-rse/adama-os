@@ -44,3 +44,6 @@ Thumbs.db
 !.vscode/extensions.json
 
 Claude outputs/
+
+# Données locales des outils (extensions, documents de travail), jamais versionnées
+.claude/

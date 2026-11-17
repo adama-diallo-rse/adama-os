@@ -4,7 +4,7 @@ import { Etat, Fleche, SurTitre } from "../kit/elements";
 import type { ObjetCatalogue, Rubrique } from "../../content/catalogue";
 
 /** Une carte d'objet du catalogue : sa forme, son état, son résumé. */
-export function CarteObjet({ objet }: { objet: ObjetCatalogue }) {
+function CarteObjet({ objet }: { objet: ObjetCatalogue }) {
   const corps = (
     <>
       <span className="objet-tete">

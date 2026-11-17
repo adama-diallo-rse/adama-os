@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { EXPANSION_BRANCHES, EXPANSION_INDICATORS } from "../content/expansion";
+import { EXPANSION_INDICATORS } from "../content/expansion";
 
 export function ExpansionDashboard({ compact = false }: { compact?: boolean }) {
   const visibleIndicators = compact
@@ -172,64 +172,5 @@ export function ExpansionDashboard({ compact = false }: { compact?: boolean }) {
         </div>
       </div>
     </div>
-  );
-}
-
-export function ExpansionPreview() {
-  return (
-    <section
-      className="expansion-preview"
-      aria-labelledby="expansion-preview-title"
-    >
-      <div className="portfolio-wrap expansion-preview-inner">
-        <div className="expansion-preview-copy">
-          <p className="portfolio-label">
-            <span>01 /</span> PLAN D’EXPANSION
-          </p>
-          <h2 id="expansion-preview-title">
-            Une méthode,
-            <br />
-            <span className="serif">plusieurs vies utiles.</span>
-          </h2>
-          <p>
-            Le plan transforme un même travail en décision publique, méthode,
-            actif, publication, transmission ou logiciel. Chaque sortie garde sa
-            source, son statut, son niveau de maturité et ses limites.
-          </p>
-          <Link className="portfolio-button primary" href="/expansion">
-            Explorer le système <span aria-hidden="true">→</span>
-          </Link>
-        </div>
-        <div className="expansion-preview-map">
-          <div
-            className="expansion-branch-cloud"
-            aria-label="Les douze branches"
-          >
-            {EXPANSION_BRANCHES.map((branch, index) => (
-              <span
-                key={branch.name}
-                className={
-                  index === 0 || branch.name === "STRATA ESG" ? "is-live" : ""
-                }
-              >
-                <i>{String(index + 1).padStart(2, "0")}</i>
-                {branch.name}
-              </span>
-            ))}
-          </div>
-          <div className="expansion-boundary">
-            <div>
-              <span>ADAMA OS</span>
-              <strong>Méthode, gabarit, parcours ou avis</strong>
-            </div>
-            <b aria-hidden="true">→</b>
-            <div>
-              <span>STRATA ESG</span>
-              <strong>Logiciel opérationnel</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   );
 }

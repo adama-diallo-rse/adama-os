@@ -92,7 +92,7 @@ function resoudre(nom, vars, pile = []) {
 }
 
 /** oklch(L C H) vers sRGB linéaire puis luminance relative. */
-export function oklchVersRgb(texte) {
+function oklchVersRgb(texte) {
   const m = texte.match(/oklch\(\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)\s*\)/i);
   if (!m) throw new Error(`couleur non OKLCH : ${texte}`);
   const [L, C, H] = m.slice(1).map(Number);
@@ -122,21 +122,6 @@ export function rapport(c1, c2) {
   const b = luminance(oklchVersRgb(c2));
   const [hi, lo] = a > b ? [a, b] : [b, a];
   return (hi + 0.05) / (lo + 0.05);
-}
-
-export function hex(texte) {
-  const lin = oklchVersRgb(texte);
-  return (
-    "#" +
-    lin
-      .map((c) => {
-        const s = c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055;
-        return Math.round(s * 255)
-          .toString(16)
-          .padStart(2, "0");
-      })
-      .join("")
-  );
 }
 
 export function modes(css) {

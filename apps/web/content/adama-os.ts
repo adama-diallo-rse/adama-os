@@ -12,33 +12,6 @@ export const ADAMA_OS = {
   signature: SIGNATURE_TEXTE,
 } as const;
 
-export const PARCOURS_PUBLICS = [
-  {
-    code: "OPEN",
-    titre: "Explorer les travaux",
-    description:
-      "Décisions, expériences, erreurs et preuves, avec leur date et leur source.",
-    action: "Voir les travaux",
-    href: "/decisions",
-  },
-  {
-    code: "FORGE",
-    titre: "Construire un système",
-    description:
-      "Une méthode concrète pour relier une idée, une décision, une preuve et un actif réutilisable.",
-    action: "Utiliser la méthode",
-    href: "/methode",
-  },
-  {
-    code: "CONSEIL",
-    titre: "Résoudre un problème",
-    description:
-      "Faire relire une architecture de donnée, de preuve ou d’automatisation avant d’empiler des outils.",
-    action: "Choisir une porte",
-    href: "/travaillez-avec-moi",
-  },
-] as const;
-
 export const CHAINE_PREUVE = [
   {
     code: "AXP",

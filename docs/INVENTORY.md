@@ -199,19 +199,9 @@ est un defaut ouvert.
 | --- | --- | --- |
 | export | `apps/web/app/api/chat/route.ts#questionDeRecherche` | Regle de construction de la question envoyee a la recherche documentaire, dans la route qui l'emploie. Exportee pour etre verifiee directement : c'est une regle de comportement, pas un detail d'implementation, et la tester a travers une requete HTTP complete demanderait une base et une cle d'API. Voir tests/adama-moteur.test.ts. |
 | export | `apps/web/app/methodes/[code]/page.tsx#dynamicParams` | Convention de Next.js : dynamicParams = false refuse toute fiche de méthode hors des sept que generateStaticParams déclare. Next la lit par son nom exporté, aucun module ne l'importe. |
-| export | `apps/web/components/accueil/bloc-citation.tsx#DonneesCitation` | **non justifiee** |
 | export | `apps/web/components/build-log.tsx#JournalFiltres` | Forme des filtres du journal, produite par lireFiltres et consommee par BuildLog dans le meme fichier. Exportee parce que la page /journal la transporte entre les deux : c'est le contrat de l'etat porte par l'URL. |
-| export | `apps/web/components/catalogue/objets.tsx#CarteObjet` | **non justifiee** |
-| export | `apps/web/components/expansion-dashboard.tsx#ExpansionPreview` | **non justifiee** |
-| component | `apps/web/components/expansion-dashboard.tsx#ExpansionPreview` | **non justifiee** |
 | export | `apps/web/components/health-matrix.tsx#HealthMark` | Le marqueur d'etat de sante, seul endroit qui decide de son rendu. Exporte au meme titre que DataClassMark pour C1 : le jour ou un etat de sante s'affiche ailleurs, il doit venir d'ici et non d'une seconde composition. |
-| export | `apps/web/components/marque/stratemark.tsx#OR_STRATA` | **non justifiee** |
-| export | `apps/web/components/marque/symbole.tsx#Bande` | **non justifiee** |
-| export | `apps/web/components/marque/symbole.tsx#Epure` | **non justifiee** |
-| export | `apps/web/components/mouvement/lenis-partage.ts#Horloge` | **non justifiee** |
 | export | `apps/web/components/types.ts#TrajectoryType` | Type du champ `type` de la table trajectory. Utilise dans ce meme fichier par TrajectoryRow, exporte pour rester citable par un composant a venir. Le retirer forcerait a reecrire l'union en clair a chaque usage. |
-| export | `apps/web/content/adama-os.ts#PARCOURS_PUBLICS` | **non justifiee** |
-| export | `apps/web/content/catalogue.ts#EtatObjet` | **non justifiee** |
 | export | `apps/web/content/cv.ts#AffirmationCv` | Forme d'une affirmation verifiable du CV. Contrat du contenu editorial, utilise par AFFIRMATIONS_CV dans ce meme fichier et par tests/cv.test.ts. |
 | export | `apps/web/content/divisions.ts#LIBELLE_DIVISION` | Table des libelles editoriaux de division, lue par libelleDivision dans ce meme fichier. Exportee parce que c'est le contenu relu : une division renommee se corrige ici, et un test ou une page qui voudrait verifier la table doit pouvoir la citer sans passer par la fonction. |
 | export | `apps/web/content/frontieres.ts#Flux` | Forme d'un flux de donnees entrant, sortant ou interdit. Contrat du contenu de la page /confiance. |
@@ -219,7 +209,6 @@ est un defaut ouvert.
 | export | `apps/web/content/frontieres.ts#SensFlux` | Union des trois sens d'un flux. Utilisee par Flux dans ce meme fichier et par la mise en page du tableau. |
 | export | `apps/web/content/pannes.ts#ModePanne` | Forme d'un mode de panne. Contrat du contenu de /systeme/pannes, relu par scripts/failure-drill.mjs qui refuse de tourner si un identifiant de simulation n'a pas de scenario. |
 | export | `apps/web/content/projets/gabarit.ts#BlocRole` | Forme du bloc 02 d'une fiche projet, le plus important du gabarit. Utilise par FicheProjet dans ce meme fichier, exporte pour qu'un composant ou un test puisse typer ce bloc sans reecrire sa forme. Contrat public du gabarit. |
-| export | `apps/web/content/projets/gabarit.ts#ProduitFiche` | **non justifiee** |
 | export | `apps/web/lib/adr.ts#AdrPreuveKind` | Union des natures de trace d'une decision. Utilisee par AdrPreuve et par la table PREUVE_KIND_LABEL du meme fichier. Contrat public du module, au meme titre que EvidenceKind pour lib/proof/claims.ts. |
 | export | `apps/web/lib/adr.ts#AdrReversibilite` | Union des trois niveaux de reversibilite. Miroir du type Postgres adr_reversibility, utilisee par AdrRow et par les deux tables de libelles du meme fichier. Contrat public du module. |
 | export | `apps/web/lib/adr.ts#AdrRow` | Forme brute d'une ligne du journal d'architecture, telle que la cle anonyme la lit. Le type Adr, servi aux pages, l'etend. Exporte comme contrat de lecture : un appelant qui interrogerait decisions_log autrement doit pouvoir typer sa reponse de la meme facon. |
@@ -310,10 +299,8 @@ est un defaut ouvert.
 | export | `packages/db/src/schema.ts#trajectoryType` | Surface publique du paquet @adama/db, reexportee par src/index.ts. Le schema Drizzle declare tables, types enumeres et types inferes de lecture et d'insertion : ils forment le contrat du paquet, pas du code appele. Retirer un type parce que le cockpit ne l'importe pas encore reviendrait a rendre la base moins typee que le SQL qu'elle decrit. |
 | dependency | `packages/ui/package.json#@types/react` | Types React du paquet de composants, resolus implicitement par TypeScript. |
 | export | `packages/ui/src/index.ts#UI_PACKAGE` | Meme role que DB_PACKAGE pour @adama/ui. |
-| export | `scripts/contraste.mjs#hex` | **non justifiee** |
-| export | `scripts/contraste.mjs#oklchVersRgb` | **non justifiee** |
 
-13 entree(s) sans justification.
+Zero entree sans justification. Le controle passe.
 
 ## Avertissements ESLint
 

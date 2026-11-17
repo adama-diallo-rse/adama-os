@@ -17,7 +17,7 @@
 import type Lenis from "lenis";
 
 /** Une horloge extérieure : elle appelle `avance(ms)` à chaque image et rend la main par la fonction retournée. */
-export type Horloge = { prendre: (avance: (ms: number) => void) => () => void };
+type Horloge = { prendre: (avance: (ms: number) => void) => () => void };
 
 let courante: Lenis | null = null;
 let boucle = 0;

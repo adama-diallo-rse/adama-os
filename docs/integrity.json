@@ -5,11 +5,11 @@
     "exactement le probleme que ce fichier existe pour empecher."
   ],
   "schema_version": 1,
-  "executed_at": "2026-11-17T09:35:59.387Z",
-  "verdict": "partiel",
-  "reussis": 9,
+  "executed_at": "2026-11-17T09:57:12.522Z",
+  "verdict": "ok",
+  "reussis": 10,
   "echoues": 0,
-  "non_executes": 1,
+  "non_executes": 0,
   "build_inclus": true,
   "modes_de_panne_conformes": true,
   "controls": [
@@ -19,7 +19,7 @@
       "detail": "Aucune valeur ne se rend sans son marqueur de provenance, nulle part.",
       "status": "reussi",
       "message": "42 cas vérifiés",
-      "duree_secondes": 3.6
+      "duree_secondes": 3.8
     },
     {
       "id": "aucune-metrique-fabriquee",
@@ -27,7 +27,7 @@
       "detail": "Un repli chiffré, même bien intentionné, fait échouer ce contrôle.",
       "status": "reussi",
       "message": "9 cas vérifiés",
-      "duree_secondes": 2.9
+      "duree_secondes": 2.7
     },
     {
       "id": "passerelles-lecture-seule",
@@ -41,25 +41,25 @@
       "id": "rls",
       "label": "Les règles de sécurité au niveau des lignes tiennent",
       "detail": "Sur base de TEST uniquement. Jamais contre la base de production.",
-      "status": "non_execute",
-      "message": "base de test absente : monter le banc décrit dans docs/RLS.md, puis poser ADAMA_TEST_DB=1, ADAMA_TEST_SUPABASE_URL et ADAMA_TEST_SUPABASE_ANON_KEY",
-      "duree_secondes": 0
+      "status": "reussi",
+      "message": "7 cas vérifiés",
+      "duree_secondes": 1.2
     },
     {
       "id": "chaine-locale",
       "label": "Typage, analyse statique, tests et construction passent",
       "detail": "La séquence complète de vérification locale, celle qui remplace l’intégration continue absente.",
       "status": "reussi",
-      "message": "typage, tests, analyse statique et construction passent, 1088 cas vérifiés",
-      "duree_secondes": 51.6
+      "message": "typage, tests, analyse statique et construction passent, 1095 cas vérifiés",
+      "duree_secondes": 57.8
     },
     {
       "id": "inventaire",
       "label": "L’inventaire du dépôt est à jour",
       "detail": "Un dépôt dont l’inventaire ment n’a pas besoin d’être construit.",
       "status": "reussi",
-      "message": "13 entree(s) morte(s) sans justification, voir la section « Code mort ».",
-      "duree_secondes": 0.5
+      "message": "Inventaire a jour.",
+      "duree_secondes": 0.4
     },
     {
       "id": "pertinence-documentaire",

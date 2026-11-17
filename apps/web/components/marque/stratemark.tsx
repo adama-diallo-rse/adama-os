@@ -11,7 +11,7 @@
 // =====================================================================
 
 /** L'or de la charte STRATA ESG, réservé à cette marque. */
-export const OR_STRATA = "#C9A96E";
+const OR_STRATA = "#C9A96E";
 
 const BARRES = [
   { l: 40.0, y: 10.72, o: 1 },
