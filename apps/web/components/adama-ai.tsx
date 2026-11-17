@@ -165,14 +165,20 @@ export function AdamaAi({
         onClick={() => onOpenChange(!open)}
         aria-expanded={open}
         aria-controls="adama-ai-panel"
-        aria-label={open ? "Fermer le moteur" : "Interroger le moteur"}
+        aria-label={
+          open
+            ? "Le moteur, fermer le panneau"
+            : "Le moteur, poser une question"
+        }
         className="assistant-launcher"
       >
         <span className="assistant-monogram" aria-hidden="true">
           a.
         </span>
-        <span>Le moteur</span>
-        <span aria-hidden="true">{open ? "×" : "↗"}</span>
+        <span className="assistant-libelle">Le moteur</span>
+        <span className="assistant-libelle" aria-hidden="true">
+          {open ? "×" : "↗"}
+        </span>
       </button>
       <AnimatePresence>
         {open && (

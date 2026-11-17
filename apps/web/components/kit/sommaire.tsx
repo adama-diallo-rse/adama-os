@@ -76,7 +76,13 @@ export function Sommaire() {
     return () => observateur.disconnect();
   }, []);
 
-  if (!entrees.length) return null;
+  // 17 novembre 2026 : le cadre est rendu dès le serveur, vide. La colonne
+  // du sommaire est ainsi réservée au premier affichage : quand la liste
+  // arrive après hydratation, le texte ne se réarrange plus (décalage de
+  // 0,16 mesuré à 1440 px, le titre passait de quatre à six lignes).
+  if (!entrees.length) {
+    return <aside className="sommaire" aria-hidden="true" />;
+  }
   return (
     <aside className="sommaire" aria-label="Sommaire de la page">
       <p className="sommaire-titre">Sommaire</p>

@@ -17,10 +17,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 440,
-        "document_pret_ms": 132,
-        "poids_ko": 862,
-        "noeuds": 1893
+        "premier_rendu_ms": 652,
+        "document_pret_ms": 370,
+        "poids_ko": 621,
+        "noeuds": 1888
       },
       "statut": 200,
       "mesuree": true
@@ -41,10 +41,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 164,
-        "document_pret_ms": 48,
-        "poids_ko": 719,
-        "noeuds": 966
+        "premier_rendu_ms": 180,
+        "document_pret_ms": 52,
+        "poids_ko": 478,
+        "noeuds": 961
       },
       "statut": 200,
       "mesuree": true
@@ -65,10 +65,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 144,
-        "document_pret_ms": 40,
-        "poids_ko": 815,
-        "noeuds": 695
+        "premier_rendu_ms": 156,
+        "document_pret_ms": 39,
+        "poids_ko": 566,
+        "noeuds": 690
       },
       "statut": 200,
       "mesuree": true
@@ -89,10 +89,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 168,
-        "document_pret_ms": 156,
-        "poids_ko": 832,
-        "noeuds": 1623
+        "premier_rendu_ms": 216,
+        "document_pret_ms": 200,
+        "poids_ko": 634,
+        "noeuds": 1620
       },
       "statut": 200,
       "mesuree": true
@@ -112,9 +112,9 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 188,
-        "document_pret_ms": 55,
-        "poids_ko": 573,
+        "premier_rendu_ms": 180,
+        "document_pret_ms": 62,
+        "poids_ko": 574,
         "noeuds": 487
       },
       "statut": 200,
@@ -136,10 +136,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 116,
-        "document_pret_ms": 28,
-        "poids_ko": 708,
-        "noeuds": 403
+        "premier_rendu_ms": 132,
+        "document_pret_ms": 32,
+        "poids_ko": 453,
+        "noeuds": 397
       },
       "statut": 200,
       "mesuree": true
@@ -161,9 +161,9 @@
       },
       "performance": {
         "premier_rendu_ms": 132,
-        "document_pret_ms": 29,
-        "poids_ko": 709,
-        "noeuds": 552
+        "document_pret_ms": 28,
+        "poids_ko": 456,
+        "noeuds": 546
       },
       "statut": 200,
       "mesuree": true
@@ -185,9 +185,9 @@
       },
       "performance": {
         "premier_rendu_ms": 152,
-        "document_pret_ms": 30,
-        "poids_ko": 726,
-        "noeuds": 761
+        "document_pret_ms": 29,
+        "poids_ko": 472,
+        "noeuds": 755
       },
       "statut": 200,
       "mesuree": true
@@ -208,10 +208,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 184,
-        "document_pret_ms": 41,
-        "poids_ko": 766,
-        "noeuds": 932
+        "premier_rendu_ms": 160,
+        "document_pret_ms": 32,
+        "poids_ko": 511,
+        "noeuds": 926
       },
       "statut": 200,
       "mesuree": true
@@ -232,10 +232,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 124,
-        "document_pret_ms": 29,
-        "poids_ko": 825,
-        "noeuds": 365
+        "premier_rendu_ms": 140,
+        "document_pret_ms": 33,
+        "poids_ko": 570,
+        "noeuds": 360
       },
       "statut": 200,
       "mesuree": true
@@ -256,10 +256,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 152,
-        "document_pret_ms": 34,
-        "poids_ko": 710,
-        "noeuds": 475
+        "premier_rendu_ms": 176,
+        "document_pret_ms": 35,
+        "poids_ko": 455,
+        "noeuds": 469
       },
       "statut": 200,
       "mesuree": true
@@ -280,10 +280,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 116,
-        "document_pret_ms": 28,
-        "poids_ko": 708,
-        "noeuds": 354
+        "premier_rendu_ms": 128,
+        "document_pret_ms": 29,
+        "poids_ko": 453,
+        "noeuds": 348
       },
       "statut": 200,
       "mesuree": true
@@ -304,10 +304,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 136,
-        "document_pret_ms": 29,
-        "poids_ko": 765,
-        "noeuds": 389
+        "premier_rendu_ms": 140,
+        "document_pret_ms": 36,
+        "poids_ko": 510,
+        "noeuds": 384
       },
       "statut": 200,
       "mesuree": true
@@ -328,10 +328,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 124,
-        "document_pret_ms": 26,
-        "poids_ko": 753,
-        "noeuds": 366
+        "premier_rendu_ms": 128,
+        "document_pret_ms": 30,
+        "poids_ko": 498,
+        "noeuds": 360
       },
       "statut": 200,
       "mesuree": true
@@ -352,10 +352,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 152,
+        "premier_rendu_ms": 144,
         "document_pret_ms": 32,
-        "poids_ko": 701,
-        "noeuds": 646
+        "poids_ko": 447,
+        "noeuds": 640
       },
       "statut": 200,
       "mesuree": true
@@ -376,10 +376,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 152,
-        "document_pret_ms": 26,
-        "poids_ko": 700,
-        "noeuds": 705
+        "premier_rendu_ms": 132,
+        "document_pret_ms": 27,
+        "poids_ko": 445,
+        "noeuds": 699
       },
       "statut": 200,
       "mesuree": true
@@ -400,10 +400,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 140,
-        "document_pret_ms": 28,
-        "poids_ko": 701,
-        "noeuds": 686
+        "premier_rendu_ms": 152,
+        "document_pret_ms": 38,
+        "poids_ko": 446,
+        "noeuds": 680
       },
       "statut": 200,
       "mesuree": true
@@ -424,10 +424,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 160,
-        "document_pret_ms": 30,
-        "poids_ko": 703,
-        "noeuds": 767
+        "premier_rendu_ms": 156,
+        "document_pret_ms": 32,
+        "poids_ko": 448,
+        "noeuds": 761
       },
       "statut": 200,
       "mesuree": true
@@ -448,10 +448,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 132,
-        "document_pret_ms": 29,
-        "poids_ko": 686,
-        "noeuds": 748
+        "premier_rendu_ms": 144,
+        "document_pret_ms": 38,
+        "poids_ko": 431,
+        "noeuds": 742
       },
       "statut": 200,
       "mesuree": true
@@ -474,8 +474,8 @@
       "performance": {
         "premier_rendu_ms": 128,
         "document_pret_ms": 27,
-        "poids_ko": 702,
-        "noeuds": 633
+        "poids_ko": 447,
+        "noeuds": 627
       },
       "statut": 200,
       "mesuree": true
@@ -496,10 +496,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 128,
-        "document_pret_ms": 26,
-        "poids_ko": 700,
-        "noeuds": 720
+        "premier_rendu_ms": 148,
+        "document_pret_ms": 30,
+        "poids_ko": 445,
+        "noeuds": 714
       },
       "statut": 200,
       "mesuree": true
@@ -520,10 +520,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 132,
-        "document_pret_ms": 26,
-        "poids_ko": 699,
-        "noeuds": 733
+        "premier_rendu_ms": 164,
+        "document_pret_ms": 28,
+        "poids_ko": 445,
+        "noeuds": 727
       },
       "statut": 200,
       "mesuree": true
@@ -544,10 +544,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 132,
-        "document_pret_ms": 25,
-        "poids_ko": 702,
-        "noeuds": 795
+        "premier_rendu_ms": 140,
+        "document_pret_ms": 29,
+        "poids_ko": 448,
+        "noeuds": 789
       },
       "statut": 200,
       "mesuree": true
@@ -568,10 +568,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 132,
+        "premier_rendu_ms": 136,
         "document_pret_ms": 35,
-        "poids_ko": 716,
-        "noeuds": 303
+        "poids_ko": 461,
+        "noeuds": 298
       },
       "statut": 200,
       "mesuree": true
@@ -592,10 +592,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 124,
-        "document_pret_ms": 29,
-        "poids_ko": 716,
-        "noeuds": 322
+        "premier_rendu_ms": 128,
+        "document_pret_ms": 33,
+        "poids_ko": 461,
+        "noeuds": 317
       },
       "statut": 200,
       "mesuree": true
@@ -616,10 +616,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 136,
-        "document_pret_ms": 29,
-        "poids_ko": 708,
-        "noeuds": 652
+        "premier_rendu_ms": 128,
+        "document_pret_ms": 30,
+        "poids_ko": 453,
+        "noeuds": 646
       },
       "statut": 200,
       "mesuree": true
@@ -640,10 +640,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 120,
-        "document_pret_ms": 29,
-        "poids_ko": 712,
-        "noeuds": 283
+        "premier_rendu_ms": 192,
+        "document_pret_ms": 51,
+        "poids_ko": 458,
+        "noeuds": 278
       },
       "statut": 200,
       "mesuree": true
@@ -664,10 +664,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 128,
-        "document_pret_ms": 30,
-        "poids_ko": 710,
-        "noeuds": 472
+        "premier_rendu_ms": 132,
+        "document_pret_ms": 31,
+        "poids_ko": 455,
+        "noeuds": 466
       },
       "statut": 200,
       "mesuree": true
@@ -688,10 +688,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 384,
-        "document_pret_ms": 271,
-        "poids_ko": 723,
-        "noeuds": 535
+        "premier_rendu_ms": 452,
+        "document_pret_ms": 345,
+        "poids_ko": 474,
+        "noeuds": 530
       },
       "statut": 200,
       "mesuree": true
@@ -712,10 +712,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 120,
-        "document_pret_ms": 29,
-        "poids_ko": 718,
-        "noeuds": 300
+        "premier_rendu_ms": 132,
+        "document_pret_ms": 30,
+        "poids_ko": 464,
+        "noeuds": 295
       },
       "statut": 200,
       "mesuree": true
@@ -736,10 +736,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 136,
-        "document_pret_ms": 31,
-        "poids_ko": 710,
-        "noeuds": 477
+        "premier_rendu_ms": 140,
+        "document_pret_ms": 33,
+        "poids_ko": 455,
+        "noeuds": 471
       },
       "statut": 200,
       "mesuree": true
@@ -760,10 +760,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 380,
-        "document_pret_ms": 282,
-        "poids_ko": 710,
-        "noeuds": 906
+        "premier_rendu_ms": 424,
+        "document_pret_ms": 317,
+        "poids_ko": 455,
+        "noeuds": 899
       },
       "statut": 200,
       "mesuree": true
@@ -776,7 +776,7 @@
       "impression": {
         "debordement": 0,
         "titres": 17,
-        "longueur": 4435,
+        "longueur": 4169,
         "evitementFixe": false
       },
       "panneaux": {
@@ -784,10 +784,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 420,
-        "document_pret_ms": 296,
-        "poids_ko": 727,
-        "noeuds": 829
+        "premier_rendu_ms": 464,
+        "document_pret_ms": 331,
+        "poids_ko": 537,
+        "noeuds": 826
       },
       "statut": 200,
       "mesuree": true
@@ -800,7 +800,7 @@
       "impression": {
         "debordement": 0,
         "titres": 14,
-        "longueur": 13671,
+        "longueur": 13170,
         "evitementFixe": false
       },
       "panneaux": {
@@ -808,10 +808,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 184,
-        "document_pret_ms": 42,
-        "poids_ko": 709,
-        "noeuds": 799
+        "premier_rendu_ms": 172,
+        "document_pret_ms": 40,
+        "poids_ko": 454,
+        "noeuds": 792
       },
       "statut": 200,
       "mesuree": true
@@ -832,10 +832,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 140,
-        "document_pret_ms": 36,
-        "poids_ko": 716,
-        "noeuds": 587
+        "premier_rendu_ms": 176,
+        "document_pret_ms": 55,
+        "poids_ko": 461,
+        "noeuds": 581
       },
       "statut": 200,
       "mesuree": true
@@ -856,10 +856,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 384,
-        "document_pret_ms": 283,
-        "poids_ko": 713,
-        "noeuds": 404
+        "premier_rendu_ms": 364,
+        "document_pret_ms": 279,
+        "poids_ko": 472,
+        "noeuds": 399
       },
       "statut": 200,
       "mesuree": true
@@ -879,9 +879,9 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 180,
-        "document_pret_ms": 35,
-        "poids_ko": 454,
+        "premier_rendu_ms": 244,
+        "document_pret_ms": 50,
+        "poids_ko": 455,
         "noeuds": 688
       },
       "statut": 200,
@@ -903,10 +903,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 116,
-        "document_pret_ms": 25,
-        "poids_ko": 708,
-        "noeuds": 412
+        "premier_rendu_ms": 144,
+        "document_pret_ms": 37,
+        "poids_ko": 453,
+        "noeuds": 406
       },
       "statut": 200,
       "mesuree": true
@@ -927,10 +927,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 176,
-        "document_pret_ms": 37,
-        "poids_ko": 711,
-        "noeuds": 436
+        "premier_rendu_ms": 196,
+        "document_pret_ms": 46,
+        "poids_ko": 507,
+        "noeuds": 432
       },
       "statut": 200,
       "mesuree": true
@@ -951,10 +951,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 156,
-        "document_pret_ms": 43,
-        "poids_ko": 717,
-        "noeuds": 337
+        "premier_rendu_ms": 140,
+        "document_pret_ms": 41,
+        "poids_ko": 487,
+        "noeuds": 332
       },
       "statut": 200,
       "mesuree": true
@@ -975,10 +975,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 120,
-        "document_pret_ms": 28,
-        "poids_ko": 708,
-        "noeuds": 412
+        "premier_rendu_ms": 164,
+        "document_pret_ms": 58,
+        "poids_ko": 453,
+        "noeuds": 406
       },
       "statut": 200,
       "mesuree": true
@@ -999,10 +999,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 136,
-        "document_pret_ms": 35,
-        "poids_ko": 708,
-        "noeuds": 402
+        "premier_rendu_ms": 132,
+        "document_pret_ms": 32,
+        "poids_ko": 453,
+        "noeuds": 396
       },
       "statut": 200,
       "mesuree": true
@@ -1023,10 +1023,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 144,
-        "document_pret_ms": 33,
-        "poids_ko": 710,
-        "noeuds": 571
+        "premier_rendu_ms": 152,
+        "document_pret_ms": 37,
+        "poids_ko": 461,
+        "noeuds": 566
       },
       "statut": 200,
       "mesuree": true
@@ -1047,10 +1047,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 136,
-        "document_pret_ms": 30,
-        "poids_ko": 710,
-        "noeuds": 488
+        "premier_rendu_ms": 164,
+        "document_pret_ms": 32,
+        "poids_ko": 461,
+        "noeuds": 483
       },
       "statut": 200,
       "mesuree": true
@@ -1071,10 +1071,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 148,
-        "document_pret_ms": 31,
-        "poids_ko": 710,
-        "noeuds": 495
+        "premier_rendu_ms": 140,
+        "document_pret_ms": 35,
+        "poids_ko": 461,
+        "noeuds": 490
       },
       "statut": 200,
       "mesuree": true
@@ -1095,10 +1095,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 140,
-        "document_pret_ms": 30,
-        "poids_ko": 710,
-        "noeuds": 525
+        "premier_rendu_ms": 224,
+        "document_pret_ms": 76,
+        "poids_ko": 461,
+        "noeuds": 520
       },
       "statut": 200,
       "mesuree": true
@@ -1119,10 +1119,10 @@
         "depliants": []
       },
       "performance": {
-        "premier_rendu_ms": 128,
-        "document_pret_ms": 30,
-        "poids_ko": 700,
-        "noeuds": 338
+        "premier_rendu_ms": 136,
+        "document_pret_ms": 37,
+        "poids_ko": 445,
+        "noeuds": 332
       },
       "statut": 200,
       "mesuree": true
@@ -1144,15 +1144,15 @@
       },
       "performance": {
         "premier_rendu_ms": 120,
-        "document_pret_ms": 26,
-        "poids_ko": 700,
-        "noeuds": 407
+        "document_pret_ms": 29,
+        "poids_ko": 445,
+        "noeuds": 401
       },
       "statut": 200,
       "mesuree": true
     }
   ],
-  "executed_at": "2026-11-17T05:48:20.011Z",
+  "executed_at": "2026-11-17T11:44:30.516Z",
   "anomalies": 0,
   "non_mesurees": 0,
   "resume": {
@@ -1160,8 +1160,8 @@
     "pages_mesurees": 48,
     "anomalies": 0,
     "non_mesurees": 0,
-    "premier_rendu_max_ms": 440,
-    "poids_max_ko": 862,
-    "noeuds_max": 1893
+    "premier_rendu_max_ms": 652,
+    "poids_max_ko": 634,
+    "noeuds_max": 1888
   }
 }

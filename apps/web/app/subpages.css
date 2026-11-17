@@ -742,6 +742,24 @@
   box-shadow: 0 6px 20px
     color-mix(in srgb, var(--filet-feuille) 9%, transparent);
 }
+/* 17 novembre 2026 : au repos, le lanceur se réduit à son monogramme, un
+   rond de 54 px qui tient dans la marge gauche des pages à partir de
+   1100 px. Déployé, il couvrait 150 × 54 px de texte à toutes les largeurs
+   (questions, lettre, pied de page). Le libellé revient au survol, au focus
+   clavier et tant que le panneau est ouvert, sans transition. */
+.assistant-launcher:not([aria-expanded="true"], :hover, :focus-visible) {
+  gap: 0;
+  padding: 9px;
+}
+.assistant-launcher:not([aria-expanded="true"], :hover, :focus-visible)
+  .assistant-libelle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
 .assistant-monogram {
   display: inline-flex;
   align-items: center;

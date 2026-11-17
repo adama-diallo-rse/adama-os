@@ -1,7 +1,7 @@
 import { Symbole } from "../marque/symbole";
 
 /**
- * Le rideau d'épure, seul chargement autorisé (moins de 1,2 seconde).
+ * Le rideau d'épure, seul chargement autorisé (moins d’une seconde : 0,9 s depuis le 17 novembre 2026).
  *
  * Le symbole se dessine en traits de construction (cotes, axes, cercle du
  * sceau, ligne de provenance), puis prend matière, puis le rideau se lève.

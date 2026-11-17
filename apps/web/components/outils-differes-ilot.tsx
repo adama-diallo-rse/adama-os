@@ -8,32 +8,44 @@ const OutilsDifferes = dynamic(() => import("./outils-differes"), {
   ssr: false,
 });
 
-type Repos = (rappel: () => void, options?: { timeout: number }) => number;
+/** Les gestes qui disent qu'une personne est là et lit la page. */
+const GESTES = [
+  "pointermove",
+  "pointerdown",
+  "touchstart",
+  "keydown",
+  "wheel",
+  "scroll",
+] as const;
 
 /**
- * Monte les outils différés au repos du navigateur (y compris sous
+ * Monte les outils différés au premier geste du visiteur (y compris sous
  * réduction de mouvement : ce ne sont pas des animations), ou tout de
  * suite quand l'un d'eux est demandé. Le raccourci Ctrl+K est écouté ici
  * tant que le terminal n'est pas chargé, pour qu'il réponde dès le premier
  * appui.
+ *
+ * 17 novembre 2026 : le montage attendait le repos du navigateur, soit
+ * quatre secondes au plus. Le moteur, le terminal, framer-motion et le
+ * client de conversation se chargeaient donc pendant le premier affichage
+ * et pesaient sur le blocage du fil principal (490 ms mesurés sur
+ * l'accueil). Ils attendent désormais un geste. En attendant, un lanceur
+ * sans dépendance tient la place du vrai, au même endroit et sous le même
+ * nom : le visiteur ne voit pas la différence, et un clic dessus charge
+ * et ouvre le moteur.
  */
 export function IlotOutils(p: ProprietesOutils) {
   const [pret, setPret] = useState(false);
   const { setTerminalOpen, terminal } = p;
 
   useEffect(() => {
-    const w = window as Window & {
-      requestIdleCallback?: Repos;
-      cancelIdleCallback?: (id: number) => void;
-    };
+    if (pret) return;
     const lancer = () => setPret(true);
-    if (w.requestIdleCallback) {
-      const id = w.requestIdleCallback(lancer, { timeout: 4000 });
-      return () => w.cancelIdleCallback?.(id);
-    }
-    const id = window.setTimeout(lancer, 1500);
-    return () => window.clearTimeout(id);
-  }, []);
+    GESTES.forEach((g) =>
+      window.addEventListener(g, lancer, { once: true, passive: true }),
+    );
+    return () => GESTES.forEach((g) => window.removeEventListener(g, lancer));
+  }, [pret]);
 
   useEffect(() => {
     if (pret || !terminal) return;
@@ -49,5 +61,26 @@ export function IlotOutils(p: ProprietesOutils) {
   }, [pret, terminal, setTerminalOpen]);
 
   const demande = p.recruitOpen || p.terminalOpen || p.adamaOpen;
-  return pret || demande ? <OutilsDifferes {...p} /> : null;
+  if (pret || demande) return <OutilsDifferes {...p} />;
+  // Même balisage et mêmes classes que le lanceur de components/adama-ai.tsx,
+  // au repos : un rond et son monogramme, le nom porté par aria-label.
+  return (
+    <div className="adama-assistant">
+      <button
+        type="button"
+        className="assistant-launcher"
+        aria-expanded={false}
+        aria-label="Le moteur, poser une question"
+        onClick={() => p.setAdamaOpen(true)}
+      >
+        <span className="assistant-monogram" aria-hidden="true">
+          a.
+        </span>
+        <span className="assistant-libelle">Le moteur</span>
+        <span className="assistant-libelle" aria-hidden="true">
+          ↗
+        </span>
+      </button>
+    </div>
+  );
 }

@@ -403,7 +403,7 @@
     },
     {
       "file": "apps/web/components/adama-ai.tsx",
-      "lines": 325
+      "lines": 331
     },
     {
       "file": "apps/web/components/adr-chain.tsx",
@@ -523,7 +523,7 @@
     },
     {
       "file": "apps/web/components/kit/sommaire.tsx",
-      "lines": 101
+      "lines": 107
     },
     {
       "file": "apps/web/components/known-limits.tsx",
@@ -595,7 +595,7 @@
     },
     {
       "file": "apps/web/components/outils-differes-ilot.tsx",
-      "lines": 54
+      "lines": 88
     },
     {
       "file": "apps/web/components/outils-differes.tsx",
@@ -725,7 +725,7 @@
     },
     {
       "file": "apps/web/lib/analytics.ts",
-      "lines": 112
+      "lines": 116
     },
     {
       "file": "apps/web/lib/chantiers.ts",

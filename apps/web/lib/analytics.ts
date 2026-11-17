@@ -15,6 +15,9 @@ export type ConsentValue = "granted" | "denied";
 export const CONSENT_KEY = "adama-consent";
 /** Événement fenêtre pour rouvrir le bandeau (lien "cookies" du footer). */
 export const CONSENT_OPEN_EVENT = "adama:consent-open";
+/** Événement fenêtre émis à l'acceptation : la remontée d'erreurs (Sentry,
+ *  instrumentation-client.ts) attend ce signal pour se charger. */
+export const CONSENT_GRANTED_EVENT = "adama:consent-granted";
 
 let clientPromise: Promise<PostHog | null> | null = null;
 let queue: { event: string; properties?: Record<string, unknown> }[] = [];
@@ -69,6 +72,7 @@ export function setConsent(value: ConsentValue) {
     // stockage indisponible : le choix vaut pour la session
   }
   if (value === "granted") {
+    window.dispatchEvent(new Event(CONSENT_GRANTED_EVENT));
     const pending = queue;
     queue = [];
     void initPosthog().then((posthog) => {

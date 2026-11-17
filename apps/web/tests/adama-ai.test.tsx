@@ -37,7 +37,7 @@ describe("assistant du portfolio", () => {
   it("rend le focus au déclencheur après Échap", async () => {
     render(<Harness />);
     const launcher = screen.getByRole("button", {
-      name: "Interroger le moteur",
+      name: "Le moteur, poser une question",
     });
     launcher.focus();
     fireEvent.click(launcher);
