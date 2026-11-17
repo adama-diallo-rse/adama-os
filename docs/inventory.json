@@ -595,7 +595,7 @@
     },
     {
       "file": "apps/web/components/outils-differes-ilot.tsx",
-      "lines": 88
+      "lines": 87
     },
     {
       "file": "apps/web/components/outils-differes.tsx",
@@ -1138,8 +1138,8 @@
     "pages_mesurees": 48,
     "anomalies": 0,
     "non_mesurees": 0,
-    "poids_max_ko": 862,
-    "noeuds_max": 1893
+    "poids_max_ko": 634,
+    "noeuds_max": 1888
   },
   "dependencies": [
     {
