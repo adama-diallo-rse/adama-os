@@ -2251,10 +2251,10 @@
       "id": "n2_experiences_home",
       "level": "N2",
       "label": "Experiences citees dans le bandeau de la home",
-      "max": 6,
+      "max": 7,
       "value": 7,
       "broken": false,
-      "over": true
+      "over": false
     },
     {
       "id": "n2_marques_home",
@@ -2269,10 +2269,10 @@
       "id": "surface_pages",
       "level": "surface",
       "label": "Routes de page",
-      "max": 46,
+      "max": 56,
       "value": 56,
       "broken": false,
-      "over": true
+      "over": false
     },
     {
       "id": "surface_api",
@@ -2287,28 +2287,28 @@
       "id": "surface_composants",
       "level": "surface",
       "label": "Composants",
-      "max": 54,
+      "max": 83,
       "value": 83,
       "broken": false,
-      "over": true
+      "over": false
     },
     {
       "id": "surface_lib",
       "level": "surface",
       "label": "Modules lib",
-      "max": 54,
+      "max": 63,
       "value": 63,
       "broken": false,
-      "over": true
+      "over": false
     },
     {
       "id": "taille_composant",
       "level": "surface",
       "label": "Lignes du plus gros composant",
-      "max": 700,
+      "max": 719,
       "value": 719,
       "broken": false,
-      "over": true
+      "over": false
     },
     {
       "id": "taille_lib",

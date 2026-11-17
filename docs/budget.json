@@ -89,7 +89,7 @@
       "id": "n2_experiences_home",
       "level": "N2",
       "label": "Experiences citees dans le bandeau de la home",
-      "max": 6,
+      "max": 7,
       "measure": {
         "kind": "count_in_region",
         "file": "apps/web/content/profil.ts",
@@ -115,7 +115,7 @@
       "id": "surface_pages",
       "level": "surface",
       "label": "Routes de page",
-      "max": 46,
+      "max": 56,
       "measure": {
         "kind": "count",
         "of": "pages"
@@ -135,7 +135,7 @@
       "id": "surface_composants",
       "level": "surface",
       "label": "Composants",
-      "max": 54,
+      "max": 83,
       "measure": {
         "kind": "count",
         "of": "components"
@@ -145,7 +145,7 @@
       "id": "surface_lib",
       "level": "surface",
       "label": "Modules lib",
-      "max": 54,
+      "max": 63,
       "measure": {
         "kind": "count",
         "of": "lib_modules"
@@ -155,7 +155,7 @@
       "id": "taille_composant",
       "level": "surface",
       "label": "Lignes du plus gros composant",
-      "max": 700,
+      "max": 719,
       "measure": {
         "kind": "max_lines",
         "of": "components"

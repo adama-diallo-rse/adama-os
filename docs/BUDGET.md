@@ -318,3 +318,32 @@ relèvement garde sa raison.
   dédiée et vers l'outil d'envoi. La notification a été fondue dans le
   registre plutôt que tenue à part : les deux gestes vont ensemble, et un
   troisième module n'aurait rien isolé de plus.
+
+## Cinq plafonds relevés le 17 novembre 2026, régularisation
+
+Le contrôle d'intégrité échouait depuis la refonte du 7 novembre : cinq
+plafonds étaient dépassés en production, et le rapport versionné
+(`docs/integrity.json`) datait du 27 septembre, ce qui le laissait afficher
+un vert qui n'était plus vrai. Les plafonds sont ramenés à la mesure du jour,
+pas au-delà : toute nouvelle page, tout nouveau composant ou module devra de
+nouveau être justifié ici. Réduire la surface reste un chantier à ouvrir, il
+n'est pas fait par ce relèvement.
+
+- **`surface_pages`, de 46 à 56.** Pages publiées depuis le 23 octobre :
+  `/a-propos`, `/comment-je-travaille`, `/projets`, `/en` refaite,
+  `/bibliotheque`, `/catalogue`, `/outils`, `/parcours`, `/playbooks`, `/os`,
+  `/lettre/[numero]` (archive SIGNAL), et la publication 3 sur le règlement
+  déforestation, en français et en anglais.
+- **`surface_composants`, de 54 à 83.** L'accueil en strates du 7 novembre
+  (`components/accueil/`, `components/kit/`, `components/mouvement/`, la
+  marque), la lecture d'une édition SIGNAL et `fil-ariane.tsx`. Treize
+  exports morts sont recensés dans INVENTORY.md : les retirer est la première
+  réduction à faire.
+- **`surface_lib`, de 54 à 63.** Les cinq modules de la lettre SIGNAL
+  (`lib/lettre/`), `accueil.ts`, `theme.ts`, et les deux modules de
+  référencement du 14 novembre, `entites.ts` et `fil-ariane.ts`.
+- **`taille_composant`, de 700 à 719.** `kit/illustrations-offre.tsx`, un
+  fichier de tracés SVG : le découper ne rendrait aucun dessin plus lisible.
+- **`n2_experiences_home`, de 6 à 7.** Pharivo, STRATA ESG et Conhama
+  figurent désormais tous trois parmi les expériences, à côté des quatre
+  expériences antérieures.

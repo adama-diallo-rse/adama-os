@@ -342,13 +342,13 @@ Severite actuelle : `error` (avertissement en vague V0, erreur a partir de V2).
 | N1 | Cartes de competence sous l'accroche | 3 | 3 | tenu |
 | N2 | Fiches projet mises en avant sur la home | 4 | 4 | tenu |
 | N2 | Preuves sociales affichees d'un bloc dans la Couche D | 1 | 4 | tenu |
-| N2 | Experiences citees dans le bandeau de la home | 7 | 6 | **depasse** |
+| N2 | Experiences citees dans le bandeau de la home | 7 | 7 | tenu |
 | N2 | Marques d'organisation affichees sur le site | 8 | 8 | tenu |
-| surface | Routes de page | 56 | 46 | **depasse** |
+| surface | Routes de page | 56 | 56 | tenu |
 | surface | Routes d'API | 11 | 11 | tenu |
-| surface | Composants | 83 | 54 | **depasse** |
-| surface | Modules lib | 63 | 54 | **depasse** |
-| surface | Lignes du plus gros composant | 719 | 700 | **depasse** |
+| surface | Composants | 83 | 83 | tenu |
+| surface | Modules lib | 63 | 63 | tenu |
+| surface | Lignes du plus gros composant | 719 | 719 | tenu |
 | surface | Lignes du plus gros module lib | 459 | 460 | tenu |
 
-5 plafond(s) depasse(s).
+Aucun depassement.
